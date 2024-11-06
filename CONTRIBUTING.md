@@ -108,7 +108,7 @@ Thank you for your interest in contributing to Quibble! We’re excited to build
 
 ## Code of Conduct
 
-Please respect others and foster a welcoming environment. We expect all contributors to adhere to the [Code of Conduct](link-to-code-of-conduct).
+Please respect others and foster a welcoming environment. We expect all contributors to adhere to the [Code of Conduct](https://github.com/quibble-dev/Quibble/blob/main/CODE_OF_CONDUCT.md).
 
 ## Additional Notes
 
