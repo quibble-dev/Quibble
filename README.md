@@ -7,4 +7,4 @@ Quibble is a place for real conversations, where opinions thrive and diverse voi
 ## Project Structure
 
 - `backend` - Django app maintained with poetry.
-- `frontend-next` - Next.js app with npm.
+- `frontend` - Svelte/kit app with npm.
