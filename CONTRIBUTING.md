@@ -19,7 +19,7 @@ Thank you for your interest in contributing to Quibble! We’re excited to build
 ## Project Structure
 
 - **`backend/`** - Django application managed with Poetry.
-- **`frontend-next/`** - Next.js frontend managed with npm.
+- **`frontend/`** - Svelte/kit frontend managed with npm.
 
 ## Setting Up the Backend (Django)
 
@@ -46,11 +46,11 @@ Thank you for your interest in contributing to Quibble! We’re excited to build
    poetry run python manage.py runserver
    ```
 
-## Setting Up the Frontend (Next.js)
+## Setting Up the Frontend (Svelte/kit)
 
 1. **Navigate to the Frontend Directory**
    ```bash
-   cd frontend-next
+   cd frontend
    ```
 
 2. **Install Dependencies**
