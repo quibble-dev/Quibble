@@ -4,12 +4,11 @@ version = "0.1.0"
 description = "Delve into real conversations."
 authors = ["moonlitgrace <moonlitgrace.gaia@gmail.com>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
 django = "^5.1.3"
-django-types = "^0.19.1"
-django-stubs-ext = "^5.1.1"
 psycopg2-binary = "^2.9.10"
 dj-database-url = "^2.3.0"
 python-dotenv = "^1.0.1"
@@ -17,6 +16,17 @@ python-dotenv = "^1.0.1"
 [tool.poetry.group.dev.dependencies]
 # task runner
 poethepoet = "^0.29.0"
+# django extentions
+django-extensions = "^3.2.3"
+# typing support
+django-types = "^0.19.1"
+django-stubs-ext = "^5.1.1"
+# graphs
+pyparsing = "^3.2.0"
+pydot = "^3.0.2"
+
+[tool.poetry.group.test.dependencies]
+# pytest and plugins
 pytest = "^8.3.3"
 pytest-cov = "^6.0.0"
 
@@ -27,6 +37,9 @@ sync = "python ./backend/manage.py migrate"
 mksync = "python ./backend/manage.py makemigrations"
 # pytest
 test = "pytest --cov=backend ./tests/"
+# django extentions
+graph = "python ./backend/manage.py graph_models --pydot -a --hide-edge-labels -o graph_models.png"
+reset_db = "python ./backend/manage.py reset_db"
 
 [tool.pyright]
 venvPath = "./"
