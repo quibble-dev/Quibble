@@ -35,6 +35,7 @@ dev = "python ./backend/manage.py runserver"
 # migrations
 sync = "python ./backend/manage.py migrate"
 mksync = "python ./backend/manage.py makemigrations"
+createsuperuser = "python ./backend/manage.py createsuperuser"
 # pytest
 test = "pytest --cov=backend ./tests/"
 # django extentions
