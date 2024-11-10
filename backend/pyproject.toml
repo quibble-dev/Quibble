@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "Quibble"
 version = "0.1.0"
-description = "A place to share, debate, discover!"
+description = "Delve into real conversations."
 authors = ["moonlitgrace <moonlitgrace.gaia@gmail.com>"]
 readme = "README.md"
 
@@ -17,12 +17,16 @@ python-dotenv = "^1.0.1"
 [tool.poetry.group.dev.dependencies]
 # task runner
 poethepoet = "^0.29.0"
+pytest = "^8.3.3"
+pytest-cov = "^6.0.0"
 
 [tool.poe.tasks]
 dev = "python ./backend/manage.py runserver"
 # migrations
 sync = "python ./backend/manage.py migrate"
 mksync = "python ./backend/manage.py makemigrations"
+# pytest
+test = "pytest --cov=backend ./tests/"
 
 [tool.pyright]
 venvPath = "./"
