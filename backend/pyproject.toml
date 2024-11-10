@@ -24,6 +24,8 @@ django-stubs-ext = "^5.1.1"
 # graphs
 pyparsing = "^3.2.0"
 pydot = "^3.0.2"
+# formatters
+black = "^24.10.0"
 
 [tool.poetry.group.test.dependencies]
 # pytest and plugins
@@ -41,6 +43,12 @@ test = "pytest --cov=backend ./tests/"
 # django extentions
 graph = "python ./backend/manage.py graph_models --pydot -a --hide-edge-labels -o graph_models.png"
 reset_db = "python ./backend/manage.py reset_db"
+# format with black
+format = "black ./ -S"
+
+[tool.black]
+line-length = 92
+target-version = ["py311"]
 
 [tool.pyright]
 venvPath = "./"
