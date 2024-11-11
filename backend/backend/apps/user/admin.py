@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.utils.translation import gettext_lazy as _
 
 from .models import CustomUser
 from .forms import CustomUserAdminForm
@@ -7,8 +8,20 @@ from .forms import CustomUserAdminForm
 
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
-    form = CustomUserAdminForm
-    add_form = CustomUserAdminForm
+    fieldsets = (
+        (None, {'fields': ('email',)}),
+        (
+            _('Permissions'),
+            {
+                'fields': ('is_active', 'is_staff', 'is_superuser')
+            },  # , 'groups', 'user_permissions')},
+        ),
+        (_('Important dates'), {'fields': ('date_joined',)}),
+    )
+
+    add_fieldsets = (
+        (None, {'classes': ('wide',), 'fields': ('email', 'password', 'is_active', 'is_staff', 'is_superuser')}),
+    )
 
     readonly_fields = ('date_joined',)
     list_display = ('email', 'is_active', 'is_staff', 'date_joined')
@@ -17,15 +30,5 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('email',)
     filter_horizontal = ()
 
-    fieldsets = (
-        (None, {'fields': ('email',)}),
-        (
-            'Permissions',
-            {'fields': ('is_active', 'is_staff', 'is_superuser')}, #, 'groups', 'user_permissions')},
-        ),
-        ('Important dates', {'fields': ('date_joined',)}),
-    )
-
-    add_fieldsets = (
-        (None, {'classes': ('wide',), 'fields': ('email', 'is_active', 'is_staff')}),
-    )
+    # form = CustomUserAdminForm
+    add_form = CustomUserAdminForm
