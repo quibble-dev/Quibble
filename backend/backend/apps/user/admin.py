@@ -24,8 +24,8 @@ class CustomUserAdmin(UserAdmin):
     )
 
     readonly_fields = ('date_joined',)
-    list_display = ('email', 'is_active', 'is_staff', 'date_joined')
-    list_filter = ('is_staff', 'is_active')
+    list_display = ('email', 'is_active', 'is_staff', 'is_superuser', 'date_joined')
+    list_filter = ('is_staff', 'is_active', 'is_superuser')
     search_fields = ('email',)
     ordering = ('email',)
     filter_horizontal = ()
