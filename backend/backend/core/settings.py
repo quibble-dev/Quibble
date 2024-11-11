@@ -137,5 +137,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Custom AUTH model
+# Custom AUTH model and backends
 AUTH_USER_MODEL = 'user.CustomUser'
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "apps.user.backends.PasswordlessAuthBackend",
+]
