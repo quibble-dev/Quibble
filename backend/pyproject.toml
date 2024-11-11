@@ -15,7 +15,7 @@ python-dotenv = "^1.0.1"
 
 [tool.poetry.group.dev.dependencies]
 # task runner
-poethepoet = "^0.29.0"
+poethepoet = "^0.30.0"
 # django extentions
 django-extensions = "^3.2.3"
 # typing support
