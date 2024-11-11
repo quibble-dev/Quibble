@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 
-from .models import User
+from .models import Profile, User
 from .forms import CustomUserAdminForm
 
 
@@ -32,3 +32,7 @@ class CustomUserAdmin(UserAdmin):
 
     # form = CustomUserAdminForm
     add_form = CustomUserAdminForm
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'username')
