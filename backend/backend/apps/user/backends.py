@@ -3,8 +3,11 @@ from django.contrib.auth import get_user_model
 
 UserModel = get_user_model()
 
+
 class PasswordlessAuthBackend(ModelBackend):
-    def authenticate(self, request, email: str | None = None, **kwargs): # pyright: ignore [reportIncompatibleMethodOverride, reportUnusedVariable]
+    def authenticate( # pyright: ignore [reportIncompatibleMethodOverride, reportUnusedVariable]
+        self, request, email: str | None = None, **kwargs
+    ):
         try:
             user = UserModel.objects.get(email=email)
             return user
