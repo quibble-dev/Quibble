@@ -1,9 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
+from dynamic_filenames import FilePattern
 
 from .managers import CustomUserManager
 
+# Dynamic avatar filename
+avatar_pattern = FilePattern(filename_pattern="avatar/{uuid:s}{ext}")
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
@@ -28,4 +31,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
 class Profile(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     username = models.CharField(_('username'), unique=True, max_length=25)
+    avatar = models.ImageField(
+        _('avatar'),
+        upload_to=avatar_pattern,
+        blank=True,
+        null=True,
+    )
+    first_name = models.CharField(_('first name'), max_length=255, blank=True, null=True)
+    last_name = models.CharField(_('last name'), max_length=255, blank=True, null=True)
