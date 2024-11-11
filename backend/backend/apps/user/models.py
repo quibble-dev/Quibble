@@ -8,7 +8,7 @@ from .managers import CustomUserManager
 # Dynamic avatar filename
 avatar_pattern = FilePattern(filename_pattern="avatar/{uuid:s}{ext}")
 
-class CustomUser(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
     date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
     is_staff = models.BooleanField(
@@ -31,7 +31,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
 class Profile(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     username = models.CharField(_('username'), unique=True, max_length=25)
     avatar = models.ImageField(
         _('avatar'),
