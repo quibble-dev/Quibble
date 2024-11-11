@@ -9,7 +9,7 @@ from .forms import CustomUserAdminForm
 @admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
     fieldsets = (
-        (None, {'fields': ('email',)}),
+        (None, {'fields': ('email', 'password')}),
         (
             _('Permissions'),
             {
