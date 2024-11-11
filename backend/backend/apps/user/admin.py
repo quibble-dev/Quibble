@@ -13,7 +13,7 @@ class CustomUserAdmin(UserAdmin):
         (
             _('Permissions'),
             {
-                'fields': ('is_active', 'is_staff', 'is_superuser')
+                'fields': ('is_active', 'is_staff', 'is_superuser'),
             },  # , 'groups', 'user_permissions')},
         ),
         (_('Important dates'), {'fields': ('date_joined',)}),
@@ -36,3 +36,6 @@ class CustomUserAdmin(UserAdmin):
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'username')
+    search_fields = ('user', 'username')
+    ordering = ('date_created',)
+    readonly_fields = ('date_created',)
