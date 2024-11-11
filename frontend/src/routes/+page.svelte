@@ -3,4 +3,4 @@
 </svelte:head>
 
 <h1 class="text-2xl font-black text-primary">Quibble</h1>
-<p>Delve into real conversations.</p>
+<p>Delve into real conversations!.</p>
