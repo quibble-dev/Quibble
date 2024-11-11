@@ -32,7 +32,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     username = models.CharField(_('username'), unique=True, max_length=25)
     avatar = models.ImageField(
         _('avatar'),

@@ -35,7 +35,7 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'username')
-    search_fields = ('user', 'username')
-    ordering = ('date_created',)
+    list_display = ('username', 'user')
+    search_fields = ('username',)
+    ordering = ('-date_created',)
     readonly_fields = ('date_created',)
