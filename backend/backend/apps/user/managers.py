@@ -1,5 +1,6 @@
 from django.contrib.auth.models import BaseUserManager
 
+
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -8,6 +9,7 @@ class UserManager(BaseUserManager):
             raise ValueError("Email is required")
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
+        user.set_unusable_password()
         user.save(using=self._db)
         return user
 
