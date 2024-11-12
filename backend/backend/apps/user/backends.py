@@ -5,7 +5,7 @@ UserModel = get_user_model()
 
 
 class PasswordlessAuthBackend(ModelBackend):
-    def authenticate(  # pyright: ignore [reportIncompatibleMethodOverride, reportUnusedVariable]
+    def authenticate(  # pyright: ignore [reportIncompatibleMethodOverride]
         self, request, email: str | None = None, **kwargs
     ):
         try:
