@@ -20,7 +20,13 @@ class CustomUserAdmin(UserAdmin):
     )
 
     add_fieldsets = (
-        (None, {'classes': ('wide',), 'fields': ('email', 'password', 'is_active', 'is_staff', 'is_superuser')}),
+        (
+            None,
+            {
+                'classes': ('wide',),
+                'fields': ('email', 'password', 'is_active', 'is_staff', 'is_superuser'),
+            },
+        ),
     )
 
     readonly_fields = ('date_joined',)
@@ -32,6 +38,7 @@ class CustomUserAdmin(UserAdmin):
 
     # form = CustomUserAdminForm
     add_form = CustomUserAdminForm
+
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
