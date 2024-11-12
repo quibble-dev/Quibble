@@ -3,11 +3,14 @@ from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 
 from .models import Profile, User
-from .forms import CustomUserAdminForm
+from .forms import CustomUserAdminForm, ProfileAdminForm
 
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
+    # form = CustomUserAdminForm
+    add_form = CustomUserAdminForm
+
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (
@@ -36,13 +39,12 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('email',)
     filter_horizontal = ()
 
-    # form = CustomUserAdminForm
-    add_form = CustomUserAdminForm
-
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('username', 'user')
-    search_fields = ('username',)
+    form = ProfileAdminForm
+
+    list_display = ('username', 'user__email', 'date_created')
+    search_fields = ('username', 'user__email')
     ordering = ('-date_created',)
     readonly_fields = ('date_created',)

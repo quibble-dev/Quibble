@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
@@ -33,7 +34,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Profile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='profiles', on_delete=models.CASCADE)
     username = models.CharField(_('username'), unique=True, max_length=25)
     avatar = models.ImageField(
         _('avatar'),
@@ -45,5 +46,14 @@ class Profile(models.Model):
     last_name = models.CharField(_('last name'), max_length=255, blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
 
+    def save(self, *args, **kwargs):
+        if (
+            self.pk is None
+            and self.user.profiles.count()  # pyright: ignore [reportAttributeAccessIssue]
+            >= 5
+        ):
+            raise ValidationError("A user cannot have more than 5 profiles")
+        super().save(*args, **kwargs)
+
     def __str__(self):
-        return f"q/{self.username}"
+        return f"u/{self.username}"
