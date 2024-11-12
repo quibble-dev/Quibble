@@ -19,6 +19,8 @@ python-dotenv = "^1.0.1"
 django-dynamic-filenames = "^1.4.0"
 # first party (image)
 pillow = "^11.0.0"
+# 3rd party (file middleware)
+django-cleanup = "^9.0.0"
 
 [tool.poetry.group.dev.dependencies]
 # task runner

@@ -193,6 +193,17 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-cleanup"
+version = "9.0.0"
+description = "Deletes old files."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "django_cleanup-9.0.0-py3-none-any.whl", hash = "sha256:19f8b0e830233f9f0f683b17181f414672a0f48afe3ea3cc80ba47ae40ad880c"},
+    {file = "django_cleanup-9.0.0.tar.gz", hash = "sha256:bb9fb560aaf62959c81e31fa40885c36bbd5854d5aa21b90df2c7e4ba633531e"},
+]
+
+[[package]]
 name = "django-dynamic-filenames"
 version = "1.4.0"
 description = "Write advanced filename patterns using the Format String Syntax."
@@ -723,4 +734,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "2b40431705fa9118e42ee1d1730eb149213b37e8a837d7c108827846b235c7de"
+content-hash = "c728e7404b93dfe20d74248226a943f6ef3d1399dd21714869b0a67c2ac35b73"

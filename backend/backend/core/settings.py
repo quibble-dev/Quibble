@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'django_extensions',
     # apps
     'apps.user',
+    # file middleware
+    'django_cleanup',
 ]
 
 MIDDLEWARE = [
