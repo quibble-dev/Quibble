@@ -49,9 +49,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # django extensions
     'django_extensions',
+    # rest framework
+    'rest_framework',
     # apps
     'apps.user',
-    # file middleware
+    # file middleware (should be at last)
     'django_cleanup',
 ]
 
