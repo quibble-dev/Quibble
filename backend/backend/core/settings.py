@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'django_extensions',
     # rest framework
     'rest_framework',
+    # drf token auth
+    'knox',
     # middleware (cors)
     'corsheaders',
     # apps
@@ -59,12 +61,17 @@ INSTALLED_APPS = [
     'django_cleanup',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'knox.auth.TokenAuthentication',
+    ],
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     # cors middleware
     'corsheaders.middleware.CorsMiddleware',
-
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

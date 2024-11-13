@@ -27,6 +27,8 @@ markdown = "^3.7"
 django-filter = "^24.3"
 # 3rd party (cors headers)
 django-cors-headers = "^4.6.0"
+# 3rd party (token authentication)
+django-rest-knox = "^5.0.2"
 
 [tool.poetry.group.dev.dependencies]
 # task runner

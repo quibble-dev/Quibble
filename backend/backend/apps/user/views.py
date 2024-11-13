@@ -1,9 +1,18 @@
-from rest_framework import viewsets
+from django.contrib.auth import login
+
+from rest_framework import viewsets, permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from .serializers import ProfileSerializer, UserSerializer
+from knox.views import LoginView as KnoxLoginView
+
 from .models import Profile, User
+from .serializers import (
+    AuthSerializer,
+    AuthTokenSerializer,
+    ProfileSerializer,
+    UserSerializer,
+)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -34,3 +43,18 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
+
+
+class CustomKnoxLoginView(KnoxLoginView):
+    serializer_class = AuthSerializer
+    permission_classes = (permissions.AllowAny,)
+
+    def post(self, request, format=None):
+        print(request.data)
+        serializer = AuthTokenSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        user = serializer.validated_data['user']
+        login(request, user)
+
+        return super().post(request, format=None)
