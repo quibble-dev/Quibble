@@ -45,10 +45,9 @@ class ProfileViewSet(viewsets.ModelViewSet):
     serializer_class = ProfileSerializer
 
 
-class CustomKnoxLoginView(KnoxLoginView):
+class LoginView(KnoxLoginView):
     """
-    Customized knox LoginView with
-    custom permissions and token serializer
+    Customized knox LoginView with email and password
     """
 
     serializer_class = AuthSerializer

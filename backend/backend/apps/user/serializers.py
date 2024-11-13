@@ -32,18 +32,9 @@ class CustomAuthTokenSerializer(serializers.Serializer):
     with email instead of username
     """
 
-    email = serializers.EmailField(
-        label=_("Email"),
-        write_only=True,
-    )
-    password = serializers.CharField(
-        label=_("Password"),
-        write_only=True,
-    )
-    token = serializers.CharField(
-        label=_("Token"),
-        read_only=True,
-    )
+    email = serializers.EmailField(label=_("Email"), write_only=True)
+    password = serializers.CharField(label=_("Password"), write_only=True)
+    token = serializers.CharField(label=_("Token"), read_only=True)
 
     def validate(self, attrs):
         email = attrs.get('email')
