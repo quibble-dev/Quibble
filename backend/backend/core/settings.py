@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'django_extensions',
     # rest framework
     'rest_framework',
+    # middleware (cors)
+    'corsheaders',
     # apps
     'apps.user',
     # file middleware (should be at last)
@@ -60,6 +62,9 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # cors middleware
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -147,4 +152,11 @@ AUTH_USER_MODEL = 'user.User'
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "apps.user.backends.PasswordlessAuthBackend",
+]
+
+# django-cors-headers settins
+# https://pypi.org/project/django-cors-headers/
+
+CORS_ALLOWED_ORIGINS = CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:3000',
 ]
