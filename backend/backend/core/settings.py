@@ -158,7 +158,8 @@ AUTH_USER_MODEL = 'user.User'
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
-    "apps.user.backends.PasswordlessAuthBackend",
+    # custom auth backend
+    "apps.user.backends.EmailAuthBackend",
 ]
 
 # django-cors-headers settins

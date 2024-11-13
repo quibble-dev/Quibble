@@ -4,13 +4,19 @@ from django.contrib.auth import get_user_model
 UserModel = get_user_model()
 
 
-class PasswordlessAuthBackend(ModelBackend):
+class EmailAuthBackend(ModelBackend):
+    """
+    Custom Auth backend with email instead username
+    """
+
     def authenticate(  # pyright: ignore [reportIncompatibleMethodOverride]
-        self, request, email: str | None = None, **kwargs
+        self, request, email=None, password=None, **kwargs
     ):
         try:
             user = UserModel.objects.get(email=email)
-            return user
+            if password and user.check_password(password):
+                return user
+            return None
         except UserModel.DoesNotExist:
             return None
 

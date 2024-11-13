@@ -9,7 +9,7 @@ from knox.views import LoginView as KnoxLoginView
 from .models import Profile, User
 from .serializers import (
     AuthSerializer,
-    AuthTokenSerializer,
+    CustomAuthTokenSerializer,
     ProfileSerializer,
     UserSerializer,
 )
@@ -46,12 +46,16 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
 
 class CustomKnoxLoginView(KnoxLoginView):
+    """
+    Customized knox LoginView with
+    custom permissions and token serializer
+    """
+
     serializer_class = AuthSerializer
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request, format=None):
-        print(request.data)
-        serializer = AuthTokenSerializer(data=request.data)
+        serializer = CustomAuthTokenSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         user = serializer.validated_data['user']
