@@ -6,7 +6,7 @@ from dynamic_filenames import FilePattern
 
 from .managers import CustomUserManager
 
-# Dynamic avatar filename
+# dynamic avatar filename
 avatar_pattern = FilePattern(filename_pattern="avatar/{uuid:s}{ext}")
 
 
