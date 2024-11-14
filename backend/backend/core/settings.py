@@ -75,6 +75,12 @@ REST_FRAMEWORK = {
     # 'VERSION_PARAM': 'v',
 }
 
+# Django rest knox settings
+
+REST_KNOX = {
+    'AUTH_HEADER_PREFIX': 'Bearer',
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

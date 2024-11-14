@@ -1,6 +1,6 @@
 from django.contrib.auth import login
 
-from rest_framework import viewsets, permissions, filters
+from rest_framework import viewsets, permissions, filters, views
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -63,3 +63,15 @@ class LoginView(KnoxLoginView):
         login(request, user)
 
         return super().post(request, format=None)
+
+
+class MeView(views.APIView):
+    """
+    View to retrieve the current authenticated user's information.
+    """
+
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)

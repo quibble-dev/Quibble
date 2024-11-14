@@ -10,7 +10,10 @@ router.register(r'profiles', views.ProfileViewSet, basename='profile')
 
 # fmt: off
 urlpatterns = [
-    path(r'auth/', include([
+    path('me/', include([
+        path('', views.MeView.as_view(), name='me'),
+    ])),
+    path('auth/', include([
         # knox routes with custom view
         path('login/', views.LoginView.as_view(), name='knox_login'),
         path('logout/', knox_views.LogoutView.as_view(), name='knox_logout'),
