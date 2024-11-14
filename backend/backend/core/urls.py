@@ -17,6 +17,8 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+# openapi
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 
 # fmt: off
@@ -27,5 +29,7 @@ urlpatterns = [
     path('api/', include([
         path('user/', include('apps.user.urls')),
     ])),
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/schema/swagger', SpectacularSwaggerView.as_view(), name='swagger'),
 ]
 # fmt: on
