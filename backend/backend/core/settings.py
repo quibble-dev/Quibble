@@ -93,9 +93,7 @@ REST_KNOX = {
 
 # drf standardized errors
 
-DRF_STANDARDIZED_ERRORS = {
-    'ENABLE_IN_DEBUG_FOR_UNHANDLED_EXCEPTIONS': True
-}
+DRF_STANDARDIZED_ERRORS = {'ENABLE_IN_DEBUG_FOR_UNHANDLED_EXCEPTIONS': True}
 
 # OpenAPI settings
 
@@ -123,7 +121,9 @@ SPECTACULAR_SETTINGS = {
         'ErrorCode429Enum': 'drf_standardized_errors.openapi_serializers.ErrorCode429Enum.choices',
         'ErrorCode500Enum': 'drf_standardized_errors.openapi_serializers.ErrorCode500Enum.choices',
     },
-    'POSTPROCESSING_HOOKS': ['drf_standardized_errors.openapi_hooks.postprocess_schema_enums',],
+    'POSTPROCESSING_HOOKS': [
+        'drf_standardized_errors.openapi_hooks.postprocess_schema_enums',
+    ],
 }
 
 MIDDLEWARE = [

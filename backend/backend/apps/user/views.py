@@ -4,13 +4,19 @@ from rest_framework import viewsets, permissions, filters, views
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
+from drf_spectacular.utils import extend_schema
 
-from knox.views import LoginView as KnoxLoginView
+from knox.views import (
+    LoginView as KnoxLoginView,
+    LogoutView as KnoxLogoutView,
+    LogoutAllView as KnoxLogoutAllView,
+)
 
 from .models import Profile, User
 from .serializers import (
     AuthSerializer,
     CustomAuthTokenSerializer,
+    LogoutResponseSerializer,
     ProfileSerializer,
     UserSerializer,
 )
@@ -66,6 +72,14 @@ class LoginView(KnoxLoginView):
         return super().post(request, format=None)
 
 
+class LogoutView(KnoxLogoutView):
+    serializer_class = LogoutResponseSerializer
+
+
+class LogoutAllView(KnoxLogoutAllView):
+    serializer_class = LogoutResponseSerializer
+
+
 class MeView(views.APIView):
     """
     View to retrieve the current authenticated user's information.
@@ -73,6 +87,7 @@ class MeView(views.APIView):
 
     permission_classes = (permissions.IsAuthenticated,)
 
+    @extend_schema(responses=UserSerializer)
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
@@ -84,6 +99,8 @@ class MyProfilesViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
+        if not user.is_authenticated:
+            return Profile.objects.none()
         return user.profiles.all()
 
     def perform_create(self, serializer):
