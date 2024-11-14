@@ -1,7 +1,8 @@
 from django.contrib.auth import login
 
-from rest_framework import viewsets, permissions, filters, views, generics
+from rest_framework import viewsets, permissions, filters, views
 from rest_framework.decorators import action
+from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
 from knox.views import LoginView as KnoxLoginView
@@ -86,4 +87,8 @@ class MyProfilesViewSet(viewsets.ModelViewSet):
         return user.profiles.all()
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        user = self.request.user
+        if user.profiles.count() >= 5:
+            raise ValidationError({'detail': 'A user cannot have more than 5 profiles'})
+
+        serializer.save(user=user)

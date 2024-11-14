@@ -46,14 +46,5 @@ class Profile(models.Model):
     last_name = models.CharField(_('last name'), max_length=255, blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
 
-    def save(self, *args, **kwargs):
-        if (
-            self.pk is None
-            and self.user.profiles.count()  # pyright: ignore [reportAttributeAccessIssue]
-            >= 5
-        ):
-            raise ValidationError("A user cannot have more than 5 profiles")
-        super().save(*args, **kwargs)
-
     def __str__(self):
         return f"u/{self.username}"
