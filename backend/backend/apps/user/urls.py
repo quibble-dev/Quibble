@@ -1,5 +1,6 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
+from knox import views as knox_views
 
 from . import views
 
@@ -16,10 +17,10 @@ urlpatterns = [
     # knox routes with custom view
     path('auth/', include([
         path('login/', views.LoginView.as_view(), name='knox_login'),
-        path('logout/', views.LogoutView.as_view(), name='knox_logout'),
+        path('logout/', knox_views.LogoutView.as_view(), name='knox_logout'),
         path(
             'logoutall/',
-            views.LogoutAllView.as_view(),
+            knox_views.LogoutAllView.as_view(),
             name='knox_logoutall',
         ),
     ])),

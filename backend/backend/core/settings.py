@@ -79,8 +79,6 @@ REST_FRAMEWORK = {
     # 'VERSION_PARAM': 'v',
     # error handling
     'EXCEPTION_HANDLER': 'drf_standardized_errors.handler.exception_handler',
-    # openapi
-    'DEFAULT_SCHEMA_CLASS': 'drf_standardized_errors.openapi.AutoSchema',
 }
 
 # Django rest knox settings
