@@ -19,16 +19,13 @@ from django.contrib import admin
 from django.urls import path, include
 
 
+# fmt: off
 urlpatterns = [
     # admin
-    path(r'admin/', admin.site.urls),
-    # api
-    path(
-        r'api/',
-        include(
-            [
-                path(r'user/', include('apps.user.urls')),
-            ]
-        ),
-    ),
+    path('admin/', admin.site.urls),
+    # api endpoints
+    path('api/', include([
+        path('user/', include('apps.user.urls')),
+    ])),
 ]
+# fmt: on

@@ -65,6 +65,9 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'knox.auth.TokenAuthentication',
     ],
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
+    'DEFAULT_VERSION': '1.0.0',
+    # 'VERSION_PARAM': 'v',
 }
 
 MIDDLEWARE = [
