@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'django_extensions',
     # rest framework
     'rest_framework',
+    # custom error handling
+    'drf_standardized_errors',
     # django filtering
     'django_filters',
     # drf token auth
@@ -70,15 +72,24 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
     ],
+    # versioning
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
     'DEFAULT_VERSION': '1.0.0',
     # 'VERSION_PARAM': 'v',
+    # error handling
+    'EXCEPTION_HANDLER': 'drf_standardized_errors.handler.exception_handler',
 }
 
 # Django rest knox settings
 
 REST_KNOX = {
     'AUTH_HEADER_PREFIX': 'Bearer',
+}
+
+# drf standardized errors
+
+DRF_STANDARDIZED_ERRORS = {
+    'ENABLE_IN_DEBUG_FOR_UNHANDLED_EXCEPTIONS': True
 }
 
 MIDDLEWARE = [

@@ -89,6 +89,6 @@ class MyProfilesViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         user = self.request.user
         if user.profiles.count() >= 5:
-            raise ValidationError({'detail': 'A user cannot have more than 5 profiles'})
+            raise ValidationError('A user cannot have more than 5 profiles')
 
         serializer.save(user=user)
