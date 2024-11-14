@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'django_extensions',
     # rest framework
     'rest_framework',
+    # django filtering
+    'django_filters',
     # drf token auth
     'knox',
     # middleware (cors)
@@ -64,6 +66,9 @@ INSTALLED_APPS = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'knox.auth.TokenAuthentication',
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
     ],
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
     'DEFAULT_VERSION': '1.0.0',
