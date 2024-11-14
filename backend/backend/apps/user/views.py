@@ -1,6 +1,6 @@
 from django.contrib.auth import login
 
-from rest_framework import viewsets, permissions, filters, views
+from rest_framework import viewsets, permissions, filters, views, generics
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -75,3 +75,15 @@ class MeView(views.APIView):
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
+
+
+class MyProfilesViewSet(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = ProfileSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return user.profiles.all()
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
