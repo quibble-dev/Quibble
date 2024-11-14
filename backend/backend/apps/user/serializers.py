@@ -56,11 +56,3 @@ class CustomAuthTokenSerializer(serializers.Serializer):
 
         attrs['user'] = user
         return attrs
-
-
-class LogoutResponseSerializer(serializers.Serializer):
-    """
-    Empty logout response serializer
-    """
-
-    pass
