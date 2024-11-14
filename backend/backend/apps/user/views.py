@@ -44,8 +44,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     filter_backends = (filters.SearchFilter,)
-    filterset_fields = ('username', 'user__email')
-    search_fields = ('username', 'user__email')
+    search_fields = ('username',)
 
 
 class LoginView(KnoxLoginView):
