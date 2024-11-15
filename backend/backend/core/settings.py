@@ -86,6 +86,8 @@ REST_FRAMEWORK = {
 
 REST_KNOX = {
     'AUTH_HEADER_PREFIX': 'Bearer',
+    'TOKEN_LIMIT_PER_USER': 1,
+    'USER_SERIALIZER': 'knox.serializers.UserSerializer',
 }
 
 MIDDLEWARE = [
