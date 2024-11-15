@@ -20,10 +20,7 @@ class CustomUserManager(BaseUserManager):
             raise ValueError("Email is required")
         email = self.normalize_email(email)
         user: User = self.model(email=email, **extra_fields)
-        if password is not None:
-            user.set_password(password)
-        else:
-            user.set_unusable_password()
+        user.set_password(password)
         user.save(using=self._db)
         return user
 

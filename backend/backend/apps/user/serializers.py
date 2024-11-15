@@ -8,8 +8,13 @@ from .models import User, Profile
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'email', 'date_joined')
+        fields = ('id', 'email', 'password', 'date_joined')
         read_only_fields = ('date_joined',)
+        extra_kwargs = {'password': {'write_only': True}}
+
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        return user
 
 
 class ProfileSerializer(serializers.ModelSerializer):
