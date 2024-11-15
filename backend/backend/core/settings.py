@@ -191,3 +191,6 @@ AUTHENTICATION_BACKENDS = [
 CORS_ALLOWED_ORIGINS = CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
 ]
+
+# max no:of profiles a user can create
+PROFILE_LIMIT = 5

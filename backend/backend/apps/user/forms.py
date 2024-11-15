@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from django.forms import ModelForm
 from django.utils.translation import gettext_lazy as _
 from .models import User, Profile
@@ -29,7 +30,11 @@ class ProfileAdminForm(ModelForm):
     def clean(self):  # pyright: ignore [reportIncompatibleVariableOverride]
         user = self.cleaned_data.get('user')
 
-        if self.instance.pk is None and user and user.profiles.count() >= 5:
+        if (
+            self.instance.pk is None
+            and user
+            and user.profiles.count() >= settings.PROFILE_LIMIT
+        ):
             self.add_error(None, _('A user cannot have more than 5 profiles.'))
 
         return self.cleaned_data
