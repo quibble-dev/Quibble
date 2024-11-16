@@ -38,13 +38,30 @@ Thank you for your interest in contributing to Quibble! We’re excited to build
 
 4. **Run Database Migrations**
    ```bash
-   poetry run python manage.py migrate
+   poetry run poe mksync
+   poetry run poe sync
+   # if you have poethepoet installed
+   poe mksync && poe sync
    ```
 
 5. **Start the Development Server**
    ```bash
-   poetry run python manage.py runserver
+   poetry run poe dev
+   # if you have poethepoet installed
+   poe dev
    ```
+
+## Run postgresql db server
+
+You can run postgres on background and create a database called `quibble_db` (default) or whatever you specific in `backend/.env`.\
+Or you can run this docker/podman container with:
+```bash
+# podman
+podman compose -f docker/compose-db.yml up --build
+# docker
+docker compose -f docker/compose-db.yml up --build
+```
+Add `-d` if you want to run it on detatched mode.
 
 ## Setting Up the Frontend (Svelte/kit)
 
