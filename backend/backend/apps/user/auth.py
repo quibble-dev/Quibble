@@ -1,4 +1,5 @@
 from knox.auth import TokenAuthentication
+from rest_framework import exceptions
 
 from .models import Profile
 
@@ -14,10 +15,19 @@ class ExtendedTokenAuthentication(TokenAuthentication):
         if not user_auth_tuple:
             return None
 
-        user, _ = user_auth_tuple
+        user, token = user_auth_tuple
 
-        profile_id = request.headers.get('Profile-ID')
+        profile_id = request.headers.get('Profile-Id')
+        user_profile = None
+
         if profile_id:
-            request.user_profile = Profile.objects.filter(id=profile_id, user=user).first()
+            try:
+                user_profile = Profile.objects.get(id=profile_id, user=user)
+            except Profile.DoesNotExist:
+                raise exceptions.PermissionDenied(
+                    'Profile does not exist or does not belong to the authenticated user.'
+                )
 
-        return user_auth_tuple
+        request.user_profile = user_profile
+
+        return (user, token)
