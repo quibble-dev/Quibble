@@ -11,11 +11,11 @@ class ExtendedTokenAuthentication(TokenAuthentication):
     """
 
     def authenticate(self, request):
-        user_auth_tuple = super().authenticate(request)
-        if not user_auth_tuple:
+        user_auth_token_tuple = super().authenticate(request)
+        if not user_auth_token_tuple:
             return None
 
-        user, token = user_auth_tuple
+        user, auth_token = user_auth_token_tuple
 
         profile_id = request.headers.get('Profile-Id')
         user_profile = None
@@ -30,4 +30,4 @@ class ExtendedTokenAuthentication(TokenAuthentication):
 
         request.user_profile = user_profile
 
-        return (user, token)
+        return (user, auth_token)
