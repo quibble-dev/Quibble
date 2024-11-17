@@ -1,1 +1,0 @@
-<button class="btn btn-md btn-primary font-bold">Join In!</button>

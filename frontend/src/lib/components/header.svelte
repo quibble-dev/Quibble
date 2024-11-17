@@ -1,18 +1,18 @@
-<script>
-	import All from '../Icons/All.svelte';
-	import Home from '../Icons/Home.svelte';
-	import Popular from '../Icons/Popular.svelte';
-	import Search from '../Icons/Search.svelte';
-	import HeaderAuth from './HeaderAuth.svelte';
-	import HeaderNoAuth from './HeaderNoAuth.svelte';
+<script lang="ts">
+	import All from '$lib/icons/All.svelte';
+	import Home from '$lib/icons/Home.svelte';
+	import Notification from '$lib/icons/Notification.svelte';
+	import Plus from '$lib/icons/Plus.svelte';
+	import Popular from '$lib/icons/Popular.svelte';
+	import Search from '$lib/icons/Search.svelte';
 
-	let auth = $state(false);
+	let is_authenticated = $state(false);
 </script>
 
-<div class="bg-neutral flex h-[75px] w-full flex-row items-center justify-between">
+<header class="flex h-[75px] w-full flex-row items-center justify-between bg-neutral">
 	<!-- quibble icon -->
 	<div class="flex h-full items-center pl-5">
-		<h1 class="text-primary text-center text-3xl font-black">Quibble</h1>
+		<h1 class="text-center text-3xl font-black text-primary">Quibble</h1>
 	</div>
 	<!-- search bar and navigates -->
 	<div class="flex h-[50px] w-[1000px] flex-row items-center justify-center gap-5">
@@ -43,10 +43,22 @@
 	</div>
 	<!-- create account details & join in -->
 	<div class="flex h-[40px] items-center gap-5 pr-4">
-		{#if auth}
-			<HeaderAuth />
+		{#if is_authenticated}
+			<button class="btn btn-primary btn-md font-bold">
+				<Plus /> <span>Create New</span>
+			</button>
+			<Notification />
+			<div draggable="false" class="avatar cursor-pointer select-none">
+				<div class="w-[50px] rounded-[15px]">
+					<img
+						draggable="false"
+						alt="avatar"
+						src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+					/>
+				</div>
+			</div>
 		{:else}
-			<HeaderNoAuth />
+			<button class="btn btn-primary btn-md font-bold">Join In!</button>
 		{/if}
 	</div>
-</div>
+</header>
