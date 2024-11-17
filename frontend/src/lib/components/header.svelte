@@ -4,15 +4,14 @@
 	import SearchIcon from '$lib/components/icons/search.svelte';
 	import PlusIcon from '$lib/components/icons/plus.svelte';
 	import NotificationIcon from '$lib/components/icons/notification.svelte';
+	import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
 
 	let is_authenticated = $state(true);
 </script>
 
-<header class="flex h-[75px] w-full flex-row items-center justify-between bg-neutral">
-	<!-- quibble icon -->
-	<div class="flex h-full items-center pl-5">
-		<h1 class="text-center text-3xl font-black text-primary">Quibble</h1>
-	</div>
+<header class="flex h-[75px] w-full flex-row items-center justify-between bg-neutral p-4">
+	<!-- quibble logo -->
+	<QuibbleLogo class="size-8" />
 	<!-- search bar and navigates -->
 	<div class="flex h-[50px] w-[1000px] flex-row items-center justify-center gap-5">
 		<div class="flex flex-row justify-center gap-5">
@@ -41,7 +40,7 @@
 		</div>
 	</div>
 	<!-- create account details & join in -->
-	<div class="flex h-[40px] items-center gap-5 pr-4">
+	<div class="flex h-[40px] items-center gap-5">
 		{#if is_authenticated}
 			<button class="btn btn-primary btn-md font-bold">
 				<PlusIcon /> <span>Create New</span>
