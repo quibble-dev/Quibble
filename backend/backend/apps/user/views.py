@@ -7,6 +7,8 @@ from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
+from core.exceptions import ServerError
+
 from .models import Profile, User
 from .serializers import (
     ProfileSerializer,
@@ -59,22 +61,9 @@ class LoginView(views.APIView):
 
     This view authenticates the user using email and password credentials
     and issues a token upon successful login.
-
-    Overrides:
-    - `post`: Validates user credentials and returns an authentication token.
     """
 
     def post(self, request, format=None):
-        """
-        Authenticate user and generate an authentication token.
-
-        Args:
-            request: The HTTP request containing email and password data.
-            format: Optional format specifier for the response.
-
-        Returns:
-            Response containing the token upon successful authentication.
-        """
         user = authenticate(
             email=request.data.get('email'), password=request.data.get('password')
         )
@@ -88,17 +77,17 @@ class LoginView(views.APIView):
 class LogoutView(views.APIView):
     """
     View to handle user logout by deleting the authentication token.
-
-    Overrides:
-    - `post`: Deletes the user's token to invalidate the session.
     """
 
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request, format=None):
-        # delete token of authenticated user
-        Token.objects.filter(user=request.user).delete()
-        return Response({'detail': 'Successfully logged out.'})
+        try:
+            Token.objects.filter(user=request.user).delete()
+            return Response({'detail': 'Successfully logged out.'})
+
+        except Exception as e:
+            raise ServerError(detail=f"An error occurred while logging out: {str(e)}")
 
 
 class MeView(views.APIView):
