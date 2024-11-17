@@ -1,12 +1,12 @@
 <script lang="ts">
-	import All from '$lib/icons/All.svelte';
+	import ChartBars from '$lib/icons/chart_bars.svelte';
 	import Home from '$lib/icons/Home.svelte';
 	import Notification from '$lib/icons/Notification.svelte';
 	import Plus from '$lib/icons/Plus.svelte';
 	import Popular from '$lib/icons/Popular.svelte';
 	import Search from '$lib/icons/Search.svelte';
 
-	let is_authenticated = $state(false);
+	let is_authenticated = $state(true);
 </script>
 
 <header class="flex h-[75px] w-full flex-row items-center justify-between bg-neutral">
@@ -22,11 +22,11 @@
 				<span class="text-lg font-bold">Home</span>
 			</span>
 			<span class="flex cursor-pointer space-x-2">
-				<Popular />
+				<ChartBars variant="popular" />
 				<span class="text-lg font-bold">Popular</span>
 			</span>
 			<span class="flex cursor-pointer space-x-2">
-				<All />
+				<ChartBars variant="all" />
 				<span class="text-lg font-bold">All</span>
 			</span>
 		</div>
