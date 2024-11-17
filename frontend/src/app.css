@@ -2,69 +2,80 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-@font-face {
-	font-family: 'DM Sans';
-	src: url('/fonts/DMSans-Thin.ttf') format('truetype');
-	font-weight: 100;
-	font-style: normal;
+@layer base {
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/dm-sans/DMSans-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/dm-sans/DMSans-ExtraLight.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/dm-sans/DMSans-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/dm-sans/DMSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/dm-sans/DMSans-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/dm-sans/DMSans-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/dm-sans/DMSans-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/dm-sans/DMSans-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/dm-sans/DMSans-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Riffic';
+    src: url('/fonts/riffic/Riffic-Bold.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+  }
 }
 
-@font-face {
-	font-family: 'DM Sans';
-	src: url('/fonts/DMSans-ExtraLight.ttf') format('truetype');
-	font-weight: 200;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'DM Sans';
-	src: url('/fonts/DMSans-Light.ttf') format('truetype');
-	font-weight: 300;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'DM Sans';
-	src: url('/fonts/DMSans-Regular.ttf') format('truetype');
-	font-weight: 400;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'DM Sans';
-	src: url('/fonts/DMSans-Medium.ttf') format('truetype');
-	font-weight: 500;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'DM Sans';
-	src: url('/fonts/DMSans-SemiBold.ttf') format('truetype');
-	font-weight: 600;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'DM Sans';
-	src: url('/fonts/DMSans-Bold.ttf') format('truetype');
-	font-weight: 700;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'DM Sans';
-	src: url('/fonts/DMSans-ExtraBold.ttf') format('truetype');
-	font-weight: 800;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'DM Sans';
-	src: url('/fonts/DMSans-Black.ttf') format('truetype');
-	font-weight: 900;
-	font-style: normal;
-}
-
-html {
-	font-family: 'DM Sans', sans-serif;
+@layer base {
+  html {
+    font-family: 'DM Sans', sans-serif;
+  }
 }

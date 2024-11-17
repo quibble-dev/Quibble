@@ -10,8 +10,11 @@
 </script>
 
 <header class="flex h-[75px] w-full flex-row items-center justify-between bg-neutral p-4">
-	<!-- quibble logo -->
-	<QuibbleLogo class="size-8" />
+	<!-- quibble icon -->
+	<div class="flex items-center gap-2">
+		<QuibbleLogo class="size-6" />
+		<h1 class="font-riffic text-xl text-primary">Quibble</h1>
+	</div>
 	<!-- search bar and navigates -->
 	<div class="flex h-[50px] w-[1000px] flex-row items-center justify-center gap-5">
 		<div class="flex flex-row justify-center gap-5">
