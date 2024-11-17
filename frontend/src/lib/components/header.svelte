@@ -1,10 +1,9 @@
 <script lang="ts">
-	import ChartBars from '$lib/icons/chart_bars.svelte';
-	import Home from '$lib/icons/Home.svelte';
-	import Notification from '$lib/icons/Notification.svelte';
-	import Plus from '$lib/icons/Plus.svelte';
-	import Popular from '$lib/icons/Popular.svelte';
-	import Search from '$lib/icons/Search.svelte';
+	import ChartBarsIcon from '$lib/components/icons/chart_bars.svelte';
+	import HomeIcon from '$lib/components/icons/home.svelte';
+	import SearchIcon from '$lib/components/icons/search.svelte';
+	import PlusIcon from '$lib/components/icons/plus.svelte';
+	import NotificationIcon from '$lib/components/icons/notification.svelte';
 
 	let is_authenticated = $state(true);
 </script>
@@ -18,21 +17,21 @@
 	<div class="flex h-[50px] w-[1000px] flex-row items-center justify-center gap-5">
 		<div class="flex flex-row justify-center gap-5">
 			<span class="flex cursor-pointer space-x-2">
-				<Home />
+				<HomeIcon />
 				<span class="text-lg font-bold">Home</span>
 			</span>
 			<span class="flex cursor-pointer space-x-2">
-				<ChartBars variant="popular" />
+				<ChartBarsIcon variant="popular" />
 				<span class="text-lg font-bold">Popular</span>
 			</span>
 			<span class="flex cursor-pointer space-x-2">
-				<ChartBars variant="all" />
+				<ChartBarsIcon variant="all" />
 				<span class="text-lg font-bold">All</span>
 			</span>
 		</div>
 		<div class="w-[600px]">
 			<label class="input input-bordered flex items-center">
-				<Search />
+				<SearchIcon />
 				<input
 					type="text"
 					class="input w-full grow placeholder:text-base placeholder:font-bold focus:border-none"
@@ -45,9 +44,9 @@
 	<div class="flex h-[40px] items-center gap-5 pr-4">
 		{#if is_authenticated}
 			<button class="btn btn-primary btn-md font-bold">
-				<Plus /> <span>Create New</span>
+				<PlusIcon /> <span>Create New</span>
 			</button>
-			<Notification />
+			<NotificationIcon />
 			<div draggable="false" class="avatar cursor-pointer select-none">
 				<div class="w-[50px] rounded-[15px]">
 					<img
