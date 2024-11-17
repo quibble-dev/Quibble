@@ -4,7 +4,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
 from core.exceptions import ServerError
-from .serializers import UserSerializer
+from .serializers import ProfileSerializer
 
 
 class LoginAPIView(views.APIView):
@@ -55,5 +55,8 @@ class MeAPIView(views.APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request):
-        serializer = UserSerializer(request.user)
-        return Response(serializer.data)
+        if request.user_profile:
+            serializer = ProfileSerializer(request.user_profile)
+            return Response(serializer.data)
+        else:
+            raise exceptions.ValidationError('A valid profile must be provided.')
