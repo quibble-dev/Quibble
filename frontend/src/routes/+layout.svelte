@@ -5,7 +5,7 @@
 	let { children } = $props();
 </script>
 
-<main>
+<main class="font-sans">
 	<Header />
 	{@render children()}
 </main>

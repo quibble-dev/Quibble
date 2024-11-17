@@ -9,7 +9,7 @@
 	let is_authenticated = $state(true);
 </script>
 
-<header class="flex items-center justify-between bg-base-200 p-4">
+<header class="flex items-center justify-between bg-base-100 p-4">
 	<!-- quibble icon -->
 	<div class="flex items-center gap-2">
 		<QuibbleLogo class="size-6" />
