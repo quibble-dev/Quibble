@@ -82,7 +82,7 @@ class LoginView(views.APIView):
             token, _ = Token.objects.get_or_create(user=user)
             return Response({'token': token.key})
         else:
-            return exceptions.AuthenticationFailed()
+            raise exceptions.AuthenticationFailed()
 
 
 class LogoutView(views.APIView):
