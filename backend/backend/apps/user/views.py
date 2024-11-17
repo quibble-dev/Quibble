@@ -79,12 +79,8 @@ class LoginView(views.APIView):
             email=request.data.get('email'), password=request.data.get('password')
         )
         if user:
-            token, _ = Token.objects.get_or_create(user=request.user)
-            return Response(
-                {
-                    'token': token.key,
-                }
-            )
+            token, _ = Token.objects.get_or_create(user=user)
+            return Response({'token': token.key})
         else:
             return exceptions.AuthenticationFailed()
 
