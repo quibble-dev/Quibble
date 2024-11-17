@@ -54,12 +54,11 @@ INSTALLED_APPS = [
     'django_extensions',
     # rest framework
     'rest_framework',
+    'rest_framework.authtoken',
     # custom error handling
     'drf_standardized_errors',
     # django filtering
     'django_filters',
-    # drf token auth
-    'knox',
     # middleware (cors)
     'corsheaders',
     # file middleware (should be at last)
@@ -79,15 +78,6 @@ REST_FRAMEWORK = {
     # 'VERSION_PARAM': 'v',
     # error handling
     'EXCEPTION_HANDLER': 'drf_standardized_errors.handler.exception_handler',
-}
-
-# Django rest knox settings
-# https://jazzband.github.io/django-rest-knox/settings/
-
-REST_KNOX = {
-    'AUTH_HEADER_PREFIX': 'Bearer',
-    'TOKEN_LIMIT_PER_USER': 1,
-    'USER_SERIALIZER': 'knox.serializers.UserSerializer',
 }
 
 MIDDLEWARE = [

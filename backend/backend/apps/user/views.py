@@ -1,15 +1,14 @@
 from django.conf import settings
-from django.contrib.auth import login
+from django.contrib.auth import authenticate
 from rest_framework import viewsets, permissions, filters, views
+from rest_framework import exceptions
+from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
-from knox.views import LoginView as KnoxLoginView
 
 from .models import Profile, User
 from .serializers import (
-    AuthSerializer,
-    CustomAuthTokenSerializer,
     ProfileSerializer,
     UserSerializer,
 )
@@ -54,22 +53,16 @@ class ProfileViewSet(viewsets.ModelViewSet):
     search_fields = ('username',)
 
 
-class LoginView(KnoxLoginView):
+class LoginView(views.APIView):
     """
-    Customized Knox login view to handle authentication with email and password.
+    Customized drf basic token authentication.
 
     This view authenticates the user using email and password credentials
-    and issues a Knox token upon successful login.
+    and issues a token upon successful login.
 
     Overrides:
     - `post`: Validates user credentials and returns an authentication token.
-
-    Permission:
-    - Allows access to unauthenticated users (public endpoint).
     """
-
-    serializer_class = AuthSerializer
-    permission_classes = (permissions.AllowAny,)
 
     def post(self, request, format=None):
         """
@@ -80,13 +73,36 @@ class LoginView(KnoxLoginView):
             format: Optional format specifier for the response.
 
         Returns:
-            Response containing the Knox token upon successful authentication.
+            Response containing the token upon successful authentication.
         """
-        serializer = CustomAuthTokenSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data['user']
-        login(request, user)
-        return super().post(request, format=None)
+        user = authenticate(
+            email=request.data.get('email'), password=request.data.get('password')
+        )
+        if user:
+            token, _ = Token.objects.get_or_create(user=request.user)
+            return Response(
+                {
+                    'token': token.key,
+                }
+            )
+        else:
+            return exceptions.AuthenticationFailed()
+
+
+class LogoutView(views.APIView):
+    """
+    View to handle user logout by deleting the authentication token.
+
+    Overrides:
+    - `post`: Deletes the user's token to invalidate the session.
+    """
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, format=None):
+        # delete token of authenticated user
+        Token.objects.filter(user=request.user).delete()
+        return Response({'detail': 'Successfully logged out.'})
 
 
 class MeView(views.APIView):

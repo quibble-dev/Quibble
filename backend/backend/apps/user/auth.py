@@ -1,14 +1,16 @@
-from knox.auth import TokenAuthentication
 from rest_framework import exceptions
+from rest_framework.authentication import TokenAuthentication
 
 from .models import Profile
 
 
 class ExtendedTokenAuthentication(TokenAuthentication):
     """
-    Extended knox TokenAuthentication
+    Extended drf TokenAuthentication
     which includes 'user_profile' field on request
     """
+
+    keyword = 'Bearer'
 
     def authenticate(self, request):
         user_auth_token_tuple = super().authenticate(request)
