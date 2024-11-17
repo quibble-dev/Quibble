@@ -5,15 +5,15 @@ import daisyui from 'daisyui';
 import type { Config } from 'tailwindcss';
 
 export default {
-  content: ['./src/**/*.{html,js,svelte,ts}'],
+	content: ['./src/**/*.{html,js,svelte,ts}'],
 
-  theme: {
-    extend: {}
-  },
+	theme: {
+		extend: {}
+	},
 
-  daisyui: {
-    themes: ["sunset"],
-  },
+	daisyui: {
+		themes: ['sunset']
+	},
 
-  plugins: [typography, forms, aspectRatio, daisyui]
+	plugins: [typography, forms, aspectRatio, daisyui]
 } satisfies Config;
