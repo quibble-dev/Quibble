@@ -5,12 +5,12 @@
 		img: string;
 	};
 	import Star from '$lib/components/icons/StarIcon.svelte';
-
-	let { name, stared, img }: User = $props();
 	import StarFill from '$lib/components/icons/StarFill.svelte';
+	
+	let { name, stared, img }: User = $props();
 </script>
 
-<div class="mb-3 flex cursor-pointer w-full items-center justify-between gap-2">
+<div class="mb-3 flex w-full cursor-pointer items-center justify-between gap-2">
 	<div class="flex gap-2">
 		{#if img?.length == 0}
 			<div class="avatar placeholder">
