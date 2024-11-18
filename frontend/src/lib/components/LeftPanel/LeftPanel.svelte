@@ -25,14 +25,14 @@
 				</label>
 			</div>
 
-			<span class="text-base-content mt-3 flex cursor-pointer space-x-2 text-xs font-[500]">
+			<span class="text-base-content mt-3 flex cursor-pointer space-x-2 text-xs font-medium">
 				<PlusCircle />
 				<span>Create Communities</span>
 			</span>
 		</div>
 		<!-- Favourite -->
 		<div class="w-full">
-			<h1 class="text-base-content/50 font-[500]">Favourites</h1>
+			<h1 class="text-base-content/50 font-medium">Favourites</h1>
 			<div class="py-3">
 				<UserListItem img="" name="danish" stared={true} />
 				<UserListItem
@@ -44,7 +44,7 @@
 		</div>
 		<!-- Your Communities -->
 		<div class="w-full">
-			<h1 class="text-base-content/50 font-[500]">Your Communities</h1>
+			<h1 class="text-base-content/50 font-medium">Your Communities</h1>
 			<div class="py-3">
 				<User img="" name="staff" stared={false} />
 				<User
@@ -56,11 +56,11 @@
 		</div>
 		<!-- Resources -->
 		<div class="">
-			<h1 class="text-base-content/50 font-[500]">Resources</h1>
+			<h1 class="text-base-content/50 font-mdeium">Resources</h1>
 			<div class="flex flex-col gap-2 py-3">
 				<span class="flex cursor-pointer items-center space-x-2">
 					<AboutIcon />
-					<span class="text-base font-[600]">About Quibble</span>
+					<span class="text-base font-semibold">About Quibble</span>
 				</span>
 				<span class="flex cursor-pointer items-center space-x-2">
 					<HelpIcon />
@@ -69,6 +69,6 @@
 			</div>
 		</div>
 
-		<p class="mt-5 text-[10px] font-[400]">Quibble © {YEAR}. All rights reserved.</p>
+		<p class="mt-5 text-[10px] font-normal">Quibble © {YEAR}. All rights reserved.</p>
 	</div>
 </div>
