@@ -18,8 +18,9 @@ Thank you for your interest in contributing to Quibble! We’re excited to build
 
 ## Project Structure
 
-- **`backend/`** - Django application managed with Poetry.
-- **`frontend/`** - Svelte/kit frontend managed with npm.
+- `backend` - Django app.
+- `frontend` - Svelte/kit app.
+- `docker` - Container files for docker apps.
 
 ## Setting Up the Backend (Django)
 
