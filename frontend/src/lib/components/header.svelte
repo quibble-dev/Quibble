@@ -7,7 +7,7 @@
 </script>
 
 <header class="flex items-center justify-between bg-base-200 p-2.5 px-4">
-	<!-- quibble icon -->
+	<!-- quibble logo -->
 	<a href="/" class="flex items-center gap-2">
 		<QuibbleLogo class="size-7" />
 		<h1 class="font-riffic text-2xl text-white">Quibble</h1>
@@ -37,7 +37,7 @@
 			/>
 		</label>
 	</div>
-	<!-- create account details & join in -->
+	<!-- create, account details & join in -->
 	<div class="flex items-center gap-2">
 		{#if is_authenticated}
 			<button class="btn btn-primary h-10 px-3">
