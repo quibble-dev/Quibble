@@ -6,5 +6,6 @@ Quibble is a place for real conversations, where opinions thrive and diverse voi
 
 ## Project Structure
 
-- `backend` - Django app maintained with poetry.
-- `frontend` - Svelte/kit app with npm.
+- `backend` - Django app.
+- `frontend` - Svelte/kit app.
+- `docker` - Container files for docker apps.
