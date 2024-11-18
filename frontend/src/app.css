@@ -79,3 +79,12 @@
 		@apply bg-base-300 text-base-content;
 	}
 }
+
+/* daisyui */
+/* .input { */
+/*   @apply focus-within:outline-none; */
+/* } */
+
+.btn {
+	@apply min-h-max;
+}

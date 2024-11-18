@@ -1,65 +1,57 @@
 <script lang="ts">
 	import ChartBarsIcon from '$lib/components/icons/chart_bars.svelte';
-	import HomeIcon from '$lib/components/icons/home.svelte';
-	import SearchIcon from '$lib/components/icons/search.svelte';
-	import PlusIcon from '$lib/components/icons/plus.svelte';
-	import NotificationIcon from '$lib/components/icons/notification.svelte';
 	import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
+	import NotificationIcon from '$lib/components/icons/notification.svelte';
 
 	let is_authenticated = $state(true);
 </script>
 
-<header class="flex items-center justify-between bg-base-100 p-4">
+<header class="flex items-center justify-between bg-base-200 p-2.5 px-4">
 	<!-- quibble icon -->
-	<div class="flex items-center gap-2">
-		<QuibbleLogo class="size-6" />
-		<h1 class="font-riffic text-xl text-primary">Quibble</h1>
-	</div>
+	<a href="/" class="flex items-center gap-2">
+		<QuibbleLogo class="size-7" />
+		<h1 class="font-riffic text-2xl text-white">Quibble</h1>
+	</a>
 	<!-- search bar and navigates -->
-	<div class="flex h-[50px] w-[1000px] flex-row items-center justify-center gap-5">
-		<div class="flex flex-row justify-center gap-5">
-			<span class="flex cursor-pointer space-x-2">
-				<HomeIcon />
-				<span class="text-lg font-bold">Home</span>
+	<div class="flex items-center gap-5">
+		<div class="flex gap-2">
+			<span class="flex items-center gap-2">
+				<coreproject-shape-home class="size-5 text-primary"></coreproject-shape-home>
+				<span class="font-bold">Home</span>
 			</span>
-			<span class="flex cursor-pointer space-x-2">
-				<ChartBarsIcon variant="popular" />
-				<span class="text-lg font-bold">Popular</span>
+			<span class="flex items-center gap-2">
+				<ChartBarsIcon variant="popular" class="size-5" />
+				<span class="font-bold">Popular</span>
 			</span>
-			<span class="flex cursor-pointer space-x-2">
-				<ChartBarsIcon variant="all" />
-				<span class="text-lg font-bold">All</span>
+			<span class="flex items-center gap-2">
+				<ChartBarsIcon variant="all" class="size-5" />
+				<span class="font-bold">All</span>
 			</span>
 		</div>
-		<div class="w-[600px]">
-			<label class="input input-bordered flex items-center">
-				<SearchIcon />
-				<input
-					type="text"
-					class="input w-full grow placeholder:text-base placeholder:font-bold focus:border-none"
-					placeholder="Seek. Find. Quibble"
-				/>
-			</label>
-		</div>
+		<label class="input input-bordered flex h-10 w-96 items-center bg-transparent px-3">
+			<coreproject-shape-search class="size-5"></coreproject-shape-search>
+			<input
+				type="text"
+				class="grow border-none font-medium focus:ring-0"
+				placeholder="Search..."
+			/>
+		</label>
 	</div>
 	<!-- create account details & join in -->
-	<div class="flex h-[40px] items-center gap-5">
+	<div class="flex items-center gap-2">
 		{#if is_authenticated}
-			<button class="btn btn-primary btn-md font-bold">
-				<PlusIcon /> <span>Create New</span>
+			<button class="btn btn-primary h-10 px-3">
+				<coreproject-shape-plus variant="no-border" class="size-5"></coreproject-shape-plus>
+				<span class="font-semibold">Create</span>
 			</button>
-			<NotificationIcon />
-			<div draggable="false" class="avatar cursor-pointer select-none">
-				<div class="w-[50px] rounded-[15px]">
-					<img
-						draggable="false"
-						alt="avatar"
-						src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-					/>
-				</div>
+			<button aria-label="Notifications" class="btn btn-neutral size-10 p-0">
+				<NotificationIcon class="size-6" />
+			</button>
+			<div class="avatar btn size-10 overflow-hidden p-0">
+				<img draggable="false" alt="moonlitgrace" src="https://github.com/moonlitgrace.png" />
 			</div>
 		{:else}
-			<button class="btn btn-primary btn-md font-bold">Join In!</button>
+			<button class="btn btn-primary h-10 px-3 font-bold">Join In!</button>
 		{/if}
 	</div>
 </header>
