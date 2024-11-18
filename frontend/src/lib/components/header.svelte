@@ -17,15 +17,15 @@
 		<div class="flex gap-2">
 			<a href="/" aria-label="Home" class="flex items-center gap-2">
 				<coreproject-shape-home class="size-5 text-primary"></coreproject-shape-home>
-				<span class="font-bold">Home</span>
+				<span class="text-sm font-bold">Home</span>
 			</a>
 			<a href="/q/popular" aria-label="Popular Quibbles" class="flex items-center gap-2">
 				<ChartBarsIcon variant="popular" class="size-5" />
-				<span class="font-bold">Popular</span>
+				<span class="text-sm font-bold">Popular</span>
 			</a>
 			<a href="/q/all" aria-label="All Quibbles" class="flex items-center gap-2">
 				<ChartBarsIcon variant="all" class="size-5" />
-				<span class="font-bold">All</span>
+				<span class="text-sm font-bold">All</span>
 			</a>
 		</div>
 		<label
@@ -44,7 +44,7 @@
 		{#if is_authenticated}
 			<button aria-label="Create Quibble" class="btn btn-primary h-10 px-3">
 				<coreproject-shape-plus variant="no-border" class="size-5"></coreproject-shape-plus>
-				<span class="font-semibold">Create</span>
+				<span class="text-sm font-semibold">Create</span>
 			</button>
 			<button aria-label="Notifications" class="btn btn-neutral size-10 p-0">
 				<NotificationIcon class="size-6" />
@@ -53,7 +53,10 @@
 				<img draggable="false" alt="moonlitgrace" src="https://github.com/moonlitgrace.png" />
 			</button>
 		{:else}
-			<button class="btn btn-primary h-10 px-3 font-bold">Join In!</button>
+			<button class="btn btn-primary h-10 px-3 text-sm font-bold">
+				Join In!
+				<coreproject-shape-log-in class="size-4"></coreproject-shape-log-in>
+			</button>
 		{/if}
 	</div>
 </header>
