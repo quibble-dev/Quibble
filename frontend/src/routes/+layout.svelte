@@ -4,6 +4,7 @@
 	import Header from '$lib/components/header.svelte';
 
 	import '../app.css';
+	import LeftPanel from '$lib/components/LeftPanel/LeftPanel.svelte';
 	let { children } = $props();
 
 	onMount(() => {
@@ -13,5 +14,6 @@
 
 <main class="font-sans">
 	<Header />
+	<LeftPanel/>
 	{@render children()}
 </main>

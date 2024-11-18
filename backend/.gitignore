@@ -21,6 +21,7 @@ graph_*.png
 # Byte-compiled / optimized / DLL files
 *.py[cod]
 *$py.class
+/backend/.env.example
 
 # C extensions
 *.so
