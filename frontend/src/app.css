@@ -81,9 +81,9 @@
 }
 
 /* daisyui */
-/* .input { */
-/*   @apply focus-within:outline-none; */
-/* } */
+.input {
+	@apply focus-within:outline-none;
+}
 
 .btn {
 	@apply min-h-max;
