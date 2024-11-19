@@ -2,11 +2,10 @@ from django.contrib.auth import authenticate
 from rest_framework import permissions, views, exceptions
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
-
 from drf_spectacular.utils import extend_schema
-from drf_standardized_errors.openapi_serializers import ErrorResponse401Serializer
 
 from core.exceptions import ServerError
+from core.serializers import DetailResponseSerializer
 from .serializers import ProfileSerializer, AuthSerializer, AuthTokenResponseSerializer
 
 
@@ -20,12 +19,7 @@ class LoginAPIView(views.APIView):
 
     serializer_class = AuthSerializer
 
-    @extend_schema(
-        responses={
-            200: AuthTokenResponseSerializer,
-            401: ErrorResponse401Serializer,
-        }
-    )
+    @extend_schema(responses=AuthTokenResponseSerializer)
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -45,6 +39,7 @@ class LogoutAPIView(views.APIView):
     """
 
     permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = DetailResponseSerializer
 
     def post(self, request, format=None):
         try:
@@ -66,6 +61,7 @@ class MeAPIView(views.APIView):
     """
 
     permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = ProfileSerializer
 
     def get(self, request):
         if request.user_profile:

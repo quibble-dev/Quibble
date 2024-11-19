@@ -60,6 +60,9 @@ class MyProfilesViewSet(viewsets.ModelViewSet):
         """
         Restrict queryset to profiles owned by the currently authenticated user.
         """
+        # during schema generation
+        if getattr(self, 'swagger_fake_view', False):
+            return Profile.objects.none()
         user = self.request.user
         return user.profiles.all()
 
