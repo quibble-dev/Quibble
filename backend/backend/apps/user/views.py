@@ -39,8 +39,8 @@ class LogoutAPIView(views.APIView):
     """
 
     permission_classes = (permissions.IsAuthenticated,)
-    serializer_class = DetailResponseSerializer
 
+    @extend_schema(request=None, responses=DetailResponseSerializer)
     def post(self, request, format=None):
         try:
             Token.objects.filter(user=request.user).delete()
