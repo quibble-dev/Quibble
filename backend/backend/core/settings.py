@@ -61,6 +61,9 @@ INSTALLED_APPS = [
     'django_filters',
     # middleware (cors)
     'corsheaders',
+    # openapi
+    'drf_spectacular',
+    'drf_spectacular_sidecar',
     # file middleware (should be at last)
     'django_cleanup',
 ]
@@ -78,6 +81,36 @@ REST_FRAMEWORK = {
     # 'VERSION_PARAM': 'v',
     # error handling
     'EXCEPTION_HANDLER': 'drf_standardized_errors.handler.exception_handler',
+    # openapi
+    'DEFAULT_SCHEMA_CLASS': 'drf_standardized_errors.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'QuibbleAPI',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # sidecar config
+    'SWAGGER_UI_DIST': 'SIDECAR',
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
+    # integrate with drf-standardized-errors
+    # https://drf-standardized-errors.readthedocs.io/en/latest/openapi.html#
+    'ENUM_NAME_OVERRIDES': {
+        'ValidationErrorEnum': 'drf_standardized_errors.openapi_serializers.ValidationErrorEnum.choices',
+        'ClientErrorEnum': 'drf_standardized_errors.openapi_serializers.ClientErrorEnum.choices',
+        'ServerErrorEnum': 'drf_standardized_errors.openapi_serializers.ServerErrorEnum.choices',
+        'ErrorCode401Enum': 'drf_standardized_errors.openapi_serializers.ErrorCode401Enum.choices',
+        'ErrorCode403Enum': 'drf_standardized_errors.openapi_serializers.ErrorCode403Enum.choices',
+        'ErrorCode404Enum': 'drf_standardized_errors.openapi_serializers.ErrorCode404Enum.choices',
+        'ErrorCode405Enum': 'drf_standardized_errors.openapi_serializers.ErrorCode405Enum.choices',
+        'ErrorCode406Enum': 'drf_standardized_errors.openapi_serializers.ErrorCode406Enum.choices',
+        'ErrorCode415Enum': 'drf_standardized_errors.openapi_serializers.ErrorCode415Enum.choices',
+        'ErrorCode429Enum': 'drf_standardized_errors.openapi_serializers.ErrorCode429Enum.choices',
+        'ErrorCode500Enum': 'drf_standardized_errors.openapi_serializers.ErrorCode500Enum.choices',
+    },
+    'POSTPROCESSING_HOOKS': [
+        'drf_standardized_errors.openapi_hooks.postprocess_schema_enums',
+    ],
 }
 
 MIDDLEWARE = [

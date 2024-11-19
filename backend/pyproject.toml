@@ -34,6 +34,8 @@ django-cors-headers = "^4.6.0"
 django-rest-knox = "^5.0.2"
 # 3rd party (semantic versioning)
 semantic-version = "^2.10.0"
+# OpenAPI
+drf-spectacular = {extras = ["sidecar"], version = "^0.27.2"}
 
 [tool.poetry.group.dev.dependencies]
 # task runner
