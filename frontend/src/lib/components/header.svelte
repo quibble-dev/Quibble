@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ChartBarsIcon from '$lib/components/icons/chart_bars.svelte';
 	import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
+	import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
 	import NotificationIcon from '$lib/components/icons/notification.svelte';
 
 	let is_authenticated = $state(true);
@@ -10,7 +11,7 @@
 	<!-- quibble logo -->
 	<a href="/" aria-label="Quibble Home" class="flex items-center gap-2">
 		<QuibbleLogo class="size-7" />
-		<h1 class="font-riffic text-2xl text-white">Quibble</h1>
+		<QuibbleTextLogo class="h-7 w-auto" />
 	</a>
 	<!-- search bar and navigates -->
 	<div class="flex items-center gap-5">
