@@ -1,4 +1,3 @@
-## Overview
 Welcome to the **QuibbleAPI Documentation**!\
 This API powers the **Quibble** platform, enabling seamless interaction between the backend and your frontend or mobile applications.
 
@@ -9,7 +8,7 @@ Use this documentation as a reference for all available endpoints, their paramet
 All endpoints (unless specified otherwise) require authentication to ensure secure access to user-specific resources.\
 Quibble uses **token-based authentication** powered by DRF.
 
-#### Authentication Flow
+### How it works:
 1. **Obtain Token**: Users authenticate by providing valid credentials (e.g., email and password) to receive an access token.
 2. **Include Token in Requests**: Include the received token in the `Authorization` header of subsequent API requests:
    ```
