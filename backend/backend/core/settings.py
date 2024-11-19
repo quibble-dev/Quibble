@@ -89,8 +89,13 @@ DRF_STANDARDIZED_ERRORS = {
     'ALLOWED_ERROR_STATUS_CODES': ['400', '403', '404', '429'],
 }
 
+# https://drf-standardized-errors.readthedocs.io/en/latest/openapi.html#hide-error-responses-that-show-in-every-operation
+with open(os.path.join(BASE_DIR, 'openapi_description.md')) as f:
+    openapi_description = f.read()
+
 SPECTACULAR_SETTINGS = {
     'TITLE': 'QuibbleAPI',
+    'DESCRIPTION': openapi_description,
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
     # sidecar config
@@ -101,8 +106,8 @@ SPECTACULAR_SETTINGS = {
     'SWAGGER_UI_SETTINGS': {
         'deepLinking': True,
         'persistAuthorization': True,
-        'displayOperationId': True,
         'defaultModelsExpandDepth': -1,
+        'displayRequestDuration': True,
     },
     # integrate with drf-standardized-errors
     # https://drf-standardized-errors.readthedocs.io/en/latest/openapi.html#
