@@ -102,6 +102,7 @@ SPECTACULAR_SETTINGS = {
         'deepLinking': True,
         'persistAuthorization': True,
         'displayOperationId': True,
+        'defaultModelsExpandDepth': -1,
     },
     # integrate with drf-standardized-errors
     # https://drf-standardized-errors.readthedocs.io/en/latest/openapi.html#

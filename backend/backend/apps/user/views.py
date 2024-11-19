@@ -20,10 +20,12 @@ class LoginAPIView(views.APIView):
 
     serializer_class = AuthSerializer
 
-    @extend_schema(responses={
-        200: AuthTokenResponseSerializer,
-        401: ErrorResponse401Serializer,
-    })
+    @extend_schema(
+        responses={
+            200: AuthTokenResponseSerializer,
+            401: ErrorResponse401Serializer,
+        }
+    )
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
