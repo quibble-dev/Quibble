@@ -65,7 +65,7 @@ class MeAPIView(views.APIView):
 
     def get(self, request):
         if request.user_profile:
-            serializer = ProfileSerializer(request.user_profile)
+            serializer = self.serializer_class(request.user_profile)
             return Response(serializer.data)
         else:
             raise exceptions.ValidationError('A valid profile must be provided.')
