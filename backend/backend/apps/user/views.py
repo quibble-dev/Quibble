@@ -3,8 +3,11 @@ from rest_framework import permissions, views, exceptions
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
+from drf_spectacular.utils import extend_schema
+from drf_standardized_errors.openapi_serializers import ErrorResponse401Serializer
+
 from core.exceptions import ServerError
-from .serializers import ProfileSerializer
+from .serializers import ProfileSerializer, AuthSerializer, AuthTokenResponseSerializer
 
 
 class LoginAPIView(views.APIView):
@@ -15,7 +18,15 @@ class LoginAPIView(views.APIView):
     and issues a token upon successful login.
     """
 
+    serializer_class = AuthSerializer
+
+    @extend_schema(responses={
+        200: AuthTokenResponseSerializer,
+        401: ErrorResponse401Serializer,
+    })
     def post(self, request, format=None):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
         user = authenticate(
             email=request.data.get('email'), password=request.data.get('password')
         )
