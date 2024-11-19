@@ -393,6 +393,8 @@ files = [
 [package.dependencies]
 django = ">=3.2"
 djangorestframework = ">=3.12"
+drf-spectacular = {version = ">=0.27.0", optional = true, markers = "extra == \"openapi\""}
+inflection = {version = "*", optional = true, markers = "extra == \"openapi\""}
 
 [package.extras]
 dev = ["pre-commit"]
@@ -1072,4 +1074,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "5ce31619539d1db145f92cf9faa3a6e26bf7c594f791abe04964abe492233e05"
+content-hash = "5b40722b8d1ed017ae3213ae15438b8194e4aa77b29fc1d5b1384c3bf4a8c1cf"

@@ -24,8 +24,6 @@ django-cleanup = "^9.0.0"
 # rest framework and plugins
 djangorestframework = "^3.15.2"
 markdown = "^3.7"
-# 3rd party (custom error handling)
-drf-standardized-errors = "^0.14.1"
 # 3rd party (django filtering)
 django-filter = "^24.3"
 # 3rd party (cors headers)
@@ -36,6 +34,8 @@ django-rest-knox = "^5.0.2"
 semantic-version = "^2.10.0"
 # OpenAPI
 drf-spectacular = {extras = ["sidecar"], version = "^0.27.2"}
+# 3rd party exception handler
+drf-standardized-errors = {extras = ["openapi"], version = "^0.14.1"}
 
 [tool.poetry.group.dev.dependencies]
 # task runner
