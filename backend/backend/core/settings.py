@@ -85,6 +85,10 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_standardized_errors.openapi.AutoSchema',
 }
 
+DRF_STANDARDIZED_ERRORS = {
+    'ALLOWED_ERROR_STATUS_CODES': ['400', '403', '404', '429'],
+}
+
 SPECTACULAR_SETTINGS = {
     'TITLE': 'QuibbleAPI',
     'VERSION': '1.0.0',
@@ -94,10 +98,10 @@ SPECTACULAR_SETTINGS = {
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
     'REDOC_DIST': 'SIDECAR',
     # https://swagger.io/docs/open-source-tools/swagger-ui/usage/configuration/
-    "SWAGGER_UI_SETTINGS": {
-        "deepLinking": True,
-        "persistAuthorization": True,
-        "displayOperationId": True,
+    'SWAGGER_UI_SETTINGS': {
+        'deepLinking': True,
+        'persistAuthorization': True,
+        'displayOperationId': True,
     },
     # integrate with drf-standardized-errors
     # https://drf-standardized-errors.readthedocs.io/en/latest/openapi.html#
