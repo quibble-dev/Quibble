@@ -2,7 +2,7 @@
 	import Post from './RightPost.svelte';
 </script>
 
-<div class="fixed right-0 h-screen w-80">
+<div class="fixed top-16 bottom-0  mx-3 right-0 l  h-screen w-80">
 	<h2 class="text-info py-4 font-sans font-semibold">Recent Posts</h2>
 	<!-- recent posts -->
 	<div class="flex flex-col gap-6">

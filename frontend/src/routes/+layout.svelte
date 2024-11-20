@@ -6,6 +6,7 @@
 	import '../app.css';
 	import LeftPanel from '$lib/components/LeftPanel/LeftPanel.svelte';
 	import RightPanel from '$lib/components/RightPanel/rightPanel.svelte';
+
 	let { children } = $props();
 
 	onMount(() => {
@@ -15,7 +16,9 @@
 
 <main class="font-sans">
 	<Header />
-	<LeftPanel/>
-	<RightPanel/>
+	<LeftPanel />
+	
+	<RightPanel />
+
 	{@render children()}
 </main>

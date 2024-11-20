@@ -9,7 +9,7 @@
 	const YEAR = new Date().getFullYear();
 </script>
 
-<div class="bg-base-300 fixed h-screen w-64  px-5">
+<div class="bg-base-300 fixed top-16 left-0 bottom-0    h-screen w-64  px-5">
 	<div class=" py-1">
 		<!-- Filter and Create -->
 		<div class="mb-3 py-2">
@@ -59,7 +59,7 @@
 			<h1 class="text-base-content/50 font-mdeium">Resources</h1>
 			<div class="flex flex-col gap-2 py-3">
 				<span class="flex cursor-pointer items-center space-x-2">
-					<AboutIcon />
+					<coreicons-shape-info></coreicons-shape-info>
 					<span class="text-base font-semibold">About Quibble</span>
 				</span>
 				<span class="flex cursor-pointer items-center space-x-2">

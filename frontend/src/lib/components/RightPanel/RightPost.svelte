@@ -22,11 +22,11 @@
 			img={userImg}
 		/>
 		<div class="cursor-pointer">
-			<h1
+			<h2
 				class="text-info font-sans text-xl font-extrabold transition-all duration-1000 hover:underline"
 			>
 			{title}
-			</h1>
+			</h2>
 		</div>
 		<div class="flex gap-2">
 			<p class="text-base-content text-sm font-medium">{votes} upvotes</p>

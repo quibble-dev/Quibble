@@ -6,7 +6,7 @@
 	let is_authenticated = $state(true);
 </script>
 
-<header class="flex items-center justify-between border-b border-neutral bg-base-200 p-2.5 px-4">
+<header class="flex items-center fixed top-0 z-50 w-full justify-between border-b border-neutral bg-base-200 p-2.5 px-4">
 	<!-- quibble logo -->
 	<a href="/" aria-label="Quibble Home" class="flex items-center gap-2">
 		<QuibbleLogo class="size-7" />
