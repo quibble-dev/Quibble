@@ -10,8 +10,7 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: 'DM Sans, sans-serif',
-				riffic: 'Riffic, sans-serif'
+				sans: 'DM Sans, sans-serif'
 			}
 		}
 	},

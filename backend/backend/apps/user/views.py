@@ -2,9 +2,11 @@ from django.contrib.auth import authenticate
 from rest_framework import permissions, views, exceptions
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from drf_spectacular.utils import extend_schema
 
 from core.exceptions import ServerError
-from .serializers import ProfileSerializer
+from core.serializers import DetailResponseSerializer
+from .serializers import ProfileSerializer, AuthSerializer, AuthTokenResponseSerializer
 
 
 class LoginAPIView(views.APIView):
@@ -15,7 +17,12 @@ class LoginAPIView(views.APIView):
     and issues a token upon successful login.
     """
 
+    serializer_class = AuthSerializer
+
+    @extend_schema(responses=AuthTokenResponseSerializer)
     def post(self, request, format=None):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
         user = authenticate(
             email=request.data.get('email'), password=request.data.get('password')
         )
@@ -33,6 +40,7 @@ class LogoutAPIView(views.APIView):
 
     permission_classes = (permissions.IsAuthenticated,)
 
+    @extend_schema(request=None, responses=DetailResponseSerializer)
     def post(self, request, format=None):
         try:
             Token.objects.filter(user=request.user).delete()
@@ -53,10 +61,11 @@ class MeAPIView(views.APIView):
     """
 
     permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = ProfileSerializer
 
     def get(self, request):
         if request.user_profile:
-            serializer = ProfileSerializer(request.user_profile)
+            serializer = self.serializer_class(request.user_profile)
             return Response(serializer.data)
         else:
             raise exceptions.ValidationError('A valid profile must be provided.')

@@ -56,10 +56,13 @@ class MyProfilesViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = ProfileSerializer
 
-    def get_queryset(self):
+    def get_queryset(self):  # pyright: ignore [reportIncompatibleMethodOverride]
         """
         Restrict queryset to profiles owned by the currently authenticated user.
         """
+        # during schema generation
+        if getattr(self, 'swagger_fake_view', False):
+            return Profile.objects.none()
         user = self.request.user
         return user.profiles.all()
 
