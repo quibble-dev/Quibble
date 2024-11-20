@@ -72,9 +72,9 @@ reset_db = "python ./backend/manage.py reset_db"
 format = "black ./ -S"
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = 'core.settings'
-pythonpath = 'backend'
-python_files = ['test_*.py']
+DJANGO_SETTINGS_MODULE = "core.settings"
+pythonpath = [".", "backend"]
+python_files = ["test_*.py"]
 
 [tool.black]
 line-length = 92
