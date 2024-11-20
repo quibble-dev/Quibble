@@ -64,7 +64,7 @@ sync = "python ./backend/manage.py migrate"
 mksync = "python ./backend/manage.py makemigrations"
 createsuperuser = "python ./backend/manage.py createsuperuser"
 # test and coverage
-test = "pytest --cov=backend ./tests/"
+test = "pytest --cov-config=./.coveragerc --cov=./backend/ ./tests/"
 # django extentions
 graph = "python ./backend/manage.py graph_models --pydot -a --hide-edge-labels -o graph_models.png"
 reset_db = "python ./backend/manage.py reset_db"
