@@ -54,8 +54,8 @@ black = "^24.10.0"
 [tool.poetry.group.test.dependencies]
 # pytest and plugins
 pytest = "^8.3.3"
+pytest-cov = "^6.0.0"
 pytest-django = "^4.9.0"
-coverage = "^7.6.7"
 
 [tool.poe.tasks]
 dev = "python ./backend/manage.py runserver"
@@ -63,9 +63,8 @@ dev = "python ./backend/manage.py runserver"
 sync = "python ./backend/manage.py migrate"
 mksync = "python ./backend/manage.py makemigrations"
 createsuperuser = "python ./backend/manage.py createsuperuser"
-# test and coverages
-test = "pytest ./tests/"
-coverage = "coverage run -m pytest ./tests/"
+# test and coverage
+test = "pytest --cov=backend ./tests/"
 # django extentions
 graph = "python ./backend/manage.py graph_models --pydot -a --hide-edge-labels -o graph_models.png"
 reset_db = "python ./backend/manage.py reset_db"
