@@ -26,8 +26,9 @@ def api_client():
 @pytest.fixture
 def auth_api_client(api_client, user, user_profile):
     """Returns an authenticated API client."""
-    token, _ = Token.objects.get_or_create(user=user)
-    # authenticate user
+    # create token for user
+    token = Token.objects.create(user=user)
+    # add essential headers to api requests
     api_client.credentials(
         HTTP_AUTHORIZATION=f"Bearer {token.key}", HTTP_PROFILE_ID=str(user_profile.id)
     )
