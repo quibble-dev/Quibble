@@ -6,7 +6,7 @@
 	};
 	import Star from '$lib/components/icons/StarIcon.svelte';
 	import StarFill from '$lib/components/icons/StarFill.svelte';
-	
+
 	let { name, stared, img }: User = $props();
 </script>
 
