@@ -34,9 +34,9 @@
 		<div class="w-full">
 			<h1 class="text-base-content/50 font-medium">Favourites</h1>
 			<div class="py-3">
-				<UserListItem img="" name="danish" stared={true} />
+				<UserListItem img="https://i.pinimg.com/736x/40/d4/71/40d47153ab90765038b9b1f4116abd99.jpg" name="megan fox" stared={true} />
 				<UserListItem
-					img="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+					img="https://avatars.githubusercontent.com/u/114811070?v=4"
 					name="suneeth"
 					stared={true}
 				/>
@@ -46,10 +46,10 @@
 		<div class="w-full">
 			<h1 class="text-base-content/50 font-medium">Your Communities</h1>
 			<div class="py-3">
-				<User img="" name="staff" stared={false} />
+				<User img="https://i.pinimg.com/736x/ea/14/85/ea14855f10b6afeb4573145a6dffafe6.jpg" name="ortega" stared={true} />
 				<User
-					img="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-					name="john"
+					img="https://avatars.githubusercontent.com/u/102005928?v=4"
+					name="danish"
 					stared={false}
 				/>
 			</div>
