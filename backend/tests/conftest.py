@@ -2,13 +2,14 @@ import pytest
 from rest_framework.test import APIClient
 from rest_framework.authtoken.models import Token
 
-from apps.user.models import User
+from django_core.apps.user.models import User
 
 
 @pytest.fixture
 def user():
     """Creates a user."""
     return User.objects.create(email='test@test.com', password='testpass')
+
 
 @pytest.fixture
 def profile():

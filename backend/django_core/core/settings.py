@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', 'ilovequibble')
+SECRET_KEY = os.getenv('SECRET_KEY', 'ilovedjango_core')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv('DEBUG', 1))
@@ -42,7 +42,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # auth related app on top
-    'apps.user',
+    'django_core.apps.user',
     # django middlewares
     'django.contrib.admin',
     'django.contrib.auth',
@@ -70,7 +70,7 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'apps.user.auth.ExtendedTokenAuthentication',
+        'django_core.apps.user.auth.ExtendedTokenAuthentication',
     ],
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -220,7 +220,7 @@ AUTH_USER_MODEL = 'user.User'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     # custom auth backend
-    'apps.user.backends.EmailAuthBackend',
+    'django_core.apps.user.backends.EmailAuthBackend',
 ]
 
 # django-cors-headers settins

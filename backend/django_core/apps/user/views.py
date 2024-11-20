@@ -4,8 +4,9 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema
 
-from core.exceptions import ServerError
-from core.serializers import DetailResponseSerializer
+from django_core.common.exceptions import ServerError
+from django_core.common.serializers import DetailResponseSerializer
+
 from .serializers import ProfileSerializer, AuthSerializer, AuthTokenResponseSerializer
 
 
