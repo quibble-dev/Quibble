@@ -1,5 +1,7 @@
 <script>
-	import Hot from "../icons/Hot.svelte";
+	import Card from "../icons/card.svelte";
+import Compact from "../icons/compact.svelte";
+import Hot from "../icons/Hot.svelte";
 	import New from "../icons/new.svelte";
 	import Rocket from "../icons/rocket.svelte";
 	import Top from "../icons/top.svelte";
@@ -24,14 +26,14 @@
       <span class="text-sm font-bold">Top</span>
     </a>
   </div>
-  <div class="flex">
+  <div class="flex gap-4">
     <a href="/" aria-label="Home" class="flex items-center gap-2">
-      
-      <span class="text-sm font-bold">Home</span>
+       <Compact/>
+      <span class="text-sm font-bold">Compact view</span>
     </a>
     <a href="/" aria-label="Home" class="flex items-center gap-2">
-      <coreproject-shape-home class="size-5 text-primary"></coreproject-shape-home>
-      <span class="text-sm font-bold">Home</span>
+      <Card/>
+      <span class="text-sm font-bold">Card view</span>
     </a>
   </div>
 </div>

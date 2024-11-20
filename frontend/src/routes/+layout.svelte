@@ -17,7 +17,6 @@
 <main class="font-sans">
 	<Header />
 	<LeftPanel />
-	
 	<RightPanel />
 
 	{@render children()}

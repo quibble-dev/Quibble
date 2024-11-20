@@ -73,6 +73,9 @@
 	}
 }
 
+html {
+  @apply scrollbar-thin;
+}
 /* daisyui */
 .input {
 	@apply focus-within:outline-none;
