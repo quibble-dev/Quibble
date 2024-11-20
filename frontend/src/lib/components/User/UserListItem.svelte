@@ -21,7 +21,7 @@
 			</div>
 		{:else}
 			<div class="avatar">
-				<div class="w-[30px] rounded-full">
+				<div class="w-8 rounded-full">
 					<img alt="" src={img} />
 				</div>
 			</div>

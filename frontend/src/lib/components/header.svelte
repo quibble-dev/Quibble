@@ -51,7 +51,7 @@
 				<NotificationIcon class="size-6" />
 			</button>
 			<button aria-label="Profile" class="avatar btn size-10 overflow-hidden p-0">
-				<img draggable="false" alt="moonlitgrace" src="https://i.pinimg.com/736x/ed/ee/a3/edeea3f5e941c09ab9542148aea64de4.jpg" />
+				<img draggable="false" alt="moonlitgrace" src="https://i.pinimg.com/736x/c2/9b/68/c29b68c2d7c8d3a4cd6b607e478ff9cf.jpg" />
 			</button>
 		{:else}
 			<button class="btn btn-primary h-10 px-3 text-sm font-bold">
