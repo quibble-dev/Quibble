@@ -101,7 +101,6 @@ SPECTACULAR_SETTINGS = {
     # sidecar config
     'SWAGGER_UI_DIST': 'SIDECAR',
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
-    'REDOC_DIST': 'SIDECAR',
     # https://swagger.io/docs/open-source-tools/swagger-ui/usage/configuration/
     'SWAGGER_UI_SETTINGS': {
         'deepLinking': True,
