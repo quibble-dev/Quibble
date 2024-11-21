@@ -1,10 +1,9 @@
 [tool.poetry]
-name = "Quibble"
+name = "django_core"
 version = "0.1.0"
-description = "Delve into real conversations."
+description = "Django API backend for Quibble platform."
 authors = ["moonlitgrace <moonlitgrace.gaia@gmail.com>"]
 readme = "README.md"
-package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -55,20 +54,26 @@ black = "^24.10.0"
 # pytest and plugins
 pytest = "^8.3.3"
 pytest-cov = "^6.0.0"
+pytest-django = "^4.9.0"
 
 [tool.poe.tasks]
-dev = "python ./backend/manage.py runserver"
+dev = "python ./django_core/manage.py runserver"
 # migrations
-sync = "python ./backend/manage.py migrate"
-mksync = "python ./backend/manage.py makemigrations"
-createsuperuser = "python ./backend/manage.py createsuperuser"
-# pytest
-test = "pytest --cov=backend ./tests/"
+sync = "python ./django_core/manage.py migrate"
+mksync = "python ./django_core/manage.py makemigrations"
+createsuperuser = "python ./django_core/manage.py createsuperuser"
+# test and coverage
+test = "pytest --cov-config=./.coveragerc --cov=./django_core/ ./tests/"
 # django extentions
-graph = "python ./backend/manage.py graph_models --pydot -a --hide-edge-labels -o graph_models.png"
-reset_db = "python ./backend/manage.py reset_db"
+graph = "python ./django_core/manage.py graph_models --pydot -a --hide-edge-labels -o graph_models.png"
+reset_db = "python ./django_core/manage.py reset_db"
 # format with black
 format = "black ./ -S"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "core.settings"
+pythonpath = [".", "django_core"]
+python_files = ["test_*.py"]
 
 [tool.black]
 line-length = 92
