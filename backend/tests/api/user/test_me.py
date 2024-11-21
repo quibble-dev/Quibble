@@ -17,7 +17,7 @@ class TestMe:
         data = response.data
         assert len(data) == 1
 
-    def test_post_me_profiles(self, auth_api_client, user):
+    def test_post_me_profile(self, auth_api_client, user):
         payload = dict(username='test_profile')
 
         response = auth_api_client.post(self.api_url, payload, format='json')
@@ -27,7 +27,7 @@ class TestMe:
         assert data['username'] == payload['username']
         assert data['user']['email'] == user.email
 
-    def test_get_specific_me_profile(self, auth_api_client, user_profile):
+    def test_retrieve_me_profile(self, auth_api_client, user_profile):
         url = self.get_api_url_with_id(user_profile.id)
         response = auth_api_client.get(url)
 
@@ -36,7 +36,7 @@ class TestMe:
         assert data['username'] == user_profile.username
         assert data['user']['email'] == user_profile.user.email
 
-    def test_patch_specific_me_profile(self, auth_api_client, user_profile):
+    def test_patch_me_profile(self, auth_api_client, user_profile):
         url = self.get_api_url_with_id(user_profile.id)
         payload = dict(username='new_username')
 
@@ -48,7 +48,7 @@ class TestMe:
         assert data['username'] == user_profile.username
         assert data['username'] == payload['username']
 
-    def test_delete_specific_me_profile(self, auth_api_client, user_profile):
+    def test_delete_me_profile(self, auth_api_client, user_profile):
         url = self.get_api_url_with_id(user_profile.id)
 
         response = auth_api_client.delete(url)
