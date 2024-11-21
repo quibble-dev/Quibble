@@ -2,38 +2,33 @@ import pytest
 
 
 @pytest.mark.django_db
-def test_user_auth_request(auth_api_client, user, user_profile):
-    response = auth_api_client.get('/api/user/me/')
+class TestAuthEndpoints:
+    def test_authenticated_request(self, auth_api_client, user, user_profile):
+        response = auth_api_client.get('/api/user/me/')
 
-    assert response.status_code == 200
+        assert response.status_code == 200
 
-    data = response.data
-    assert data['user']['email'] == user.email
-    assert data['id'] == user_profile.id
-    assert data['username'] == user_profile.username
+        data = response.data
+        assert data['user']['email'] == user.email
+        assert data['id'] == user_profile.id
+        assert data['username'] == user_profile.username
 
+    def test_unauthenticated_request(self, api_client):
+        response = api_client.get('/api/user/me/')
 
-@pytest.mark.django_db
-def test_user_unauth_request(api_client):
-    response = api_client.get('/api/user/me/')
+        assert response.status_code == 401
 
-    assert response.status_code == 401
+    def test_login(self, api_client, user, token):
+        payload = {"email": user.email, "password": "testpass"}
 
+        response = api_client.post('/api/user/auth/login/', payload, format='json')
 
-@pytest.mark.django_db
-def test_user_login(api_client, user, token):
-    payload = dict(email=user.email, password='testpass')
+        assert response.status_code == 200
 
-    response = api_client.post('/api/user/auth/login/', payload, format='json')
+        data = response.data
+        assert data['token'] == token.key
 
-    assert response.status_code == 200
+    def test_logout(self, auth_api_client):
+        response = auth_api_client.post('/api/user/auth/logout/')
 
-    data = response.data
-    assert data['token'] == token.key
-
-
-@pytest.mark.django_db
-def test_user_logout(auth_api_client):
-    response = auth_api_client.post('/api/user/auth/logout/')
-
-    assert response.status_code == 200
+        assert response.status_code == 200
