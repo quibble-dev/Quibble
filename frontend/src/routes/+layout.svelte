@@ -1,11 +1,9 @@
 <script lang="ts">
+	import '../app.css';
 	import { onMount } from 'svelte';
 	import { defineCustomElements } from '@coreproject-moe/icons/loader';
 	import Header from '$lib/components/header.svelte';
-
-	import '../app.css';
-	import LeftPanel from '$lib/components/LeftPanel/LeftPanel.svelte';
-	import RightPanel from '$lib/components/RightPanel/rightPanel.svelte';
+	import Sidebar from '$lib/components/sidebar.svelte';
 
 	let { children } = $props();
 
@@ -16,8 +14,8 @@
 
 <main class="font-sans">
 	<Header />
-	<LeftPanel />
-	<RightPanel />
-
-	{@render children()}
+	<section class="flex w-full gap-5">
+		<Sidebar />
+		{@render children()}
+	</section>
 </main>

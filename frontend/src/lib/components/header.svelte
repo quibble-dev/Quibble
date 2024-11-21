@@ -7,13 +7,11 @@
 	let is_authenticated = $state(true);
 </script>
 
-<header class="flex items-center fixed top-0 z-50 w-full justify-between border-b border-neutral bg-base-200 p-2.5 px-4">
-	<!-- quibble logo -->
+<header class="flex items-center justify-between border-b border-neutral bg-base-200 p-2.5 px-4">
 	<a href="/" aria-label="Quibble Home" class="flex items-center gap-2">
 		<QuibbleLogo class="size-7" />
 		<QuibbleTextLogo class="h-7 w-auto" />
 	</a>
-	<!-- search bar and navigates -->
 	<div class="flex items-center gap-5">
 		<div class="flex gap-2">
 			<a href="/" aria-label="Home" class="flex items-center gap-2">
@@ -40,7 +38,6 @@
 			/>
 		</label>
 	</div>
-	<!-- create, account details & join in -->
 	<div class="flex items-center gap-2">
 		{#if is_authenticated}
 			<button aria-label="Create Quibble" class="btn btn-primary h-10 px-3">
@@ -51,7 +48,7 @@
 				<NotificationIcon class="size-6" />
 			</button>
 			<button aria-label="Profile" class="avatar btn size-10 overflow-hidden p-0">
-				<img draggable="false" alt="moonlitgrace" src="https://i.pinimg.com/736x/c2/9b/68/c29b68c2d7c8d3a4cd6b607e478ff9cf.jpg" />
+				<img draggable="false" alt="" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
 			</button>
 		{:else}
 			<button class="btn btn-primary h-10 px-3 text-sm font-bold">
