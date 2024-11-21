@@ -8,7 +8,13 @@ from django_core.apps.user.models import Profile, User
 @pytest.fixture
 def user():
     """Creates and returns a user."""
-    return User.objects.create(email='test@test.com', password='testpass')
+    return User.objects.create_user(email='test@test.com', password='testpass')
+
+
+@pytest.fixture
+def token(user):
+    """Creats and returns an auth token."""
+    return Token.objects.create(user=user)
 
 
 @pytest.fixture
@@ -24,11 +30,8 @@ def api_client():
 
 
 @pytest.fixture
-def auth_api_client(api_client, user, user_profile):
+def auth_api_client(api_client, user_profile, token):
     """Returns an authenticated API client."""
-    # create token for user
-    token = Token.objects.create(user=user)
-    # add essential headers to api requests
     api_client.credentials(
         HTTP_AUTHORIZATION=f"Bearer {token.key}", HTTP_PROFILE_ID=str(user_profile.id)
     )
