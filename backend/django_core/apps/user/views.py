@@ -1,11 +1,12 @@
 from django.contrib.auth import authenticate
-from rest_framework import permissions, views, exceptions
+from rest_framework import permissions, views, exceptions, generics
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema
 
-from core.exceptions import ServerError
-from core.serializers import DetailResponseSerializer
+from django_core.common.exceptions import ServerError
+from django_core.common.serializers import DetailResponseSerializer
+
 from .serializers import ProfileSerializer, AuthSerializer, AuthTokenResponseSerializer
 
 
@@ -21,8 +22,6 @@ class LoginAPIView(views.APIView):
 
     @extend_schema(responses=AuthTokenResponseSerializer)
     def post(self, request, format=None):
-        serializer = self.serializer_class(data=request.data)
-        serializer.is_valid(raise_exception=True)
         user = authenticate(
             email=request.data.get('email'), password=request.data.get('password')
         )
@@ -48,6 +47,14 @@ class LogoutAPIView(views.APIView):
 
         except Exception as e:
             raise ServerError(f"An error occurred while logging out: {str(e)}")
+
+
+class RegisterAPIView(generics.CreateAPIView):
+    """
+    View to handle registering of new users.
+    """
+
+    serializer_class = AuthSerializer
 
 
 class MeAPIView(views.APIView):

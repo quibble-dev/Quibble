@@ -26,7 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # api endpoints
     path('api/', include([
-        path('user/', include('apps.user.urls')),
+        path('user/', include('django_core.apps.user.urls')),
     ])),
     # openapi
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),

@@ -42,7 +42,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # auth related app on top
-    'apps.user',
+    'django_core.apps.user',
     # django middlewares
     'django.contrib.admin',
     'django.contrib.auth',
@@ -70,7 +70,7 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'apps.user.auth.ExtendedTokenAuthentication',
+        'django_core.apps.user.auth.ExtendedTokenAuthentication',
     ],
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -101,7 +101,6 @@ SPECTACULAR_SETTINGS = {
     # sidecar config
     'SWAGGER_UI_DIST': 'SIDECAR',
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
-    'REDOC_DIST': 'SIDECAR',
     # https://swagger.io/docs/open-source-tools/swagger-ui/usage/configuration/
     'SWAGGER_UI_SETTINGS': {
         'deepLinking': True,
@@ -221,7 +220,7 @@ AUTH_USER_MODEL = 'user.User'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     # custom auth backend
-    'apps.user.backends.EmailAuthBackend',
+    'django_core.apps.user.backends.EmailAuthBackend',
 ]
 
 # django-cors-headers settins
