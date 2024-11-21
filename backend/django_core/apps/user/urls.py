@@ -17,6 +17,7 @@ urlpatterns = [
     path('auth/', include([
         path('login/', views.LoginAPIView.as_view(), name='login'),
         path('logout/', views.LogoutAPIView.as_view(), name='logout'),
+        path('register/', views.RegisterAPIView.as_view(), name='register'),
     ])),
     # user view of requested user
     path('me/', views.MeAPIView.as_view(), name='me'),

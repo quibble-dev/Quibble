@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate
-from rest_framework import permissions, views, exceptions
+from rest_framework import permissions, views, exceptions, generics
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from drf_spectacular.utils import extend_schema
@@ -47,6 +47,14 @@ class LogoutAPIView(views.APIView):
 
         except Exception as e:
             raise ServerError(f"An error occurred while logging out: {str(e)}")
+
+
+class RegisterAPIView(generics.CreateAPIView):
+    """
+    View to handle registering of new users.
+    """
+
+    serializer_class = AuthSerializer
 
 
 class MeAPIView(views.APIView):

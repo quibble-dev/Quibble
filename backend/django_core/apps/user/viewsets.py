@@ -1,6 +1,5 @@
 from django.conf import settings
 from rest_framework import exceptions, permissions, viewsets, filters
-from rest_framework.decorators import action
 
 from .models import Profile, User
 from .serializers import (
@@ -9,9 +8,9 @@ from .serializers import (
 )
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    ViewSet for performing CRUD operations on the User model.
+    ViewSet for performing read-only operations on the User model.
 
     Additional Actions:
     - `<user_id>/profiles`: Retrieve all profiles associated with a specific user.
@@ -20,20 +19,10 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    @action(detail=True)
-    def profiles(self, request, pk=None):
-        """
-        Retrieve all profiles associated with a specific user.
-        """
-        user = self.get_object()
-        user_profiles = user.profiles.all()
-        serializer = ProfileSerializer(user_profiles, many=True)
-        return Response(serializer.data)
 
-
-class ProfileViewSet(viewsets.ModelViewSet):
+class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    ViewSet for performing CRUD operations on the Profile model.
+    ViewSet for performing read-only operations on the Profile model.
 
     Filtering:
     - Allows searching profiles by username.

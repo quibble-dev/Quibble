@@ -7,7 +7,6 @@ class TestAuthEndpoints:
         response = auth_api_client.get('/api/user/me/')
 
         assert response.status_code == 200
-
         data = response.data
         assert data['user']['email'] == user.email
         assert data['id'] == user_profile.id
@@ -24,7 +23,6 @@ class TestAuthEndpoints:
         response = api_client.post('/api/user/auth/login/', payload, format='json')
 
         assert response.status_code == 200
-
         data = response.data
         assert data['token'] == token.key
 
@@ -32,3 +30,12 @@ class TestAuthEndpoints:
         response = auth_api_client.post('/api/user/auth/logout/')
 
         assert response.status_code == 200
+
+    def test_register(self, api_client):
+        payload = dict(email='another@test.com', password='test')
+
+        response = api_client.post('/api/user/auth/register/', payload, format='json')
+
+        assert response.status_code == 201
+        data = response.data
+        assert data['email'] == payload['email']
