@@ -19,7 +19,7 @@ class TestAuthEndpoints:
         assert response.status_code == 401
 
     def test_login(self, api_client, user, token):
-        payload = {"email": user.email, "password": "testpass"}
+        payload = dict(email=user.email, password='testpass')
 
         response = api_client.post('/api/user/auth/login/', payload, format='json')
 
