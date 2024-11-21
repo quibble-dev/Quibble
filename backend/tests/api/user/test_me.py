@@ -4,7 +4,7 @@ from django_core.apps.user.models import Profile
 
 
 @pytest.mark.django_db
-class TestMeEndpoints:
+class TestMe:
     api_url = '/api/user/me/profiles/'
 
     def get_api_url_with_id(self, id):

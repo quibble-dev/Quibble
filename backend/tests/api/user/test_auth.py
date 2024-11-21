@@ -2,7 +2,7 @@ import pytest
 
 
 @pytest.mark.django_db
-class TestAuthEndpoints:
+class TestAuth:
     def test_authenticated_request(self, auth_api_client, user, user_profile):
         response = auth_api_client.get('/api/user/me/')
 

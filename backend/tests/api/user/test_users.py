@@ -2,7 +2,7 @@ import pytest
 
 
 @pytest.mark.django_db
-class TestUsersEndpoint:
+class TestUsers:
     api_endpoint = '/api/user/users/'
 
     def get_api_endpoint_with_id(self, id):

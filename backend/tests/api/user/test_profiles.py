@@ -2,7 +2,7 @@ import pytest
 
 
 @pytest.mark.django_db
-class TestProfilesEndpoints:
+class TestProfiles:
     api_endpoint = '/api/user/profiles/'
 
     def get_api_endpoint_with_id(self, id):
