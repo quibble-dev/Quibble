@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import HomeHeader from '$lib/components/Home/HomeHeader.svelte';
 	import Post from '$lib/components/Home/Post.svelte';
 	import mockPosts from '$lib/data/moks/post';
