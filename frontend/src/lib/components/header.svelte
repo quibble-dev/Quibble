@@ -13,7 +13,7 @@
 		<QuibbleLogo class="size-7" />
 		<QuibbleTextLogo class="h-7 w-auto" />
 	</a>
-	<div class="flex items-center gap-5">
+	<div class="hidden md:flex items-center gap-5">
 		<div class="flex gap-2">
 			<a href="/" aria-label="Home" class="flex items-center gap-2">
 				<coreicons-shape-home class="size-5 text-primary"></coreicons-shape-home>
@@ -39,7 +39,7 @@
 	</div>
 	<div class="flex items-center gap-2">
 		{#if is_authenticated}
-			<button aria-label="Create Quibble" class="btn btn-primary h-10 px-3">
+			<button aria-label="Create Quibble" class="btn btn-primary h-10 hidden sm:flex">
 				<coreicons-shape-plus variant="no-border" class="size-5"></coreicons-shape-plus>
 				<span class="text-sm font-semibold">Create</span>
 			</button>

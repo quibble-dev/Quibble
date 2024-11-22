@@ -74,11 +74,11 @@
 }
 
 html {
-	@apply scrollbar-thin;
+	@apply scrollbar-thin text-sm md:text-base;
 }
 /* daisyui */
 .input {
-	@apply focus-within:outline-none;
+	@apply ring-primary focus-within:outline-none focus-within:ring-1;
 }
 
 .btn {

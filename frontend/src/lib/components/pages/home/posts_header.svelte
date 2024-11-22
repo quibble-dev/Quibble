@@ -28,23 +28,23 @@
 	};
 </script>
 
-<div class="flex items-center justify-between">
-	<div class="flex gap-3">
+<div class="flex flex-col sm:flex-row items-center justify-between">
+	<div class="flex gap-3 w-full sm:w-auto">
 		{#each Object.entries(mapping.filters) as [key, item]}
 			{@const is_active = active_mapping.filter === key}
 
-			<div class="flex flex-col items-center gap-1">
+			<div class="flex flex-col items-center flex-1 sm:flex-auto transition-colors hover:bg-base-100 p-1 sm:px-2 rounded-xl">
 				<a href={item.href} aria-label={key} class="flex items-center gap-2">
 					<item.icon class="size-4" />
 					<span class="text-sm font-bold capitalize">{key}</span>
 				</a>
 				{#if is_active}
-					<div class="h-0.5 w-5 rounded-full bg-primary"></div>
+					<div class="h-0.5 w-2/3 mt-3 sm:w-5 sm:m-0 rounded-full bg-primary"></div>
 				{/if}
 			</div>
 		{/each}
 	</div>
-	<div class="flex gap-3">
+	<div class="hidden sm:flex gap-3">
 		<span class="text-sm font-bold">View:</span>
 		{#each Object.entries(mapping.view) as [key, item]}
 			{@const is_active = active_mapping.view === key}
