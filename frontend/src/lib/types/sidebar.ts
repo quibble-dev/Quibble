@@ -1,5 +1,5 @@
 export type SidebarCommunity = {
-  name: string
-  avatar?: string
-  starred: boolean
-}
+	name: string;
+	avatar?: string;
+	starred: boolean;
+};

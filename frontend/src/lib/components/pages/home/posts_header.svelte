@@ -5,35 +5,59 @@
 	import NewIcon from '$lib/components/icons/new.svelte';
 	import RocketIcon from '$lib/components/icons/rocket.svelte';
 	import TopIcon from '$lib/components/icons/top.svelte';
+
+	let active_mapping = $state<{
+		filter: keyof typeof mapping.filters;
+		view: keyof typeof mapping.view;
+	}>({
+		filter: 'best',
+		view: 'card'
+	});
+
+	const mapping = {
+		filters: {
+			best: { icon: RocketIcon, href: '/' },
+			hot: { icon: HotIcon, href: '/hot' },
+			new: { icon: NewIcon, href: '/new' },
+			top: { icon: TopIcon, href: '/top' }
+		},
+		view: {
+			compact: { icon: CompactIcon, onclick: () => {} },
+			card: { icon: CardIcon, onclick: () => {} }
+		}
+	};
 </script>
 
-<div class="flex h-7 w-full justify-between">
-	<div class="flex gap-4">
-		<a href="/" aria-label="Home" class="flex items-center gap-2">
-			<RocketIcon />
-			<span class="text-sm font-bold">Best</span>
-		</a>
-		<a href="/" aria-label="Home" class="flex items-center gap-2">
-			<HotIcon />
-			<span class="text-sm font-bold">Hot</span>
-		</a>
-		<a href="/" aria-label="Home" class="flex items-center gap-2">
-			<NewIcon />
-			<span class="text-sm font-bold">New</span>
-		</a>
-		<a href="/" aria-label="Home" class="flex items-center gap-2">
-			<TopIcon />
-			<span class="text-sm font-bold">Top</span>
-		</a>
+<div class="flex items-center justify-between">
+	<div class="flex gap-3">
+		{#each Object.entries(mapping.filters) as [key, item]}
+			{@const is_active = active_mapping.filter === key}
+
+			<div class="flex flex-col items-center gap-1">
+				<a href={item.href} aria-label={key} class="flex items-center gap-2">
+					<item.icon class="size-4" />
+					<span class="text-sm font-bold capitalize">{key}</span>
+				</a>
+				{#if is_active}
+					<div class="h-0.5 w-5 rounded-full bg-primary"></div>
+				{/if}
+			</div>
+		{/each}
 	</div>
-	<div class="flex gap-4">
-		<a href="/" aria-label="Home" class="flex items-center gap-2">
-			<CompactIcon />
-			<span class="text-sm font-bold">Compact view</span>
-		</a>
-		<a href="/" aria-label="Home" class="flex items-center gap-2">
-			<CardIcon />
-			<span class="text-sm font-bold">Card view</span>
-		</a>
+	<div class="flex gap-3">
+		<span class="text-sm font-bold">View:</span>
+		{#each Object.entries(mapping.view) as [key, item]}
+			{@const is_active = active_mapping.view === key}
+
+			<div class="flex flex-col items-center gap-1">
+				<button onclick={item.onclick} aria-label="{key} view" class="flex items-center gap-2">
+					<item.icon class="size-4" />
+					<span class="text-sm font-bold capitalize">{key}</span>
+				</button>
+				{#if is_active}
+					<div class="h-0.5 w-5 rounded-full bg-primary"></div>
+				{/if}
+			</div>
+		{/each}
 	</div>
 </div>

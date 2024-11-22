@@ -2,7 +2,7 @@ import aspectRatio from '@tailwindcss/aspect-ratio';
 import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
 import daisyui from 'daisyui';
-import tailwindScroll from "tailwind-scrollbar"
+import tailwindScroll from 'tailwind-scrollbar';
 import type { Config } from 'tailwindcss';
 
 export default {
@@ -20,5 +20,5 @@ export default {
 		themes: ['sunset']
 	},
 
-	plugins: [typography, forms, aspectRatio, daisyui,tailwindScroll]
+	plugins: [typography, forms, aspectRatio, daisyui, tailwindScroll]
 } satisfies Config;

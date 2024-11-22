@@ -12,9 +12,9 @@
 	});
 </script>
 
-<main class="font-sans">
+<main class="flex h-dvh w-dvw flex-col font-sans">
 	<Header />
-	<section class="flex w-full gap-5">
+	<section class="flex flex-1 overflow-y-scroll">
 		<Sidebar />
 		{@render children()}
 	</section>

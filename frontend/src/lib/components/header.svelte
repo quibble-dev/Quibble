@@ -48,7 +48,7 @@
 			</button>
 			<Avatar
 				parent_class="btn size-10 overflow-hidden p-0"
-        class="!size-full !rounded-none"
+				class="!size-full !rounded-none"
 				alt="daisy"
 				src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
 			/>
