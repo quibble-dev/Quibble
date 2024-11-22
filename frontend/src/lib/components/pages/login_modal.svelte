@@ -1,7 +1,7 @@
 <script lang="ts">
 	import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
 	import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
-	import { fade } from 'svelte/transition';
+
 	let { modal = $bindable() } = $props();
 
 	let username = $state('anime');
@@ -9,7 +9,7 @@
 </script>
 
 <dialog class="modal modal-bottom sm:modal-middle" bind:this={modal}>
-	<div class="modal-box flex  sm:w-[480px]  select-none flex-col p-10">
+	<div class="modal-box flex  sm:w-[480px]  select-none flex-col sm:p-10">
 		<span class="flex w-full items-center justify-center gap-2">
 			<QuibbleLogo class="size-7" />
 			<QuibbleTextLogo class="h-7 w-auto" />
@@ -41,7 +41,7 @@
 				</p>
 			</div>
 		{:else}
-			<div class="flex flex-col" transition:fade>
+			<div class="flex flex-col">
 				
 				<p class="py-4 text-center text-xl font-bold">Create new Profile</p>
 
@@ -50,7 +50,7 @@
 					<img
 						src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
 						alt="Profile Picture"
-						class="aspect-1 bg-neutral w-40 rounded-lg"
+						class="aspect-1 bg-neutral w-40 h-40 rounded-lg"
 					/>
 					<div class="ml-5 flex flex-col">
 						<h6 class="font-bold">Picture</h6>
@@ -76,13 +76,7 @@
 					bind:value={username}
 				/>
 
-				<button type="submit" class="btn btn-primary my-4">Continue</button>
-
-				<p class="text-center text-sm">
-					By continuing, you agree to the <span class="text-cyan-400">Terms of use</span>,
-					<span class="text-cyan-400">Privacy</span>
-					and <span class="text-cyan-400">Policy</span> Preplaced.
-				</p>
+				<button type="submit" class="btn btn-primary my-4" onclick={()=> tab = "login"}>Continue</button>
 			</div>
 		{/if}
 	</div>
