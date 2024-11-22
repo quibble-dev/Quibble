@@ -14,14 +14,12 @@
 						<Avatar src={post.community.avatar} alt={post.community.name} />
 						<a href="/q/{post.community.name}" class="text-xs font-bold">q/{post.community.name}</a>
 					</div>
-					<div class="cursor-pointer">
-						<a
-							href="/q/{post.community.name}/posts/{post.slug}"
-							class="font-extrabold text-info hover:underline"
-						>
-							{post.title}
-						</a>
-					</div>
+					<a
+						href="/q/{post.community.name}/posts/{post.slug}"
+						class="font-extrabold text-info hover:underline"
+					>
+						{post.title}
+					</a>
 					<div class="flex items-center gap-2">
 						<p class="text-xs font-medium">{readable(post.likes)} likes</p>
 						<coreicons-shape-circle variant="filled" class="size-0.5"></coreicons-shape-circle>
