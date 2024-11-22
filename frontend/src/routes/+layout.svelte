@@ -1,9 +1,10 @@
 <script lang="ts">
+	import '../app.css';
 	import { onMount } from 'svelte';
 	import { defineCustomElements } from '@coreproject-moe/icons/loader';
 	import Header from '$lib/components/header.svelte';
+	import Sidebar from '$lib/components/sidebar.svelte';
 
-	import '../app.css';
 	let { children } = $props();
 
 	onMount(() => {
@@ -11,7 +12,10 @@
 	});
 </script>
 
-<main class="font-sans">
+<main class="flex h-dvh w-dvw flex-col font-sans">
 	<Header />
-	{@render children()}
+	<section class="flex flex-1 overflow-y-scroll">
+		<Sidebar />
+		{@render children()}
+	</section>
 </main>
