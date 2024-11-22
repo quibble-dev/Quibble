@@ -20,9 +20,9 @@
 			<div class="divider text-xs">OR</div>
 
 			<label for="email" class="text-bold py-3">Email</label>
-			<input type="email" name="email" class="input bg-neutral w-full text-sm" />
+			<input type="email" name="email" class="input w-full bg-neutral text-sm" />
 			<label for="password" class="text-bold py-3">Password</label>
-			<input type="password" name="password" class="input bg-neutral w-full max-w-xs" />
+			<input type="password" name="password" class="input w-full max-w-xs bg-neutral" />
 
 			<button type="submit" class="btn btn-primary my-4">Continue</button>
 
