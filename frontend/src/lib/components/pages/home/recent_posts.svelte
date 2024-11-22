@@ -4,7 +4,7 @@
 	import Avatar from '$lib/components/ui/avatar.svelte';
 </script>
 
-<div class="sm:sticky top-0 flex w-80 flex-col gap-4 sm:overflow-y-scroll p-4 scrollbar-none">
+<div class="hidden sticky top-0 sm:flex w-80 flex-col gap-4 overflow-y-scroll p-4 scrollbar-none">
 	<h2 class="font-semibold">Recent Posts</h2>
 	<div class="flex flex-col gap-4">
 		{#each recent_posts as post}
