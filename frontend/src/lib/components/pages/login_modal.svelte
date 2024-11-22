@@ -4,7 +4,7 @@
 	import { fade } from 'svelte/transition';
 	let { modal = $bindable() } = $props();
 
-	let username = $state('moonisshit');
+	let username = $state('anime');
 	let tab = $state('login');
 </script>
 
