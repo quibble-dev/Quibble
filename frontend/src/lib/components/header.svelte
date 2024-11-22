@@ -4,16 +4,20 @@
 	import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
 	import NotificationIcon from '$lib/components/icons/notification.svelte';
 	import Avatar from '$lib/components/ui/avatar.svelte';
+	import LoginModal from './pages/login_modal.svelte';
 
-	let is_authenticated = $state(true);
+	let login_modal: HTMLDialogElement;
+
+	let is_authenticated = $state(false);
 </script>
 
 <header class="flex items-center justify-between border-b border-neutral bg-base-200 p-2.5 px-4">
+	<LoginModal bind:modal={login_modal} />
 	<a href="/" aria-label="Quibble Home" class="flex items-center gap-2">
 		<QuibbleLogo class="size-7" />
 		<QuibbleTextLogo class="h-7 w-auto" />
 	</a>
-	<div class="flex items-center gap-5">
+	<div class="hidden md:flex items-center gap-5">
 		<div class="flex gap-2">
 			<a href="/" aria-label="Home" class="flex items-center gap-2">
 				<coreicons-shape-home class="size-5 text-primary"></coreicons-shape-home>
@@ -53,7 +57,7 @@
 				src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
 			/>
 		{:else}
-			<button class="btn btn-primary h-10 px-3 text-sm font-bold">
+			<button class="btn btn-primary h-10 px-3 text-sm font-bold" onclick={()=> login_modal.showModal()}>
 				Join In!
 				<coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
 			</button>
