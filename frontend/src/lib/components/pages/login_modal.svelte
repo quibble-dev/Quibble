@@ -8,8 +8,8 @@
 	let tab = $state('login');
 </script>
 
-<dialog class="modal" bind:this={modal}>
-	<div class="modal-box flex w-[480px] select-none flex-col p-10">
+<dialog class="modal modal-bottom sm:modal-middle" bind:this={modal}>
+	<div class="modal-box flex  sm:w-[480px]  select-none flex-col p-10">
 		<span class="flex w-full items-center justify-center gap-2">
 			<QuibbleLogo class="size-7" />
 			<QuibbleTextLogo class="h-7 w-auto" />
