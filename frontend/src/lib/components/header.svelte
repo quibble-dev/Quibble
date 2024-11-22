@@ -3,6 +3,7 @@
 	import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
 	import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
 	import NotificationIcon from '$lib/components/icons/notification.svelte';
+	import Avatar from '$lib/components/ui/avatar.svelte';
 
 	let is_authenticated = $state(true);
 </script>
@@ -27,9 +28,7 @@
 				<span class="text-sm font-bold">All</span>
 			</a>
 		</div>
-		<label
-			class="input input-bordered flex h-10 w-96 items-center bg-transparent px-3 transition-colors focus-within:bg-base-100"
-		>
+		<label class="input input-bordered flex h-10 w-96 items-center bg-transparent px-3">
 			<coreicons-shape-search class="size-5"></coreicons-shape-search>
 			<input
 				type="text"
@@ -47,9 +46,12 @@
 			<button aria-label="Notifications" class="btn btn-neutral size-10 p-0">
 				<NotificationIcon class="size-6" />
 			</button>
-			<button aria-label="Profile" class="avatar btn size-10 overflow-hidden p-0">
-				<img draggable="false" alt="" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-			</button>
+			<Avatar
+				parent_class="btn size-10 overflow-hidden p-0"
+        class="!size-full !rounded-none"
+				alt="daisy"
+				src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+			/>
 		{:else}
 			<button class="btn btn-primary h-10 px-3 text-sm font-bold">
 				Join In!

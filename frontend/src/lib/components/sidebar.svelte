@@ -1,13 +1,13 @@
 <script lang="ts">
 	import QuibbleIcon from '$lib/components/icons/logos/quibble.svelte';
-
-	const YEAR = new Date().getFullYear();
+	import { sidebar_communities } from '$lib/data/mock/sidebar';
+	import Avatar from '$lib/components/ui/avatar.svelte';
 </script>
 
 <div class="flex w-72 flex-col gap-4 bg-base-300 p-4 scrollbar-thin">
 	<div class="flex flex-col gap-2">
 		<h2 class="font-semibold">Communities</h2>
-		<label class="input input-sm input-bordered flex items-center bg-transparent">
+		<label class="input input-sm input-bordered flex items-center rounded-lg bg-transparent">
 			<input
 				type="text"
 				class="grow border-none pl-0.5 pr-2 text-sm focus:ring-0"
@@ -21,32 +21,42 @@
 		</button>
 	</div>
 	<div class="flex flex-col gap-2">
-		<h3 class="text-sm font-semibold text-base-content/75">Favourites</h3>
+		<h3 class="text-sm font-medium text-base-content/75">Favourites</h3>
 		<div class="flex flex-col gap-2">
-			{#each ['AskQuibble', 'sveltejs'] as item}
+			{#each sidebar_communities['favorites'] as community}
 				<div class="flex items-center gap-2">
-					<a href="q/{item}" class="avatar">
-						<div class="w-6 rounded-full">
-							<img
-								src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-								alt=""
-							/>
-						</div>
+					<a href="q/{community.name}" class="flex">
+						<Avatar src={community.avatar} alt={community.name} />
 					</a>
-					<a href="q/{item}" class="text-sm font-semibold">q/{item}</a>
+					<a href="q/{community.name}" class="text-sm font-semibold">q/{community.name}</a>
 					<button class="ml-auto" aria-label="Star Community">
-						<coreicons-shape-star class="size-4"></coreicons-shape-star>
+						<coreicons-shape-star class="size-4" class:text-primary={community.starred}
+						></coreicons-shape-star>
 					</button>
 				</div>
 			{/each}
 		</div>
 	</div>
 	<div class="flex flex-col gap-2">
-		<h3 class="text-sm font-semibold text-base-content/75">Your Communities</h3>
+		<h3 class="text-sm font-medium text-base-content/75">Your Communities</h3>
+		<div class="flex flex-col gap-2">
+			{#each sidebar_communities['your_communities'] as community}
+				<div class="flex items-center gap-2">
+					<a href="q/{community.name}" class="flex">
+						<Avatar src={community.avatar} alt={community.name} />
+					</a>
+					<a href="q/{community.name}" class="text-sm font-semibold">q/{community.name}</a>
+					<button class="ml-auto" aria-label="Star Community">
+						<coreicons-shape-star class="size-4" class:text-primary={community.starred}
+						></coreicons-shape-star>
+					</button>
+				</div>
+			{/each}
+		</div>
 	</div>
 	<div class="flex flex-col gap-2">
 		<button class="flex items-center justify-between">
-			<h3 class="text-sm font-semibold text-base-content/75">Resources</h3>
+			<h3 class="text-sm font-medium text-base-content/75">Resources</h3>
 			<coreicons-shape-chevron class="size-4" variant="down"></coreicons-shape-chevron>
 		</button>
 		<div class="flex flex-col gap-2">
@@ -60,5 +70,5 @@
 			</a>
 		</div>
 	</div>
-	<p class="text-xs">Quibble © {YEAR}. All rights reserved.</p>
+	<p class="text-xs">Quibble © {new Date().getFullYear()}. All rights reserved.</p>
 </div>
