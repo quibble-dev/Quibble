@@ -4,15 +4,12 @@
 	import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
 	import NotificationIcon from '$lib/components/icons/notification.svelte';
 	import Avatar from '$lib/components/ui/avatar.svelte';
-	import LoginModal from './pages/login_modal.svelte';
-
-	let login_modal: HTMLDialogElement | undefined = $state();
+	import { open_modal } from '$lib/stores/modals.svelte';
 
 	let is_authenticated = $state(false);
 </script>
 
 <header class="flex items-center justify-between border-b border-neutral bg-base-200 p-2.5 px-4">
-	<LoginModal bind:modal={login_modal} />
 	<a href="/" aria-label="Quibble Home" class="flex items-center gap-2">
 		<QuibbleLogo class="size-7" />
 		<QuibbleTextLogo class="h-7 w-auto" />
@@ -59,7 +56,7 @@
 		{:else}
 			<button
 				class="btn btn-primary h-10 px-3 text-sm font-bold"
-				onclick={() => login_modal?.showModal()}
+				onclick={() => open_modal('login')}
 			>
 				Join In!
 				<coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
