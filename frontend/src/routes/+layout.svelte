@@ -4,7 +4,7 @@
 	import { defineCustomElements } from '@coreproject-moe/icons/loader';
 	import Header from '$lib/components/header.svelte';
 	import Sidebar from '$lib/components/sidebar.svelte';
-	import Modals from '$lib/components/modals/auth/index.svelte';
+	import Modals from '$lib/components/modals/index.svelte';
 
 	let { children } = $props();
 
