@@ -2,17 +2,27 @@
 	import GoogleLogo from '$lib/components/icons/logos/google.svelte';
 	import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
 	import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
+	import { cn } from '$lib/functions/classnames';
 	import type { FormProps } from './types';
 
 	let { on_submit }: FormProps = $props();
 
-	function handle_submit(e: SubmitEvent) {
-		const form_data = new FormData(e.target as HTMLFormElement);
-    // handle login logic here then call on_submit
-		on_submit({
-			email: form_data.get('email') as string,
-			password: form_data.get('password') as string
-		});
+	let pending = $state(false);
+
+	async function handle_submit(e: SubmitEvent) {
+		pending = true;
+		try {
+			const form_data = new FormData(e.target as HTMLFormElement);
+			// handle login logic here then call on_submit
+			await new Promise((resolve) => setTimeout(resolve, 2000));
+
+			on_submit({
+				email: form_data.get('email') as string,
+				password: form_data.get('password') as string
+			});
+		} finally {
+			pending = false;
+		}
 	}
 </script>
 
@@ -37,7 +47,7 @@
 			<input
 				type="email"
 				name="email"
-        required
+				required
 				class="grow border-none p-2 text-sm font-medium focus:ring-0"
 				placeholder="Email address"
 			/>
@@ -47,15 +57,23 @@
 			<input
 				type="password"
 				name="password"
-        required
-        minlength="8"
+				required
+				minlength="8"
 				class="grow border-none p-2 text-sm font-medium focus:ring-0"
 				placeholder="Password"
 			/>
 		</label>
-		<button type="submit" class="btn btn-primary">
-			Login
-			<coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
+		<button
+			type="submit"
+			class={cn(pending && 'btn-active pointer-events-none', 'btn btn-primary')}
+		>
+			{#if pending}
+				Logging in
+				<span class="loading loading-spinner loading-xs"></span>
+			{:else}
+				Log in
+				<coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
+			{/if}
 		</button>
 	</form>
 	<p class="text-center text-xs">
