@@ -38,7 +38,7 @@
 	bind:this={dialog_element}
 	onclose={() => close_modal('auth')}
 >
-	<div class="modal-box !w-[25rem] scale-[99%]">
+	<div class="modal-box !w-[25rem]">
 		{#await current_form then Form}
 			<Form.default {forms_state} {on_submit} {goto_form} />
 		{/await}

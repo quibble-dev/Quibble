@@ -23,7 +23,7 @@
 			<button class="flex flex-col justify-center gap-2.5">
 				<Avatar
 					class="!size-20 !rounded-2xl"
-					parent_class="outline outline-accent/75 hover:outline-accent transition-[outline] rounded-2xl outline-offset-4"
+					parent_class="outline outline-accent/75 hover:outline-accent transition-[outline] duration-300 rounded-2xl outline-offset-4"
 					src={profile.avatar}
 					alt={profile.username}
 				/>
@@ -32,7 +32,7 @@
 		{/each}
 		<button class="flex flex-col justify-center gap-2.5">
 			<div
-				class="grid size-20 place-items-center rounded-2xl bg-neutral outline outline-offset-4 outline-neutral/75 transition-[outline] hover:outline-neutral"
+				class="grid size-20 place-items-center rounded-2xl bg-neutral outline outline-offset-4 outline-neutral transition-[outline] hover:outline-neutral-content/25"
 			>
 				<coreicons-shape-plus variant="no-border" class="size-8"></coreicons-shape-plus>
 			</div>
