@@ -29,8 +29,7 @@
 				<span class="text-sm font-bold">All</span>
 			</a>
 		</div>
-		<label class="input input-bordered flex h-10 w-96 items-center bg-transparent px-3">
-			<coreicons-shape-search class="size-5"></coreicons-shape-search>
+		<label class="input input-bordered flex h-10 w-96 items-center bg-transparent px-3"> <coreicons-shape-search class="size-5"></coreicons-shape-search>
 			<input
 				type="text"
 				class="grow border-none text-sm font-semibold focus:ring-0"
@@ -56,7 +55,7 @@
 		{:else}
 			<button
 				class="btn btn-primary h-10 px-3 text-sm font-bold"
-				onclick={() => open_modal('login')}
+				onclick={() => open_modal('auth')}
 			>
 				Join In!
 				<coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>

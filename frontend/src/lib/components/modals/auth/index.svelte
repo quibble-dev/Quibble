@@ -15,6 +15,8 @@
 
 	let forms_state = $state<FormsState>(initial_forms_state);
 
+  $inspect(forms_state);
+
 	function on_submit(data: FormSubmitData) {
 		forms_state[_form] = data;
 	}
@@ -22,7 +24,7 @@
 	let dialog_element: HTMLDialogElement | undefined = undefined;
 
 	$effect(() => {
-		if (get_modals_state().get('login')) {
+		if (get_modals_state().get('auth')) {
 			dialog_element?.showModal();
 		}
 	});
@@ -31,9 +33,9 @@
 <dialog
 	class="modal modal-bottom sm:modal-middle"
 	bind:this={dialog_element}
-	onclose={() => close_modal('login')}
+	onclose={() => close_modal('auth')}
 >
-	<div class="modal-box flex select-none flex-col sm:w-[480px] sm:p-10">
+	<div class="modal-box !w-[25rem]">
 		{#await current_form then Form}
 			<Form.default {forms_state} {on_submit} />
 		{/await}

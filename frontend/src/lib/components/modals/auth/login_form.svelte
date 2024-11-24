@@ -1,39 +1,69 @@
 <script lang="ts">
+	import GoogleLogo from '$lib/components/icons/logos/google.svelte';
 	import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
 	import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
 	import type { FormProps } from './types';
 
-	let { forms_state }: FormProps = $props();
+	let { on_submit }: FormProps = $props();
 
-	console.log(forms_state);
+	function handle_submit(e: SubmitEvent) {
+		const form_data = new FormData(e.target as HTMLFormElement);
+    // handle login logic here then call on_submit
+		on_submit({
+			email: form_data.get('email') as string,
+			password: form_data.get('password') as string
+		});
+	}
 </script>
 
-<span class="flex w-full items-center justify-center gap-2">
-	<QuibbleLogo class="size-7" />
-	<QuibbleTextLogo class="h-7 w-auto" />
-</span>
-
-<div class="flex flex-col">
-	<p class="py-8 text-center text-xl font-bold">
-		Join in, share your take, and<br /> make some waves!
-	</p>
-	<button class="btn btn-neutral w-full gap-2">
-		<coreicons-logo-github class="size-5"></coreicons-logo-github>
+<div class="flex flex-col gap-4">
+	<div class="flex flex-col items-center justify-center gap-4">
+		<div class="flex items-center gap-2">
+			<QuibbleLogo class="size-7" />
+			<QuibbleTextLogo class="h-7 w-auto" />
+		</div>
+		<p class="text-center font-medium">
+			Join in, share your take, and<br /> make some waves!
+		</p>
+	</div>
+	<button class="btn btn-neutral hover:btn-ghost">
+		<GoogleLogo class="size-5" />
 		Continue with Google
 	</button>
-
-	<div class="divider text-xs">OR</div>
-
-	<label for="email" class="text-bold py-3">Email</label>
-	<input type="email" name="email" class="input w-full bg-neutral text-sm" />
-	<label for="password" class="text-bold py-3">Password</label>
-	<input type="password" name="password" class="input w-full bg-neutral text-sm" />
-
-	<button type="submit" class="btn btn-primary my-4">Continue</button>
-
-	<p class="text-center text-sm">
-		By continuing, you agree to the <span class="text-cyan-400">Terms of use</span>,
-		<span class="text-cyan-400">Privacy</span>
-		and <span class="text-cyan-400">Policy</span> Preplaced.
+	<div class="divider my-0 text-xs font-bold">OR</div>
+	<form class="flex flex-col gap-3" onsubmit={handle_submit}>
+		<label class="input input-bordered flex items-center gap-2">
+			<coreicons-shape-mail class="size-4"></coreicons-shape-mail>
+			<input
+				type="email"
+				name="email"
+        required
+				class="grow border-none p-2 text-sm font-medium focus:ring-0"
+				placeholder="Email address"
+			/>
+		</label>
+		<label class="input input-bordered flex items-center gap-2">
+			<coreicons-shape-lock class="size-4"></coreicons-shape-lock>
+			<input
+				type="password"
+				name="password"
+        required
+        minlength="8"
+				class="grow border-none p-2 text-sm font-medium focus:ring-0"
+				placeholder="Password"
+			/>
+		</label>
+		<button type="submit" class="btn btn-primary">
+			Login
+			<coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
+		</button>
+	</form>
+	<p class="text-center text-xs">
+		By continuing, you agree to the <a
+			href="/support/terms-and-conditions"
+			class="font-semibold text-info">Terms of use</a
+		>,
+		<a href="/support/privary" class="font-semibold text-info">Privacy</a>
+		and <a href="/support/policy" class="font-semibold text-info">Policy</a> Preplaced.
 	</p>
 </div>
