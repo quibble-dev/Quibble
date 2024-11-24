@@ -3,13 +3,14 @@
 	import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
 	import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
 	import { cn } from '$lib/functions/classnames';
-	import type { FormProps } from './types';
+	import type { FormProps } from '../types';
 
-	let { on_submit }: FormProps = $props();
+	let { on_submit, goto_form }: FormProps = $props();
 
 	let pending = $state(false);
 
 	async function handle_submit(e: SubmitEvent) {
+		e.preventDefault();
 		pending = true;
 		try {
 			const form_data = new FormData(e.target as HTMLFormElement);
@@ -20,6 +21,8 @@
 				email: form_data.get('email') as string,
 				password: form_data.get('password') as string
 			});
+			// next form
+			goto_form('profile_select');
 		} finally {
 			pending = false;
 		}

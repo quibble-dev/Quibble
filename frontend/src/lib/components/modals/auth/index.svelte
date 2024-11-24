@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { close_modal, get_modals_state } from '$lib/stores/modals.svelte';
-	import type { FormsState, FormSubmitData } from './types';
+	import type { FormsState, FormSubmitData } from './types.ts';
 
-	const login_form = import('./login_form.svelte');
-
-	let forms = { login: login_form };
+	let forms = {
+		login: import('./forms/login.svelte'),
+		profile_select: import('./forms/profile_select.svelte')
+	};
 	let _form = $state<keyof typeof forms>('login');
 
 	let current_form = $derived(forms[_form]);
@@ -15,10 +16,12 @@
 
 	let forms_state = $state<FormsState>(initial_forms_state);
 
-  $inspect(forms_state);
-
 	function on_submit(data: FormSubmitData) {
 		forms_state[_form] = data;
+	}
+
+	function goto_form(form: keyof typeof forms) {
+		_form = form;
 	}
 
 	let dialog_element: HTMLDialogElement | undefined = undefined;
@@ -35,9 +38,9 @@
 	bind:this={dialog_element}
 	onclose={() => close_modal('auth')}
 >
-	<div class="modal-box !w-[25rem]">
+	<div class="modal-box !w-[25rem] scale-[99%]">
 		{#await current_form then Form}
-			<Form.default {forms_state} {on_submit} />
+			<Form.default {forms_state} {on_submit} {goto_form} />
 		{/await}
 	</div>
 	<form method="dialog" class="modal-backdrop bg-base-300/25">
