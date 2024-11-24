@@ -5,7 +5,7 @@
 	import my_profiles from '$lib/data/mock/my_profiles.json';
 	import Avatar from '$lib/components/ui/avatar.svelte';
 
-	let { forms_state }: FormProps = $props();
+	let { forms_state, goto_form }: FormProps = $props();
 
 	console.log((forms_state.login as { email: string }).email);
 </script>
@@ -30,7 +30,10 @@
 				<span class="text-xs font-medium">q/{profile.username}</span>
 			</button>
 		{/each}
-		<button class="flex flex-col justify-center gap-2.5">
+		<button
+			onclick={() => goto_form('profile_create')}
+			class="flex flex-col justify-center gap-2.5"
+		>
 			<div
 				class="grid size-20 place-items-center rounded-2xl bg-neutral outline outline-offset-4 outline-neutral transition-[outline] hover:outline-neutral-content/25"
 			>

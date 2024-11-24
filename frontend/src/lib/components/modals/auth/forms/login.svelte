@@ -52,7 +52,7 @@
 				name="email"
 				required
 				class="grow border-none p-2 text-sm font-medium focus:ring-0"
-				placeholder="Email address"
+				placeholder="Email address*"
 			/>
 		</label>
 		<label class="input input-bordered flex items-center gap-2">
@@ -63,7 +63,7 @@
 				required
 				minlength="8"
 				class="grow border-none p-2 text-sm font-medium focus:ring-0"
-				placeholder="Password"
+				placeholder="Password*"
 			/>
 		</label>
 		<button
