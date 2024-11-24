@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { cn } from '$lib/utils/classnames';
+	import { cn } from '$lib/functions/classnames';
 
 	type Props = {
 		src?: string;
