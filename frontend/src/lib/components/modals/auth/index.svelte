@@ -1,12 +1,8 @@
 <script lang="ts">
 	import { close_modal, get_modals_state } from '$lib/stores/modals.svelte';
-	import type { FormsState, FormSubmitData, Forms } from './types.ts';
+	import type { FormsState, FormSubmitData, Forms } from './types';
+	import forms from './forms';
 
-	let forms = {
-		login: import('./forms/login.svelte'),
-		profile_select: import('./forms/profile_select.svelte'),
-		profile_create: import('./forms/profile_create.svelte')
-	};
 	let _form = $state<Forms>('login');
 
 	let current_form = $derived(forms[_form]);

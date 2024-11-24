@@ -1,6 +1,8 @@
+import forms from './forms';
+
 export type FormSubmitData = Record<string, string | number | undefined>;
 
-export type Forms = 'login' | 'profile_select' | 'profile_create';
+export type Forms = keyof typeof forms;
 
 export type FormsState = { [K in Forms]: {} };
 
