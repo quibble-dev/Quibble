@@ -26,10 +26,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # api endpoints
     path('api/', include([
-        path('user/', include('django_core.apps.user.urls')),
+        # v1 endpoints
+        path('v1/', include(([
+            path('user/', include('django_core.apps.user.api.v1.urls', namespace='user')),
+        ], 'v1'), namespace='v1')),
     ])),
     # openapi
-    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/schema/', SpectacularAPIView.as_view(api_version='v1'), name='schema'),
     path('api/schema/swagger', SpectacularSwaggerView.as_view(), name='swagger'),
 ]
 # fmt: on
