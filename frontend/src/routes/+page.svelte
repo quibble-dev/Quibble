@@ -2,7 +2,7 @@
 	import Post from '$lib/components/pages/home/post.svelte';
 	import PostsHeader from '$lib/components/pages/home/posts_header.svelte';
 	import RecentPosts from '$lib/components/pages/home/recent_posts.svelte';
-	import { posts } from '$lib/data/mock/posts';
+	import posts from '$lib/data/mock/posts.json';
 </script>
 
 <svelte:head>

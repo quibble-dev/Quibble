@@ -1,7 +1,8 @@
 <script lang="ts">
 	import QuibbleIcon from '$lib/components/icons/logos/quibble.svelte';
-	import { sidebar_communities } from '$lib/data/mock/sidebar';
 	import Avatar from '$lib/components/ui/avatar.svelte';
+	import favorite_communities from '$lib/data/mock/favorites.json';
+	import your_communities from '$lib/data/mock/your_communities.json';
 </script>
 
 <div class="flex w-72 flex-col gap-4 border-r border-neutral bg-base-300 p-4 scrollbar-thin">
@@ -23,7 +24,7 @@
 	<div class="flex flex-col gap-2">
 		<h3 class="text-sm font-medium text-base-content/75">Favourites</h3>
 		<div class="flex flex-col gap-2">
-			{#each sidebar_communities['favorites'] as community}
+			{#each favorite_communities as community}
 				<div class="flex items-center gap-2">
 					<a href="q/{community.name}" class="flex">
 						<Avatar src={community.avatar} alt={community.name} />
@@ -40,7 +41,7 @@
 	<div class="flex flex-col gap-2">
 		<h3 class="text-sm font-medium text-base-content/75">Your Communities</h3>
 		<div class="flex flex-col gap-2">
-			{#each sidebar_communities['your_communities'] as community}
+			{#each your_communities as community}
 				<div class="flex items-center gap-2">
 					<a href="q/{community.name}" class="flex">
 						<Avatar src={community.avatar} alt={community.name} />

@@ -2,7 +2,7 @@
 	import { cn } from '$lib/functions/classnames';
 
 	type Props = {
-		src?: string;
+		src?: string | null;
 		alt: string;
 		class?: string;
 		parent_class?: string;

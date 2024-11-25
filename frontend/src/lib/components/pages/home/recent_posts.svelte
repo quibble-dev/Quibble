@@ -1,7 +1,7 @@
 <script lang="ts">
 	import readable from 'readable-numbers';
-	import { recent_posts } from '$lib/data/mock/recent_posts';
 	import Avatar from '$lib/components/ui/avatar.svelte';
+	import recent_posts from '$lib/data/mock/recent_posts.json';
 </script>
 
 <div class="sticky top-0 flex w-80 flex-col gap-4 overflow-y-scroll p-4 scrollbar-none">
