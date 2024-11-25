@@ -9,7 +9,7 @@
 	<title>Quibble - Delve into real conversations.</title>
 </svelte:head>
 
-<div class="flex flex-1 gap-2 overflow-y-scroll scrollbar-thin">
+<div class="mx-auto flex flex-1 xl:max-w-6xl">
 	<div class="flex h-max flex-1 flex-col gap-4 p-4">
 		<PostsHeader />
 		<div class="flex flex-1 flex-col gap-4">
@@ -18,5 +18,7 @@
 			{/each}
 		</div>
 	</div>
-	<RecentPosts />
+	<div class="w-80">
+		<RecentPosts />
+	</div>
 </div>
