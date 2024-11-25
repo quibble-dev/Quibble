@@ -5,6 +5,7 @@
 	import NewIcon from '$lib/components/icons/new.svelte';
 	import RocketIcon from '$lib/components/icons/rocket.svelte';
 	import TopIcon from '$lib/components/icons/top.svelte';
+	import { cn } from '$lib/functions/classnames';
 
 	let active_mapping = $state<{
 		filter: keyof typeof mapping.filters;
@@ -22,10 +23,18 @@
 			top: { icon: TopIcon, href: '/top' }
 		},
 		view: {
-			compact: { icon: CompactIcon, onclick: () => {} },
-			card: { icon: CardIcon, onclick: () => {} }
+			card: {
+				icon: CardIcon,
+				onclick: () => (active_mapping.view = 'card')
+			},
+			compact: {
+				icon: CompactIcon,
+				onclick: () => (active_mapping.view = 'compact')
+			}
 		}
 	};
+
+	let active_view_icon = $derived(mapping.view[active_mapping.view]);
 </script>
 
 <div class="flex items-center justify-between">
@@ -45,19 +54,32 @@
 		{/each}
 	</div>
 	<div class="flex gap-3">
-		<span class="text-sm font-bold">View:</span>
-		{#each Object.entries(mapping.view) as [key, item]}
-			{@const is_active = active_mapping.view === key}
-
-			<div class="flex flex-col items-center gap-1">
-				<button onclick={item.onclick} aria-label="{key} view" class="flex items-center gap-2">
-					<item.icon class="size-4" />
-					<span class="text-sm font-bold capitalize">{key}</span>
-				</button>
-				{#if is_active}
-					<div class="h-0.5 w-5 rounded-full bg-primary"></div>
-				{/if}
+		<div class="dropdown dropdown-end">
+			<div tabindex="0" role="button" class="flex items-center gap-2">
+				<active_view_icon.icon class="stroke-primary" />
+				<span class="text-sm font-bold capitalize">{active_mapping.view}</span>
+				<coreicons-shape-chevron variant="down" class="size-4"></coreicons-shape-chevron>
 			</div>
-		{/each}
+			<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+			<ul tabindex="0" class="menu dropdown-content z-10 mt-2 gap-1 rounded-2xl bg-base-100 p-1.5">
+				{#each Object.entries(mapping.view) as [key, item]}
+					{@const is_active = active_mapping.view === key}
+					<li>
+						<button
+							onclick={item.onclick}
+							aria-label="{key} view"
+							class="flex items-center gap-2 rounded-xl p-2"
+						>
+							<item.icon
+								class={cn(is_active ? 'stroke-primary' : 'stroke-neutral-content', 'size-4')}
+							/>
+							<span class="text-sm font-semibold capitalize" class:text-primary={is_active}
+								>{key}</span
+							>
+						</button>
+					</li>
+				{/each}
+			</ul>
+		</div>
 	</div>
 </div>
