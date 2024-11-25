@@ -23,25 +23,18 @@
 			top: { icon: TopIcon, href: '/top' }
 		},
 		view: {
-			compact: {
-				icon: CompactIcon,
-				onclick: () => {
-					active_mapping.view = 'compact';
-				}
-			},
 			card: {
 				icon: CardIcon,
-				onclick: () => {
-					active_mapping.view = 'card';
-				}
+				onclick: () => (active_mapping.view = 'card')
+			},
+			compact: {
+				icon: CompactIcon,
+				onclick: () => (active_mapping.view = 'compact')
 			}
 		}
 	};
 
 	let active_view_icon = $derived(mapping.view[active_mapping.view]);
-
-	console.log(mapping);
-	console.log(mapping.view[active_mapping.view].icon);
 </script>
 
 <div class="flex items-center justify-between">
@@ -55,29 +48,34 @@
 					<span class="text-sm font-bold capitalize">{key}</span>
 				</a>
 				{#if is_active}
-					<div class="bg-primary h-0.5 w-5 rounded-full"></div>
+					<div class="h-0.5 w-5 rounded-full bg-primary"></div>
 				{/if}
 			</div>
 		{/each}
 	</div>
 	<div class="flex gap-3">
-		<div class="dropdown">
-			<div tabindex="0" role="button" class="btn btn-sm hover:bg-neutral m-1 bg-transparent">
-				<active_view_icon.icon class="stroke-primary"/>
+		<div class="dropdown dropdown-end">
+			<div tabindex="0" role="button" class="flex items-center gap-2">
+				<active_view_icon.icon class="stroke-primary" />
 				<span class="text-sm font-bold capitalize">{active_mapping.view}</span>
+				<coreicons-shape-chevron variant="down" class="size-4"></coreicons-shape-chevron>
 			</div>
 			<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-			<ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-32 p-2 shadow gap-1">
+			<ul tabindex="0" class="menu dropdown-content z-10 mt-2 gap-1 rounded-2xl bg-base-100 p-1.5">
 				{#each Object.entries(mapping.view) as [key, item]}
 					{@const is_active = active_mapping.view === key}
 					<li>
 						<button
 							onclick={item.onclick}
 							aria-label="{key} view"
-							class="flex items-center gap-2 p-2"
+							class="flex items-center gap-2 rounded-xl p-2"
 						>
-							<item.icon class={cn(is_active ? 'stroke-primary' : 'stroke-neutral-content', 'size-4')} />
-							<span class={cn(is_active && 'text-primary',"text-sm font-bold capitalize")}>{key}</span>
+							<item.icon
+								class={cn(is_active ? 'stroke-primary' : 'stroke-neutral-content', 'size-4')}
+							/>
+							<span class="text-sm font-semibold capitalize" class:text-primary={is_active}
+								>{key}</span
+							>
 						</button>
 					</li>
 				{/each}
