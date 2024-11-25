@@ -5,7 +5,9 @@
 	import your_communities from '$lib/data/mock/your_communities.json';
 </script>
 
-<div class="flex w-72 flex-col gap-4 border-r border-neutral bg-base-300 p-4 scrollbar-thin">
+<div
+	class="fixed top-[3.75rem] z-10 flex h-[calc(100dvh-3.75rem)] w-72 flex-col gap-4 overflow-y-scroll border-r border-neutral bg-base-300 p-4 scrollbar-none"
+>
 	<div class="flex flex-col gap-2">
 		<h2 class="font-semibold">Communities</h2>
 		<label class="input input-sm input-bordered flex items-center rounded-lg bg-transparent">
