@@ -10,7 +10,7 @@
 </script>
 
 <header
-	class="fixed top-0 z-20 flex h-[3.75rem] w-full items-center justify-between border-b border-neutral bg-base-200 px-4"
+	class="fixed top-0 z-20 flex h-[3.75rem] w-full items-center justify-between border-b border-neutral bg-base-300 px-4"
 >
 	<a href="/" aria-label="Quibble Home" class="flex items-center gap-2">
 		<QuibbleLogo class="size-7" />
