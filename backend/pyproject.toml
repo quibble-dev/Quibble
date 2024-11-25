@@ -38,7 +38,7 @@ drf-standardized-errors = {extras = ["openapi"], version = "^0.14.1"}
 
 [tool.poetry.group.dev.dependencies]
 # task runner
-poethepoet = "^0.30.0"
+poethepoet = "^0.31.0"
 # django extentions
 django-extensions = "^3.2.3"
 # typing support
