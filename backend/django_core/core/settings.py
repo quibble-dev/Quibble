@@ -76,9 +76,7 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend',
     ],
     # versioning
-    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.QueryParameterVersioning',
-    'DEFAULT_VERSION': '1.0.0',
-    # 'VERSION_PARAM': 'v',
+    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
     # error handling
     'EXCEPTION_HANDLER': 'drf_standardized_errors.handler.exception_handler',
     # openapi

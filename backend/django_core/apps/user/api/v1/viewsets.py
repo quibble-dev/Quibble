@@ -1,7 +1,7 @@
 from django.conf import settings
 from rest_framework import exceptions, permissions, viewsets, filters
 
-from .models import Profile, User
+from django_core.apps.user.models import Profile, User
 from .serializers import (
     ProfileSerializer,
     UserSerializer,
@@ -66,3 +66,4 @@ class MyProfilesViewSet(viewsets.ModelViewSet):
         if user.profiles.count() >= settings.PROFILE_LIMIT:
             raise exceptions.ValidationError('A user cannot have more than 5 profiles')
         serializer.save(user=user)
+

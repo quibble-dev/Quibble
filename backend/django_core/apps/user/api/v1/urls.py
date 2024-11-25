@@ -3,6 +3,8 @@ from rest_framework.routers import DefaultRouter
 
 from . import viewsets, views
 
+app_name = 'user_api_v1'
+
 # main router for users/ and profiles/
 router = DefaultRouter()
 
@@ -26,3 +28,4 @@ urlpatterns = [
 
 # router urls should be placed last to prevent overriding
 urlpatterns += router.urls
+

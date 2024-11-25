@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate
+from django.urls import reverse
 from rest_framework import permissions, views, exceptions, generics
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
@@ -22,6 +23,8 @@ class LoginAPIView(views.APIView):
 
     @extend_schema(responses=AuthTokenResponseSerializer)
     def post(self, request, format=None):
+        print(request.version)
+        print(reverse('v1:user:user-list'))
         user = authenticate(
             email=request.data.get('email'), password=request.data.get('password')
         )
