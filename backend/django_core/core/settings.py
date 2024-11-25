@@ -75,14 +75,12 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
     ],
-    # versioning
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.NamespaceVersioning',
-    # error handling
     'EXCEPTION_HANDLER': 'drf_standardized_errors.handler.exception_handler',
-    # openapi
     'DEFAULT_SCHEMA_CLASS': 'drf_standardized_errors.openapi.AutoSchema',
 }
 
+# https://drf-standardized-errors.readthedocs.io/en/latest/openapi.html#tips-and-tricks
 DRF_STANDARDIZED_ERRORS = {
     'ALLOWED_ERROR_STATUS_CODES': ['400', '403', '404', '429'],
 }

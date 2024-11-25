@@ -28,4 +28,3 @@ urlpatterns = [
 
 # router urls should be placed last to prevent overriding
 urlpatterns += router.urls
-
