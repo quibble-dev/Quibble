@@ -15,7 +15,6 @@ router.register('me/profiles', viewsets.MyProfilesViewSet, basename='my-profiles
 
 # fmt: off
 urlpatterns = [
-    # knox routes with custom view
     path('auth/', include([
         path('login/', views.LoginAPIView.as_view(), name='login'),
         path('logout/', views.LogoutAPIView.as_view(), name='logout'),

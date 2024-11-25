@@ -103,6 +103,7 @@ SPECTACULAR_SETTINGS = {
         'persistAuthorization': True,
         'defaultModelsExpandDepth': -1,
         'displayRequestDuration': True,
+        'displayOperationId': True,
     },
     # integrate with drf-standardized-errors
     # https://drf-standardized-errors.readthedocs.io/en/latest/openapi.html#
