@@ -3,10 +3,14 @@
 	import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
 	import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
 	import { cn } from '$lib/functions/classnames';
+	import type { ActionResult } from '@sveltejs/kit';
 	import type { FormProps } from '../types';
+	import { deserialize } from '$app/forms';
+	import { invalidateAll } from '$app/navigation';
 
 	let { on_submit, goto_form }: FormProps = $props();
 
+	let errors = $state<Record<string, any> | undefined>();
 	let pending = $state(false);
 
 	async function handle_submit(e: SubmitEvent) {
@@ -19,14 +23,24 @@
 			const form_data = new FormData(form);
 			// handle login logic here then call on_submit
 			await new Promise((resolve) => setTimeout(resolve, 2000));
-			await fetch(form.action, { method: form.method, body: form_data });
+
+			const response = await fetch(form.action, { method: form.method, body: form_data });
+
+			const result: ActionResult = deserialize(await response.text());
+			console.log(result);
+			if (result.type === 'success') {
+				errors = undefined;
+				await invalidateAll();
+			} else if (result.type === 'failure') {
+				errors = result.data;
+			}
 
 			on_submit({
 				email: form_data.get('email') as string,
 				password: form_data.get('password') as string
 			});
 			// next form
-			goto_form('profile_select');
+			// goto_form('profile_select');
 		} finally {
 			pending = false;
 		}
@@ -70,6 +84,12 @@
 				placeholder="Password*"
 			/>
 		</label>
+		{#if errors?.detail}
+			<div class="flex items-center gap-2">
+				<coreicons-shape-alert-triangle class="size-3 text-error"></coreicons-shape-alert-triangle>
+				<span class="text-xs text-error">{errors.detail}</span>
+			</div>
+		{/if}
 		<button
 			type="submit"
 			class={cn(pending && 'btn-active pointer-events-none', 'btn btn-primary')}
