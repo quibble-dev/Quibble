@@ -4,6 +4,7 @@
 	import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
 	import { cn } from '$lib/functions/classnames';
 	import type { FormProps } from '../types';
+	import { enhance } from '$app/forms';
 
 	let { on_submit, goto_form }: FormProps = $props();
 
@@ -44,7 +45,7 @@
 		Continue with Google
 	</button>
 	<div class="divider my-0 text-xs font-bold">OR</div>
-	<form class="flex flex-col gap-3" onsubmit={handle_submit}>
+	<form method="POST" action="/auth?/login" use:enhance class="flex flex-col gap-3">
 		<label class="input input-bordered flex items-center gap-2">
 			<coreicons-shape-mail class="size-4"></coreicons-shape-mail>
 			<input
