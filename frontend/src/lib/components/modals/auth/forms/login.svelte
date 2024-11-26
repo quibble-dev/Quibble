@@ -4,7 +4,6 @@
 	import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
 	import { cn } from '$lib/functions/classnames';
 	import type { FormProps } from '../types';
-	import { enhance } from '$app/forms';
 
 	let { on_submit, goto_form }: FormProps = $props();
 
