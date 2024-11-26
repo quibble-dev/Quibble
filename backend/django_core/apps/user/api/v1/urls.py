@@ -3,6 +3,8 @@ from rest_framework.routers import DefaultRouter
 
 from . import viewsets, views
 
+app_name = 'user_api_v1'
+
 # main router for users/ and profiles/
 router = DefaultRouter()
 
@@ -13,7 +15,6 @@ router.register('me/profiles', viewsets.MyProfilesViewSet, basename='my-profiles
 
 # fmt: off
 urlpatterns = [
-    # knox routes with custom view
     path('auth/', include([
         path('login/', views.LoginAPIView.as_view(), name='login'),
         path('logout/', views.LogoutAPIView.as_view(), name='logout'),

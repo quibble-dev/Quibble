@@ -5,7 +5,7 @@ from django_core.apps.user.models import Profile
 
 @pytest.mark.django_db
 class TestMe:
-    api_url = '/api/user/me/profiles/'
+    api_url = '/api/v1/user/me/profiles/'
 
     def get_api_url_with_id(self, id):
         return f'{self.api_url}{id}/'

@@ -1,7 +1,7 @@
 from django.conf import settings
 from rest_framework import exceptions, permissions, viewsets, filters
 
-from .models import Profile, User
+from django_core.apps.user.models import Profile, User
 from .serializers import (
     ProfileSerializer,
     UserSerializer,

@@ -1,7 +1,7 @@
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 
-from .models import User, Profile
+from django_core.apps.user.models import User, Profile
 
 
 class UserSerializer(serializers.ModelSerializer):

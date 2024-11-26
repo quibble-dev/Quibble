@@ -4,16 +4,19 @@
 	import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
 	import NotificationIcon from '$lib/components/icons/notification.svelte';
 	import Avatar from '$lib/components/ui/avatar.svelte';
+	import { open_modal } from '$lib/stores/modals.svelte';
 
-	let is_authenticated = $state(true);
+	let is_authenticated = $state(false);
 </script>
 
-<header class="flex items-center justify-between border-b border-neutral bg-base-200 p-2.5 px-4">
+<header
+	class="fixed top-0 z-20 flex h-[3.75rem] w-full items-center justify-between border-b border-neutral bg-base-300 px-4"
+>
 	<a href="/" aria-label="Quibble Home" class="flex items-center gap-2">
 		<QuibbleLogo class="size-7" />
 		<QuibbleTextLogo class="h-7 w-auto" />
 	</a>
-	<div class="flex items-center gap-5">
+	<div class="hidden items-center gap-5 md:flex">
 		<div class="flex gap-2">
 			<a href="/" aria-label="Home" class="flex items-center gap-2">
 				<coreicons-shape-home class="size-5 text-primary"></coreicons-shape-home>
@@ -53,7 +56,10 @@
 				src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
 			/>
 		{:else}
-			<button class="btn btn-primary h-10 px-3 text-sm font-bold">
+			<button
+				class="btn btn-primary h-10 px-3 text-sm font-bold"
+				onclick={() => open_modal('auth')}
+			>
 				Join In!
 				<coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
 			</button>
