@@ -55,7 +55,7 @@
 	</div>
 	<div class="flex gap-3">
 		<div class="dropdown dropdown-end">
-			<div tabindex="0" role="button" class="flex items-center gap-2">
+			<div tabindex="0" role="button" class="flex  items-center gap-2">
 				<active_view_icon.icon class="stroke-primary" />
 				<span class="text-sm font-bold capitalize">{active_mapping.view}</span>
 				<coreicons-shape-chevron variant="down" class="size-4"></coreicons-shape-chevron>

@@ -23,7 +23,7 @@
 
 <a
 	href="/q/{props.community.name}/posts/{props.slug}"
-	class="flex flex-col gap-2 rounded-2xl border border-neutral bg-base-300 p-4 transition-colors hover:bg-base-200"
+	class="flex flex-col gap-2  rounded-2xl border border-neutral bg-base-300 p-4 transition-colors hover:bg-base-200"
 >
 	<div class="flex items-center gap-2">
 		<Avatar src={props.community.avatar} alt={props.community.name} />
