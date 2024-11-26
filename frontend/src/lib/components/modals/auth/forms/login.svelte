@@ -13,10 +13,14 @@
 	async function handle_submit(e: SubmitEvent) {
 		e.preventDefault();
 		pending = true;
+
 		try {
-			const form_data = new FormData(e.target as HTMLFormElement);
+			const form = e.currentTarget as HTMLFormElement;
+
+			const form_data = new FormData(form);
 			// handle login logic here then call on_submit
 			await new Promise((resolve) => setTimeout(resolve, 2000));
+			await fetch(form.action, { method: form.method, body: form_data });
 
 			on_submit({
 				email: form_data.get('email') as string,
@@ -45,7 +49,7 @@
 		Continue with Google
 	</button>
 	<div class="divider my-0 text-xs font-bold">OR</div>
-	<form method="POST" action="/auth?/login" use:enhance class="flex flex-col gap-3">
+	<form method="POST" action="/auth?/login" onsubmit={handle_submit} class="flex flex-col gap-3">
 		<label class="input input-bordered flex items-center gap-2">
 			<coreicons-shape-mail class="size-4"></coreicons-shape-mail>
 			<input
