@@ -1,4 +1,5 @@
 import { PUBLIC_API_URL } from '$env/static/public';
+import { AuthError } from '$lib/errors/auth';
 
 /**
  * A utility function to make API requests.
@@ -38,7 +39,14 @@ export async function apiFetch<T>(
 
 	if (!response.ok) {
 		const data = await response.json();
-		throw new Error(data.errors[0].detail || 'Oops! something went wrong.');
+		const error = data.errors[0].detail ?? 'Oops! something went wrong.';
+
+		switch (response.status) {
+			case 401:
+				throw new AuthError(error);
+			default:
+				throw new Error(error);
+		}
 	}
 
 	return response.json() as Promise<T>;

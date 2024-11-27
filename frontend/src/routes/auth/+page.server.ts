@@ -2,6 +2,7 @@ import { dev } from '$app/environment';
 import { fail } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import { apiFetch } from '$lib/utils/api';
+import { isAuthError } from '$lib/errors/auth';
 
 export const actions = {
 	login: async ({ cookies, request }) => {
@@ -24,9 +25,16 @@ export const actions = {
 
 			return { success: true };
 		} catch (err) {
-			let message = err;
-			if (err instanceof Error) message = err.message;
-			return fail(401, { detail: message });
+			let message = 'Oops! something went wrong.';
+			let code = 500;
+
+			if (isAuthError(err)) {
+				message = err.message;
+				code = err.code;
+			} else {
+				console.error(err);
+			}
+			return fail(code, { detail: message });
 		}
 	}
 } satisfies Actions;
