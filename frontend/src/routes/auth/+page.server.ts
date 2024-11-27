@@ -1,35 +1,32 @@
-import { dev } from "$app/environment";
-import { fail } from "@sveltejs/kit";
-import type { Actions } from "./$types";
+import { dev } from '$app/environment';
+import { fail } from '@sveltejs/kit';
+import type { Actions } from './$types';
+import { apiFetch } from '$lib/utils/api';
 
 export const actions = {
-  login: async ({ cookies, request }) => {
-    const form_data = await request.formData()
+	login: async ({ cookies, request }) => {
+		const form_data = await request.formData();
 
-    const response = await fetch('http://127.0.0.1:8000/api/v1/user/auth/login/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: form_data.get('email'),
-        password: form_data.get('password')
-      })
-    })
+		try {
+			const { token } = await apiFetch<{ token: string }>('v1/user/auth/login/', {
+				body: JSON.stringify({
+					email: form_data.get('email'),
+					password: form_data.get('password')
+				})
+			});
 
-    const data = await response.json()
+			cookies.set('auth_token', token, {
+				httpOnly: true,
+				secure: !dev,
+				path: '/',
+				sameSite: 'lax'
+			});
 
-    if (!response.ok) {
-      return fail(401, { detail: data.errors[0].detail})
-    }
-
-    cookies.set('auth_token', data.token, {
-      httpOnly: true,
-      secure: !dev,
-      path: '/',
-      sameSite: 'lax',
-    })
-
-    return { success: true }
-  }
-} satisfies Actions
+			return { success: true };
+		} catch (err) {
+			let message = err;
+			if (err instanceof Error) message = err.message;
+			return fail(401, { detail: message });
+		}
+	}
+} satisfies Actions;
