@@ -14,6 +14,6 @@ export function get_auth_state() {
 }
 
 export function set_auth_state(new_state: Partial<typeof auth_state>) {
-  // auth_state = { ...auth_state, ...new_state }
-  Object.assign(auth_state, new_state)
+	// auth_state = { ...auth_state, ...new_state }
+	Object.assign(auth_state, new_state);
 }
