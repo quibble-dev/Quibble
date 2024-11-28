@@ -1,12 +1,23 @@
 <script lang="ts">
 	import '../app.css';
-	import { onMount } from 'svelte';
+	import { onMount, type Snippet } from 'svelte';
 	import { defineCustomElements } from '@coreproject-moe/icons/loader';
 	import Header from '$lib/components/header.svelte';
 	import Sidebar from '$lib/components/sidebar.svelte';
 	import Modals from '$lib/components/modals/index.svelte';
+	import { get_auth_state, set_auth_state } from '$lib/stores/auth.svelte';
+	import type { Profile } from '$lib/types/user';
 
-	let { children } = $props();
+	let { children, data }: { children: Snippet; data: { profile: Profile } } = $props();
+
+	$inspect(get_auth_state());
+
+	$effect.pre(() => {
+		set_auth_state({
+			profile: data.profile,
+			is_authenticated: !!data.profile
+		});
+	});
 
 	onMount(() => {
 		defineCustomElements();

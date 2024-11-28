@@ -1,6 +1,6 @@
 import type { Nullable } from './shared';
 
-export type User = {
+type User = {
 	id: number;
 	email: string;
 	date_joined: string;
