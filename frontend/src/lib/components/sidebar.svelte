@@ -27,12 +27,11 @@
 		<!-- <input checked type="checkbox" class="hidden" id="favourite" /> -->
 		<summary class=" ">
 			<div class="flex items-center justify-between py-1">
-				<h3 class="text-base-content/75 text-sm font-medium">Favourites</h3>
-			<coreicons-shape-chevron class="size-4" variant="down"></coreicons-shape-chevron>
+				<h3 class="text-sm font-medium text-base-content/75">Favourites</h3>
+				<coreicons-shape-chevron class="size-4" variant="down"></coreicons-shape-chevron>
 			</div>
-			
 		</summary>
-		<div  class="collapse-content flex flex-col gap-2 p-0">
+		<div class="collapse-content flex flex-col gap-2 p-0">
 			{#each favorite_communities as community}
 				<div class="flex items-center gap-2">
 					<a href="q/{community.name}" class="flex">
@@ -47,13 +46,12 @@
 			{/each}
 		</div>
 	</details>
-	<details open class="collapse rounded-none flex flex-col gap-2">
-				<summary class=" ">
+	<details open class="collapse flex flex-col gap-2 rounded-none">
+		<summary class=" ">
 			<div class="flex items-center justify-between py-1">
-				<h3 class="text-base-content/75 text-sm font-medium">Your Communities</h3>
-			<coreicons-shape-chevron class="size-4" variant="down"></coreicons-shape-chevron>
+				<h3 class="text-sm font-medium text-base-content/75">Your Communities</h3>
+				<coreicons-shape-chevron class="size-4" variant="down"></coreicons-shape-chevron>
 			</div>
-			
 		</summary>
 		<div class="flex flex-col gap-2">
 			{#each your_communities as community}
@@ -72,13 +70,13 @@
 	</details>
 	<details open class="collapse flex flex-col gap-2 rounded-none">
 		<summary class="">
-			<div class="flex items-center justify-between w-full">
-				<h3 class="text-base-content/75 text-sm font-medium">Resources</h3>
+			<div class="flex w-full items-center justify-between">
+				<h3 class="text-sm font-medium text-base-content/75">Resources</h3>
 				<coreicons-shape-chevron class="size-4" variant="down"></coreicons-shape-chevron>
 			</div>
 		</summary>
-		
-		<div class="collapse-content p-0 m-0 z flex flex-col gap-2">
+
+		<div class="z collapse-content m-0 flex flex-col gap-2 p-0">
 			<a href="/about" class="flex items-center gap-2">
 				<QuibbleIcon class="size-4" />
 				<span class="text-sm font-semibold">About Quibble</span>
