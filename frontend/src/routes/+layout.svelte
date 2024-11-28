@@ -10,8 +10,6 @@
 
 	let { children, data }: { children: Snippet; data: { profile: Profile } } = $props();
 
-	$inspect(get_auth_state());
-
 	$effect.pre(() => {
 		set_auth_state({
 			profile: data.profile,
