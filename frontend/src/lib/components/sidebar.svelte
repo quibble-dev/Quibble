@@ -23,9 +23,16 @@
 			<span class="text-xs font-medium">Create Community</span>
 		</button>
 	</div>
-	<div class="flex flex-col gap-2">
-		<h3 class="text-sm font-medium text-base-content/75">Favourites</h3>
-		<div class="flex flex-col gap-2">
+	<div class="collapse gap-2 rounded-none">
+		<input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
+		<div
+			class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>coreicons-shape-chevron]:rotate-180"
+		>
+			Favourites
+			<coreicons-shape-chevron class="size-4 transition-transform" variant="down"
+			></coreicons-shape-chevron>
+		</div>
+		<div class="collapse-content flex flex-col gap-2 !p-0">
 			{#each favorite_communities as community}
 				<div class="flex items-center gap-2">
 					<a href="q/{community.name}" class="flex">
@@ -40,9 +47,16 @@
 			{/each}
 		</div>
 	</div>
-	<div class="flex flex-col gap-2">
-		<h3 class="text-sm font-medium text-base-content/75">Your Communities</h3>
-		<div class="flex flex-col gap-2">
+	<div class="collapse gap-2 rounded-none">
+		<input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
+		<div
+			class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>coreicons-shape-chevron]:rotate-180"
+		>
+			Your Communities
+			<coreicons-shape-chevron class="size-4 transition-transform" variant="down"
+			></coreicons-shape-chevron>
+		</div>
+		<div class="collapse-content flex flex-col gap-2 !p-0">
 			{#each your_communities as community}
 				<div class="flex items-center gap-2">
 					<a href="q/{community.name}" class="flex">
@@ -57,12 +71,16 @@
 			{/each}
 		</div>
 	</div>
-	<div class="flex flex-col gap-2">
-		<button class="flex items-center justify-between">
-			<h3 class="text-sm font-medium text-base-content/75">Resources</h3>
-			<coreicons-shape-chevron class="size-4" variant="down"></coreicons-shape-chevron>
-		</button>
-		<div class="flex flex-col gap-2">
+	<div class="collapse gap-2 rounded-none">
+		<input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
+		<div
+			class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>coreicons-shape-chevron]:rotate-180"
+		>
+			Resources
+			<coreicons-shape-chevron class="size-4 transition-transform" variant="down"
+			></coreicons-shape-chevron>
+		</div>
+		<div class="collapse-content flex flex-col gap-2 !p-0">
 			<a href="/about" class="flex items-center gap-2">
 				<QuibbleIcon class="size-4" />
 				<span class="text-sm font-semibold">About Quibble</span>
