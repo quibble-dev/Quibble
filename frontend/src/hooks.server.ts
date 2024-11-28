@@ -10,7 +10,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
   if (auth_token && auth_user_profile_id) {
     try {
-      profile = await apiFetch<Profile>('v1/user/me', {
+      profile = await apiFetch<Profile>('v1/user/me/', {
         headers: {
           Authorization: `Bearer ${auth_token}`,
           'Profile-Id': auth_user_profile_id.toString()
