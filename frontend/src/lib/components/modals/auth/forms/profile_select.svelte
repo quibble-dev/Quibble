@@ -6,6 +6,8 @@
 	import { onMount } from 'svelte';
 	import { apiFetch } from '$lib/utils/api';
 	import type { Profile } from '$lib/types/user';
+	import { enhance } from '$app/forms';
+	import type { SubmitFunction } from '@sveltejs/kit';
 
 	let { forms_state, goto_form }: FormProps = $props();
 
@@ -13,6 +15,19 @@
 	let status_text = $state<string | null>(null);
 
 	let profiles = $state<Profile[]>([]);
+
+	const handle_submit: SubmitFunction = async () => {
+		pending = true;
+		status_text = 'Setting up profile...';
+		return async ({ update }) => {
+			try {
+				await update();
+			} finally {
+				pending = false;
+				status_text = null;
+			}
+		};
+	};
 
 	onMount(async () => {
 		try {
@@ -35,7 +50,6 @@
 {#if pending}
 	<span class="loading loading-spinner loading-md absolute right-2.5 top-2.5"></span>
 {/if}
-
 <div class="flex flex-col gap-4">
 	<div class="flex flex-col items-center justify-center gap-4">
 		<div class="flex items-center gap-2">
@@ -46,18 +60,28 @@
 			{status_text ?? "Who's quibbling?"}
 		</p>
 	</div>
-	<div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 self-center">
+	<div
+		class="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 self-center"
+		class:pointer-events-none={pending}
+	>
 		{#each profiles as profile}
-			<button class="flex flex-col items-center justify-center gap-2.5">
-				<Avatar
-					class="!size-20 !rounded-2xl"
-					parent_class="grid size-20 place-items-center rounded-2xl bg-neutral outline outline-offset-4 outline-neutral transition-[outline] hover:outline-neutral-content"
-					fallback_text_class="text-4xl"
-					src={profile.avatar}
-					alt={profile.username}
-				/>
-				<span class="text-xs font-medium">u/{profile.username}</span>
-			</button>
+			<form
+				method="POST"
+				action="/settings/profile?/select"
+				use:enhance={handle_submit}
+			>
+				<input type="hidden" name="profile_id" value={profile.id} />
+				<button type="submit" class="flex flex-col items-center justify-center gap-2.5">
+					<Avatar
+						class="!size-20 !rounded-2xl"
+						parent_class="grid size-20 place-items-center rounded-2xl bg-neutral outline outline-offset-4 outline-neutral transition-[outline] hover:outline-neutral-content"
+						fallback_text_class="text-4xl"
+						src={profile.avatar}
+						alt={profile.username}
+					/>
+					<span class="text-xs font-medium">u/{profile.username}</span>
+				</button>
+			</form>
 		{/each}
 		{#if !(profiles.length >= 3)}
 			<button

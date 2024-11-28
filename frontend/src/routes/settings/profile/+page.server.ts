@@ -2,15 +2,16 @@ import { isAuthError } from "$lib/errors/auth";
 import { apiFetch } from "$lib/utils/api";
 import { fail } from "@sveltejs/kit";
 import type { Actions } from "./$types";
+import { dev } from "$app/environment";
 
 export const actions = {
-  create: async ({ request }) => {
+  create: async ({ request, cookies }) => {
     const form_data = await request.formData()
 
     try {
       await apiFetch('v1/user/me/profiles/', {
         headers: {
-          Authorization: `Bearer ${form_data.get('auth_token')}`
+          Authorization: `Bearer ${cookies.get('auth_token')}`
         },
         body: JSON.stringify({
           username: form_data.get('username'),
@@ -25,10 +26,23 @@ export const actions = {
       if (isAuthError(err)) {
         message = err.message;
         code = err.code;
-      } else {
-        console.error(err);
+      } else if (err instanceof Error) {
+        message = err.message
+        code = 400
       }
       return fail(code, { detail: message });
     }
+  },
+  select: async ({ request, cookies }) => {
+    const form_data = await request.formData()
+
+    cookies.set('auth_user_profile_id', form_data.get('profile_id') as string, {
+      httpOnly: true,
+      secure: !dev,
+      path: '/',
+      sameSite: 'lax'
+    });
+
+    return { success: true }
   },
 } satisfies Actions;

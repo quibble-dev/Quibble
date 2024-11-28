@@ -5,7 +5,7 @@ import { apiFetch } from '$lib/utils/api';
 import { isAuthError } from '$lib/errors/auth';
 
 export const actions = {
-	login: async ({ request }) => {
+	login: async ({ request, cookies }) => {
 		const form_data = await request.formData();
 
 		try {
@@ -16,12 +16,12 @@ export const actions = {
 				})
 			});
 
-			// cookies.set('auth_token', token, {
-			// 	httpOnly: true,
-			// 	secure: !dev,
-			// 	path: '/',
-			// 	sameSite: 'lax'
-			// });
+			cookies.set('auth_token', token, {
+				httpOnly: true,
+				secure: !dev,
+				path: '/',
+				sameSite: 'lax'
+			});
 
 			return { token: token };
 		} catch (err) {

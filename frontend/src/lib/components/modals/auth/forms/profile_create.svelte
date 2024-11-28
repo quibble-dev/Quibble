@@ -6,8 +6,9 @@
 	import type { ActionResult } from '@sveltejs/kit';
 	import type { FormProps } from '../types';
 
-	let { forms_state, goto_form }: FormProps = $props();
+	let { goto_form }: FormProps = $props();
 
+	let errors = $state<Record<string, any> | undefined>();
 	let pending = $state(false);
 
 	async function handle_submit(e: SubmitEvent) {
@@ -26,7 +27,10 @@
 			const result: ActionResult = deserialize(await response.text());
 
 			if (result.type === 'success') {
+				errors = undefined;
 				goto_form('profile_select');
+			} else if (result.type === 'failure') {
+				errors = result.data;
 			}
 		} catch (err) {
 			console.error(err);
@@ -50,11 +54,6 @@
 		onsubmit={handle_submit}
 		class="flex flex-col gap-3"
 	>
-		<input
-			type="hidden"
-			name="auth_token"
-			bind:value={(forms_state.login as { token: string }).token}
-		/>
 		<label class="input input-bordered flex items-center gap-2">
 			<coreicons-shape-at-sign class="size-4"></coreicons-shape-at-sign>
 			<input
@@ -66,6 +65,12 @@
 				placeholder="Username*"
 			/>
 		</label>
+		{#if errors?.detail}
+			<div class="flex items-center gap-2">
+				<coreicons-shape-alert-triangle class="size-3 text-error"></coreicons-shape-alert-triangle>
+				<span class="text-xs text-error first-letter:uppercase">{errors.detail}</span>
+			</div>
+		{/if}
 		<button
 			type="submit"
 			class={cn(pending && 'btn-active pointer-events-none', 'btn btn-primary')}

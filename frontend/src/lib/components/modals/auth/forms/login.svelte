@@ -33,6 +33,8 @@
 			} else if (result.type === 'failure') {
 				errors = result.data;
 			}
+		} catch (err) {
+			console.error(err);
 		} finally {
 			pending = false;
 		}

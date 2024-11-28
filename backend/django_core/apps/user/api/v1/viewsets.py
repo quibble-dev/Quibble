@@ -60,9 +60,9 @@ class MyProfilesViewSet(viewsets.ModelViewSet):
         Create a new profile for the authenticated user, enforcing a maximum limit.
 
         Raises:
-            ValidationError: If the user already has 5 profiles.
+            ValidationError: If the user already has limited profiles.
         """
         user = self.request.user
         if user.profiles.count() >= settings.PROFILE_LIMIT:
-            raise exceptions.ValidationError('A user cannot have more than 5 profiles')
+            raise exceptions.ValidationError(f'A user cannot have more than {settings.PROFILE_LIMIT} profiles.')
         serializer.save(user=user)
