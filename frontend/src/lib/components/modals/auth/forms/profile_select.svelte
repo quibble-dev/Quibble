@@ -8,6 +8,8 @@
 	import type { Profile } from '$lib/types/user';
 	import { enhance } from '$app/forms';
 	import type { SubmitFunction } from '@sveltejs/kit';
+	import { close_modal } from '$lib/stores/modals.svelte';
+	import { invalidateAll } from '$app/navigation';
 
 	let { forms_state, goto_form }: FormProps = $props();
 
@@ -19,9 +21,13 @@
 	const handle_submit: SubmitFunction = async () => {
 		pending = true;
 		status_text = 'Setting up profile...';
+
 		return async ({ update }) => {
 			try {
 				await update();
+				// re-run load functions and close this modal
+				await invalidateAll();
+				close_modal('auth');
 			} finally {
 				pending = false;
 				status_text = null;
@@ -65,11 +71,7 @@
 		class:pointer-events-none={pending}
 	>
 		{#each profiles as profile}
-			<form
-				method="POST"
-				action="/settings/profile?/select"
-				use:enhance={handle_submit}
-			>
+			<form method="POST" action="/settings/profile?/select" use:enhance={handle_submit}>
 				<input type="hidden" name="profile_id" value={profile.id} />
 				<button type="submit" class="flex flex-col items-center justify-center gap-2.5">
 					<Avatar
