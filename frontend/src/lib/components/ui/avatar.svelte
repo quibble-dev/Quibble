@@ -6,9 +6,10 @@
 		alt: string;
 		class?: string;
 		parent_class?: string;
+		fallback_text_class?: string;
 	};
 
-	let { src, alt, class: klass, parent_class }: Props = $props();
+	let { src, alt, class: klass, parent_class, fallback_text_class }: Props = $props();
 </script>
 
 <div class={cn(parent_class, 'avatar')} class:placeholder={src == undefined}>
@@ -16,7 +17,9 @@
 		{#if src}
 			<img {src} alt="" />
 		{:else}
-			<span class="font-medium capitalize text-neutral-content">{alt.charAt(0)}</span>
+			<span class={cn(fallback_text_class, 'font-medium capitalize text-neutral-content')}
+				>{alt.charAt(0)}</span
+			>
 		{/if}
 	</div>
 </div>

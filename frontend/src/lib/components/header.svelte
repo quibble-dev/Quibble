@@ -5,8 +5,7 @@
 	import NotificationIcon from '$lib/components/icons/notification.svelte';
 	import Avatar from '$lib/components/ui/avatar.svelte';
 	import { open_modal } from '$lib/stores/modals.svelte';
-
-	let is_authenticated = $state(false);
+	import { get_auth_state } from '$lib/stores/auth.svelte';
 </script>
 
 <header
@@ -41,7 +40,7 @@
 		</label>
 	</div>
 	<div class="flex items-center gap-2">
-		{#if is_authenticated}
+		{#if get_auth_state().is_authenticated}
 			<button aria-label="Create Quibble" class="btn btn-primary h-10 px-3">
 				<coreicons-shape-plus variant="no-border" class="size-5"></coreicons-shape-plus>
 				<span class="text-sm font-semibold">Create</span>

@@ -26,6 +26,8 @@
 	$effect(() => {
 		if (get_modals_state().get('auth')) {
 			dialog_element?.showModal();
+		} else {
+			dialog_element?.close();
 		}
 	});
 </script>
