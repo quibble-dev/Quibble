@@ -3,26 +3,38 @@
 	import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
 	import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
 	import { cn } from '$lib/functions/classnames';
+	import type { ActionResult } from '@sveltejs/kit';
 	import type { FormProps } from '../types';
+	import { deserialize } from '$app/forms';
 
 	let { on_submit, goto_form }: FormProps = $props();
 
+	let errors = $state<Record<string, any> | undefined>();
 	let pending = $state(false);
 
 	async function handle_submit(e: SubmitEvent) {
 		e.preventDefault();
 		pending = true;
-		try {
-			const form_data = new FormData(e.target as HTMLFormElement);
-			// handle login logic here then call on_submit
-			await new Promise((resolve) => setTimeout(resolve, 2000));
 
-			on_submit({
-				email: form_data.get('email') as string,
-				password: form_data.get('password') as string
-			});
-			// next form
-			goto_form('profile_select');
+		try {
+			const form = e.currentTarget as HTMLFormElement;
+
+			const form_data = new FormData(form);
+			// perform login form action
+			const response = await fetch(form.action, { method: form.method, body: form_data });
+
+			const result: ActionResult = deserialize(await response.text());
+			if (result.type === 'success') {
+				errors = undefined;
+				// save token on forms_state
+				on_submit({ token: result.data?.token });
+				// next form
+				goto_form('profile_select');
+			} else if (result.type === 'failure') {
+				errors = result.data;
+			}
+		} catch (err) {
+			console.error(err);
 		} finally {
 			pending = false;
 		}
@@ -44,7 +56,7 @@
 		Continue with Google
 	</button>
 	<div class="divider my-0 text-xs font-bold">OR</div>
-	<form class="flex flex-col gap-3" onsubmit={handle_submit}>
+	<form method="POST" action="/auth?/login" onsubmit={handle_submit} class="flex flex-col gap-3">
 		<label class="input input-bordered flex items-center gap-2">
 			<coreicons-shape-mail class="size-4"></coreicons-shape-mail>
 			<input
@@ -66,6 +78,12 @@
 				placeholder="Password*"
 			/>
 		</label>
+		{#if errors?.detail}
+			<div class="flex items-center gap-2">
+				<coreicons-shape-alert-triangle class="size-3 text-error"></coreicons-shape-alert-triangle>
+				<span class="text-xs text-error">{errors.detail}</span>
+			</div>
+		{/if}
 		<button
 			type="submit"
 			class={cn(pending && 'btn-active pointer-events-none', 'btn btn-primary')}
