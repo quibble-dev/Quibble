@@ -5,7 +5,7 @@ import { apiFetch } from '$lib/utils/api';
 import { isAuthError } from '$lib/errors/auth';
 
 export const actions = {
-	login: async ({ cookies, request }) => {
+	login: async ({ request }) => {
 		const form_data = await request.formData();
 
 		try {
@@ -16,14 +16,14 @@ export const actions = {
 				})
 			});
 
-			cookies.set('auth_token', token, {
-				httpOnly: true,
-				secure: !dev,
-				path: '/',
-				sameSite: 'lax'
-			});
+			// cookies.set('auth_token', token, {
+			// 	httpOnly: true,
+			// 	secure: !dev,
+			// 	path: '/',
+			// 	sameSite: 'lax'
+			// });
 
-			return { success: true };
+			return { token: token };
 		} catch (err) {
 			let message = 'Oops! something went wrong.';
 			let code = 500;

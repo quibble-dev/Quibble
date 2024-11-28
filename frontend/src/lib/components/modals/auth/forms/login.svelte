@@ -6,7 +6,6 @@
 	import type { ActionResult } from '@sveltejs/kit';
 	import type { FormProps } from '../types';
 	import { deserialize } from '$app/forms';
-	import { invalidateAll } from '$app/navigation';
 
 	let { on_submit, goto_form }: FormProps = $props();
 
@@ -21,26 +20,19 @@
 			const form = e.currentTarget as HTMLFormElement;
 
 			const form_data = new FormData(form);
-			// handle login logic here then call on_submit
-			await new Promise((resolve) => setTimeout(resolve, 2000));
-
+			// perform login form action
 			const response = await fetch(form.action, { method: form.method, body: form_data });
 
 			const result: ActionResult = deserialize(await response.text());
-			console.log(result);
 			if (result.type === 'success') {
 				errors = undefined;
-				await invalidateAll();
+				// save token on forms_state
+				on_submit({ token: result.data?.token });
+				// next form
+				goto_form('profile_select');
 			} else if (result.type === 'failure') {
 				errors = result.data;
 			}
-
-			on_submit({
-				email: form_data.get('email') as string,
-				password: form_data.get('password') as string
-			});
-			// next form
-			// goto_form('profile_select');
 		} finally {
 			pending = false;
 		}
