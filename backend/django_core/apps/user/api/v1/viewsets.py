@@ -64,5 +64,7 @@ class MyProfilesViewSet(viewsets.ModelViewSet):
         """
         user = self.request.user
         if user.profiles.count() >= settings.PROFILE_LIMIT:
-            raise exceptions.ValidationError(f'A user cannot have more than {settings.PROFILE_LIMIT} profiles.')
+            raise exceptions.ValidationError(
+                f'A user cannot have more than {settings.PROFILE_LIMIT} profiles.'
+            )
         serializer.save(user=user)
