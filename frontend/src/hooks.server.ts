@@ -5,23 +5,23 @@ import type { Handle, HandleFetch } from '@sveltejs/kit';
 export const handle: Handle = async ({ event, resolve }) => {
 	const auth_token = event.cookies.get('auth_token');
 	const auth_user_profile_id = event.cookies.get('auth_user_profile_id');
-
-	console.log('[HOOKS]: re-run!');
+	// init local
+	let profile: Profile | null = null;
 
 	if (auth_token && auth_user_profile_id) {
 		try {
-			const response = await apiFetch<Profile>('v1/user/me', {
+			profile = await apiFetch<Profile>('v1/user/me/', {
 				headers: {
 					Authorization: `Bearer ${auth_token}`,
 					'Profile-Id': auth_user_profile_id.toString()
 				}
 			});
-			console.log(response);
 		} catch (err) {
 			console.error(err);
 		}
 	}
 
+	event.locals.profile = profile;
 	const response = await resolve(event);
 	return response;
 };
