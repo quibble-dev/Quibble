@@ -23,15 +23,16 @@
 			<span class="text-xs font-medium">Create Community</span>
 		</button>
 	</div>
-	<details open class=" collapse flex flex-col gap-2 rounded-none">
-		<!-- <input checked type="checkbox" class="hidden" id="favourite" /> -->
-		<summary class=" ">
-			<div class="flex items-center justify-between py-1">
-				<h3 class="text-sm font-medium text-base-content/75">Favourites</h3>
-				<coreicons-shape-chevron class="size-4" variant="down"></coreicons-shape-chevron>
-			</div>
-		</summary>
-		<div class="collapse-content flex flex-col gap-2 p-0">
+	<div class="collapse gap-2 rounded-none">
+		<input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
+		<div
+			class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>coreicons-shape-chevron]:rotate-180"
+		>
+			Favourites
+			<coreicons-shape-chevron class="size-4 transition-transform" variant="down"
+			></coreicons-shape-chevron>
+		</div>
+		<div class="collapse-content flex flex-col gap-2 !p-0">
 			{#each favorite_communities as community}
 				<div class="flex items-center gap-2">
 					<a href="q/{community.name}" class="flex">
@@ -45,15 +46,17 @@
 				</div>
 			{/each}
 		</div>
-	</details>
-	<details open class="collapse flex flex-col gap-2 rounded-none">
-		<summary class=" ">
-			<div class="flex items-center justify-between py-1">
-				<h3 class="text-sm font-medium text-base-content/75">Your Communities</h3>
-				<coreicons-shape-chevron class="size-4" variant="down"></coreicons-shape-chevron>
-			</div>
-		</summary>
-		<div class="flex flex-col gap-2">
+	</div>
+	<div class="collapse gap-2 rounded-none">
+		<input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
+		<div
+			class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>coreicons-shape-chevron]:rotate-180"
+		>
+			Your Communities
+			<coreicons-shape-chevron class="size-4 transition-transform" variant="down"
+			></coreicons-shape-chevron>
+		</div>
+		<div class="collapse-content flex flex-col gap-2 !p-0">
 			{#each your_communities as community}
 				<div class="flex items-center gap-2">
 					<a href="q/{community.name}" class="flex">
@@ -67,16 +70,17 @@
 				</div>
 			{/each}
 		</div>
-	</details>
-	<details open class="collapse flex flex-col gap-2 rounded-none">
-		<summary class="">
-			<div class="flex w-full items-center justify-between">
-				<h3 class="text-sm font-medium text-base-content/75">Resources</h3>
-				<coreicons-shape-chevron class="size-4" variant="down"></coreicons-shape-chevron>
-			</div>
-		</summary>
-
-		<div class="z collapse-content m-0 flex flex-col gap-2 p-0">
+	</div>
+	<div class="collapse gap-2 rounded-none">
+		<input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
+		<div
+			class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>coreicons-shape-chevron]:rotate-180"
+		>
+			Resources
+			<coreicons-shape-chevron class="size-4 transition-transform" variant="down"
+			></coreicons-shape-chevron>
+		</div>
+		<div class="collapse-content flex flex-col gap-2 !p-0">
 			<a href="/about" class="flex items-center gap-2">
 				<QuibbleIcon class="size-4" />
 				<span class="text-sm font-semibold">About Quibble</span>
@@ -86,7 +90,6 @@
 				<span class="text-sm font-semibold">Help</span>
 			</a>
 		</div>
-	</details>
-
+	</div>
 	<p class="text-xs">Quibble © {new Date().getFullYear()}. All rights reserved.</p>
 </div>
