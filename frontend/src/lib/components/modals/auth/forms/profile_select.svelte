@@ -10,6 +10,8 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { close_modal } from '$lib/stores/modals.svelte';
 	import { invalidateAll } from '$app/navigation';
+	// @ts-ignore
+	import daisyui_color_names from 'daisyui/src/theming/colorNames';
 
 	let { forms_state, goto_form }: FormProps = $props();
 
@@ -71,13 +73,19 @@
 		class:pointer-events-none={pending}
 	>
 		{#each profiles as profile}
+			{@const profile_color_var = daisyui_color_names[profile.color]}
+
 			<form method="POST" action="/settings/profile?/select" use:enhance={handle_submit}>
 				<input type="hidden" name="profile_id" value={profile.id} />
-				<button type="submit" class="flex flex-col items-center justify-center gap-2.5">
+				<button
+					type="submit"
+					class="flex flex-col items-center justify-center gap-2.5 opacity-75 duration-300 hover:opacity-100"
+					style="--color: oklch(var({profile_color_var})); --color-content: oklch(var({profile_color_var}c));"
+				>
 					<Avatar
-						class="!size-20 !rounded-2xl"
-						parent_class="grid size-20 place-items-center rounded-2xl bg-neutral outline outline-offset-4 outline-neutral transition-[outline] hover:outline-neutral-content"
-						fallback_text_class="text-4xl"
+						class="!size-20 !rounded-2xl !bg-[var(--color)]"
+						parent_class="grid size-20 place-items-center rounded-2xl outline-offset-4 outline-[var(--color)] transition-opacity outline-dashed"
+						fallback_text_class="text-5xl !text-[var(--color-content)] !font-bold"
 						src={profile.avatar}
 						alt={profile.username}
 					/>
@@ -88,10 +96,10 @@
 		{#if !(profiles.length >= 3)}
 			<button
 				onclick={() => goto_form('profile_create')}
-				class="flex flex-col items-center gap-2.5"
+				class="flex flex-col items-center justify-center gap-2.5 opacity-75 duration-300 hover:opacity-100"
 			>
 				<div
-					class="grid size-20 place-items-center rounded-2xl bg-neutral outline outline-dashed outline-offset-4 outline-neutral transition-[outline] hover:outline-neutral-content/25"
+					class="grid size-20 place-items-center rounded-2xl bg-neutral outline outline-dashed outline-offset-4 outline-neutral-content/25 transition-[outline]"
 				>
 					<coreicons-shape-plus variant="no-border" class="size-8"></coreicons-shape-plus>
 				</div>
