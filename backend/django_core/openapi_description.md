@@ -5,10 +5,12 @@ The API is built using **Django REST Framework** and provides a robust, secure, 
 Use this documentation as a reference for all available endpoints, their parameters, and expected responses.
 
 ## Authentication
+
 All endpoints (unless specified otherwise) require authentication to ensure secure access to user-specific resources.\
 Quibble uses **token-based authentication** powered by DRF.
 
 ### How it works:
+
 1. **Obtain Token**: Users authenticate by providing valid credentials (e.g., email and password) to receive an access token.
 2. **Include Token in Requests**: Include the received token in the `Authorization` header of subsequent API requests:
    ```

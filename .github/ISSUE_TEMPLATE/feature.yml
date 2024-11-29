@@ -16,7 +16,7 @@ body:
       placeholder: Describe the feature or improvement you'd like to see
     validations:
       required: true
-  
+
   - type: dropdown
     id: feature-priority
     attributes:
@@ -25,7 +25,7 @@ body:
         - Low priority
         - Medium priority
         - High priority
-  
+
   - type: textarea
     id: additional-context
     attributes:

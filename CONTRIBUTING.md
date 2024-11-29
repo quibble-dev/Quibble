@@ -8,6 +8,7 @@ Thank you for your interest in contributing to Quibble! We’re excited to build
    Start by forking the [Quibble repository](https://github.com/quibble-dev/Quibble).
 
 2. **Clone Your Fork**
+
    ```bash
    git clone https://github.com/your-username/Quibble.git
    cd Quibble
@@ -25,11 +26,13 @@ Thank you for your interest in contributing to Quibble! We’re excited to build
 ## Setting Up the Backend (Django)
 
 1. **Navigate to the Backend Directory**
+
    ```bash
    cd backend
    ```
 
 2. **Install Dependencies with Poetry**
+
    ```bash
    poetry install
    ```
@@ -38,6 +41,7 @@ Thank you for your interest in contributing to Quibble! We’re excited to build
    Copy `.env.example` to `.env` and update environment variables as needed.
 
 4. **Run Database Migrations**
+
    ```bash
    poetry run poe mksync
    poetry run poe sync
@@ -56,22 +60,26 @@ Thank you for your interest in contributing to Quibble! We’re excited to build
 
 You can run postgres on background and create a database called `quibble_db` (default) or whatever you specific in `backend/.env`.\
 Or you can run this docker/podman container with:
+
 ```bash
 # podman
 podman compose -f docker/compose-db.yml up --build
 # docker
 docker compose -f docker/compose-db.yml up --build
 ```
+
 Add `-d` if you want to run it on detatched mode.
 
 ## Setting Up the Frontend (Svelte/kit)
 
 1. **Navigate to the Frontend Directory**
+
    ```bash
    cd frontend
    ```
 
 2. **Install Dependencies**
+
    ```bash
    npm install
    ```
@@ -84,6 +92,7 @@ Add `-d` if you want to run it on detatched mode.
 ## Making Changes
 
 1. **Create a New Branch**
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
@@ -92,6 +101,7 @@ Add `-d` if you want to run it on detatched mode.
    Ensure your changes adhere to the project’s coding standards.
 
 3. **Lint and Format Your Code**
+
    - For the backend, ensure your code meets PEP8 standards.
    - For the frontend, use ESLint and Prettier.
 
@@ -99,11 +109,13 @@ Add `-d` if you want to run it on detatched mode.
    Aim to write tests for any new functionality.
 
 5. **Run Tests**
+
    - **Backend**: Run tests with `poetry run pytest`
    - **Frontend**: Run tests with `npm test`
 
 6. **Commit Your Changes**
    Use meaningful commit messages:
+
    ```bash
    git commit -m "Add feature description"
    ```

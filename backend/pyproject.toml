@@ -68,7 +68,7 @@ test = "pytest --cov-config=./.coveragerc --cov=./django_core/ ./tests/"
 graph = "python ./django_core/manage.py graph_models --pydot -a --hide-edge-labels -o graph_models.png"
 reset_db = "python ./django_core/manage.py reset_db"
 # format with black
-format = "black ./ -S"
+format = "black ./"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "core.settings"
@@ -77,7 +77,8 @@ python_files = ["test_*.py"]
 
 [tool.black]
 line-length = 92
-target-version = ["py312"]
+target-version = ["py36", "py37", "py38"]
+skip-string-normalization = true
 
 [tool.pyright]
 venvPath = "./"
