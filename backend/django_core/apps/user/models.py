@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
 
-from django_core.common.mixins.models import CreatedAtMixin
+from django_core.shared.mixins.models import CreatedAtMixin
 from .managers import CustomUserManager
 
 # dynamic avatar filename
