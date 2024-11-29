@@ -19,4 +19,4 @@ repos:
       - id: prettier
         name: prettier
         entry: bash -c 'cd ./frontend/ && npm run format > /dev/null 2>&1'
-        language: node
+        language: system
