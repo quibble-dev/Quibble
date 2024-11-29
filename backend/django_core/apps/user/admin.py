@@ -44,7 +44,7 @@ class CustomUserAdmin(UserAdmin):
 class ProfileAdmin(admin.ModelAdmin):
     form = ProfileAdminForm
 
-    list_display = ('username', 'user__email', 'date_created')
+    list_display = ('username', 'user__email', 'created_at')
     search_fields = ('username', 'user__email')
-    ordering = ('-date_created',)
-    readonly_fields = ('date_created',)
+    ordering = ('-created_at',)
+    readonly_fields = ('created_at',)
