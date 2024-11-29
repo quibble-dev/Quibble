@@ -79,12 +79,12 @@
 				<input type="hidden" name="profile_id" value={profile.id} />
 				<button
 					type="submit"
-					class="flex flex-col items-center justify-center gap-2.5 opacity-75 duration-300 hover:opacity-100"
+					class="group flex flex-col items-center justify-center gap-2.5"
 					style="--color: oklch(var({profile_color_var})); --color-content: oklch(var({profile_color_var}c));"
 				>
 					<Avatar
 						class="!size-20 !rounded-2xl !bg-[var(--color)]"
-						parent_class="grid size-20 place-items-center rounded-2xl outline-offset-4 outline-[var(--color)] transition-opacity outline-dashed"
+						parent_class="grid transition-transform place-items-center rounded-2xl outline-offset-4 outline-[var(--color)] outline"
 						fallback_text_class="text-5xl !text-[var(--color-content)] !font-bold"
 						src={profile.avatar}
 						alt={profile.username}
@@ -96,10 +96,10 @@
 		{#if !(profiles.length >= 3)}
 			<button
 				onclick={() => goto_form('profile_create')}
-				class="flex flex-col items-center justify-center gap-2.5 opacity-75 duration-300 hover:opacity-100"
+				class="flex flex-col items-center justify-center gap-2.5"
 			>
 				<div
-					class="grid size-20 place-items-center rounded-2xl bg-neutral outline outline-dashed outline-offset-4 outline-neutral-content/25 transition-[outline]"
+					class="grid size-20 place-items-center rounded-2xl bg-neutral outline outline-offset-4 outline-neutral"
 				>
 					<coreicons-shape-plus variant="no-border" class="size-8"></coreicons-shape-plus>
 				</div>
