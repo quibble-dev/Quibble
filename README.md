@@ -14,5 +14,5 @@ Quibble is a place for real conversations, where opinions thrive and diverse voi
 
 We welcome contributions! Please check out our [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines on how to get started.
 
-If you find this project interesting, please give it a ⭐  
+If you find this project interesting, please give it a ⭐
 Your support inspires us to improve and grow the project. 💖
