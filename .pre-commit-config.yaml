@@ -14,9 +14,9 @@ repos:
       - id: black
         args: ['--config=./backend/pyproject.toml']
 
-  - repo: local
-    hooks:
-      - id: prettier
-        name: prettier
-        entry: bash -c 'cd ./frontend/ && npm run format > /dev/null 2>&1'
-        language: system
+  # - repo: local
+  #   hooks:
+  #     - id: prettier
+  #       name: prettier
+  #       entry: bash -c 'cd ./frontend/ && npm run format > /dev/null 2>&1'
+  #       language: node
