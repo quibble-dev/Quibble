@@ -18,6 +18,8 @@ def get_random_color(choices):
 
 
 class ColorMixin(models.Model):
+    """Adds `color` and `color_content` fields with random color selection"""
+
     COLOR_CHOICES = [
         ('primary', 'primary'),
         ('secondary', 'secondary'),
@@ -34,6 +36,12 @@ class ColorMixin(models.Model):
         choices=COLOR_CHOICES,
         default=partial(get_random_color, COLOR_CHOICES),
     )
+    color_content = models.CharField(max_length=50, null=True, blank=True)
 
     class Meta:
         abstract = True
+
+    def save(self, *args, **kwargs):
+        if not self.color_content or self.color not in self.color_content:
+            self.color_content = f'{self.color}-content'
+        super().save(*args, **kwargs)

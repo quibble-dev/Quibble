@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.db.models import fields
 from django.utils.translation import gettext_lazy as _
 
 from .models import Profile, User
@@ -43,6 +44,15 @@ class CustomUserAdmin(UserAdmin):
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     form = ProfileAdminForm
+
+    fieldsets = (
+        (None, {'fields': ('user', 'username')}),
+        (
+            _('Other details'),
+            {'fields': ('color', 'color_content', 'avatar', 'first_name', 'last_name')},
+        ),
+        (_('Important dates'), {'fields': ('created_at',)}),
+    )
 
     list_display = ('username', 'user__email', 'created_at')
     search_fields = ('username', 'user__email')
