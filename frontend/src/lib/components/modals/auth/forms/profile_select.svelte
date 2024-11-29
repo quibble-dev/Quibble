@@ -11,7 +11,7 @@
 	import { close_modal } from '$lib/stores/modals.svelte';
 	import { invalidateAll } from '$app/navigation';
 	// @ts-ignore
-	import daisyui_color_names from 'daisyui/src/theming/colorNames';
+	import daisyuiColorNames from 'daisyui/src/theming/colorNames';
 
 	let { forms_state, goto_form }: FormProps = $props();
 
@@ -73,7 +73,7 @@
 		class:pointer-events-none={pending}
 	>
 		{#each profiles as profile}
-			{@const profile_color_var = daisyui_color_names[profile.color]}
+			{@const profile_color_var = daisyuiColorNames[profile.color]}
 
 			<form method="POST" action="/settings/profile?/select" use:enhance={handle_submit}>
 				<input type="hidden" name="profile_id" value={profile.id} />

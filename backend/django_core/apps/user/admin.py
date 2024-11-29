@@ -49,7 +49,7 @@ class ProfileAdmin(admin.ModelAdmin):
         (None, {'fields': ('user', 'username')}),
         (
             _('Other details'),
-            {'fields': ('color', 'color_content', 'avatar', 'first_name', 'last_name')},
+            {'fields': ('color', 'avatar', 'first_name', 'last_name')},
         ),
         (_('Important dates'), {'fields': ('created_at',)}),
     )
