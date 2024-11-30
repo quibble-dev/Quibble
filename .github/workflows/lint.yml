@@ -24,7 +24,7 @@ jobs:
         id: changed-files-frontend
         uses: tj-actions/changed-files@v45
         with:
-          files: 'frontend/**'
+          files: frontend/**
 
       - name: Mark frontend job as 'to be run'
         id: check-frontend
@@ -36,7 +36,7 @@ jobs:
         id: changed-files-backend
         uses: tj-actions/changed-files@v45
         with:
-          files: 'backend/**'
+          files: backend/**
 
       - name: Mark backend job as 'to be run'
         id: check-backend
