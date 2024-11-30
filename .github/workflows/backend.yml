@@ -1,0 +1,41 @@
+name: Backend
+
+on:
+  push:
+    branches:
+      - '*'
+    paths:
+      - 'backend/**'
+  pull_request:
+    branches:
+      - '*'
+    paths:
+      - 'backend/**'
+
+jobs:
+  lint:
+    defaults:
+      run:
+        working-directory: ./backend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          virtualenvs-path: .venv
+          installer-parallel: true
+
+      - name: Install dependencies
+        run: poetry install --no-interaction
+
+      - name: Run isort and flake8
+        run: poetry run poe lint
