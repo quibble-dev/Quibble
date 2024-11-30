@@ -28,7 +28,9 @@ jobs:
 
       - name: Mark frontend job as 'to be run'
         id: check-frontend
-        run: echo "should-run=${{ steps.changed-files-frontend.outputs.changed }}" >> $GITHUB_OUTPUT
+        run: |
+          echo "Frontend files changed: ${{ steps.changed-files-frontend.outputs.changed }}"
+          echo "should-run=${{ steps.changed-files-frontend.outputs.changed }}" >> $GITHUB_OUTPUT
 
       - name: Get changed files in backend
         id: changed-files-backend
@@ -38,7 +40,9 @@ jobs:
 
       - name: Mark backend job as 'to be run'
         id: check-backend
-        run: echo "should-run=${{ steps.changed-files-backend.outputs.changed }}" >> $GITHUB_OUTPUT
+        run: |
+          echo "Backend files changed: ${{ steps.changed-files-backend.outputs.changed }}"
+          echo "should-run=${{ steps.changed-files-backend.outputs.changed }}" >> $GITHUB_OUTPUT
 
   frontend:
     runs-on: ubuntu-latest
