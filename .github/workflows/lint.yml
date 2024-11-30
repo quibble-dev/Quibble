@@ -9,26 +9,44 @@ on:
       - '*'
 
 jobs:
-  frontend:
+  planner:
+    name: Determine which jobs to run
     runs-on: ubuntu-latest
+    outputs:
+      frontend: ${{ steps.check-frontend.outputs.should-run }}
+      backend: ${{ steps.check-backend.outputs.should-run }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Changed files in frontend
+      - name: Get changed files in frontend
         id: changed-files-frontend
         uses: tj-actions/changed-files@v45
         with:
           files: 'frontend/**'
 
-      - name: Check if frontend files changed
-        run: |
-          if [[ "${{ steps.changed-files-frontend.outputs.changed }}" == "true" ]]; then
-            echo "Frontend files changed. Proceeding with linting."
-          else
-            echo "No frontend files changed. Skipping frontend lint."
-            exit 0
-          fi
+      - name: Mark frontend job as 'to be run'
+        id: check-frontend
+        run: echo "should-run=${{ steps.changed-files-frontend.outputs.changed }}" >> $GITHUB_OUTPUT
+
+      - name: Get changed files in backend
+        id: changed-files-backend
+        uses: tj-actions/changed-files@v45
+        with:
+          files: 'backend/**'
+
+      - name: Mark backend job as 'to be run'
+        id: check-backend
+        run: echo "should-run=${{ steps.changed-files-backend.outputs.changed }}" >> $GITHUB_OUTPUT
+
+  frontend:
+    runs-on: ubuntu-latest
+    needs: planner
+    if: needs.planner.outputs.frontend == 'true'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Setup node.js
         uses: actions/setup-node@v4
@@ -45,24 +63,11 @@ jobs:
 
   backend:
     runs-on: ubuntu-latest
+    needs: planner
+    if: needs.planner.outputs.backend == 'true'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Changed files in backend
-        id: changed-files-backend
-        uses: tj-actions/changed-files@v45
-        with:
-          files: 'backend/**'
-
-      - name: Check if backend files changed
-        run: |
-          if [[ "${{ steps.changed-files-backend.outputs.changed }}" == "true" ]]; then
-            echo "Backend files changed. Proceeding with linting."
-          else
-            echo "No backend files changed. Skipping backend lint."
-            exit 0
-          fi
 
       - name: Setup python
         uses: actions/setup-python@v5
