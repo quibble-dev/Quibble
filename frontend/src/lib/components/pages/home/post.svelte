@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Avatar from '$lib/components/ui/avatar.svelte';
-	import { stopEventPropagation } from '$lib/functions/propegation';
+	import { stopEventPropagation } from '$lib/functions/event-modifiersiers';
 	import readable from 'readable-numbers';
 
 	type Props = {
@@ -20,19 +20,17 @@
 	};
 
 	let props: Props = $props();
-
-
-	
 </script>
 
 <a
 	href="/q/{props.community.name}/posts/{props.slug}"
-	class="flex flex-col gap-2 rounded-2xl  border border-neutral bg-base-300 p-4 transition-colors hover:bg-base-200"
+	class="flex flex-col gap-2 rounded-2xl border border-neutral bg-base-300 p-4 transition-colors hover:bg-base-200"
 >
 	<div class="flex items-center gap-2">
 		<Avatar src={props.community.avatar} alt={props.community.name} />
 		<h3 class="text-xs font-bold">q/{props.community.name}</h3>
-		<coreicons-shape-circle variant="filled" class="size-0.5 text-base-content/75"></coreicons-shape-circle>
+		<coreicons-shape-circle variant="filled" class="size-0.5 text-base-content/75"
+		></coreicons-shape-circle>
 		<span class="text-xs font-medium text-base-content/75">{props.created_at}</span>
 	</div>
 
@@ -44,7 +42,7 @@
 
 	<img class="rounded-xl" src={props.cover} alt="" />
 
-	<div class="mt-2 block-link flex gap-4">
+	<div class="block-link mt-2 flex gap-4">
 		<div onclick={stopEventPropagation} class="flex items-center gap-2">
 			<coreicons-shape-thumbs variant="up" class="size-4"></coreicons-shape-thumbs>
 			<span class="text-sm font-semibold">{readable(props.likes)}</span>

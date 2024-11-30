@@ -1,4 +1,4 @@
 export function stopEventPropagation(e: Event) {
-  e.stopPropagation();
-  e.preventDefault();
+	e.stopPropagation();
+	e.preventDefault();
 }
