@@ -71,8 +71,14 @@ test = "pytest --cov-config=./.coveragerc --cov=./django_core/ ./tests/"
 # django extentions
 graph = "python ./django_core/manage.py graph_models --pydot -a --hide-edge-labels -o graph_models.png"
 reset_db = "python ./django_core/manage.py reset_db"
-# format with black
-format = "black ./"
+# sort imports
+isort = "isort ./"
+# format codes
+black = "black ./"
+# run format with isort and blac
+format = ["isort", "black"]
+# lint python codes
+lint = "flake8"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "core.settings"
