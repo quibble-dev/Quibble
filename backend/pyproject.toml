@@ -47,8 +47,12 @@ django-stubs-ext = "^5.1.1"
 # graphs
 pyparsing = "^3.2.0"
 pydot = "^3.0.2"
-# formatters
+# formatter
 black = "^24.10.0"
+# sort imports
+isort = "^5.13.2"
+# linter
+flake8 = "^7.1.1"
 
 [tool.poetry.group.test.dependencies]
 # pytest and plugins
@@ -79,6 +83,9 @@ python_files = ["test_*.py"]
 line-length = 92
 target-version = ["py36", "py37", "py38"]
 skip-string-normalization = true
+
+[tool.isort]
+profile = "black"
 
 [tool.pyright]
 venvPath = "./"
