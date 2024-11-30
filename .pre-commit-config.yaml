@@ -28,11 +28,16 @@ repos:
         entry: bash -c 'cd ./backend/ && poetry run poe format'
         language: python
         files: ^backend/
-
-  - repo: local
-    hooks:
       - id: format-frontend)
         name: format (frontend)
         entry: bash -c 'cd ./frontend/ && npm run format'
         language: node
         files: ^frontend/
+
+  # - repo: local
+  #   hooks:
+  #     - id: format-frontend)
+  #       name: format (frontend)
+  #       entry: bash -c 'cd ./frontend/ && npm run format'
+  #       language: node
+  #       files: ^frontend/
