@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
 
-from django_core.shared.mixins.models import CreatedAtMixin
+from django_core.shared.mixins.models import CreatedAtMixin, ColorMixin
 from .managers import CustomUserManager
 
 # dynamic avatar filename
@@ -33,7 +33,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
 
-class Profile(CreatedAtMixin):
+class Profile(CreatedAtMixin, ColorMixin):
     user = models.ForeignKey(User, related_name='profiles', on_delete=models.CASCADE)
     username = models.CharField(_('username'), unique=True, max_length=25)
     avatar = models.ImageField(

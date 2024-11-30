@@ -44,6 +44,15 @@ class CustomUserAdmin(UserAdmin):
 class ProfileAdmin(admin.ModelAdmin):
     form = ProfileAdminForm
 
+    fieldsets = (
+        (None, {'fields': ('user', 'username')}),
+        (
+            _('Other details'),
+            {'fields': ('color', 'avatar', 'first_name', 'last_name')},
+        ),
+        (_('Important dates'), {'fields': ('created_at',)}),
+    )
+
     list_display = ('username', 'user__email', 'created_at')
     search_fields = ('username', 'user__email')
     ordering = ('-created_at',)

@@ -14,4 +14,5 @@ export type Profile = {
 	first_name: Nullable<string>;
 	last_name: Nullable<string>;
 	date_created: string;
+	color: string;
 };
