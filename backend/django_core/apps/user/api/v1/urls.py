@@ -1,7 +1,7 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from . import viewsets, views
+from . import views, viewsets
 
 app_name = 'user_api_v1'
 

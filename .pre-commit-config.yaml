@@ -8,17 +8,16 @@ repos:
       - id: check-yaml
       - id: check-added-large-files
 
-  - repo: https://github.com/psf/black
-    rev: 22.10.0
-    hooks:
-      - id: black
-        args: ['--config=./backend/pyproject.toml']
-        files: ^backend/
-
   - repo: local
     hooks:
+      - id: isort-black
+        name: Format python codes
+        entry: bash -c 'cd ./backend/ && poetry run poe format'
+        language: python
+        files: ^backend/
+
       - id: prettier
-        name: prettier
-        entry: bash -c 'cd ./frontend/ && npm run format > /dev/null 2>&1'
+        name: Run prettier
+        entry: bash -c 'cd ./frontend/ && npm run format'
         language: node
         files: ^frontend/
