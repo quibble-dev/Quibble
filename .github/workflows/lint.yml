@@ -9,7 +9,10 @@ on:
       - '*'
 
 jobs:
-  lint-frontend:
+  frontend:
+    defaults:
+      run:
+        working-directory: ./frontend
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
