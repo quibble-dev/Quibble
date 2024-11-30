@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Avatar from '$lib/components/ui/avatar.svelte';
-	import { stopEventPropagation } from '$lib/functions/event-modifiersiers';
+	import { stopEventPropagation } from '$lib/functions/event-modifiers';
 	import readable from 'readable-numbers';
 
 	type Props = {
