@@ -8,19 +8,6 @@ repos:
       - id: check-yaml
       - id: check-added-large-files
 
-  # - repo: https://github.com/psf/black
-  #   rev: 22.10.0
-  #   hooks:
-  #     - id: black
-  #       args: ['--config=./backend/pyproject.toml']
-  #       files: ^backend/
-  #
-  # - repo: https://github.com/pycqa/isort
-  #   rev: 5.11.2
-  #   hooks:
-  #     - id: isort
-  #       args: ['black', '--config=./backend/pyproject.toml']
-
   - repo: local
     hooks:
       - id: format-backend
@@ -29,16 +16,8 @@ repos:
         language: python
         files: ^backend/
 
-      - id: format-frontend
-        name: Format frontend codes
+      - id: prettier
+        name: Run prettier
         entry: bash -c 'cd ./frontend/ && npm run format'
         language: node
         files: ^frontend/
-
-  # - repo: local
-  #   hooks:
-  #     - id: format-frontend)
-  #       name: format (frontend)
-  #       entry: bash -c 'cd ./frontend/ && npm run format'
-  #       language: node
-  #       files: ^frontend/
