@@ -10,7 +10,7 @@ repos:
 
   - repo: local
     hooks:
-      - id: black-isort
+      - id: isort-black
         name: Format python codes
         entry: bash -c 'cd ./backend/ && poetry run poe format'
         language: python
