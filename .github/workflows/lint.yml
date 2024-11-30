@@ -46,10 +46,10 @@ jobs:
       - name: Cache Poetry dependencies
         uses: actions/cache@v3
         with:
-          path: .venv
-          key: poetry-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+          path: ./backend/.venv
+          key: poetry-cache-${{ hashFiles('**/poetry.lock') }}
           restore-keys: |
-            poetry-${{ runner.os }}-
+            poetry-cache-
 
       - name: Install Poetry
         uses: snok/install-poetry@v1
