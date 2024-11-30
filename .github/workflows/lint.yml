@@ -4,12 +4,19 @@ on:
   push:
     branches:
       - '*'
+    paths:
+      - 'frontend/**'
+      - 'backend/**'
   pull_request:
     branches:
       - '*'
+    paths:
+      - 'frontend/**'
+      - 'backend/**'
 
 jobs:
   frontend:
+    if: github.event.pull_request.files_changed || github.event.head_commit.modified
     defaults:
       run:
         working-directory: ./frontend
@@ -31,6 +38,7 @@ jobs:
         run: npm run lint
 
   backend:
+    if: github.event.pull_request.files_changed || github.event.head_commit.modified
     defaults:
       run:
         working-directory: ./backend
