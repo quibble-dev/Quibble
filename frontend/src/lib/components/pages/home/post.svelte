@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Avatar from '$lib/components/ui/avatar.svelte';
-	import { stopEventPropagation } from '$lib/functions/event-modifiers';
+	import { stopPropagation } from '$lib/functions/event_modifiers';
 	import readable from 'readable-numbers';
 
 	type Props = {
@@ -43,24 +43,28 @@
 	<img class="rounded-xl" src={props.cover} alt="" />
 
 	<div class="block-link mt-2 flex gap-4">
-		<div onclick={stopEventPropagation} class="flex items-center gap-2">
+		<button onclick={stopPropagation(() => {})} class="flex items-center gap-2">
 			<coreicons-shape-thumbs variant="up" class="size-4"></coreicons-shape-thumbs>
 			<span class="text-sm font-semibold">{readable(props.likes)}</span>
-		</div>
-		<div onclick={stopEventPropagation} class="flex items-center gap-2">
+		</button>
+		<button onclick={stopPropagation(() => {})} class="flex items-center gap-2">
 			<coreicons-shape-thumbs variant="down" class="size-4"></coreicons-shape-thumbs>
 			<span class="text-sm font-semibold">{readable(props.dislikes)}</span>
-		</div>
-		<div onclick={stopEventPropagation} class="flex items-center gap-2">
+		</button>
+		<button onclick={stopPropagation(() => {})} class="flex items-center gap-2">
 			<coreicons-shape-forum class="size-4"></coreicons-shape-forum>
 			<span class="text-sm font-semibold">{readable(props.comments)} Quibble(s)</span>
-		</div>
-		<div onclick={stopEventPropagation} class="flex items-center gap-2">
+		</button>
+		<button onclick={stopPropagation(() => {})} class="flex items-center gap-2">
 			<coreicons-shape-share class="size-4"></coreicons-shape-share>
 			<span class="text-sm font-semibold">Share</span>
-		</div>
-		<div onclick={stopEventPropagation} class="ml-auto flex items-center gap-2" aria-label="more">
+		</button>
+		<button
+			onclick={stopPropagation(() => {})}
+			class="ml-auto flex items-center gap-2"
+			aria-label="more"
+		>
 			<coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
-		</div>
+		</button>
 	</div>
 </a>
