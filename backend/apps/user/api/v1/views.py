@@ -4,8 +4,8 @@ from rest_framework import exceptions, generics, permissions, views
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
-from exceptions.server_error import ServerError
-from serializers.detail_response import DetailResponseSerializer
+from core.exceptions.server_error import ServerError
+from core.serializers.detail_response import DetailResponseSerializer
 
 from .serializers import AuthSerializer, AuthTokenResponseSerializer, ProfileSerializer
 
