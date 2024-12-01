@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class QuibletsConfig(AppConfig):
+class QuibletConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'apps.quiblets'
+    name = 'apps.quiblet'

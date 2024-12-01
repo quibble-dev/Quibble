@@ -6,7 +6,7 @@ from apps.user.models import Profile
 from shared.mixins.model_mixins import AvatarMixin, CreatedAtMixin
 
 
-class Quiblets(AvatarMixin, CreatedAtMixin):
+class Quiblet(AvatarMixin, CreatedAtMixin):
     name = models.CharField(_('name'), unique=True, max_length=25)
     description = models.TextField(_('description'))
     cover = models.ImageField(

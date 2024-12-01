@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'drf_spectacular_sidecar',
     # apps
-    'apps.quiblets',
+    'apps.quiblet',
     # file middleware (should be at last)
     'django_cleanup',
 ]
