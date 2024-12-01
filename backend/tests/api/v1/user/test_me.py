@@ -1,6 +1,6 @@
 import pytest
 
-from django_core.apps.user.models import Profile
+from apps.user.models import Profile
 
 
 @pytest.mark.django_db

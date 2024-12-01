@@ -2,7 +2,7 @@ import pytest
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APIClient
 
-from django_core.apps.user.models import Profile, User
+from apps.user.models import Profile, User
 
 
 @pytest.fixture

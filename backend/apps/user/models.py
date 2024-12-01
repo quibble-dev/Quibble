@@ -1,14 +1,10 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from dynamic_filenames import FilePattern
 
-from django_core.shared.mixins.models import ColorMixin, CreatedAtMixin
+from shared.mixins.model_mixins import AvatarMixin, ColorMixin, CreatedAtMixin
 
 from .managers import CustomUserManager
-
-# dynamic avatar filename
-avatar_pattern = FilePattern(filename_pattern="avatar/{uuid:s}{ext}")
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -34,15 +30,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
 
-class Profile(CreatedAtMixin, ColorMixin):
+class Profile(CreatedAtMixin, ColorMixin, AvatarMixin):
     user = models.ForeignKey(User, related_name='profiles', on_delete=models.CASCADE)
     username = models.CharField(_('username'), unique=True, max_length=25)
-    avatar = models.ImageField(
-        _('avatar'),
-        upload_to=avatar_pattern,
-        blank=True,
-        null=True,
-    )
     first_name = models.CharField(_('first name'), max_length=255, blank=True, null=True)
     last_name = models.CharField(_('last name'), max_length=255, blank=True, null=True)
 
