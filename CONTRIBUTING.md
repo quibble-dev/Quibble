@@ -4,30 +4,28 @@ Thank you for your interest in contributing to Quibble! We’re excited to build
 
 ## Getting Started
 
-1. **Fork the Repository**
+1. **Fork the Repository**\
    Start by forking the [Quibble repository](https://github.com/quibble-dev/Quibble).
 
-2. **Clone Your Fork**
-
+3. **Clone Your Fork**
    ```bash
    git clone https://github.com/your-username/Quibble.git
    cd Quibble
    ```
 
-3. **Set Up Environment**
-   Install the required tools for both the backend and frontend.
+4. **Set Up Environment**\
+   Install the required tools for both the backend and frontend.\
+   `backend`: [`poetry`](https://python-poetry.org/)\
+   `frontend`: npm
 
-4. **Setup Pre-commit Hooks**
-
-  Quibble uses `pre-commit` hooks to automate code quality checks. Before you start contributing, please ensure the following steps are completed to install and configure the pre-commit hooks.
-
-  **Install pre-commit (if not already installed)**
+5. **Setup Pre-commit Hooks**\
+   Quibble uses `pre-commit` hooks to automate code quality checks. Before you start contributing, please ensure the following steps are completed to install and configure the pre-commit hooks.
 
     If you don't have `pre-commit` installed, you can run the following Python script to install it:
 
     ```bash
     python3 ./scripts/pre-commit.py
-
+    ```
 ## Project Structure
 
 - `backend` - Django app.
@@ -37,22 +35,19 @@ Thank you for your interest in contributing to Quibble! We’re excited to build
 ## Setting Up the Backend (Django)
 
 1. **Navigate to the Backend Directory**
-
    ```bash
    cd backend
    ```
 
 2. **Install Dependencies with Poetry**
-
    ```bash
    poetry install
    ```
 
-3. **Set Up Environment Variables**
+3. **Set Up Environment Variables**\
    Copy `.env.example` to `.env` and update environment variables as needed.
 
 4. **Run Database Migrations**
-
    ```bash
    poetry run poe mksync
    poetry run poe sync
@@ -84,13 +79,11 @@ Add `-d` if you want to run it on detatched mode.
 ## Setting Up the Frontend (Svelte/kit)
 
 1. **Navigate to the Frontend Directory**
-
    ```bash
    cd frontend
    ```
 
 2. **Install Dependencies**
-
    ```bash
    npm install
    ```
@@ -103,28 +96,25 @@ Add `-d` if you want to run it on detatched mode.
 ## Making Changes
 
 1. **Create a New Branch**
-
    ```bash
    git checkout -b feature/your-feature-name
    ```
 
-2. **Make Changes**
+2. **Make Changes**\
    Ensure your changes adhere to the project’s coding standards.
 
 3. **Lint and Format Your Code**
-
    - For the backend, ensure your code meets PEP8 standards.
    - For the frontend, use ESLint and Prettier.
 
-4. **Write Tests**
+4. **Write Tests**\
    Aim to write tests for any new functionality.
 
 5. **Run Tests**
-
    - **Backend**: Run tests with `poetry run pytest`
    - **Frontend**: Run tests with `npm test`
 
-6. **Commit Your Changes**
+6. **Commit Your Changes**\
    Use meaningful commit messages:
 
    ```bash
@@ -138,13 +128,13 @@ Add `-d` if you want to run it on detatched mode.
 
 ## Submitting a Pull Request
 
-1. **Open a Pull Request**
+1. **Open a Pull Request**\
    Go to the Pull Requests tab on GitHub and open a new PR.
 
-2. **Describe Your Changes**
+2. **Describe Your Changes**\
    Clearly describe the changes you made and link any relevant issues.
 
-3. **Request a Review**
+3. **Request a Review**\
    Tag project maintainers or team members for a review.
 
 ## Code of Conduct
