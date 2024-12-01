@@ -64,6 +64,8 @@ INSTALLED_APPS = [
     # openapi
     'drf_spectacular',
     'drf_spectacular_sidecar',
+    # apps
+    'django_core.apps.quiblets',
     # file middleware (should be at last)
     'django_cleanup',
 ]
