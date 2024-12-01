@@ -17,7 +17,7 @@ class Quiblet(AvatarMixin, CreatedAtMixin):
     )
     is_public = models.BooleanField(_('is public'), default=True)
     members = models.ManyToManyField(
-        Profile, related_name='quiblets', blank=True, verbose_name=_('members')
+        Profile, related_name='joined_quiblets', blank=True, verbose_name=_('members')
     )
     rangers = models.ManyToManyField(
         Profile, related_name='ranged_quiblets', blank=True, verbose_name=_('rangers')
