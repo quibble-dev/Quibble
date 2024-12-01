@@ -2,7 +2,6 @@ import sys
 import subprocess
 
 def command_exists(command: str):
-    """Check wheather `command` is an executable."""
     from shutil import which
 
     return which(command) is not None
