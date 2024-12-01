@@ -10,7 +10,7 @@
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { close_modal } from '$lib/stores/modals.svelte';
 	import { invalidateAll } from '$app/navigation';
-	// @ts-ignore
+	// @ts-expect-error: too lazy to copy paste it
 	import daisyuiColorNames from 'daisyui/src/theming/colorNames';
 
 	let { forms_state, goto_form }: FormProps = $props();
