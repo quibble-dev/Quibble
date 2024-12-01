@@ -88,7 +88,7 @@ DRF_STANDARDIZED_ERRORS = {
 }
 
 # https://drf-standardized-errors.readthedocs.io/en/latest/openapi.html#hide-error-responses-that-show-in-every-operation
-with open(os.path.join(BASE_DIR, 'openapi_description.md')) as f:
+with open(os.path.join(BASE_DIR, 'docs', 'openapi_description.md')) as f:
     openapi_description = f.read()
 
 SPECTACULAR_SETTINGS = {
