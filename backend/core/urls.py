@@ -27,7 +27,7 @@ urlpatterns = [
     path('api/', include([
         # v1 endpoints
         path('v1/', include(([
-            path('user/', include('django_core.apps.user.api.v1.urls', namespace='user')),
+            path('user/', include('apps.user.api.v1.urls', namespace='user')),
         ], 'v1'), namespace='v1')),
     ])),
     # openapi

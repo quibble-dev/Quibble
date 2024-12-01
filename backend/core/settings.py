@@ -42,7 +42,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # auth related app on top
-    'django_core.apps.user',
+    'apps.user',
     # django middlewares
     'django.contrib.admin',
     'django.contrib.auth',
@@ -65,14 +65,14 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'drf_spectacular_sidecar',
     # apps
-    'django_core.apps.quiblets',
+    'apps.quiblets',
     # file middleware (should be at last)
     'django_cleanup',
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'django_core.apps.user.auth.ExtendedTokenAuthentication',
+        'apps.user.auth.ExtendedTokenAuthentication',
     ],
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -219,7 +219,7 @@ AUTH_USER_MODEL = 'user.User'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     # custom auth backend
-    'django_core.apps.user.backends.EmailAuthBackend',
+    'apps.user.backends.EmailAuthBackend',
 ]
 
 # django-cors-headers settins
