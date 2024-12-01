@@ -1,9 +1,8 @@
 import sys
 import subprocess
+from shutil import which
 
 def command_exists(command: str):
-    from shutil import which
-
     return which(command) is not None
 
 # check pre-commit
