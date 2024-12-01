@@ -3,8 +3,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
 
-from core.mixins.models.color import ColorMixin
-from core.mixins.models.created_at import CreatedAtMixin
+from shared.mixins.models.color import ColorMixin
+from shared.mixins.models.created_at import CreatedAtMixin
 
 from .managers import CustomUserManager
 
