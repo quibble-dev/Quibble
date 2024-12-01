@@ -1,7 +1,7 @@
 import type { Nullable } from '$lib/types/shared';
 import type { Profile } from '$lib/types/user';
 
-let auth_state = $state<{
+const auth_state = $state<{
 	is_authenticated: boolean;
 	profile: Nullable<Profile>;
 }>({

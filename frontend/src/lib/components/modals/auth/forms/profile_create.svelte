@@ -8,7 +8,7 @@
 
 	let { goto_form }: FormProps = $props();
 
-	let errors = $state<Record<string, any> | undefined>();
+	let errors = $state<Record<string, string> | undefined>();
 	let pending = $state(false);
 
 	async function handle_submit(e: SubmitEvent) {
