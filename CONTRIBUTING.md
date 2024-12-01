@@ -17,6 +17,17 @@ Thank you for your interest in contributing to Quibble! We’re excited to build
 3. **Set Up Environment**
    Install the required tools for both the backend and frontend.
 
+4. **Setup Pre-commit Hooks**
+
+  Quibble uses `pre-commit` hooks to automate code quality checks. Before you start contributing, please ensure the following steps are completed to install and configure the pre-commit hooks.
+
+  **Install pre-commit (if not already installed)**
+
+    If you don't have `pre-commit` installed, you can run the following Python script to install it:
+
+    ```bash
+    python3 ./scripts/pre-commit.py
+
 ## Project Structure
 
 - `backend` - Django app.
