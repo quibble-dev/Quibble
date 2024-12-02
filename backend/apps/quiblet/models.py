@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models import UniqueConstraint
 from django.db.models.functions import Lower
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
 
@@ -35,3 +36,45 @@ class Quiblet(AvatarMixin, CreatedAtMixin):
 
     def __str__(self):
         return self.name
+
+
+class Quib(CreatedAtMixin):
+    quiblet = models.ForeignKey(
+        Quiblet,
+        related_name='quibs',
+        verbose_name=_('quiblet'),
+        blank=True,
+        on_delete=models.CASCADE,
+    )
+    quibbler = models.ForeignKey(
+        Profile,
+        related_name='quibbled_quibs',
+        blank=True,
+        null=True,
+        verbose_name=_('quibbler'),
+        on_delete=models.SET_NULL,
+    )
+    title = models.CharField(_('title'), max_length=255)
+    slug = models.SlugField(_('slug'), editable=False, max_length=25)
+    content = models.TextField(_('content'))
+    likes = models.ManyToManyField(
+        Profile, related_name='liked_quibs', blank=True, verbose_name=_('likes')
+    )
+    dislikes = models.ManyToManyField(
+        Profile, related_name='disliked_quibs', blank=True, verbose_name=_('dislikes')
+    )
+    is_public = models.BooleanField(default=True)
+
+    def save(self, *args, **kwargs):
+        """Override save method to slugify title."""
+        if not self.pk:
+            self.slug = slugify(self.title[:25])
+
+        super(Quib, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'Quib'
+        verbose_name_plural = 'Quibs'
+
+    def __str__(self):
+        return f'{self.pk}/{self.slug}'
