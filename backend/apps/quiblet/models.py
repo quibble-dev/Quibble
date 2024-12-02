@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models import UniqueConstraint
+from django.db.models.functions import Lower
 from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
 
@@ -27,6 +29,9 @@ class Quiblet(AvatarMixin, CreatedAtMixin):
         verbose_name = 'Quiblet'
         verbose_name_plural = 'Quiblets'
         ordering = ['-created_at']
+        constraints = [
+            UniqueConstraint(Lower('name'), name='unique_quiblet_name_case_insensitive')
+        ]
 
     def __str__(self):
         return self.name
