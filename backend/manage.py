@@ -3,7 +3,7 @@
 import os
 import sys
 
-import shortuuid
+from shortuuid.django_fields import ShortUUID
 
 
 def main():
