@@ -76,7 +76,7 @@ DRF_STANDARDIZED_ERRORS = {
 }
 
 # https://drf-standardized-errors.readthedocs.io/en/latest/openapi.html#hide-error-responses-that-show-in-every-operation
-with open(os.path.join(BASE_DIR, 'docs', 'openapi_description.md')) as f:
+with open(BASE_DIR / 'docs' / 'openapi_description.md') as f:
     openapi_description = f.read()
 
 SPECTACULAR_SETTINGS = {
@@ -132,7 +132,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -219,3 +219,14 @@ CORS_ALLOWED_ORIGINS = CSRF_TRUSTED_ORIGINS = [
 
 # max no:of profiles a user can create
 PROFILE_LIMIT = 3
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.2/howto/static-files/
+
+STATIC_URL = "static/"
+
+# Media files ( Images, Videos )
+# https://docs.djangoproject.com/en/4.2/howto/static-files/#serving-uploaded-files-in-development
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
