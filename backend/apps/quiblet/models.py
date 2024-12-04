@@ -59,7 +59,7 @@ class Quib(CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
         on_delete=models.SET_NULL,
     )
     title = models.CharField(_('title'), max_length=255)
-    slug = models.SlugField(_('slug'), editable=False, max_length=25)
+    slug = models.SlugField(_('slug'), editable=False, max_length=25, blank=True)
     content = models.TextField(_('content'))
     likes = models.ManyToManyField(
         Profile, related_name='liked_quibs', blank=True, verbose_name=_('likes')
@@ -70,7 +70,7 @@ class Quib(CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
 
     def save(self, *args, **kwargs):
         """Override save method to slugify title."""
-        if not self.pk:
+        if not self.slug:
             self.slug = slugify(self.title[:25])
 
         super(Quib, self).save(*args, **kwargs)
