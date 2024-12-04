@@ -26,6 +26,7 @@ jobs:
         with:
           python-version: 3.12
           poetry-version: 1.8.4
+          install-args: --directory=backend
 
       - name: Run isort and flake8
         run: poetry run poe lint
