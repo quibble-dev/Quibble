@@ -9,7 +9,9 @@ __pycache__/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-media
+# ignore all files inside media (not folders)
+# media
+media/**/*.*
 # Generated graphs
 graph_*.png
 # # Ignore all files in migrations folders
