@@ -10,11 +10,11 @@ from shared.mixins.model_mixins import (
     AvatarMixin,
     CreatedAtMixin,
     IsPublicMixin,
-    ShortUUIDMixin,
+    ShortUUIDIdMixin,
 )
 
 
-class Quiblet(AvatarMixin, CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
+class Quiblet(AvatarMixin, CreatedAtMixin, IsPublicMixin, ShortUUIDIdMixin):
     name = models.CharField(_('name'), unique=True, max_length=25)
     description = models.TextField(_('description'))
     cover = models.ImageField(
@@ -42,7 +42,7 @@ class Quiblet(AvatarMixin, CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
         return f'q/{self.name}'
 
 
-class Quib(CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
+class Quib(CreatedAtMixin, IsPublicMixin, ShortUUIDIdMixin):
     quiblet = models.ForeignKey(
         Quiblet,
         related_name='quibs',
