@@ -10,14 +10,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # api endpoints
     path('api/', include([
-        # v1 endpoints
-        path('v1/', include(([
-            path('user/', include('apps.user.api.v1.urls', namespace='user')),
-            path('quiblet/', include('apps.quiblet.api.v1.urls', namespace='quiblet')),
-        ], 'v1'), namespace='v1')),
+        path('users/', include('apps.user.api.urls')),
+        path('quiblets/', include('apps.quiblet.api.urls')),
     ])),
     # openapi
-    path('api/schema/', SpectacularAPIView.as_view(api_version='v1'), name='schema'),
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/swagger', SpectacularSwaggerView.as_view(), name='swagger'),
 ]
 # fmt: on
