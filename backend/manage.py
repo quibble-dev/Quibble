@@ -3,6 +3,8 @@
 import os
 import sys
 
+import shortuuid
+
 
 def main():
     """Run administrative tasks."""
