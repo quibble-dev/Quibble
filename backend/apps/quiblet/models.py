@@ -6,10 +6,15 @@ from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
 
 from apps.user.models import Profile
-from shared.mixins.model_mixins import AvatarMixin, CreatedAtMixin, IsPublicMixin
+from shared.mixins.model_mixins import (
+    AvatarMixin,
+    CreatedAtMixin,
+    IsPublicMixin,
+    ShortUUIDMixin,
+)
 
 
-class Quiblet(AvatarMixin, CreatedAtMixin, IsPublicMixin):
+class Quiblet(AvatarMixin, CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
     name = models.CharField(_('name'), unique=True, max_length=25)
     description = models.TextField(_('description'))
     cover = models.ImageField(
@@ -25,7 +30,7 @@ class Quiblet(AvatarMixin, CreatedAtMixin, IsPublicMixin):
         Profile, related_name='ranged_quiblets', blank=True, verbose_name=_('rangers')
     )
 
-    class Meta:
+    class Meta:  # type: ignore
         verbose_name = 'Quiblet'
         verbose_name_plural = 'Quiblets'
         ordering = ['-created_at']
@@ -37,7 +42,7 @@ class Quiblet(AvatarMixin, CreatedAtMixin, IsPublicMixin):
         return f'q/{self.name}'
 
 
-class Quib(CreatedAtMixin, IsPublicMixin):
+class Quib(CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
     quiblet = models.ForeignKey(
         Quiblet,
         related_name='quibs',
@@ -70,7 +75,7 @@ class Quib(CreatedAtMixin, IsPublicMixin):
 
         super(Quib, self).save(*args, **kwargs)
 
-    class Meta:
+    class Meta:  # type: ignore
         verbose_name = 'Quib'
         verbose_name_plural = 'Quibs'
 

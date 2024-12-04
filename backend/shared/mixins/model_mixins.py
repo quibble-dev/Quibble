@@ -4,6 +4,7 @@ from functools import partial
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
+from shortuuid.django_fields import ShortUUIDField
 
 
 class CreatedAtMixin(models.Model):
@@ -11,7 +12,7 @@ class CreatedAtMixin(models.Model):
 
     created_at = models.DateTimeField(_('create at'), auto_now_add=True)
 
-    class Meta:
+    class Meta:  # type: ignore
         abstract = True
 
 
@@ -40,7 +41,7 @@ class ColorMixin(models.Model):
         default=partial(get_random_color, COLOR_CHOICES),
     )
 
-    class Meta:
+    class Meta:  # type: ignore
         abstract = True
 
 
@@ -54,12 +55,27 @@ class AvatarMixin(models.Model):
         null=True,
     )
 
-    class Meta:
+    class Meta:  # type: ignore
         abstract = True
 
 
 class IsPublicMixin(models.Model):
+    """Adds a `is_public` boolean field"""
+
     is_public = models.BooleanField(_('is public'), default=True)
 
-    class Meta:
+    class Meta:  # type: ignore
+        abstract = True
+
+
+class ShortUUIDMixin(models.Model):
+    """Adds an `id` field as primary key and a shortuuid generated one."""
+
+    id = ShortUUIDField(  # type: ignore
+        length=7,
+        alphabet="abcdefghijklmnopqrstuvwxyz0123456789",
+        primary_key=True,
+    )
+
+    class Meta:  # type: ignore
         abstract = True
