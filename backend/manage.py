@@ -3,7 +3,9 @@
 import os
 import sys
 
-from shortuuid.django_fields import ShortUUID
+from shortuuid import get_alphabet
+
+print(get_alphabet())
 
 
 def main():
