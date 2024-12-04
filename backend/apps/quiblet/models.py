@@ -47,16 +47,13 @@ class Quib(CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
         Quiblet,
         related_name='quibs',
         verbose_name=_('quiblet'),
-        blank=True,
         on_delete=models.CASCADE,
     )
     quibber = models.ForeignKey(
         Profile,
         related_name='quibs',
-        blank=True,
-        null=True,
         verbose_name=_('quibber'),
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
     )
     title = models.CharField(_('title'), max_length=255)
     slug = models.SlugField(_('slug'), editable=False, max_length=25, blank=True)
