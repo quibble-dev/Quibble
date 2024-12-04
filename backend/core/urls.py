@@ -13,6 +13,7 @@ urlpatterns = [
         # v1 endpoints
         path('v1/', include(([
             path('user/', include('apps.user.api.v1.urls', namespace='user')),
+            path('quiblet/', include('apps.quiblet.api.v1.urls', namespace='quiblet')),
         ], 'v1'), namespace='v1')),
     ])),
     # openapi
