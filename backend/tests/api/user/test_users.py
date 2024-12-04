@@ -3,7 +3,7 @@ import pytest
 
 @pytest.mark.django_db
 class TestUsers:
-    api_endpoint = '/api/v1/user/users/'
+    api_endpoint = '/api/users/users/'
 
     def get_api_endpoint_with_id(self, id):
         return f'{self.api_endpoint}{id}/'

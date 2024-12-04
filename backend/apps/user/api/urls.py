@@ -5,7 +5,7 @@ from .views import LoginAPIView, LogoutAPIView, MeAPIView, RegisterAPIView
 from .viewsets import MyProfilesViewSet, ProfileViewSet, UserViewSet
 
 router = DefaultRouter()
-router.register(r'', UserViewSet)
+router.register(r'users', UserViewSet)
 router.register(r'profiles', ProfileViewSet)
 router.register(r'me/profiles', MyProfilesViewSet, basename='me-profile')
 
