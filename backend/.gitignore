@@ -12,7 +12,6 @@ db.sqlite3-journal
 # ignore all files inside media (not folders)
 # media
 media/**/*
-!media/**/
 !media/**/*.gitkeep
 # Generated graphs
 graph_*.png
