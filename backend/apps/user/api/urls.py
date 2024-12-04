@@ -6,10 +6,10 @@ from . import views, viewsets
 # main router for users/ and profiles/
 router = DefaultRouter()
 
-router.register('', viewsets.UserViewSet, basename='user')
-router.register('profile', viewsets.ProfileViewSet, basename='profile')
+router.register(r'', viewsets.UserViewSet)
+router.register(r'profiles', viewsets.ProfileViewSet)
 # profiles of requested user
-router.register('me/profiles', viewsets.MyProfilesViewSet, basename='my-profiles')
+router.register(r'me/profiles', viewsets.MyProfilesViewSet, basename='me-profile')
 
 # fmt: off
 urlpatterns = [
