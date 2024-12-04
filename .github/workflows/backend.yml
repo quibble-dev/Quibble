@@ -26,6 +26,16 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Cache Poetry dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            backend/.venv
+            backend/.poetry-cache
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-poetry-
+
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:

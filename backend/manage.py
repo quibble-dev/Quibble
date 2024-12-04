@@ -3,6 +3,10 @@
 import os
 import sys
 
+from shortuuid import get_alphabet
+
+print(get_alphabet())
+
 
 def main():
     """Run administrative tasks."""
