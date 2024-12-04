@@ -5,5 +5,4 @@ from .viewsets import QuibletViewSet
 router = DefaultRouter()
 router.register(r'', QuibletViewSet)
 
-urlpatterns = []
-urlpatterns += router.urls
+urlpatterns = router.urls
