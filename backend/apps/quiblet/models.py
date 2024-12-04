@@ -6,10 +6,10 @@ from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
 
 from apps.user.models import Profile
-from shared.mixins.model_mixins import AvatarMixin, CreatedAtMixin
+from shared.mixins.model_mixins import AvatarMixin, CreatedAtMixin, IsPublicMixin
 
 
-class Quiblet(AvatarMixin, CreatedAtMixin):
+class Quiblet(AvatarMixin, CreatedAtMixin, IsPublicMixin):
     name = models.CharField(_('name'), unique=True, max_length=25)
     description = models.TextField(_('description'))
     cover = models.ImageField(
@@ -18,7 +18,6 @@ class Quiblet(AvatarMixin, CreatedAtMixin):
         blank=True,
         null=True,
     )
-    is_public = models.BooleanField(_('is public'), default=True)
     members = models.ManyToManyField(
         Profile, related_name='joined_quiblets', blank=True, verbose_name=_('members')
     )
@@ -35,10 +34,10 @@ class Quiblet(AvatarMixin, CreatedAtMixin):
         ]
 
     def __str__(self):
-        return self.name
+        return f'q/{self.name}'
 
 
-class Quib(CreatedAtMixin):
+class Quib(CreatedAtMixin, IsPublicMixin):
     quiblet = models.ForeignKey(
         Quiblet,
         related_name='quibs',
@@ -46,12 +45,12 @@ class Quib(CreatedAtMixin):
         blank=True,
         on_delete=models.CASCADE,
     )
-    quibbler = models.ForeignKey(
+    quibber = models.ForeignKey(
         Profile,
-        related_name='quibbled_quibs',
+        related_name='quibs',
         blank=True,
         null=True,
-        verbose_name=_('quibbler'),
+        verbose_name=_('quibber'),
         on_delete=models.SET_NULL,
     )
     title = models.CharField(_('title'), max_length=255)
@@ -63,7 +62,6 @@ class Quib(CreatedAtMixin):
     dislikes = models.ManyToManyField(
         Profile, related_name='disliked_quibs', blank=True, verbose_name=_('dislikes')
     )
-    is_public = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
         """Override save method to slugify title."""

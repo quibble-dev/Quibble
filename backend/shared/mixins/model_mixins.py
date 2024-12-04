@@ -56,3 +56,10 @@ class AvatarMixin(models.Model):
 
     class Meta:
         abstract = True
+
+
+class IsPublicMixin(models.Model):
+    is_public = models.BooleanField(_('is public'), default=True)
+
+    class Meta:
+        abstract = True
