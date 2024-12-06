@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from quibble.mixins.models.created_at import CreatedAtMixin
+from quibble.mixins.models import AvatarMixin, ColorMixin, CreatedAtMixin
 
 from .managers import CustomUserManager
 
