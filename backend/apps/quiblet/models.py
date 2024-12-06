@@ -6,12 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
 
 from apps.user.models import Profile
-from shared.mixins.model_mixins import (
-    AvatarMixin,
-    CreatedAtMixin,
-    IsPublicMixin,
-    ShortUUIDIdMixin,
-)
+from common.mixins import AvatarMixin, CreatedAtMixin, IsPublicMixin, ShortUUIDIdMixin
 
 
 class Quiblet(AvatarMixin, CreatedAtMixin, IsPublicMixin, ShortUUIDIdMixin):
