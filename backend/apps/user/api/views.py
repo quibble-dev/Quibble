@@ -4,8 +4,8 @@ from rest_framework import exceptions, generics, permissions, views
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
-from quibble.exceptions import ServerError
-from quibble.serializers import DetailResponseSerializer
+from quibble.shared.exceptions import ServerError
+from quibble.shared.serializers import DetailResponseSerializer
 
 from .serializers import AuthSerializer, AuthTokenResponseSerializer, ProfileSerializer
 

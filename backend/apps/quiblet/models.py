@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
 
 from apps.user.models import Profile
-from quibble.mixins.models import (
+from quibble.shared.mixins.models import (
     AvatarMixin,
     CreatedAtMixin,
     IsPublicMixin,
