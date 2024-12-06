@@ -75,7 +75,7 @@ DRF_STANDARDIZED_ERRORS = {
 }
 
 # https://drf-standardized-errors.readthedocs.io/en/latest/openapi.html#hide-error-responses-that-show-in-every-operation
-with open(BASE_DIR / 'openapi_desc.md') as md_file:
+with open(BASE_DIR / 'docs' / 'openapi_desc.md') as md_file:
     openapi_description = md_file.read()
 
 SPECTACULAR_SETTINGS = {
@@ -124,7 +124,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'quibble.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -142,7 +142,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'quibble.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database

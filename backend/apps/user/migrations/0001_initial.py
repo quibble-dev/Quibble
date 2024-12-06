@@ -8,7 +8,7 @@ from django.conf import settings
 from django.db import migrations, models
 
 import apps.user.managers
-import quibble.shared.mixins.models
+import common.mixins
 
 
 class Migration(migrations.Migration):
@@ -133,7 +133,7 @@ class Migration(migrations.Migration):
                             ('error', 'error'),
                         ],
                         default=functools.partial(
-                            quibble.shared.mixins.models.get_random_color,
+                            common.mixins.get_random_color,
                             *(
                                 [
                                     ('primary', 'primary'),

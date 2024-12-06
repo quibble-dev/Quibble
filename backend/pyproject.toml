@@ -78,7 +78,7 @@ format = ["isort", "black"]
 lint = "flake8"
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "quibble.settings"
+DJANGO_SETTINGS_MODULE = "config.settings"
 pythonpath = ["."]
 python_files = ["test_*.py"]
 
