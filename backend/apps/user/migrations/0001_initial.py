@@ -4,11 +4,11 @@ import functools
 
 import django.db.models.deletion
 import dynamic_filenames
+import shared.mixins.model_mixins
 from django.conf import settings
 from django.db import migrations, models
 
 import apps.user.managers
-import shared.mixins.model_mixins
 
 
 class Migration(migrations.Migration):

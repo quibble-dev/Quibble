@@ -4,14 +4,14 @@ from django.db.models.functions import Lower
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
-
-from apps.user.models import Profile
 from shared.mixins.model_mixins import (
     AvatarMixin,
     CreatedAtMixin,
     IsPublicMixin,
     ShortUUIDIdMixin,
 )
+
+from apps.user.models import Profile
 
 
 class Quiblet(AvatarMixin, CreatedAtMixin, IsPublicMixin, ShortUUIDIdMixin):
