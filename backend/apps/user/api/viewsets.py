@@ -1,21 +1,9 @@
 from django.conf import settings
 from rest_framework import exceptions, filters, permissions, viewsets
 
-from apps.user.models import Profile, User
+from apps.user.models import Profile
 
-from .serializers import ProfileSerializer, UserSerializer
-
-
-class UserViewSet(viewsets.ReadOnlyModelViewSet):
-    """
-    ViewSet for performing read-only operations on the User model.
-
-    Additional Actions:
-    - `<user_id>/profiles`: Retrieve all profiles associated with a specific user.
-    """
-
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+from .serializers import ProfileSerializer
 
 
 class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
@@ -43,7 +31,7 @@ class MyProfilesViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = ProfileSerializer
 
-    def get_queryset(self):  # pyright: ignore [reportIncompatibleMethodOverride]
+    def get_queryset(self):  # type: ignore
         """
         Restrict queryset to profiles owned by the currently authenticated user.
         """
@@ -51,7 +39,7 @@ class MyProfilesViewSet(viewsets.ModelViewSet):
         if getattr(self, 'swagger_fake_view', False):
             return Profile.objects.none()
         user = self.request.user
-        return user.profiles.all()
+        return user.profiles.all()  # type: ignore
 
     def perform_create(self, serializer):
         """
@@ -61,7 +49,7 @@ class MyProfilesViewSet(viewsets.ModelViewSet):
             ValidationError: If the user already has limited profiles.
         """
         user = self.request.user
-        if user.profiles.count() >= settings.PROFILE_LIMIT:
+        if user.profiles.count() >= settings.PROFILE_LIMIT:  # type: ignore
             raise exceptions.ValidationError(
                 f'A user cannot have more than {settings.PROFILE_LIMIT} profiles.'
             )
