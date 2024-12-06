@@ -72,9 +72,10 @@ class Quib(CreatedAtMixin, IsPublicMixin, ShortUUIDIdMixin):
 
         super(Quib, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return f'{self.pk}/{self.slug}'
+
     class Meta:  # type: ignore
         verbose_name = 'Quib'
         verbose_name_plural = 'Quibs'
-
-    def __str__(self):
-        return f'{self.pk}/{self.slug}'
+        ordering = ['-created_at']
