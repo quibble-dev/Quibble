@@ -1,6 +1,5 @@
 import pytest
 from rest_framework.authtoken.models import Token
-from rest_framework.test import APIClient
 
 from apps.user.models import Profile, User
 
@@ -21,18 +20,3 @@ def token(user):
 def user_profile(user):
     """Creates and returns a user profile"""
     return Profile.objects.create(user=user, username='test')
-
-
-@pytest.fixture
-def api_client():
-    """Retuns a DRF API client."""
-    return APIClient()
-
-
-@pytest.fixture
-def auth_api_client(api_client, user_profile, token):
-    """Returns an authenticated API client."""
-    api_client.credentials(
-        HTTP_AUTHORIZATION=f"Bearer {token.key}", HTTP_PROFILE_ID=str(user_profile.id)
-    )
-    return api_client
