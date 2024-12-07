@@ -28,17 +28,16 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
-    # auth related app on top
-    'apps.user',
-    # django middlewares
+DEFAULT_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # django extensions
+]
+
+THIRD_PARTY_APPS = [
     'django_extensions',
     # rest framework
     'rest_framework',
@@ -52,11 +51,17 @@ INSTALLED_APPS = [
     # openapi
     'drf_spectacular',
     'drf_spectacular_sidecar',
-    # apps
-    'apps.quiblet',
-    # file middleware (should be at last)
+    # file middleware
     'django_cleanup',
 ]
+
+SELF_APPS = [
+    'apps.user',
+    'apps.quiblet',
+    'apps.quib',
+]
+
+INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + SELF_APPS
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
