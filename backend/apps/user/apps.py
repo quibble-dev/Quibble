@@ -6,4 +6,4 @@ class UserConfig(AppConfig):
     name = "apps.user"
 
     def ready(self) -> None:
-        from . import signals as _
+        from . import signals  # noqa: F401
