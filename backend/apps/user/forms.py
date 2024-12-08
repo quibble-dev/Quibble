@@ -36,6 +36,6 @@ class ProfileAdminForm(ModelForm):
             and user
             and user.profiles.count() >= settings.PROFILE_LIMIT
         ):
-            self.add_error(None, _('A user cannot have more than 5 profiles.'))
+            self.add_error(None, _('a user cannot have more than 5 profiles.'))
 
         return self.cleaned_data

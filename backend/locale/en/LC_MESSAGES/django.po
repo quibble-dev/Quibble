@@ -1,0 +1,134 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-12-08 13:07+0530\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+#: apps/quib/models.py:14
+msgid "quiblet"
+msgstr ""
+
+#: apps/quib/models.py:20
+msgid "quibber"
+msgstr "Quibbler"
+
+#: apps/quib/models.py:23
+msgid "title"
+msgstr "Title"
+
+#: apps/quib/models.py:24
+msgid "slug"
+msgstr "Slug"
+
+#: apps/quib/models.py:25
+msgid "content"
+msgstr "Content"
+
+#: apps/quib/models.py:27
+msgid "likes"
+msgstr "Likes"
+
+#: apps/quib/models.py:30
+msgid "dislikes"
+msgstr "Dislikes"
+
+#: apps/quiblet/models.py:12
+msgid "name"
+msgstr "Name"
+
+#: apps/quiblet/models.py:13
+msgid "description"
+msgstr "Description"
+
+#: apps/quiblet/models.py:15
+msgid "cover"
+msgstr "Cover"
+
+#: apps/quiblet/models.py:21
+msgid "members"
+msgstr "Members"
+
+#: apps/quiblet/models.py:24
+msgid "rangers"
+msgstr "Rangers"
+
+#: apps/user/admin.py:17
+msgid "permissions"
+msgstr "Permissions"
+
+#: apps/user/admin.py:22 apps/user/admin.py:47
+msgid "important dates"
+msgstr "Important dates"
+
+#: apps/user/forms.py:39
+msgid "a user cannot have more than 5 profiles."
+msgstr "A user cannot have more than 5 profiles."
+
+#: apps/user/models.py:11
+msgid "email address"
+msgstr "Email Address"
+
+#: apps/user/models.py:12
+msgid "date joined"
+msgstr "Date Joined"
+
+#: apps/user/models.py:14
+msgid "staff status"
+msgstr "Staff status"
+
+#: apps/user/models.py:16
+msgid "designates whether this user should be treated as active."
+msgstr "Designates whether this user should be treated as active."
+
+#: apps/user/models.py:19
+msgid "active"
+msgstr "Active"
+
+#: apps/user/models.py:22
+msgid "designates whether this user should be treated as active. unselect this instead of deleting accounts."
+msgstr "Designates whether this user should be treated as active. Unselect this instead of deleting accounts."
+
+#: apps/user/models.py:40
+msgid "username"
+msgstr "Username"
+
+#: apps/user/models.py:41
+msgid "first name"
+msgstr "First Name"
+
+#: apps/user/models.py:42
+msgid "last name"
+msgstr "Last Name"
+
+#: common/mixins.py:13
+msgid "create at"
+msgstr "Created At"
+
+#: common/mixins.py:38
+msgid "color"
+msgstr "Color"
+
+#: common/mixins.py:52
+msgid "avatar"
+msgstr "Avatar"
+
+#: common/mixins.py:65
+msgid "is public"
+msgstr "Is Public"
+
+#: common/mixins.py:75
+msgid "id"
+msgstr "Id"

@@ -14,12 +14,12 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (
-            _('Permissions'),
+            _('permissions'),
             {
                 'fields': ('is_active', 'is_staff', 'is_superuser'),
             },  # , 'groups', 'user_permissions')},
         ),
-        (_('Important dates'), {'fields': ('date_joined',)}),
+        (_('important dates'), {'fields': ('date_joined',)}),
     )
 
     add_fieldsets = (
@@ -43,12 +43,11 @@ class ProfileAdmin(admin.ModelAdmin):
     form = ProfileAdminForm
 
     fieldsets = (
-        (None, {'fields': ('user', 'username')}),
         (
-            _('Other details'),
-            {'fields': ('color', 'avatar', 'first_name', 'last_name')},
+            None,
+            {'fields': ('user', 'username', 'color', 'avatar', 'first_name', 'last_name')},
         ),
-        (_('Important dates'), {'fields': ('created_at',)}),
+        (_('important dates'), {'fields': ('created_at',)}),
     )
 
     list_display = ('username', 'user__email', 'created_at')
