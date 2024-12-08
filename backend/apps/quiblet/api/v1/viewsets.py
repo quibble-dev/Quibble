@@ -12,8 +12,9 @@ class QuibletViewSet(ModelViewSet):
     permission_classes = (IsRangerOrReadOnly,)
 
     def perform_create(self, serializer):
-        creator = self.request.user_profile  # type: ignore
+        quibbler = self.request.user_profile  # type: ignore
 
         quiblet = serializer.save()
-        quiblet.members.add(creator)
-        quiblet.rangers.add(creator)
+
+        quiblet.members.add(quibbler)
+        quiblet.rangers.add(quibbler)
