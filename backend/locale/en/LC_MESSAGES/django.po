@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-08 13:07+0530\n"
+"POT-Creation-Date: 2024-12-08 13:19+0530\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 #: apps/quib/models.py:14
 msgid "quiblet"
 msgstr ""
@@ -69,7 +70,7 @@ msgstr "Rangers"
 msgid "permissions"
 msgstr "Permissions"
 
-#: apps/user/admin.py:22 apps/user/admin.py:47
+#: apps/user/admin.py:22 apps/user/admin.py:50
 msgid "important dates"
 msgstr "Important dates"
 
@@ -90,7 +91,7 @@ msgid "staff status"
 msgstr "Staff status"
 
 #: apps/user/models.py:16
-msgid "designates whether this user should be treated as active."
+msgid "designates whether the user can log into this admin site."
 msgstr "Designates whether this user should be treated as active."
 
 #: apps/user/models.py:19
@@ -98,18 +99,22 @@ msgid "active"
 msgstr "Active"
 
 #: apps/user/models.py:22
-msgid "designates whether this user should be treated as active. unselect this instead of deleting accounts."
-msgstr "Designates whether this user should be treated as active. Unselect this instead of deleting accounts."
+msgid ""
+"designates whether this user should be treated as active. unselect this "
+"instead of deleting accounts."
+msgstr ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
 
-#: apps/user/models.py:40
+#: apps/user/models.py:39
 msgid "username"
 msgstr "Username"
 
-#: apps/user/models.py:41
+#: apps/user/models.py:40
 msgid "first name"
 msgstr "First Name"
 
-#: apps/user/models.py:42
+#: apps/user/models.py:41
 msgid "last name"
 msgstr "Last Name"
 

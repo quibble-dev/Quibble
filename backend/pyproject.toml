@@ -76,6 +76,9 @@ black = "black ./"
 format = ["isort", "black"]
 # lint python codes
 lint = "flake8"
+# locals and translations
+mkmsgs = "django-admin makemessages -a"
+compilemsgs = "django-admin compilemessages"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "config.settings"
