@@ -11,7 +11,7 @@ if (!api_url) {
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const output_path = path.resolve(__dirname, '../src/lib/types/schema.d.ts');
+const output_path = path.resolve(__dirname, '../src/lib/clients/v1.ts');
 
 const command = `openapi-typescript ${api_url}/api/v1/schema/ -o ${output_path}`;
 
