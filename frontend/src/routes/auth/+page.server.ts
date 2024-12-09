@@ -2,7 +2,7 @@ import { dev } from '$app/environment';
 import { fail } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import { apiFetch } from '$lib/utils/api';
-import { isAuthError } from '$lib/errors/auth';
+import { isAuthError } from '$lib/utils/errors';
 
 export const actions = {
 	login: async ({ request, cookies }) => {

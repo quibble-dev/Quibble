@@ -1,4 +1,4 @@
-import { isAuthError } from '$lib/errors/auth';
+import { isAuthError } from '$lib/utils/errors';
 import { apiFetch } from '$lib/utils/api';
 import { fail } from '@sveltejs/kit';
 import type { Actions } from './$types';

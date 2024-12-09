@@ -1,5 +1,5 @@
 import { PUBLIC_API_URL } from '$env/static/public';
-import { AuthError } from '$lib/errors/auth';
+import { AuthError } from '$lib/utils/errors';
 
 /**
  * A utility function to make API requests.
