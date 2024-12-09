@@ -11,10 +11,11 @@
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run && npm run test:e2e",
 		"test:e2e": "playwright test",
-		"openapi-ts": "openapi-typescript http://127.0.0.1:8000/api/v1/schema/ -o ./src/lib/types/schema.d.ts"
+		"openapi-ts": "dotenvx run -- node ./scripts/generate_schema.js"
 	},
 	"devDependencies": {
 		"@coreproject-moe/icons": "^0.0.67",
+		"@dotenvx/dotenvx": "^1.28.0",
 		"@playwright/test": "^1.45.3",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/kit": "^2.8.3",
