@@ -15,7 +15,7 @@ const output_path = path.resolve(__dirname, '../src/lib/types/schema.d.ts');
 
 const command = `openapi-typescript ${api_url}/api/v1/schema/ -o ${output_path}`;
 
-exec(command, (error, stdout, _) => {
+exec(command, (error, stdout) => {
 	if (error) {
 		console.log(`error: ${error}`);
 		return;
