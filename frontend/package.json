@@ -11,7 +11,7 @@
 		"test:unit": "vitest",
 		"test": "npm run test:unit -- --run && npm run test:e2e",
 		"test:e2e": "playwright test",
-		"openapi-ts": "npx openapi-typescript http://127.0.0.1:8000/api/v1/schema/ -o ./src/lib/types/schema.d.ts"
+		"openapi-ts": "openapi-typescript http://127.0.0.1:8000/api/v1/schema/ -o ./src/lib/types/schema.d.ts"
 	},
 	"devDependencies": {
 		"@coreproject-moe/icons": "^0.0.67",
@@ -23,6 +23,7 @@
 		"@tailwindcss/forms": "^0.5.9",
 		"@tailwindcss/typography": "^0.5.15",
 		"@types/eslint": "^9.6.0",
+		"@types/node": "^22.10.1",
 		"autoprefixer": "^10.4.20",
 		"clsx": "^2.1.1",
 		"daisyui": "^4.12.14",
@@ -30,6 +31,7 @@
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.36.0",
 		"globals": "^15.0.0",
+		"openapi-fetch": "^0.13.3",
 		"openapi-typescript": "^7.4.4",
 		"prettier": "^3.3.2",
 		"prettier-plugin-svelte": "^3.2.6",
