@@ -6,7 +6,9 @@
 	import Sidebar from '$lib/components/sidebar.svelte';
 	import Modals from '$lib/components/modals/index.svelte';
 	import { set_auth_state } from '$lib/stores/auth.svelte';
-	import type { Profile } from '$lib/types/user';
+	import type { components } from '$lib/clients/v1';
+
+	type Profile = components['schemas']['Profile'];
 
 	let { children, data }: { children: Snippet; data: { profile: Profile } } = $props();
 

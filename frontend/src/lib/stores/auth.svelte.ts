@@ -1,5 +1,7 @@
+import type { components } from '$lib/clients/v1';
 import type { Nullable } from '$lib/types/shared';
-import type { Profile } from '$lib/types/user';
+
+type Profile = components['schemas']['Profile'];
 
 const auth_state = $state<{
 	is_authenticated: boolean;

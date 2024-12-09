@@ -1,6 +1,8 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 
-import type { Profile } from '$lib/types/user';
+import type { components } from '$lib/clients/v1';
+
+type Profile = components['schemas']['Profile'];
 
 // for information about these interfaces
 declare global {
