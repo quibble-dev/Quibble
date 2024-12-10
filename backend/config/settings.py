@@ -63,6 +63,13 @@ SELF_APPS = [
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + SELF_APPS
 
+DEFAULT_RENDERER_CLASSES = ('rest_framework.renderers.JSONRenderer',)
+
+if DEBUG:
+    DEFAULT_RENDERER_CLASSES = DEFAULT_RENDERER_CLASSES + (
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    )
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'apps.user.auth.ExtendedTokenAuthentication',
@@ -70,9 +77,7 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
     ],
-    # 'DEFAULT_RENDERER_CLASSES': (
-    #      'rest_framework.renderers.JSONRenderer',
-    #  ),
+    'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES,
     'EXCEPTION_HANDLER': 'drf_standardized_errors.handler.exception_handler',
     'DEFAULT_SCHEMA_CLASS': 'common.api.openapi.CustomAutoSchema',
 }
