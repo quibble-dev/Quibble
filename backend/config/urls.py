@@ -2,7 +2,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularJSONAPIView,
+    SpectacularSwaggerView,
+)
 
 # modify adminsite
 admin.site.site_header = 'Quibble Administration'
@@ -25,6 +29,7 @@ urlpatterns = [
     ),
     # openapi
     path('api/v1/schema/', SpectacularAPIView.as_view(api_version='v1'), name='schema'),
+    path('api/v1/schema.json', SpectacularJSONAPIView.as_view(), name='schema-json'),
 ]
 
 # only add swagger ui for development

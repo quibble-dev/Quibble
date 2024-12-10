@@ -94,8 +94,9 @@ with open(BASE_DIR / 'docs' / 'openapi_desc.md') as md_file:
 SPECTACULAR_SETTINGS = {
     'TITLE': 'QuibbleAPI',
     'DESCRIPTION': openapi_description,
-    'VERSION': '1.0.0',
+    'VERSION': '0.0.1',
     'SERVE_INCLUDE_SCHEMA': False,
+    # 'SCHEMA_PATH_PREFIX': r'/api',
     # sidecar config
     'SWAGGER_UI_DIST': 'SIDECAR',
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
@@ -104,6 +105,7 @@ SPECTACULAR_SETTINGS = {
         'deepLinking': True,
         'persistAuthorization': True,
         'defaultModelsExpandDepth': -1,
+        'displayOperationId': True,
     },
     # integrate with drf-standardized-errors
     # https://drf-standardized-errors.readthedocs.io/en/latest/openapi.html
