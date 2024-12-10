@@ -19,11 +19,12 @@ urlpatterns = [
             [
                 path('users/', include('apps.user.api.v1.urls')),
                 path('quiblets/', include('apps.quiblet.api.v1.urls')),
+                path('quibs/', include('apps.quib.api.v1.urls')),
             ]
         ),
     ),
     # openapi
-    path('api/v1/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/v1/schema/', SpectacularAPIView.as_view(api_version='v1'), name='schema'),
 ]
 
 # only add swagger ui for development
