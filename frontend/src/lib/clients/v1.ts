@@ -36,6 +36,38 @@ export interface paths {
 		patch: operations['quiblets_partial_update'];
 		trace?: never;
 	};
+	'/api/v1/quibs/': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['quibs_list'];
+		put?: never;
+		post: operations['quibs_create'];
+		delete?: never;
+		options?: never;
+		head?: never;
+		patch?: never;
+		trace?: never;
+	};
+	'/api/v1/quibs/{id}/': {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		get: operations['quibs_retrieve'];
+		put: operations['quibs_update'];
+		post?: never;
+		delete: operations['quibs_destroy'];
+		options?: never;
+		head?: never;
+		patch: operations['quibs_partial_update'];
+		trace?: never;
+	};
 	'/api/v1/users/auth/login/': {
 		parameters: {
 			query?: never;
@@ -292,6 +324,20 @@ export interface components {
 			first_name?: string | null;
 			last_name?: string | null;
 		};
+		PatchedQuib: {
+			readonly id?: string;
+			/** Format: date-time */
+			readonly created_at?: string;
+			is_public?: boolean;
+			title?: string;
+			readonly slug?: string;
+			content?: string;
+			quiblet?: string;
+			/** Quibbler */
+			quibber?: number;
+			likes?: number[];
+			dislikes?: number[];
+		};
 		PatchedQuiblet: {
 			readonly id?: string;
 			/** Format: date-time */
@@ -317,6 +363,20 @@ export interface components {
 			username: string;
 			first_name?: string | null;
 			last_name?: string | null;
+		};
+		Quib: {
+			readonly id: string;
+			/** Format: date-time */
+			readonly created_at: string;
+			is_public?: boolean;
+			title: string;
+			readonly slug: string;
+			content: string;
+			quiblet: string;
+			/** Quibbler */
+			quibber: number;
+			likes?: number[];
+			dislikes?: number[];
 		};
 		Quiblet: {
 			readonly id: string;
@@ -808,6 +868,471 @@ export interface components {
 		QuibletsUpdateValidationError: {
 			type: components['schemas']['ValidationErrorEnum'];
 			errors: components['schemas']['QuibletsUpdateError'][];
+		};
+		QuibsCreateContentErrorComponent: {
+			/**
+			 * @description * `content` - content (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'content';
+			/**
+			 * @description * `blank` - blank
+			 *     * `invalid` - invalid
+			 *     * `null` - null
+			 *     * `null_characters_not_allowed` - null_characters_not_allowed
+			 *     * `required` - required
+			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+			 * @enum {string}
+			 */
+			code:
+				| 'blank'
+				| 'invalid'
+				| 'null'
+				| 'null_characters_not_allowed'
+				| 'required'
+				| 'surrogate_characters_not_allowed';
+			detail: string;
+		};
+		QuibsCreateDislikesErrorComponent: {
+			/**
+			 * @description * `dislikes` - dislikes (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'dislikes';
+			/**
+			 * @description * `does_not_exist` - does_not_exist
+			 *     * `incorrect_type` - incorrect_type
+			 *     * `not_a_list` - not_a_list
+			 *     * `null` - null
+			 * @enum {string}
+			 */
+			code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+			detail: string;
+		};
+		QuibsCreateError:
+			| components['schemas']['QuibsCreateNonFieldErrorsErrorComponent']
+			| components['schemas']['QuibsCreateIsPublicErrorComponent']
+			| components['schemas']['QuibsCreateTitleErrorComponent']
+			| components['schemas']['QuibsCreateContentErrorComponent']
+			| components['schemas']['QuibsCreateQuibletErrorComponent']
+			| components['schemas']['QuibsCreateQuibberErrorComponent']
+			| components['schemas']['QuibsCreateLikesErrorComponent']
+			| components['schemas']['QuibsCreateDislikesErrorComponent'];
+		QuibsCreateIsPublicErrorComponent: {
+			/**
+			 * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'is_public';
+			/**
+			 * @description * `invalid` - invalid
+			 *     * `null` - null
+			 * @enum {string}
+			 */
+			code: 'invalid' | 'null';
+			detail: string;
+		};
+		QuibsCreateLikesErrorComponent: {
+			/**
+			 * @description * `likes` - likes (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'likes';
+			/**
+			 * @description * `does_not_exist` - does_not_exist
+			 *     * `incorrect_type` - incorrect_type
+			 *     * `not_a_list` - not_a_list
+			 *     * `null` - null
+			 * @enum {string}
+			 */
+			code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+			detail: string;
+		};
+		QuibsCreateNonFieldErrorsErrorComponent: {
+			/**
+			 * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'non_field_errors';
+			/**
+			 * @description * `invalid` - invalid
+			 *     * `null` - null
+			 * @enum {string}
+			 */
+			code: 'invalid' | 'null';
+			detail: string;
+		};
+		QuibsCreateQuibberErrorComponent: {
+			/**
+			 * @description * `quibber` - quibber (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'quibber';
+			/**
+			 * @description * `does_not_exist` - does_not_exist
+			 *     * `incorrect_type` - incorrect_type
+			 *     * `null` - null
+			 *     * `required` - required
+			 * @enum {string}
+			 */
+			code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
+			detail: string;
+		};
+		QuibsCreateQuibletErrorComponent: {
+			/**
+			 * @description * `quiblet` - quiblet (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'quiblet';
+			/**
+			 * @description * `does_not_exist` - does_not_exist
+			 *     * `incorrect_type` - incorrect_type
+			 *     * `null` - null
+			 *     * `required` - required
+			 * @enum {string}
+			 */
+			code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
+			detail: string;
+		};
+		QuibsCreateTitleErrorComponent: {
+			/**
+			 * @description * `title` - title (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'title';
+			/**
+			 * @description * `blank` - blank
+			 *     * `invalid` - invalid
+			 *     * `max_length` - max_length
+			 *     * `null` - null
+			 *     * `null_characters_not_allowed` - null_characters_not_allowed
+			 *     * `required` - required
+			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+			 * @enum {string}
+			 */
+			code:
+				| 'blank'
+				| 'invalid'
+				| 'max_length'
+				| 'null'
+				| 'null_characters_not_allowed'
+				| 'required'
+				| 'surrogate_characters_not_allowed';
+			detail: string;
+		};
+		QuibsCreateValidationError: {
+			type: components['schemas']['ValidationErrorEnum'];
+			errors: components['schemas']['QuibsCreateError'][];
+		};
+		QuibsPartialUpdateContentErrorComponent: {
+			/**
+			 * @description * `content` - content (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'content';
+			/**
+			 * @description * `blank` - blank
+			 *     * `invalid` - invalid
+			 *     * `null` - null
+			 *     * `null_characters_not_allowed` - null_characters_not_allowed
+			 *     * `required` - required
+			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+			 * @enum {string}
+			 */
+			code:
+				| 'blank'
+				| 'invalid'
+				| 'null'
+				| 'null_characters_not_allowed'
+				| 'required'
+				| 'surrogate_characters_not_allowed';
+			detail: string;
+		};
+		QuibsPartialUpdateDislikesErrorComponent: {
+			/**
+			 * @description * `dislikes` - dislikes (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'dislikes';
+			/**
+			 * @description * `does_not_exist` - does_not_exist
+			 *     * `incorrect_type` - incorrect_type
+			 *     * `not_a_list` - not_a_list
+			 *     * `null` - null
+			 * @enum {string}
+			 */
+			code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+			detail: string;
+		};
+		QuibsPartialUpdateError:
+			| components['schemas']['QuibsPartialUpdateNonFieldErrorsErrorComponent']
+			| components['schemas']['QuibsPartialUpdateIsPublicErrorComponent']
+			| components['schemas']['QuibsPartialUpdateTitleErrorComponent']
+			| components['schemas']['QuibsPartialUpdateContentErrorComponent']
+			| components['schemas']['QuibsPartialUpdateQuibletErrorComponent']
+			| components['schemas']['QuibsPartialUpdateQuibberErrorComponent']
+			| components['schemas']['QuibsPartialUpdateLikesErrorComponent']
+			| components['schemas']['QuibsPartialUpdateDislikesErrorComponent'];
+		QuibsPartialUpdateIsPublicErrorComponent: {
+			/**
+			 * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'is_public';
+			/**
+			 * @description * `invalid` - invalid
+			 *     * `null` - null
+			 * @enum {string}
+			 */
+			code: 'invalid' | 'null';
+			detail: string;
+		};
+		QuibsPartialUpdateLikesErrorComponent: {
+			/**
+			 * @description * `likes` - likes (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'likes';
+			/**
+			 * @description * `does_not_exist` - does_not_exist
+			 *     * `incorrect_type` - incorrect_type
+			 *     * `not_a_list` - not_a_list
+			 *     * `null` - null
+			 * @enum {string}
+			 */
+			code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+			detail: string;
+		};
+		QuibsPartialUpdateNonFieldErrorsErrorComponent: {
+			/**
+			 * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'non_field_errors';
+			/**
+			 * @description * `invalid` - invalid
+			 *     * `null` - null
+			 * @enum {string}
+			 */
+			code: 'invalid' | 'null';
+			detail: string;
+		};
+		QuibsPartialUpdateQuibberErrorComponent: {
+			/**
+			 * @description * `quibber` - quibber (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'quibber';
+			/**
+			 * @description * `does_not_exist` - does_not_exist
+			 *     * `incorrect_type` - incorrect_type
+			 *     * `null` - null
+			 *     * `required` - required
+			 * @enum {string}
+			 */
+			code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
+			detail: string;
+		};
+		QuibsPartialUpdateQuibletErrorComponent: {
+			/**
+			 * @description * `quiblet` - quiblet (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'quiblet';
+			/**
+			 * @description * `does_not_exist` - does_not_exist
+			 *     * `incorrect_type` - incorrect_type
+			 *     * `null` - null
+			 *     * `required` - required
+			 * @enum {string}
+			 */
+			code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
+			detail: string;
+		};
+		QuibsPartialUpdateTitleErrorComponent: {
+			/**
+			 * @description * `title` - title (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'title';
+			/**
+			 * @description * `blank` - blank
+			 *     * `invalid` - invalid
+			 *     * `max_length` - max_length
+			 *     * `null` - null
+			 *     * `null_characters_not_allowed` - null_characters_not_allowed
+			 *     * `required` - required
+			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+			 * @enum {string}
+			 */
+			code:
+				| 'blank'
+				| 'invalid'
+				| 'max_length'
+				| 'null'
+				| 'null_characters_not_allowed'
+				| 'required'
+				| 'surrogate_characters_not_allowed';
+			detail: string;
+		};
+		QuibsPartialUpdateValidationError: {
+			type: components['schemas']['ValidationErrorEnum'];
+			errors: components['schemas']['QuibsPartialUpdateError'][];
+		};
+		QuibsUpdateContentErrorComponent: {
+			/**
+			 * @description * `content` - content (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'content';
+			/**
+			 * @description * `blank` - blank
+			 *     * `invalid` - invalid
+			 *     * `null` - null
+			 *     * `null_characters_not_allowed` - null_characters_not_allowed
+			 *     * `required` - required
+			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+			 * @enum {string}
+			 */
+			code:
+				| 'blank'
+				| 'invalid'
+				| 'null'
+				| 'null_characters_not_allowed'
+				| 'required'
+				| 'surrogate_characters_not_allowed';
+			detail: string;
+		};
+		QuibsUpdateDislikesErrorComponent: {
+			/**
+			 * @description * `dislikes` - dislikes (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'dislikes';
+			/**
+			 * @description * `does_not_exist` - does_not_exist
+			 *     * `incorrect_type` - incorrect_type
+			 *     * `not_a_list` - not_a_list
+			 *     * `null` - null
+			 * @enum {string}
+			 */
+			code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+			detail: string;
+		};
+		QuibsUpdateError:
+			| components['schemas']['QuibsUpdateNonFieldErrorsErrorComponent']
+			| components['schemas']['QuibsUpdateIsPublicErrorComponent']
+			| components['schemas']['QuibsUpdateTitleErrorComponent']
+			| components['schemas']['QuibsUpdateContentErrorComponent']
+			| components['schemas']['QuibsUpdateQuibletErrorComponent']
+			| components['schemas']['QuibsUpdateQuibberErrorComponent']
+			| components['schemas']['QuibsUpdateLikesErrorComponent']
+			| components['schemas']['QuibsUpdateDislikesErrorComponent'];
+		QuibsUpdateIsPublicErrorComponent: {
+			/**
+			 * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'is_public';
+			/**
+			 * @description * `invalid` - invalid
+			 *     * `null` - null
+			 * @enum {string}
+			 */
+			code: 'invalid' | 'null';
+			detail: string;
+		};
+		QuibsUpdateLikesErrorComponent: {
+			/**
+			 * @description * `likes` - likes (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'likes';
+			/**
+			 * @description * `does_not_exist` - does_not_exist
+			 *     * `incorrect_type` - incorrect_type
+			 *     * `not_a_list` - not_a_list
+			 *     * `null` - null
+			 * @enum {string}
+			 */
+			code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+			detail: string;
+		};
+		QuibsUpdateNonFieldErrorsErrorComponent: {
+			/**
+			 * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'non_field_errors';
+			/**
+			 * @description * `invalid` - invalid
+			 *     * `null` - null
+			 * @enum {string}
+			 */
+			code: 'invalid' | 'null';
+			detail: string;
+		};
+		QuibsUpdateQuibberErrorComponent: {
+			/**
+			 * @description * `quibber` - quibber (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'quibber';
+			/**
+			 * @description * `does_not_exist` - does_not_exist
+			 *     * `incorrect_type` - incorrect_type
+			 *     * `null` - null
+			 *     * `required` - required
+			 * @enum {string}
+			 */
+			code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
+			detail: string;
+		};
+		QuibsUpdateQuibletErrorComponent: {
+			/**
+			 * @description * `quiblet` - quiblet (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'quiblet';
+			/**
+			 * @description * `does_not_exist` - does_not_exist
+			 *     * `incorrect_type` - incorrect_type
+			 *     * `null` - null
+			 *     * `required` - required
+			 * @enum {string}
+			 */
+			code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
+			detail: string;
+		};
+		QuibsUpdateTitleErrorComponent: {
+			/**
+			 * @description * `title` - title (enum property replaced by openapi-typescript)
+			 * @enum {string}
+			 */
+			attr: 'title';
+			/**
+			 * @description * `blank` - blank
+			 *     * `invalid` - invalid
+			 *     * `max_length` - max_length
+			 *     * `null` - null
+			 *     * `null_characters_not_allowed` - null_characters_not_allowed
+			 *     * `required` - required
+			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+			 * @enum {string}
+			 */
+			code:
+				| 'blank'
+				| 'invalid'
+				| 'max_length'
+				| 'null'
+				| 'null_characters_not_allowed'
+				| 'required'
+				| 'surrogate_characters_not_allowed';
+			detail: string;
+		};
+		QuibsUpdateValidationError: {
+			type: components['schemas']['ValidationErrorEnum'];
+			errors: components['schemas']['QuibsUpdateError'][];
 		};
 		/**
 		 * @description * `server_error` - Server Error
@@ -1590,6 +2115,253 @@ export interface operations {
 				};
 				content: {
 					'application/json': components['schemas']['QuibletsPartialUpdateValidationError'];
+				};
+			};
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse404'];
+				};
+			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
+				};
+			};
+		};
+	};
+	quibs_list: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['Quib'][];
+				};
+			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
+				};
+			};
+		};
+	};
+	quibs_create: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path?: never;
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['Quib'];
+				'application/x-www-form-urlencoded': components['schemas']['Quib'];
+				'multipart/form-data': components['schemas']['Quib'];
+			};
+		};
+		responses: {
+			201: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['Quib'];
+				};
+			};
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['QuibsCreateValidationError'];
+				};
+			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
+				};
+			};
+		};
+	};
+	quibs_retrieve: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				/** @description A unique value identifying this Quib. */
+				id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['Quib'];
+				};
+			};
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse404'];
+				};
+			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
+				};
+			};
+		};
+	};
+	quibs_update: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				/** @description A unique value identifying this Quib. */
+				id: string;
+			};
+			cookie?: never;
+		};
+		requestBody: {
+			content: {
+				'application/json': components['schemas']['Quib'];
+				'application/x-www-form-urlencoded': components['schemas']['Quib'];
+				'multipart/form-data': components['schemas']['Quib'];
+			};
+		};
+		responses: {
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['Quib'];
+				};
+			};
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['QuibsUpdateValidationError'];
+				};
+			};
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse404'];
+				};
+			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
+				};
+			};
+		};
+	};
+	quibs_destroy: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				/** @description A unique value identifying this Quib. */
+				id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: never;
+		responses: {
+			/** @description No response body */
+			204: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content?: never;
+			};
+			404: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse404'];
+				};
+			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
+				};
+			};
+		};
+	};
+	quibs_partial_update: {
+		parameters: {
+			query?: never;
+			header?: never;
+			path: {
+				/** @description A unique value identifying this Quib. */
+				id: string;
+			};
+			cookie?: never;
+		};
+		requestBody?: {
+			content: {
+				'application/json': components['schemas']['PatchedQuib'];
+				'application/x-www-form-urlencoded': components['schemas']['PatchedQuib'];
+				'multipart/form-data': components['schemas']['PatchedQuib'];
+			};
+		};
+		responses: {
+			200: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['Quib'];
+				};
+			};
+			400: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['QuibsPartialUpdateValidationError'];
 				};
 			};
 			404: {
