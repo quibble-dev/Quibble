@@ -24,7 +24,13 @@ urlpatterns = [
     ),
     # openapi
     path('api/v1/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('api/v1/schema/swagger', SpectacularSwaggerView.as_view(), name='swagger'),
 ]
+
+# only add swagger ui for development
+if settings.DEBUG:
+    urlpatterns += [
+        path('api/v1/schema/swagger', SpectacularSwaggerView.as_view(), name='swagger'),
+    ]
+
 # https://docs.djangoproject.com/en/2.1/howto/static-files/#serving-static-files-during-development
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
