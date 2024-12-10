@@ -257,14 +257,28 @@ export interface components {
 			detail: string;
 			attr: string | null;
 		};
+		Error500: {
+			code: components['schemas']['ErrorCode500Enum'];
+			detail: string;
+			attr: string | null;
+		};
 		/**
 		 * @description * `not_found` - Not Found
 		 * @enum {string}
 		 */
 		ErrorCode404Enum: 'not_found';
+		/**
+		 * @description * `error` - Error
+		 * @enum {string}
+		 */
+		ErrorCode500Enum: 'error';
 		ErrorResponse404: {
 			type: components['schemas']['ClientErrorEnum'];
 			errors: components['schemas']['Error404'][];
+		};
+		ErrorResponse500: {
+			type: components['schemas']['ServerErrorEnum'];
+			errors: components['schemas']['Error500'][];
 		};
 		PatchedProfile: {
 			readonly id?: number;
@@ -795,6 +809,11 @@ export interface components {
 			type: components['schemas']['ValidationErrorEnum'];
 			errors: components['schemas']['QuibletsUpdateError'][];
 		};
+		/**
+		 * @description * `server_error` - Server Error
+		 * @enum {string}
+		 */
+		ServerErrorEnum: 'server_error';
 		User: {
 			readonly id: number;
 			/**
@@ -1361,6 +1380,14 @@ export interface operations {
 					'application/json': components['schemas']['Quiblet'][];
 				};
 			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
+				};
+			};
 		};
 	};
 	quiblets_create: {
@@ -1394,6 +1421,14 @@ export interface operations {
 					'application/json': components['schemas']['QuibletsCreateValidationError'];
 				};
 			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
+				};
+			};
 		};
 	};
 	quiblets_retrieve: {
@@ -1422,6 +1457,14 @@ export interface operations {
 				};
 				content: {
 					'application/json': components['schemas']['ErrorResponse404'];
+				};
+			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
 				};
 			};
 		};
@@ -1468,6 +1511,14 @@ export interface operations {
 					'application/json': components['schemas']['ErrorResponse404'];
 				};
 			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
+				};
+			};
 		};
 	};
 	quiblets_destroy: {
@@ -1495,6 +1546,14 @@ export interface operations {
 				};
 				content: {
 					'application/json': components['schemas']['ErrorResponse404'];
+				};
+			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
 				};
 			};
 		};
@@ -1541,6 +1600,14 @@ export interface operations {
 					'application/json': components['schemas']['ErrorResponse404'];
 				};
 			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
+				};
+			};
 		};
 	};
 	users_auth_login_create: {
@@ -1574,6 +1641,14 @@ export interface operations {
 					'application/json': components['schemas']['UsersAuthLoginCreateValidationError'];
 				};
 			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
+				};
+			};
 		};
 	};
 	users_auth_logout_create: {
@@ -1591,6 +1666,14 @@ export interface operations {
 				};
 				content: {
 					'application/json': components['schemas']['DetailResponse'];
+				};
+			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
 				};
 			};
 		};
@@ -1626,6 +1709,14 @@ export interface operations {
 					'application/json': components['schemas']['UsersAuthRegisterCreateValidationError'];
 				};
 			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
+				};
+			};
 		};
 	};
 	users_me_retrieve: {
@@ -1645,6 +1736,14 @@ export interface operations {
 					'application/json': components['schemas']['Profile'];
 				};
 			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
+				};
+			};
 		};
 	};
 	users_me_profiles_list: {
@@ -1662,6 +1761,14 @@ export interface operations {
 				};
 				content: {
 					'application/json': components['schemas']['Profile'][];
+				};
+			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
 				};
 			};
 		};
@@ -1697,6 +1804,14 @@ export interface operations {
 					'application/json': components['schemas']['UsersMeProfilesCreateValidationError'];
 				};
 			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
+				};
+			};
 		};
 	};
 	users_me_profiles_retrieve: {
@@ -1725,6 +1840,14 @@ export interface operations {
 				};
 				content: {
 					'application/json': components['schemas']['ErrorResponse404'];
+				};
+			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
 				};
 			};
 		};
@@ -1771,6 +1894,14 @@ export interface operations {
 					'application/json': components['schemas']['ErrorResponse404'];
 				};
 			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
+				};
+			};
 		};
 	};
 	users_me_profiles_destroy: {
@@ -1798,6 +1929,14 @@ export interface operations {
 				};
 				content: {
 					'application/json': components['schemas']['ErrorResponse404'];
+				};
+			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
 				};
 			};
 		};
@@ -1844,6 +1983,14 @@ export interface operations {
 					'application/json': components['schemas']['ErrorResponse404'];
 				};
 			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
+				};
+			};
 		};
 	};
 	users_profiles_list: {
@@ -1864,6 +2011,14 @@ export interface operations {
 				};
 				content: {
 					'application/json': components['schemas']['Profile'][];
+				};
+			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
 				};
 			};
 		};
@@ -1894,6 +2049,14 @@ export interface operations {
 				};
 				content: {
 					'application/json': components['schemas']['ErrorResponse404'];
+				};
+			};
+			500: {
+				headers: {
+					[name: string]: unknown;
+				};
+				content: {
+					'application/json': components['schemas']['ErrorResponse500'];
 				};
 			};
 		};
