@@ -18,3 +18,6 @@ const client = createClient<paths>({
 });
 
 export default client;
+
+// test
+const { data, error, response } = await client.GET('/api/v1/quiblets/');

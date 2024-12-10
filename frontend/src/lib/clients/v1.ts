@@ -252,51 +252,19 @@ export interface components {
 		DetailResponse: {
 			detail: string;
 		};
-		Error403: {
-			code: components['schemas']['ErrorCode403Enum'];
-			detail: string;
-			attr: string | null;
-		};
 		Error404: {
 			code: components['schemas']['ErrorCode404Enum'];
 			detail: string;
 			attr: string | null;
 		};
 		/**
-		 * @description * `permission_denied` - Permission Denied
-		 * @enum {string}
-		 */
-		ErrorCode403Enum: 'permission_denied';
-		/**
 		 * @description * `not_found` - Not Found
 		 * @enum {string}
 		 */
 		ErrorCode404Enum: 'not_found';
-		ErrorResponse403: {
-			type: components['schemas']['ClientErrorEnum'];
-			errors: components['schemas']['Error403'][];
-		};
 		ErrorResponse404: {
 			type: components['schemas']['ClientErrorEnum'];
 			errors: components['schemas']['Error404'][];
-		};
-		ParseError: {
-			code: components['schemas']['ParseErrorCodeEnum'];
-			detail: string;
-			attr: string | null;
-		};
-		/**
-		 * @description * `parse_error` - Parse Error
-		 * @enum {string}
-		 */
-		ParseErrorCodeEnum: 'parse_error';
-		ParseErrorResponse: {
-			/**
-			 * @description discriminator enum property added by openapi-typescript
-			 * @enum {string}
-			 */
-			type: 'client_error';
-			errors: components['schemas']['ParseError'][];
 		};
 		PatchedProfile: {
 			readonly id?: number;
@@ -417,9 +385,6 @@ export interface components {
 			| components['schemas']['QuibletsCreateCoverErrorComponent']
 			| components['schemas']['QuibletsCreateMembersErrorComponent']
 			| components['schemas']['QuibletsCreateRangersErrorComponent'];
-		QuibletsCreateErrorResponse400:
-			| components['schemas']['QuibletsCreateValidationError']
-			| components['schemas']['ParseErrorResponse'];
 		QuibletsCreateIsPublicErrorComponent: {
 			/**
 			 * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
@@ -509,15 +474,9 @@ export interface components {
 			detail: string;
 		};
 		QuibletsCreateValidationError: {
-			/**
-			 * @description discriminator enum property added by openapi-typescript
-			 * @enum {string}
-			 */
-			type: 'validation_error';
+			type: components['schemas']['ValidationErrorEnum'];
 			errors: components['schemas']['QuibletsCreateError'][];
 		};
-		QuibletsDestroyErrorResponse400: components['schemas']['ParseErrorResponse'];
-		QuibletsListErrorResponse400: components['schemas']['ParseErrorResponse'];
 		QuibletsPartialUpdateAvatarErrorComponent: {
 			/**
 			 * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
@@ -585,9 +544,6 @@ export interface components {
 			| components['schemas']['QuibletsPartialUpdateCoverErrorComponent']
 			| components['schemas']['QuibletsPartialUpdateMembersErrorComponent']
 			| components['schemas']['QuibletsPartialUpdateRangersErrorComponent'];
-		QuibletsPartialUpdateErrorResponse400:
-			| components['schemas']['QuibletsPartialUpdateValidationError']
-			| components['schemas']['ParseErrorResponse'];
 		QuibletsPartialUpdateIsPublicErrorComponent: {
 			/**
 			 * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
@@ -677,14 +633,9 @@ export interface components {
 			detail: string;
 		};
 		QuibletsPartialUpdateValidationError: {
-			/**
-			 * @description discriminator enum property added by openapi-typescript
-			 * @enum {string}
-			 */
-			type: 'validation_error';
+			type: components['schemas']['ValidationErrorEnum'];
 			errors: components['schemas']['QuibletsPartialUpdateError'][];
 		};
-		QuibletsRetrieveErrorResponse400: components['schemas']['ParseErrorResponse'];
 		QuibletsUpdateAvatarErrorComponent: {
 			/**
 			 * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
@@ -752,9 +703,6 @@ export interface components {
 			| components['schemas']['QuibletsUpdateCoverErrorComponent']
 			| components['schemas']['QuibletsUpdateMembersErrorComponent']
 			| components['schemas']['QuibletsUpdateRangersErrorComponent'];
-		QuibletsUpdateErrorResponse400:
-			| components['schemas']['QuibletsUpdateValidationError']
-			| components['schemas']['ParseErrorResponse'];
 		QuibletsUpdateIsPublicErrorComponent: {
 			/**
 			 * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
@@ -844,11 +792,7 @@ export interface components {
 			detail: string;
 		};
 		QuibletsUpdateValidationError: {
-			/**
-			 * @description discriminator enum property added by openapi-typescript
-			 * @enum {string}
-			 */
-			type: 'validation_error';
+			type: components['schemas']['ValidationErrorEnum'];
 			errors: components['schemas']['QuibletsUpdateError'][];
 		};
 		User: {
@@ -894,9 +838,6 @@ export interface components {
 			| components['schemas']['UsersAuthLoginCreateNonFieldErrorsErrorComponent']
 			| components['schemas']['UsersAuthLoginCreateEmailErrorComponent']
 			| components['schemas']['UsersAuthLoginCreatePasswordErrorComponent'];
-		UsersAuthLoginCreateErrorResponse400:
-			| components['schemas']['UsersAuthLoginCreateValidationError']
-			| components['schemas']['ParseErrorResponse'];
 		UsersAuthLoginCreateNonFieldErrorsErrorComponent: {
 			/**
 			 * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
@@ -938,14 +879,9 @@ export interface components {
 			detail: string;
 		};
 		UsersAuthLoginCreateValidationError: {
-			/**
-			 * @description discriminator enum property added by openapi-typescript
-			 * @enum {string}
-			 */
-			type: 'validation_error';
+			type: components['schemas']['ValidationErrorEnum'];
 			errors: components['schemas']['UsersAuthLoginCreateError'][];
 		};
-		UsersAuthLogoutCreateErrorResponse400: components['schemas']['ParseErrorResponse'];
 		UsersAuthRegisterCreateEmailErrorComponent: {
 			/**
 			 * @description * `email` - email (enum property replaced by openapi-typescript)
@@ -978,9 +914,6 @@ export interface components {
 			| components['schemas']['UsersAuthRegisterCreateNonFieldErrorsErrorComponent']
 			| components['schemas']['UsersAuthRegisterCreateEmailErrorComponent']
 			| components['schemas']['UsersAuthRegisterCreatePasswordErrorComponent'];
-		UsersAuthRegisterCreateErrorResponse400:
-			| components['schemas']['UsersAuthRegisterCreateValidationError']
-			| components['schemas']['ParseErrorResponse'];
 		UsersAuthRegisterCreateNonFieldErrorsErrorComponent: {
 			/**
 			 * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
@@ -1022,11 +955,7 @@ export interface components {
 			detail: string;
 		};
 		UsersAuthRegisterCreateValidationError: {
-			/**
-			 * @description discriminator enum property added by openapi-typescript
-			 * @enum {string}
-			 */
-			type: 'validation_error';
+			type: components['schemas']['ValidationErrorEnum'];
 			errors: components['schemas']['UsersAuthRegisterCreateError'][];
 		};
 		UsersMeProfilesCreateAvatarErrorComponent: {
@@ -1067,9 +996,6 @@ export interface components {
 			| components['schemas']['UsersMeProfilesCreateUsernameErrorComponent']
 			| components['schemas']['UsersMeProfilesCreateFirstNameErrorComponent']
 			| components['schemas']['UsersMeProfilesCreateLastNameErrorComponent'];
-		UsersMeProfilesCreateErrorResponse400:
-			| components['schemas']['UsersMeProfilesCreateValidationError']
-			| components['schemas']['ParseErrorResponse'];
 		UsersMeProfilesCreateFirstNameErrorComponent: {
 			/**
 			 * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
@@ -1153,15 +1079,9 @@ export interface components {
 			detail: string;
 		};
 		UsersMeProfilesCreateValidationError: {
-			/**
-			 * @description discriminator enum property added by openapi-typescript
-			 * @enum {string}
-			 */
-			type: 'validation_error';
+			type: components['schemas']['ValidationErrorEnum'];
 			errors: components['schemas']['UsersMeProfilesCreateError'][];
 		};
-		UsersMeProfilesDestroyErrorResponse400: components['schemas']['ParseErrorResponse'];
-		UsersMeProfilesListErrorResponse400: components['schemas']['ParseErrorResponse'];
 		UsersMeProfilesPartialUpdateAvatarErrorComponent: {
 			/**
 			 * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
@@ -1200,9 +1120,6 @@ export interface components {
 			| components['schemas']['UsersMeProfilesPartialUpdateUsernameErrorComponent']
 			| components['schemas']['UsersMeProfilesPartialUpdateFirstNameErrorComponent']
 			| components['schemas']['UsersMeProfilesPartialUpdateLastNameErrorComponent'];
-		UsersMeProfilesPartialUpdateErrorResponse400:
-			| components['schemas']['UsersMeProfilesPartialUpdateValidationError']
-			| components['schemas']['ParseErrorResponse'];
 		UsersMeProfilesPartialUpdateFirstNameErrorComponent: {
 			/**
 			 * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
@@ -1286,14 +1203,9 @@ export interface components {
 			detail: string;
 		};
 		UsersMeProfilesPartialUpdateValidationError: {
-			/**
-			 * @description discriminator enum property added by openapi-typescript
-			 * @enum {string}
-			 */
-			type: 'validation_error';
+			type: components['schemas']['ValidationErrorEnum'];
 			errors: components['schemas']['UsersMeProfilesPartialUpdateError'][];
 		};
-		UsersMeProfilesRetrieveErrorResponse400: components['schemas']['ParseErrorResponse'];
 		UsersMeProfilesUpdateAvatarErrorComponent: {
 			/**
 			 * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
@@ -1332,9 +1244,6 @@ export interface components {
 			| components['schemas']['UsersMeProfilesUpdateUsernameErrorComponent']
 			| components['schemas']['UsersMeProfilesUpdateFirstNameErrorComponent']
 			| components['schemas']['UsersMeProfilesUpdateLastNameErrorComponent'];
-		UsersMeProfilesUpdateErrorResponse400:
-			| components['schemas']['UsersMeProfilesUpdateValidationError']
-			| components['schemas']['ParseErrorResponse'];
 		UsersMeProfilesUpdateFirstNameErrorComponent: {
 			/**
 			 * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
@@ -1418,16 +1327,9 @@ export interface components {
 			detail: string;
 		};
 		UsersMeProfilesUpdateValidationError: {
-			/**
-			 * @description discriminator enum property added by openapi-typescript
-			 * @enum {string}
-			 */
-			type: 'validation_error';
+			type: components['schemas']['ValidationErrorEnum'];
 			errors: components['schemas']['UsersMeProfilesUpdateError'][];
 		};
-		UsersMeRetrieveErrorResponse400: components['schemas']['ParseErrorResponse'];
-		UsersProfilesListErrorResponse400: components['schemas']['ParseErrorResponse'];
-		UsersProfilesRetrieveErrorResponse400: components['schemas']['ParseErrorResponse'];
 		/**
 		 * @description * `validation_error` - Validation Error
 		 * @enum {string}
@@ -1457,22 +1359,6 @@ export interface operations {
 				};
 				content: {
 					'application/json': components['schemas']['Quiblet'][];
-				};
-			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['QuibletsListErrorResponse400'];
-				};
-			};
-			403: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse403'];
 				};
 			};
 		};
@@ -1505,15 +1391,7 @@ export interface operations {
 					[name: string]: unknown;
 				};
 				content: {
-					'application/json': components['schemas']['QuibletsCreateErrorResponse400'];
-				};
-			};
-			403: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse403'];
+					'application/json': components['schemas']['QuibletsCreateValidationError'];
 				};
 			};
 		};
@@ -1536,22 +1414,6 @@ export interface operations {
 				};
 				content: {
 					'application/json': components['schemas']['Quiblet'];
-				};
-			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['QuibletsRetrieveErrorResponse400'];
-				};
-			};
-			403: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse403'];
 				};
 			};
 			404: {
@@ -1595,15 +1457,7 @@ export interface operations {
 					[name: string]: unknown;
 				};
 				content: {
-					'application/json': components['schemas']['QuibletsUpdateErrorResponse400'];
-				};
-			};
-			403: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse403'];
+					'application/json': components['schemas']['QuibletsUpdateValidationError'];
 				};
 			};
 			404: {
@@ -1634,22 +1488,6 @@ export interface operations {
 					[name: string]: unknown;
 				};
 				content?: never;
-			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['QuibletsDestroyErrorResponse400'];
-				};
-			};
-			403: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse403'];
-				};
 			};
 			404: {
 				headers: {
@@ -1692,15 +1530,7 @@ export interface operations {
 					[name: string]: unknown;
 				};
 				content: {
-					'application/json': components['schemas']['QuibletsPartialUpdateErrorResponse400'];
-				};
-			};
-			403: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse403'];
+					'application/json': components['schemas']['QuibletsPartialUpdateValidationError'];
 				};
 			};
 			404: {
@@ -1741,7 +1571,7 @@ export interface operations {
 					[name: string]: unknown;
 				};
 				content: {
-					'application/json': components['schemas']['UsersAuthLoginCreateErrorResponse400'];
+					'application/json': components['schemas']['UsersAuthLoginCreateValidationError'];
 				};
 			};
 		};
@@ -1761,14 +1591,6 @@ export interface operations {
 				};
 				content: {
 					'application/json': components['schemas']['DetailResponse'];
-				};
-			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['UsersAuthLogoutCreateErrorResponse400'];
 				};
 			};
 		};
@@ -1801,7 +1623,7 @@ export interface operations {
 					[name: string]: unknown;
 				};
 				content: {
-					'application/json': components['schemas']['UsersAuthRegisterCreateErrorResponse400'];
+					'application/json': components['schemas']['UsersAuthRegisterCreateValidationError'];
 				};
 			};
 		};
@@ -1823,14 +1645,6 @@ export interface operations {
 					'application/json': components['schemas']['Profile'];
 				};
 			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['UsersMeRetrieveErrorResponse400'];
-				};
-			};
 		};
 	};
 	users_me_profiles_list: {
@@ -1848,14 +1662,6 @@ export interface operations {
 				};
 				content: {
 					'application/json': components['schemas']['Profile'][];
-				};
-			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['UsersMeProfilesListErrorResponse400'];
 				};
 			};
 		};
@@ -1888,7 +1694,7 @@ export interface operations {
 					[name: string]: unknown;
 				};
 				content: {
-					'application/json': components['schemas']['UsersMeProfilesCreateErrorResponse400'];
+					'application/json': components['schemas']['UsersMeProfilesCreateValidationError'];
 				};
 			};
 		};
@@ -1911,14 +1717,6 @@ export interface operations {
 				};
 				content: {
 					'application/json': components['schemas']['Profile'];
-				};
-			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['UsersMeProfilesRetrieveErrorResponse400'];
 				};
 			};
 			404: {
@@ -1962,7 +1760,7 @@ export interface operations {
 					[name: string]: unknown;
 				};
 				content: {
-					'application/json': components['schemas']['UsersMeProfilesUpdateErrorResponse400'];
+					'application/json': components['schemas']['UsersMeProfilesUpdateValidationError'];
 				};
 			};
 			404: {
@@ -1993,14 +1791,6 @@ export interface operations {
 					[name: string]: unknown;
 				};
 				content?: never;
-			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['UsersMeProfilesDestroyErrorResponse400'];
-				};
 			};
 			404: {
 				headers: {
@@ -2043,7 +1833,7 @@ export interface operations {
 					[name: string]: unknown;
 				};
 				content: {
-					'application/json': components['schemas']['UsersMeProfilesPartialUpdateErrorResponse400'];
+					'application/json': components['schemas']['UsersMeProfilesPartialUpdateValidationError'];
 				};
 			};
 			404: {
@@ -2076,14 +1866,6 @@ export interface operations {
 					'application/json': components['schemas']['Profile'][];
 				};
 			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['UsersProfilesListErrorResponse400'];
-				};
-			};
 		};
 	};
 	users_profiles_retrieve: {
@@ -2104,14 +1886,6 @@ export interface operations {
 				};
 				content: {
 					'application/json': components['schemas']['Profile'];
-				};
-			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['UsersProfilesRetrieveErrorResponse400'];
 				};
 			};
 			404: {

@@ -70,13 +70,16 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
     ],
+    # 'DEFAULT_RENDERER_CLASSES': (
+    #      'rest_framework.renderers.JSONRenderer',
+    #  ),
     'EXCEPTION_HANDLER': 'drf_standardized_errors.handler.exception_handler',
-    'DEFAULT_SCHEMA_CLASS': 'drf_standardized_errors.openapi.AutoSchema',
+    'DEFAULT_SCHEMA_CLASS': 'common.api.openapi.CustomAutoSchema',
 }
 
 # https://drf-standardized-errors.readthedocs.io/en/latest/openapi.html#tips-and-tricks
 DRF_STANDARDIZED_ERRORS = {
-    'ALLOWED_ERROR_STATUS_CODES': ['400', '403', '404', '429'],
+    'ALLOWED_ERROR_STATUS_CODES': ['400', '403', '404', '500'],
 }
 
 # https://drf-standardized-errors.readthedocs.io/en/latest/openapi.html#hide-error-responses-that-show-in-every-operation
