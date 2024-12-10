@@ -31,6 +31,8 @@ semantic-version = "^2.10.0"
 drf-spectacular = {extras = ["sidecar"], version = "^0.28.0"}
 # 3rd party uuid
 shortuuid = "^1.0.13"
+# 3rd party exception handler
+drf-standardized-errors = {extras = ["openapi"], version = "^0.14.1"}
 
 [tool.poetry.group.dev.dependencies]
 # task runner
