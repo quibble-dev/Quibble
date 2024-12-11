@@ -1,13 +1,13 @@
 import pytest
 from rest_framework.authtoken.models import Token
 
-from apps.user.models import Profile, User
+from apps.user.models import CustomUser, Profile
 
 
 @pytest.fixture
 def user():
     """Creates and returns a user."""
-    return User.objects.create_user(email='test@test.com', password='testpass')  # type: ignore
+    return CustomUser.objects.create_user(email='test@test.com', password='testpass')  # type: ignore
 
 
 @pytest.fixture
