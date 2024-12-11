@@ -9,7 +9,7 @@ export const actions = {
     const form_data = await request.formData();
 
     try {
-      const { data } = await client.POST('/api/v1/users/auth/login/', {
+      const { data } = await client.POST('/api/v1/u/auth/login/', {
         body: {
           email: form_data.get('email') as string,
           password: form_data.get('password') as string

@@ -1,21 +1,22 @@
 import { isAuthError } from '$lib/utils/errors';
-import { apiFetch } from '$lib/utils/api';
 import { fail } from '@sveltejs/kit';
 import type { Actions } from './$types';
 import { dev } from '$app/environment';
+import client from '$lib/clients/client';
 
 export const actions = {
   create: async ({ request, cookies }) => {
     const form_data = await request.formData();
 
     try {
-      await apiFetch('v1/user/me/profiles/', {
+      await client.POST('/api/v1/u/me/profiles/', {
         headers: {
           Authorization: `Bearer ${cookies.get('auth_token')}`
         },
-        body: JSON.stringify({
-          username: form_data.get('username')
-        })
+        // @ts-expect-error: only requires username for POST req
+        body: {
+          username: form_data.get('username') as string
+        }
       });
 
       return { success: true };
