@@ -14,7 +14,9 @@
         <div class="flex flex-col gap-1">
           <div class="flex items-center gap-2">
             <Avatar src={post.community.avatar} alt={post.community.name} />
-            <a href="/q/{post.community.name}" class="text-xs font-bold">q/{post.community.name}</a>
+            <a href="/q/{post.community.name}" class="text-xs font-bold"
+              >q/{post.community.name}</a
+            >
           </div>
           <a
             href="/q/{post.community.name}/posts/{post.slug}"
@@ -24,7 +26,8 @@
           </a>
           <div class="flex items-center gap-2">
             <p class="text-xs font-medium">{readable(post.likes)} likes</p>
-            <coreicons-shape-circle variant="filled" class="size-0.5"></coreicons-shape-circle>
+            <coreicons-shape-circle variant="filled" class="size-0.5"
+            ></coreicons-shape-circle>
             <p class="text-xs font-medium">{readable(post.comments)} quibble(s)</p>
           </div>
         </div>

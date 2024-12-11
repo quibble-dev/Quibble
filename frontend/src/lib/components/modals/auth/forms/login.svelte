@@ -56,7 +56,12 @@
     Continue with Google
   </button>
   <div class="divider my-0 text-xs font-bold">OR</div>
-  <form method="POST" action="/auth?/login" onsubmit={handle_submit} class="flex flex-col gap-3">
+  <form
+    method="POST"
+    action="/auth?/login"
+    onsubmit={handle_submit}
+    class="flex flex-col gap-3"
+  >
     <label class="input input-bordered flex items-center gap-2">
       <coreicons-shape-mail class="size-4"></coreicons-shape-mail>
       <input
@@ -80,7 +85,8 @@
     </label>
     {#if errors?.detail}
       <div class="flex items-center gap-2">
-        <coreicons-shape-alert-triangle class="size-3 text-error"></coreicons-shape-alert-triangle>
+        <coreicons-shape-alert-triangle class="size-3 text-error"
+        ></coreicons-shape-alert-triangle>
         <span class="text-xs text-error">{errors.detail}</span>
       </div>
     {/if}

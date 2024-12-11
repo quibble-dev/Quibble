@@ -10,7 +10,9 @@
 >
   <div class="flex flex-col gap-2">
     <h2 class="font-semibold">Communities</h2>
-    <label class="input input-sm input-bordered flex items-center rounded-lg bg-transparent">
+    <label
+      class="input input-sm input-bordered flex items-center rounded-lg bg-transparent"
+    >
       <input
         type="text"
         class="grow border-none pl-0.5 pr-2 text-sm focus:ring-0"
