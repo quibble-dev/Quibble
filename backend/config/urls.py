@@ -21,9 +21,10 @@ urlpatterns = [
         'api/v1/',
         include(
             [
-                path('users/', include('apps.user.api.v1.urls')),
-                path('quiblets/', include('apps.quiblet.api.v1.urls')),
-                path('quibs/', include('apps.quib.api.v1.urls')),
+                # users, profiles and auth
+                path('u/', include('apps.user.api.v1.urls')),
+                # quiblet and quib endpoints
+                path('q/', include('apps.quiblet.api.v1.urls')),
             ]
         ),
     ),

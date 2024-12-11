@@ -1,7 +1,7 @@
 from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import ModelSerializer
 
-from apps.quiblet.models import Quiblet
+from ...models import Quib, Quiblet
 
 
 class QuibletSerializer(ModelSerializer):
@@ -16,3 +16,9 @@ class QuibletSerializer(ModelSerializer):
             )
 
         return name
+
+
+class QuibSerializer(ModelSerializer):
+    class Meta:
+        model = Quib
+        fields = '__all__'

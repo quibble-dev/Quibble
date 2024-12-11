@@ -1,10 +1,11 @@
+from drf_spectacular.utils import extend_schema
 from rest_framework.viewsets import ModelViewSet
 
-from apps.quiblet.models import Quiblet
+from ...models import Quib, Quiblet
+from .serializers import QuibletSerializer, QuibSerializer
 
-from .serializers import QuibletSerializer
 
-
+@extend_schema(tags=['quibs & quiblets'])
 class QuibletViewSet(ModelViewSet):
     queryset = Quiblet.objects.all()
     serializer_class = QuibletSerializer
@@ -16,3 +17,9 @@ class QuibletViewSet(ModelViewSet):
 
         quiblet.members.add(quibbler)
         quiblet.rangers.add(quibbler)
+
+
+@extend_schema(tags=['quibs & quiblets'])
+class QuibViewSet(ModelViewSet):
+    queryset = Quib.objects.all()
+    serializer_class = QuibSerializer

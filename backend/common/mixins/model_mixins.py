@@ -68,7 +68,7 @@ class IsPublicMixin(models.Model):
         abstract = True
 
 
-class ShortUUIDIdMixin(models.Model):
+class ShortUUIDMixin(models.Model):
     """Adds an `id` field as primary key and a shortuuid generated one."""
 
     id = ShortUUIDField(  # type: ignore

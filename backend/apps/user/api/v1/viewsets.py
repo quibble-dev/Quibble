@@ -1,4 +1,5 @@
 from django.conf import settings
+from drf_spectacular.utils import extend_schema
 from rest_framework import exceptions, filters, permissions, viewsets
 
 from apps.user.models import Profile
@@ -6,6 +7,7 @@ from apps.user.models import Profile
 from .serializers import ProfileSerializer
 
 
+@extend_schema(tags=['me & profiles'])
 class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
     """
     ViewSet for performing read-only operations on the Profile model.
@@ -20,6 +22,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
     search_fields = ('username',)
 
 
+@extend_schema(tags=['me & profiles'])
 class MyProfilesViewSet(viewsets.ModelViewSet):
     """
     ViewSet to manage profiles associated with the authenticated user.
