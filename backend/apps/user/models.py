@@ -1,10 +1,11 @@
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, AbstractUser, PermissionsMixin
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from common.mixins.model_mixins import AvatarMixin, ColorMixin, CreatedAtMixin
 
 from .managers import CustomUserManager
+from .validators import UsernameValidator
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -35,8 +36,19 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Profile(CreatedAtMixin, ColorMixin, AvatarMixin):
+    username_validator = UsernameValidator()
+
     user = models.ForeignKey(User, related_name='profiles', on_delete=models.CASCADE)
-    username = models.CharField(_('username'), unique=True, max_length=25)
+    username = models.CharField(
+        _('username'),
+        unique=True,
+        max_length=25,
+        validators=[username_validator],
+        help_text=_("Required. 25 characters or fewer. Letters, digits and ./_ only."),
+        error_messages={
+            "unique": _("A profile with that username already exists."),
+        },
+    )
     first_name = models.CharField(_('first name'), max_length=255, blank=True, null=True)
     last_name = models.CharField(_('last name'), max_length=255, blank=True, null=True)
     bio = models.TextField(_('Bio'), blank=True, null=True)
