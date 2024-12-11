@@ -4,2833 +4,2833 @@
  */
 
 export interface paths {
-	'/api/v1/quiblets/': {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		get: operations['quiblets_list'];
-		put?: never;
-		post: operations['quiblets_create'];
-		delete?: never;
-		options?: never;
-		head?: never;
-		patch?: never;
-		trace?: never;
-	};
-	'/api/v1/quiblets/{id}/': {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		get: operations['quiblets_retrieve'];
-		put: operations['quiblets_update'];
-		post?: never;
-		delete: operations['quiblets_destroy'];
-		options?: never;
-		head?: never;
-		patch: operations['quiblets_partial_update'];
-		trace?: never;
-	};
-	'/api/v1/quibs/': {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		get: operations['quibs_list'];
-		put?: never;
-		post: operations['quibs_create'];
-		delete?: never;
-		options?: never;
-		head?: never;
-		patch?: never;
-		trace?: never;
-	};
-	'/api/v1/quibs/{id}/': {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		get: operations['quibs_retrieve'];
-		put: operations['quibs_update'];
-		post?: never;
-		delete: operations['quibs_destroy'];
-		options?: never;
-		head?: never;
-		patch: operations['quibs_partial_update'];
-		trace?: never;
-	};
-	'/api/v1/users/auth/login/': {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		get?: never;
-		put?: never;
-		/** @description Customized drf basic token authentication.
-		 *
-		 *     This view authenticates the user using email and password credentials
-		 *     and issues a token upon successful login. */
-		post: operations['users_auth_login_create'];
-		delete?: never;
-		options?: never;
-		head?: never;
-		patch?: never;
-		trace?: never;
-	};
-	'/api/v1/users/auth/logout/': {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		get?: never;
-		put?: never;
-		/** @description View to handle user logout by deleting the authentication token. */
-		post: operations['users_auth_logout_create'];
-		delete?: never;
-		options?: never;
-		head?: never;
-		patch?: never;
-		trace?: never;
-	};
-	'/api/v1/users/auth/register/': {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		get?: never;
-		put?: never;
-		/** @description View to handle registering of new users. */
-		post: operations['users_auth_register_create'];
-		delete?: never;
-		options?: never;
-		head?: never;
-		patch?: never;
-		trace?: never;
-	};
-	'/api/v1/users/me/': {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		/** @description View to retrieve information for the currently authenticated user.
-		 *
-		 *     - `get`: Returns the details of the authenticated user based on their token.
-		 *
-		 *     Permission:
-		 *     - Requires user authentication. */
-		get: operations['users_me_retrieve'];
-		put?: never;
-		post?: never;
-		delete?: never;
-		options?: never;
-		head?: never;
-		patch?: never;
-		trace?: never;
-	};
-	'/api/v1/users/me/profiles/': {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		/** @description ViewSet to manage profiles associated with the authenticated user.
-		 *
-		 *     Permissions:
-		 *     - Requires user authentication to access and modify profiles. */
-		get: operations['users_me_profiles_list'];
-		put?: never;
-		/** @description ViewSet to manage profiles associated with the authenticated user.
-		 *
-		 *     Permissions:
-		 *     - Requires user authentication to access and modify profiles. */
-		post: operations['users_me_profiles_create'];
-		delete?: never;
-		options?: never;
-		head?: never;
-		patch?: never;
-		trace?: never;
-	};
-	'/api/v1/users/me/profiles/{id}/': {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		/** @description ViewSet to manage profiles associated with the authenticated user.
-		 *
-		 *     Permissions:
-		 *     - Requires user authentication to access and modify profiles. */
-		get: operations['users_me_profiles_retrieve'];
-		/** @description ViewSet to manage profiles associated with the authenticated user.
-		 *
-		 *     Permissions:
-		 *     - Requires user authentication to access and modify profiles. */
-		put: operations['users_me_profiles_update'];
-		post?: never;
-		/** @description ViewSet to manage profiles associated with the authenticated user.
-		 *
-		 *     Permissions:
-		 *     - Requires user authentication to access and modify profiles. */
-		delete: operations['users_me_profiles_destroy'];
-		options?: never;
-		head?: never;
-		/** @description ViewSet to manage profiles associated with the authenticated user.
-		 *
-		 *     Permissions:
-		 *     - Requires user authentication to access and modify profiles. */
-		patch: operations['users_me_profiles_partial_update'];
-		trace?: never;
-	};
-	'/api/v1/users/profiles/': {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		/** @description ViewSet for performing read-only operations on the Profile model.
-		 *
-		 *     Filtering:
-		 *     - Allows searching profiles by username. */
-		get: operations['users_profiles_list'];
-		put?: never;
-		post?: never;
-		delete?: never;
-		options?: never;
-		head?: never;
-		patch?: never;
-		trace?: never;
-	};
-	'/api/v1/users/profiles/{id}/': {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		/** @description ViewSet for performing read-only operations on the Profile model.
-		 *
-		 *     Filtering:
-		 *     - Allows searching profiles by username. */
-		get: operations['users_profiles_retrieve'];
-		put?: never;
-		post?: never;
-		delete?: never;
-		options?: never;
-		head?: never;
-		patch?: never;
-		trace?: never;
-	};
+  '/api/v1/quiblets/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['quiblets_list'];
+    put?: never;
+    post: operations['quiblets_create'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/quiblets/{id}/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['quiblets_retrieve'];
+    put: operations['quiblets_update'];
+    post?: never;
+    delete: operations['quiblets_destroy'];
+    options?: never;
+    head?: never;
+    patch: operations['quiblets_partial_update'];
+    trace?: never;
+  };
+  '/api/v1/quibs/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['quibs_list'];
+    put?: never;
+    post: operations['quibs_create'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/quibs/{id}/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['quibs_retrieve'];
+    put: operations['quibs_update'];
+    post?: never;
+    delete: operations['quibs_destroy'];
+    options?: never;
+    head?: never;
+    patch: operations['quibs_partial_update'];
+    trace?: never;
+  };
+  '/api/v1/users/auth/login/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** @description Customized drf basic token authentication.
+     *
+     *     This view authenticates the user using email and password credentials
+     *     and issues a token upon successful login. */
+    post: operations['users_auth_login_create'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/users/auth/logout/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** @description View to handle user logout by deleting the authentication token. */
+    post: operations['users_auth_logout_create'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/users/auth/register/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** @description View to handle registering of new users. */
+    post: operations['users_auth_register_create'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/users/me/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description View to retrieve information for the currently authenticated user.
+     *
+     *     - `get`: Returns the details of the authenticated user based on their token.
+     *
+     *     Permission:
+     *     - Requires user authentication. */
+    get: operations['users_me_retrieve'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/users/me/profiles/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description ViewSet to manage profiles associated with the authenticated user.
+     *
+     *     Permissions:
+     *     - Requires user authentication to access and modify profiles. */
+    get: operations['users_me_profiles_list'];
+    put?: never;
+    /** @description ViewSet to manage profiles associated with the authenticated user.
+     *
+     *     Permissions:
+     *     - Requires user authentication to access and modify profiles. */
+    post: operations['users_me_profiles_create'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/users/me/profiles/{id}/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description ViewSet to manage profiles associated with the authenticated user.
+     *
+     *     Permissions:
+     *     - Requires user authentication to access and modify profiles. */
+    get: operations['users_me_profiles_retrieve'];
+    /** @description ViewSet to manage profiles associated with the authenticated user.
+     *
+     *     Permissions:
+     *     - Requires user authentication to access and modify profiles. */
+    put: operations['users_me_profiles_update'];
+    post?: never;
+    /** @description ViewSet to manage profiles associated with the authenticated user.
+     *
+     *     Permissions:
+     *     - Requires user authentication to access and modify profiles. */
+    delete: operations['users_me_profiles_destroy'];
+    options?: never;
+    head?: never;
+    /** @description ViewSet to manage profiles associated with the authenticated user.
+     *
+     *     Permissions:
+     *     - Requires user authentication to access and modify profiles. */
+    patch: operations['users_me_profiles_partial_update'];
+    trace?: never;
+  };
+  '/api/v1/users/profiles/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description ViewSet for performing read-only operations on the Profile model.
+     *
+     *     Filtering:
+     *     - Allows searching profiles by username. */
+    get: operations['users_profiles_list'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/users/profiles/{id}/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description ViewSet for performing read-only operations on the Profile model.
+     *
+     *     Filtering:
+     *     - Allows searching profiles by username. */
+    get: operations['users_profiles_retrieve'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
-	schemas: {
-		Auth: {
-			/**
-			 * Email Address
-			 * Format: email
-			 */
-			email: string;
-			password: string;
-		};
-		AuthTokenResponse: {
-			token: string;
-		};
-		/**
-		 * @description * `client_error` - Client Error
-		 * @enum {string}
-		 */
-		ClientErrorEnum: 'client_error';
-		/**
-		 * @description * `primary` - primary
-		 *     * `secondary` - secondary
-		 *     * `accent` - accent
-		 *     * `neutral` - neutral
-		 *     * `info` - info
-		 *     * `success` - success
-		 *     * `warning` - warning
-		 *     * `error` - error
-		 * @enum {string}
-		 */
-		ColorEnum:
-			| 'primary'
-			| 'secondary'
-			| 'accent'
-			| 'neutral'
-			| 'info'
-			| 'success'
-			| 'warning'
-			| 'error';
-		/** @description Serializer for views returning just a response with detail key */
-		DetailResponse: {
-			detail: string;
-		};
-		Error404: {
-			code: components['schemas']['ErrorCode404Enum'];
-			detail: string;
-			attr: string | null;
-		};
-		Error500: {
-			code: components['schemas']['ErrorCode500Enum'];
-			detail: string;
-			attr: string | null;
-		};
-		/**
-		 * @description * `not_found` - Not Found
-		 * @enum {string}
-		 */
-		ErrorCode404Enum: 'not_found';
-		/**
-		 * @description * `error` - Error
-		 * @enum {string}
-		 */
-		ErrorCode500Enum: 'error';
-		ErrorResponse404: {
-			type: components['schemas']['ClientErrorEnum'];
-			errors: components['schemas']['Error404'][];
-		};
-		ErrorResponse500: {
-			type: components['schemas']['ServerErrorEnum'];
-			errors: components['schemas']['Error500'][];
-		};
-		PatchedProfile: {
-			readonly id?: number;
-			readonly user?: components['schemas']['User'];
-			/** Format: date-time */
-			readonly created_at?: string;
-			color?: components['schemas']['ColorEnum'];
-			/** Format: uri */
-			avatar?: string | null;
-			username?: string;
-			first_name?: string | null;
-			last_name?: string | null;
-		};
-		PatchedQuib: {
-			readonly id?: string;
-			/** Format: date-time */
-			readonly created_at?: string;
-			is_public?: boolean;
-			title?: string;
-			readonly slug?: string;
-			content?: string;
-			quiblet?: string;
-			/** Quibbler */
-			quibber?: number;
-			likes?: number[];
-			dislikes?: number[];
-		};
-		PatchedQuiblet: {
-			readonly id?: string;
-			/** Format: date-time */
-			readonly created_at?: string;
-			/** Format: uri */
-			avatar?: string | null;
-			is_public?: boolean;
-			name?: string;
-			description?: string;
-			/** Format: uri */
-			cover?: string | null;
-			members?: number[];
-			rangers?: number[];
-		};
-		Profile: {
-			readonly id: number;
-			readonly user: components['schemas']['User'];
-			/** Format: date-time */
-			readonly created_at: string;
-			color?: components['schemas']['ColorEnum'];
-			/** Format: uri */
-			avatar?: string | null;
-			username: string;
-			first_name?: string | null;
-			last_name?: string | null;
-		};
-		Quib: {
-			readonly id: string;
-			/** Format: date-time */
-			readonly created_at: string;
-			is_public?: boolean;
-			title: string;
-			readonly slug: string;
-			content: string;
-			quiblet: string;
-			/** Quibbler */
-			quibber: number;
-			likes?: number[];
-			dislikes?: number[];
-		};
-		Quiblet: {
-			readonly id: string;
-			/** Format: date-time */
-			readonly created_at: string;
-			/** Format: uri */
-			avatar?: string | null;
-			is_public?: boolean;
-			name: string;
-			description: string;
-			/** Format: uri */
-			cover?: string | null;
-			members?: number[];
-			rangers?: number[];
-		};
-		QuibletsCreateAvatarErrorComponent: {
-			/**
-			 * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'avatar';
-			/**
-			 * @description * `empty` - empty
-			 *     * `invalid` - invalid
-			 *     * `invalid_image` - invalid_image
-			 *     * `max_length` - max_length
-			 *     * `no_name` - no_name
-			 * @enum {string}
-			 */
-			code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-			detail: string;
-		};
-		QuibletsCreateCoverErrorComponent: {
-			/**
-			 * @description * `cover` - cover (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'cover';
-			/**
-			 * @description * `empty` - empty
-			 *     * `invalid` - invalid
-			 *     * `invalid_image` - invalid_image
-			 *     * `max_length` - max_length
-			 *     * `no_name` - no_name
-			 * @enum {string}
-			 */
-			code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-			detail: string;
-		};
-		QuibletsCreateDescriptionErrorComponent: {
-			/**
-			 * @description * `description` - description (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'description';
-			/**
-			 * @description * `blank` - blank
-			 *     * `invalid` - invalid
-			 *     * `null` - null
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `required` - required
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 * @enum {string}
-			 */
-			code:
-				| 'blank'
-				| 'invalid'
-				| 'null'
-				| 'null_characters_not_allowed'
-				| 'required'
-				| 'surrogate_characters_not_allowed';
-			detail: string;
-		};
-		QuibletsCreateError:
-			| components['schemas']['QuibletsCreateNonFieldErrorsErrorComponent']
-			| components['schemas']['QuibletsCreateAvatarErrorComponent']
-			| components['schemas']['QuibletsCreateIsPublicErrorComponent']
-			| components['schemas']['QuibletsCreateNameErrorComponent']
-			| components['schemas']['QuibletsCreateDescriptionErrorComponent']
-			| components['schemas']['QuibletsCreateCoverErrorComponent']
-			| components['schemas']['QuibletsCreateMembersErrorComponent']
-			| components['schemas']['QuibletsCreateRangersErrorComponent'];
-		QuibletsCreateIsPublicErrorComponent: {
-			/**
-			 * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'is_public';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'invalid' | 'null';
-			detail: string;
-		};
-		QuibletsCreateMembersErrorComponent: {
-			/**
-			 * @description * `members` - members (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'members';
-			/**
-			 * @description * `does_not_exist` - does_not_exist
-			 *     * `incorrect_type` - incorrect_type
-			 *     * `not_a_list` - not_a_list
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-			detail: string;
-		};
-		QuibletsCreateNameErrorComponent: {
-			/**
-			 * @description * `name` - name (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'name';
-			/**
-			 * @description * `blank` - blank
-			 *     * `invalid` - invalid
-			 *     * `max_length` - max_length
-			 *     * `null` - null
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `required` - required
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 *     * `unique` - unique
-			 * @enum {string}
-			 */
-			code:
-				| 'blank'
-				| 'invalid'
-				| 'max_length'
-				| 'null'
-				| 'null_characters_not_allowed'
-				| 'required'
-				| 'surrogate_characters_not_allowed'
-				| 'unique';
-			detail: string;
-		};
-		QuibletsCreateNonFieldErrorsErrorComponent: {
-			/**
-			 * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'non_field_errors';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'invalid' | 'null';
-			detail: string;
-		};
-		QuibletsCreateRangersErrorComponent: {
-			/**
-			 * @description * `rangers` - rangers (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'rangers';
-			/**
-			 * @description * `does_not_exist` - does_not_exist
-			 *     * `incorrect_type` - incorrect_type
-			 *     * `not_a_list` - not_a_list
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-			detail: string;
-		};
-		QuibletsCreateValidationError: {
-			type: components['schemas']['ValidationErrorEnum'];
-			errors: components['schemas']['QuibletsCreateError'][];
-		};
-		QuibletsPartialUpdateAvatarErrorComponent: {
-			/**
-			 * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'avatar';
-			/**
-			 * @description * `empty` - empty
-			 *     * `invalid` - invalid
-			 *     * `invalid_image` - invalid_image
-			 *     * `max_length` - max_length
-			 *     * `no_name` - no_name
-			 * @enum {string}
-			 */
-			code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-			detail: string;
-		};
-		QuibletsPartialUpdateCoverErrorComponent: {
-			/**
-			 * @description * `cover` - cover (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'cover';
-			/**
-			 * @description * `empty` - empty
-			 *     * `invalid` - invalid
-			 *     * `invalid_image` - invalid_image
-			 *     * `max_length` - max_length
-			 *     * `no_name` - no_name
-			 * @enum {string}
-			 */
-			code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-			detail: string;
-		};
-		QuibletsPartialUpdateDescriptionErrorComponent: {
-			/**
-			 * @description * `description` - description (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'description';
-			/**
-			 * @description * `blank` - blank
-			 *     * `invalid` - invalid
-			 *     * `null` - null
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `required` - required
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 * @enum {string}
-			 */
-			code:
-				| 'blank'
-				| 'invalid'
-				| 'null'
-				| 'null_characters_not_allowed'
-				| 'required'
-				| 'surrogate_characters_not_allowed';
-			detail: string;
-		};
-		QuibletsPartialUpdateError:
-			| components['schemas']['QuibletsPartialUpdateNonFieldErrorsErrorComponent']
-			| components['schemas']['QuibletsPartialUpdateAvatarErrorComponent']
-			| components['schemas']['QuibletsPartialUpdateIsPublicErrorComponent']
-			| components['schemas']['QuibletsPartialUpdateNameErrorComponent']
-			| components['schemas']['QuibletsPartialUpdateDescriptionErrorComponent']
-			| components['schemas']['QuibletsPartialUpdateCoverErrorComponent']
-			| components['schemas']['QuibletsPartialUpdateMembersErrorComponent']
-			| components['schemas']['QuibletsPartialUpdateRangersErrorComponent'];
-		QuibletsPartialUpdateIsPublicErrorComponent: {
-			/**
-			 * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'is_public';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'invalid' | 'null';
-			detail: string;
-		};
-		QuibletsPartialUpdateMembersErrorComponent: {
-			/**
-			 * @description * `members` - members (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'members';
-			/**
-			 * @description * `does_not_exist` - does_not_exist
-			 *     * `incorrect_type` - incorrect_type
-			 *     * `not_a_list` - not_a_list
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-			detail: string;
-		};
-		QuibletsPartialUpdateNameErrorComponent: {
-			/**
-			 * @description * `name` - name (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'name';
-			/**
-			 * @description * `blank` - blank
-			 *     * `invalid` - invalid
-			 *     * `max_length` - max_length
-			 *     * `null` - null
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `required` - required
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 *     * `unique` - unique
-			 * @enum {string}
-			 */
-			code:
-				| 'blank'
-				| 'invalid'
-				| 'max_length'
-				| 'null'
-				| 'null_characters_not_allowed'
-				| 'required'
-				| 'surrogate_characters_not_allowed'
-				| 'unique';
-			detail: string;
-		};
-		QuibletsPartialUpdateNonFieldErrorsErrorComponent: {
-			/**
-			 * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'non_field_errors';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'invalid' | 'null';
-			detail: string;
-		};
-		QuibletsPartialUpdateRangersErrorComponent: {
-			/**
-			 * @description * `rangers` - rangers (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'rangers';
-			/**
-			 * @description * `does_not_exist` - does_not_exist
-			 *     * `incorrect_type` - incorrect_type
-			 *     * `not_a_list` - not_a_list
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-			detail: string;
-		};
-		QuibletsPartialUpdateValidationError: {
-			type: components['schemas']['ValidationErrorEnum'];
-			errors: components['schemas']['QuibletsPartialUpdateError'][];
-		};
-		QuibletsUpdateAvatarErrorComponent: {
-			/**
-			 * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'avatar';
-			/**
-			 * @description * `empty` - empty
-			 *     * `invalid` - invalid
-			 *     * `invalid_image` - invalid_image
-			 *     * `max_length` - max_length
-			 *     * `no_name` - no_name
-			 * @enum {string}
-			 */
-			code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-			detail: string;
-		};
-		QuibletsUpdateCoverErrorComponent: {
-			/**
-			 * @description * `cover` - cover (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'cover';
-			/**
-			 * @description * `empty` - empty
-			 *     * `invalid` - invalid
-			 *     * `invalid_image` - invalid_image
-			 *     * `max_length` - max_length
-			 *     * `no_name` - no_name
-			 * @enum {string}
-			 */
-			code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-			detail: string;
-		};
-		QuibletsUpdateDescriptionErrorComponent: {
-			/**
-			 * @description * `description` - description (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'description';
-			/**
-			 * @description * `blank` - blank
-			 *     * `invalid` - invalid
-			 *     * `null` - null
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `required` - required
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 * @enum {string}
-			 */
-			code:
-				| 'blank'
-				| 'invalid'
-				| 'null'
-				| 'null_characters_not_allowed'
-				| 'required'
-				| 'surrogate_characters_not_allowed';
-			detail: string;
-		};
-		QuibletsUpdateError:
-			| components['schemas']['QuibletsUpdateNonFieldErrorsErrorComponent']
-			| components['schemas']['QuibletsUpdateAvatarErrorComponent']
-			| components['schemas']['QuibletsUpdateIsPublicErrorComponent']
-			| components['schemas']['QuibletsUpdateNameErrorComponent']
-			| components['schemas']['QuibletsUpdateDescriptionErrorComponent']
-			| components['schemas']['QuibletsUpdateCoverErrorComponent']
-			| components['schemas']['QuibletsUpdateMembersErrorComponent']
-			| components['schemas']['QuibletsUpdateRangersErrorComponent'];
-		QuibletsUpdateIsPublicErrorComponent: {
-			/**
-			 * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'is_public';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'invalid' | 'null';
-			detail: string;
-		};
-		QuibletsUpdateMembersErrorComponent: {
-			/**
-			 * @description * `members` - members (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'members';
-			/**
-			 * @description * `does_not_exist` - does_not_exist
-			 *     * `incorrect_type` - incorrect_type
-			 *     * `not_a_list` - not_a_list
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-			detail: string;
-		};
-		QuibletsUpdateNameErrorComponent: {
-			/**
-			 * @description * `name` - name (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'name';
-			/**
-			 * @description * `blank` - blank
-			 *     * `invalid` - invalid
-			 *     * `max_length` - max_length
-			 *     * `null` - null
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `required` - required
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 *     * `unique` - unique
-			 * @enum {string}
-			 */
-			code:
-				| 'blank'
-				| 'invalid'
-				| 'max_length'
-				| 'null'
-				| 'null_characters_not_allowed'
-				| 'required'
-				| 'surrogate_characters_not_allowed'
-				| 'unique';
-			detail: string;
-		};
-		QuibletsUpdateNonFieldErrorsErrorComponent: {
-			/**
-			 * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'non_field_errors';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'invalid' | 'null';
-			detail: string;
-		};
-		QuibletsUpdateRangersErrorComponent: {
-			/**
-			 * @description * `rangers` - rangers (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'rangers';
-			/**
-			 * @description * `does_not_exist` - does_not_exist
-			 *     * `incorrect_type` - incorrect_type
-			 *     * `not_a_list` - not_a_list
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-			detail: string;
-		};
-		QuibletsUpdateValidationError: {
-			type: components['schemas']['ValidationErrorEnum'];
-			errors: components['schemas']['QuibletsUpdateError'][];
-		};
-		QuibsCreateContentErrorComponent: {
-			/**
-			 * @description * `content` - content (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'content';
-			/**
-			 * @description * `blank` - blank
-			 *     * `invalid` - invalid
-			 *     * `null` - null
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `required` - required
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 * @enum {string}
-			 */
-			code:
-				| 'blank'
-				| 'invalid'
-				| 'null'
-				| 'null_characters_not_allowed'
-				| 'required'
-				| 'surrogate_characters_not_allowed';
-			detail: string;
-		};
-		QuibsCreateDislikesErrorComponent: {
-			/**
-			 * @description * `dislikes` - dislikes (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'dislikes';
-			/**
-			 * @description * `does_not_exist` - does_not_exist
-			 *     * `incorrect_type` - incorrect_type
-			 *     * `not_a_list` - not_a_list
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-			detail: string;
-		};
-		QuibsCreateError:
-			| components['schemas']['QuibsCreateNonFieldErrorsErrorComponent']
-			| components['schemas']['QuibsCreateIsPublicErrorComponent']
-			| components['schemas']['QuibsCreateTitleErrorComponent']
-			| components['schemas']['QuibsCreateContentErrorComponent']
-			| components['schemas']['QuibsCreateQuibletErrorComponent']
-			| components['schemas']['QuibsCreateQuibberErrorComponent']
-			| components['schemas']['QuibsCreateLikesErrorComponent']
-			| components['schemas']['QuibsCreateDislikesErrorComponent'];
-		QuibsCreateIsPublicErrorComponent: {
-			/**
-			 * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'is_public';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'invalid' | 'null';
-			detail: string;
-		};
-		QuibsCreateLikesErrorComponent: {
-			/**
-			 * @description * `likes` - likes (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'likes';
-			/**
-			 * @description * `does_not_exist` - does_not_exist
-			 *     * `incorrect_type` - incorrect_type
-			 *     * `not_a_list` - not_a_list
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-			detail: string;
-		};
-		QuibsCreateNonFieldErrorsErrorComponent: {
-			/**
-			 * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'non_field_errors';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'invalid' | 'null';
-			detail: string;
-		};
-		QuibsCreateQuibberErrorComponent: {
-			/**
-			 * @description * `quibber` - quibber (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'quibber';
-			/**
-			 * @description * `does_not_exist` - does_not_exist
-			 *     * `incorrect_type` - incorrect_type
-			 *     * `null` - null
-			 *     * `required` - required
-			 * @enum {string}
-			 */
-			code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
-			detail: string;
-		};
-		QuibsCreateQuibletErrorComponent: {
-			/**
-			 * @description * `quiblet` - quiblet (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'quiblet';
-			/**
-			 * @description * `does_not_exist` - does_not_exist
-			 *     * `incorrect_type` - incorrect_type
-			 *     * `null` - null
-			 *     * `required` - required
-			 * @enum {string}
-			 */
-			code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
-			detail: string;
-		};
-		QuibsCreateTitleErrorComponent: {
-			/**
-			 * @description * `title` - title (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'title';
-			/**
-			 * @description * `blank` - blank
-			 *     * `invalid` - invalid
-			 *     * `max_length` - max_length
-			 *     * `null` - null
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `required` - required
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 * @enum {string}
-			 */
-			code:
-				| 'blank'
-				| 'invalid'
-				| 'max_length'
-				| 'null'
-				| 'null_characters_not_allowed'
-				| 'required'
-				| 'surrogate_characters_not_allowed';
-			detail: string;
-		};
-		QuibsCreateValidationError: {
-			type: components['schemas']['ValidationErrorEnum'];
-			errors: components['schemas']['QuibsCreateError'][];
-		};
-		QuibsPartialUpdateContentErrorComponent: {
-			/**
-			 * @description * `content` - content (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'content';
-			/**
-			 * @description * `blank` - blank
-			 *     * `invalid` - invalid
-			 *     * `null` - null
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `required` - required
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 * @enum {string}
-			 */
-			code:
-				| 'blank'
-				| 'invalid'
-				| 'null'
-				| 'null_characters_not_allowed'
-				| 'required'
-				| 'surrogate_characters_not_allowed';
-			detail: string;
-		};
-		QuibsPartialUpdateDislikesErrorComponent: {
-			/**
-			 * @description * `dislikes` - dislikes (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'dislikes';
-			/**
-			 * @description * `does_not_exist` - does_not_exist
-			 *     * `incorrect_type` - incorrect_type
-			 *     * `not_a_list` - not_a_list
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-			detail: string;
-		};
-		QuibsPartialUpdateError:
-			| components['schemas']['QuibsPartialUpdateNonFieldErrorsErrorComponent']
-			| components['schemas']['QuibsPartialUpdateIsPublicErrorComponent']
-			| components['schemas']['QuibsPartialUpdateTitleErrorComponent']
-			| components['schemas']['QuibsPartialUpdateContentErrorComponent']
-			| components['schemas']['QuibsPartialUpdateQuibletErrorComponent']
-			| components['schemas']['QuibsPartialUpdateQuibberErrorComponent']
-			| components['schemas']['QuibsPartialUpdateLikesErrorComponent']
-			| components['schemas']['QuibsPartialUpdateDislikesErrorComponent'];
-		QuibsPartialUpdateIsPublicErrorComponent: {
-			/**
-			 * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'is_public';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'invalid' | 'null';
-			detail: string;
-		};
-		QuibsPartialUpdateLikesErrorComponent: {
-			/**
-			 * @description * `likes` - likes (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'likes';
-			/**
-			 * @description * `does_not_exist` - does_not_exist
-			 *     * `incorrect_type` - incorrect_type
-			 *     * `not_a_list` - not_a_list
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-			detail: string;
-		};
-		QuibsPartialUpdateNonFieldErrorsErrorComponent: {
-			/**
-			 * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'non_field_errors';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'invalid' | 'null';
-			detail: string;
-		};
-		QuibsPartialUpdateQuibberErrorComponent: {
-			/**
-			 * @description * `quibber` - quibber (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'quibber';
-			/**
-			 * @description * `does_not_exist` - does_not_exist
-			 *     * `incorrect_type` - incorrect_type
-			 *     * `null` - null
-			 *     * `required` - required
-			 * @enum {string}
-			 */
-			code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
-			detail: string;
-		};
-		QuibsPartialUpdateQuibletErrorComponent: {
-			/**
-			 * @description * `quiblet` - quiblet (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'quiblet';
-			/**
-			 * @description * `does_not_exist` - does_not_exist
-			 *     * `incorrect_type` - incorrect_type
-			 *     * `null` - null
-			 *     * `required` - required
-			 * @enum {string}
-			 */
-			code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
-			detail: string;
-		};
-		QuibsPartialUpdateTitleErrorComponent: {
-			/**
-			 * @description * `title` - title (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'title';
-			/**
-			 * @description * `blank` - blank
-			 *     * `invalid` - invalid
-			 *     * `max_length` - max_length
-			 *     * `null` - null
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `required` - required
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 * @enum {string}
-			 */
-			code:
-				| 'blank'
-				| 'invalid'
-				| 'max_length'
-				| 'null'
-				| 'null_characters_not_allowed'
-				| 'required'
-				| 'surrogate_characters_not_allowed';
-			detail: string;
-		};
-		QuibsPartialUpdateValidationError: {
-			type: components['schemas']['ValidationErrorEnum'];
-			errors: components['schemas']['QuibsPartialUpdateError'][];
-		};
-		QuibsUpdateContentErrorComponent: {
-			/**
-			 * @description * `content` - content (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'content';
-			/**
-			 * @description * `blank` - blank
-			 *     * `invalid` - invalid
-			 *     * `null` - null
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `required` - required
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 * @enum {string}
-			 */
-			code:
-				| 'blank'
-				| 'invalid'
-				| 'null'
-				| 'null_characters_not_allowed'
-				| 'required'
-				| 'surrogate_characters_not_allowed';
-			detail: string;
-		};
-		QuibsUpdateDislikesErrorComponent: {
-			/**
-			 * @description * `dislikes` - dislikes (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'dislikes';
-			/**
-			 * @description * `does_not_exist` - does_not_exist
-			 *     * `incorrect_type` - incorrect_type
-			 *     * `not_a_list` - not_a_list
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-			detail: string;
-		};
-		QuibsUpdateError:
-			| components['schemas']['QuibsUpdateNonFieldErrorsErrorComponent']
-			| components['schemas']['QuibsUpdateIsPublicErrorComponent']
-			| components['schemas']['QuibsUpdateTitleErrorComponent']
-			| components['schemas']['QuibsUpdateContentErrorComponent']
-			| components['schemas']['QuibsUpdateQuibletErrorComponent']
-			| components['schemas']['QuibsUpdateQuibberErrorComponent']
-			| components['schemas']['QuibsUpdateLikesErrorComponent']
-			| components['schemas']['QuibsUpdateDislikesErrorComponent'];
-		QuibsUpdateIsPublicErrorComponent: {
-			/**
-			 * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'is_public';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'invalid' | 'null';
-			detail: string;
-		};
-		QuibsUpdateLikesErrorComponent: {
-			/**
-			 * @description * `likes` - likes (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'likes';
-			/**
-			 * @description * `does_not_exist` - does_not_exist
-			 *     * `incorrect_type` - incorrect_type
-			 *     * `not_a_list` - not_a_list
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-			detail: string;
-		};
-		QuibsUpdateNonFieldErrorsErrorComponent: {
-			/**
-			 * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'non_field_errors';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'invalid' | 'null';
-			detail: string;
-		};
-		QuibsUpdateQuibberErrorComponent: {
-			/**
-			 * @description * `quibber` - quibber (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'quibber';
-			/**
-			 * @description * `does_not_exist` - does_not_exist
-			 *     * `incorrect_type` - incorrect_type
-			 *     * `null` - null
-			 *     * `required` - required
-			 * @enum {string}
-			 */
-			code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
-			detail: string;
-		};
-		QuibsUpdateQuibletErrorComponent: {
-			/**
-			 * @description * `quiblet` - quiblet (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'quiblet';
-			/**
-			 * @description * `does_not_exist` - does_not_exist
-			 *     * `incorrect_type` - incorrect_type
-			 *     * `null` - null
-			 *     * `required` - required
-			 * @enum {string}
-			 */
-			code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
-			detail: string;
-		};
-		QuibsUpdateTitleErrorComponent: {
-			/**
-			 * @description * `title` - title (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'title';
-			/**
-			 * @description * `blank` - blank
-			 *     * `invalid` - invalid
-			 *     * `max_length` - max_length
-			 *     * `null` - null
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `required` - required
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 * @enum {string}
-			 */
-			code:
-				| 'blank'
-				| 'invalid'
-				| 'max_length'
-				| 'null'
-				| 'null_characters_not_allowed'
-				| 'required'
-				| 'surrogate_characters_not_allowed';
-			detail: string;
-		};
-		QuibsUpdateValidationError: {
-			type: components['schemas']['ValidationErrorEnum'];
-			errors: components['schemas']['QuibsUpdateError'][];
-		};
-		/**
-		 * @description * `server_error` - Server Error
-		 * @enum {string}
-		 */
-		ServerErrorEnum: 'server_error';
-		User: {
-			readonly id: number;
-			/**
-			 * Email Address
-			 * Format: email
-			 */
-			email: string;
-			password: string;
-			/** Format: date-time */
-			readonly date_joined: string;
-		};
-		UsersAuthLoginCreateEmailErrorComponent: {
-			/**
-			 * @description * `email` - email (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'email';
-			/**
-			 * @description * `blank` - blank
-			 *     * `invalid` - invalid
-			 *     * `max_length` - max_length
-			 *     * `null` - null
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `required` - required
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 *     * `unique` - unique
-			 * @enum {string}
-			 */
-			code:
-				| 'blank'
-				| 'invalid'
-				| 'max_length'
-				| 'null'
-				| 'null_characters_not_allowed'
-				| 'required'
-				| 'surrogate_characters_not_allowed'
-				| 'unique';
-			detail: string;
-		};
-		UsersAuthLoginCreateError:
-			| components['schemas']['UsersAuthLoginCreateNonFieldErrorsErrorComponent']
-			| components['schemas']['UsersAuthLoginCreateEmailErrorComponent']
-			| components['schemas']['UsersAuthLoginCreatePasswordErrorComponent'];
-		UsersAuthLoginCreateNonFieldErrorsErrorComponent: {
-			/**
-			 * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'non_field_errors';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'invalid' | 'null';
-			detail: string;
-		};
-		UsersAuthLoginCreatePasswordErrorComponent: {
-			/**
-			 * @description * `password` - password (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'password';
-			/**
-			 * @description * `blank` - blank
-			 *     * `invalid` - invalid
-			 *     * `max_length` - max_length
-			 *     * `null` - null
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `required` - required
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 * @enum {string}
-			 */
-			code:
-				| 'blank'
-				| 'invalid'
-				| 'max_length'
-				| 'null'
-				| 'null_characters_not_allowed'
-				| 'required'
-				| 'surrogate_characters_not_allowed';
-			detail: string;
-		};
-		UsersAuthLoginCreateValidationError: {
-			type: components['schemas']['ValidationErrorEnum'];
-			errors: components['schemas']['UsersAuthLoginCreateError'][];
-		};
-		UsersAuthRegisterCreateEmailErrorComponent: {
-			/**
-			 * @description * `email` - email (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'email';
-			/**
-			 * @description * `blank` - blank
-			 *     * `invalid` - invalid
-			 *     * `max_length` - max_length
-			 *     * `null` - null
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `required` - required
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 *     * `unique` - unique
-			 * @enum {string}
-			 */
-			code:
-				| 'blank'
-				| 'invalid'
-				| 'max_length'
-				| 'null'
-				| 'null_characters_not_allowed'
-				| 'required'
-				| 'surrogate_characters_not_allowed'
-				| 'unique';
-			detail: string;
-		};
-		UsersAuthRegisterCreateError:
-			| components['schemas']['UsersAuthRegisterCreateNonFieldErrorsErrorComponent']
-			| components['schemas']['UsersAuthRegisterCreateEmailErrorComponent']
-			| components['schemas']['UsersAuthRegisterCreatePasswordErrorComponent'];
-		UsersAuthRegisterCreateNonFieldErrorsErrorComponent: {
-			/**
-			 * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'non_field_errors';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'invalid' | 'null';
-			detail: string;
-		};
-		UsersAuthRegisterCreatePasswordErrorComponent: {
-			/**
-			 * @description * `password` - password (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'password';
-			/**
-			 * @description * `blank` - blank
-			 *     * `invalid` - invalid
-			 *     * `max_length` - max_length
-			 *     * `null` - null
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `required` - required
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 * @enum {string}
-			 */
-			code:
-				| 'blank'
-				| 'invalid'
-				| 'max_length'
-				| 'null'
-				| 'null_characters_not_allowed'
-				| 'required'
-				| 'surrogate_characters_not_allowed';
-			detail: string;
-		};
-		UsersAuthRegisterCreateValidationError: {
-			type: components['schemas']['ValidationErrorEnum'];
-			errors: components['schemas']['UsersAuthRegisterCreateError'][];
-		};
-		UsersMeProfilesCreateAvatarErrorComponent: {
-			/**
-			 * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'avatar';
-			/**
-			 * @description * `empty` - empty
-			 *     * `invalid` - invalid
-			 *     * `invalid_image` - invalid_image
-			 *     * `max_length` - max_length
-			 *     * `no_name` - no_name
-			 * @enum {string}
-			 */
-			code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-			detail: string;
-		};
-		UsersMeProfilesCreateColorErrorComponent: {
-			/**
-			 * @description * `color` - color (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'color';
-			/**
-			 * @description * `invalid_choice` - invalid_choice
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'invalid_choice' | 'null';
-			detail: string;
-		};
-		UsersMeProfilesCreateError:
-			| components['schemas']['UsersMeProfilesCreateNonFieldErrorsErrorComponent']
-			| components['schemas']['UsersMeProfilesCreateColorErrorComponent']
-			| components['schemas']['UsersMeProfilesCreateAvatarErrorComponent']
-			| components['schemas']['UsersMeProfilesCreateUsernameErrorComponent']
-			| components['schemas']['UsersMeProfilesCreateFirstNameErrorComponent']
-			| components['schemas']['UsersMeProfilesCreateLastNameErrorComponent'];
-		UsersMeProfilesCreateFirstNameErrorComponent: {
-			/**
-			 * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'first_name';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `max_length` - max_length
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 * @enum {string}
-			 */
-			code:
-				| 'invalid'
-				| 'max_length'
-				| 'null_characters_not_allowed'
-				| 'surrogate_characters_not_allowed';
-			detail: string;
-		};
-		UsersMeProfilesCreateLastNameErrorComponent: {
-			/**
-			 * @description * `last_name` - last_name (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'last_name';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `max_length` - max_length
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 * @enum {string}
-			 */
-			code:
-				| 'invalid'
-				| 'max_length'
-				| 'null_characters_not_allowed'
-				| 'surrogate_characters_not_allowed';
-			detail: string;
-		};
-		UsersMeProfilesCreateNonFieldErrorsErrorComponent: {
-			/**
-			 * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'non_field_errors';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'invalid' | 'null';
-			detail: string;
-		};
-		UsersMeProfilesCreateUsernameErrorComponent: {
-			/**
-			 * @description * `username` - username (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'username';
-			/**
-			 * @description * `blank` - blank
-			 *     * `invalid` - invalid
-			 *     * `max_length` - max_length
-			 *     * `null` - null
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `required` - required
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 *     * `unique` - unique
-			 * @enum {string}
-			 */
-			code:
-				| 'blank'
-				| 'invalid'
-				| 'max_length'
-				| 'null'
-				| 'null_characters_not_allowed'
-				| 'required'
-				| 'surrogate_characters_not_allowed'
-				| 'unique';
-			detail: string;
-		};
-		UsersMeProfilesCreateValidationError: {
-			type: components['schemas']['ValidationErrorEnum'];
-			errors: components['schemas']['UsersMeProfilesCreateError'][];
-		};
-		UsersMeProfilesPartialUpdateAvatarErrorComponent: {
-			/**
-			 * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'avatar';
-			/**
-			 * @description * `empty` - empty
-			 *     * `invalid` - invalid
-			 *     * `invalid_image` - invalid_image
-			 *     * `max_length` - max_length
-			 *     * `no_name` - no_name
-			 * @enum {string}
-			 */
-			code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-			detail: string;
-		};
-		UsersMeProfilesPartialUpdateColorErrorComponent: {
-			/**
-			 * @description * `color` - color (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'color';
-			/**
-			 * @description * `invalid_choice` - invalid_choice
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'invalid_choice' | 'null';
-			detail: string;
-		};
-		UsersMeProfilesPartialUpdateError:
-			| components['schemas']['UsersMeProfilesPartialUpdateNonFieldErrorsErrorComponent']
-			| components['schemas']['UsersMeProfilesPartialUpdateColorErrorComponent']
-			| components['schemas']['UsersMeProfilesPartialUpdateAvatarErrorComponent']
-			| components['schemas']['UsersMeProfilesPartialUpdateUsernameErrorComponent']
-			| components['schemas']['UsersMeProfilesPartialUpdateFirstNameErrorComponent']
-			| components['schemas']['UsersMeProfilesPartialUpdateLastNameErrorComponent'];
-		UsersMeProfilesPartialUpdateFirstNameErrorComponent: {
-			/**
-			 * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'first_name';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `max_length` - max_length
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 * @enum {string}
-			 */
-			code:
-				| 'invalid'
-				| 'max_length'
-				| 'null_characters_not_allowed'
-				| 'surrogate_characters_not_allowed';
-			detail: string;
-		};
-		UsersMeProfilesPartialUpdateLastNameErrorComponent: {
-			/**
-			 * @description * `last_name` - last_name (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'last_name';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `max_length` - max_length
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 * @enum {string}
-			 */
-			code:
-				| 'invalid'
-				| 'max_length'
-				| 'null_characters_not_allowed'
-				| 'surrogate_characters_not_allowed';
-			detail: string;
-		};
-		UsersMeProfilesPartialUpdateNonFieldErrorsErrorComponent: {
-			/**
-			 * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'non_field_errors';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'invalid' | 'null';
-			detail: string;
-		};
-		UsersMeProfilesPartialUpdateUsernameErrorComponent: {
-			/**
-			 * @description * `username` - username (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'username';
-			/**
-			 * @description * `blank` - blank
-			 *     * `invalid` - invalid
-			 *     * `max_length` - max_length
-			 *     * `null` - null
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `required` - required
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 *     * `unique` - unique
-			 * @enum {string}
-			 */
-			code:
-				| 'blank'
-				| 'invalid'
-				| 'max_length'
-				| 'null'
-				| 'null_characters_not_allowed'
-				| 'required'
-				| 'surrogate_characters_not_allowed'
-				| 'unique';
-			detail: string;
-		};
-		UsersMeProfilesPartialUpdateValidationError: {
-			type: components['schemas']['ValidationErrorEnum'];
-			errors: components['schemas']['UsersMeProfilesPartialUpdateError'][];
-		};
-		UsersMeProfilesUpdateAvatarErrorComponent: {
-			/**
-			 * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'avatar';
-			/**
-			 * @description * `empty` - empty
-			 *     * `invalid` - invalid
-			 *     * `invalid_image` - invalid_image
-			 *     * `max_length` - max_length
-			 *     * `no_name` - no_name
-			 * @enum {string}
-			 */
-			code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-			detail: string;
-		};
-		UsersMeProfilesUpdateColorErrorComponent: {
-			/**
-			 * @description * `color` - color (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'color';
-			/**
-			 * @description * `invalid_choice` - invalid_choice
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'invalid_choice' | 'null';
-			detail: string;
-		};
-		UsersMeProfilesUpdateError:
-			| components['schemas']['UsersMeProfilesUpdateNonFieldErrorsErrorComponent']
-			| components['schemas']['UsersMeProfilesUpdateColorErrorComponent']
-			| components['schemas']['UsersMeProfilesUpdateAvatarErrorComponent']
-			| components['schemas']['UsersMeProfilesUpdateUsernameErrorComponent']
-			| components['schemas']['UsersMeProfilesUpdateFirstNameErrorComponent']
-			| components['schemas']['UsersMeProfilesUpdateLastNameErrorComponent'];
-		UsersMeProfilesUpdateFirstNameErrorComponent: {
-			/**
-			 * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'first_name';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `max_length` - max_length
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 * @enum {string}
-			 */
-			code:
-				| 'invalid'
-				| 'max_length'
-				| 'null_characters_not_allowed'
-				| 'surrogate_characters_not_allowed';
-			detail: string;
-		};
-		UsersMeProfilesUpdateLastNameErrorComponent: {
-			/**
-			 * @description * `last_name` - last_name (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'last_name';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `max_length` - max_length
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 * @enum {string}
-			 */
-			code:
-				| 'invalid'
-				| 'max_length'
-				| 'null_characters_not_allowed'
-				| 'surrogate_characters_not_allowed';
-			detail: string;
-		};
-		UsersMeProfilesUpdateNonFieldErrorsErrorComponent: {
-			/**
-			 * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'non_field_errors';
-			/**
-			 * @description * `invalid` - invalid
-			 *     * `null` - null
-			 * @enum {string}
-			 */
-			code: 'invalid' | 'null';
-			detail: string;
-		};
-		UsersMeProfilesUpdateUsernameErrorComponent: {
-			/**
-			 * @description * `username` - username (enum property replaced by openapi-typescript)
-			 * @enum {string}
-			 */
-			attr: 'username';
-			/**
-			 * @description * `blank` - blank
-			 *     * `invalid` - invalid
-			 *     * `max_length` - max_length
-			 *     * `null` - null
-			 *     * `null_characters_not_allowed` - null_characters_not_allowed
-			 *     * `required` - required
-			 *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-			 *     * `unique` - unique
-			 * @enum {string}
-			 */
-			code:
-				| 'blank'
-				| 'invalid'
-				| 'max_length'
-				| 'null'
-				| 'null_characters_not_allowed'
-				| 'required'
-				| 'surrogate_characters_not_allowed'
-				| 'unique';
-			detail: string;
-		};
-		UsersMeProfilesUpdateValidationError: {
-			type: components['schemas']['ValidationErrorEnum'];
-			errors: components['schemas']['UsersMeProfilesUpdateError'][];
-		};
-		/**
-		 * @description * `validation_error` - Validation Error
-		 * @enum {string}
-		 */
-		ValidationErrorEnum: 'validation_error';
-	};
-	responses: never;
-	parameters: never;
-	requestBodies: never;
-	headers: never;
-	pathItems: never;
+  schemas: {
+    Auth: {
+      /**
+       * Email Address
+       * Format: email
+       */
+      email: string;
+      password: string;
+    };
+    AuthTokenResponse: {
+      token: string;
+    };
+    /**
+     * @description * `client_error` - Client Error
+     * @enum {string}
+     */
+    ClientErrorEnum: 'client_error';
+    /**
+     * @description * `primary` - primary
+     *     * `secondary` - secondary
+     *     * `accent` - accent
+     *     * `neutral` - neutral
+     *     * `info` - info
+     *     * `success` - success
+     *     * `warning` - warning
+     *     * `error` - error
+     * @enum {string}
+     */
+    ColorEnum:
+      | 'primary'
+      | 'secondary'
+      | 'accent'
+      | 'neutral'
+      | 'info'
+      | 'success'
+      | 'warning'
+      | 'error';
+    /** @description Serializer for views returning just a response with detail key */
+    DetailResponse: {
+      detail: string;
+    };
+    Error404: {
+      code: components['schemas']['ErrorCode404Enum'];
+      detail: string;
+      attr: string | null;
+    };
+    Error500: {
+      code: components['schemas']['ErrorCode500Enum'];
+      detail: string;
+      attr: string | null;
+    };
+    /**
+     * @description * `not_found` - Not Found
+     * @enum {string}
+     */
+    ErrorCode404Enum: 'not_found';
+    /**
+     * @description * `error` - Error
+     * @enum {string}
+     */
+    ErrorCode500Enum: 'error';
+    ErrorResponse404: {
+      type: components['schemas']['ClientErrorEnum'];
+      errors: components['schemas']['Error404'][];
+    };
+    ErrorResponse500: {
+      type: components['schemas']['ServerErrorEnum'];
+      errors: components['schemas']['Error500'][];
+    };
+    PatchedProfile: {
+      readonly id?: number;
+      readonly user?: components['schemas']['User'];
+      /** Format: date-time */
+      readonly created_at?: string;
+      color?: components['schemas']['ColorEnum'];
+      /** Format: uri */
+      avatar?: string | null;
+      username?: string;
+      first_name?: string | null;
+      last_name?: string | null;
+    };
+    PatchedQuib: {
+      readonly id?: string;
+      /** Format: date-time */
+      readonly created_at?: string;
+      is_public?: boolean;
+      title?: string;
+      readonly slug?: string;
+      content?: string;
+      quiblet?: string;
+      /** Quibbler */
+      quibber?: number;
+      likes?: number[];
+      dislikes?: number[];
+    };
+    PatchedQuiblet: {
+      readonly id?: string;
+      /** Format: date-time */
+      readonly created_at?: string;
+      /** Format: uri */
+      avatar?: string | null;
+      is_public?: boolean;
+      name?: string;
+      description?: string;
+      /** Format: uri */
+      cover?: string | null;
+      members?: number[];
+      rangers?: number[];
+    };
+    Profile: {
+      readonly id: number;
+      readonly user: components['schemas']['User'];
+      /** Format: date-time */
+      readonly created_at: string;
+      color?: components['schemas']['ColorEnum'];
+      /** Format: uri */
+      avatar?: string | null;
+      username: string;
+      first_name?: string | null;
+      last_name?: string | null;
+    };
+    Quib: {
+      readonly id: string;
+      /** Format: date-time */
+      readonly created_at: string;
+      is_public?: boolean;
+      title: string;
+      readonly slug: string;
+      content: string;
+      quiblet: string;
+      /** Quibbler */
+      quibber: number;
+      likes?: number[];
+      dislikes?: number[];
+    };
+    Quiblet: {
+      readonly id: string;
+      /** Format: date-time */
+      readonly created_at: string;
+      /** Format: uri */
+      avatar?: string | null;
+      is_public?: boolean;
+      name: string;
+      description: string;
+      /** Format: uri */
+      cover?: string | null;
+      members?: number[];
+      rangers?: number[];
+    };
+    QuibletsCreateAvatarErrorComponent: {
+      /**
+       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'avatar';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    QuibletsCreateCoverErrorComponent: {
+      /**
+       * @description * `cover` - cover (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'cover';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    QuibletsCreateDescriptionErrorComponent: {
+      /**
+       * @description * `description` - description (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'description';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    QuibletsCreateError:
+      | components['schemas']['QuibletsCreateNonFieldErrorsErrorComponent']
+      | components['schemas']['QuibletsCreateAvatarErrorComponent']
+      | components['schemas']['QuibletsCreateIsPublicErrorComponent']
+      | components['schemas']['QuibletsCreateNameErrorComponent']
+      | components['schemas']['QuibletsCreateDescriptionErrorComponent']
+      | components['schemas']['QuibletsCreateCoverErrorComponent']
+      | components['schemas']['QuibletsCreateMembersErrorComponent']
+      | components['schemas']['QuibletsCreateRangersErrorComponent'];
+    QuibletsCreateIsPublicErrorComponent: {
+      /**
+       * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'is_public';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    QuibletsCreateMembersErrorComponent: {
+      /**
+       * @description * `members` - members (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'members';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    QuibletsCreateNameErrorComponent: {
+      /**
+       * @description * `name` - name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'name';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    QuibletsCreateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    QuibletsCreateRangersErrorComponent: {
+      /**
+       * @description * `rangers` - rangers (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'rangers';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    QuibletsCreateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['QuibletsCreateError'][];
+    };
+    QuibletsPartialUpdateAvatarErrorComponent: {
+      /**
+       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'avatar';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    QuibletsPartialUpdateCoverErrorComponent: {
+      /**
+       * @description * `cover` - cover (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'cover';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    QuibletsPartialUpdateDescriptionErrorComponent: {
+      /**
+       * @description * `description` - description (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'description';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    QuibletsPartialUpdateError:
+      | components['schemas']['QuibletsPartialUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['QuibletsPartialUpdateAvatarErrorComponent']
+      | components['schemas']['QuibletsPartialUpdateIsPublicErrorComponent']
+      | components['schemas']['QuibletsPartialUpdateNameErrorComponent']
+      | components['schemas']['QuibletsPartialUpdateDescriptionErrorComponent']
+      | components['schemas']['QuibletsPartialUpdateCoverErrorComponent']
+      | components['schemas']['QuibletsPartialUpdateMembersErrorComponent']
+      | components['schemas']['QuibletsPartialUpdateRangersErrorComponent'];
+    QuibletsPartialUpdateIsPublicErrorComponent: {
+      /**
+       * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'is_public';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    QuibletsPartialUpdateMembersErrorComponent: {
+      /**
+       * @description * `members` - members (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'members';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    QuibletsPartialUpdateNameErrorComponent: {
+      /**
+       * @description * `name` - name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'name';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    QuibletsPartialUpdateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    QuibletsPartialUpdateRangersErrorComponent: {
+      /**
+       * @description * `rangers` - rangers (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'rangers';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    QuibletsPartialUpdateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['QuibletsPartialUpdateError'][];
+    };
+    QuibletsUpdateAvatarErrorComponent: {
+      /**
+       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'avatar';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    QuibletsUpdateCoverErrorComponent: {
+      /**
+       * @description * `cover` - cover (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'cover';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    QuibletsUpdateDescriptionErrorComponent: {
+      /**
+       * @description * `description` - description (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'description';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    QuibletsUpdateError:
+      | components['schemas']['QuibletsUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['QuibletsUpdateAvatarErrorComponent']
+      | components['schemas']['QuibletsUpdateIsPublicErrorComponent']
+      | components['schemas']['QuibletsUpdateNameErrorComponent']
+      | components['schemas']['QuibletsUpdateDescriptionErrorComponent']
+      | components['schemas']['QuibletsUpdateCoverErrorComponent']
+      | components['schemas']['QuibletsUpdateMembersErrorComponent']
+      | components['schemas']['QuibletsUpdateRangersErrorComponent'];
+    QuibletsUpdateIsPublicErrorComponent: {
+      /**
+       * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'is_public';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    QuibletsUpdateMembersErrorComponent: {
+      /**
+       * @description * `members` - members (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'members';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    QuibletsUpdateNameErrorComponent: {
+      /**
+       * @description * `name` - name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'name';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    QuibletsUpdateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    QuibletsUpdateRangersErrorComponent: {
+      /**
+       * @description * `rangers` - rangers (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'rangers';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    QuibletsUpdateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['QuibletsUpdateError'][];
+    };
+    QuibsCreateContentErrorComponent: {
+      /**
+       * @description * `content` - content (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'content';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    QuibsCreateDislikesErrorComponent: {
+      /**
+       * @description * `dislikes` - dislikes (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'dislikes';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    QuibsCreateError:
+      | components['schemas']['QuibsCreateNonFieldErrorsErrorComponent']
+      | components['schemas']['QuibsCreateIsPublicErrorComponent']
+      | components['schemas']['QuibsCreateTitleErrorComponent']
+      | components['schemas']['QuibsCreateContentErrorComponent']
+      | components['schemas']['QuibsCreateQuibletErrorComponent']
+      | components['schemas']['QuibsCreateQuibberErrorComponent']
+      | components['schemas']['QuibsCreateLikesErrorComponent']
+      | components['schemas']['QuibsCreateDislikesErrorComponent'];
+    QuibsCreateIsPublicErrorComponent: {
+      /**
+       * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'is_public';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    QuibsCreateLikesErrorComponent: {
+      /**
+       * @description * `likes` - likes (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'likes';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    QuibsCreateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    QuibsCreateQuibberErrorComponent: {
+      /**
+       * @description * `quibber` - quibber (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'quibber';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `null` - null
+       *     * `required` - required
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
+      detail: string;
+    };
+    QuibsCreateQuibletErrorComponent: {
+      /**
+       * @description * `quiblet` - quiblet (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'quiblet';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `null` - null
+       *     * `required` - required
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
+      detail: string;
+    };
+    QuibsCreateTitleErrorComponent: {
+      /**
+       * @description * `title` - title (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'title';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    QuibsCreateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['QuibsCreateError'][];
+    };
+    QuibsPartialUpdateContentErrorComponent: {
+      /**
+       * @description * `content` - content (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'content';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    QuibsPartialUpdateDislikesErrorComponent: {
+      /**
+       * @description * `dislikes` - dislikes (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'dislikes';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    QuibsPartialUpdateError:
+      | components['schemas']['QuibsPartialUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['QuibsPartialUpdateIsPublicErrorComponent']
+      | components['schemas']['QuibsPartialUpdateTitleErrorComponent']
+      | components['schemas']['QuibsPartialUpdateContentErrorComponent']
+      | components['schemas']['QuibsPartialUpdateQuibletErrorComponent']
+      | components['schemas']['QuibsPartialUpdateQuibberErrorComponent']
+      | components['schemas']['QuibsPartialUpdateLikesErrorComponent']
+      | components['schemas']['QuibsPartialUpdateDislikesErrorComponent'];
+    QuibsPartialUpdateIsPublicErrorComponent: {
+      /**
+       * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'is_public';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    QuibsPartialUpdateLikesErrorComponent: {
+      /**
+       * @description * `likes` - likes (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'likes';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    QuibsPartialUpdateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    QuibsPartialUpdateQuibberErrorComponent: {
+      /**
+       * @description * `quibber` - quibber (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'quibber';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `null` - null
+       *     * `required` - required
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
+      detail: string;
+    };
+    QuibsPartialUpdateQuibletErrorComponent: {
+      /**
+       * @description * `quiblet` - quiblet (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'quiblet';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `null` - null
+       *     * `required` - required
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
+      detail: string;
+    };
+    QuibsPartialUpdateTitleErrorComponent: {
+      /**
+       * @description * `title` - title (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'title';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    QuibsPartialUpdateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['QuibsPartialUpdateError'][];
+    };
+    QuibsUpdateContentErrorComponent: {
+      /**
+       * @description * `content` - content (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'content';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    QuibsUpdateDislikesErrorComponent: {
+      /**
+       * @description * `dislikes` - dislikes (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'dislikes';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    QuibsUpdateError:
+      | components['schemas']['QuibsUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['QuibsUpdateIsPublicErrorComponent']
+      | components['schemas']['QuibsUpdateTitleErrorComponent']
+      | components['schemas']['QuibsUpdateContentErrorComponent']
+      | components['schemas']['QuibsUpdateQuibletErrorComponent']
+      | components['schemas']['QuibsUpdateQuibberErrorComponent']
+      | components['schemas']['QuibsUpdateLikesErrorComponent']
+      | components['schemas']['QuibsUpdateDislikesErrorComponent'];
+    QuibsUpdateIsPublicErrorComponent: {
+      /**
+       * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'is_public';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    QuibsUpdateLikesErrorComponent: {
+      /**
+       * @description * `likes` - likes (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'likes';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    QuibsUpdateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    QuibsUpdateQuibberErrorComponent: {
+      /**
+       * @description * `quibber` - quibber (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'quibber';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `null` - null
+       *     * `required` - required
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
+      detail: string;
+    };
+    QuibsUpdateQuibletErrorComponent: {
+      /**
+       * @description * `quiblet` - quiblet (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'quiblet';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `null` - null
+       *     * `required` - required
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
+      detail: string;
+    };
+    QuibsUpdateTitleErrorComponent: {
+      /**
+       * @description * `title` - title (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'title';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    QuibsUpdateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['QuibsUpdateError'][];
+    };
+    /**
+     * @description * `server_error` - Server Error
+     * @enum {string}
+     */
+    ServerErrorEnum: 'server_error';
+    User: {
+      readonly id: number;
+      /**
+       * Email Address
+       * Format: email
+       */
+      email: string;
+      password: string;
+      /** Format: date-time */
+      readonly date_joined: string;
+    };
+    UsersAuthLoginCreateEmailErrorComponent: {
+      /**
+       * @description * `email` - email (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'email';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    UsersAuthLoginCreateError:
+      | components['schemas']['UsersAuthLoginCreateNonFieldErrorsErrorComponent']
+      | components['schemas']['UsersAuthLoginCreateEmailErrorComponent']
+      | components['schemas']['UsersAuthLoginCreatePasswordErrorComponent'];
+    UsersAuthLoginCreateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    UsersAuthLoginCreatePasswordErrorComponent: {
+      /**
+       * @description * `password` - password (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'password';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    UsersAuthLoginCreateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['UsersAuthLoginCreateError'][];
+    };
+    UsersAuthRegisterCreateEmailErrorComponent: {
+      /**
+       * @description * `email` - email (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'email';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    UsersAuthRegisterCreateError:
+      | components['schemas']['UsersAuthRegisterCreateNonFieldErrorsErrorComponent']
+      | components['schemas']['UsersAuthRegisterCreateEmailErrorComponent']
+      | components['schemas']['UsersAuthRegisterCreatePasswordErrorComponent'];
+    UsersAuthRegisterCreateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    UsersAuthRegisterCreatePasswordErrorComponent: {
+      /**
+       * @description * `password` - password (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'password';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    UsersAuthRegisterCreateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['UsersAuthRegisterCreateError'][];
+    };
+    UsersMeProfilesCreateAvatarErrorComponent: {
+      /**
+       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'avatar';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    UsersMeProfilesCreateColorErrorComponent: {
+      /**
+       * @description * `color` - color (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'color';
+      /**
+       * @description * `invalid_choice` - invalid_choice
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid_choice' | 'null';
+      detail: string;
+    };
+    UsersMeProfilesCreateError:
+      | components['schemas']['UsersMeProfilesCreateNonFieldErrorsErrorComponent']
+      | components['schemas']['UsersMeProfilesCreateColorErrorComponent']
+      | components['schemas']['UsersMeProfilesCreateAvatarErrorComponent']
+      | components['schemas']['UsersMeProfilesCreateUsernameErrorComponent']
+      | components['schemas']['UsersMeProfilesCreateFirstNameErrorComponent']
+      | components['schemas']['UsersMeProfilesCreateLastNameErrorComponent'];
+    UsersMeProfilesCreateFirstNameErrorComponent: {
+      /**
+       * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'first_name';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    UsersMeProfilesCreateLastNameErrorComponent: {
+      /**
+       * @description * `last_name` - last_name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'last_name';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    UsersMeProfilesCreateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    UsersMeProfilesCreateUsernameErrorComponent: {
+      /**
+       * @description * `username` - username (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'username';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    UsersMeProfilesCreateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['UsersMeProfilesCreateError'][];
+    };
+    UsersMeProfilesPartialUpdateAvatarErrorComponent: {
+      /**
+       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'avatar';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    UsersMeProfilesPartialUpdateColorErrorComponent: {
+      /**
+       * @description * `color` - color (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'color';
+      /**
+       * @description * `invalid_choice` - invalid_choice
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid_choice' | 'null';
+      detail: string;
+    };
+    UsersMeProfilesPartialUpdateError:
+      | components['schemas']['UsersMeProfilesPartialUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['UsersMeProfilesPartialUpdateColorErrorComponent']
+      | components['schemas']['UsersMeProfilesPartialUpdateAvatarErrorComponent']
+      | components['schemas']['UsersMeProfilesPartialUpdateUsernameErrorComponent']
+      | components['schemas']['UsersMeProfilesPartialUpdateFirstNameErrorComponent']
+      | components['schemas']['UsersMeProfilesPartialUpdateLastNameErrorComponent'];
+    UsersMeProfilesPartialUpdateFirstNameErrorComponent: {
+      /**
+       * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'first_name';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    UsersMeProfilesPartialUpdateLastNameErrorComponent: {
+      /**
+       * @description * `last_name` - last_name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'last_name';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    UsersMeProfilesPartialUpdateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    UsersMeProfilesPartialUpdateUsernameErrorComponent: {
+      /**
+       * @description * `username` - username (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'username';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    UsersMeProfilesPartialUpdateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['UsersMeProfilesPartialUpdateError'][];
+    };
+    UsersMeProfilesUpdateAvatarErrorComponent: {
+      /**
+       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'avatar';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    UsersMeProfilesUpdateColorErrorComponent: {
+      /**
+       * @description * `color` - color (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'color';
+      /**
+       * @description * `invalid_choice` - invalid_choice
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid_choice' | 'null';
+      detail: string;
+    };
+    UsersMeProfilesUpdateError:
+      | components['schemas']['UsersMeProfilesUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['UsersMeProfilesUpdateColorErrorComponent']
+      | components['schemas']['UsersMeProfilesUpdateAvatarErrorComponent']
+      | components['schemas']['UsersMeProfilesUpdateUsernameErrorComponent']
+      | components['schemas']['UsersMeProfilesUpdateFirstNameErrorComponent']
+      | components['schemas']['UsersMeProfilesUpdateLastNameErrorComponent'];
+    UsersMeProfilesUpdateFirstNameErrorComponent: {
+      /**
+       * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'first_name';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    UsersMeProfilesUpdateLastNameErrorComponent: {
+      /**
+       * @description * `last_name` - last_name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'last_name';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    UsersMeProfilesUpdateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    UsersMeProfilesUpdateUsernameErrorComponent: {
+      /**
+       * @description * `username` - username (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'username';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    UsersMeProfilesUpdateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['UsersMeProfilesUpdateError'][];
+    };
+    /**
+     * @description * `validation_error` - Validation Error
+     * @enum {string}
+     */
+    ValidationErrorEnum: 'validation_error';
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
-	quiblets_list: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		requestBody?: never;
-		responses: {
-			200: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['Quiblet'][];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	quiblets_create: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		requestBody: {
-			content: {
-				'application/json': components['schemas']['Quiblet'];
-				'application/x-www-form-urlencoded': components['schemas']['Quiblet'];
-				'multipart/form-data': components['schemas']['Quiblet'];
-			};
-		};
-		responses: {
-			201: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['Quiblet'];
-				};
-			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['QuibletsCreateValidationError'];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	quiblets_retrieve: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path: {
-				/** @description A unique value identifying this Quiblet. */
-				id: string;
-			};
-			cookie?: never;
-		};
-		requestBody?: never;
-		responses: {
-			200: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['Quiblet'];
-				};
-			};
-			404: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse404'];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	quiblets_update: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path: {
-				/** @description A unique value identifying this Quiblet. */
-				id: string;
-			};
-			cookie?: never;
-		};
-		requestBody: {
-			content: {
-				'application/json': components['schemas']['Quiblet'];
-				'application/x-www-form-urlencoded': components['schemas']['Quiblet'];
-				'multipart/form-data': components['schemas']['Quiblet'];
-			};
-		};
-		responses: {
-			200: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['Quiblet'];
-				};
-			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['QuibletsUpdateValidationError'];
-				};
-			};
-			404: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse404'];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	quiblets_destroy: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path: {
-				/** @description A unique value identifying this Quiblet. */
-				id: string;
-			};
-			cookie?: never;
-		};
-		requestBody?: never;
-		responses: {
-			/** @description No response body */
-			204: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content?: never;
-			};
-			404: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse404'];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	quiblets_partial_update: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path: {
-				/** @description A unique value identifying this Quiblet. */
-				id: string;
-			};
-			cookie?: never;
-		};
-		requestBody?: {
-			content: {
-				'application/json': components['schemas']['PatchedQuiblet'];
-				'application/x-www-form-urlencoded': components['schemas']['PatchedQuiblet'];
-				'multipart/form-data': components['schemas']['PatchedQuiblet'];
-			};
-		};
-		responses: {
-			200: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['Quiblet'];
-				};
-			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['QuibletsPartialUpdateValidationError'];
-				};
-			};
-			404: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse404'];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	quibs_list: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		requestBody?: never;
-		responses: {
-			200: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['Quib'][];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	quibs_create: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		requestBody: {
-			content: {
-				'application/json': components['schemas']['Quib'];
-				'application/x-www-form-urlencoded': components['schemas']['Quib'];
-				'multipart/form-data': components['schemas']['Quib'];
-			};
-		};
-		responses: {
-			201: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['Quib'];
-				};
-			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['QuibsCreateValidationError'];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	quibs_retrieve: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path: {
-				/** @description A unique value identifying this Quib. */
-				id: string;
-			};
-			cookie?: never;
-		};
-		requestBody?: never;
-		responses: {
-			200: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['Quib'];
-				};
-			};
-			404: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse404'];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	quibs_update: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path: {
-				/** @description A unique value identifying this Quib. */
-				id: string;
-			};
-			cookie?: never;
-		};
-		requestBody: {
-			content: {
-				'application/json': components['schemas']['Quib'];
-				'application/x-www-form-urlencoded': components['schemas']['Quib'];
-				'multipart/form-data': components['schemas']['Quib'];
-			};
-		};
-		responses: {
-			200: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['Quib'];
-				};
-			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['QuibsUpdateValidationError'];
-				};
-			};
-			404: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse404'];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	quibs_destroy: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path: {
-				/** @description A unique value identifying this Quib. */
-				id: string;
-			};
-			cookie?: never;
-		};
-		requestBody?: never;
-		responses: {
-			/** @description No response body */
-			204: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content?: never;
-			};
-			404: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse404'];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	quibs_partial_update: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path: {
-				/** @description A unique value identifying this Quib. */
-				id: string;
-			};
-			cookie?: never;
-		};
-		requestBody?: {
-			content: {
-				'application/json': components['schemas']['PatchedQuib'];
-				'application/x-www-form-urlencoded': components['schemas']['PatchedQuib'];
-				'multipart/form-data': components['schemas']['PatchedQuib'];
-			};
-		};
-		responses: {
-			200: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['Quib'];
-				};
-			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['QuibsPartialUpdateValidationError'];
-				};
-			};
-			404: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse404'];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	users_auth_login_create: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		requestBody: {
-			content: {
-				'application/json': components['schemas']['Auth'];
-				'application/x-www-form-urlencoded': components['schemas']['Auth'];
-				'multipart/form-data': components['schemas']['Auth'];
-			};
-		};
-		responses: {
-			200: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['AuthTokenResponse'];
-				};
-			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['UsersAuthLoginCreateValidationError'];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	users_auth_logout_create: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		requestBody?: never;
-		responses: {
-			200: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['DetailResponse'];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	users_auth_register_create: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		requestBody: {
-			content: {
-				'application/json': components['schemas']['Auth'];
-				'application/x-www-form-urlencoded': components['schemas']['Auth'];
-				'multipart/form-data': components['schemas']['Auth'];
-			};
-		};
-		responses: {
-			201: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['Auth'];
-				};
-			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['UsersAuthRegisterCreateValidationError'];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	users_me_retrieve: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		requestBody?: never;
-		responses: {
-			200: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['Profile'];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	users_me_profiles_list: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		requestBody?: never;
-		responses: {
-			200: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['Profile'][];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	users_me_profiles_create: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		requestBody: {
-			content: {
-				'application/json': components['schemas']['Profile'];
-				'application/x-www-form-urlencoded': components['schemas']['Profile'];
-				'multipart/form-data': components['schemas']['Profile'];
-			};
-		};
-		responses: {
-			201: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['Profile'];
-				};
-			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['UsersMeProfilesCreateValidationError'];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	users_me_profiles_retrieve: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path: {
-				/** @description A unique integer value identifying this Profile. */
-				id: number;
-			};
-			cookie?: never;
-		};
-		requestBody?: never;
-		responses: {
-			200: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['Profile'];
-				};
-			};
-			404: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse404'];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	users_me_profiles_update: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path: {
-				/** @description A unique integer value identifying this Profile. */
-				id: number;
-			};
-			cookie?: never;
-		};
-		requestBody: {
-			content: {
-				'application/json': components['schemas']['Profile'];
-				'application/x-www-form-urlencoded': components['schemas']['Profile'];
-				'multipart/form-data': components['schemas']['Profile'];
-			};
-		};
-		responses: {
-			200: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['Profile'];
-				};
-			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['UsersMeProfilesUpdateValidationError'];
-				};
-			};
-			404: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse404'];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	users_me_profiles_destroy: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path: {
-				/** @description A unique integer value identifying this Profile. */
-				id: number;
-			};
-			cookie?: never;
-		};
-		requestBody?: never;
-		responses: {
-			/** @description No response body */
-			204: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content?: never;
-			};
-			404: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse404'];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	users_me_profiles_partial_update: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path: {
-				/** @description A unique integer value identifying this Profile. */
-				id: number;
-			};
-			cookie?: never;
-		};
-		requestBody?: {
-			content: {
-				'application/json': components['schemas']['PatchedProfile'];
-				'application/x-www-form-urlencoded': components['schemas']['PatchedProfile'];
-				'multipart/form-data': components['schemas']['PatchedProfile'];
-			};
-		};
-		responses: {
-			200: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['Profile'];
-				};
-			};
-			400: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['UsersMeProfilesPartialUpdateValidationError'];
-				};
-			};
-			404: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse404'];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	users_profiles_list: {
-		parameters: {
-			query?: {
-				/** @description A search term. */
-				search?: string;
-			};
-			header?: never;
-			path?: never;
-			cookie?: never;
-		};
-		requestBody?: never;
-		responses: {
-			200: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['Profile'][];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
-	users_profiles_retrieve: {
-		parameters: {
-			query?: never;
-			header?: never;
-			path: {
-				/** @description A unique integer value identifying this Profile. */
-				id: number;
-			};
-			cookie?: never;
-		};
-		requestBody?: never;
-		responses: {
-			200: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['Profile'];
-				};
-			};
-			404: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse404'];
-				};
-			};
-			500: {
-				headers: {
-					[name: string]: unknown;
-				};
-				content: {
-					'application/json': components['schemas']['ErrorResponse500'];
-				};
-			};
-		};
-	};
+  quiblets_list: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Quiblet'][];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  quiblets_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Quiblet'];
+        'application/x-www-form-urlencoded': components['schemas']['Quiblet'];
+        'multipart/form-data': components['schemas']['Quiblet'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Quiblet'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['QuibletsCreateValidationError'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  quiblets_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description A unique value identifying this Quiblet. */
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Quiblet'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  quiblets_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description A unique value identifying this Quiblet. */
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Quiblet'];
+        'application/x-www-form-urlencoded': components['schemas']['Quiblet'];
+        'multipart/form-data': components['schemas']['Quiblet'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Quiblet'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['QuibletsUpdateValidationError'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  quiblets_destroy: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description A unique value identifying this Quiblet. */
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  quiblets_partial_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description A unique value identifying this Quiblet. */
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['PatchedQuiblet'];
+        'application/x-www-form-urlencoded': components['schemas']['PatchedQuiblet'];
+        'multipart/form-data': components['schemas']['PatchedQuiblet'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Quiblet'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['QuibletsPartialUpdateValidationError'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  quibs_list: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Quib'][];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  quibs_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Quib'];
+        'application/x-www-form-urlencoded': components['schemas']['Quib'];
+        'multipart/form-data': components['schemas']['Quib'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Quib'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['QuibsCreateValidationError'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  quibs_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description A unique value identifying this Quib. */
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Quib'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  quibs_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description A unique value identifying this Quib. */
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Quib'];
+        'application/x-www-form-urlencoded': components['schemas']['Quib'];
+        'multipart/form-data': components['schemas']['Quib'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Quib'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['QuibsUpdateValidationError'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  quibs_destroy: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description A unique value identifying this Quib. */
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  quibs_partial_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description A unique value identifying this Quib. */
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['PatchedQuib'];
+        'application/x-www-form-urlencoded': components['schemas']['PatchedQuib'];
+        'multipart/form-data': components['schemas']['PatchedQuib'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Quib'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['QuibsPartialUpdateValidationError'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  users_auth_login_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Auth'];
+        'application/x-www-form-urlencoded': components['schemas']['Auth'];
+        'multipart/form-data': components['schemas']['Auth'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AuthTokenResponse'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UsersAuthLoginCreateValidationError'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  users_auth_logout_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['DetailResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  users_auth_register_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Auth'];
+        'application/x-www-form-urlencoded': components['schemas']['Auth'];
+        'multipart/form-data': components['schemas']['Auth'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Auth'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UsersAuthRegisterCreateValidationError'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  users_me_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Profile'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  users_me_profiles_list: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Profile'][];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  users_me_profiles_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Profile'];
+        'application/x-www-form-urlencoded': components['schemas']['Profile'];
+        'multipart/form-data': components['schemas']['Profile'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Profile'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UsersMeProfilesCreateValidationError'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  users_me_profiles_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description A unique integer value identifying this Profile. */
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Profile'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  users_me_profiles_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description A unique integer value identifying this Profile. */
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Profile'];
+        'application/x-www-form-urlencoded': components['schemas']['Profile'];
+        'multipart/form-data': components['schemas']['Profile'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Profile'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UsersMeProfilesUpdateValidationError'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  users_me_profiles_destroy: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description A unique integer value identifying this Profile. */
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  users_me_profiles_partial_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description A unique integer value identifying this Profile. */
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['PatchedProfile'];
+        'application/x-www-form-urlencoded': components['schemas']['PatchedProfile'];
+        'multipart/form-data': components['schemas']['PatchedProfile'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Profile'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['UsersMeProfilesPartialUpdateValidationError'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  users_profiles_list: {
+    parameters: {
+      query?: {
+        /** @description A search term. */
+        search?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Profile'][];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  users_profiles_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description A unique integer value identifying this Profile. */
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Profile'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
 }

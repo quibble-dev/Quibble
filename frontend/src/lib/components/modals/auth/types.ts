@@ -7,7 +7,7 @@ export type Forms = keyof typeof forms;
 export type FormsState = { [K in Forms]: object };
 
 export type FormProps = {
-	forms_state: FormsState;
-	on_submit: (data: FormSubmitData) => void;
-	goto_form: (form: Forms) => void;
+  forms_state: FormsState;
+  on_submit: (data: FormSubmitData) => void;
+  goto_form: (form: Forms) => void;
 };

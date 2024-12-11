@@ -1,12 +1,12 @@
 [
-	{
-		"name": "AskQuibble",
-		"avatar": "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
-		"starred": true
-	},
-	{
-		"name": "sveltejs",
-		"avatar": null,
-		"starred": false
-	}
+  {
+    "name": "AskQuibble",
+    "avatar": "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
+    "starred": true
+  },
+  {
+    "name": "sveltejs",
+    "avatar": null,
+    "starred": false
+  }
 ]

@@ -6,19 +6,19 @@ import tailwindScroll from 'tailwind-scrollbar';
 import type { Config } from 'tailwindcss';
 
 export default {
-	content: ['./src/**/*.{html,js,svelte,ts}'],
+  content: ['./src/**/*.{html,js,svelte,ts}'],
 
-	theme: {
-		extend: {
-			fontFamily: {
-				sans: 'DM Sans, sans-serif'
-			}
-		}
-	},
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: 'DM Sans, sans-serif'
+      }
+    }
+  },
 
-	daisyui: {
-		themes: ['sunset']
-	},
+  daisyui: {
+    themes: ['sunset']
+  },
 
-	plugins: [typography, forms, aspectRatio, daisyui, tailwindScroll]
+  plugins: [typography, forms, aspectRatio, daisyui, tailwindScroll]
 } satisfies Config;
