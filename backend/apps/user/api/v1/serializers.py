@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.user.models import Profile, User
+from ...models import Profile, User
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -11,7 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)  # type: ignore
+        user = User.objects.create_user(**validated_data)  # pyright: ignore
         return user
 
 

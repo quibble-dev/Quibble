@@ -7,7 +7,9 @@ from apps.user.models import Profile, User
 @pytest.fixture
 def user():
     """Creates and returns a user."""
-    return User.objects.create_user(email='test@test.com', password='testpass')  # type: ignore
+    return User.objects.create_user(
+        email='test@test.com', password='testpass'
+    )  # pyright: ignore
 
 
 @pytest.fixture

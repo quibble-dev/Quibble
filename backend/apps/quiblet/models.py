@@ -33,7 +33,7 @@ class Quiblet(AvatarMixin, CreatedAtMixin, IsPublicMixin):
     def __str__(self) -> str:
         return f'q/{self.name}'
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         verbose_name = 'Quiblet'
         verbose_name_plural = 'Quiblets'
         ordering = ['-created_at']
@@ -75,7 +75,7 @@ class Quib(CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
     def __str__(self) -> str:
         return f'{self.pk}/{self.slug}'
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         verbose_name = 'Quib'
         verbose_name_plural = 'Quibs'
         ordering = ['-created_at']

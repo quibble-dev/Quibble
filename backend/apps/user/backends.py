@@ -1,7 +1,6 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 
-UserModel = get_user_model()
+from apps.user.models import User
 
 
 class EmailAuthBackend(ModelBackend):
@@ -9,19 +8,17 @@ class EmailAuthBackend(ModelBackend):
     Custom Auth backend with email instead username
     """
 
-    def authenticate(  # pyright: ignore [reportIncompatibleMethodOverride]
-        self, request, email=None, password=None, **kwargs
-    ):
+    def authenticate(self, request, email=None, password=None, **kwargs):  # pyright: ignore
         try:
-            user = UserModel.objects.get(email=email)
+            user = User.objects.get(email=email)
             if password and user.check_password(password):
                 return user
             return None
-        except UserModel.DoesNotExist:
+        except User.DoesNotExist:
             return None
 
     def get_user(self, user_id: int):
         try:
-            return UserModel.objects.get(pk=user_id)
-        except UserModel.DoesNotExist:
+            return User.objects.get(pk=user_id)
+        except User.DoesNotExist:
             return None

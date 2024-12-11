@@ -28,7 +28,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         verbose_name = 'User'
         verbose_name_plural = 'Users'
         ordering = ['-date_joined']
@@ -44,7 +44,7 @@ class Profile(CreatedAtMixin, ColorMixin, AvatarMixin):
     def __str__(self):
         return f"u/{self.username}"
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         verbose_name = 'Profile'
         verbose_name_plural = 'Profiles'
         ordering = ['-created_at']

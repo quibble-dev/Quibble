@@ -12,7 +12,7 @@ class CreatedAtMixin(models.Model):
 
     created_at = models.DateTimeField(_('create at'), auto_now_add=True)
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         abstract = True
 
 
@@ -41,7 +41,7 @@ class ColorMixin(models.Model):
         default=partial(get_random_color, COLOR_CHOICES),
     )
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         abstract = True
 
 
@@ -55,7 +55,7 @@ class AvatarMixin(models.Model):
         null=True,
     )
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         abstract = True
 
 
@@ -64,14 +64,14 @@ class IsPublicMixin(models.Model):
 
     is_public = models.BooleanField(_('is public'), default=True)
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         abstract = True
 
 
 class ShortUUIDMixin(models.Model):
     """Adds an `id` field as primary key and a shortuuid generated one."""
 
-    id = ShortUUIDField(  # type: ignore
+    id = ShortUUIDField(  # pyright: ignore
         _('id'),
         editable=False,
         length=7,
@@ -79,5 +79,5 @@ class ShortUUIDMixin(models.Model):
         primary_key=True,
     )
 
-    class Meta:  # type: ignore
+    class Meta:  # pyright: ignore
         abstract = True
