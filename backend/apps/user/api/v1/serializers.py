@@ -1,33 +1,15 @@
 from rest_framework import serializers
 
-from apps.user.models import Profile, User
+from apps.user.models import CustomUser
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ('id', 'email', 'password', 'date_joined')
+        model = CustomUser
+        fields = '__all__'
         read_only_fields = ('date_joined',)
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)  # type: ignore
+        user = CustomUser.objects.create_user(**validated_data)  # type: ignore
         return user
-
-
-class ProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
-
-    class Meta:
-        model = Profile
-        fields = '__all__'
-
-
-class AuthSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('email', 'password')
-
-
-class AuthTokenResponseSerializer(serializers.Serializer):
-    token = serializers.CharField()

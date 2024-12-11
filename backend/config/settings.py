@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 from pathlib import Path
 
 import dj_database_url
@@ -41,7 +42,9 @@ THIRD_PARTY_APPS = [
     'django_extensions',
     # rest framework
     'rest_framework',
-    'rest_framework.authtoken',
+    # jwt auth
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     # django filtering
     'django_filters',
     # middleware (cors)
@@ -57,6 +60,7 @@ THIRD_PARTY_APPS = [
 
 SELF_APPS = [
     'apps.user',
+    'apps.api',
     'apps.quiblet',
     'apps.quib',
 ]
@@ -72,7 +76,7 @@ if DEBUG:
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'apps.user.auth.ExtendedTokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -128,6 +132,15 @@ SPECTACULAR_SETTINGS = {
     'POSTPROCESSING_HOOKS': [
         'drf_standardized_errors.openapi_hooks.postprocess_schema_enums',
     ],
+}
+
+# https://django-rest-framework-simplejwt.readthedocs.io/en/latest/settings.html
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': True,
 }
 
 MIDDLEWARE = [
@@ -223,13 +236,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom AUTH model and backends
-AUTH_USER_MODEL = 'user.User'
-
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    # custom auth backend
-    'apps.user.backends.EmailAuthBackend',
-]
+AUTH_USER_MODEL = 'user.CustomUser'
 
 # django-cors-headers settins
 # https://pypi.org/project/django-cors-headers/
@@ -237,9 +244,6 @@ AUTHENTICATION_BACKENDS = [
 CORS_ALLOWED_ORIGINS = CSRF_TRUSTED_ORIGINS = [
     'http://localhost:5173',
 ]
-
-# max no:of profiles a user can create
-PROFILE_LIMIT = 3
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/

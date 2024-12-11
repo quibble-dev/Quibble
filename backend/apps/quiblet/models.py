@@ -4,7 +4,7 @@ from django.db.models.functions import Lower
 from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
 
-from apps.user.models import Profile
+from apps.user.models import CustomUser
 from common.mixins import AvatarMixin, CreatedAtMixin, IsPublicMixin, ShortUUIDIdMixin
 
 
@@ -18,10 +18,10 @@ class Quiblet(AvatarMixin, CreatedAtMixin, IsPublicMixin, ShortUUIDIdMixin):
         null=True,
     )
     members = models.ManyToManyField(
-        Profile, related_name='joined_quiblets', blank=True, verbose_name=_('members')
+        CustomUser, related_name='joined_quiblets', blank=True, verbose_name=_('members')
     )
     rangers = models.ManyToManyField(
-        Profile, related_name='ranged_quiblets', blank=True, verbose_name=_('rangers')
+        CustomUser, related_name='ranged_quiblets', blank=True, verbose_name=_('rangers')
     )
 
     class Meta:  # type: ignore

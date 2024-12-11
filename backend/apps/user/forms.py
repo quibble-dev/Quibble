@@ -1,16 +1,15 @@
 from django import forms
-from django.conf import settings
 from django.forms import ModelForm
 from django.utils.translation import gettext_lazy as _
 
-from .models import Profile, User
+from .models import CustomUser
 
 
 class CustomUserAdminForm(ModelForm):
     password = forms.CharField(widget=forms.PasswordInput, required=False)
 
     class Meta:  # pyright: ignore [reportIncompatibleVariableOverride]
-        model = User
+        model = CustomUser
         fields = '__all__'
 
     def save(self, commit=True):
@@ -21,21 +20,3 @@ class CustomUserAdminForm(ModelForm):
         if commit:
             user.save()
         return user
-
-
-class ProfileAdminForm(ModelForm):
-    class Meta:  # pyright: ignore [reportIncompatibleVariableOverride]
-        model = Profile
-        fields = '__all__'
-
-    def clean(self):  # pyright: ignore [reportIncompatibleVariableOverride]
-        user = self.cleaned_data.get('user')
-
-        if (
-            self.instance.pk is None
-            and user
-            and user.profiles.count() >= settings.PROFILE_LIMIT
-        ):
-            self.add_error(None, _('a user cannot have more than 5 profiles.'))
-
-        return self.cleaned_data

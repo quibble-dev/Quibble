@@ -3,7 +3,7 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 from apps.quiblet.models import Quiblet
-from apps.user.models import Profile
+from apps.user.models import CustomUser
 from common.mixins import CreatedAtMixin, IsPublicMixin, ShortUUIDIdMixin
 
 
@@ -15,7 +15,7 @@ class Quib(CreatedAtMixin, IsPublicMixin, ShortUUIDIdMixin):
         on_delete=models.CASCADE,
     )
     quibber = models.ForeignKey(
-        Profile,
+        CustomUser,
         related_name='quibs',
         verbose_name=_('quibber'),
         on_delete=models.CASCADE,
@@ -24,10 +24,10 @@ class Quib(CreatedAtMixin, IsPublicMixin, ShortUUIDIdMixin):
     slug = models.SlugField(_('slug'), editable=False, max_length=25, blank=True)
     content = models.TextField(_('content'))
     likes = models.ManyToManyField(
-        Profile, related_name='liked_quibs', blank=True, verbose_name=_('likes')
+        CustomUser, related_name='liked_quibs', blank=True, verbose_name=_('likes')
     )
     dislikes = models.ManyToManyField(
-        Profile, related_name='disliked_quibs', blank=True, verbose_name=_('dislikes')
+        CustomUser, related_name='disliked_quibs', blank=True, verbose_name=_('dislikes')
     )
 
     def save(self, *args, **kwargs):
