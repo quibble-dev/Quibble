@@ -21,33 +21,33 @@ import { AuthError } from '$lib/utils/errors';
  * ```
  */
 export async function apiFetch<T>(
-	endpoint: string,
-	{ body, ...init_options }: RequestInit = {}
+  endpoint: string,
+  { body, ...init_options }: RequestInit = {}
 ): Promise<T> {
-	const config: RequestInit = {
-		method: body ? 'POST' : 'GET',
-		...init_options,
-		headers: {
-			'Content-Type': 'application/json',
-			...init_options?.headers
-		},
-		// attach body if body is provided (for POST)
-		...(body && { body })
-	};
+  const config: RequestInit = {
+    method: body ? 'POST' : 'GET',
+    ...init_options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...init_options?.headers
+    },
+    // attach body if body is provided (for POST)
+    ...(body && { body })
+  };
 
-	const response = await fetch(`${PUBLIC_API_URL}${endpoint}`, config);
+  const response = await fetch(`${PUBLIC_API_URL}${endpoint}`, config);
 
-	if (!response.ok) {
-		const data = await response.json();
-		const error = data.errors[0].detail ?? 'Oops! something went wrong.';
+  if (!response.ok) {
+    const data = await response.json();
+    const error = data.errors[0].detail ?? 'Oops! something went wrong.';
 
-		switch (response.status) {
-			case 401:
-				throw new AuthError(error);
-			default:
-				throw new Error(error);
-		}
-	}
+    switch (response.status) {
+      case 401:
+        throw new AuthError(error);
+      default:
+        throw new Error(error);
+    }
+  }
 
-	return response.json() as Promise<T>;
+  return response.json() as Promise<T>;
 }

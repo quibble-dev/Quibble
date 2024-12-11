@@ -6,15 +6,15 @@ type Profile = components['schemas']['Profile'];
 
 // for information about these interfaces
 declare global {
-	namespace App {
-		// interface Error {}
-		interface Locals {
-			profile: Profile | null;
-		}
-		// interface PageData {}
-		// interface PageState {}
-		// interface Platform {}
-	}
+  namespace App {
+    // interface Error {}
+    interface Locals {
+      profile: Profile | null;
+    }
+    // interface PageData {}
+    // interface PageState {}
+    // interface Platform {}
+  }
 }
 
 export {};

@@ -13,8 +13,8 @@ import { PUBLIC_API_URL } from '$env/static/public';
  * ```
  */
 const client = createClient<paths>({
-	baseUrl: PUBLIC_API_URL,
-	headers: {}
+  baseUrl: PUBLIC_API_URL,
+  headers: {}
 });
 
 export default client;
