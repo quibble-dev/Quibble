@@ -4,14 +4,16 @@
   import type { FormProps } from '../types';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { onMount } from 'svelte';
-  import { apiFetch } from '$lib/utils/api';
-  import type { Profile } from '$lib/types/user';
   import { enhance } from '$app/forms';
   import type { SubmitFunction } from '@sveltejs/kit';
   import { close_modal } from '$lib/stores/modals.svelte';
   import { invalidateAll } from '$app/navigation';
   // @ts-expect-error: too lazy to copy paste it
   import daisyuiColorNames from 'daisyui/src/theming/colorNames';
+  import client from '$lib/clients/client';
+  import type { components } from '$lib/clients/v1';
+
+  type Profile = components['schemas']['Profile'];
 
   let { forms_state, goto_form }: FormProps = $props();
 
@@ -38,20 +40,23 @@
   };
 
   onMount(async () => {
-    try {
-      pending = true;
-      status_text = 'Fetching profiles...';
-      profiles = await apiFetch<Profile[]>('v1/user/me/profiles/', {
-        headers: {
-          Authorization: `Bearer ${(forms_state.login as { token: string }).token}`
-        }
-      });
-    } catch (err) {
-      console.error(err);
-    } finally {
-      pending = false;
-      status_text = null;
+    pending = true;
+    status_text = 'Fetching profiles...';
+
+    const { data, error, response } = await client.GET('/api/v1/u/me/profiles/', {
+      headers: {
+        Authorization: `Bearer ${(forms_state.login as { token: string }).token}`
+      }
+    });
+
+    if (!response.ok && error) {
+      console.log(error);
+    } else if (data) {
+      profiles = data;
     }
+
+    pending = false;
+    status_text = null;
   });
 </script>
 

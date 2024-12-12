@@ -103,6 +103,10 @@
       {/if}
     </button>
   </form>
+  <div class="flex items-center gap-2 text-sm">
+    <span>Not a member yet?</span>
+    <button class="font-info font-medium underline">Register now!</button>
+  </div>
   <p class="text-center text-xs">
     By continuing, you agree to the <a
       href="/support/terms-and-conditions"
