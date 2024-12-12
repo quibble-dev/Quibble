@@ -14,7 +14,7 @@
   let forms_state = $state<FormsState>(initial_forms_state);
 
   function update_forms_state(form: Forms, data: FormSubmitData) {
-    forms_state[form] = data;
+    forms_state[form] = { ...forms_state[form], ...data };
   }
 
   function goto_form(form: Forms) {
