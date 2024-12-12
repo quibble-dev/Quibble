@@ -8,7 +8,7 @@ type AuthState = {
   profile: Nullable<Profile>;
 };
 
-let auth_state = $state<AuthState>({
+const auth_state = $state<AuthState>({
   is_authenticated: false,
   profile: null
 });
