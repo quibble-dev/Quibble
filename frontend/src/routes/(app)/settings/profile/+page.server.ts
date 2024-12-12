@@ -7,7 +7,7 @@ export const actions = {
   create: async ({ request, cookies }) => {
     const form_data = await request.formData();
 
-    const { error, response } = await client.POST('/api/v1/u/me/profiles/', {
+    const { data, error, response } = await client.POST('/api/v1/u/me/profiles/', {
       headers: {
         Authorization: `Bearer ${cookies.get('auth_token')}`
       },
@@ -20,7 +20,7 @@ export const actions = {
     if (!response.ok && error) {
       return fail(response.status, error.errors[0]);
     } else {
-      return { success: true };
+      return data;
     }
   },
   select: async ({ request, cookies }) => {

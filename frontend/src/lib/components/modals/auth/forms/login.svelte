@@ -7,7 +7,7 @@
   import type { FormProps } from '../types';
   import { enhance } from '$app/forms';
 
-  let { on_submit, goto_form }: FormProps = $props();
+  let { update_forms_state, goto_form }: FormProps = $props();
 
   let errors = $state<Record<string, string> | undefined>();
   let pending = $state(false);
@@ -19,7 +19,7 @@
       if (result.type === 'success') {
         errors = undefined;
         // save token on forms_state
-        on_submit({ token: result.data?.token });
+        update_forms_state('login', { token: result.data?.token });
         // next form
         goto_form('profile_select');
       } else if (result.type === 'failure') {

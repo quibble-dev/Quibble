@@ -1,6 +1,8 @@
 import forms from './forms';
 
-export type FormSubmitData = Record<string, string | number | undefined>;
+export type FormSubmitData = {
+  [key: string]: string | number | undefined | FormSubmitData | Array<unknown>;
+};
 
 export type Forms = keyof typeof forms;
 
@@ -8,6 +10,6 @@ export type FormsState = { [K in Forms]: object };
 
 export type FormProps = {
   forms_state: FormsState;
-  on_submit: (data: FormSubmitData) => void;
+  update_forms_state: (form: Forms, data: FormSubmitData) => void;
   goto_form: (form: Forms) => void;
 };

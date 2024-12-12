@@ -13,8 +13,8 @@
 
   let forms_state = $state<FormsState>(initial_forms_state);
 
-  function on_submit(data: FormSubmitData) {
-    forms_state[_form] = data;
+  function update_forms_state(form: Forms, data: FormSubmitData) {
+    forms_state[form] = data;
   }
 
   function goto_form(form: Forms) {
@@ -39,7 +39,7 @@
 >
   <div class="modal-box !w-[25rem]">
     {#await current_form then Form}
-      <Form.default {forms_state} {on_submit} {goto_form} />
+      <Form.default {forms_state} {update_forms_state} {goto_form} />
     {/await}
   </div>
   <form method="dialog" class="modal-backdrop bg-base-300/25">

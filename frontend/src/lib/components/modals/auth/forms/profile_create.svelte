@@ -6,7 +6,7 @@
   import type { SubmitFunction } from '@sveltejs/kit';
   import type { FormProps } from '../types';
 
-  let { goto_form }: FormProps = $props();
+  let { forms_state, update_forms_state, goto_form }: FormProps = $props();
 
   let errors = $state<Record<string, string> | undefined>();
   let pending = $state(false);
@@ -17,6 +17,13 @@
     return async ({ result }) => {
       if (result.type === 'success') {
         errors = undefined;
+        // append to existing profiles on forms_state
+        update_forms_state('profile_select', {
+          profiles: [
+            ...(forms_state.profile_select as { profiles: object[] }).profiles,
+            result.data
+          ]
+        });
         goto_form('profile_select');
       } else if (result.type === 'failure') {
         errors = result.data;

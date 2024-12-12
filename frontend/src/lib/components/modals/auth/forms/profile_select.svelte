@@ -15,7 +15,7 @@
 
   type Profile = components['schemas']['Profile'];
 
-  let { forms_state, goto_form }: FormProps = $props();
+  let { update_forms_state, forms_state, goto_form }: FormProps = $props();
 
   let pending = $state(false);
   let status_text = $state<string | null>(null);
@@ -37,23 +37,31 @@
   };
 
   onMount(async () => {
-    pending = true;
-    status_text = 'Fetching profiles...';
+    // check if forms_state has profiles
+    // so avoid a query
+    if ((forms_state.profile_select as { profiles: Profile[] }).profiles) {
+      profiles = (forms_state.profile_select as { profiles: Profile[] }).profiles;
+    } else {
+      pending = true;
+      status_text = 'Fetching profiles...';
 
-    const { data, error, response } = await client.GET('/api/v1/u/me/profiles/', {
-      headers: {
-        Authorization: `Bearer ${(forms_state.login as { token: string }).token}`
+      const { data, error, response } = await client.GET('/api/v1/u/me/profiles/', {
+        headers: {
+          Authorization: `Bearer ${(forms_state.login as { token: string }).token}`
+        }
+      });
+
+      if (!response.ok && error) {
+        console.log(error);
+      } else if (data) {
+        profiles = data;
+        // add to forms_state
+        update_forms_state('profile_select', { profiles });
       }
-    });
 
-    if (!response.ok && error) {
-      console.log(error);
-    } else if (data) {
-      profiles = data;
+      pending = false;
+      status_text = null;
     }
-
-    pending = false;
-    status_text = null;
   });
 </script>
 
@@ -66,9 +74,14 @@
       <QuibbleLogo class="size-7" />
       <QuibbleTextLogo class="h-7 w-auto" />
     </div>
-    <p class="text-center font-medium">
-      {status_text ?? "Who's quibbling?"}
-    </p>
+    <div class="flex flex-col gap-1">
+      <p class="text-center font-medium">
+        {status_text ?? "Who's quibbling?"}
+      </p>
+      <span class="self-center text-xs"
+        >You can later switch b/w profiles on settings page.</span
+      >
+    </div>
   </div>
   <div
     class="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 self-center"
@@ -91,7 +104,9 @@
             src={profile.avatar}
             alt={profile.username}
           />
-          <span class="text-xs font-medium">u/{profile.username}</span>
+          <span class="line-clamp-1 max-w-20 break-all text-xs font-medium"
+            >u/{profile.username}</span
+          >
         </button>
       </form>
     {/each}
