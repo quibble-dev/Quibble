@@ -14,9 +14,7 @@
   const handle_submit: SubmitFunction = async () => {
     pending = true;
 
-    return async ({ update, result }) => {
-      await update();
-
+    return async ({ result }) => {
       if (result.type === 'success') {
         errors = undefined;
         goto_form('profile_select');

@@ -15,9 +15,7 @@
   const handle_submit: SubmitFunction = async () => {
     pending = true;
 
-    return async ({ update, result }) => {
-      await update();
-
+    return async ({ result }) => {
       if (result.type === 'success') {
         errors = undefined;
         // save token on forms_state

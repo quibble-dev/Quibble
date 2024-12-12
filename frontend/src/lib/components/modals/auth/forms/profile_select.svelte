@@ -26,8 +26,7 @@
     pending = true;
     status_text = 'Setting up profile...';
 
-    return async ({ update }) => {
-      await update();
+    return async () => {
       // re-run load functions and close this modal
       await invalidateAll();
       close_modal('auth');
