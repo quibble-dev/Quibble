@@ -27,15 +27,13 @@
     status_text = 'Setting up profile...';
 
     return async ({ update }) => {
-      try {
-        await update();
-        // re-run load functions and close this modal
-        await invalidateAll();
-        close_modal('auth');
-      } finally {
-        pending = false;
-        status_text = null;
-      }
+      await update();
+      // re-run load functions and close this modal
+      await invalidateAll();
+      close_modal('auth');
+
+      pending = false;
+      status_text = null;
     };
   };
 

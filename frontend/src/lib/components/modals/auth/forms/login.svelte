@@ -3,27 +3,21 @@
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
   import { cn } from '$lib/functions/classnames';
-  import type { ActionResult } from '@sveltejs/kit';
+  import type { SubmitFunction } from '@sveltejs/kit';
   import type { FormProps } from '../types';
-  import { deserialize } from '$app/forms';
+  import { enhance } from '$app/forms';
 
   let { on_submit, goto_form }: FormProps = $props();
 
   let errors = $state<Record<string, string> | undefined>();
   let pending = $state(false);
 
-  async function handle_submit(e: SubmitEvent) {
-    e.preventDefault();
+  const handle_submit: SubmitFunction = async () => {
     pending = true;
 
-    try {
-      const form = e.currentTarget as HTMLFormElement;
+    return async ({ update, result }) => {
+      await update();
 
-      const form_data = new FormData(form);
-      // perform login form action
-      const response = await fetch(form.action, { method: form.method, body: form_data });
-
-      const result: ActionResult = deserialize(await response.text());
       if (result.type === 'success') {
         errors = undefined;
         // save token on forms_state
@@ -33,12 +27,9 @@
       } else if (result.type === 'failure') {
         errors = result.data;
       }
-    } catch (err) {
-      console.error(err);
-    } finally {
       pending = false;
-    }
-  }
+    };
+  };
 </script>
 
 <div class="flex flex-col gap-4">
@@ -59,7 +50,7 @@
   <form
     method="POST"
     action="/auth?/login"
-    onsubmit={handle_submit}
+    use:enhance={handle_submit}
     class="flex flex-col gap-3"
   >
     <label class="input input-bordered flex items-center gap-2">
