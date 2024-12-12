@@ -4,8 +4,11 @@
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
   import NotificationIcon from '$lib/components/icons/notification.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
-  import { open_modal } from '$lib/stores/modals.svelte';
-  import { get_auth_state } from '$lib/stores/auth.svelte';
+  import { createModalsStore } from '$lib/stores/modals.svelte';
+  import { createAuthStore } from '$lib/stores/auth.svelte';
+
+  const modalsStore = createModalsStore(),
+    authStore = createAuthStore();
 </script>
 
 <header
@@ -40,7 +43,7 @@
     </label>
   </div>
   <div class="flex items-center gap-2">
-    {#if get_auth_state().is_authenticated}
+    {#if authStore.state.is_authenticated}
       <button aria-label="Create Quibble" class="btn btn-primary h-10 px-3">
         <coreicons-shape-plus variant="no-border" class="size-5"></coreicons-shape-plus>
         <span class="text-sm font-semibold">Create</span>
@@ -57,7 +60,7 @@
     {:else}
       <button
         class="btn btn-primary h-10 px-3 text-sm font-bold"
-        onclick={() => open_modal('auth')}
+        onclick={() => modalsStore.open('auth')}
       >
         Join In!
         <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>

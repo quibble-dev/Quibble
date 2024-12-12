@@ -6,7 +6,7 @@
   import { onMount } from 'svelte';
   import { enhance } from '$app/forms';
   import type { SubmitFunction } from '@sveltejs/kit';
-  import { close_modal } from '$lib/stores/modals.svelte';
+  import { createModalsStore } from '$lib/stores/modals.svelte';
   import { invalidateAll } from '$app/navigation';
   // @ts-expect-error: too lazy to copy paste it
   import daisyuiColorNames from 'daisyui/src/theming/colorNames';
@@ -22,6 +22,8 @@
 
   let profiles = $state<Profile[]>([]);
 
+  const modalsStore = createModalsStore();
+
   const handle_submit: SubmitFunction = async () => {
     pending = true;
     status_text = 'Setting up profile...';
@@ -29,7 +31,7 @@
     return async () => {
       // re-run load functions and close this modal
       await invalidateAll();
-      close_modal('auth');
+      modalsStore.close('auth');
 
       pending = false;
       status_text = null;

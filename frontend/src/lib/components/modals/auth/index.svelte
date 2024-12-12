@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { close_modal, get_modals_state } from '$lib/stores/modals.svelte';
+  import { createModalsStore } from '$lib/stores/modals.svelte';
   import type { FormsState, FormSubmitData, Forms } from './types';
   import forms from './forms';
 
@@ -23,8 +23,10 @@
 
   let dialog_element: HTMLDialogElement | undefined = undefined;
 
+  const modalsStore = createModalsStore();
+
   $effect(() => {
-    if (get_modals_state().get('auth')) {
+    if (modalsStore.state.get('auth')) {
       dialog_element?.showModal();
     } else {
       dialog_element?.close();
@@ -35,7 +37,7 @@
 <dialog
   class="modal modal-bottom sm:modal-middle"
   bind:this={dialog_element}
-  onclose={() => close_modal('auth')}
+  onclose={() => modalsStore.close('auth')}
 >
   <div class="modal-box !w-[25rem]">
     {#await current_form then Form}

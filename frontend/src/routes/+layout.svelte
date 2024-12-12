@@ -5,15 +5,17 @@
   import Header from '$lib/components/header.svelte';
   import Sidebar from '$lib/components/sidebar.svelte';
   import Modals from '$lib/components/modals/index.svelte';
-  import { set_auth_state } from '$lib/stores/auth.svelte';
+  import { createAuthStore } from '$lib/stores/auth.svelte';
   import type { components } from '$lib/clients/v1';
 
   type Profile = components['schemas']['Profile'];
 
   let { children, data }: { children: Snippet; data: { profile: Profile } } = $props();
 
+  const authStore = createAuthStore();
+
   $effect.pre(() => {
-    set_auth_state({
+    authStore.update({
       profile: data.profile,
       is_authenticated: !!data.profile
     });
