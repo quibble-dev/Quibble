@@ -44,19 +44,25 @@
   </div>
   <div class="flex items-center gap-2">
     {#if authStore.state.is_authenticated}
-      <button aria-label="Create Quibble" class="btn btn-primary h-10 px-3">
-        <coreicons-shape-plus variant="no-border" class="size-5"></coreicons-shape-plus>
-        <span class="text-sm font-semibold">Create</span>
-      </button>
-      <button aria-label="Notifications" class="btn btn-neutral size-10 p-0">
-        <NotificationIcon class="size-6" />
-      </button>
-      <Avatar
-        parent_class="btn size-10 overflow-hidden p-0"
-        class="!size-full !rounded-none"
-        alt="daisy"
-        src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-      />
+      <div class="tooltip tooltip-bottom" data-tip="Create a Post">
+        <button aria-label="Create a Post" class="btn btn-primary h-10 px-3">
+          <coreicons-shape-plus variant="no-border" class="size-5"></coreicons-shape-plus>
+          <span class="text-sm font-semibold">Quib</span>
+        </button>
+      </div>
+      <div class="tooltip tooltip-bottom" data-tip="Inbox">
+        <button aria-label="Inbox" class="btn btn-neutral size-10 p-0">
+          <NotificationIcon class="size-6" />
+        </button>
+      </div>
+      <div class="tooltip tooltip-bottom flex before:left-0" data-tip="Profile menu">
+        <Avatar
+          parent_class="btn size-10 overflow-hidden p-0"
+          class="!size-full !rounded-none"
+          alt="daisy"
+          src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+        />
+      </div>
     {:else}
       <button
         class="btn btn-primary h-10 px-3 text-sm font-bold"

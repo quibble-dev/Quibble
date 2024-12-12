@@ -79,6 +79,10 @@ html {
 
 /* daisyui */
 
+.tooltip {
+  @apply before:rounded-lg before:text-xs before:font-medium after:hidden;
+}
+
 .btn {
   @apply min-h-max;
 }

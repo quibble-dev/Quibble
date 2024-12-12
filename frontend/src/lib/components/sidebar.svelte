@@ -9,7 +9,12 @@
   class="fixed top-[3.75rem] z-10 flex h-[calc(100dvh-3.75rem)] w-72 flex-col gap-4 overflow-y-scroll border-r border-neutral bg-base-300 p-4 scrollbar-none"
 >
   <div class="flex flex-col gap-2">
-    <h2 class="font-semibold">Communities</h2>
+    <div class="flex items-center gap-2">
+      <h2 class="font-semibold">Quiblets</h2>
+      <div class="tooltip tooltip-right flex" data-tip="Communities">
+        <coreicons-shape-help-circle class="size-[0.85rem]"></coreicons-shape-help-circle>
+      </div>
+    </div>
     <label
       class="input input-sm input-bordered flex items-center rounded-lg bg-transparent"
     >
@@ -22,7 +27,7 @@
     </label>
     <button class="flex items-center gap-2">
       <coreicons-shape-plus variant="circle" class="size-4"></coreicons-shape-plus>
-      <span class="text-xs font-medium">Create Community</span>
+      <span class="text-xs font-medium">Create Quiblet</span>
     </button>
   </div>
   <div class="collapse gap-2 rounded-none">
@@ -54,7 +59,7 @@
     <div
       class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>coreicons-shape-chevron]:rotate-180"
     >
-      Your Communities
+      Your Quiblets
       <coreicons-shape-chevron class="size-4 transition-transform" variant="down"
       ></coreicons-shape-chevron>
     </div>
