@@ -16,7 +16,7 @@ from common.mixins.model_mixins import (
 
 cover_file_pattern = FilePattern(filename_pattern="cover/{uuid:s}{ext}")
 
-# models
+# Create your models here.
 
 
 class Quiblet(AvatarMixin, CreatedAtMixin, IsPublicMixin):
