@@ -5,6 +5,7 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
 
+from apps.comment.models import Comment
 from apps.user.models import Profile
 from common.mixins.model_mixins import (
     AvatarMixin,
@@ -13,13 +14,17 @@ from common.mixins.model_mixins import (
     ShortUUIDMixin,
 )
 
+cover_file_pattern = FilePattern(filename_pattern="cover/{uuid:s}{ext}")
+
+# models
+
 
 class Quiblet(AvatarMixin, CreatedAtMixin, IsPublicMixin):
     name = models.CharField(_('name'), unique=True, max_length=25)
     description = models.TextField(_('description'))
     cover = models.ImageField(
         _('cover'),
-        upload_to=FilePattern(filename_pattern="cover/{uuid:s}{ext}"),
+        upload_to=cover_file_pattern,
         blank=True,
         null=True,
     )
@@ -58,11 +63,20 @@ class Quib(CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
     title = models.CharField(_('title'), max_length=255)
     slug = models.SlugField(_('slug'), editable=False, max_length=25, blank=True)
     content = models.TextField(_('content'))
-    likes = models.ManyToManyField(
-        Profile, related_name='liked_quibs', blank=True, verbose_name=_('likes')
+    cover = models.ImageField(
+        _('cover'),
+        upload_to=cover_file_pattern,
+        blank=True,
+        null=True,
     )
-    dislikes = models.ManyToManyField(
-        Profile, related_name='disliked_quibs', blank=True, verbose_name=_('dislikes')
+    upvotes = models.ManyToManyField(
+        Profile, related_name='upvoted_quibs', blank=True, verbose_name=_('upvotes')
+    )
+    downvotes = models.ManyToManyField(
+        Profile, related_name='downvoted_quibs', blank=True, verbose_name=_('downvotes')
+    )
+    comments = models.ManyToManyField(
+        Comment, related_name='comments', blank=True, verbose_name=_('comments')
     )
 
     def save(self, *args, **kwargs):

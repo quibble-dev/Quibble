@@ -53,11 +53,14 @@ THIRD_PARTY_APPS = [
     'drf_standardized_errors',
     # file middleware
     'django_cleanup',
+    # postgres ltree
+    'django_ltree',
 ]
 
 SELF_APPS = [
     'apps.user',
     'apps.quiblet',
+    'apps.comment',
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + SELF_APPS

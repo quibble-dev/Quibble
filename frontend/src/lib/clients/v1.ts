@@ -320,6 +320,7 @@ export interface components {
       color?: components['schemas']['ColorEnum'];
       /** Format: uri */
       avatar?: string | null;
+      /** @description Required. 25 characters or fewer. Letters, digits and ./_ only. */
       username?: string;
       first_name?: string | null;
       last_name?: string | null;
@@ -327,13 +328,15 @@ export interface components {
     };
     PatchedQuib: {
       readonly id?: string;
+      readonly quiblet?: components['schemas']['Quiblet'];
       /** Format: date-time */
       readonly created_at?: string;
       is_public?: boolean;
       title?: string;
       readonly slug?: string;
       content?: string;
-      quiblet?: number;
+      /** Format: uri */
+      cover?: string | null;
       /** Quibbler */
       quibber?: number;
       likes?: number[];
@@ -361,6 +364,7 @@ export interface components {
       color?: components['schemas']['ColorEnum'];
       /** Format: uri */
       avatar?: string | null;
+      /** @description Required. 25 characters or fewer. Letters, digits and ./_ only. */
       username: string;
       first_name?: string | null;
       last_name?: string | null;
@@ -867,6 +871,23 @@ export interface components {
         | 'surrogate_characters_not_allowed';
       detail: string;
     };
+    QQuibsCreateCoverErrorComponent: {
+      /**
+       * @description * `cover` - cover (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'cover';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
     QQuibsCreateDislikesErrorComponent: {
       /**
        * @description * `dislikes` - dislikes (enum property replaced by openapi-typescript)
@@ -888,7 +909,7 @@ export interface components {
       | components['schemas']['QQuibsCreateIsPublicErrorComponent']
       | components['schemas']['QQuibsCreateTitleErrorComponent']
       | components['schemas']['QQuibsCreateContentErrorComponent']
-      | components['schemas']['QQuibsCreateQuibletErrorComponent']
+      | components['schemas']['QQuibsCreateCoverErrorComponent']
       | components['schemas']['QQuibsCreateQuibberErrorComponent']
       | components['schemas']['QQuibsCreateLikesErrorComponent']
       | components['schemas']['QQuibsCreateDislikesErrorComponent'];
@@ -942,22 +963,6 @@ export interface components {
        * @enum {string}
        */
       attr: 'quibber';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `null` - null
-       *     * `required` - required
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
-      detail: string;
-    };
-    QQuibsCreateQuibletErrorComponent: {
-      /**
-       * @description * `quiblet` - quiblet (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'quiblet';
       /**
        * @description * `does_not_exist` - does_not_exist
        *     * `incorrect_type` - incorrect_type
@@ -1022,6 +1027,23 @@ export interface components {
         | 'surrogate_characters_not_allowed';
       detail: string;
     };
+    QQuibsPartialUpdateCoverErrorComponent: {
+      /**
+       * @description * `cover` - cover (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'cover';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
     QQuibsPartialUpdateDislikesErrorComponent: {
       /**
        * @description * `dislikes` - dislikes (enum property replaced by openapi-typescript)
@@ -1043,7 +1065,7 @@ export interface components {
       | components['schemas']['QQuibsPartialUpdateIsPublicErrorComponent']
       | components['schemas']['QQuibsPartialUpdateTitleErrorComponent']
       | components['schemas']['QQuibsPartialUpdateContentErrorComponent']
-      | components['schemas']['QQuibsPartialUpdateQuibletErrorComponent']
+      | components['schemas']['QQuibsPartialUpdateCoverErrorComponent']
       | components['schemas']['QQuibsPartialUpdateQuibberErrorComponent']
       | components['schemas']['QQuibsPartialUpdateLikesErrorComponent']
       | components['schemas']['QQuibsPartialUpdateDislikesErrorComponent'];
@@ -1097,22 +1119,6 @@ export interface components {
        * @enum {string}
        */
       attr: 'quibber';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `null` - null
-       *     * `required` - required
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
-      detail: string;
-    };
-    QQuibsPartialUpdateQuibletErrorComponent: {
-      /**
-       * @description * `quiblet` - quiblet (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'quiblet';
       /**
        * @description * `does_not_exist` - does_not_exist
        *     * `incorrect_type` - incorrect_type
@@ -1177,6 +1183,23 @@ export interface components {
         | 'surrogate_characters_not_allowed';
       detail: string;
     };
+    QQuibsUpdateCoverErrorComponent: {
+      /**
+       * @description * `cover` - cover (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'cover';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
     QQuibsUpdateDislikesErrorComponent: {
       /**
        * @description * `dislikes` - dislikes (enum property replaced by openapi-typescript)
@@ -1198,7 +1221,7 @@ export interface components {
       | components['schemas']['QQuibsUpdateIsPublicErrorComponent']
       | components['schemas']['QQuibsUpdateTitleErrorComponent']
       | components['schemas']['QQuibsUpdateContentErrorComponent']
-      | components['schemas']['QQuibsUpdateQuibletErrorComponent']
+      | components['schemas']['QQuibsUpdateCoverErrorComponent']
       | components['schemas']['QQuibsUpdateQuibberErrorComponent']
       | components['schemas']['QQuibsUpdateLikesErrorComponent']
       | components['schemas']['QQuibsUpdateDislikesErrorComponent'];
@@ -1262,22 +1285,6 @@ export interface components {
       code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
       detail: string;
     };
-    QQuibsUpdateQuibletErrorComponent: {
-      /**
-       * @description * `quiblet` - quiblet (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'quiblet';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `null` - null
-       *     * `required` - required
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
-      detail: string;
-    };
     QQuibsUpdateTitleErrorComponent: {
       /**
        * @description * `title` - title (enum property replaced by openapi-typescript)
@@ -1310,15 +1317,31 @@ export interface components {
     };
     Quib: {
       readonly id: string;
+      readonly quiblet: components['schemas']['Quiblet'];
       /** Format: date-time */
       readonly created_at: string;
       is_public?: boolean;
       title: string;
       readonly slug: string;
       content: string;
-      quiblet: number;
+      /** Format: uri */
+      cover?: string | null;
       /** Quibbler */
       quibber: number;
+      likes?: number[];
+      dislikes?: number[];
+    };
+    QuibSlim: {
+      readonly id: string;
+      readonly quiblet: components['schemas']['QuibletSlim'];
+      /** Format: date-time */
+      readonly created_at: string;
+      is_public?: boolean;
+      title: string;
+      readonly slug: string;
+      content: string;
+      /** Format: uri */
+      cover?: string | null;
       likes?: number[];
       dislikes?: number[];
     };
@@ -1335,6 +1358,11 @@ export interface components {
       cover?: string | null;
       members?: number[];
       rangers?: number[];
+    };
+    QuibletSlim: {
+      name: string;
+      /** Format: uri */
+      avatar?: string | null;
     };
     /**
      * @description * `server_error` - Server Error
@@ -2199,7 +2227,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Quib'][];
+          'application/json': components['schemas']['QuibSlim'][];
         };
       };
       500: {

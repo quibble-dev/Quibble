@@ -7,7 +7,7 @@
 <div
   class="fixed top-[3.75rem] flex h-[calc(100dvh-3.75rem)] w-72 flex-col gap-4 overflow-y-scroll p-4 scrollbar-none"
 >
-  <h2 class="font-semibold">Recent Posts</h2>
+  <h2 class="font-semibold">Recent Quibs</h2>
   <div class="flex flex-col gap-4">
     {#each recent_posts as post}
       <div class="flex justify-between gap-2">

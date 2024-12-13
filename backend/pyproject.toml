@@ -33,6 +33,7 @@ drf-spectacular = {extras = ["sidecar"], version = "^0.28.0"}
 shortuuid = "^1.0.13"
 # 3rd party exception handler
 drf-standardized-errors = {extras = ["openapi"], version = "^0.14.1"}
+django-ltree-2 = "^0.1.10"
 
 [tool.poetry.group.dev.dependencies]
 # task runner
