@@ -18,7 +18,23 @@ class QuibletSerializer(ModelSerializer):
         return name
 
 
+class QuibletSlimSerializer(ModelSerializer):
+    class Meta:
+        model = Quiblet
+        fields = ('name', 'avatar')
+
+
 class QuibSerializer(ModelSerializer):
+    quiblet = QuibletSerializer(read_only=True)
+
     class Meta:
         model = Quib
         fields = '__all__'
+
+
+class QuibSlimSerializer(ModelSerializer):
+    quiblet = QuibletSlimSerializer(read_only=True)
+
+    class Meta:
+        model = Quib
+        exclude = ('quibber',)

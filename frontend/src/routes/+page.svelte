@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Post from '$lib/components/pages/home/post.svelte';
-  import PostsHeader from '$lib/components/pages/home/posts_header.svelte';
-  import RecentPosts from '$lib/components/pages/home/recent_posts.svelte';
+  import Quib from '$lib/components/pages/home/quib.svelte';
+  import QuibsHeader from '$lib/components/pages/home/quibs_header.svelte';
+  import RecentQuibs from '$lib/components/pages/home/recent_quibs.svelte';
   import posts from '$lib/data/mock/posts.json';
 </script>
 
@@ -11,14 +11,14 @@
 
 <div class="mx-auto flex flex-1 xl:max-w-5xl">
   <div class="flex h-max flex-1 flex-col gap-4 p-4">
-    <PostsHeader />
+    <QuibsHeader />
     <div class="flex flex-1 flex-col gap-4">
       {#each posts as post}
-        <Post {...post} />
+        <!-- <Quib {...post} /> -->
       {/each}
     </div>
   </div>
   <div class="w-80">
-    <RecentPosts />
+    <RecentQuibs />
   </div>
 </div>
