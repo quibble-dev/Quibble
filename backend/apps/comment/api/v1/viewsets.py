@@ -1,10 +1,10 @@
-from rest_framework import viewsets
+from common.api.bases.viewsets import UpdateRetrieveDestroyViewSet
 
 from ...models import CommentModel
 from .serializers import CommentSerializer
 
 
-class CommentModelViewSet(viewsets.ModelViewSet):
+class CommentModelViewSet(UpdateRetrieveDestroyViewSet):
     queryset = CommentModel.objects.all()
     serializer_class = CommentSerializer
 

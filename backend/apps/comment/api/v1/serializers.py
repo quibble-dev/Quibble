@@ -29,6 +29,5 @@ class CommentSerializer(serializers.ModelSerializer):
             comment_instance: CommentModel = CommentModel.objects.create_child(
                 **data
             )  # pyright: ignore
-
         comment_instance.save()
         return comment_instance
