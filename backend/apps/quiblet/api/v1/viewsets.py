@@ -1,6 +1,5 @@
 from typing import cast
 
-from drf_spectacular.utils import extend_schema
 from rest_framework.viewsets import ModelViewSet
 
 from common.patches.request import PatchedHttpRequest
@@ -9,7 +8,6 @@ from ...models import QuibletModel
 from .serializers import QuibletSerializer
 
 
-@extend_schema(tags=['quibs & quiblets'])
 class QuibletViewSet(ModelViewSet):
     queryset = QuibletModel.objects.all()
     serializer_class = QuibletSerializer
