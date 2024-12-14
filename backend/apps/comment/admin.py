@@ -1,11 +1,11 @@
 from django.contrib import admin
 
-from .models import Comment
+from .models import CommentModel
 
 # Register your models here.
 
 
-@admin.register(Comment)
+@admin.register(CommentModel)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('quibbler', 'content', 'created_at')
     search_fields = ('quibbler__username', 'content')

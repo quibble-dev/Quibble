@@ -59,8 +59,9 @@ THIRD_PARTY_APPS = [
 
 SELF_APPS = [
     'apps.user',
-    'apps.quiblet',
     'apps.comment',
+    'apps.quiblet',
+    'apps.quib',
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + SELF_APPS
