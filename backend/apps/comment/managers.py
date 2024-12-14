@@ -12,3 +12,9 @@ class CommentManager(models.Manager):
             instance.content = "[deleted]"
             instance.quibbler = None
             instance.save()
+
+    def clean_up_soft_deleted(self):
+        # cleanup all comment instances with no children
+        for comment_instance in self.filter(deleted=True):
+            if comment_instance.children_count == 0:
+                comment_instance.delete()

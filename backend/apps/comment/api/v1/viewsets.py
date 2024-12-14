@@ -10,3 +10,5 @@ class CommentModelViewSet(viewsets.ModelViewSet):
 
     def perform_destroy(self, instance):
         CommentModel.objects.soft_delete(instance)  # pyright: ignore
+        # perform cleanup
+        CommentModel.objects.clean_up_soft_deleted()  # pyright: ignore
