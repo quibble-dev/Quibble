@@ -2,11 +2,11 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 from .views import LoginAPIView, LogoutAPIView, MeAPIView, RegisterAPIView
-from .viewsets import MyProfilesViewSet, ProfileViewSet
+from .viewsets import MyProfilesModelViewSet, ProfileModelReadOnlyViewSet
 
 router = DefaultRouter()
-router.register(r'profiles', ProfileViewSet)
-router.register(r'me/profiles', MyProfilesViewSet, basename='me-profile')
+router.register(r'profiles', ProfileModelReadOnlyViewSet)
+router.register(r'me/profiles', MyProfilesModelViewSet, basename='me-profile')
 
 urlpatterns = [
     # auth endpoints

@@ -7,5 +7,5 @@ from .models import CommentModel
 
 @admin.register(CommentModel)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('quibbler', 'content', 'created_at')
+    list_display = ('quibbler', 'content', 'created_at', 'deleted')
     search_fields = ('quibbler__username', 'content')

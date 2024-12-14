@@ -17,10 +17,13 @@ class CommentModel(CreatedAtMixin, TreeModel):
     )
     content = models.TextField(_('content'))
     upvotes = models.ManyToManyField(
-        ProfileModel, related_name='upvotes', blank=True, verbose_name=_('upvotes')
+        ProfileModel, related_name='upvoted_comments', blank=True, verbose_name=_('upvotes')
     )
     downvotes = models.ManyToManyField(
-        ProfileModel, related_name='downvotes', blank=True, verbose_name=_('downvotes')
+        ProfileModel,
+        related_name='downvoted_comments',
+        blank=True,
+        verbose_name=_('downvotes'),
     )
     # flag
     deleted = models.BooleanField(default=False)
