@@ -6,7 +6,7 @@ from django_ltree.models import TreeModel
 from apps.user.models import ProfileModel
 from common.mixins.model_mixins import CreatedAtMixin
 
-from .managers import CommentManager
+from .managers import CommentModelManager
 
 # Create your models here.
 
@@ -28,7 +28,7 @@ class CommentModel(CreatedAtMixin, TreeModel):
     # flag
     deleted = models.BooleanField(default=False)
     # custom manager for soft-deletions handling
-    objects = CommentManager()
+    objects = CommentModelManager()
 
     @property
     def children_count(self):

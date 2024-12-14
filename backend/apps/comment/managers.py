@@ -1,7 +1,7 @@
-from django.db import models
+from django_ltree.managers import TreeManager
 
 
-class CommentManager(models.Manager):
+class CommentModelManager(TreeManager):
     def soft_delete(self, instance):
         # if no children- hard delete
         if instance.children_count == 0:
@@ -15,6 +15,6 @@ class CommentManager(models.Manager):
 
     def clean_up_soft_deleted(self):
         # cleanup all comment instances with no children
-        for comment_instance in self.filter(deleted=True):
-            if comment_instance.children_count == 0:
-                comment_instance.delete()
+        for comment in self.filter(deleted=True):
+            if comment.children_count == 0:
+                comment.delete()

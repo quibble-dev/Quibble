@@ -17,13 +17,19 @@ class QuibModelViewSet(viewsets.ModelViewSet):
         if self.action == 'list':
             return QuibSlimSerializer
         # if custom action: 'comment'
-        if self.action == 'comment':
+        if self.action == 'comments':
             return CommentSerializer
         return QuibSerializer
 
-    @action(detail=True, methods=[HTTPMethod.POST])
-    def comment(self, request, pk=None):
+    @action(detail=True, methods=[HTTPMethod.GET, HTTPMethod.POST])
+    def comments(self, request, pk=None):
         quib_instance = get_object_or_404(QuibModel, pk=pk)
+
+        if request.method == HTTPMethod.GET:
+            comments = quib_instance.comments.all()
+            serializer = CommentSerializer(comments, many=True)
+
+            return response.Response(serializer.data, status=status.HTTP_200_OK)
 
         serializer = CommentSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -31,4 +37,4 @@ class QuibModelViewSet(viewsets.ModelViewSet):
         comment_instance = serializer.save()
         quib_instance.comments.add(comment_instance)
 
-        return response.Response(status=status.HTTP_201_CREATED, data=serializer.data)
+        return response.Response(serializer.data, status=status.HTTP_201_CREATED)
