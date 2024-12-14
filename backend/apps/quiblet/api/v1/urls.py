@@ -1,8 +1,8 @@
 from rest_framework.routers import DefaultRouter
 
-from .viewsets import QuibletViewSet
+from .viewsets import QuibletModelViewSet
 
 router = DefaultRouter()
-router.register(r'', QuibletViewSet)
+router.register(r'', QuibletModelViewSet)
 
 urlpatterns = router.urls

@@ -5,7 +5,7 @@ from ...models import ProfileModel
 from .serializers import ProfileSerializer
 
 
-class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
+class ProfileModelReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
     """
     ViewSet for performing read-only operations on the Profile model.
 
@@ -19,7 +19,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
     search_fields = ('username',)
 
 
-class MyProfilesViewSet(viewsets.ModelViewSet):
+class MyProfilesModelViewSet(viewsets.ModelViewSet):
     """
     ViewSet to manage profiles associated with the authenticated user.
 

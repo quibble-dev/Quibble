@@ -8,7 +8,7 @@ from ...models import QuibletModel
 from .serializers import QuibletSerializer
 
 
-class QuibletViewSet(ModelViewSet):
+class QuibletModelViewSet(ModelViewSet):
     queryset = QuibletModel.objects.all()
     serializer_class = QuibletSerializer
 

@@ -10,7 +10,7 @@ from ...models import QuibModel
 from .serializers import QuibSerializer, QuibSlimSerializer
 
 
-class QuibViewSet(viewsets.ModelViewSet):
+class QuibModelViewSet(viewsets.ModelViewSet):
     queryset = QuibModel.objects.all()
 
     def get_serializer_class(self):  # pyright: ignore
