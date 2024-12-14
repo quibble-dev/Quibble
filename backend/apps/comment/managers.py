@@ -1,10 +1,8 @@
 from django.db import models
 
-from .models import CommentModel
-
 
 class CommentManager(models.Manager):
-    def soft_delete(self, instance: CommentModel):
+    def soft_delete(self, instance):
         # if no children- hard delete
         if instance.children_count == 0:
             instance.delete()
