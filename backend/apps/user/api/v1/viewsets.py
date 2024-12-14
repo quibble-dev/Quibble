@@ -2,7 +2,7 @@ from django.conf import settings
 from drf_spectacular.utils import extend_schema
 from rest_framework import exceptions, filters, permissions, viewsets
 
-from ...models import Profile
+from ...models import ProfileModel
 from .serializers import ProfileSerializer
 
 
@@ -15,7 +15,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
     - Allows searching profiles by username.
     """
 
-    queryset = Profile.objects.all()
+    queryset = ProfileModel.objects.all()
     serializer_class = ProfileSerializer
     filter_backends = (filters.SearchFilter,)
     search_fields = ('username',)
@@ -39,7 +39,7 @@ class MyProfilesViewSet(viewsets.ModelViewSet):
         """
         # during schema generation
         if getattr(self, 'swagger_fake_view', False):
-            return Profile.objects.none()
+            return ProfileModel.objects.none()
         user = self.request.user
         return user.profiles.all()  # pyright: ignore
 

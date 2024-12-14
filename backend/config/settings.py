@@ -60,6 +60,7 @@ THIRD_PARTY_APPS = [
 SELF_APPS = [
     'apps.user',
     'apps.quiblet',
+    'apps.quib',
     'apps.comment',
 ]
 

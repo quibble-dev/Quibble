@@ -1,7 +1,7 @@
 import pytest
 from rest_framework.authtoken.models import Token
 
-from apps.user.models import Profile, User
+from apps.user.models import ProfileModel, User
 
 
 @pytest.fixture
@@ -21,4 +21,4 @@ def token(user):
 @pytest.fixture
 def user_profile(user):
     """Creates and returns a user profile"""
-    return Profile.objects.create(user=user, username='test')
+    return ProfileModel.objects.create(user=user, username='test')

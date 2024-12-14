@@ -1,6 +1,6 @@
 import pytest
 
-from apps.user.models import Profile
+from apps.user.models import ProfileModel
 
 
 @pytest.mark.django_db
@@ -54,5 +54,5 @@ class TestMe:
         response = auth_api_client.delete(url)
 
         assert response.status_code == 204
-        with pytest.raises(Profile.DoesNotExist):
+        with pytest.raises(ProfileModel.DoesNotExist):
             user_profile.refresh_from_db()

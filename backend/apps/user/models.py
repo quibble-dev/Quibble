@@ -35,7 +35,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ordering = ['-date_joined']
 
 
-class Profile(CreatedAtMixin, ColorMixin, AvatarMixin):
+class ProfileModel(CreatedAtMixin, ColorMixin, AvatarMixin):
     username_validator = UsernameValidator()
 
     user = models.ForeignKey(User, related_name='profiles', on_delete=models.CASCADE)

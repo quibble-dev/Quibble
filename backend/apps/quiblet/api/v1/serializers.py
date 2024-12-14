@@ -1,40 +1,23 @@
-from rest_framework.exceptions import ValidationError
-from rest_framework.serializers import ModelSerializer
+from rest_framework import exceptions, serializers
 
-from ...models import Quib, Quiblet
+from ...models import QuibletModel
 
 
-class QuibletSerializer(ModelSerializer):
+class QuibletSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Quiblet
+        model = QuibletModel
         fields = '__all__'
 
     def validate_name(self, name):
-        if Quiblet.objects.filter(name__iexact=name).exists():
-            raise ValidationError(
+        if QuibletModel.objects.filter(name__iexact=name).exists():
+            raise exceptions.ValidationError(
                 f"Quiblet with name {name} already exists (case-insensitive)."
             )
 
         return name
 
 
-class QuibletSlimSerializer(ModelSerializer):
+class QuibletSlimSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Quiblet
+        model = QuibletModel
         fields = ('name', 'avatar')
-
-
-class QuibSerializer(ModelSerializer):
-    quiblet = QuibletSerializer(read_only=True)
-
-    class Meta:
-        model = Quib
-        fields = '__all__'
-
-
-class QuibSlimSerializer(ModelSerializer):
-    quiblet = QuibletSlimSerializer(read_only=True)
-
-    class Meta:
-        model = Quib
-        exclude = ('quibber',)
