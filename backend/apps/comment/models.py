@@ -11,7 +11,7 @@ from common.mixins.model_mixins import CreatedAtMixin
 
 class CommentModel(CreatedAtMixin, TreeModel):
     quibbler = models.ForeignKey(
-        ProfileModel, on_delete=models.CASCADE, verbose_name=_('quibbler')
+        ProfileModel, on_delete=models.SET_NULL, null=True, verbose_name=_('quibbler')
     )
     content = models.TextField(_('content'))
     upvotes = models.ManyToManyField(
@@ -20,13 +20,15 @@ class CommentModel(CreatedAtMixin, TreeModel):
     downvotes = models.ManyToManyField(
         ProfileModel, related_name='downvotes', blank=True, verbose_name=_('downvotes')
     )
+    # flag
+    deleted = models.BooleanField(default=False)
 
     @property
     def children_count(self):
         return self.children().count()
 
     def __str__(self) -> str:
-        return f"Comment by {self.quibbler.username}"
+        return f"Comment by {self.quibbler}"
 
     class Meta:  # pyright: ignore
         indexes = [idx.GistIndex(fields=['path'])]
