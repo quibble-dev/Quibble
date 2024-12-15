@@ -45,7 +45,7 @@
       <div class="flex flex-col items-center gap-1">
         <a href={item.href} aria-label={key} class="flex items-center gap-2">
           <item.icon class="size-4" />
-          <span class="text-sm font-bold capitalize">{key}</span>
+          <span class="text-sm font-medium capitalize">{key}</span>
         </a>
         {#if is_active}
           <div class="h-0.5 w-5 rounded-full bg-primary"></div>
@@ -57,7 +57,7 @@
     <div class="dropdown dropdown-end">
       <div tabindex="0" role="button" class="flex items-center gap-2">
         <active_view_icon.icon class="stroke-primary" />
-        <span class="text-sm font-bold capitalize">{active_mapping.view}</span>
+        <span class="text-sm font-medium capitalize">{active_mapping.view}</span>
         <coreicons-shape-chevron variant="down" class="size-4"></coreicons-shape-chevron>
       </div>
       <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
@@ -79,7 +79,7 @@
                   'size-4'
                 )}
               />
-              <span class="text-sm font-semibold capitalize" class:text-primary={is_active}
+              <span class="text-sm font-medium capitalize" class:text-primary={is_active}
                 >{key}</span
               >
             </button>

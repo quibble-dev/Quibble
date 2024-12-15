@@ -99,9 +99,9 @@
   <p class="text-center text-xs">
     By continuing, you agree to the <a
       href="/support/terms-and-conditions"
-      class="font-semibold text-info">Terms of use</a
+      class="font-medium text-info">Terms of use</a
     >,
-    <a href="/support/privary" class="font-semibold text-info">Privacy</a>
-    and <a href="/support/policy" class="font-semibold text-info">Policy</a> Preplaced.
+    <a href="/support/privary" class="font-medium text-info">Privacy</a>
+    and <a href="/support/policy" class="font-medium text-info">Policy</a> Preplaced.
   </p>
 </div>

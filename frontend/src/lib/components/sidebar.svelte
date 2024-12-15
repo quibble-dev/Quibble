@@ -10,7 +10,7 @@
 >
   <div class="flex flex-col gap-2">
     <div class="flex items-center gap-2">
-      <h2 class="font-semibold">Quiblets</h2>
+      <h2 class="font-medium">Quiblets</h2>
       <div class="tooltip tooltip-right flex" data-tip="Communities">
         <coreicons-shape-help-circle class="size-[0.85rem]"></coreicons-shape-help-circle>
       </div>
@@ -21,7 +21,7 @@
       <input
         type="text"
         class="grow border-none pl-0.5 pr-2 text-sm focus:ring-0"
-        placeholder="Search"
+        placeholder="Search filter..."
       />
       <coreicons-shape-filter class="size-3"></coreicons-shape-filter>
     </label>
@@ -45,7 +45,7 @@
           <a href="q/{community.name}" class="flex">
             <Avatar src={community.avatar} alt={community.name} />
           </a>
-          <a href="q/{community.name}" class="text-sm font-semibold">q/{community.name}</a>
+          <a href="q/{community.name}" class="text-sm font-medium">q/{community.name}</a>
           <button class="ml-auto" aria-label="Star Community">
             <coreicons-shape-star class="size-4" class:text-primary={community.starred}
             ></coreicons-shape-star>
@@ -69,7 +69,7 @@
           <a href="q/{community.name}" class="flex">
             <Avatar src={community.avatar} alt={community.name} />
           </a>
-          <a href="q/{community.name}" class="text-sm font-semibold">q/{community.name}</a>
+          <a href="q/{community.name}" class="text-sm font-medium">q/{community.name}</a>
           <button class="ml-auto" aria-label="Star Community">
             <coreicons-shape-star class="size-4" class:text-primary={community.starred}
             ></coreicons-shape-star>
@@ -90,11 +90,11 @@
     <div class="collapse-content flex flex-col gap-2 !p-0">
       <a href="/about" class="flex items-center gap-2">
         <QuibbleIcon class="size-4" />
-        <span class="text-sm font-semibold">About Quibble</span>
+        <span class="text-sm font-medium">About Quibble</span>
       </a>
       <a href="/support/help" class="flex items-center gap-2">
         <coreicons-shape-help-circle class="size-4"></coreicons-shape-help-circle>
-        <span class="text-sm font-semibold">Help</span>
+        <span class="text-sm font-medium">Help</span>
       </a>
     </div>
   </div>

@@ -22,32 +22,32 @@
     <div class="flex gap-2">
       <a href="/" aria-label="Home" class="flex items-center gap-2">
         <coreicons-shape-home class="size-5 text-primary"></coreicons-shape-home>
-        <span class="text-sm font-bold">Home</span>
+        <span class="text-sm font-medium">Home</span>
       </a>
       <a href="/q/popular" aria-label="Popular Quibbles" class="flex items-center gap-2">
         <ChartBarsIcon variant="popular" class="size-5" />
-        <span class="text-sm font-bold">Popular</span>
+        <span class="text-sm font-medium">Popular</span>
       </a>
       <a href="/q/all" aria-label="All Quibbles" class="flex items-center gap-2">
         <ChartBarsIcon variant="all" class="size-5" />
-        <span class="text-sm font-bold">All</span>
+        <span class="text-sm font-medium">All</span>
       </a>
     </div>
     <label class="input input-bordered flex h-10 w-96 items-center bg-transparent px-3">
       <coreicons-shape-search class="size-5"></coreicons-shape-search>
       <input
         type="text"
-        class="grow border-none text-sm font-semibold focus:ring-0"
+        class="grow border-none text-sm font-medium focus:ring-0"
         placeholder="Search..."
       />
     </label>
   </div>
   <div class="flex items-center gap-2">
     {#if authStore.state.is_authenticated}
-      <div class="tooltip tooltip-bottom" data-tip="Create a Post">
+      <div class="tooltip tooltip-bottom" data-tip="Create a Quib">
         <button aria-label="Create a Post" class="btn btn-primary h-10 px-3">
           <coreicons-shape-plus variant="no-border" class="size-5"></coreicons-shape-plus>
-          <span class="text-sm font-semibold">Quib</span>
+          <span class="text-sm font-medium">Create</span>
         </button>
       </div>
       <div class="tooltip tooltip-bottom" data-tip="Inbox">

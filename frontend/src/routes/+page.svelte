@@ -9,7 +9,7 @@
   <title>Quibble - Delve into real conversations.</title>
 </svelte:head>
 
-<div class="mx-auto flex flex-1 xl:max-w-5xl">
+<div class="mx-auto flex flex-1 xl:max-w-6xl">
   <div class="flex h-max flex-1 flex-col gap-4 p-4">
     <QuibsHeader />
     <div class="flex flex-1 flex-col gap-4">
