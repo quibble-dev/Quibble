@@ -3,10 +3,21 @@
   import Avatar from '$lib/components/ui/avatar.svelte';
   import readable from 'readable-numbers';
   import { format_time } from '$lib/functions/format_time';
+  import { createAuthStore } from '$lib/stores/auth.svelte';
 
   type QuibProps = components['schemas']['QuibSlim'];
 
   let quib: QuibProps = $props();
+
+  const authStore = createAuthStore();
+
+  const is_upvoted = $derived.by(() => {
+    if (authStore.state.profile && quib.upvotes) {
+      return quib.upvotes.includes(authStore.state.profile.id);
+    } else {
+      return false;
+    }
+  });
 </script>
 
 <div class="flex flex-col overflow-hidden rounded-2xl border border-neutral bg-base-300">
@@ -42,7 +53,8 @@
   <div class="flex items-center gap-4 border-t border-neutral px-4 py-2.5">
     <div class="flex items-center gap-2">
       <button class="flex items-center gap-2" aria-label="upvote">
-        <coreicons-shape-thumbs variant="up" class="size-4"></coreicons-shape-thumbs>
+        <coreicons-shape-thumbs variant="up" class="size-4" class:text-primary={is_upvoted}
+        ></coreicons-shape-thumbs>
       </button>
       <span class="text-sm font-medium">{readable(quib.upvotes?.length ?? 0)}</span>
       <button class="flex items-center gap-2" aria-label="downvote">
