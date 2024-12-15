@@ -47,18 +47,18 @@
       pending = true;
       status_text = 'Fetching profiles...';
 
-      const { data, error, response } = await client.GET('/api/v1/u/me/profiles/', {
+      const { data, error, response } = await client.GET('/api/v1/users/me/profiles/', {
         headers: {
           Authorization: `Bearer ${(forms_state.login as { token: string }).token}`
         }
       });
 
-      if (!response.ok && error) {
-        console.log(error);
-      } else if (data) {
+      if (response.ok && data) {
         profiles = data;
         // add to forms_state
         update_forms_state('profile_select', { profiles });
+      } else if (error) {
+        console.log(error);
       }
 
       pending = false;

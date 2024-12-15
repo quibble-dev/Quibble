@@ -7,16 +7,14 @@ export const actions = {
   login: async ({ request, cookies }) => {
     const form_data = await request.formData();
 
-    const { data, error, response } = await client.POST('/api/v1/u/auth/login/', {
+    const { data, error, response } = await client.POST('/api/v1/users/auth/login/', {
       body: {
-        email: form_data.get('email') as string,
-        password: form_data.get('password') as string
+        email: String(form_data.get('email')),
+        password: String(form_data.get('password'))
       }
     });
 
-    if (!response.ok && error) {
-      return fail(response.status, error.errors[0]);
-    } else if (data) {
+    if (response.ok && data) {
       cookies.set('auth_token', data.token, {
         httpOnly: true,
         secure: !dev,
@@ -25,6 +23,8 @@ export const actions = {
       });
 
       return { token: data.token };
+    } else if (error) {
+      return fail(response.status, error.errors[0]);
     }
   }
 } satisfies Actions;

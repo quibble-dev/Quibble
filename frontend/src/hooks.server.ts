@@ -11,17 +11,17 @@ export const handle: Handle = async ({ event, resolve }) => {
   let profile: Profile | null = null;
 
   if (auth_token && auth_user_profile_id) {
-    const { data, error, response } = await client.GET('/api/v1/u/me/', {
+    const { data, error, response } = await client.GET('/api/v1/users/me/', {
       headers: {
         Authorization: `Bearer ${auth_token}`,
         'Profile-Id': auth_user_profile_id.toString()
       }
     });
 
-    if (!response.ok && error) {
-      console.error(error);
-    } else if (data) {
+    if (response.ok && data) {
       profile = data;
+    } else if (error) {
+      console.error(error);
     }
   }
 

@@ -7,20 +7,20 @@ export const actions = {
   create: async ({ request, cookies }) => {
     const form_data = await request.formData();
 
-    const { data, error, response } = await client.POST('/api/v1/u/me/profiles/', {
+    const { data, error, response } = await client.POST('/api/v1/users/me/profiles/', {
       headers: {
         Authorization: `Bearer ${cookies.get('auth_token')}`
       },
       // @ts-expect-error: only requires username for POST req
       body: {
-        username: form_data.get('username') as string
+        username: String(form_data.get('username'))
       }
     });
 
-    if (!response.ok && error) {
-      return fail(response.status, error.errors[0]);
-    } else {
+    if (response.ok && data) {
       return data;
+    } else if (error) {
+      return fail(response.status, error.errors[0]);
     }
   },
   select: async ({ request, cookies }) => {
