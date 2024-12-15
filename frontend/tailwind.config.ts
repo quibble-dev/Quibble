@@ -17,7 +17,8 @@ export default {
   },
 
   daisyui: {
-    themes: ['sunset']
+    themes: ['sunset'],
+    logs: false
   },
 
   plugins: [typography, forms, aspectRatio, daisyui, tailwindScroll]
