@@ -13,7 +13,12 @@ cover_file_pattern = FilePattern(filename_pattern="cover/{uuid:s}{ext}")
 
 
 class QuibletModel(AvatarMixin, CreatedAtMixin, IsPublicMixin):
-    name = models.CharField(_('name'), unique=True, max_length=25)
+    name = models.CharField(
+        _('name'),
+        unique=True,
+        max_length=25,
+        error_messages={'unique': 'Quiblet with this name already exists.'},
+    )
     description = models.TextField(_('description'))
     cover = models.ImageField(
         _('cover'),

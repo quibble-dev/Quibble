@@ -21,3 +21,8 @@ class QuibletSlimSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuibletModel
         fields = ('name', 'avatar')
+
+
+class QuibletExistsSerializer(serializers.Serializer):
+    exists = serializers.BooleanField()
+    name = serializers.CharField()
