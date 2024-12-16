@@ -13,12 +13,13 @@
       <div class="flex flex-col gap-2">
         <div class="flex justify-between gap-2">
           <div class="flex flex-col gap-1">
-            <div class="flex items-center gap-2">
+            <a
+              href="/q/{post.community.name}"
+              class="flex items-center gap-2 hover:text-accent hover:underline"
+            >
               <Avatar src={post.community.avatar} alt={post.community.name} />
-              <a href="/q/{post.community.name}" class="text-xs font-semibold"
-                >q/{post.community.name}</a
-              >
-            </div>
+              <h3 class="text-xs font-semibold">q/{post.community.name}</h3>
+            </a>
             <a
               href="/q/{post.community.name}/posts/{post.slug}"
               class="font-semibold text-info hover:underline"

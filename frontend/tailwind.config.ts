@@ -3,6 +3,7 @@ import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
 import daisyui from 'daisyui';
 import tailwindScroll from 'tailwind-scrollbar';
+
 import type { Config } from 'tailwindcss';
 
 export default {

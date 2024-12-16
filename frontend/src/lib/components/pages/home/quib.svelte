@@ -30,7 +30,10 @@
       aria-label={quib.title}
     ></a>
     <div class="flex items-center gap-2">
-      <a href="/q/{quib.quiblet.name}" class="relative flex items-center gap-2">
+      <a
+        href="/q/{quib.quiblet.name}"
+        class="relative flex items-center gap-2 hover:text-accent hover:underline"
+      >
         <Avatar src={quib.quiblet.avatar} alt={quib.quiblet.name} />
         <h3 class="text-xs font-semibold">q/{quib.quiblet.name}</h3>
       </a>
@@ -43,11 +46,17 @@
 
     <h2 class="text-xl font-bold text-info">{quib.title}</h2>
 
-    <p class="line-clamp-3 text-sm font-normal" class:hidden={quib.cover}>
-      {quib.content}
-    </p>
-
-    <img class="relative rounded-xl" class:hidden={quib.content} src={quib.cover} alt="" />
+    {#if quib.content?.trim()}
+      <p class="line-clamp-3 text-sm font-normal" class:hidden={quib.cover}>
+        {quib.content}
+      </p>
+    {:else}
+      <img
+        class="relative rounded-2xl outline outline-1 outline-offset-[-1px] outline-base-content/15"
+        src={quib.cover}
+        alt=""
+      />
+    {/if}
   </div>
 
   <div class="flex items-center gap-4 border-t border-neutral px-4 py-2.5">

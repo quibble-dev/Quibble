@@ -28,7 +28,7 @@ class QuibModel(CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
     )
     title = models.CharField(_('title'), max_length=255)
     slug = models.SlugField(_('slug'), editable=False, max_length=25, blank=True)
-    content = models.TextField(_('content'))
+    content = models.TextField(_('content'), blank=True)
     cover = models.ImageField(
         _('cover'),
         upload_to=cover_file_pattern,

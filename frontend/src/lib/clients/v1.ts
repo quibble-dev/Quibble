@@ -733,7 +733,7 @@ export interface components {
       is_public?: boolean;
       title: string;
       readonly slug: string;
-      content: string;
+      content?: string;
       /** Format: uri */
       cover?: string | null;
       quibber: number;
@@ -752,7 +752,7 @@ export interface components {
       is_public?: boolean;
       title: string;
       readonly slug: string;
-      content: string;
+      content?: string;
       /** Format: uri */
       cover?: string | null;
       upvotes?: number[];
@@ -1413,20 +1413,16 @@ export interface components {
        */
       attr: 'content';
       /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
+       * @description * `invalid` - invalid
        *     * `null` - null
        *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
        *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
        * @enum {string}
        */
       code:
-        | 'blank'
         | 'invalid'
         | 'null'
         | 'null_characters_not_allowed'
-        | 'required'
         | 'surrogate_characters_not_allowed';
       detail: string;
     };
@@ -1586,20 +1582,16 @@ export interface components {
        */
       attr: 'content';
       /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
+       * @description * `invalid` - invalid
        *     * `null` - null
        *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
        *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
        * @enum {string}
        */
       code:
-        | 'blank'
         | 'invalid'
         | 'null'
         | 'null_characters_not_allowed'
-        | 'required'
         | 'surrogate_characters_not_allowed';
       detail: string;
     };
@@ -1759,20 +1751,16 @@ export interface components {
        */
       attr: 'content';
       /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
+       * @description * `invalid` - invalid
        *     * `null` - null
        *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
        *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
        * @enum {string}
        */
       code:
-        | 'blank'
         | 'invalid'
         | 'null'
         | 'null_characters_not_allowed'
-        | 'required'
         | 'surrogate_characters_not_allowed';
       detail: string;
     };
