@@ -2,7 +2,7 @@
   import type { components } from '$lib/clients/v1';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import readable from 'readable-numbers';
-  import { format_time } from '$lib/functions/format_time';
+  import { FormatDate } from '$lib/functions/date';
   import { createAuthStore } from '$lib/stores/auth.svelte';
 
   type QuibProps = components['schemas']['QuibSlim'];
@@ -40,7 +40,7 @@
       <coreicons-shape-circle variant="filled" class="size-0.5 text-base-content/75"
       ></coreicons-shape-circle>
       <span class="text-xs font-medium text-base-content/75"
-        >{format_time(quib.created_at)}</span
+        >{new FormatDate(quib.created_at).timeAgo()}</span
       >
     </div>
 
