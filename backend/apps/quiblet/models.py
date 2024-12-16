@@ -7,7 +7,7 @@ from dynamic_filenames import FilePattern
 from apps.user.models import ProfileModel
 from common.mixins.model_mixins import AvatarMixin, CreatedAtMixin, IsPublicMixin
 
-cover_file_pattern = FilePattern(filename_pattern="cover/{uuid:s}{ext}")
+banner_file_pattern = FilePattern(filename_pattern="banner/{uuid:s}{ext}")
 
 # Create your models here.
 
@@ -20,9 +20,10 @@ class QuibletModel(AvatarMixin, CreatedAtMixin, IsPublicMixin):
         error_messages={'unique': 'Quiblet with this name already exists.'},
     )
     description = models.TextField(_('description'))
-    cover = models.ImageField(
-        _('cover'),
-        upload_to=cover_file_pattern,
+    title = models.CharField(_('title'), max_length=50, null=True, blank=True)
+    banner = models.ImageField(
+        _('banner'),
+        upload_to=banner_file_pattern,
         blank=True,
         null=True,
     )
