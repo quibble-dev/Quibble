@@ -3,7 +3,7 @@ from rest_framework import serializers
 from ...models import ProfileModel, User
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'email', 'password', 'date_joined')
@@ -15,19 +15,19 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
-class ProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
-
-    class Meta:
-        model = ProfileModel
-        fields = '__all__'
-
-
-class AuthSerializer(serializers.ModelSerializer):
+class UserAuthModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('email', 'password')
 
 
-class AuthTokenResponseSerializer(serializers.Serializer):
+class UserAuthTokenSerializer(serializers.Serializer):
     token = serializers.CharField()
+
+
+class ProfileModelSerializer(serializers.ModelSerializer):
+    user = UserModelSerializer(read_only=True)
+
+    class Meta:
+        model = ProfileModel
+        fields = '__all__'

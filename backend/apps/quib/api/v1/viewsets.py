@@ -4,10 +4,10 @@ from django.shortcuts import get_object_or_404
 from rest_framework import response, status, viewsets
 from rest_framework.decorators import action
 
-from apps.comment.api.v1.serializers import CommentSerializer
+from apps.comment.api.v1.serializers import CommentModelSerializer
 
 from ...models import QuibModel
-from .serializers import QuibSerializer, QuibSlimSerializer
+from .serializers import QuibModelSerializer, QuibSlimModelSerializer
 
 
 class QuibModelViewSet(viewsets.ModelViewSet):
@@ -15,11 +15,11 @@ class QuibModelViewSet(viewsets.ModelViewSet):
 
     def get_serializer_class(self):  # pyright: ignore
         if self.action == 'list':
-            return QuibSlimSerializer
+            return QuibSlimModelSerializer
         # if custom action: 'comment'
         if self.action == 'comments':
-            return CommentSerializer
-        return QuibSerializer
+            return CommentModelSerializer
+        return QuibModelSerializer
 
     @action(detail=True, methods=[HTTPMethod.GET, HTTPMethod.POST])
     def comments(self, request, pk=None):
@@ -27,11 +27,11 @@ class QuibModelViewSet(viewsets.ModelViewSet):
 
         if request.method == HTTPMethod.GET:
             comments = quib_instance.comments.all()
-            serializer = CommentSerializer(comments, many=True)
+            serializer = CommentModelSerializer(comments, many=True)
 
             return response.Response(serializer.data, status=status.HTTP_200_OK)
 
-        serializer = CommentSerializer(data=request.data)
+        serializer = CommentModelSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         comment_instance = serializer.save()

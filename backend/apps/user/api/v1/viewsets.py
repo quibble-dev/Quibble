@@ -2,7 +2,7 @@ from django.conf import settings
 from rest_framework import exceptions, filters, permissions, viewsets
 
 from ...models import ProfileModel
-from .serializers import ProfileSerializer
+from .serializers import ProfileModelSerializer
 
 
 class ProfileModelReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
@@ -14,7 +14,7 @@ class ProfileModelReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
     """
 
     queryset = ProfileModel.objects.all()
-    serializer_class = ProfileSerializer
+    serializer_class = ProfileModelSerializer
     filter_backends = (filters.SearchFilter,)
     search_fields = ('username',)
 
@@ -28,7 +28,7 @@ class MyProfilesModelViewSet(viewsets.ModelViewSet):
     """
 
     permission_classes = (permissions.IsAuthenticated,)
-    serializer_class = ProfileSerializer
+    serializer_class = ProfileModelSerializer
 
     def get_queryset(self):  # pyright: ignore
         """

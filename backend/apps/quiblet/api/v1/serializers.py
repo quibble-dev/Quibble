@@ -3,7 +3,7 @@ from rest_framework import exceptions, serializers
 from ...models import QuibletModel
 
 
-class QuibletSerializer(serializers.ModelSerializer):
+class QuibletModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuibletModel
         fields = '__all__'
@@ -17,7 +17,7 @@ class QuibletSerializer(serializers.ModelSerializer):
         return name
 
 
-class QuibletSlimSerializer(serializers.ModelSerializer):
+class QuibletSlimModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = QuibletModel
         fields = ('name', 'avatar')

@@ -7,7 +7,11 @@ from rest_framework.response import Response
 from common.api.exceptions import ServerError
 from common.api.serializers import DetailResponseSerializer
 
-from .serializers import AuthSerializer, AuthTokenResponseSerializer, ProfileSerializer
+from .serializers import (
+    ProfileModelSerializer,
+    UserAuthModelSerializer,
+    UserAuthTokenSerializer,
+)
 
 
 class LoginAPIView(views.APIView):
@@ -18,9 +22,9 @@ class LoginAPIView(views.APIView):
     and issues a token upon successful login.
     """
 
-    serializer_class = AuthSerializer
+    serializer_class = UserAuthModelSerializer
 
-    @extend_schema(responses=AuthTokenResponseSerializer)
+    @extend_schema(responses=UserAuthTokenSerializer)
     def post(self, request, format=None):
         user = authenticate(
             email=request.data.get('email'), password=request.data.get('password')
@@ -54,7 +58,7 @@ class RegisterAPIView(generics.CreateAPIView):
     View to handle registering of new users.
     """
 
-    serializer_class = AuthSerializer
+    serializer_class = UserAuthModelSerializer
 
 
 class MeAPIView(views.APIView):
@@ -68,7 +72,7 @@ class MeAPIView(views.APIView):
     """
 
     permission_classes = (permissions.IsAuthenticated,)
-    serializer_class = ProfileSerializer
+    serializer_class = ProfileModelSerializer
 
     def get(self, request):
         if request.user_profile:

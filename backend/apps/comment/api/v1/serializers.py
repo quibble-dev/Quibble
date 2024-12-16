@@ -4,7 +4,7 @@ from rest_framework import serializers
 from ...models import CommentModel
 
 
-class CommentSerializer(serializers.ModelSerializer):
+class CommentModelSerializer(serializers.ModelSerializer):
     path = serializers.CharField(required=False)
 
     class Meta:

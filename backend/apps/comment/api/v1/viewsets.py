@@ -1,12 +1,12 @@
 from common.api.bases.viewsets import UpdateRetrieveDestroyViewSet
 
 from ...models import CommentModel
-from .serializers import CommentSerializer
+from .serializers import CommentModelSerializer
 
 
 class CommentModelViewSet(UpdateRetrieveDestroyViewSet):
     queryset = CommentModel.objects.all()
-    serializer_class = CommentSerializer
+    serializer_class = CommentModelSerializer
 
     def perform_destroy(self, instance):
         CommentModel.objects.soft_delete(instance)  # pyright: ignore
