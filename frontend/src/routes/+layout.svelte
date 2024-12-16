@@ -8,7 +8,7 @@
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import type { components } from '$lib/clients/v1';
 
-  type Profile = components['schemas']['Profile'];
+  type Profile = components['schemas']['ProfileModel'];
 
   let { children, data }: { children: Snippet; data: { profile: Profile } } = $props();
 
@@ -33,6 +33,8 @@
     <div class="w-72">
       <Sidebar />
     </div>
-    {@render children()}
+    <div class="mx-auto flex flex-1 xl:max-w-6xl">
+      {@render children()}
+    </div>
   </section>
 </main>

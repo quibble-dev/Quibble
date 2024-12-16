@@ -8,5 +8,7 @@
   <title>q/{data.quiblet?.name}</title>
 </svelte:head>
 
-Hey quiblet page here!
-{data.quiblet?.name}
+<div
+  class="h-40 w-full rounded-2xl bg-cover bg-center"
+  style="background-image: url({data.quiblet?.banner});"
+></div>
