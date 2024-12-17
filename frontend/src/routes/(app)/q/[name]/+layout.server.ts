@@ -1,8 +1,8 @@
-import client from '$lib/clients/client';
 import { redirect } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
+import type { LayoutServerLoad } from './$types';
+import client from '$lib/clients/client';
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: LayoutServerLoad = async ({ params }) => {
   const { data, error, response } = await client.GET('/api/v1/quiblets/{name}/', {
     params: {
       path: { name: params.name }

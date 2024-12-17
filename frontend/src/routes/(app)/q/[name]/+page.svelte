@@ -19,10 +19,22 @@
     )}
     style="background-image: url({quiblet?.banner});"
   ></div>
-  <div class="absolute inset-x-0 -bottom-10 flex items-end px-4">
-    <div class="flex items-end">
+  <div class="absolute inset-x-0 -bottom-12 flex items-end justify-between px-4">
+    <div class="flex items-end gap-2">
       <Avatar class="!size-20 outline outline-8 outline-base-300" src={quiblet?.avatar} />
-      <h3>q/{quiblet?.name}</h3>
+      <h3 class="text-3xl font-bold text-info">q/{quiblet?.name}</h3>
+    </div>
+    <div class="flex items-center gap-2">
+      <button class="btn btn-primary h-10 px-3" aria-label="Create a Post">
+        <coreicons-shape-plus variant="no-border" class="size-5"></coreicons-shape-plus>
+        <span class="text-sm font-medium">Create Quib</span>
+      </button>
+      <button class="btn btn-secondary h-10 px-3" aria-label="Join quiblet">
+        <span class="text-sm font-medium">Join</span>
+      </button>
+      <button class="btn btn-neutral size-10 p-0" aria-label="More options">
+        <coreicons-shape-more class="size-5 rotate-90"></coreicons-shape-more>
+      </button>
     </div>
   </div>
 </div>

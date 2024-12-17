@@ -19,6 +19,15 @@ export class FormatDate {
     this.parsedDate = _date;
   }
 
+  format() {
+    const formatted_date = this.parsedDate.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
+    return formatted_date;
+  }
+
   timeAgo() {
     const diff_time = Math.floor((new Date().valueOf() - this.parsedDate.valueOf()) / 1000);
     if (diff_time <= 0) return 'just now';
