@@ -700,6 +700,7 @@ export interface components {
        * Format: date-time
        */
       readonly created_at?: string;
+      color?: components['schemas']['ColorEnum'];
       /** Format: uri */
       avatar?: string | null;
       is_public?: boolean;
@@ -776,6 +777,7 @@ export interface components {
        * Format: date-time
        */
       readonly created_at: string;
+      color?: components['schemas']['ColorEnum'];
       /** Format: uri */
       avatar?: string | null;
       is_public?: boolean;
@@ -826,6 +828,20 @@ export interface components {
       code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
       detail: string;
     };
+    QuibletsCreateColorErrorComponent: {
+      /**
+       * @description * `color` - color (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'color';
+      /**
+       * @description * `invalid_choice` - invalid_choice
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid_choice' | 'null';
+      detail: string;
+    };
     QuibletsCreateDescriptionErrorComponent: {
       /**
        * @description * `description` - description (enum property replaced by openapi-typescript)
@@ -852,6 +868,7 @@ export interface components {
     };
     QuibletsCreateError:
       | components['schemas']['QuibletsCreateNonFieldErrorsErrorComponent']
+      | components['schemas']['QuibletsCreateColorErrorComponent']
       | components['schemas']['QuibletsCreateAvatarErrorComponent']
       | components['schemas']['QuibletsCreateIsPublicErrorComponent']
       | components['schemas']['QuibletsCreateNameErrorComponent']
@@ -1006,6 +1023,20 @@ export interface components {
       code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
       detail: string;
     };
+    QuibletsPartialUpdateColorErrorComponent: {
+      /**
+       * @description * `color` - color (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'color';
+      /**
+       * @description * `invalid_choice` - invalid_choice
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid_choice' | 'null';
+      detail: string;
+    };
     QuibletsPartialUpdateDescriptionErrorComponent: {
       /**
        * @description * `description` - description (enum property replaced by openapi-typescript)
@@ -1032,6 +1063,7 @@ export interface components {
     };
     QuibletsPartialUpdateError:
       | components['schemas']['QuibletsPartialUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['QuibletsPartialUpdateColorErrorComponent']
       | components['schemas']['QuibletsPartialUpdateAvatarErrorComponent']
       | components['schemas']['QuibletsPartialUpdateIsPublicErrorComponent']
       | components['schemas']['QuibletsPartialUpdateNameErrorComponent']
@@ -1186,6 +1218,20 @@ export interface components {
       code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
       detail: string;
     };
+    QuibletsUpdateColorErrorComponent: {
+      /**
+       * @description * `color` - color (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'color';
+      /**
+       * @description * `invalid_choice` - invalid_choice
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid_choice' | 'null';
+      detail: string;
+    };
     QuibletsUpdateDescriptionErrorComponent: {
       /**
        * @description * `description` - description (enum property replaced by openapi-typescript)
@@ -1212,6 +1258,7 @@ export interface components {
     };
     QuibletsUpdateError:
       | components['schemas']['QuibletsUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['QuibletsUpdateColorErrorComponent']
       | components['schemas']['QuibletsUpdateAvatarErrorComponent']
       | components['schemas']['QuibletsUpdateIsPublicErrorComponent']
       | components['schemas']['QuibletsUpdateNameErrorComponent']

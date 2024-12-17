@@ -5,14 +5,19 @@ from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
 
 from apps.user.models import ProfileModel
-from common.mixins.model_mixins import AvatarMixin, CreatedAtMixin, IsPublicMixin
+from common.mixins.model_mixins import (
+    AvatarMixin,
+    ColorMixin,
+    CreatedAtMixin,
+    IsPublicMixin,
+)
 
 banner_file_pattern = FilePattern(filename_pattern="banner/{uuid:s}{ext}")
 
 # Create your models here.
 
 
-class QuibletModel(AvatarMixin, CreatedAtMixin, IsPublicMixin):
+class QuibletModel(AvatarMixin, CreatedAtMixin, IsPublicMixin, ColorMixin):
     name = models.CharField(
         _('name'),
         unique=True,
