@@ -45,7 +45,7 @@ class ProfileAdmin(admin.ModelAdmin):
     fieldsets = (
         (
             None,
-            {'fields': ('user', 'username', 'color', 'avatar', 'first_name', 'last_name')},
+            {'fields': ('user', 'username', 'avatar', 'first_name', 'last_name')},
         ),
         (_('important dates'), {'fields': ('created_at',)}),
     )
