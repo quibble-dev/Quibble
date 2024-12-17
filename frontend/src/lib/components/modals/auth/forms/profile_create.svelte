@@ -61,7 +61,7 @@
     </label>
     {#if errors?.detail}
       <div class="flex items-center gap-2">
-        <coreicons-shape-alert-triangle class="size-3 text-error"
+        <coreicons-shape-alert-triangle class="size-3 flex-shrink-0 text-error"
         ></coreicons-shape-alert-triangle>
         <span class="text-xs text-error first-letter:uppercase">{errors.detail}</span>
       </div>

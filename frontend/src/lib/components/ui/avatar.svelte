@@ -3,23 +3,34 @@
 
   type Props = {
     src?: string | null;
-    alt: string;
     class?: string;
-    parent_class?: string;
-    fallback_text_class?: string;
   };
 
-  let { src, alt, class: klass, parent_class, fallback_text_class }: Props = $props();
+  let { src, class: klass }: Props = $props();
 </script>
 
-<div class={cn(parent_class, 'avatar')} class:placeholder={src == undefined}>
-  <div class={cn(klass, 'size-6 rounded-full bg-neutral')}>
-    {#if src}
-      <img {src} alt="" />
-    {:else}
-      <span class={cn(fallback_text_class, 'font-medium capitalize text-neutral-content')}
-        >{alt.charAt(0)}</span
-      >
-    {/if}
-  </div>
+<div
+  class={cn(
+    klass,
+    'grid size-6 place-items-center overflow-hidden rounded-full bg-neutral'
+  )}
+>
+  {#if src}
+    <img {src} alt="" />
+  {:else}
+    <svg
+      class="w-1/2 text-neutral-content"
+      viewBox="0 0 157 86"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M143.6 13L113.366 43L143.6 73M13 13L43.2344 43L13 73"
+        stroke="currentColor"
+        stroke-width="25"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  {/if}
 </div>

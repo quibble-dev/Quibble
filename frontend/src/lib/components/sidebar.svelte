@@ -43,7 +43,7 @@
       {#each favorite_communities as community}
         <div class="flex items-center gap-2">
           <a href="q/{community.name}" class="flex">
-            <Avatar src={community.avatar} alt={community.name} />
+            <Avatar src={community.avatar} />
           </a>
           <a href="q/{community.name}" class="text-sm font-medium">q/{community.name}</a>
           <button class="ml-auto" aria-label="Star Community">
@@ -67,7 +67,7 @@
       {#each your_communities as community}
         <div class="flex items-center gap-2">
           <a href="q/{community.name}" class="flex">
-            <Avatar src={community.avatar} alt={community.name} />
+            <Avatar src={community.avatar} />
           </a>
           <a href="q/{community.name}" class="text-sm font-medium">q/{community.name}</a>
           <button class="ml-auto" aria-label="Star Community">

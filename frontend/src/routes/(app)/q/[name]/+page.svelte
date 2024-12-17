@@ -1,5 +1,5 @@
 <script lang="ts">
-  import AvatarV2 from '$lib/components/ui/avatar_v2.svelte';
+  import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
   import type { PageData } from './$types';
 
@@ -21,7 +21,7 @@
   ></div>
   <div class="absolute inset-x-0 -bottom-10 flex items-end px-4">
     <div class="flex items-end">
-      <AvatarV2 class="!size-20 outline outline-8 outline-base-300" src={quiblet?.avatar} />
+      <Avatar class="!size-20 outline outline-8 outline-base-300" src={quiblet?.avatar} />
       <h3>q/{quiblet?.name}</h3>
     </div>
   </div>

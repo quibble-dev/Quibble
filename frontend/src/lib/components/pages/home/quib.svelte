@@ -5,9 +5,9 @@
   import { FormatDate } from '$lib/functions/date';
   import { createAuthStore } from '$lib/stores/auth.svelte';
 
-  type QuibProps = components['schemas']['QuibSlim'];
+  type QuibSlimProps = components['schemas']['QuibSlim'];
 
-  let quib: QuibProps = $props();
+  let quib: QuibSlimProps = $props();
 
   const authStore = createAuthStore();
 
@@ -34,7 +34,7 @@
         href="/q/{quib.quiblet.name}"
         class="relative flex items-center gap-2 hover:text-accent hover:underline"
       >
-        <Avatar src={quib.quiblet.avatar} alt={quib.quiblet.name} />
+        <Avatar src={quib.quiblet.avatar} />
         <h3 class="text-xs font-semibold">q/{quib.quiblet.name}</h3>
       </a>
       <coreicons-shape-circle variant="filled" class="size-0.5 text-base-content/75"

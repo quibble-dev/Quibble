@@ -57,9 +57,7 @@
       </div>
       <div class="tooltip tooltip-bottom flex before:left-0" data-tip="Profile menu">
         <Avatar
-          parent_class="btn size-10 overflow-hidden p-0"
-          class="!size-full !rounded-none"
-          alt="daisy"
+          class="btn !size-10 rounded-btn p-0"
           src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
         />
       </div>

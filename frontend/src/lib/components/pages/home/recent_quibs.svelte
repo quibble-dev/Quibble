@@ -14,7 +14,7 @@
             href="/q/{post.community.name}"
             class="flex items-center gap-2 hover:text-accent hover:underline"
           >
-            <Avatar src={post.community.avatar} alt={post.community.name} />
+            <Avatar src={post.community.avatar} />
             <h3 class="text-xs font-semibold">q/{post.community.name}</h3>
           </a>
           <a
