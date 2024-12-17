@@ -3,7 +3,7 @@ from django.conf import settings
 from django.forms import ModelForm
 from django.utils.translation import gettext_lazy as _
 
-from .models import ProfileModel, User
+from .models import Profile, User
 
 
 class CustomUserAdminForm(ModelForm):
@@ -25,7 +25,7 @@ class CustomUserAdminForm(ModelForm):
 
 class ProfileAdminForm(ModelForm):
     class Meta:  # pyright: ignore [reportIncompatibleVariableOverride]
-        model = ProfileModel
+        model = Profile
         fields = '__all__'
 
     def clean(self):  # pyright: ignore [reportIncompatibleVariableOverride]

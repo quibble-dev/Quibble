@@ -4,20 +4,15 @@ from django.db.models.functions import Lower
 from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
 
-from apps.user.models import ProfileModel
-from common.mixins.model_mixins import (
-    AvatarMixin,
-    ColorMixin,
-    CreatedAtMixin,
-    IsPublicMixin,
-)
+from apps.user.models import Profile
+from common.mixins.model_mixins import AvatarMixin, CreatedAtMixin, IsPublicMixin
 
 banner_file_pattern = FilePattern(filename_pattern="banner/{uuid:s}{ext}")
 
 # Create your models here.
 
 
-class QuibletModel(AvatarMixin, CreatedAtMixin, IsPublicMixin, ColorMixin):
+class Quiblet(AvatarMixin, CreatedAtMixin, IsPublicMixin):
     name = models.CharField(
         _('name'),
         unique=True,
@@ -33,10 +28,10 @@ class QuibletModel(AvatarMixin, CreatedAtMixin, IsPublicMixin, ColorMixin):
         null=True,
     )
     members = models.ManyToManyField(
-        ProfileModel, related_name='joined_quiblets', blank=True, verbose_name=_('members')
+        Profile, related_name='joined_quiblets', blank=True, verbose_name=_('members')
     )
     rangers = models.ManyToManyField(
-        ProfileModel, related_name='ranged_quiblets', blank=True, verbose_name=_('rangers')
+        Profile, related_name='ranged_quiblets', blank=True, verbose_name=_('rangers')
     )
 
     def __str__(self) -> str:

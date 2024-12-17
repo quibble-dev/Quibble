@@ -1,15 +1,15 @@
 from rest_framework import exceptions, serializers
 
-from ...models import QuibletModel
+from ...models import Quiblet
 
 
-class QuibletModelSerializer(serializers.ModelSerializer):
+class QuibletSerializer(serializers.ModelSerializer):
     class Meta:
-        model = QuibletModel
+        model = Quiblet
         fields = '__all__'
 
     def validate_name(self, name):
-        if QuibletModel.objects.filter(name__iexact=name).exists():
+        if Quiblet.objects.filter(name__iexact=name).exists():
             raise exceptions.ValidationError(
                 f"Quiblet with name {name} already exists (case-insensitive)."
             )
@@ -17,9 +17,9 @@ class QuibletModelSerializer(serializers.ModelSerializer):
         return name
 
 
-class QuibletSlimModelSerializer(serializers.ModelSerializer):
+class QuibletSlimSerializer(serializers.ModelSerializer):
     class Meta:
-        model = QuibletModel
+        model = Quiblet
         fields = ('name', 'avatar')
 
 

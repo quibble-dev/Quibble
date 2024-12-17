@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from ...models import ProfileModel, User
+from ...models import Profile, User
 
 
-class UserModelSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'email', 'password', 'date_joined')
@@ -15,19 +15,19 @@ class UserModelSerializer(serializers.ModelSerializer):
         return user
 
 
-class UserAuthModelSerializer(serializers.ModelSerializer):
+class ProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = '__all__'
+
+
+class AuthSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('email', 'password')
 
 
-class UserAuthTokenSerializer(serializers.Serializer):
+class AuthTokenSerializer(serializers.Serializer):
     token = serializers.CharField()
-
-
-class ProfileModelSerializer(serializers.ModelSerializer):
-    user = UserModelSerializer(read_only=True)
-
-    class Meta:
-        model = ProfileModel
-        fields = '__all__'

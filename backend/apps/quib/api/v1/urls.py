@@ -1,8 +1,8 @@
 from rest_framework.routers import DefaultRouter
 
-from .viewsets import QuibModelViewSet
+from .viewsets import QuibViewSet
 
 router = DefaultRouter()
-router.register(r'', QuibModelViewSet)
+router.register(r'', QuibViewSet)
 
 urlpatterns = router.urls

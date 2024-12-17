@@ -3,7 +3,7 @@ from typing import Optional, Union
 from django.contrib.auth.models import AnonymousUser
 from django.http import HttpRequest
 
-from apps.user.models import ProfileModel, User
+from apps.user.models import Profile, User
 
 
 class PatchedHttpRequest(HttpRequest):
@@ -12,4 +12,4 @@ class PatchedHttpRequest(HttpRequest):
     """
 
     user: Union[User, AnonymousUser]  # pyright: ignore
-    user_profile: Optional[ProfileModel]
+    user_profile: Optional[Profile]

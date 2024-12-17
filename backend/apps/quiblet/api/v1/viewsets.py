@@ -7,19 +7,19 @@ from rest_framework.decorators import action
 
 from common.patches.request import PatchedHttpRequest
 
-from ...models import QuibletModel
-from .serializers import QuibletExistsSerializer, QuibletModelSerializer
+from ...models import Quiblet
+from .serializers import QuibletExistsSerializer, QuibletSerializer
 
 
-class QuibletModelViewSet(viewsets.ModelViewSet):
-    queryset = QuibletModel.objects.all()
-    serializer_class = QuibletModelSerializer
+class QuibletViewSet(viewsets.ModelViewSet):
+    queryset = Quiblet.objects.all()
+    serializer_class = QuibletSerializer
     lookup_field = 'name'
 
-    def get_queryset(self) -> QuerySet[QuibletModel]:  # pyright: ignore
+    def get_queryset(self) -> QuerySet[Quiblet]:  # pyright: ignore
         return super().get_queryset()
 
-    def get_object(self) -> QuibletModel:  # pyright: ignore
+    def get_object(self) -> Quiblet:  # pyright: ignore
         qs = self.get_queryset()
         filter_kwargs = {f'{self.lookup_field}__iexact': self.kwargs[self.lookup_field]}
         obj = qs.filter(**filter_kwargs).first()

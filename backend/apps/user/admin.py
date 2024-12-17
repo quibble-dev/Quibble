@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
 
 from .forms import CustomUserAdminForm, ProfileAdminForm
-from .models import ProfileModel, User
+from .models import Profile, User
 
 
 @admin.register(User)
@@ -38,7 +38,7 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('email',)
 
 
-@admin.register(ProfileModel)
+@admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     form = ProfileAdminForm
 

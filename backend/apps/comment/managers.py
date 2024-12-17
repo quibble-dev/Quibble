@@ -1,7 +1,7 @@
 from django_ltree.managers import TreeManager
 
 
-class CommentModelManager(TreeManager):
+class CommentManager(TreeManager):
     def soft_delete(self, instance):
         # if no children- hard delete
         if instance.children_count == 0:

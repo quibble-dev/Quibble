@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from common.mixins.model_mixins import AvatarMixin, ColorMixin, CreatedAtMixin
+from common.mixins.model_mixins import AvatarMixin, CreatedAtMixin
 
 from .managers import CustomUserManager
 from .validators import UsernameValidator
@@ -35,7 +35,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ordering = ['-date_joined']
 
 
-class ProfileModel(CreatedAtMixin, ColorMixin, AvatarMixin):
+class Profile(CreatedAtMixin, AvatarMixin):
     username_validator = UsernameValidator()
 
     user = models.ForeignKey(User, related_name='profiles', on_delete=models.CASCADE)

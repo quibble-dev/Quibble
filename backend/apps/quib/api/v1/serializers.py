@@ -1,24 +1,21 @@
 from rest_framework import serializers
 
-from apps.quiblet.api.v1.serializers import (
-    QuibletModelSerializer,
-    QuibletSlimModelSerializer,
-)
+from apps.quiblet.api.v1.serializers import QuibletSerializer, QuibletSlimSerializer
 
-from ...models import QuibModel
+from ...models import Quib
 
 
-class QuibModelSerializer(serializers.ModelSerializer):
-    quiblet = QuibletModelSerializer(read_only=True)
+class QuibSerializer(serializers.ModelSerializer):
+    quiblet = QuibletSerializer(read_only=True)
 
     class Meta:
-        model = QuibModel
+        model = Quib
         fields = '__all__'
 
 
-class QuibSlimModelSerializer(serializers.ModelSerializer):
-    quiblet = QuibletSlimModelSerializer(read_only=True)
+class QuibSlimSerializer(serializers.ModelSerializer):
+    quiblet = QuibletSlimSerializer(read_only=True)
 
     class Meta:
-        model = QuibModel
+        model = Quib
         exclude = ('quibber',)

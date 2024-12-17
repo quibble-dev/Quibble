@@ -1,7 +1,7 @@
 from rest_framework import exceptions
 from rest_framework.authentication import TokenAuthentication
 
-from .models import ProfileModel
+from .models import Profile
 
 
 class ExtendedTokenAuthentication(TokenAuthentication):
@@ -24,8 +24,8 @@ class ExtendedTokenAuthentication(TokenAuthentication):
 
         if profile_id:
             try:
-                user_profile = ProfileModel.objects.get(id=profile_id, user=user)
-            except ProfileModel.DoesNotExist:
+                user_profile = Profile.objects.get(id=profile_id, user=user)
+            except Profile.DoesNotExist:
                 raise exceptions.PermissionDenied(
                     'Profile does not exist or does not belong to the authenticated user.'
                 )

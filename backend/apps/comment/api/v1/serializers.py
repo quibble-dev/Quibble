@@ -1,14 +1,14 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
-from ...models import CommentModel
+from ...models import Comment
 
 
-class CommentModelSerializer(serializers.ModelSerializer):
+class CommentSerializer(serializers.ModelSerializer):
     path = serializers.CharField(required=False)
 
     class Meta:
-        model = CommentModel
+        model = Comment
         fields = '__all__'
 
     def create(self, validated_data):
@@ -19,14 +19,12 @@ class CommentModelSerializer(serializers.ModelSerializer):
         }
 
         if path := validated_data.get('path'):
-            parent_instance = get_object_or_404(CommentModel, path__match=path)
-            comment_instance: CommentModel = (
-                CommentModel.objects.create_child(  # pyright: ignore
-                    parent=parent_instance, **data
-                )
+            parent_instance = get_object_or_404(Comment, path__match=path)
+            comment_instance: Comment = Comment.objects.create_child(  # pyright: ignore
+                parent=parent_instance, **data
             )
         else:
-            comment_instance: CommentModel = CommentModel.objects.create_child(
+            comment_instance: Comment = Comment.objects.create_child(
                 **data
             )  # pyright: ignore
         comment_instance.save()

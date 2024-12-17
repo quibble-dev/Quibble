@@ -3,9 +3,9 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
 
-from apps.comment.models import CommentModel
-from apps.quiblet.models import QuibletModel
-from apps.user.models import ProfileModel
+from apps.comment.models import Comment
+from apps.quiblet.models import Quiblet
+from apps.user.models import Profile
 from common.mixins.model_mixins import CreatedAtMixin, IsPublicMixin, ShortUUIDMixin
 
 cover_file_pattern = FilePattern(filename_pattern="cover/{uuid:s}{ext}")
@@ -13,15 +13,15 @@ cover_file_pattern = FilePattern(filename_pattern="cover/{uuid:s}{ext}")
 # Create your models here.
 
 
-class QuibModel(CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
+class Quib(CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
     quiblet = models.ForeignKey(
-        QuibletModel,
+        Quiblet,
         related_name='quibs',
         verbose_name=_('quiblet'),
         on_delete=models.CASCADE,
     )
     quibber = models.ForeignKey(
-        ProfileModel,
+        Profile,
         related_name='quibs',
         verbose_name=_('quibber'),
         on_delete=models.CASCADE,
@@ -36,16 +36,16 @@ class QuibModel(CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
         null=True,
     )
     upvotes = models.ManyToManyField(
-        ProfileModel, related_name='upvoted_quibs', blank=True, verbose_name=_('upvotes')
+        Profile, related_name='upvoted_quibs', blank=True, verbose_name=_('upvotes')
     )
     downvotes = models.ManyToManyField(
-        ProfileModel,
+        Profile,
         related_name='downvoted_quibs',
         blank=True,
         verbose_name=_('downvotes'),
     )
     comments = models.ManyToManyField(
-        CommentModel, related_name='comments', blank=True, verbose_name=_('comments')
+        Comment, related_name='comments', blank=True, verbose_name=_('comments')
     )
 
     def save(self, *args, **kwargs):

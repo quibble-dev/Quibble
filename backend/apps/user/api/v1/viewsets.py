@@ -1,11 +1,11 @@
 from django.conf import settings
 from rest_framework import exceptions, filters, permissions, viewsets
 
-from ...models import ProfileModel
-from .serializers import ProfileModelSerializer
+from ...models import Profile
+from .serializers import ProfileSerializer
 
 
-class ProfileModelReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
+class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
     """
     ViewSet for performing read-only operations on the Profile model.
 
@@ -13,13 +13,13 @@ class ProfileModelReadOnlyViewSet(viewsets.ReadOnlyModelViewSet):
     - Allows searching profiles by username.
     """
 
-    queryset = ProfileModel.objects.all()
-    serializer_class = ProfileModelSerializer
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
     filter_backends = (filters.SearchFilter,)
     search_fields = ('username',)
 
 
-class MyProfilesModelViewSet(viewsets.ModelViewSet):
+class MyProfilesViewSet(viewsets.ModelViewSet):
     """
     ViewSet to manage profiles associated with the authenticated user.
 
@@ -28,7 +28,7 @@ class MyProfilesModelViewSet(viewsets.ModelViewSet):
     """
 
     permission_classes = (permissions.IsAuthenticated,)
-    serializer_class = ProfileModelSerializer
+    serializer_class = ProfileSerializer
 
     def get_queryset(self):  # pyright: ignore
         """
@@ -36,7 +36,7 @@ class MyProfilesModelViewSet(viewsets.ModelViewSet):
         """
         # during schema generation
         if getattr(self, 'swagger_fake_view', False):
-            return ProfileModel.objects.none()
+            return Profile.objects.none()
         user = self.request.user
         return user.profiles.all()  # pyright: ignore
 

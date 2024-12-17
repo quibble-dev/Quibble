@@ -308,32 +308,23 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
+    Auth: {
+      /**
+       * Email address
+       * Format: email
+       */
+      email: string;
+      password: string;
+    };
+    AuthToken: {
+      token: string;
+    };
     /**
      * @description * `client_error` - Client Error
      * @enum {string}
      */
     ClientErrorEnum: 'client_error';
-    /**
-     * @description * `primary` - primary
-     *     * `secondary` - secondary
-     *     * `accent` - accent
-     *     * `neutral` - neutral
-     *     * `info` - info
-     *     * `success` - success
-     *     * `warning` - warning
-     *     * `error` - error
-     * @enum {string}
-     */
-    ColorEnum:
-      | 'primary'
-      | 'secondary'
-      | 'accent'
-      | 'neutral'
-      | 'info'
-      | 'success'
-      | 'warning'
-      | 'error';
-    CommentModel: {
+    Comment: {
       readonly id: number;
       path?: string;
       /**
@@ -643,7 +634,7 @@ export interface components {
       type: components['schemas']['ServerErrorEnum'];
       errors: components['schemas']['Error500'][];
     };
-    PatchedCommentModel: {
+    PatchedComment: {
       readonly id?: number;
       path?: string;
       /**
@@ -657,15 +648,14 @@ export interface components {
       upvotes?: number[];
       downvotes?: number[];
     };
-    PatchedProfileModel: {
+    PatchedProfile: {
       readonly id?: number;
-      readonly user?: components['schemas']['UserModel'];
+      readonly user?: components['schemas']['User'];
       /**
        * Create at
        * Format: date-time
        */
       readonly created_at?: string;
-      color?: components['schemas']['ColorEnum'];
       /** Format: uri */
       avatar?: string | null;
       /** @description Required. 25 characters or fewer. Letters, digits and ./_ only. */
@@ -674,9 +664,9 @@ export interface components {
       last_name?: string | null;
       bio?: string | null;
     };
-    PatchedQuibModel: {
+    PatchedQuib: {
       readonly id?: string;
-      readonly quiblet?: components['schemas']['QuibletModel'];
+      readonly quiblet?: components['schemas']['Quiblet'];
       /**
        * Create at
        * Format: date-time
@@ -693,14 +683,13 @@ export interface components {
       downvotes?: number[];
       comments?: number[];
     };
-    PatchedQuibletModel: {
+    PatchedQuiblet: {
       readonly id?: number;
       /**
        * Create at
        * Format: date-time
        */
       readonly created_at?: string;
-      color?: components['schemas']['ColorEnum'];
       /** Format: uri */
       avatar?: string | null;
       is_public?: boolean;
@@ -712,15 +701,14 @@ export interface components {
       members?: number[];
       rangers?: number[];
     };
-    ProfileModel: {
+    Profile: {
       readonly id: number;
-      readonly user: components['schemas']['UserModel'];
+      readonly user: components['schemas']['User'];
       /**
        * Create at
        * Format: date-time
        */
       readonly created_at: string;
-      color?: components['schemas']['ColorEnum'];
       /** Format: uri */
       avatar?: string | null;
       /** @description Required. 25 characters or fewer. Letters, digits and ./_ only. */
@@ -729,9 +717,9 @@ export interface components {
       last_name?: string | null;
       bio?: string | null;
     };
-    QuibModel: {
+    Quib: {
       readonly id: string;
-      readonly quiblet: components['schemas']['QuibletModel'];
+      readonly quiblet: components['schemas']['Quiblet'];
       /**
        * Create at
        * Format: date-time
@@ -748,9 +736,9 @@ export interface components {
       downvotes?: number[];
       comments?: number[];
     };
-    QuibSlimModel: {
+    QuibSlim: {
       readonly id: string;
-      readonly quiblet: components['schemas']['QuibletSlimModel'];
+      readonly quiblet: components['schemas']['QuibletSlim'];
       /**
        * Create at
        * Format: date-time
@@ -766,18 +754,13 @@ export interface components {
       downvotes?: number[];
       comments?: number[];
     };
-    QuibletExists: {
-      exists: boolean;
-      name: string;
-    };
-    QuibletModel: {
+    Quiblet: {
       readonly id: number;
       /**
        * Create at
        * Format: date-time
        */
       readonly created_at: string;
-      color?: components['schemas']['ColorEnum'];
       /** Format: uri */
       avatar?: string | null;
       is_public?: boolean;
@@ -789,7 +772,11 @@ export interface components {
       members?: number[];
       rangers?: number[];
     };
-    QuibletSlimModel: {
+    QuibletExists: {
+      exists: boolean;
+      name: string;
+    };
+    QuibletSlim: {
       name: string;
       /** Format: uri */
       avatar?: string | null;
@@ -828,20 +815,6 @@ export interface components {
       code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
       detail: string;
     };
-    QuibletsCreateColorErrorComponent: {
-      /**
-       * @description * `color` - color (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'color';
-      /**
-       * @description * `invalid_choice` - invalid_choice
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid_choice' | 'null';
-      detail: string;
-    };
     QuibletsCreateDescriptionErrorComponent: {
       /**
        * @description * `description` - description (enum property replaced by openapi-typescript)
@@ -868,7 +841,6 @@ export interface components {
     };
     QuibletsCreateError:
       | components['schemas']['QuibletsCreateNonFieldErrorsErrorComponent']
-      | components['schemas']['QuibletsCreateColorErrorComponent']
       | components['schemas']['QuibletsCreateAvatarErrorComponent']
       | components['schemas']['QuibletsCreateIsPublicErrorComponent']
       | components['schemas']['QuibletsCreateNameErrorComponent']
@@ -1023,20 +995,6 @@ export interface components {
       code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
       detail: string;
     };
-    QuibletsPartialUpdateColorErrorComponent: {
-      /**
-       * @description * `color` - color (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'color';
-      /**
-       * @description * `invalid_choice` - invalid_choice
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid_choice' | 'null';
-      detail: string;
-    };
     QuibletsPartialUpdateDescriptionErrorComponent: {
       /**
        * @description * `description` - description (enum property replaced by openapi-typescript)
@@ -1063,7 +1021,6 @@ export interface components {
     };
     QuibletsPartialUpdateError:
       | components['schemas']['QuibletsPartialUpdateNonFieldErrorsErrorComponent']
-      | components['schemas']['QuibletsPartialUpdateColorErrorComponent']
       | components['schemas']['QuibletsPartialUpdateAvatarErrorComponent']
       | components['schemas']['QuibletsPartialUpdateIsPublicErrorComponent']
       | components['schemas']['QuibletsPartialUpdateNameErrorComponent']
@@ -1218,20 +1175,6 @@ export interface components {
       code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
       detail: string;
     };
-    QuibletsUpdateColorErrorComponent: {
-      /**
-       * @description * `color` - color (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'color';
-      /**
-       * @description * `invalid_choice` - invalid_choice
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid_choice' | 'null';
-      detail: string;
-    };
     QuibletsUpdateDescriptionErrorComponent: {
       /**
        * @description * `description` - description (enum property replaced by openapi-typescript)
@@ -1258,7 +1201,6 @@ export interface components {
     };
     QuibletsUpdateError:
       | components['schemas']['QuibletsUpdateNonFieldErrorsErrorComponent']
-      | components['schemas']['QuibletsUpdateColorErrorComponent']
       | components['schemas']['QuibletsUpdateAvatarErrorComponent']
       | components['schemas']['QuibletsUpdateIsPublicErrorComponent']
       | components['schemas']['QuibletsUpdateNameErrorComponent']
@@ -2023,18 +1965,7 @@ export interface components {
      * @enum {string}
      */
     ServerErrorEnum: 'server_error';
-    UserAuthModel: {
-      /**
-       * Email address
-       * Format: email
-       */
-      email: string;
-      password: string;
-    };
-    UserAuthToken: {
-      token: string;
-    };
-    UserModel: {
+    User: {
       readonly id: number;
       /**
        * Email address
@@ -2229,23 +2160,8 @@ export interface components {
       code: 'invalid' | 'null_characters_not_allowed' | 'surrogate_characters_not_allowed';
       detail: string;
     };
-    UsersMeProfilesCreateColorErrorComponent: {
-      /**
-       * @description * `color` - color (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'color';
-      /**
-       * @description * `invalid_choice` - invalid_choice
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid_choice' | 'null';
-      detail: string;
-    };
     UsersMeProfilesCreateError:
       | components['schemas']['UsersMeProfilesCreateNonFieldErrorsErrorComponent']
-      | components['schemas']['UsersMeProfilesCreateColorErrorComponent']
       | components['schemas']['UsersMeProfilesCreateAvatarErrorComponent']
       | components['schemas']['UsersMeProfilesCreateUsernameErrorComponent']
       | components['schemas']['UsersMeProfilesCreateFirstNameErrorComponent']
@@ -2369,23 +2285,8 @@ export interface components {
       code: 'invalid' | 'null_characters_not_allowed' | 'surrogate_characters_not_allowed';
       detail: string;
     };
-    UsersMeProfilesPartialUpdateColorErrorComponent: {
-      /**
-       * @description * `color` - color (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'color';
-      /**
-       * @description * `invalid_choice` - invalid_choice
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid_choice' | 'null';
-      detail: string;
-    };
     UsersMeProfilesPartialUpdateError:
       | components['schemas']['UsersMeProfilesPartialUpdateNonFieldErrorsErrorComponent']
-      | components['schemas']['UsersMeProfilesPartialUpdateColorErrorComponent']
       | components['schemas']['UsersMeProfilesPartialUpdateAvatarErrorComponent']
       | components['schemas']['UsersMeProfilesPartialUpdateUsernameErrorComponent']
       | components['schemas']['UsersMeProfilesPartialUpdateFirstNameErrorComponent']
@@ -2509,23 +2410,8 @@ export interface components {
       code: 'invalid' | 'null_characters_not_allowed' | 'surrogate_characters_not_allowed';
       detail: string;
     };
-    UsersMeProfilesUpdateColorErrorComponent: {
-      /**
-       * @description * `color` - color (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'color';
-      /**
-       * @description * `invalid_choice` - invalid_choice
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid_choice' | 'null';
-      detail: string;
-    };
     UsersMeProfilesUpdateError:
       | components['schemas']['UsersMeProfilesUpdateNonFieldErrorsErrorComponent']
-      | components['schemas']['UsersMeProfilesUpdateColorErrorComponent']
       | components['schemas']['UsersMeProfilesUpdateAvatarErrorComponent']
       | components['schemas']['UsersMeProfilesUpdateUsernameErrorComponent']
       | components['schemas']['UsersMeProfilesUpdateFirstNameErrorComponent']
@@ -2648,7 +2534,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['CommentModel'];
+          'application/json': components['schemas']['Comment'];
         };
       };
       404: {
@@ -2681,9 +2567,9 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['CommentModel'];
-        'application/x-www-form-urlencoded': components['schemas']['CommentModel'];
-        'multipart/form-data': components['schemas']['CommentModel'];
+        'application/json': components['schemas']['Comment'];
+        'application/x-www-form-urlencoded': components['schemas']['Comment'];
+        'multipart/form-data': components['schemas']['Comment'];
       };
     };
     responses: {
@@ -2692,7 +2578,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['CommentModel'];
+          'application/json': components['schemas']['Comment'];
         };
       };
       400: {
@@ -2770,9 +2656,9 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        'application/json': components['schemas']['PatchedCommentModel'];
-        'application/x-www-form-urlencoded': components['schemas']['PatchedCommentModel'];
-        'multipart/form-data': components['schemas']['PatchedCommentModel'];
+        'application/json': components['schemas']['PatchedComment'];
+        'application/x-www-form-urlencoded': components['schemas']['PatchedComment'];
+        'multipart/form-data': components['schemas']['PatchedComment'];
       };
     };
     responses: {
@@ -2781,7 +2667,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['CommentModel'];
+          'application/json': components['schemas']['Comment'];
         };
       };
       400: {
@@ -2824,7 +2710,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibletModel'][];
+          'application/json': components['schemas']['Quiblet'][];
         };
       };
       500: {
@@ -2846,9 +2732,9 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['QuibletModel'];
-        'application/x-www-form-urlencoded': components['schemas']['QuibletModel'];
-        'multipart/form-data': components['schemas']['QuibletModel'];
+        'application/json': components['schemas']['Quiblet'];
+        'application/x-www-form-urlencoded': components['schemas']['Quiblet'];
+        'multipart/form-data': components['schemas']['Quiblet'];
       };
     };
     responses: {
@@ -2857,7 +2743,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibletModel'];
+          'application/json': components['schemas']['Quiblet'];
         };
       };
       400: {
@@ -2894,7 +2780,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibletModel'];
+          'application/json': components['schemas']['Quiblet'];
         };
       };
       404: {
@@ -2926,9 +2812,9 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['QuibletModel'];
-        'application/x-www-form-urlencoded': components['schemas']['QuibletModel'];
-        'multipart/form-data': components['schemas']['QuibletModel'];
+        'application/json': components['schemas']['Quiblet'];
+        'application/x-www-form-urlencoded': components['schemas']['Quiblet'];
+        'multipart/form-data': components['schemas']['Quiblet'];
       };
     };
     responses: {
@@ -2937,7 +2823,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibletModel'];
+          'application/json': components['schemas']['Quiblet'];
         };
       };
       400: {
@@ -3013,9 +2899,9 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        'application/json': components['schemas']['PatchedQuibletModel'];
-        'application/x-www-form-urlencoded': components['schemas']['PatchedQuibletModel'];
-        'multipart/form-data': components['schemas']['PatchedQuibletModel'];
+        'application/json': components['schemas']['PatchedQuiblet'];
+        'application/x-www-form-urlencoded': components['schemas']['PatchedQuiblet'];
+        'multipart/form-data': components['schemas']['PatchedQuiblet'];
       };
     };
     responses: {
@@ -3024,7 +2910,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibletModel'];
+          'application/json': components['schemas']['Quiblet'];
         };
       };
       400: {
@@ -3104,7 +2990,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibSlimModel'][];
+          'application/json': components['schemas']['QuibSlim'][];
         };
       };
       500: {
@@ -3126,9 +3012,9 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['QuibModel'];
-        'application/x-www-form-urlencoded': components['schemas']['QuibModel'];
-        'multipart/form-data': components['schemas']['QuibModel'];
+        'application/json': components['schemas']['Quib'];
+        'application/x-www-form-urlencoded': components['schemas']['Quib'];
+        'multipart/form-data': components['schemas']['Quib'];
       };
     };
     responses: {
@@ -3137,7 +3023,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibModel'];
+          'application/json': components['schemas']['Quib'];
         };
       };
       400: {
@@ -3175,7 +3061,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibModel'];
+          'application/json': components['schemas']['Quib'];
         };
       };
       404: {
@@ -3208,9 +3094,9 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['QuibModel'];
-        'application/x-www-form-urlencoded': components['schemas']['QuibModel'];
-        'multipart/form-data': components['schemas']['QuibModel'];
+        'application/json': components['schemas']['Quib'];
+        'application/x-www-form-urlencoded': components['schemas']['Quib'];
+        'multipart/form-data': components['schemas']['Quib'];
       };
     };
     responses: {
@@ -3219,7 +3105,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibModel'];
+          'application/json': components['schemas']['Quib'];
         };
       };
       400: {
@@ -3297,9 +3183,9 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        'application/json': components['schemas']['PatchedQuibModel'];
-        'application/x-www-form-urlencoded': components['schemas']['PatchedQuibModel'];
-        'multipart/form-data': components['schemas']['PatchedQuibModel'];
+        'application/json': components['schemas']['PatchedQuib'];
+        'application/x-www-form-urlencoded': components['schemas']['PatchedQuib'];
+        'multipart/form-data': components['schemas']['PatchedQuib'];
       };
     };
     responses: {
@@ -3308,7 +3194,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibModel'];
+          'application/json': components['schemas']['Quib'];
         };
       };
       400: {
@@ -3354,7 +3240,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['CommentModel'];
+          'application/json': components['schemas']['Comment'];
         };
       };
       404: {
@@ -3387,9 +3273,9 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['CommentModel'];
-        'application/x-www-form-urlencoded': components['schemas']['CommentModel'];
-        'multipart/form-data': components['schemas']['CommentModel'];
+        'application/json': components['schemas']['Comment'];
+        'application/x-www-form-urlencoded': components['schemas']['Comment'];
+        'multipart/form-data': components['schemas']['Comment'];
       };
     };
     responses: {
@@ -3398,7 +3284,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['CommentModel'];
+          'application/json': components['schemas']['Comment'];
         };
       };
       400: {
@@ -3436,9 +3322,9 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['UserAuthModel'];
-        'application/x-www-form-urlencoded': components['schemas']['UserAuthModel'];
-        'multipart/form-data': components['schemas']['UserAuthModel'];
+        'application/json': components['schemas']['Auth'];
+        'application/x-www-form-urlencoded': components['schemas']['Auth'];
+        'multipart/form-data': components['schemas']['Auth'];
       };
     };
     responses: {
@@ -3447,7 +3333,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UserAuthToken'];
+          'application/json': components['schemas']['AuthToken'];
         };
       };
       400: {
@@ -3504,9 +3390,9 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['UserAuthModel'];
-        'application/x-www-form-urlencoded': components['schemas']['UserAuthModel'];
-        'multipart/form-data': components['schemas']['UserAuthModel'];
+        'application/json': components['schemas']['Auth'];
+        'application/x-www-form-urlencoded': components['schemas']['Auth'];
+        'multipart/form-data': components['schemas']['Auth'];
       };
     };
     responses: {
@@ -3515,7 +3401,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UserAuthModel'];
+          'application/json': components['schemas']['Auth'];
         };
       };
       400: {
@@ -3550,7 +3436,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ProfileModel'];
+          'application/json': components['schemas']['Profile'];
         };
       };
       500: {
@@ -3577,7 +3463,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ProfileModel'][];
+          'application/json': components['schemas']['Profile'][];
         };
       };
       500: {
@@ -3599,9 +3485,9 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['ProfileModel'];
-        'application/x-www-form-urlencoded': components['schemas']['ProfileModel'];
-        'multipart/form-data': components['schemas']['ProfileModel'];
+        'application/json': components['schemas']['Profile'];
+        'application/x-www-form-urlencoded': components['schemas']['Profile'];
+        'multipart/form-data': components['schemas']['Profile'];
       };
     };
     responses: {
@@ -3610,7 +3496,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ProfileModel'];
+          'application/json': components['schemas']['Profile'];
         };
       };
       400: {
@@ -3648,7 +3534,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ProfileModel'];
+          'application/json': components['schemas']['Profile'];
         };
       };
       404: {
@@ -3681,9 +3567,9 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['ProfileModel'];
-        'application/x-www-form-urlencoded': components['schemas']['ProfileModel'];
-        'multipart/form-data': components['schemas']['ProfileModel'];
+        'application/json': components['schemas']['Profile'];
+        'application/x-www-form-urlencoded': components['schemas']['Profile'];
+        'multipart/form-data': components['schemas']['Profile'];
       };
     };
     responses: {
@@ -3692,7 +3578,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ProfileModel'];
+          'application/json': components['schemas']['Profile'];
         };
       };
       400: {
@@ -3770,9 +3656,9 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        'application/json': components['schemas']['PatchedProfileModel'];
-        'application/x-www-form-urlencoded': components['schemas']['PatchedProfileModel'];
-        'multipart/form-data': components['schemas']['PatchedProfileModel'];
+        'application/json': components['schemas']['PatchedProfile'];
+        'application/x-www-form-urlencoded': components['schemas']['PatchedProfile'];
+        'multipart/form-data': components['schemas']['PatchedProfile'];
       };
     };
     responses: {
@@ -3781,7 +3667,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ProfileModel'];
+          'application/json': components['schemas']['Profile'];
         };
       };
       400: {
@@ -3827,7 +3713,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ProfileModel'][];
+          'application/json': components['schemas']['Profile'][];
         };
       };
       500: {
@@ -3857,7 +3743,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['ProfileModel'];
+          'application/json': components['schemas']['Profile'];
         };
       };
       404: {
