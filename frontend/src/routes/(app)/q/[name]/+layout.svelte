@@ -28,11 +28,17 @@
         {quiblet?.is_public ? 'Public' : 'Private'}
       </div>
     </div>
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-4">
       <div class="flex flex-col">
         <span class="text-sm text-info">{quiblet?.members?.length}</span>
         <span class="text-xs text-base-content/75"
           >{pluralize('Member', quiblet?.members?.length ?? 0)}</span
+        >
+      </div>
+      <div class="flex flex-col">
+        <span class="text-sm text-info">{quiblet?.quibs}</span>
+        <span class="text-xs text-base-content/75"
+          >{pluralize('Quib', quiblet?.quibs ?? 0)}</span
         >
       </div>
     </div>

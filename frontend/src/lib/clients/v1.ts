@@ -791,6 +791,7 @@ export interface components {
     QuibletDetail: {
       readonly id: number;
       rangers: components['schemas']['Ranger'][];
+      readonly quibs: number;
       /**
        * Create at
        * Format: date-time
@@ -1999,7 +2000,7 @@ export interface components {
       username: string;
       /** Format: uri */
       avatar?: string | null;
-      readonly name: string;
+      readonly name: string | null;
     };
     /**
      * @description * `server_error` - Server Error
