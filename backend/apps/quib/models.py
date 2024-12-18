@@ -26,6 +26,7 @@ class Quib(CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
         verbose_name=_('quibber'),
         on_delete=models.CASCADE,
     )
+    highlighted = models.BooleanField(_('highlighted'), default=False)
     title = models.CharField(_('title'), max_length=255)
     slug = models.SlugField(_('slug'), editable=False, max_length=25, blank=True)
     content = models.TextField(_('content'), blank=True)

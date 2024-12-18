@@ -84,6 +84,22 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/api/v1/quiblets/{name}/highlighted_quibs/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['quiblets_highlighted_quibs_list'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/api/v1/quiblets/{name}/quibs/': {
     parameters: {
       query?: never;
@@ -689,6 +705,7 @@ export interface components {
        */
       readonly created_at?: string;
       is_public?: boolean;
+      highlighted?: boolean;
       title?: string;
       readonly slug?: string;
       content?: string;
@@ -742,6 +759,7 @@ export interface components {
        */
       readonly created_at: string;
       is_public?: boolean;
+      highlighted?: boolean;
       title: string;
       readonly slug: string;
       content?: string;
@@ -752,6 +770,13 @@ export interface components {
       downvotes?: number[];
       comments?: number[];
     };
+    QuibHighlighted: {
+      /** Format: uri */
+      cover?: string | null;
+      title: string;
+      readonly id: string;
+      readonly slug: string;
+    };
     QuibSlim: {
       readonly id: string;
       readonly quiblet: components['schemas']['QuibletSlim'];
@@ -761,6 +786,7 @@ export interface components {
        */
       readonly created_at: string;
       is_public?: boolean;
+      highlighted?: boolean;
       title: string;
       readonly slug: string;
       content?: string;
@@ -1560,6 +1586,7 @@ export interface components {
     QuibsCreateError:
       | components['schemas']['QuibsCreateNonFieldErrorsErrorComponent']
       | components['schemas']['QuibsCreateIsPublicErrorComponent']
+      | components['schemas']['QuibsCreateHighlightedErrorComponent']
       | components['schemas']['QuibsCreateTitleErrorComponent']
       | components['schemas']['QuibsCreateContentErrorComponent']
       | components['schemas']['QuibsCreateCoverErrorComponent']
@@ -1567,6 +1594,20 @@ export interface components {
       | components['schemas']['QuibsCreateUpvotesErrorComponent']
       | components['schemas']['QuibsCreateDownvotesErrorComponent']
       | components['schemas']['QuibsCreateCommentsErrorComponent'];
+    QuibsCreateHighlightedErrorComponent: {
+      /**
+       * @description * `highlighted` - highlighted (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'highlighted';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
     QuibsCreateIsPublicErrorComponent: {
       /**
        * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
@@ -1729,6 +1770,7 @@ export interface components {
     QuibsPartialUpdateError:
       | components['schemas']['QuibsPartialUpdateNonFieldErrorsErrorComponent']
       | components['schemas']['QuibsPartialUpdateIsPublicErrorComponent']
+      | components['schemas']['QuibsPartialUpdateHighlightedErrorComponent']
       | components['schemas']['QuibsPartialUpdateTitleErrorComponent']
       | components['schemas']['QuibsPartialUpdateContentErrorComponent']
       | components['schemas']['QuibsPartialUpdateCoverErrorComponent']
@@ -1736,6 +1778,20 @@ export interface components {
       | components['schemas']['QuibsPartialUpdateUpvotesErrorComponent']
       | components['schemas']['QuibsPartialUpdateDownvotesErrorComponent']
       | components['schemas']['QuibsPartialUpdateCommentsErrorComponent'];
+    QuibsPartialUpdateHighlightedErrorComponent: {
+      /**
+       * @description * `highlighted` - highlighted (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'highlighted';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
     QuibsPartialUpdateIsPublicErrorComponent: {
       /**
        * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
@@ -1898,6 +1954,7 @@ export interface components {
     QuibsUpdateError:
       | components['schemas']['QuibsUpdateNonFieldErrorsErrorComponent']
       | components['schemas']['QuibsUpdateIsPublicErrorComponent']
+      | components['schemas']['QuibsUpdateHighlightedErrorComponent']
       | components['schemas']['QuibsUpdateTitleErrorComponent']
       | components['schemas']['QuibsUpdateContentErrorComponent']
       | components['schemas']['QuibsUpdateCoverErrorComponent']
@@ -1905,6 +1962,20 @@ export interface components {
       | components['schemas']['QuibsUpdateUpvotesErrorComponent']
       | components['schemas']['QuibsUpdateDownvotesErrorComponent']
       | components['schemas']['QuibsUpdateCommentsErrorComponent'];
+    QuibsUpdateHighlightedErrorComponent: {
+      /**
+       * @description * `highlighted` - highlighted (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'highlighted';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
     QuibsUpdateIsPublicErrorComponent: {
       /**
        * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
@@ -2998,6 +3069,43 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['QuibletExists'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  quiblets_highlighted_quibs_list: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        name: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['QuibHighlighted'][];
         };
       };
       404: {

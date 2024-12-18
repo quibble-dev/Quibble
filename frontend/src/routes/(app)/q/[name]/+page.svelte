@@ -6,7 +6,7 @@
   import type { PageData } from './$types';
 
   const { data }: { data: PageData } = $props();
-  const { quiblet, quibs } = data;
+  const { quiblet, quibs, highlighted_quibs } = data;
 </script>
 
 <svelte:head>
@@ -42,6 +42,35 @@
 </div>
 <div class="h-12"></div>
 <QuibsHeader />
+{#if highlighted_quibs}
+  <div class="flex flex-col gap-4">
+    <div class="flex items-center gap-2">
+      <coreicons-shape-hash class="size-5"></coreicons-shape-hash>
+      <h4 class="text-sm font-medium">Highlights</h4>
+    </div>
+    <div class="grid grid-cols-3">
+      {#each highlighted_quibs as quib}
+        <div
+          class="relative h-40 w-full rounded-2xl bg-cover bg-center outline outline-1 outline-offset-[-1px] outline-base-content/50"
+          class:bg-neutral={!quib.cover}
+          style="background-image: url({quib.cover});"
+        >
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-base-300/75 to-base-300/25"
+          ></div>
+          <span class="absolute inset-x-0 bottom-0 p-4 font-medium text-info"
+            >{quib.title}</span
+          >
+          <a
+            href="./{quiblet?.name}/quibs/{quib.id}/{quib.slug}"
+            class="absolute inset-0"
+            aria-label={quib.title}
+          ></a>
+        </div>
+      {/each}
+    </div>
+  </div>
+{/if}
 {#if quibs}
   {#each quibs as quib}
     <Quib {...quib} />

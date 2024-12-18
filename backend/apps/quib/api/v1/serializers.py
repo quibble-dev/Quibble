@@ -25,3 +25,9 @@ class QuibSlimSerializer(serializers.ModelSerializer):
         if obj.cover:
             return request.build_absolute_uri(obj.cover) if request else obj.cover
         return None
+
+
+class QuibHighlightedSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Quib
+        fields = ('cover', 'title', 'id', 'slug')

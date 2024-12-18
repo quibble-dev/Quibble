@@ -6,7 +6,7 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import exceptions, response, viewsets
 from rest_framework.decorators import action
 
-from apps.quib.api.v1.serializers import QuibSlimSerializer
+from apps.quib.api.v1.serializers import QuibHighlightedSerializer, QuibSlimSerializer
 from common.patches.request import PatchedHttpRequest
 
 from ...models import Quiblet
@@ -25,9 +25,11 @@ class QuibletViewSet(viewsets.ModelViewSet):
 
     # extra custom serializers
     serializer_classes = {
+        'retrieve': QuibletDetailSerializer,
+        # extra actions
         'exists': QuibletExistsSerializer,
         'quibs': QuibSlimSerializer,
-        'retrieve': QuibletDetailSerializer,
+        'highlighted_quibs': QuibHighlightedSerializer,
     }
 
     def get_queryset(self) -> QuerySet[Quiblet]:  # pyright: ignore
@@ -65,6 +67,16 @@ class QuibletViewSet(viewsets.ModelViewSet):
     def quibs(self, request, name=None):
         quibs = self.get_object().quibs.all()  # pyright: ignore
         serializer = QuibSlimSerializer(quibs, many=True, context={'request': request})
+
+        return response.Response(serializer.data)
+
+    @extend_schema(responses=QuibHighlightedSerializer(many=True))
+    @action(detail=True, methods=[HTTPMethod.GET])
+    def highlighted_quibs(self, request, name=None):
+        quibs = self.get_object().quibs.filter(highlighted=True)  # pyright: ignore
+        serializer = QuibHighlightedSerializer(
+            quibs, many=True, context={'request': request}
+        )
 
         return response.Response(serializer.data)
 
