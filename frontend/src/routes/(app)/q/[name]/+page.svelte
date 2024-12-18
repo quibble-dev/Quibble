@@ -3,7 +3,9 @@
   import QuibsHeader from '$lib/components/pages/home/quibs_header.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
+  import readable from 'readable-numbers';
   import type { PageData } from './$types';
+  import { FormatDate } from '$lib/functions/date';
 
   const { data }: { data: PageData } = $props();
   const { quiblet, quibs, highlighted_quibs } = data;
@@ -46,21 +48,24 @@
   <div class="flex flex-col gap-4">
     <div class="flex items-center gap-2">
       <coreicons-shape-hash class="size-5"></coreicons-shape-hash>
-      <h4 class="text-sm font-medium">Highlights</h4>
+      <h4 class="font-medium">Highlights</h4>
     </div>
-    <div class="grid grid-cols-3">
+    <div class="grid grid-cols-3 gap-4">
       {#each highlighted_quibs as quib}
         <div
-          class="relative h-40 w-full rounded-2xl bg-cover bg-center outline outline-1 outline-offset-[-1px] outline-base-content/50"
-          class:bg-neutral={!quib.cover}
-          style="background-image: url({quib.cover});"
+          class="relative flex h-40 flex-col gap-2 overflow-hidden rounded-2xl border border-neutral p-2 transition-colors hover:bg-base-200"
         >
           <div
-            class="absolute inset-0 bg-gradient-to-t from-base-300/75 to-base-300/25"
+            class="flex-1 rounded-xl bg-cover bg-center outline outline-1 outline-offset-[-1px] outline-base-content/15"
+            class:bg-neutral={!quib.cover}
+            style="background-image: url({quib.cover});"
           ></div>
-          <span class="absolute inset-x-0 bottom-0 p-4 font-medium text-info"
-            >{quib.title}</span
-          >
+          <div class="flex flex-col p-2 pt-0.5">
+            <h4 class="line-clamp-1 font-medium">{quib.title}</h4>
+            <span class="text-xs font-medium text-base-content/75"
+              >{new FormatDate(quib.created_at).format()}</span
+            >
+          </div>
           <a
             href="./{quiblet?.name}/quibs/{quib.id}/{quib.slug}"
             class="absolute inset-0"

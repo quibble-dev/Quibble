@@ -776,6 +776,11 @@ export interface components {
       title: string;
       readonly id: string;
       readonly slug: string;
+      /**
+       * Create at
+       * Format: date-time
+       */
+      readonly created_at: string;
     };
     QuibSlim: {
       readonly id: string;

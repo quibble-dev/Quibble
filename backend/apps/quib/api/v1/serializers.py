@@ -30,4 +30,4 @@ class QuibSlimSerializer(serializers.ModelSerializer):
 class QuibHighlightedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Quib
-        fields = ('cover', 'title', 'id', 'slug')
+        fields = ('cover', 'title', 'id', 'slug', 'created_at')
