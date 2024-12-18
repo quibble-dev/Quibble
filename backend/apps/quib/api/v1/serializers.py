@@ -19,3 +19,9 @@ class QuibSlimSerializer(serializers.ModelSerializer):
     class Meta:
         model = Quib
         exclude = ('quibber',)
+
+    def get_cover(self, obj):
+        request = self.context.get('request')
+        if obj.cover:
+            return request.build_absolute_uri(obj.cover) if request else obj.cover
+        return None

@@ -1,10 +1,12 @@
 <script lang="ts">
+  import Quib from '$lib/components/pages/home/quib.svelte';
+  import QuibsHeader from '$lib/components/pages/home/quibs_header.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
   import type { PageData } from './$types';
 
   const { data }: { data: PageData } = $props();
-  const { quiblet } = data;
+  const { quiblet, quibs } = data;
 </script>
 
 <svelte:head>
@@ -22,7 +24,7 @@
   <div class="absolute inset-x-0 -bottom-12 flex items-end justify-between px-4">
     <div class="flex items-end gap-2">
       <Avatar class="!size-20 outline outline-8 outline-base-300" src={quiblet?.avatar} />
-      <h3 class="text-3xl font-bold text-info">q/{quiblet?.name}</h3>
+      <h3 class="text-2xl font-bold text-info">q/{quiblet?.name}</h3>
     </div>
     <div class="flex items-center gap-2">
       <button class="btn btn-primary h-10 px-3" aria-label="Create a Post">
@@ -38,3 +40,10 @@
     </div>
   </div>
 </div>
+<div class="h-12"></div>
+<QuibsHeader />
+{#if quibs}
+  {#each quibs as quib}
+    <Quib {...quib} />
+  {/each}
+{/if}

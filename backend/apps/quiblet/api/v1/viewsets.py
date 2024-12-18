@@ -2,19 +2,33 @@ from http import HTTPMethod
 from typing import cast
 
 from django.db.models import QuerySet
+from drf_spectacular.utils import extend_schema
 from rest_framework import exceptions, response, viewsets
 from rest_framework.decorators import action
 
+from apps.quib.api.v1.serializers import QuibSlimSerializer
 from common.patches.request import PatchedHttpRequest
 
 from ...models import Quiblet
-from .serializers import QuibletExistsSerializer, QuibletSerializer
+from .serializers import (
+    QuibletDetailSerializer,
+    QuibletExistsSerializer,
+    QuibletSerializer,
+)
 
 
 class QuibletViewSet(viewsets.ModelViewSet):
     queryset = Quiblet.objects.all()
+    # default serializer
     serializer_class = QuibletSerializer
     lookup_field = 'name'
+
+    # extra custom serializers
+    serializer_classes = {
+        'exists': QuibletExistsSerializer,
+        'quibs': QuibSlimSerializer,
+        'retrieve': QuibletDetailSerializer,
+    }
 
     def get_queryset(self) -> QuerySet[Quiblet]:  # pyright: ignore
         return super().get_queryset()
@@ -31,8 +45,8 @@ class QuibletViewSet(viewsets.ModelViewSet):
         return obj
 
     def get_serializer_class(self):  # pyright: ignore
-        if self.action == 'exists':
-            return QuibletExistsSerializer
+        if self.action in self.serializer_classes:
+            return self.serializer_classes[self.action]
         return super().get_serializer_class()
 
     @action(detail=True, methods=[HTTPMethod.GET])
@@ -45,6 +59,14 @@ class QuibletViewSet(viewsets.ModelViewSet):
             res['name'] = quiblet.name
 
         return response.Response(res)
+
+    @extend_schema(responses=QuibSlimSerializer(many=True))
+    @action(detail=True, methods=[HTTPMethod.GET])
+    def quibs(self, request, name=None):
+        quibs = self.get_object().quibs.all()  # pyright: ignore
+        serializer = QuibSlimSerializer(quibs, many=True, context={'request': request})
+
+        return response.Response(serializer.data)
 
     def perform_create(self, serializer):
         patched_request = cast(PatchedHttpRequest, self.request)

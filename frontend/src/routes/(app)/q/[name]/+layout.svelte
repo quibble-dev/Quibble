@@ -3,6 +3,7 @@
   import type { PageData } from './$types';
   import { FormatDate } from '$lib/functions/date';
   import { pluralize } from '$lib/functions/pluralize';
+  import Avatar from '$lib/components/ui/avatar.svelte';
 
   const { data, children }: { data: PageData; children: Snippet } = $props();
   const { quiblet } = data;
@@ -35,5 +36,27 @@
         >
       </div>
     </div>
+    <div class="divider my-0 before:h-px after:h-px"></div>
+    <div class="flex items-center gap-2">
+      <h3 class="text-sm font-medium">Rangers</h3>
+      <div class="tooltip tooltip-right flex" data-tip="Moderators">
+        <coreicons-shape-help-circle class="size-[0.85rem]"></coreicons-shape-help-circle>
+      </div>
+    </div>
+    {#if quiblet?.rangers}
+      <div class="flex flex-col gap-2">
+        {#each quiblet?.rangers as ranger}
+          <div class="flex items-center gap-2">
+            <Avatar src={ranger.avatar} />
+            <div class="flex flex-col">
+              <a href="/u/{ranger.username}" class="text-sm font-medium"
+                >u/{ranger.username}</a
+              >
+              <span class="text-xs text-base-content/75">{ranger.name}</span>
+            </div>
+          </div>
+        {/each}
+      </div>
+    {/if}
   </div>
 </div>

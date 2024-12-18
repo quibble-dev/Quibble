@@ -84,6 +84,22 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/api/v1/quiblets/{name}/quibs/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['quiblets_quibs_list'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/api/v1/quibs/': {
     parameters: {
       query?: never;
@@ -771,6 +787,24 @@ export interface components {
       banner?: string | null;
       members?: number[];
       rangers?: number[];
+    };
+    QuibletDetail: {
+      readonly id: number;
+      rangers: components['schemas']['Ranger'][];
+      /**
+       * Create at
+       * Format: date-time
+       */
+      readonly created_at: string;
+      /** Format: uri */
+      avatar?: string | null;
+      is_public?: boolean;
+      name: string;
+      description: string;
+      title?: string | null;
+      /** Format: uri */
+      banner?: string | null;
+      members?: number[];
     };
     QuibletExists: {
       exists: boolean;
@@ -1960,6 +1994,13 @@ export interface components {
       type: components['schemas']['ValidationErrorEnum'];
       errors: components['schemas']['QuibsUpdateError'][];
     };
+    Ranger: {
+      /** @description Required. 25 characters or fewer. Letters, digits and ./_ only. */
+      username: string;
+      /** Format: uri */
+      avatar?: string | null;
+      readonly name: string;
+    };
     /**
      * @description * `server_error` - Server Error
      * @enum {string}
@@ -2780,7 +2821,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Quiblet'];
+          'application/json': components['schemas']['QuibletDetail'];
         };
       };
       404: {
@@ -2956,6 +2997,43 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['QuibletExists'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  quiblets_quibs_list: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        name: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['QuibSlim'][];
         };
       };
       404: {
