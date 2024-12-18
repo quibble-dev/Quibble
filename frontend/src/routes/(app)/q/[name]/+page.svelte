@@ -44,7 +44,7 @@
 </div>
 <div class="h-12"></div>
 <QuibsHeader />
-{#if highlighted_quibs}
+{#if highlighted_quibs?.length}
   <div class="flex flex-col gap-4">
     <div class="flex items-center gap-2">
       <coreicons-shape-hash class="size-5"></coreicons-shape-hash>
