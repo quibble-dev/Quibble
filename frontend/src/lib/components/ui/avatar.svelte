@@ -7,6 +7,20 @@
   };
 
   let { src, class: klass }: Props = $props();
+
+  let valid_src = $state(false);
+
+  $effect.pre(() => {
+    if (!src) {
+      valid_src = false;
+      return;
+    }
+    // create img instance
+    const img = new Image();
+    img.onload = () => (valid_src = true);
+    img.onerror = () => (valid_src = false);
+    img.src = src;
+  });
 </script>
 
 <div
@@ -15,7 +29,7 @@
     'grid size-6 place-items-center overflow-hidden rounded-full bg-neutral'
   )}
 >
-  {#if src}
+  {#if valid_src}
     <img {src} alt="" />
   {:else}
     <svg

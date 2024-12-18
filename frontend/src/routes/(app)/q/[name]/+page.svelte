@@ -3,12 +3,21 @@
   import QuibsHeader from '$lib/components/pages/home/quibs_header.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
-  import readable from 'readable-numbers';
   import type { PageData } from './$types';
   import { FormatDate } from '$lib/functions/date';
+  import { createAuthStore } from '$lib/stores/auth.svelte';
 
   const { data }: { data: PageData } = $props();
   const { quiblet, quibs, highlighted_quibs } = data;
+
+  const authStore = createAuthStore();
+
+  const is_joined = $derived.by(() => {
+    if (!authStore.state.is_authenticated) return false;
+    if (authStore.state.profile && quiblet) {
+      return quiblet.members?.includes(authStore.state.profile.id);
+    }
+  });
 </script>
 
 <svelte:head>
@@ -25,7 +34,10 @@
   ></div>
   <div class="absolute inset-x-0 -bottom-12 flex items-end justify-between px-4">
     <div class="flex items-end gap-2">
-      <Avatar class="!size-20 outline outline-8 outline-base-300" src={quiblet?.avatar} />
+      <Avatar
+        class="!size-20 outline outline-8 outline-base-300"
+        src={'https://google.com'}
+      />
       <h3 class="text-2xl font-bold text-info">q/{quiblet?.name}</h3>
     </div>
     <div class="flex items-center gap-2">
@@ -34,7 +46,7 @@
         <span class="text-sm font-medium">Create Quib</span>
       </button>
       <button class="btn btn-secondary h-10 px-3" aria-label="Join quiblet">
-        <span class="text-sm font-medium">Join</span>
+        <span class="text-sm font-medium">{is_joined ? 'Joined' : 'Join'}</span>
       </button>
       <button class="btn btn-neutral size-10 p-0" aria-label="More options">
         <coreicons-shape-more class="size-5 rotate-90"></coreicons-shape-more>
