@@ -65,7 +65,8 @@
           class="relative flex h-40 flex-col gap-2 overflow-hidden rounded-2xl border border-neutral p-2 transition-colors hover:bg-base-200"
         >
           <div
-            class="flex-1 rounded-xl bg-cover bg-center outline outline-1 outline-offset-[-1px] outline-base-content/15"
+            class="flex-1 rounded-xl bg-cover bg-center inner-border
+            inner-border-base-content/15"
             class:bg-neutral={!quib.cover}
             style="background-image: url({quib.cover});"
           ></div>

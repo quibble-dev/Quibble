@@ -3,6 +3,7 @@ import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
 import daisyui from 'daisyui';
 import tailwindScroll from 'tailwind-scrollbar';
+import innerBorder from '@quibble-dev/tailwindcss-inner-border';
 
 import type { Config } from 'tailwindcss';
 
@@ -22,5 +23,5 @@ export default {
     logs: false
   },
 
-  plugins: [typography, forms, aspectRatio, daisyui, tailwindScroll]
+  plugins: [typography, forms, aspectRatio, daisyui, tailwindScroll, innerBorder]
 } satisfies Config;
