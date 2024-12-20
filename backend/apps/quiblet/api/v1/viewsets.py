@@ -6,16 +6,13 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import exceptions, response, viewsets
 from rest_framework.decorators import action
 
-from apps.quib.api.v1.serializers import (
-    QuibExtendedSerializer,
-    QuibHighlightedSerializer,
-)
+from apps.quib.api.v1.serializers import QuibHighlightedSerializer, QuibSerializer
 from common.patches.request import PatchedHttpRequest
 
 from ...models import Quiblet
 from .serializers import (
+    QuibletDetailedSerializer,
     QuibletExistsSerializer,
-    QuibletExtendedSerializer,
     QuibletSerializer,
 )
 
@@ -28,10 +25,10 @@ class QuibletViewSet(viewsets.ModelViewSet):
 
     # extra custom serializers
     serializer_classes = {
-        'retrieve': QuibletExtendedSerializer,
+        'retrieve': QuibletDetailedSerializer,
         # extra actions
         'exists': QuibletExistsSerializer,
-        'quibs': QuibExtendedSerializer,
+        'quibs': QuibSerializer,
         'highlighted_quibs': QuibHighlightedSerializer,
     }
 
@@ -52,7 +49,7 @@ class QuibletViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):  # pyright: ignore
         if self.action in self.serializer_classes:
             return self.serializer_classes[self.action]
-        return super().get_serializer_class()
+        return self.serializer_class
 
     @action(detail=True, methods=[HTTPMethod.GET])
     def exists(self, request, name=None):
@@ -65,11 +62,11 @@ class QuibletViewSet(viewsets.ModelViewSet):
 
         return response.Response(res)
 
-    @extend_schema(responses=QuibExtendedSerializer(many=True))
+    @extend_schema(responses=QuibSerializer(many=True))
     @action(detail=True, methods=[HTTPMethod.GET])
     def quibs(self, request, name=None):
         quibs = self.get_object().quibs.all()  # pyright: ignore
-        serializer = QuibExtendedSerializer(quibs, many=True, context={'request': request})
+        serializer = QuibSerializer(quibs, many=True, context={'request': request})
 
         return response.Response(serializer.data)
 

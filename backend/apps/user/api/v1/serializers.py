@@ -1,4 +1,8 @@
+from typing import Optional
+
 from rest_framework import serializers
+
+from apps.user.models import Profile
 
 from ...models import Profile, User
 
@@ -33,7 +37,15 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class ProfileMinimalSerializer(serializers.ModelSerializer):
+class ProfileBasicSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+
     class Meta:
         model = Profile
-        fields = ('username', 'avatar')
+        fields = ('username', 'avatar', 'name')
+
+    def get_name(self, obj) -> Optional[str]:
+        if obj.first_name or obj.last_name:
+            truthy_fields = filter(None, [obj.first_name, obj.last_name])
+            return " ".join(truthy_fields)
+        return None

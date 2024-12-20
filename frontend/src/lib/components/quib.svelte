@@ -6,9 +6,9 @@
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { page } from '$app/stores';
 
-  type QuibExtendedProps = components['schemas']['QuibExtended'];
+  type QuibProps = components['schemas']['Quib'];
 
-  let quib: QuibExtendedProps = $props();
+  let quib: QuibProps = $props();
 
   const authStore = createAuthStore();
 

@@ -7,19 +7,18 @@ from rest_framework.decorators import action
 from apps.comment.api.v1.serializers import CommentSerializer
 
 from ...models import Quib
-from .serializers import QuibMinimalSerializer, QuibSerializer
+from .serializers import QuibSerializer
 
 
 class QuibViewSet(viewsets.ModelViewSet):
     queryset = Quib.objects.all()
+    serializer_class = QuibSerializer
 
     def get_serializer_class(self):  # pyright: ignore
-        if self.action == 'list':
-            return QuibMinimalSerializer
         # if custom action: 'comment'
         if self.action == 'comments':
             return CommentSerializer
-        return QuibSerializer
+        return self.serializer_class
 
     @action(detail=True, methods=[HTTPMethod.GET, HTTPMethod.POST])
     def comments(self, request, pk=None):

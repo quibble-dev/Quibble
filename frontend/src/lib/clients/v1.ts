@@ -698,7 +698,8 @@ export interface components {
     };
     PatchedQuib: {
       readonly id?: string;
-      readonly quiblet?: components['schemas']['QuibletMinimal'];
+      readonly quiblet?: components['schemas']['QuibletBasic'];
+      readonly quibber?: components['schemas']['ProfileBasic'];
       /**
        * Create at
        * Format: date-time
@@ -711,7 +712,6 @@ export interface components {
       content?: string;
       /** Format: uri */
       cover?: string | null;
-      quibber?: number;
       upvotes?: number[];
       downvotes?: number[];
       comments?: number[];
@@ -750,36 +750,17 @@ export interface components {
       last_name?: string | null;
       bio?: string | null;
     };
-    ProfileMinimal: {
+    ProfileBasic: {
       /** @description Required. 25 characters or fewer. Letters, digits and ./_ only. */
       username: string;
       /** Format: uri */
       avatar?: string | null;
+      readonly name: string | null;
     };
     Quib: {
       readonly id: string;
-      readonly quiblet: components['schemas']['QuibletMinimal'];
-      /**
-       * Create at
-       * Format: date-time
-       */
-      readonly created_at: string;
-      is_public?: boolean;
-      highlighted?: boolean;
-      title: string;
-      readonly slug: string;
-      content?: string;
-      /** Format: uri */
-      cover?: string | null;
-      quibber: number;
-      upvotes?: number[];
-      downvotes?: number[];
-      comments?: number[];
-    };
-    QuibExtended: {
-      readonly id: string;
-      readonly quiblet: components['schemas']['QuibletMinimal'];
-      readonly quibber: components['schemas']['ProfileMinimal'];
+      readonly quiblet: components['schemas']['QuibletBasic'];
+      readonly quibber: components['schemas']['ProfileBasic'];
       /**
        * Create at
        * Format: date-time
@@ -808,25 +789,6 @@ export interface components {
        */
       readonly created_at: string;
     };
-    QuibMinimal: {
-      readonly id: string;
-      readonly quiblet: components['schemas']['QuibletMinimal'];
-      /**
-       * Create at
-       * Format: date-time
-       */
-      readonly created_at: string;
-      is_public?: boolean;
-      highlighted?: boolean;
-      title: string;
-      readonly slug: string;
-      content?: string;
-      /** Format: uri */
-      cover?: string | null;
-      upvotes?: number[];
-      downvotes?: number[];
-      comments?: number[];
-    };
     Quiblet: {
       readonly id: number;
       /**
@@ -845,13 +807,14 @@ export interface components {
       members?: number[];
       rangers?: number[];
     };
-    QuibletExists: {
-      exists: boolean;
+    QuibletBasic: {
       name: string;
+      /** Format: uri */
+      avatar?: string | null;
     };
-    QuibletExtended: {
+    QuibletDetailed: {
       readonly id: number;
-      rangers: components['schemas']['Ranger'][];
+      rangers: components['schemas']['ProfileBasic'][];
       readonly quibs: number;
       /**
        * Create at
@@ -868,10 +831,9 @@ export interface components {
       banner?: string | null;
       members?: number[];
     };
-    QuibletMinimal: {
+    QuibletExists: {
+      exists: boolean;
       name: string;
-      /** Format: uri */
-      avatar?: string | null;
     };
     QuibletsCreateAvatarErrorComponent: {
       /**
@@ -1621,7 +1583,6 @@ export interface components {
       | components['schemas']['QuibsCreateTitleErrorComponent']
       | components['schemas']['QuibsCreateContentErrorComponent']
       | components['schemas']['QuibsCreateCoverErrorComponent']
-      | components['schemas']['QuibsCreateQuibberErrorComponent']
       | components['schemas']['QuibsCreateUpvotesErrorComponent']
       | components['schemas']['QuibsCreateDownvotesErrorComponent']
       | components['schemas']['QuibsCreateCommentsErrorComponent'];
@@ -1665,22 +1626,6 @@ export interface components {
        * @enum {string}
        */
       code: 'invalid' | 'null';
-      detail: string;
-    };
-    QuibsCreateQuibberErrorComponent: {
-      /**
-       * @description * `quibber` - quibber (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'quibber';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `null` - null
-       *     * `required` - required
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
       detail: string;
     };
     QuibsCreateTitleErrorComponent: {
@@ -1805,7 +1750,6 @@ export interface components {
       | components['schemas']['QuibsPartialUpdateTitleErrorComponent']
       | components['schemas']['QuibsPartialUpdateContentErrorComponent']
       | components['schemas']['QuibsPartialUpdateCoverErrorComponent']
-      | components['schemas']['QuibsPartialUpdateQuibberErrorComponent']
       | components['schemas']['QuibsPartialUpdateUpvotesErrorComponent']
       | components['schemas']['QuibsPartialUpdateDownvotesErrorComponent']
       | components['schemas']['QuibsPartialUpdateCommentsErrorComponent'];
@@ -1849,22 +1793,6 @@ export interface components {
        * @enum {string}
        */
       code: 'invalid' | 'null';
-      detail: string;
-    };
-    QuibsPartialUpdateQuibberErrorComponent: {
-      /**
-       * @description * `quibber` - quibber (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'quibber';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `null` - null
-       *     * `required` - required
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
       detail: string;
     };
     QuibsPartialUpdateTitleErrorComponent: {
@@ -1989,7 +1917,6 @@ export interface components {
       | components['schemas']['QuibsUpdateTitleErrorComponent']
       | components['schemas']['QuibsUpdateContentErrorComponent']
       | components['schemas']['QuibsUpdateCoverErrorComponent']
-      | components['schemas']['QuibsUpdateQuibberErrorComponent']
       | components['schemas']['QuibsUpdateUpvotesErrorComponent']
       | components['schemas']['QuibsUpdateDownvotesErrorComponent']
       | components['schemas']['QuibsUpdateCommentsErrorComponent'];
@@ -2033,22 +1960,6 @@ export interface components {
        * @enum {string}
        */
       code: 'invalid' | 'null';
-      detail: string;
-    };
-    QuibsUpdateQuibberErrorComponent: {
-      /**
-       * @description * `quibber` - quibber (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'quibber';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `null` - null
-       *     * `required` - required
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
       detail: string;
     };
     QuibsUpdateTitleErrorComponent: {
@@ -2096,13 +2007,6 @@ export interface components {
     QuibsUpdateValidationError: {
       type: components['schemas']['ValidationErrorEnum'];
       errors: components['schemas']['QuibsUpdateError'][];
-    };
-    Ranger: {
-      /** @description Required. 25 characters or fewer. Letters, digits and ./_ only. */
-      username: string;
-      /** Format: uri */
-      avatar?: string | null;
-      readonly name: string | null;
     };
     /**
      * @description * `server_error` - Server Error
@@ -2924,7 +2828,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibletExtended'];
+          'application/json': components['schemas']['QuibletDetailed'];
         };
       };
       404: {
@@ -3173,7 +3077,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibExtended'][];
+          'application/json': components['schemas']['Quib'][];
         };
       };
       404: {
@@ -3208,7 +3112,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibMinimal'][];
+          'application/json': components['schemas']['Quib'][];
         };
       };
       500: {

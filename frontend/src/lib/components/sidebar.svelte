@@ -35,7 +35,7 @@
     <div
       class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>coreicons-shape-chevron]:rotate-180"
     >
-      Favourites
+      Recent
       <coreicons-shape-chevron class="size-4 transition-transform" variant="down"
       ></coreicons-shape-chevron>
     </div>

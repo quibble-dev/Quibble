@@ -8,7 +8,7 @@
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import type { components } from '$lib/clients/v1';
 
-  type Profile = components['schemas']['ProfileModel'];
+  type Profile = components['schemas']['Profile'];
 
   let { children, data }: { children: Snippet; data: { profile: Profile } } = $props();
 
