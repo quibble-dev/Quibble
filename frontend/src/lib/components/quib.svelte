@@ -12,13 +12,14 @@
 
   const authStore = createAuthStore();
 
-  const is_upvoted = $derived.by(() => {
+  const is_upvoted = $derived.by(check_if_upvoted);
+  function check_if_upvoted() {
     if (authStore.state.profile && quib.upvotes) {
       return quib.upvotes.includes(authStore.state.profile.id);
     } else {
       return false;
     }
-  });
+  }
 
   function get_avatar() {
     return $page.url.pathname.includes('/q/') ? quib.quibber.avatar : quib.quiblet.avatar;

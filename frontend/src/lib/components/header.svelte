@@ -6,6 +6,9 @@
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
+  import { page } from '$app/stores';
+
+  const show_search_in_quiblet = $derived.by(() => $page.url.pathname.includes('/q/'));
 
   const modalsStore = createModalsStore(),
     authStore = createAuthStore();
@@ -33,12 +36,24 @@
         <span class="text-sm font-medium">All</span>
       </a>
     </div>
-    <label class="input input-bordered flex h-10 w-96 items-center bg-transparent px-3">
+    <label
+      class="input input-bordered relative flex h-10 w-96 items-center bg-transparent px-3"
+    >
       <coreicons-shape-search class="size-5"></coreicons-shape-search>
+      {#if show_search_in_quiblet}
+        <div
+          class="ml-2 flex items-center gap-2 rounded-lg border border-neutral bg-base-100 p-1 px-1.5"
+        >
+          <Avatar src={$page.data.quiblet.avatar} class="!size-5" />
+          <h5 class="whitespace-nowrap text-xs font-medium">q/{$page.data.quiblet.name}</h5>
+        </div>
+      {/if}
       <input
         type="text"
         class="grow border-none text-sm font-medium focus:ring-0"
-        placeholder="Search..."
+        placeholder={show_search_in_quiblet
+          ? `Search in q/${$page.params.name}`
+          : 'Search...'}
       />
     </label>
   </div>
