@@ -2,8 +2,6 @@ from typing import Optional
 
 from rest_framework import serializers
 
-from apps.user.models import Profile
-
 from ...models import Profile, User
 
 
