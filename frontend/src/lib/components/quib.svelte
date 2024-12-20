@@ -4,10 +4,11 @@
   import readable from 'readable-numbers';
   import { FormatDate } from '$lib/functions/date';
   import { createAuthStore } from '$lib/stores/auth.svelte';
+  import { page } from '$app/stores';
 
-  type QuibSlimProps = components['schemas']['QuibSlim'];
+  type QuibExtendedProps = components['schemas']['QuibExtended'];
 
-  let quib: QuibSlimProps = $props();
+  let quib: QuibExtendedProps = $props();
 
   const authStore = createAuthStore();
 
@@ -18,6 +19,16 @@
       return false;
     }
   });
+
+  function get_avatar() {
+    return $page.url.pathname.includes('/q/') ? quib.quibber.avatar : quib.quiblet.avatar;
+  }
+
+  function get_name() {
+    return $page.url.pathname.includes('/q/')
+      ? `u/${quib.quibber.username}`
+      : `q/${quib.quiblet.name}`;
+  }
 </script>
 
 <div class="flex flex-col overflow-hidden rounded-2xl border border-neutral bg-base-300">
@@ -31,11 +42,11 @@
     ></a>
     <div class="flex items-center gap-2">
       <a
-        href="/q/{quib.quiblet.name}"
+        href="/{get_name()}"
         class="relative flex items-center gap-2 hover:text-accent hover:underline"
       >
-        <Avatar src={quib.quiblet.avatar} />
-        <h3 class="text-xs font-semibold">q/{quib.quiblet.name}</h3>
+        <Avatar src={get_avatar()} />
+        <h3 class="text-xs font-semibold">{get_name()}</h3>
       </a>
       <coreicons-shape-circle variant="filled" class="size-0.5 text-base-content/75"
       ></coreicons-shape-circle>

@@ -15,14 +15,6 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
-class ProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
-
-    class Meta:
-        model = Profile
-        fields = '__all__'
-
-
 class AuthSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -31,3 +23,17 @@ class AuthSerializer(serializers.ModelSerializer):
 
 class AuthTokenSerializer(serializers.Serializer):
     token = serializers.CharField()
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = '__all__'
+
+
+class ProfileMinimalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ('username', 'avatar')

@@ -21,7 +21,19 @@ class RangerSerializer(serializers.ModelSerializer):
         return None
 
 
-class QuibletDetailSerializer(serializers.ModelSerializer):
+class QuibletSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Quiblet
+        fields = '__all__'
+
+
+class QuibletMinimalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Quiblet
+        fields = ('name', 'avatar')
+
+
+class QuibletExtendedSerializer(serializers.ModelSerializer):
     rangers = RangerSerializer(many=True)
     quibs = serializers.SerializerMethodField()
 
@@ -31,18 +43,6 @@ class QuibletDetailSerializer(serializers.ModelSerializer):
 
     def get_quibs(self, obj) -> int:
         return obj.quibs.count()
-
-
-class QuibletSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Quiblet
-        fields = '__all__'
-
-
-class QuibletSlimSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Quiblet
-        fields = ('name', 'avatar')
 
 
 class QuibletExistsSerializer(serializers.Serializer):

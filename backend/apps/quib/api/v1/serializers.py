@@ -1,30 +1,29 @@
 from rest_framework import serializers
 
-from apps.quiblet.api.v1.serializers import QuibletSerializer, QuibletSlimSerializer
+from apps.quiblet.api.v1.mixins import QuibletSlimMixin
+from apps.user.api.v1.serializers import ProfileMinimalSerializer
 
 from ...models import Quib
 
 
-class QuibSerializer(serializers.ModelSerializer):
-    quiblet = QuibletSerializer(read_only=True)
-
+class QuibSerializer(QuibletSlimMixin):
     class Meta:
         model = Quib
         fields = '__all__'
 
 
-class QuibSlimSerializer(serializers.ModelSerializer):
-    quiblet = QuibletSlimSerializer(read_only=True)
-
+class QuibMinimalSerializer(QuibletSlimMixin):
     class Meta:
         model = Quib
         exclude = ('quibber',)
 
-    def get_cover(self, obj):
-        request = self.context.get('request')
-        if obj.cover:
-            return request.build_absolute_uri(obj.cover) if request else obj.cover
-        return None
+
+class QuibExtendedSerializer(QuibletSlimMixin):
+    quibber = ProfileMinimalSerializer(read_only=True)
+
+    class Meta:
+        model = Quib
+        fields = '__all__'
 
 
 class QuibHighlightedSerializer(serializers.ModelSerializer):

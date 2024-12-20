@@ -7,7 +7,7 @@ from rest_framework.decorators import action
 from apps.comment.api.v1.serializers import CommentSerializer
 
 from ...models import Quib
-from .serializers import QuibSerializer, QuibSlimSerializer
+from .serializers import QuibMinimalSerializer, QuibSerializer
 
 
 class QuibViewSet(viewsets.ModelViewSet):
@@ -15,7 +15,7 @@ class QuibViewSet(viewsets.ModelViewSet):
 
     def get_serializer_class(self):  # pyright: ignore
         if self.action == 'list':
-            return QuibSlimSerializer
+            return QuibMinimalSerializer
         # if custom action: 'comment'
         if self.action == 'comments':
             return CommentSerializer

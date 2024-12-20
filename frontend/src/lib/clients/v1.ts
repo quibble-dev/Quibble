@@ -698,7 +698,7 @@ export interface components {
     };
     PatchedQuib: {
       readonly id?: string;
-      readonly quiblet?: components['schemas']['Quiblet'];
+      readonly quiblet?: components['schemas']['QuibletMinimal'];
       /**
        * Create at
        * Format: date-time
@@ -750,9 +750,15 @@ export interface components {
       last_name?: string | null;
       bio?: string | null;
     };
+    ProfileMinimal: {
+      /** @description Required. 25 characters or fewer. Letters, digits and ./_ only. */
+      username: string;
+      /** Format: uri */
+      avatar?: string | null;
+    };
     Quib: {
       readonly id: string;
-      readonly quiblet: components['schemas']['Quiblet'];
+      readonly quiblet: components['schemas']['QuibletMinimal'];
       /**
        * Create at
        * Format: date-time
@@ -770,6 +776,26 @@ export interface components {
       downvotes?: number[];
       comments?: number[];
     };
+    QuibExtended: {
+      readonly id: string;
+      readonly quiblet: components['schemas']['QuibletMinimal'];
+      readonly quibber: components['schemas']['ProfileMinimal'];
+      /**
+       * Create at
+       * Format: date-time
+       */
+      readonly created_at: string;
+      is_public?: boolean;
+      highlighted?: boolean;
+      title: string;
+      readonly slug: string;
+      content?: string;
+      /** Format: uri */
+      cover?: string | null;
+      upvotes?: number[];
+      downvotes?: number[];
+      comments?: number[];
+    };
     QuibHighlighted: {
       /** Format: uri */
       cover?: string | null;
@@ -782,9 +808,9 @@ export interface components {
        */
       readonly created_at: string;
     };
-    QuibSlim: {
+    QuibMinimal: {
       readonly id: string;
-      readonly quiblet: components['schemas']['QuibletSlim'];
+      readonly quiblet: components['schemas']['QuibletMinimal'];
       /**
        * Create at
        * Format: date-time
@@ -819,7 +845,11 @@ export interface components {
       members?: number[];
       rangers?: number[];
     };
-    QuibletDetail: {
+    QuibletExists: {
+      exists: boolean;
+      name: string;
+    };
+    QuibletExtended: {
       readonly id: number;
       rangers: components['schemas']['Ranger'][];
       readonly quibs: number;
@@ -838,11 +868,7 @@ export interface components {
       banner?: string | null;
       members?: number[];
     };
-    QuibletExists: {
-      exists: boolean;
-      name: string;
-    };
-    QuibletSlim: {
+    QuibletMinimal: {
       name: string;
       /** Format: uri */
       avatar?: string | null;
@@ -2898,7 +2924,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibletDetail'];
+          'application/json': components['schemas']['QuibletExtended'];
         };
       };
       404: {
@@ -3147,7 +3173,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibSlim'][];
+          'application/json': components['schemas']['QuibExtended'][];
         };
       };
       404: {
@@ -3182,7 +3208,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibSlim'][];
+          'application/json': components['schemas']['QuibMinimal'][];
         };
       };
       500: {
