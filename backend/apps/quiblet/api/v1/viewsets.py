@@ -42,7 +42,7 @@ class QuibletViewSet(viewsets.ModelViewSet):
 
         if not obj:
             raise exceptions.NotFound(
-                f'Quiblet with name {self.kwargs[self.lookup_field]} not found.'
+                f'Quiblet with name <b>{self.kwargs[self.lookup_field]}</b> not found.'
             )
         return obj
 

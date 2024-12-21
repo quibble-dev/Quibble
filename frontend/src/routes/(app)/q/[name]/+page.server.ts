@@ -1,7 +1,9 @@
 import client from '$lib/clients/client';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ params, parent }) => {
+  await parent();
+
   const [quibs, highlighted_quibs] = await Promise.all([
     client.GET('/api/v1/quiblets/{name}/quibs/', {
       params: {
