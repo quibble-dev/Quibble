@@ -1,4 +1,4 @@
-import { redirect } from '@sveltejs/kit';
+import { error as raise_error, redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 import client from '$lib/clients/client';
 
@@ -14,7 +14,7 @@ export const load: LayoutServerLoad = async ({ params }) => {
       redirect(307, `/q/${data.name}`);
     }
     return { quiblet: data };
-  } else if (error) {
-    redirect(309, '/');
+  } else {
+    raise_error(response.status, error?.errors[0]?.detail);
   }
 };

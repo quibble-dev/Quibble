@@ -8,7 +8,9 @@
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { page } from '$app/stores';
 
-  const show_search_in_quiblet = $derived.by(() => $page.url.pathname.includes('/q/'));
+  const show_search_in_quiblet = $derived.by(
+    () => $page.url.pathname.includes('/q/') && $page.data.quiblet
+  );
 
   const modalsStore = createModalsStore(),
     authStore = createAuthStore();
