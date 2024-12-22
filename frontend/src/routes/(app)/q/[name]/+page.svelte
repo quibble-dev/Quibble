@@ -25,8 +25,7 @@
   onMount(() => {
     sidebarStore.add_quiblet('recent', {
       avatar: quiblet.avatar,
-      name: quiblet.name,
-      starred: false
+      name: quiblet.name
     });
   });
 </script>

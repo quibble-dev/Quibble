@@ -5,7 +5,7 @@ type ISidebarStore = Record<string, IQuiblets>;
 type IQuiblets = {
   avatar?: string | null | undefined;
   name: string;
-  starred: boolean;
+  starred?: boolean;
 }[];
 
 const stored_sidebar_store = browser ? localStorage.getItem('sidebar_store') : null;
@@ -53,7 +53,10 @@ export function createSidebarStore() {
       const exists = sidebar_state[type].some((q) => q.name === quiblet.name);
       if (exists) return;
 
-      sidebar_state[type] = sort_quiblets([...sidebar_state[type], quiblet]);
+      sidebar_state[type] = sort_quiblets([
+        ...sidebar_state[type],
+        { ...quiblet, starred: false }
+      ]);
       sync_localstorage();
     },
     toggle_star(type: string, name: string) {
