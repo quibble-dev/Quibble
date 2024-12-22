@@ -6,17 +6,31 @@
   import type { PageData } from './$types';
   import { FormatDate } from '$lib/functions/date';
   import { createAuthStore } from '$lib/stores/auth.svelte';
+  import { onMount } from 'svelte';
+  import { createSidebarStore } from '$lib/stores/sidebar.svelte';
 
   const { data }: { data: PageData } = $props();
   const { quiblet, quibs, highlighted_quibs } = data;
 
-  const authStore = createAuthStore();
+  const authStore = createAuthStore(),
+    sidebarStore = createSidebarStore();
 
   const is_joined = $derived.by(() => {
     if (!authStore.state.is_authenticated) return false;
     if (authStore.state.profile && quiblet) {
       return quiblet.members?.includes(authStore.state.profile.id);
     }
+  });
+
+  onMount(() => {
+    sidebarStore.add_quiblet(
+      {
+        avatar: quiblet.avatar,
+        name: quiblet.name,
+        starred: false
+      },
+      'recent'
+    );
   });
 </script>
 

@@ -3,6 +3,11 @@
   import Avatar from '$lib/components/ui/avatar.svelte';
   import favorite_communities from '$lib/data/mock/favorites.json';
   import your_communities from '$lib/data/mock/your_communities.json';
+  import { createSidebarStore } from '$lib/stores/sidebar.svelte';
+
+  const sidebarStore = createSidebarStore();
+
+  $inspect(sidebarStore.state);
 </script>
 
 <div
@@ -30,31 +35,33 @@
       <span class="text-xs font-medium">Create Quiblet</span>
     </button>
   </div>
-  <div class="collapse gap-2 rounded-none">
-    <input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
-    <div
-      class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>coreicons-shape-chevron]:rotate-180"
-    >
-      Recent
-      <coreicons-shape-chevron class="size-4 transition-transform" variant="down"
-      ></coreicons-shape-chevron>
+  {#if sidebarStore.state.recent}
+    <div class="collapse gap-2 overflow-visible rounded-none">
+      <input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
+      <div
+        class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>coreicons-shape-chevron]:rotate-180"
+      >
+        Recent
+        <coreicons-shape-chevron class="size-4 transition-transform" variant="down"
+        ></coreicons-shape-chevron>
+      </div>
+      <div class="collapse-content flex flex-col gap-2 !p-0">
+        {#each sidebarStore.state.recent as quiblet}
+          <div class="flex items-center gap-2">
+            <a href="/q/{quiblet.name}" class="flex">
+              <Avatar src={quiblet.avatar} />
+            </a>
+            <a href="/q/{quiblet.name}" class="text-sm font-medium">q/{quiblet.name}</a>
+            <button class="ml-auto" aria-label="Star Community">
+              <coreicons-shape-star class="size-4" class:text-primary={quiblet.starred}
+              ></coreicons-shape-star>
+            </button>
+          </div>
+        {/each}
+      </div>
     </div>
-    <div class="collapse-content flex flex-col gap-2 !p-0">
-      {#each favorite_communities as community}
-        <div class="flex items-center gap-2">
-          <a href="q/{community.name}" class="flex">
-            <Avatar src={community.avatar} />
-          </a>
-          <a href="q/{community.name}" class="text-sm font-medium">q/{community.name}</a>
-          <button class="ml-auto" aria-label="Star Community">
-            <coreicons-shape-star class="size-4" class:text-primary={community.starred}
-            ></coreicons-shape-star>
-          </button>
-        </div>
-      {/each}
-    </div>
-  </div>
-  <div class="collapse gap-2 rounded-none">
+  {/if}
+  <div class="collapse gap-2 overflow-visible rounded-none">
     <input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
     <div
       class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>coreicons-shape-chevron]:rotate-180"
@@ -78,7 +85,7 @@
       {/each}
     </div>
   </div>
-  <div class="collapse gap-2 rounded-none">
+  <div class="collapse gap-2 overflow-visible rounded-none">
     <input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
     <div
       class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>coreicons-shape-chevron]:rotate-180"
