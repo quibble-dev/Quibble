@@ -5,8 +5,6 @@
   import { createSidebarStore } from '$lib/stores/sidebar.svelte';
 
   const sidebarStore = createSidebarStore();
-
-  $inspect(sidebarStore.state);
 </script>
 
 <div
@@ -59,7 +57,7 @@
         {/each}
       </div>
     {:else}
-      <span class="text-sm font-medium">quite! check some.</span>
+      <span class="text-sm font-medium">Just in—take a peek.</span>
     {/if}
   </div>
   <div class="collapse gap-2 overflow-visible rounded-none">
@@ -87,7 +85,7 @@
         {/each}
       </div>
     {:else}
-      <span class="text-sm font-medium">join some.</span>
+      <span class="text-sm font-medium">Ready to quibble? Join in.</span>
     {/if}
   </div>
   <div class="collapse gap-2 overflow-visible rounded-none">
