@@ -49,7 +49,11 @@
               <Avatar src={quiblet.avatar} />
             </a>
             <a href="/q/{quiblet.name}" class="text-sm font-medium">q/{quiblet.name}</a>
-            <button class="ml-auto" aria-label="Star Community">
+            <button
+              onclick={() => sidebarStore.toggle_star(quiblet.name, 'recent')}
+              class="ml-auto"
+              aria-label="Star Community"
+            >
               <coreicons-shape-star class="size-4" class:text-primary={quiblet.starred}
               ></coreicons-shape-star>
             </button>

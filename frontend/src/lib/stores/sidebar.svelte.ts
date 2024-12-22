@@ -64,6 +64,7 @@ export function createSidebarStore() {
           q.name === name ? { ...q, starred: !q.starred } : q
         )
       );
+      sync_localstorage();
     }
   };
 }
