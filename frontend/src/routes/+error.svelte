@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Quibble404 from '$lib/assets/svgs/quibble_404.svg';
+  import Quibble404 from '$lib/assets/vectors/quibble_404.svg';
   import { page } from '$app/stores';
 </script>
 
