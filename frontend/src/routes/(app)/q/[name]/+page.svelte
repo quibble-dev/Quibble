@@ -23,14 +23,11 @@
   });
 
   onMount(() => {
-    sidebarStore.add_quiblet(
-      {
-        avatar: quiblet.avatar,
-        name: quiblet.name,
-        starred: false
-      },
-      'recent'
-    );
+    sidebarStore.add_quiblet('recent', {
+      avatar: quiblet.avatar,
+      name: quiblet.name,
+      starred: false
+    });
   });
 </script>
 

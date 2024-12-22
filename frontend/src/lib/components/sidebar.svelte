@@ -50,7 +50,7 @@
             </a>
             <a href="/q/{quiblet.name}" class="text-sm font-medium">q/{quiblet.name}</a>
             <button
-              onclick={() => sidebarStore.toggle_star(quiblet.name, 'recent')}
+              onclick={() => sidebarStore.toggle_star('recent', quiblet.name)}
               class="ml-auto"
               aria-label="Star Community"
             >

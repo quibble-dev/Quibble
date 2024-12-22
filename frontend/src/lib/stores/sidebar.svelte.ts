@@ -44,7 +44,7 @@ export function createSidebarStore() {
     get state() {
       return sidebar_state;
     },
-    add_quiblet(quiblet: IQuiblets[number], type: string) {
+    add_quiblet(type: string, quiblet: IQuiblets[number]) {
       // initialize empty array for new type type
       if (!sidebar_state[type]) {
         sidebar_state[type] = [];
@@ -56,7 +56,7 @@ export function createSidebarStore() {
       sidebar_state[type] = sort_quiblets([...sidebar_state[type], quiblet]);
       sync_localstorage();
     },
-    toggle_star(name: string, type: string) {
+    toggle_star(type: string, name: string) {
       if (!sidebar_state[type]) return;
 
       sidebar_state[type] = sort_quiblets(
