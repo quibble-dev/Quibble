@@ -15,7 +15,15 @@ export function createSidebarStore() {
     ? JSON.parse(stored_sidebar_store)
     : {};
 
-  let sidebar_state = $state<ISidebarStore>(parsed_stored_quiblets);
+  let sidebar_state = $state<ISidebarStore>(
+    // sort initial data
+    Object.fromEntries(
+      Object.entries(parsed_stored_quiblets).map(([key, quiblets]) => [
+        key,
+        sort_quiblets(quiblets)
+      ])
+    )
+  );
 
   function sync_localstorage() {
     if (browser) {
