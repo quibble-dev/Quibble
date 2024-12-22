@@ -1,7 +1,6 @@
 <script lang="ts">
   import QuibbleIcon from '$lib/components/icons/logos/quibble.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
-  import favorite_communities from '$lib/data/mock/favorites.json';
   import your_communities from '$lib/data/mock/your_communities.json';
   import { createSidebarStore } from '$lib/stores/sidebar.svelte';
 

@@ -15,7 +15,7 @@ export function createSidebarStore() {
     ? JSON.parse(stored_sidebar_store)
     : {};
 
-  let sidebar_state = $state<ISidebarStore>(
+  const sidebar_state = $state<ISidebarStore>(
     // sort initial data
     Object.fromEntries(
       Object.entries(parsed_stored_quiblets).map(([key, quiblets]) => [
