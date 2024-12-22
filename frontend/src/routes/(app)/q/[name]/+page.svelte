@@ -8,6 +8,7 @@
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { onMount } from 'svelte';
   import { createSidebarStore } from '$lib/stores/sidebar.svelte';
+  import Image from '$lib/components/ui/image.svelte';
 
   const { data }: { data: PageData } = $props();
   const { quiblet, quibs, highlighted_quibs } = data;
@@ -40,13 +41,10 @@
 </svelte:head>
 
 <div class="relative">
-  <div
-    class={cn(
-      !quiblet?.banner ? 'h-24 bg-neutral' : 'h-40 bg-cover bg-center',
-      'w-full rounded-2xl'
-    )}
-    style="background-image: url({quiblet?.banner});"
-  ></div>
+  <Image
+    src={quiblet?.banner}
+    class={cn(quiblet?.banner ? 'h-40 object-cover object-center' : 'h-24', 'rounded-2xl')}
+  />
   <div class="absolute inset-x-0 -bottom-12 flex items-end justify-between px-4">
     <div class="flex items-end gap-2">
       <Avatar class="!size-20 outline outline-8 outline-base-300" src={quiblet?.avatar} />
