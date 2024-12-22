@@ -52,7 +52,7 @@
             <button
               onclick={() => sidebarStore.toggle_star('recent', quiblet.name)}
               class="ml-auto"
-              aria-label="Star Community"
+              aria-label="Star Quiblet"
             >
               <coreicons-shape-star class="size-4" class:text-primary={quiblet.starred}
               ></coreicons-shape-star>
@@ -75,14 +75,18 @@
     </div>
     {#if sidebarStore.state.your}
       <div class="collapse-content flex flex-col gap-2 !p-0">
-        {#each your_communities as community}
+        {#each sidebarStore.state.your as quiblet}
           <div class="flex items-center gap-2">
-            <a href="q/{community.name}" class="flex">
-              <Avatar src={community.avatar} />
+            <a href="q/{quiblet.name}" class="flex">
+              <Avatar src={quiblet.avatar} />
             </a>
-            <a href="q/{community.name}" class="text-sm font-medium">q/{community.name}</a>
-            <button class="ml-auto" aria-label="Star Community">
-              <coreicons-shape-star class="size-4" class:text-primary={community.starred}
+            <a href="q/{quiblet.name}" class="text-sm font-medium">q/{quiblet.name}</a>
+            <button
+              onclick={() => sidebarStore.toggle_star('your', quiblet.name)}
+              class="ml-auto"
+              aria-label="Star Quiblet"
+            >
+              <coreicons-shape-star class="size-4" class:text-primary={quiblet.starred}
               ></coreicons-shape-star>
             </button>
           </div>

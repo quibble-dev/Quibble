@@ -22,11 +22,16 @@
     }
   });
 
-  onMount(() => {
-    sidebarStore.add_quiblet('recent', {
+  function add_to_sidebar_store(key: string) {
+    sidebarStore.add_quiblet(key, {
       avatar: quiblet.avatar,
       name: quiblet.name
     });
+  }
+
+  onMount(() => {
+    add_to_sidebar_store('recent');
+    if (is_joined) add_to_sidebar_store('your');
   });
 </script>
 
