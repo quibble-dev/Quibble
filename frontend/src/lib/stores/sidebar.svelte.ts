@@ -10,27 +10,27 @@ type IQuiblets = {
 
 const stored_sidebar_store = browser ? localStorage.getItem('sidebar_store') : null;
 
-const parsed_stored_quiblets: ISidebarStore = stored_sidebar_store
+const parsed_stored_sidebar_store: ISidebarStore = stored_sidebar_store
   ? JSON.parse(stored_sidebar_store)
   : {};
 
 const sidebar_state = $state<ISidebarStore>(
   // sort initial data
   Object.fromEntries(
-    Object.entries(parsed_stored_quiblets).map(([key, quiblets]) => [
+    Object.entries(parsed_stored_sidebar_store).map(([key, quiblets]) => [
       key,
-      sort_quiblets(quiblets)
+      get_sorted_quiblets(quiblets)
     ])
   )
 );
 
-function sync_localstorage() {
+function sync_to_localstorage() {
   if (browser) {
     localStorage.setItem('sidebar_store', JSON.stringify(sidebar_state));
   }
 }
 
-function sort_quiblets(quiblets: IQuiblets) {
+function get_sorted_quiblets(quiblets: IQuiblets) {
   return [...quiblets].sort((a, b) => {
     if (a.starred !== b.starred) {
       return b.starred ? 1 : -1;
@@ -53,21 +53,21 @@ export function createSidebarStore() {
       const exists = sidebar_state[type].some((q) => q.name === quiblet.name);
       if (exists) return;
 
-      sidebar_state[type] = sort_quiblets([
+      sidebar_state[type] = get_sorted_quiblets([
         ...sidebar_state[type],
         { ...quiblet, starred: false }
       ]);
-      sync_localstorage();
+      sync_to_localstorage();
     },
     toggle_star(type: string, name: string) {
       if (!sidebar_state[type]) return;
 
-      sidebar_state[type] = sort_quiblets(
+      sidebar_state[type] = get_sorted_quiblets(
         sidebar_state[type].map((q) =>
           q.name === name ? { ...q, starred: !q.starred } : q
         )
       );
-      sync_localstorage();
+      sync_to_localstorage();
     }
   };
 }
