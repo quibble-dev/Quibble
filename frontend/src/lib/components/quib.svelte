@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { components } from '$lib/clients/v1';
-  import Avatar from '$lib/components/ui/avatar.svelte';
+  import Image from '$lib/components/ui/image.svelte';
   import readable from 'readable-numbers';
   import { FormatDate } from '$lib/functions/date';
   import { createAuthStore } from '$lib/stores/auth.svelte';
@@ -46,7 +46,7 @@
         href="/{get_name()}"
         class="relative flex items-center gap-2 hover:text-accent hover:underline"
       >
-        <Avatar src={get_avatar()} />
+        <Image src={get_avatar()} class="size-6 rounded-full" />
         <h3 class="text-xs font-semibold">{get_name()}</h3>
       </a>
       <coreicons-shape-circle variant="filled" class="size-0.5 text-base-content/75"

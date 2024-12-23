@@ -11,7 +11,7 @@
   let valid_src = $state(false);
 
   const object_classes: string[] = [];
-  let _klass = klass
+  const _klass = klass
     ?.split(/\s+/)
     .filter((cls) => {
       if (cls.startsWith('object-')) {
@@ -40,7 +40,7 @@
     <img {src} alt="" class={cn('h-full w-full', ...object_classes)} />
   {:else}
     <svg
-      class="w-10 text-neutral-content"
+      class="w-1/2 max-w-10 text-neutral-content"
       viewBox="0 0 157 86"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

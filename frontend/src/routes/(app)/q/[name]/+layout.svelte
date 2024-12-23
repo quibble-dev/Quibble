@@ -3,7 +3,7 @@
   import type { PageData } from './$types';
   import { FormatDate } from '$lib/functions/date';
   import { pluralize } from '$lib/functions/pluralize';
-  import Avatar from '$lib/components/ui/avatar.svelte';
+  import Image from '$lib/components/ui/image.svelte';
 
   const { data, children }: { data: PageData; children: Snippet } = $props();
   const { quiblet } = data;
@@ -53,7 +53,7 @@
       <div class="flex flex-col gap-2">
         {#each quiblet?.rangers as ranger}
           <div class="flex items-center gap-2">
-            <Avatar src={ranger.avatar} />
+            <Image src={ranger.avatar} class="size-6 rounded-full" />
             <div class="flex flex-col">
               <a href="/u/{ranger.username}" class="text-sm font-medium"
                 >u/{ranger.username}</a

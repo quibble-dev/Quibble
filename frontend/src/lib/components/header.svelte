@@ -3,7 +3,7 @@
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
   import NotificationIcon from '$lib/components/icons/notification.svelte';
-  import Avatar from '$lib/components/ui/avatar.svelte';
+  import Image from '$lib/components/ui/image.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { page } from '$app/stores';
@@ -46,7 +46,7 @@
         <div
           class="ml-2 flex items-center gap-2 rounded-lg border border-neutral bg-base-100 p-1 px-1.5"
         >
-          <Avatar src={$page.data.quiblet.avatar} class="!size-5" />
+          <Image src={$page.data.quiblet.avatar} class="size-5 rounded-full" />
           <h5 class="whitespace-nowrap text-xs font-medium">q/{$page.data.quiblet.name}</h5>
         </div>
       {/if}
@@ -73,8 +73,8 @@
         </button>
       </div>
       <div class="tooltip tooltip-bottom flex before:left-0" data-tip="Profile menu">
-        <Avatar
-          class="btn btn-neutral !size-10 !rounded-btn p-0"
+        <Image
+          class="btn btn-neutral size-10 rounded-btn p-0"
           src={authStore.state.profile?.avatar}
         />
       </div>

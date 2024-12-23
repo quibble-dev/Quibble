@@ -3,7 +3,7 @@
   import QuibsHeader from '$lib/components/quibs_header.svelte';
   import recent_posts from '$lib/data/mock/recent_posts.json';
   import readable from 'readable-numbers';
-  import Avatar from '$lib/components/ui/avatar.svelte';
+  import Image from '$lib/components/ui/image.svelte';
   import type { PageData } from './$types';
 
   const { data }: { data: PageData } = $props();
@@ -37,7 +37,7 @@
                 href="/q/{post.community.name}"
                 class="flex items-center gap-2 hover:text-accent hover:underline"
               >
-                <Avatar src={post.community.avatar} />
+                <Image src={post.community.avatar} class="size-6 rounded-full" />
                 <h3 class="text-xs font-semibold">q/{post.community.name}</h3>
               </a>
               <a

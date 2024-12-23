@@ -1,7 +1,6 @@
 <script lang="ts">
   import Quib from '$lib/components/quib.svelte';
   import QuibsHeader from '$lib/components/quibs_header.svelte';
-  import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
   import type { PageData } from './$types';
   import { FormatDate } from '$lib/functions/date';
@@ -47,7 +46,10 @@
   />
   <div class="absolute inset-x-0 -bottom-12 flex items-end justify-between px-4">
     <div class="flex items-end gap-2">
-      <Avatar class="!size-20 outline outline-8 outline-base-300" src={quiblet?.avatar} />
+      <Image
+        class="size-20 rounded-full outline outline-8 outline-base-300"
+        src={quiblet?.avatar}
+      />
       <h3 class="text-2xl font-bold text-info">q/{quiblet?.name}</h3>
     </div>
     <div class="flex items-center gap-2">

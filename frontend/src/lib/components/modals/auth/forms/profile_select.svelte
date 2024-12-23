@@ -2,7 +2,7 @@
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
   import type { FormProps } from '../types';
-  import Avatar from '$lib/components/ui/avatar.svelte';
+  import Image from '$lib/components/ui/image.svelte';
   import { onMount } from 'svelte';
   import { enhance } from '$app/forms';
   import type { SubmitFunction } from '@sveltejs/kit';
@@ -94,8 +94,8 @@
           type="submit"
           class="group flex flex-col items-center justify-center gap-2.5"
         >
-          <Avatar
-            class="!size-20 !rounded-2xl outline outline-offset-4 outline-neutral"
+          <Image
+            class="size-20 rounded-2xl outline outline-offset-4 outline-neutral"
             src={profile.avatar}
           />
           <span class="line-clamp-1 max-w-20 break-all text-xs font-medium"

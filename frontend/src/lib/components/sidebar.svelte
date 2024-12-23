@@ -1,6 +1,6 @@
 <script lang="ts">
   import QuibbleIcon from '$lib/components/icons/logos/quibble.svelte';
-  import Avatar from '$lib/components/ui/avatar.svelte';
+  import Image from '$lib/components/ui/image.svelte';
   import { createSidebarStore } from '$lib/stores/sidebar.svelte';
 
   const sidebarStore = createSidebarStore();
@@ -45,7 +45,7 @@
         {#each sidebarStore.state.recent as quiblet}
           <div class="flex items-center gap-2">
             <a href="/q/{quiblet.name}" class="flex">
-              <Avatar src={quiblet.avatar} />
+              <Image src={quiblet.avatar} class="size-6 rounded-full" />
             </a>
             <a href="/q/{quiblet.name}" class="text-sm font-medium">q/{quiblet.name}</a>
             <button
@@ -77,7 +77,7 @@
         {#each sidebarStore.state.your as quiblet}
           <div class="flex items-center gap-2">
             <a href="q/{quiblet.name}" class="flex">
-              <Avatar src={quiblet.avatar} />
+              <Image src={quiblet.avatar} class="size-6 rounded-full" />
             </a>
             <a href="q/{quiblet.name}" class="text-sm font-medium">q/{quiblet.name}</a>
             <button
