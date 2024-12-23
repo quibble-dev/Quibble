@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Quibble404 from '$lib/assets/vectors/quibble_404.svg';
   import { page } from '$app/stores';
+  import Quibble404 from '$lib/assets/vectors/quibble_404.svg';
 </script>
 
 <svelte:head>

@@ -1,12 +1,12 @@
 <script lang="ts">
-  import '../app.css';
-  import { onMount, type Snippet } from 'svelte';
-  import { defineCustomElements } from '@coreproject-moe/icons/loader';
-  import Header from '$lib/components/header.svelte';
-  import Sidebar from '$lib/components/sidebar.svelte';
-  import Modals from '$lib/components/modals/index.svelte';
-  import { createAuthStore } from '$lib/stores/auth.svelte';
   import type { components } from '$lib/clients/v1';
+  import Header from '$lib/components/header.svelte';
+  import Modals from '$lib/components/modals/index.svelte';
+  import Sidebar from '$lib/components/sidebar.svelte';
+  import { createAuthStore } from '$lib/stores/auth.svelte';
+  import '../app.css';
+  import { defineCustomElements } from '@coreproject-moe/icons/loader';
+  import { onMount, type Snippet } from 'svelte';
 
   type Profile = components['schemas']['Profile'];
 

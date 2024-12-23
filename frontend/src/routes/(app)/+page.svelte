@@ -1,10 +1,10 @@
 <script lang="ts">
   import Quib from '$lib/components/quib.svelte';
   import QuibsHeader from '$lib/components/quibs_header.svelte';
-  import recent_posts from '$lib/data/mock/recent_posts.json';
-  import readable from 'readable-numbers';
   import Image from '$lib/components/ui/image.svelte';
+  import recent_posts from '$lib/data/mock/recent_posts.json';
   import type { PageData } from './$types';
+  import readable from 'readable-numbers';
 
   const { data }: { data: PageData } = $props();
 </script>

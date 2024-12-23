@@ -1,12 +1,12 @@
 <script lang="ts">
+  import { page } from '$app/stores';
   import ChartBarsIcon from '$lib/components/icons/chart_bars.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
   import NotificationIcon from '$lib/components/icons/notification.svelte';
   import Image from '$lib/components/ui/image.svelte';
-  import { createModalsStore } from '$lib/stores/modals.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
-  import { page } from '$app/stores';
+  import { createModalsStore } from '$lib/stores/modals.svelte';
 
   const show_search_in_quiblet = $derived.by(
     () => $page.url.pathname.includes('/q/') && $page.data.quiblet

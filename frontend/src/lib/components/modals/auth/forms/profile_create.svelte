@@ -3,8 +3,8 @@
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
   import { cn } from '$lib/functions/classnames';
-  import type { SubmitFunction } from '@sveltejs/kit';
   import type { FormProps } from '../types';
+  import type { SubmitFunction } from '@sveltejs/kit';
 
   let { forms_state, update_forms_state, goto_form }: FormProps = $props();
 

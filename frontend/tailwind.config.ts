@@ -1,10 +1,9 @@
+import innerBorder from '@quibble-dev/tailwindcss-inner-border';
 import aspectRatio from '@tailwindcss/aspect-ratio';
 import forms from '@tailwindcss/forms';
 import typography from '@tailwindcss/typography';
 import daisyui from 'daisyui';
 import tailwindScroll from 'tailwind-scrollbar';
-import innerBorder from '@quibble-dev/tailwindcss-inner-border';
-
 import type { Config } from 'tailwindcss';
 
 export default {

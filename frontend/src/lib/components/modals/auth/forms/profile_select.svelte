@@ -1,15 +1,15 @@
 <script lang="ts">
-  import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
-  import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
-  import type { FormProps } from '../types';
-  import Image from '$lib/components/ui/image.svelte';
-  import { onMount } from 'svelte';
   import { enhance } from '$app/forms';
-  import type { SubmitFunction } from '@sveltejs/kit';
-  import { createModalsStore } from '$lib/stores/modals.svelte';
   import { invalidateAll } from '$app/navigation';
   import client from '$lib/clients/client';
   import type { components } from '$lib/clients/v1';
+  import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
+  import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
+  import Image from '$lib/components/ui/image.svelte';
+  import { createModalsStore } from '$lib/stores/modals.svelte';
+  import type { FormProps } from '../types';
+  import type { SubmitFunction } from '@sveltejs/kit';
+  import { onMount } from 'svelte';
 
   type Profile = components['schemas']['Profile'];
 

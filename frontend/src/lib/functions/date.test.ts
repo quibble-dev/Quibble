@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
 import { FormatDate } from '$lib/functions/date';
+import { describe, it, expect } from 'vitest';
 
 describe('FormatDate', () => {
   describe('timeAgo', () => {

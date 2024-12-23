@@ -1,10 +1,10 @@
 <script lang="ts">
+  import { page } from '$app/stores';
   import type { components } from '$lib/clients/v1';
   import Image from '$lib/components/ui/image.svelte';
-  import readable from 'readable-numbers';
   import { FormatDate } from '$lib/functions/date';
   import { createAuthStore } from '$lib/stores/auth.svelte';
-  import { page } from '$app/stores';
+  import readable from 'readable-numbers';
 
   type QuibProps = components['schemas']['Quib'];
 

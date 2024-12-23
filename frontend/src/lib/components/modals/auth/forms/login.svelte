@@ -1,11 +1,11 @@
 <script lang="ts">
+  import { enhance } from '$app/forms';
   import GoogleLogo from '$lib/components/icons/logos/google.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
   import { cn } from '$lib/functions/classnames';
-  import type { SubmitFunction } from '@sveltejs/kit';
   import type { FormProps } from '../types';
-  import { enhance } from '$app/forms';
+  import type { SubmitFunction } from '@sveltejs/kit';
 
   let { update_forms_state, goto_form }: FormProps = $props();
 

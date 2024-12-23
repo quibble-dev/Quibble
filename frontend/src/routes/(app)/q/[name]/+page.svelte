@@ -1,13 +1,13 @@
 <script lang="ts">
   import Quib from '$lib/components/quib.svelte';
   import QuibsHeader from '$lib/components/quibs_header.svelte';
+  import Image from '$lib/components/ui/image.svelte';
   import { cn } from '$lib/functions/classnames';
-  import type { PageData } from './$types';
   import { FormatDate } from '$lib/functions/date';
   import { createAuthStore } from '$lib/stores/auth.svelte';
-  import { onMount } from 'svelte';
   import { createSidebarStore } from '$lib/stores/sidebar.svelte';
-  import Image from '$lib/components/ui/image.svelte';
+  import type { PageData } from './$types';
+  import { onMount } from 'svelte';
 
   const { data }: { data: PageData } = $props();
   const { quiblet, quibs, highlighted_quibs } = data;

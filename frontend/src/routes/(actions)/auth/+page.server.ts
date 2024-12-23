@@ -1,7 +1,7 @@
 import { dev } from '$app/environment';
-import { fail } from '@sveltejs/kit';
-import type { Actions } from './$types';
 import client from '$lib/clients/client';
+import type { Actions } from './$types';
+import { fail } from '@sveltejs/kit';
 
 export const actions = {
   login: async ({ request, cookies }) => {

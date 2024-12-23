@@ -1,6 +1,6 @@
+import { PUBLIC_API_URL } from '$env/static/public';
 import type { paths } from './v1';
 import createClient from 'openapi-fetch';
-import { PUBLIC_API_URL } from '$env/static/public';
 
 /**
  * A Fetch API wrapper for generating types based on OpenAPI specs

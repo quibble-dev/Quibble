@@ -1,6 +1,6 @@
-import { error as raise_error, redirect } from '@sveltejs/kit';
-import type { LayoutServerLoad } from './$types';
 import client from '$lib/clients/client';
+import type { LayoutServerLoad } from './$types';
+import { error as raise_error, redirect } from '@sveltejs/kit';
 
 export const load: LayoutServerLoad = async ({ params }) => {
   const { data, error, response } = await client.GET('/api/v1/quiblets/{name}/', {

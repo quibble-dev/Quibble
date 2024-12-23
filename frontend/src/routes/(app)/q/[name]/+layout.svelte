@@ -1,9 +1,9 @@
 <script lang="ts">
-  import type { Snippet } from 'svelte';
-  import type { PageData } from './$types';
+  import Image from '$lib/components/ui/image.svelte';
   import { FormatDate } from '$lib/functions/date';
   import { pluralize } from '$lib/functions/pluralize';
-  import Image from '$lib/components/ui/image.svelte';
+  import type { PageData } from './$types';
+  import type { Snippet } from 'svelte';
 
   const { data, children }: { data: PageData; children: Snippet } = $props();
   const { quiblet } = data;

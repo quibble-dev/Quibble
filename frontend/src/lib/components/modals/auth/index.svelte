@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createModalsStore } from '$lib/stores/modals.svelte';
-  import type { FormsState, FormSubmitData, Forms } from './types';
   import forms from './forms';
+  import type { FormsState, FormSubmitData, Forms } from './types';
 
   let _form = $state<Forms>('login');
 
