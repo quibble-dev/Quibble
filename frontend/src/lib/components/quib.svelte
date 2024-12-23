@@ -64,7 +64,7 @@
       </p>
     {:else}
       <img
-        class="relative rounded-2xl outline outline-1 outline-offset-[-1px] outline-base-content/15"
+        class="rounded-2xl inner-border inner-border-base-content/15"
         src={quib.cover}
         alt=""
       />
