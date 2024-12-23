@@ -8,7 +8,6 @@
     "prettier-plugin-tailwindcss",
     "@trivago/prettier-plugin-sort-imports"
   ],
-  "importOrderSeparation": true,
   "overrides": [
     {
       "files": "*.svelte",
