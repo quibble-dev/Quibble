@@ -85,7 +85,7 @@
           <div
             class="flex-1 rounded-xl bg-cover bg-center inner-border
             inner-border-base-content/15"
-            class:bg-neutral={!quib.cover}
+            class:bg-base-100={!quib.cover}
             style="background-image: url({quib.cover});"
           ></div>
           <div class="flex flex-col p-2 pt-0.5">
