@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Image from '$lib/components/ui/image.svelte';
+  import Avatar from '$lib/components/ui/avatar.svelte';
   import { FormatDate } from '$lib/functions/date';
   import { pluralize } from '$lib/functions/pluralize';
   import type { PageData } from './$types';
@@ -53,7 +53,7 @@
       <div class="flex flex-col gap-2">
         {#each quiblet?.rangers as ranger}
           <div class="flex items-center gap-2">
-            <Image src={ranger.avatar} class="size-6 rounded-full" />
+            <Avatar src={ranger.avatar} class="size-6 rounded-full" />
             <div class="flex flex-col">
               <a href="/u/{ranger.username}" class="text-sm font-medium"
                 >u/{ranger.username}</a

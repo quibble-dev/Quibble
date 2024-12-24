@@ -10,17 +10,8 @@
 
   let valid_src = $state(false);
 
-  const object_classes: string[] = [];
-  const _klass = klass
-    ?.split(/\s+/)
-    .filter((cls) => {
-      if (cls.startsWith('object-')) {
-        object_classes.push(cls);
-        return false;
-      }
-      return true;
-    })
-    .join(' ');
+  const has_size_class = klass?.split(/\s+/).some((cls) => cls.startsWith('size-'));
+  const has_rounded_class = klass?.split(/\s+/).some((cls) => cls.startsWith('rounded-'));
 
   $effect.pre(() => {
     if (!src) {
@@ -35,9 +26,16 @@
   });
 </script>
 
-<div class={cn(_klass, 'grid place-items-center overflow-hidden bg-neutral')}>
+<div
+  class={cn(
+    klass,
+    !has_size_class && 'size-6',
+    !has_rounded_class && 'rounded-full',
+    'grid place-items-center overflow-hidden bg-neutral'
+  )}
+>
   {#if valid_src}
-    <img {src} alt="" class={cn('h-full w-full', ...object_classes)} />
+    <img {src} alt="" />
   {:else}
     <svg
       class="w-1/2 max-w-10 text-neutral-content"

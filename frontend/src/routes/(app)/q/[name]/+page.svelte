@@ -1,7 +1,7 @@
 <script lang="ts">
   import Quib from '$lib/components/quib.svelte';
   import QuibsHeader from '$lib/components/quibs_header.svelte';
-  import Image from '$lib/components/ui/image.svelte';
+  import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
   import { createAuthStore } from '$lib/stores/auth.svelte';
@@ -40,13 +40,16 @@
 </svelte:head>
 
 <div class="relative">
-  <Image
-    src={quiblet?.banner}
-    class={cn(quiblet?.banner ? 'h-40 object-cover object-center' : 'h-24', 'rounded-2xl')}
-  />
+  <div
+    class={cn(
+      !quiblet?.banner ? 'h-24 bg-neutral' : 'h-40 bg-cover bg-center',
+      'w-full rounded-2xl'
+    )}
+    style="background-image: url({quiblet?.banner});"
+  ></div>
   <div class="absolute inset-x-0 -bottom-12 flex items-end justify-between px-4">
     <div class="flex items-end gap-2">
-      <Image
+      <Avatar
         class="size-20 rounded-full outline outline-8 outline-base-300"
         src={quiblet?.avatar}
       />
