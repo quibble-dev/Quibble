@@ -4,6 +4,7 @@
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
+  import { is_valid } from '$lib/functions/is_valid';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { createViewStore } from '$lib/stores/view.svelte';
   import readable from 'readable-numbers';
@@ -15,7 +16,7 @@
   const authStore = createAuthStore(),
     viewStore = createViewStore();
 
-  let is_expanded = $state(quib.content?.trim() ? true : false);
+  let is_expanded = $state(is_valid(quib.content));
 
   const is_upvoted = $derived.by(check_if_upvoted);
   function check_if_upvoted() {
@@ -67,7 +68,7 @@
 
       <h2 class="text-xl font-bold text-info">{quib.title}</h2>
 
-      {#if quib.content?.trim()}
+      {#if is_valid(quib.content)}
         <p class="line-clamp-3 text-sm font-normal" class:hidden={quib.cover}>
           {quib.content}
         </p>
@@ -183,7 +184,7 @@
     </div>
     {#if is_expanded}
       <div class="p-4 pt-0">
-        {#if quib.content?.trim()}
+        {#if is_valid(quib.content)}
           <p class="line-clamp-3 text-sm font-normal" class:hidden={quib.cover}>
             {quib.content}
           </p>
