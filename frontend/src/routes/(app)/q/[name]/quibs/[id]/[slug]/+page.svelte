@@ -13,6 +13,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>{quib.title} : q/{quib.quiblet.name}</title>
+</svelte:head>
+
 <div class="flex items-center gap-2">
   <button
     onclick={handle_back}
