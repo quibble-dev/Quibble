@@ -16,7 +16,7 @@
   const authStore = createAuthStore(),
     viewStore = createViewStore();
 
-  let is_expanded = $state(is_valid(quib.content));
+  let is_expanded = $state(false);
 
   const is_upvoted = $derived.by(check_if_upvoted);
   function check_if_upvoted() {
@@ -40,7 +40,7 @@
 
 {#snippet content_or_cover()}
   {#if is_valid(quib.content)}
-    <p class="line-clamp-3 text-sm font-normal">
+    <p class="text-sm font-normal">
       {quib.content}
     </p>
   {:else}
