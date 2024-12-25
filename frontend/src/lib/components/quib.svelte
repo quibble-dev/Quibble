@@ -45,7 +45,7 @@
     </p>
   {:else}
     <img
-      class="cursor-pointer rounded-2xl inner-border inner-border-base-content/15"
+      class="relative cursor-pointer rounded-2xl inner-border inner-border-base-content/15"
       src={quib.cover}
       alt=""
     />
@@ -118,19 +118,19 @@
       {@render vote_comment_share_more()}
     </div>
   {:else}
-    <div class="flex-1 flex gap-4 p-4 p-4">
+    <div class="flex flex-1 gap-4 p-4 p-4">
       {@render href_overlay()}
       <div
-        class="cursor-pointer size-20 rounded-xl bg-cover bg-center inner-border
-            inner-border-base-content/15 flex-shrink-0"
+        class="size-20 flex-shrink-0 cursor-pointer rounded-xl bg-cover bg-center
+            inner-border inner-border-base-content/15"
         class:relative={quib.cover}
         class:bg-base-100={!quib.cover}
         style="background-image: url({quib.cover});"
       ></div>
-      <div class="flex flex-col w-full gap-1">
+      <div class="flex w-full flex-col gap-1">
         {@render avatar_name_date()}
         <h2 class="text-lg font-bold text-info">{quib.title}</h2>
-        <div class="flex items-center gap-4 mt-auto">
+        <div class="mt-auto flex items-center gap-4">
           <button
             onclick={() => (is_expanded = !is_expanded)}
             class="relative flex items-center gap-2"
