@@ -121,16 +121,16 @@
     <div class="flex-1 flex gap-4 p-4 p-4">
       {@render href_overlay()}
       <div
-        class="cursor-pointer size-24 rounded-xl bg-cover bg-center inner-border
+        class="cursor-pointer size-20 rounded-xl bg-cover bg-center inner-border
             inner-border-base-content/15 flex-shrink-0"
         class:relative={quib.cover}
         class:bg-base-100={!quib.cover}
         style="background-image: url({quib.cover});"
       ></div>
-      <div class="flex flex-col w-full justify-between">
+      <div class="flex flex-col w-full gap-1">
         {@render avatar_name_date()}
         <h2 class="text-lg font-bold text-info">{quib.title}</h2>
-        <div class="flex items-center gap-4 border-t border-neutral pt-2.5">
+        <div class="flex items-center gap-4 mt-auto">
           <button
             onclick={() => (is_expanded = !is_expanded)}
             class="relative flex items-center gap-2"
