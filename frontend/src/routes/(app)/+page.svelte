@@ -24,12 +24,14 @@
   </div>
 </div>
 <div class="w-80">
+  <!-- fixed shared sidebar for recent posts -->
   <div
     class="fixed top-[3.75rem] flex h-[calc(100dvh-3.75rem)] w-72 flex-col gap-4 overflow-y-scroll p-4 scrollbar-none"
   >
     <h2 class="font-medium">Recent Quibs</h2>
     <div class="flex flex-col gap-4">
       {#each recent_posts as post}
+        <!-- recent post component -->
         <div class="flex flex-col gap-2">
           <div class="flex justify-between gap-2">
             <div class="flex flex-col gap-1">

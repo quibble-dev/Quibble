@@ -40,6 +40,7 @@
 </svelte:head>
 
 <div class="relative">
+  <!-- show quiblet cover if not null or solid bg -->
   <div
     class={cn(
       !quiblet?.banner ? 'h-24 bg-neutral' : 'h-40 bg-cover bg-center',
@@ -55,6 +56,7 @@
       />
       <h3 class="text-2xl font-bold text-info">q/{quiblet?.name}</h3>
     </div>
+    <!-- quiblet basic operations -->
     <div class="flex items-center gap-2">
       <button class="btn btn-primary h-10 px-3" aria-label="Create a Post">
         <coreicons-shape-plus variant="no-border" class="size-5"></coreicons-shape-plus>
@@ -71,6 +73,7 @@
 </div>
 <div class="h-12"></div>
 <QuibsHeader />
+<!-- list highlighted quibs if exists -->
 {#if highlighted_quibs?.length}
   <div class="flex flex-col gap-4">
     <div class="flex items-center gap-2">
@@ -104,6 +107,7 @@
     </div>
   </div>
 {/if}
+<!-- list quibs -->
 {#if quibs}
   {#each quibs as quib}
     <Quib {...quib} />

@@ -26,6 +26,7 @@
   });
 </script>
 
+<!-- render available models -->
 <Modals />
 <main class="flex h-dvh w-dvw flex-col font-sans">
   <Header />

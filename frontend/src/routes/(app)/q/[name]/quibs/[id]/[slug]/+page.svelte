@@ -3,10 +3,23 @@
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { FormatDate } from '$lib/functions/date';
   import { is_valid } from '$lib/functions/is_valid';
+  import { createAuthStore } from '$lib/stores/auth.svelte';
   import type { PageData } from './$types';
+  import readable from 'readable-numbers';
 
   const { data }: { data: PageData } = $props();
   const { quib } = data;
+
+  const authStore = createAuthStore();
+
+  const is_upvoted = $derived.by(check_if_upvoted);
+  function check_if_upvoted() {
+    if (authStore.state.profile && quib.upvotes) {
+      return quib.upvotes.includes(authStore.state.profile.id);
+    } else {
+      return false;
+    }
+  }
 
   function handle_back() {
     if (browser) window.history.back();
@@ -17,6 +30,7 @@
   <title>{quib.title} : q/{quib.quiblet.name}</title>
 </svelte:head>
 
+<!-- quibber and quiblet details -->
 <div class="flex items-center gap-2">
   <button
     onclick={handle_back}
@@ -46,7 +60,9 @@
     </div>
   </div>
 </div>
+<!-- title -->
 <h2 class="text-2xl font-bold text-info">{quib.title}</h2>
+<!-- content or cover -->
 {#if is_valid(quib.content)}
   <p class="text-sm font-normal">
     {quib.content}
@@ -58,3 +74,27 @@
     <img src={quib.cover} alt="" />
   </div>
 {/if}
+<!-- quib options like vote share and more -->
+<div class="flex items-center gap-4">
+  <div class="flex items-center gap-2">
+    <button class="flex items-center gap-2" aria-label="upvote">
+      <coreicons-shape-thumbs variant="up" class="size-4" class:text-primary={is_upvoted}
+      ></coreicons-shape-thumbs>
+    </button>
+    <span class="text-sm font-medium">{readable(quib.upvotes?.length ?? 0)}</span>
+    <button class="flex items-center gap-2" aria-label="downvote">
+      <coreicons-shape-thumbs variant="down" class="size-4"></coreicons-shape-thumbs>
+    </button>
+  </div>
+  <button class="flex items-center gap-2">
+    <coreicons-shape-forum class="size-4"></coreicons-shape-forum>
+    <span class="text-sm font-medium">{readable(quib.comments?.length ?? 0)} comments</span>
+  </button>
+  <button class="flex items-center gap-2">
+    <coreicons-shape-share class="size-4"></coreicons-shape-share>
+    <span class="text-sm font-medium">Share</span>
+  </button>
+  <button class="ml-auto flex items-center gap-2" aria-label="more">
+    <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
+  </button>
+</div>

@@ -12,10 +12,12 @@
 <div class="flex h-max flex-1 flex-col gap-4 p-4">
   {@render children()}
 </div>
+<!-- fixed sidebar about quiblet details -->
 <div class="w-80">
   <div
     class="fixed top-[3.75rem] flex h-[calc(100dvh-3.75rem)] w-80 flex-col gap-4 overflow-y-scroll p-4 scrollbar-none"
   >
+    <!-- basic details -->
     <div class="flex flex-col gap-2">
       <h3 class="font-medium">{quiblet?.title ?? `q/${quiblet?.name}`}</h3>
       <p class="text-sm text-base-content/75">{quiblet?.description}</p>
@@ -43,6 +45,7 @@
       </div>
     </div>
     <div class="divider my-0 before:h-px after:h-px"></div>
+    <!-- rangers list -->
     <div class="flex items-center gap-2">
       <h3 class="text-sm font-medium">Rangers</h3>
       <div class="tooltip tooltip-right flex" data-tip="Moderators">
