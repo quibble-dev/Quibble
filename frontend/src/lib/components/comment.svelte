@@ -4,16 +4,15 @@
   import type { CommentTree } from '$lib/types/comment';
   import Comment from './comment.svelte';
   import Avatar from './ui/avatar.svelte';
-  import readable from 'readable-numbers';
 
-  let { upvotes, children, quibbler, created_at, deleted, content }: CommentTree = $props();
+  let comment: CommentTree = $props();
 
   const authStore = createAuthStore();
 
   const is_upvoted = $derived.by(check_if_upvoted);
   function check_if_upvoted() {
-    if (authStore.state.profile && upvotes) {
-      return upvotes.includes(authStore.state.profile.id);
+    if (authStore.state.profile && comment.upvotes) {
+      return comment.upvotes.includes(authStore.state.profile.id);
     } else {
       return false;
     }
@@ -21,32 +20,32 @@
 </script>
 
 <div class="flex items-start gap-2">
-  {#if deleted}
+  {#if comment.deleted}
     <Avatar class="size-8" />
   {:else}
-    <a href="/u/{quibbler?.username}">
-      <Avatar src={quibbler?.avatar} class="size-8" />
+    <a href="/u/{comment.quibbler?.username}">
+      <Avatar src={comment.quibbler?.avatar} class="size-8" />
     </a>
   {/if}
   <div class="flex flex-col gap-2">
     <div class="flex items-center gap-1.5">
-      {#if deleted}
+      {#if comment.deleted}
         <h3 class="text-xs font-semibold">[deleted]</h3>
       {:else}
         <a
-          href="/u/{quibbler?.username}"
+          href="/u/{comment.quibbler?.username}"
           class="flex items-center gap-2 hover:text-accent hover:underline"
         >
-          <h3 class="text-xs font-semibold">u/{quibbler?.username}</h3>
+          <h3 class="text-xs font-semibold">u/{comment.quibbler?.username}</h3>
         </a>
       {/if}
       <coreicons-shape-circle variant="filled" class="size-0.5 text-base-content/75"
       ></coreicons-shape-circle>
       <span class="text-xs font-medium text-base-content/75"
-        >{new FormatDate(created_at).timeAgo()}</span
+        >{new FormatDate(comment.created_at).timeAgo()}</span
       >
     </div>
-    <p class="text-sm text-info">{content}</p>
+    <p class="whitespace-pre-wrap text-sm text-info">{comment.content}</p>
     <!-- comment options -->
     <div class="flex items-center gap-4">
       <div class="flex items-center gap-2">
@@ -57,7 +56,7 @@
             class:text-primary={is_upvoted}
           ></coreicons-shape-thumbs>
         </button>
-        <span class="text-sm font-medium">{readable(upvotes?.length ?? 0)}</span>
+        <span class="text-sm font-medium">{comment.ratio}</span>
         <button class="flex items-center gap-2" aria-label="downvote">
           <coreicons-shape-thumbs variant="down" class="size-4"></coreicons-shape-thumbs>
         </button>
@@ -73,8 +72,8 @@
     <!-- extra space -->
     <div></div>
     <!-- render reply comments if any -->
-    {#if children && children.length > 0}
-      {#each children as child}
+    {#if comment.children && comment.children.length > 0}
+      {#each comment.children as child}
         <Comment {...child} />
       {/each}
     {/if}

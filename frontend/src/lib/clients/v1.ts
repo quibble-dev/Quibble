@@ -356,10 +356,15 @@ export interface components {
      * @enum {string}
      */
     ClientErrorEnum: 'client_error';
-    Comment: {
-      readonly id: number;
+    CommentCreate: {
       path?: string;
-      readonly quibbler: components['schemas']['ProfileBasic'] | null;
+      content: string;
+    };
+    CommentDetail: {
+      readonly id: number;
+      quibbler: components['schemas']['ProfileBasic'] | null;
+      readonly ratio: string;
+      path: string;
       /**
        * Create at
        * Format: date-time
@@ -426,6 +431,9 @@ export interface components {
     };
     CommentsPartialUpdateError:
       | components['schemas']['CommentsPartialUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['CommentsPartialUpdateQuibblerNonFieldErrorsErrorComponent']
+      | components['schemas']['CommentsPartialUpdateQuibblerUsernameErrorComponent']
+      | components['schemas']['CommentsPartialUpdateQuibblerAvatarErrorComponent']
       | components['schemas']['CommentsPartialUpdatePathErrorComponent']
       | components['schemas']['CommentsPartialUpdateContentErrorComponent']
       | components['schemas']['CommentsPartialUpdateDeletedErrorComponent']
@@ -456,7 +464,9 @@ export interface components {
        *     * `invalid` - invalid
        *     * `null` - null
        *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
        *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
        * @enum {string}
        */
       code:
@@ -464,7 +474,68 @@ export interface components {
         | 'invalid'
         | 'null'
         | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    CommentsPartialUpdateQuibblerAvatarErrorComponent: {
+      /**
+       * @description * `quibbler.avatar` - quibbler.avatar (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'quibbler.avatar';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    CommentsPartialUpdateQuibblerNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `quibbler.non_field_errors` - quibbler.non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'quibbler.non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `required` - required
+       * @enum {string}
+       */
+      code: 'invalid' | 'required';
+      detail: string;
+    };
+    CommentsPartialUpdateQuibblerUsernameErrorComponent: {
+      /**
+       * @description * `quibbler.username` - quibbler.username (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'quibbler.username';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
       detail: string;
     };
     CommentsPartialUpdateUpvotesErrorComponent: {
@@ -543,6 +614,9 @@ export interface components {
     };
     CommentsUpdateError:
       | components['schemas']['CommentsUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['CommentsUpdateQuibblerNonFieldErrorsErrorComponent']
+      | components['schemas']['CommentsUpdateQuibblerUsernameErrorComponent']
+      | components['schemas']['CommentsUpdateQuibblerAvatarErrorComponent']
       | components['schemas']['CommentsUpdatePathErrorComponent']
       | components['schemas']['CommentsUpdateContentErrorComponent']
       | components['schemas']['CommentsUpdateDeletedErrorComponent']
@@ -573,7 +647,9 @@ export interface components {
        *     * `invalid` - invalid
        *     * `null` - null
        *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
        *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
        * @enum {string}
        */
       code:
@@ -581,7 +657,68 @@ export interface components {
         | 'invalid'
         | 'null'
         | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    CommentsUpdateQuibblerAvatarErrorComponent: {
+      /**
+       * @description * `quibbler.avatar` - quibbler.avatar (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'quibbler.avatar';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    CommentsUpdateQuibblerNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `quibbler.non_field_errors` - quibbler.non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'quibbler.non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `required` - required
+       * @enum {string}
+       */
+      code: 'invalid' | 'required';
+      detail: string;
+    };
+    CommentsUpdateQuibblerUsernameErrorComponent: {
+      /**
+       * @description * `quibbler.username` - quibbler.username (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'quibbler.username';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
       detail: string;
     };
     CommentsUpdateUpvotesErrorComponent: {
@@ -636,10 +773,11 @@ export interface components {
       type: components['schemas']['ServerErrorEnum'];
       errors: components['schemas']['Error500'][];
     };
-    PatchedComment: {
+    PatchedCommentDetail: {
       readonly id?: number;
+      quibbler?: components['schemas']['ProfileBasic'] | null;
+      readonly ratio?: string;
       path?: string;
-      readonly quibbler?: components['schemas']['ProfileBasic'] | null;
       /**
        * Create at
        * Format: date-time
@@ -1369,43 +1507,10 @@ export interface components {
         | 'surrogate_characters_not_allowed';
       detail: string;
     };
-    QuibsCommentsCreateDeletedErrorComponent: {
-      /**
-       * @description * `deleted` - deleted (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'deleted';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    QuibsCommentsCreateDownvotesErrorComponent: {
-      /**
-       * @description * `downvotes` - downvotes (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'downvotes';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `not_a_list` - not_a_list
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-      detail: string;
-    };
     QuibsCommentsCreateError:
       | components['schemas']['QuibsCommentsCreateNonFieldErrorsErrorComponent']
       | components['schemas']['QuibsCommentsCreatePathErrorComponent']
-      | components['schemas']['QuibsCommentsCreateContentErrorComponent']
-      | components['schemas']['QuibsCommentsCreateDeletedErrorComponent']
-      | components['schemas']['QuibsCommentsCreateUpvotesErrorComponent']
-      | components['schemas']['QuibsCommentsCreateDownvotesErrorComponent'];
+      | components['schemas']['QuibsCommentsCreateContentErrorComponent'];
     QuibsCommentsCreateNonFieldErrorsErrorComponent: {
       /**
        * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
@@ -1440,22 +1545,6 @@ export interface components {
         | 'null'
         | 'null_characters_not_allowed'
         | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    QuibsCommentsCreateUpvotesErrorComponent: {
-      /**
-       * @description * `upvotes` - upvotes (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'upvotes';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `not_a_list` - not_a_list
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
       detail: string;
     };
     QuibsCommentsCreateValidationError: {
@@ -2606,7 +2695,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Comment'];
+          'application/json': components['schemas']['CommentDetail'];
         };
       };
       404: {
@@ -2639,9 +2728,9 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['Comment'];
-        'application/x-www-form-urlencoded': components['schemas']['Comment'];
-        'multipart/form-data': components['schemas']['Comment'];
+        'application/json': components['schemas']['CommentDetail'];
+        'application/x-www-form-urlencoded': components['schemas']['CommentDetail'];
+        'multipart/form-data': components['schemas']['CommentDetail'];
       };
     };
     responses: {
@@ -2650,7 +2739,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Comment'];
+          'application/json': components['schemas']['CommentDetail'];
         };
       };
       400: {
@@ -2728,9 +2817,9 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        'application/json': components['schemas']['PatchedComment'];
-        'application/x-www-form-urlencoded': components['schemas']['PatchedComment'];
-        'multipart/form-data': components['schemas']['PatchedComment'];
+        'application/json': components['schemas']['PatchedCommentDetail'];
+        'application/x-www-form-urlencoded': components['schemas']['PatchedCommentDetail'];
+        'multipart/form-data': components['schemas']['PatchedCommentDetail'];
       };
     };
     responses: {
@@ -2739,7 +2828,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Comment'];
+          'application/json': components['schemas']['CommentDetail'];
         };
       };
       400: {
@@ -3386,7 +3475,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Comment'][];
+          'application/json': components['schemas']['CommentDetail'][];
         };
       };
       404: {
@@ -3419,9 +3508,9 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['Comment'];
-        'application/x-www-form-urlencoded': components['schemas']['Comment'];
-        'multipart/form-data': components['schemas']['Comment'];
+        'application/json': components['schemas']['CommentCreate'];
+        'application/x-www-form-urlencoded': components['schemas']['CommentCreate'];
+        'multipart/form-data': components['schemas']['CommentCreate'];
       };
     };
     responses: {
@@ -3430,7 +3519,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Comment'][];
+          'application/json': components['schemas']['CommentDetail'][];
         };
       };
       400: {
