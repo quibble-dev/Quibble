@@ -34,7 +34,7 @@ shortuuid = "^1.0.13"
 # 3rd party exception handler
 drf-standardized-errors = {extras = ["openapi"], version = "^0.14.1"}
 # 3rd party django postgres ltree extention
-django-ltree = "^0.5.3"
+django-ltree-2 = "^0.1.10"
 
 [tool.poetry.group.dev.dependencies]
 # task runner

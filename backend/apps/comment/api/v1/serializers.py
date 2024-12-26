@@ -8,7 +8,7 @@ from ...models import Comment
 
 class CommentSerializer(serializers.ModelSerializer):
     path = serializers.CharField(required=False)
-    quibbler = ProfileBasicSerializer(read_only=True, allow_null=True)
+    quibbler = ProfileBasicSerializer(allow_null=True)
 
     class Meta:
         model = Comment

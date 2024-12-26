@@ -32,7 +32,7 @@ class QuibViewSet(viewsets.ModelViewSet):
 
             return response.Response(serializer.data, status=status.HTTP_200_OK)
 
-        serializer = CommentSerializer(data=request.data)
+        serializer = CommentSerializer(data=request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
 
         comment_instance = serializer.save()
