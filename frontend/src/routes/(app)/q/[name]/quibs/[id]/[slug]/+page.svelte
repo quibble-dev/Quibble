@@ -1,5 +1,6 @@
 <script lang="ts">
   import { browser } from '$app/environment';
+  import Comment from '$lib/components/comment.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { FormatDate } from '$lib/functions/date';
   import { is_valid } from '$lib/functions/is_valid';
@@ -106,7 +107,6 @@
 <!-- render comments -->
 {#if comments}
   {#each comments as comment}
-    {comment.path}
-    {comment.content}
+    <Comment {...comment} />
   {/each}
 {/if}
