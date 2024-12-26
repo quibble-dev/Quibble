@@ -3,18 +3,25 @@ import type { PageServerLoad } from './$types';
 import { error as raise_error, redirect } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ params }) => {
-  const { data, error, response } = await client.GET('/api/v1/quibs/{id}/', {
-    params: {
-      path: { id: params.id }
-    }
-  });
+  const [quib, comments] = await Promise.all([
+    await client.GET('/api/v1/quibs/{id}/', {
+      params: {
+        path: { id: params.id }
+      }
+    }),
+    await client.GET('/api/v1/quibs/{id}/comments/', {
+      params: {
+        path: { id: params.id }
+      }
+    })
+  ]);
 
-  if (response.ok && data) {
-    if (data.slug !== params.slug) {
-      redirect(307, `/q/${params.name}/quibs/${data.id}/${data.slug}/`);
+  if (quib.response.ok && quib.data) {
+    if (quib.data.slug !== params.slug) {
+      redirect(307, `/q/${params.name}/quibs/${quib.data.id}/${quib.data.slug}/`);
     }
-    return { quib: data };
+    return { quib: quib.data, comments: comments.data };
   } else {
-    raise_error(response.status, error?.errors[0]?.detail);
+    raise_error(quib.response.status, quib.error?.errors[0]?.detail);
   }
 };

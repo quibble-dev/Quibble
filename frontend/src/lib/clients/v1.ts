@@ -155,7 +155,7 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
-    get: operations['quibs_comments_retrieve'];
+    get: operations['quibs_comments_list'];
     put?: never;
     post: operations['quibs_comments_create'];
     delete?: never;
@@ -708,7 +708,7 @@ export interface components {
       is_public?: boolean;
       highlighted?: boolean;
       title?: string;
-      readonly slug?: string;
+      slug?: string;
       content?: string;
       /** Format: uri */
       cover?: string | null;
@@ -769,7 +769,7 @@ export interface components {
       is_public?: boolean;
       highlighted?: boolean;
       title: string;
-      readonly slug: string;
+      slug?: string;
       content?: string;
       /** Format: uri */
       cover?: string | null;
@@ -782,7 +782,7 @@ export interface components {
       cover?: string | null;
       title: string;
       readonly id: string;
-      readonly slug: string;
+      slug?: string;
       /**
        * Create at
        * Format: date-time
@@ -1581,6 +1581,7 @@ export interface components {
       | components['schemas']['QuibsCreateIsPublicErrorComponent']
       | components['schemas']['QuibsCreateHighlightedErrorComponent']
       | components['schemas']['QuibsCreateTitleErrorComponent']
+      | components['schemas']['QuibsCreateSlugErrorComponent']
       | components['schemas']['QuibsCreateContentErrorComponent']
       | components['schemas']['QuibsCreateCoverErrorComponent']
       | components['schemas']['QuibsCreateUpvotesErrorComponent']
@@ -1626,6 +1627,28 @@ export interface components {
        * @enum {string}
        */
       code: 'invalid' | 'null';
+      detail: string;
+    };
+    QuibsCreateSlugErrorComponent: {
+      /**
+       * @description * `slug` - slug (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'slug';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
       detail: string;
     };
     QuibsCreateTitleErrorComponent: {
@@ -1748,6 +1771,7 @@ export interface components {
       | components['schemas']['QuibsPartialUpdateIsPublicErrorComponent']
       | components['schemas']['QuibsPartialUpdateHighlightedErrorComponent']
       | components['schemas']['QuibsPartialUpdateTitleErrorComponent']
+      | components['schemas']['QuibsPartialUpdateSlugErrorComponent']
       | components['schemas']['QuibsPartialUpdateContentErrorComponent']
       | components['schemas']['QuibsPartialUpdateCoverErrorComponent']
       | components['schemas']['QuibsPartialUpdateUpvotesErrorComponent']
@@ -1793,6 +1817,28 @@ export interface components {
        * @enum {string}
        */
       code: 'invalid' | 'null';
+      detail: string;
+    };
+    QuibsPartialUpdateSlugErrorComponent: {
+      /**
+       * @description * `slug` - slug (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'slug';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
       detail: string;
     };
     QuibsPartialUpdateTitleErrorComponent: {
@@ -1915,6 +1961,7 @@ export interface components {
       | components['schemas']['QuibsUpdateIsPublicErrorComponent']
       | components['schemas']['QuibsUpdateHighlightedErrorComponent']
       | components['schemas']['QuibsUpdateTitleErrorComponent']
+      | components['schemas']['QuibsUpdateSlugErrorComponent']
       | components['schemas']['QuibsUpdateContentErrorComponent']
       | components['schemas']['QuibsUpdateCoverErrorComponent']
       | components['schemas']['QuibsUpdateUpvotesErrorComponent']
@@ -1960,6 +2007,28 @@ export interface components {
        * @enum {string}
        */
       code: 'invalid' | 'null';
+      detail: string;
+    };
+    QuibsUpdateSlugErrorComponent: {
+      /**
+       * @description * `slug` - slug (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'slug';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
       detail: string;
     };
     QuibsUpdateTitleErrorComponent: {
@@ -3345,7 +3414,7 @@ export interface operations {
       };
     };
   };
-  quibs_comments_retrieve: {
+  quibs_comments_list: {
     parameters: {
       query?: never;
       header?: never;
@@ -3362,7 +3431,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Comment'];
+          'application/json': components['schemas']['Comment'][];
         };
       };
       404: {
@@ -3406,7 +3475,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Comment'];
+          'application/json': components['schemas']['Comment'][];
         };
       };
       400: {

@@ -8,7 +8,7 @@
   import readable from 'readable-numbers';
 
   const { data }: { data: PageData } = $props();
-  const { quib } = data;
+  const { quib, comments } = data;
 
   const authStore = createAuthStore();
 
@@ -98,3 +98,15 @@
     <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
   </button>
 </div>
+<!-- add comment dynamic box -->
+<button class="flex items-center gap-2 rounded-2xl border border-neutral p-2.5 text-sm">
+  <coreicons-shape-message-circle class="size-5"></coreicons-shape-message-circle>
+  Add a comment...
+</button>
+<!-- render comments -->
+{#if comments}
+  {#each comments as comment}
+    {comment.path}
+    {comment.content}
+  {/each}
+{/if}

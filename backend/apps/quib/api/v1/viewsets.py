@@ -1,6 +1,7 @@
 from http import HTTPMethod
 
 from django.shortcuts import get_object_or_404
+from drf_spectacular.utils import extend_schema
 from rest_framework import response, status, viewsets
 from rest_framework.decorators import action
 
@@ -20,6 +21,7 @@ class QuibViewSet(viewsets.ModelViewSet):
             return CommentSerializer
         return self.serializer_class
 
+    @extend_schema(responses=CommentSerializer(many=True))
     @action(detail=True, methods=[HTTPMethod.GET, HTTPMethod.POST])
     def comments(self, request, pk=None):
         quib_instance = get_object_or_404(Quib, pk=pk)
