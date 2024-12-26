@@ -2,7 +2,7 @@
   import { FormatDate } from '$lib/functions/date';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import type { CommentTree } from '$lib/types/comment';
-  import Comment from './comment.svelte';
+  import CommentBlock from './comment_block.svelte';
   import Avatar from './ui/avatar.svelte';
 
   let comment: CommentTree = $props();
@@ -74,7 +74,7 @@
     <!-- render reply comments if any -->
     {#if comment.children && comment.children.length > 0}
       {#each comment.children as child}
-        <Comment {...child} />
+        <CommentBlock {...child} />
       {/each}
     {/if}
   </div>
