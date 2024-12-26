@@ -1,11 +1,14 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
+from apps.user.api.v1.serializers import ProfileBasicSerializer
+
 from ...models import Comment
 
 
 class CommentSerializer(serializers.ModelSerializer):
     path = serializers.CharField(required=False)
+    quibbler = ProfileBasicSerializer(read_only=True, allow_null=True)
 
     class Meta:
         model = Comment

@@ -359,6 +359,7 @@ export interface components {
     Comment: {
       readonly id: number;
       path?: string;
+      readonly quibbler: components['schemas']['ProfileBasic'] | null;
       /**
        * Create at
        * Format: date-time
@@ -366,7 +367,6 @@ export interface components {
       readonly created_at: string;
       content: string;
       deleted?: boolean;
-      quibbler?: number | null;
       upvotes?: number[];
       downvotes?: number[];
     };
@@ -429,7 +429,6 @@ export interface components {
       | components['schemas']['CommentsPartialUpdatePathErrorComponent']
       | components['schemas']['CommentsPartialUpdateContentErrorComponent']
       | components['schemas']['CommentsPartialUpdateDeletedErrorComponent']
-      | components['schemas']['CommentsPartialUpdateQuibblerErrorComponent']
       | components['schemas']['CommentsPartialUpdateUpvotesErrorComponent']
       | components['schemas']['CommentsPartialUpdateDownvotesErrorComponent'];
     CommentsPartialUpdateNonFieldErrorsErrorComponent: {
@@ -466,20 +465,6 @@ export interface components {
         | 'null'
         | 'null_characters_not_allowed'
         | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    CommentsPartialUpdateQuibblerErrorComponent: {
-      /**
-       * @description * `quibbler` - quibbler (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'quibbler';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type';
       detail: string;
     };
     CommentsPartialUpdateUpvotesErrorComponent: {
@@ -561,7 +546,6 @@ export interface components {
       | components['schemas']['CommentsUpdatePathErrorComponent']
       | components['schemas']['CommentsUpdateContentErrorComponent']
       | components['schemas']['CommentsUpdateDeletedErrorComponent']
-      | components['schemas']['CommentsUpdateQuibblerErrorComponent']
       | components['schemas']['CommentsUpdateUpvotesErrorComponent']
       | components['schemas']['CommentsUpdateDownvotesErrorComponent'];
     CommentsUpdateNonFieldErrorsErrorComponent: {
@@ -598,20 +582,6 @@ export interface components {
         | 'null'
         | 'null_characters_not_allowed'
         | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    CommentsUpdateQuibblerErrorComponent: {
-      /**
-       * @description * `quibbler` - quibbler (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'quibbler';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type';
       detail: string;
     };
     CommentsUpdateUpvotesErrorComponent: {
@@ -669,6 +639,7 @@ export interface components {
     PatchedComment: {
       readonly id?: number;
       path?: string;
+      readonly quibbler?: components['schemas']['ProfileBasic'] | null;
       /**
        * Create at
        * Format: date-time
@@ -676,7 +647,6 @@ export interface components {
       readonly created_at?: string;
       content?: string;
       deleted?: boolean;
-      quibbler?: number | null;
       upvotes?: number[];
       downvotes?: number[];
     };
@@ -1434,7 +1404,6 @@ export interface components {
       | components['schemas']['QuibsCommentsCreatePathErrorComponent']
       | components['schemas']['QuibsCommentsCreateContentErrorComponent']
       | components['schemas']['QuibsCommentsCreateDeletedErrorComponent']
-      | components['schemas']['QuibsCommentsCreateQuibblerErrorComponent']
       | components['schemas']['QuibsCommentsCreateUpvotesErrorComponent']
       | components['schemas']['QuibsCommentsCreateDownvotesErrorComponent'];
     QuibsCommentsCreateNonFieldErrorsErrorComponent: {
@@ -1471,20 +1440,6 @@ export interface components {
         | 'null'
         | 'null_characters_not_allowed'
         | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    QuibsCommentsCreateQuibblerErrorComponent: {
-      /**
-       * @description * `quibbler` - quibbler (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'quibbler';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type';
       detail: string;
     };
     QuibsCommentsCreateUpvotesErrorComponent: {
