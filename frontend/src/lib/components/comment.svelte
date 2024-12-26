@@ -1,10 +1,23 @@
 <script lang="ts">
   import { FormatDate } from '$lib/functions/date';
+  import { createAuthStore } from '$lib/stores/auth.svelte';
   import type { CommentTree } from '$lib/types/comment';
   import Comment from './comment.svelte';
   import Avatar from './ui/avatar.svelte';
+  import readable from 'readable-numbers';
 
-  let { children, quibbler, created_at, deleted, content }: CommentTree = $props();
+  let { upvotes, children, quibbler, created_at, deleted, content }: CommentTree = $props();
+
+  const authStore = createAuthStore();
+
+  const is_upvoted = $derived.by(check_if_upvoted);
+  function check_if_upvoted() {
+    if (authStore.state.profile && upvotes) {
+      return upvotes.includes(authStore.state.profile.id);
+    } else {
+      return false;
+    }
+  }
 </script>
 
 <div class="flex items-start gap-2">
@@ -33,7 +46,33 @@
         >{new FormatDate(created_at).timeAgo()}</span
       >
     </div>
-    <p class="text-sm">{content}</p>
+    <p class="text-sm text-info">{content}</p>
+    <!-- comment options -->
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2">
+        <button class="flex items-center gap-2" aria-label="upvote">
+          <coreicons-shape-thumbs
+            variant="up"
+            class="size-4"
+            class:text-primary={is_upvoted}
+          ></coreicons-shape-thumbs>
+        </button>
+        <span class="text-sm font-medium">{readable(upvotes?.length ?? 0)}</span>
+        <button class="flex items-center gap-2" aria-label="downvote">
+          <coreicons-shape-thumbs variant="down" class="size-4"></coreicons-shape-thumbs>
+        </button>
+      </div>
+      <button class="flex items-center gap-2">
+        <coreicons-shape-share class="size-4"></coreicons-shape-share>
+        <span class="text-sm font-medium">Share</span>
+      </button>
+      <button class="flex items-center gap-2" aria-label="more">
+        <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
+      </button>
+    </div>
+    <!-- extra space -->
+    <div></div>
+    <!-- render reply comments if any -->
     {#if children && children.length > 0}
       {#each children as child}
         <Comment {...child} />
