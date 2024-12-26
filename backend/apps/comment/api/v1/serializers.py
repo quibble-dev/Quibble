@@ -6,18 +6,16 @@ from apps.user.api.v1.serializers import ProfileBasicSerializer
 from ...models import Comment
 
 
-class CommentSerializer(serializers.ModelSerializer):
+class CommentCreateSerializer(serializers.ModelSerializer):
     path = serializers.CharField(required=False)
-    quibbler = ProfileBasicSerializer(allow_null=True)
 
     class Meta:
         model = Comment
-        fields = '__all__'
+        fields = ('path', 'content')
 
     def create(self, validated_data):
         data = {
-            'quibbler': validated_data.get('quibbler')
-            or self.context['request'].user_profile,
+            'quibbler': self.context['request'].user_profile,
             'content': validated_data['content'],
         }
 
@@ -32,3 +30,11 @@ class CommentSerializer(serializers.ModelSerializer):
             )  # pyright: ignore
         comment_instance.save()
         return comment_instance
+
+
+class CommentDetailSerializer(serializers.ModelSerializer):
+    quibbler = ProfileBasicSerializer(allow_null=True)
+
+    class Meta:
+        model = Comment
+        fields = '__all__'
