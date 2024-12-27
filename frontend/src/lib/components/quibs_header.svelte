@@ -47,7 +47,7 @@
 
       <div class="flex flex-col items-center gap-1">
         <a href={item.href} aria-label={key} class="flex items-center gap-2">
-          <item.icon class="size-4" />
+          <item.icon class={cn(is_active && 'text-primary', 'size-4')} />
           <span class="text-sm font-medium capitalize">{key}</span>
         </a>
         {#if is_active}

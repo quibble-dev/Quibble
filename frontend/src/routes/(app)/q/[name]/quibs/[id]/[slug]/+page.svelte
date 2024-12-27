@@ -148,9 +148,7 @@
               aria-label="{key} filter"
               class="flex items-center gap-2 rounded-xl p-2"
             >
-              <item.icon
-                class={cn(is_active ? 'text-primary' : 'text-neutral-content', 'size-4')}
-              />
+              <item.icon class={cn(is_active && 'text-primary', 'size-4')} />
               <span class="text-sm font-medium capitalize" class:text-primary={is_active}
                 >{key}</span
               >
