@@ -20,13 +20,21 @@
 </script>
 
 <div class="flex items-start gap-2">
-  {#if comment.deleted}
-    <Avatar class="size-8" />
-  {:else}
-    <a href="/u/{comment.quibbler?.username}">
-      <Avatar src={comment.quibbler?.avatar} class="size-8" />
-    </a>
-  {/if}
+  <div class="flex flex-col items-center gap-2 self-stretch">
+    {#if comment.deleted}
+      <Avatar class="size-8 flex-shrink-0" />
+    {:else}
+      <a href="/u/{comment.quibbler?.username}">
+        <Avatar src={comment.quibbler?.avatar} class="size-8 flex-shrink-0" />
+      </a>
+    {/if}
+    <div role="button" class="group grid size-full place-items-center">
+      <div
+        class="h-full w-px rounded-full bg-neutral transition-colors group-hover:w-0.5
+        group-hover:bg-primary"
+      ></div>
+    </div>
+  </div>
   <div class="flex flex-col gap-2">
     <div class="flex items-center gap-1.5">
       {#if comment.deleted}
