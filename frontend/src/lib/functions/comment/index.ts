@@ -3,9 +3,9 @@ import type { Comment, CommentTree } from '$lib/types/comment';
 export class CommentTreeBuilder {
   #tree: CommentTree[] = [];
 
-  constructor(private json: Comment[] = []) {
+  constructor(private data: Comment[] = []) {
     // NOTE: might do more operations in future
-    this.#tree = this.convert_to_tree(this.json);
+    this.#tree = this.convert_to_tree(this.data);
   }
 
   private convert_to_tree(data: Comment[]) {
@@ -14,7 +14,7 @@ export class CommentTreeBuilder {
 
     // initialize node_map with empty children array
     data.forEach((node) => {
-      const _node = { ...node, children: [] };
+      const _node = { ...node, children: [], collapsed: false };
       node_map[String(node.path)] = _node;
 
       if (!node.path?.includes('.')) {
@@ -29,8 +29,8 @@ export class CommentTreeBuilder {
       const parent_path = path_parts?.slice(0, -1).join('.');
       const parent_node = node_map[String(parent_path)];
 
-      if (parent_node) {
-        parent_node.children.push(node);
+      if (parent_node && node_map[node.path]) {
+        parent_node.children.push(node_map[node.path]!);
       }
     });
 
