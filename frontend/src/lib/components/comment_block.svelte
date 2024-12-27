@@ -92,6 +92,10 @@
           </button>
         </div>
         <button class="flex items-center gap-2">
+          <coreicons-shape-message-circle class="size-4"></coreicons-shape-message-circle>
+          <span class="text-sm font-medium">Reply</span>
+        </button>
+        <button class="flex items-center gap-2">
           <coreicons-shape-share class="size-4"></coreicons-shape-share>
           <span class="text-sm font-medium">Share</span>
         </button>
