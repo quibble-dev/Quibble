@@ -1,7 +1,11 @@
 <script lang="ts">
   import { browser } from '$app/environment';
   import CommentBlock from '$lib/components/comment_block.svelte';
+  import NewIcon from '$lib/components/icons/new.svelte';
+  import RocketIcon from '$lib/components/icons/rocket.svelte';
+  import TopIcon from '$lib/components/icons/top.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
   import { is_valid } from '$lib/functions/is_valid';
   import { createAuthStore } from '$lib/stores/auth.svelte';
@@ -21,6 +25,22 @@
       return false;
     }
   }
+
+  let active_mapping = $state<{
+    filter: keyof typeof mapping.filters;
+  }>({
+    filter: 'best'
+  });
+
+  const mapping = {
+    filters: {
+      best: { icon: RocketIcon, onclick: () => (active_mapping.filter = 'best') },
+      new: { icon: NewIcon, onclick: () => (active_mapping.filter = 'new') },
+      top: { icon: TopIcon, onclick: () => (active_mapping.filter = 'top') }
+    }
+  };
+
+  let active_filter = $derived(mapping.filters[active_mapping.filter]);
 
   function handle_back() {
     if (browser) window.history.back();
@@ -104,6 +124,46 @@
   <coreicons-shape-message-circle class="size-5"></coreicons-shape-message-circle>
   Add a comment...
 </button>
+<!-- comment sort and add comment -->
+<div class="flex items-center gap-2">
+  <div class="flex items-center gap-2">
+    <span class="text-sm">Sort by:</span>
+    <div class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="flex items-center gap-2">
+        <active_filter.icon class="size-4 stroke-primary" />
+        <span class="text-sm font-medium capitalize">{active_mapping.filter}</span>
+        <coreicons-shape-chevron variant="down" class="size-4 text-base-content/75"
+        ></coreicons-shape-chevron>
+      </div>
+      <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+      <ul
+        tabindex="0"
+        class="menu dropdown-content z-10 mt-2 gap-1 rounded-2xl bg-base-100 p-1.5"
+      >
+        {#each Object.entries(mapping.filters) as [key, item]}
+          {@const is_active = active_mapping.filter === key}
+          <li>
+            <button
+              onclick={item.onclick}
+              aria-label="{key} filter"
+              class="flex items-center gap-2 rounded-xl p-2"
+            >
+              <item.icon
+                class={cn(
+                  is_active ? 'stroke-primary' : 'stroke-neutral-content',
+                  'size-4'
+                )}
+              />
+              <span class="text-sm font-medium capitalize" class:text-primary={is_active}
+                >{key}</span
+              >
+            </button>
+          </li>
+        {/each}
+      </ul>
+    </div>
+  </div>
+</div>
 <!-- render comments -->
 {#if comments}
   {#each comments as comment}
