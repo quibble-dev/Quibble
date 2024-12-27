@@ -49,12 +49,3 @@ class ShortUUIDMixin(models.Model):
 
     class Meta:  # pyright: ignore
         abstract = True
-
-
-class RatioMixin(models.Model):
-    @property
-    def ratio(self):
-        return self.upvotes.count() - self.downvotes.count()  # type: ignore
-
-    class Meta:
-        abstract = True

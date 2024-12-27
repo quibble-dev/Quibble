@@ -4,14 +4,14 @@ from django.utils.translation import gettext_lazy as _
 from django_ltree.models import TreeModel
 
 from apps.user.models import Profile
-from common.mixins.model_mixins import CreatedAtMixin, RatioMixin
+from common.mixins.model_mixins import CreatedAtMixin
 
 from .managers import CommentManager
 
 # Create your models here.
 
 
-class Comment(CreatedAtMixin, RatioMixin, TreeModel):
+class Comment(CreatedAtMixin, TreeModel):
     quibbler = models.ForeignKey(
         Profile, on_delete=models.SET_NULL, null=True, verbose_name=_('quibbler')
     )

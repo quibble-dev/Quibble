@@ -32,7 +32,7 @@ class QuibViewSet(viewsets.ModelViewSet):
         context = {'request': request}
 
         if request.method == HTTPMethod.GET:
-            comments = quib_instance.comments.all()
+            comments = quib_instance.comments.with_annotated_ratio()  # pyright: ignore
             serializer = CommentDetailSerializer(comments, many=True, context=context)
 
             return response.Response(serializer.data, status=status.HTTP_200_OK)

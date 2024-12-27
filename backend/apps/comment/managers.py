@@ -1,3 +1,4 @@
+from django.db.models import Count, ExpressionWrapper, F, IntegerField
 from django_ltree.managers import TreeManager
 
 
@@ -18,3 +19,13 @@ class CommentManager(TreeManager):
         for comment in self.filter(deleted=True):
             if comment.children_count == 0:
                 comment.delete()
+
+    def with_annotated_ratio(self):
+        # returns annotated ratio property
+        return self.annotate(
+            upvote_count=Count('upvotes'),
+            downvote_count=Count('downvotes'),
+            ratio=ExpressionWrapper(
+                F('upvote_count') - F('downvote_count'), output_field=IntegerField()
+            ),
+        )
