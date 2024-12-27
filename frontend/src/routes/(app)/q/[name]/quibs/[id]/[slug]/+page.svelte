@@ -128,9 +128,9 @@
 <div class="flex items-center gap-2">
   <div class="flex items-center gap-2">
     <span class="text-sm">Sort by:</span>
-    <div class="dropdown dropdown-end">
+    <div class="dropdown-start dropdown">
       <div tabindex="0" role="button" class="flex items-center gap-2">
-        <active_filter.icon class="size-4 stroke-primary" />
+        <active_filter.icon class="size-4 text-primary" />
         <span class="text-sm font-medium capitalize">{active_mapping.filter}</span>
         <coreicons-shape-chevron variant="down" class="size-4 text-base-content/75"
         ></coreicons-shape-chevron>
@@ -149,10 +149,7 @@
               class="flex items-center gap-2 rounded-xl p-2"
             >
               <item.icon
-                class={cn(
-                  is_active ? 'stroke-primary' : 'stroke-neutral-content',
-                  'size-4'
-                )}
+                class={cn(is_active ? 'text-primary' : 'text-neutral-content', 'size-4')}
               />
               <span class="text-sm font-medium capitalize" class:text-primary={is_active}
                 >{key}</span
