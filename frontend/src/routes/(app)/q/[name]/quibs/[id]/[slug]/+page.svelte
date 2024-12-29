@@ -92,6 +92,11 @@
   <div
     class="relative flex max-h-[25rem] cursor-pointer justify-center overflow-hidden rounded-2xl inner-border inner-border-base-content/15"
   >
+    <!-- blurred img -->
+    <div
+      class="absolute inset-0 -z-10 scale-150 bg-cover bg-center opacity-50 blur-xl"
+      style="background-image: url({quib.cover});"
+    ></div>
     <img src={quib.cover} alt="" class="object-contain" />
   </div>
 {/if}
