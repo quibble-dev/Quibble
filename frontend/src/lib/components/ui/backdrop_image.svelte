@@ -3,12 +3,13 @@
 
   type Props = {
     src: string;
-    class?: string;
-    img_class?: string;
-    bg_class?: string;
-  };
+  } & Partial<{
+    class: string;
+    img_class: string;
+    backdrop_class: string;
+  }>;
 
-  let { src, class: klass, img_class, bg_class }: Props = $props();
+  let { src, class: klass, img_class, backdrop_class }: Props = $props();
 </script>
 
 <div
@@ -20,7 +21,7 @@
   <!-- blurred img -->
   <div
     class={cn(
-      bg_class,
+      backdrop_class,
       'absolute inset-0 -z-10 scale-150 bg-cover bg-center opacity-50 blur-xl'
     )}
     style="background-image: url({src});"
