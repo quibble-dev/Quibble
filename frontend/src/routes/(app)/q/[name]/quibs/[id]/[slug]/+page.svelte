@@ -90,9 +90,9 @@
   </p>
 {:else}
   <div
-    class="relative flex max-h-[25rem] cursor-pointer justify-center overflow-hidden rounded-2xl bg-cover bg-center inner-border inner-border-base-content/15"
+    class="relative flex max-h-[25rem] cursor-pointer justify-center overflow-hidden rounded-2xl inner-border inner-border-base-content/15"
   >
-    <img src={quib.cover} alt="" />
+    <img src={quib.cover} alt="" class="object-contain" />
   </div>
 {/if}
 <!-- quib options like vote share and more -->

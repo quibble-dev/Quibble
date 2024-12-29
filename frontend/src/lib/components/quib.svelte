@@ -44,11 +44,11 @@
       {quib.content}
     </p>
   {:else}
-    <img
-      class="relative cursor-pointer rounded-2xl inner-border inner-border-base-content/15"
-      src={quib.cover}
-      alt=""
-    />
+    <div
+      class="relative flex max-h-[20rem] cursor-pointer justify-center overflow-hidden rounded-2xl inner-border inner-border-base-content/15"
+    >
+      <img src={quib.cover} alt="" class="object-contain" />
+    </div>
   {/if}
 {/snippet}
 
@@ -121,7 +121,7 @@
     <div class="flex flex-1 gap-4 p-4 p-4">
       {@render href_overlay()}
       <div
-        class="size-20 flex-shrink-0 cursor-pointer rounded-xl bg-cover bg-center
+        class="size-20 flex-shrink-0 cursor-pointer rounded-xl bg-cover bg-center bg-no-repeat
             inner-border inner-border-base-content/15"
         class:relative={quib.cover}
         class:bg-base-100={!quib.cover}
