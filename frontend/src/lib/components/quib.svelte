@@ -2,6 +2,7 @@
   import { page } from '$app/stores';
   import type { components } from '$lib/clients/v1';
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import BackdropImage from '$lib/components/ui/backdrop_image.svelte';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
   import { is_valid } from '$lib/functions/is_valid';
@@ -44,16 +45,7 @@
       {quib.content}
     </p>
   {:else}
-    <div
-      class="relative z-10 flex max-h-[25rem] cursor-pointer justify-center overflow-hidden rounded-2xl inner-border inner-border-base-content/15"
-    >
-      <!-- blurred img -->
-      <div
-        class="absolute inset-0 -z-10 scale-150 bg-cover bg-center opacity-50 blur-xl"
-        style="background-image: url({quib.cover});"
-      ></div>
-      <img src={quib.cover} alt="" class="object-contain" />
-    </div>
+    <BackdropImage src={quib.cover} class="z-10 max-h-[25rem]" />
   {/if}
 {/snippet}
 

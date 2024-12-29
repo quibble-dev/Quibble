@@ -1,9 +1,9 @@
 <script lang="ts">
   import { cn } from '$lib/functions/classnames';
+  import type { Nullable } from '$lib/types/shared';
 
-  type Props = {
-    src: string;
-  } & Partial<{
+  type Props = Partial<{
+    src: Nullable<string>;
     class: string;
     img_class: string;
     backdrop_class: string;
@@ -15,7 +15,7 @@
 <div
   class={cn(
     klass,
-    'relative flex max-h-[25rem] cursor-pointer justify-center overflow-hidden rounded-2xl inner-border inner-border-base-content/15'
+    'relative flex cursor-pointer justify-center overflow-hidden rounded-2xl inner-border inner-border-base-content/15'
   )}
 >
   <!-- blurred img -->

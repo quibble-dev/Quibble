@@ -90,7 +90,7 @@
     {quib.content}
   </p>
 {:else}
-  <BackdropImage src={quib.cover as string} />
+  <BackdropImage src={quib.cover} class="max-h-[25rem]" />
 {/if}
 <!-- quib options like vote share and more -->
 <div class="flex items-center gap-4">
