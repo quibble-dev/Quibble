@@ -4,10 +4,10 @@
   import Modals from '$lib/components/modals/index.svelte';
   import Sidebar from '$lib/components/sidebar.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
-  import '../app.css';
+  import '../styles/app.css';
+  import '../styles/smiz.css';
   import { defineCustomElements } from '@coreproject-moe/icons/loader';
   import { onMount, type Snippet } from 'svelte';
-  import 'svelte-medium-image-zoom/dist/styles.css';
 
   type Profile = components['schemas']['Profile'];
 

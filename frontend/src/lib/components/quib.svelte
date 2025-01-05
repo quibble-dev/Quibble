@@ -47,7 +47,13 @@
     </p>
   {:else}
     <BackdropImage src={quib.cover} class="z-10">
-      <Zoom>
+      <Zoom class_button_unzoom="btn" class_button_zoom="btn">
+        {#snippet icon_zoom()}
+          <coreicons-shape-expand class="size-5"></coreicons-shape-expand>
+        {/snippet}
+        {#snippet icon_unzoom()}
+          <coreicons-shape-shrink class="size-5"></coreicons-shape-shrink>
+        {/snippet}
         <img src={quib.cover} alt="" class="max-h-[25rem] object-contain" />
       </Zoom>
     </BackdropImage>
