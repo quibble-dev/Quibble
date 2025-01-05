@@ -6,6 +6,7 @@
   import TopIcon from '$lib/components/icons/top.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import BackdropImage from '$lib/components/ui/backdrop_image.svelte';
+  import Zoom from '$lib/components/ui/zoom.svelte';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
   import { is_valid } from '$lib/functions/is_valid';
@@ -90,7 +91,11 @@
     {quib.content}
   </p>
 {:else}
-  <BackdropImage src={quib.cover} class="max-h-[25rem]" />
+  <BackdropImage src={quib.cover} class="z-10">
+    <Zoom>
+      <img src={quib.cover} alt="" class="max-h-[25rem] object-contain" />
+    </Zoom>
+  </BackdropImage>
 {/if}
 <!-- quib options like vote share and more -->
 <div class="flex items-center gap-4">
