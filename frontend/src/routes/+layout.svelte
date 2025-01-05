@@ -7,6 +7,7 @@
   import '../app.css';
   import { defineCustomElements } from '@coreproject-moe/icons/loader';
   import { onMount, type Snippet } from 'svelte';
+  import 'svelte-medium-image-zoom/dist/styles.css';
 
   type Profile = components['schemas']['Profile'];
 

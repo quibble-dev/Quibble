@@ -9,6 +9,7 @@
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { createViewStore } from '$lib/stores/view.svelte';
   import readable from 'readable-numbers';
+  import Zoom from 'svelte-medium-image-zoom';
 
   type QuibProps = components['schemas']['Quib'];
 
@@ -45,7 +46,11 @@
       {quib.content}
     </p>
   {:else}
-    <BackdropImage src={quib.cover} class="z-10 max-h-[25rem]" />
+    <BackdropImage src={quib.cover} class="z-10">
+      <Zoom>
+        <img src={quib.cover} alt="" class="max-h-[25rem] object-contain" />
+      </Zoom>
+    </BackdropImage>
   {/if}
 {/snippet}
 
