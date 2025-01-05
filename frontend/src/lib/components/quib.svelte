@@ -3,13 +3,13 @@
   import type { components } from '$lib/clients/v1';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import BackdropImage from '$lib/components/ui/backdrop_image.svelte';
+  import Zoom from '$lib/components/ui/zoom.svelte';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
   import { is_valid } from '$lib/functions/is_valid';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { createViewStore } from '$lib/stores/view.svelte';
   import readable from 'readable-numbers';
-  import Zoom from 'svelte-medium-image-zoom';
 
   type QuibProps = components['schemas']['Quib'];
 
@@ -47,13 +47,7 @@
     </p>
   {:else}
     <BackdropImage src={quib.cover} class="z-10">
-      <Zoom class_button_unzoom="btn" class_button_zoom="btn">
-        {#snippet icon_zoom()}
-          <coreicons-shape-expand class="size-5"></coreicons-shape-expand>
-        {/snippet}
-        {#snippet icon_unzoom()}
-          <coreicons-shape-shrink class="size-5"></coreicons-shape-shrink>
-        {/snippet}
+      <Zoom>
         <img src={quib.cover} alt="" class="max-h-[25rem] object-contain" />
       </Zoom>
     </BackdropImage>
