@@ -4,7 +4,7 @@
   let { children } = $props();
 </script>
 
-<Zoom class_button_unzoom="btn" class_button_zoom="btn">
+<Zoom class_button_unzoom="btn" class_button_zoom="btn" zoom_margin={10}>
   {#snippet icon_zoom()}
     <coreicons-shape-expand class="size-5"></coreicons-shape-expand>
   {/snippet}
