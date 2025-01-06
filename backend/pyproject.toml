@@ -13,7 +13,7 @@ python-dotenv = "^1.0.1"
 # 3rd party (files)
 django-dynamic-filenames = "^1.4.0"
 # first party (image)
-pillow = "^11.0.0"
+pillow = "^11.1.0"
 # 3rd party (file middleware)
 django-cleanup = "^9.0.0"
 # rest framework and plugins
