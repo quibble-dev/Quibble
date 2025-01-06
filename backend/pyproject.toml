@@ -46,7 +46,7 @@ django-types = "^0.20.0"
 django-stubs-ext = "^5.1.1"
 # graphs
 pyparsing = "^3.2.0"
-pydot = "^3.0.3"
+pydot = "^3.0.4"
 # formatter
 black = "^24.10.0"
 # sort imports
