@@ -8,6 +8,12 @@
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';
 
+  type Props = {
+    on_menu_click?: () => void;
+  };
+
+  let { on_menu_click }: Props = $props();
+
   const show_search_in_quiblet = $derived.by(
     () => $page.url.pathname.includes('/q/') && $page.data.quiblet
   );
@@ -19,10 +25,19 @@
 <header
   class="fixed top-0 z-20 flex h-[3.75rem] w-full items-center justify-between border-b border-neutral bg-base-300 px-4"
 >
-  <a href="/" aria-label="Quibble Home" class="flex items-center gap-2">
-    <QuibbleLogo class="size-7" />
-    <QuibbleTextLogo class="h-7 w-auto" />
-  </a>
+  <div class="flex items-center gap-4">
+    <button
+      onclick={on_menu_click}
+      class="btn border-none !bg-transparent p-0 md:hidden"
+      aria-label="open up sidebar"
+    >
+      <coreicons-shape-list class="size-5"></coreicons-shape-list>
+    </button>
+    <a href="/" aria-label="Quibble Home" class="flex items-center gap-2">
+      <QuibbleLogo class="size-7" />
+      <QuibbleTextLogo class="hidden h-7 w-auto md:flex" />
+    </a>
+  </div>
   <div class="hidden items-center gap-5 md:flex">
     <div class="flex gap-2">
       <a href="/" aria-label="Home" class="flex items-center gap-2">

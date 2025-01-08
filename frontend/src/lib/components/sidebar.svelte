@@ -7,7 +7,7 @@
 </script>
 
 <div
-  class="fixed top-[3.75rem] z-10 flex h-[calc(100dvh-3.75rem)] w-72 flex-col gap-4 overflow-y-scroll border-r border-neutral bg-base-300 p-4 scrollbar-none"
+  class="fixed flex h-[calc(100dvh-3.75rem)] w-72 flex-col gap-4 overflow-y-scroll border-r border-neutral bg-base-300 p-4 scrollbar-none md:top-[3.75rem] md:z-10"
 >
   <div class="flex flex-col gap-2">
     <div class="flex items-center gap-2">
