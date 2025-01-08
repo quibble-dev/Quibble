@@ -11,13 +11,16 @@
   import { FormatDate } from '$lib/functions/date';
   import { is_valid } from '$lib/functions/is_valid';
   import { createAuthStore } from '$lib/stores/auth.svelte';
+  import { createRecentQuibsStore } from '$lib/stores/recent_quibs.svelte';
   import type { PageData } from './$types';
   import readable from 'readable-numbers';
+  import { onMount } from 'svelte';
 
   const { data }: { data: PageData } = $props();
   const { quib, comments } = data;
 
   const authStore = createAuthStore();
+  const recentQuibsStore = createRecentQuibsStore();
 
   const is_upvoted = $derived.by(check_if_upvoted);
   function check_if_upvoted() {
@@ -47,6 +50,18 @@
   function handle_back() {
     if (browser) window.history.back();
   }
+
+  onMount(() => {
+    recentQuibsStore.add_quib({
+      id: quib.id,
+      quiblet: quib.quiblet,
+      title: quib.title,
+      slug: quib.slug,
+      cover: quib.cover,
+      upvotes: quib.upvotes,
+      comments: quib.comments
+    });
+  });
 </script>
 
 <svelte:head>

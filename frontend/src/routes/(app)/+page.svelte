@@ -2,11 +2,13 @@
   import Quib from '$lib/components/quib.svelte';
   import QuibsHeader from '$lib/components/quibs_header.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
-  import recent_posts from '$lib/data/mock/recent_posts.json';
+  import { createRecentQuibsStore } from '$lib/stores/recent_quibs.svelte';
   import type { PageData } from './$types';
   import readable from 'readable-numbers';
 
   const { data }: { data: PageData } = $props();
+
+  const recentQuibsStore = createRecentQuibsStore();
 </script>
 
 <svelte:head>
@@ -30,41 +32,49 @@
   >
     <h2 class="font-medium">Recent Quibs</h2>
     <div class="flex flex-col gap-4">
-      {#each recent_posts as post}
-        <!-- recent post component -->
-        <div class="flex flex-col gap-2">
-          <div class="flex justify-between gap-2">
-            <div class="flex flex-col gap-1">
-              <a
-                href="/q/{post.community.name}"
-                class="flex items-center gap-2 hover:text-accent hover:underline"
-              >
-                <Avatar src={post.community.avatar} class="size-6 rounded-full" />
-                <h3 class="text-xs font-semibold">q/{post.community.name}</h3>
-              </a>
-              <a
-                href="/q/{post.community.name}/posts/{post.slug}"
-                class="font-semibold text-info hover:underline"
-              >
-                {post.title}
-              </a>
+      {#if recentQuibsStore.state.length}
+        {#each recentQuibsStore.state as quib}
+          <!-- recent post component -->
+          <div class="flex flex-col gap-2">
+            <div class="flex justify-between gap-2">
+              <div class="flex flex-col gap-1">
+                <a
+                  href="/q/{quib.quiblet.name}"
+                  class="flex items-center gap-2 hover:text-accent hover:underline"
+                >
+                  <Avatar src={quib.quiblet.avatar} class="size-6 rounded-full" />
+                  <h3 class="text-xs font-semibold">q/{quib.quiblet.name}</h3>
+                </a>
+                <a
+                  href="/q/{quib.quiblet.name}/posts/{quib.slug}"
+                  class="font-semibold text-info hover:underline"
+                >
+                  {quib.title}
+                </a>
+              </div>
+              {#if quib.cover}
+                <img
+                  class="aspect-square size-20 flex-shrink-0 rounded-xl object-cover"
+                  src={quib.cover}
+                  alt=""
+                />
+              {/if}
             </div>
-            {#if post.cover}
-              <img
-                class="aspect-square size-20 flex-shrink-0 rounded-xl object-cover"
-                src={post.cover}
-                alt=""
-              />
-            {/if}
+            <div class="flex items-center gap-2">
+              <p class="text-xs font-medium">
+                {readable(quib.upvotes?.length ?? 0)} upvotes
+              </p>
+              <coreicons-shape-circle variant="filled" class="size-0.5"
+              ></coreicons-shape-circle>
+              <p class="text-xs font-medium">
+                {readable(quib.comments?.length ?? 0)} comments
+              </p>
+            </div>
           </div>
-          <div class="flex items-center gap-2">
-            <p class="text-xs font-medium">{readable(post.likes)} upvotes</p>
-            <coreicons-shape-circle variant="filled" class="size-0.5"
-            ></coreicons-shape-circle>
-            <p class="text-xs font-medium">{readable(post.comments)} comments</p>
-          </div>
-        </div>
-      {/each}
+        {/each}
+      {:else}
+        <span class="text-sm font-medium">Nothing here yet—go find a Quib!</span>
+      {/if}
     </div>
   </div>
 </div>
