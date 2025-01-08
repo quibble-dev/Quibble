@@ -4,7 +4,6 @@
   import Modals from '$lib/components/modals/index.svelte';
   import Sidebar from '$lib/components/sidebar.svelte';
   import { cn } from '$lib/functions/classnames';
-  import { debounce } from '$lib/functions/debounce';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import '../styles/app.css';
   import '../styles/smiz.css';
