@@ -4,6 +4,7 @@
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
+  import { pluralize } from '$lib/functions/pluralize';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { createSidebarStore } from '$lib/stores/sidebar.svelte';
   import type { PageData } from './$types';
@@ -43,18 +44,36 @@
   <!-- show quiblet cover if not null or solid bg -->
   <div
     class={cn(
-      !quiblet?.banner ? 'h-24 bg-neutral' : 'h-40 bg-cover bg-center',
+      !quiblet?.banner ? 'h-24 bg-neutral' : 'h-24 bg-cover bg-center md:h-40',
       'w-full rounded-2xl'
     )}
     style="background-image: url({quiblet?.banner});"
   ></div>
-  <div class="absolute inset-x-0 -bottom-12 flex items-end justify-between px-4">
-    <div class="flex items-end gap-2">
+  <div
+    class="inset-x-0 -bottom-12 flex flex-col justify-between gap-4 md:absolute md:flex-row md:items-end md:px-4"
+  >
+    <div class="mt-4 flex items-center gap-2 md:mt-0 md:items-end">
       <Avatar
-        class="size-20 rounded-full outline outline-8 outline-base-300"
+        class="size-14 flex-shrink-0 rounded-full outline-8 outline-base-300 md:size-20 md:outline"
         src={quiblet?.avatar}
       />
-      <h3 class="text-2xl font-bold text-info">q/{quiblet?.name}</h3>
+      <div class="flex flex-col">
+        <h3 class="text-xl font-bold text-info md:text-2xl">q/{quiblet?.name}</h3>
+        <div class="flex items-center gap-2 md:hidden">
+          <div class="flex items-center gap-1">
+            <span class="text-sm text-info">{quiblet?.members?.length}</span>
+            <span class="text-xs text-base-content/75"
+              >{pluralize('Member', quiblet?.members?.length ?? 0)}</span
+            >
+          </div>
+          <div class="flex items-center gap-1">
+            <span class="text-sm text-info">{quiblet?.quibs}</span>
+            <span class="text-xs text-base-content/75"
+              >{pluralize('Quib', quiblet?.quibs)}</span
+            >
+          </div>
+        </div>
+      </div>
     </div>
     <!-- quiblet basic operations -->
     <div class="flex items-center gap-2">
@@ -65,13 +84,13 @@
       <button class="btn btn-secondary h-10 px-3" aria-label="Join quiblet">
         <span class="text-sm font-medium">{is_joined ? 'Joined' : 'Join'}</span>
       </button>
-      <button class="btn btn-neutral size-10 p-0" aria-label="More options">
+      <button class="btn btn-neutral ml-auto size-10 p-0 md:ml-0" aria-label="More options">
         <coreicons-shape-more class="size-5 rotate-90"></coreicons-shape-more>
       </button>
     </div>
   </div>
 </div>
-<div class="h-12"></div>
+<div class="hidden h-12 md:flex"></div>
 <QuibsHeader />
 <!-- list highlighted quibs if exists -->
 {#if highlighted_quibs?.length}
@@ -80,7 +99,7 @@
       <coreicons-shape-hash class="size-5"></coreicons-shape-hash>
       <h4 class="font-medium">Highlights</h4>
     </div>
-    <div class="grid grid-cols-3 gap-4">
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
       {#each highlighted_quibs as quib}
         <div
           class="relative flex h-40 flex-col gap-2 overflow-hidden rounded-2xl border border-neutral p-2 transition-colors hover:bg-base-200"
