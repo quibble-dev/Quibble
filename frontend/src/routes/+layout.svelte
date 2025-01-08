@@ -4,6 +4,7 @@
   import Modals from '$lib/components/modals/index.svelte';
   import Sidebar from '$lib/components/sidebar.svelte';
   import { cn } from '$lib/functions/classnames';
+  import { debounce } from '$lib/functions/debounce';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import '../styles/app.css';
   import '../styles/smiz.css';
@@ -29,15 +30,15 @@
     defineCustomElements();
   });
 
-  function toggle_show_sidebar() {
+  const debounced_toggle_show_sidebar = debounce(() => {
     show_sidebar = !show_sidebar;
-  }
+  }, 300);
 </script>
 
 <!-- render available models -->
 <Modals />
 <main class="flex h-dvh w-dvw flex-col font-sans">
-  <Header on_menu_click={toggle_show_sidebar} />
+  <Header on_menu_click={debounced_toggle_show_sidebar} />
   <section class="mt-[3.75rem] flex">
     <!-- sidebar for medium screens -->
     <div class="hidden w-72 md:flex">
@@ -52,7 +53,7 @@
     </div>
     <!-- background clicker to toggle show_sidebar state (small screens) -->
     <button
-      onclick={toggle_show_sidebar}
+      onclick={debounced_toggle_show_sidebar}
       class={cn(
         show_sidebar ? 'opacity-100' : 'pointer-events-none opacity-0',
         'fixed z-40 h-[calc(100dvh-3.75rem)] w-dvw bg-base-300/55 transition-opacity duration-300 md:hidden'
