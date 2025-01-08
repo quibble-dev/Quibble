@@ -16,7 +16,7 @@
   let { children, data }: { children: Snippet; data: { profile: Profile } } = $props();
 
   let sidebar_show = $state(false);
-  let sidebar_transitioning = $state(false);
+  let sidebar_shown = $state(false);
 
   const authStore = createAuthStore();
 
@@ -32,7 +32,7 @@
   });
 
   const toggle_show_sidebar = () => {
-    if (sidebar_transitioning) return;
+    if (sidebar_shown) return;
     sidebar_show = !sidebar_show;
   };
 </script>
@@ -50,8 +50,8 @@
     <div
       class="fixed left-0 top-[3.75rem] z-50 flex h-[calc(100dvh-3.75rem)] w-72 transform transition-transform duration-300 md:hidden"
       class:-translate-x-72={!sidebar_show}
-      ontransitionstart={() => (sidebar_transitioning = true)}
-      ontransitionend={() => (sidebar_transitioning = false)}
+      ontransitionstart={() => (sidebar_shown = true)}
+      ontransitionend={() => (sidebar_shown = false)}
     >
       <Sidebar />
     </div>
