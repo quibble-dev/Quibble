@@ -68,6 +68,9 @@
     <span class="text-xs font-medium text-base-content/75"
       >{new FormatDate(quib.created_at).timeAgo()}</span
     >
+    <button class="ml-auto flex items-center gap-2" aria-label="more">
+      <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
+    </button>
   </div>
 {/snippet}
 
@@ -89,9 +92,6 @@
   <button class="flex items-center gap-2">
     <coreicons-shape-share class="size-4"></coreicons-shape-share>
     <span class="text-sm font-medium">Share</span>
-  </button>
-  <button class="ml-auto flex items-center gap-2" aria-label="more">
-    <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
   </button>
 {/snippet}
 
