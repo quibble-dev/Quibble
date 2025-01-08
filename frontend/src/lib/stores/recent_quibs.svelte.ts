@@ -34,7 +34,10 @@ function sync_to_localstorage() {
     localStorage.setItem(
       'recent_posts_store',
       JSON.stringify(
-        recent_quibs_state.map((q) => ({ ...q, timestamp: q.timestamp.toISOString() }))
+        recent_quibs_state.map((q) => ({
+          ...q,
+          timestamp: q.timestamp.toISOString()
+        }))
       )
     );
   }
