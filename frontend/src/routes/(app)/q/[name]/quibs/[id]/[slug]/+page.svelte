@@ -102,7 +102,7 @@
   </button>
 </div>
 <!-- title -->
-<h2 class="text-2xl font-bold text-info">{quib.title}</h2>
+<h1 class="text-xl font-bold text-info">{quib.title}</h1>
 <!-- content or cover -->
 {#if is_valid(quib.content)}
   <p class="text-sm font-normal">
