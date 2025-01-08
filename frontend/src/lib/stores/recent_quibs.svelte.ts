@@ -1,6 +1,6 @@
 import { browser } from '$app/environment';
 
-type RecentQuibs = {
+type Quib = {
   id: string;
   quiblet: {
     avatar?: string | null | undefined;
@@ -11,14 +11,18 @@ type RecentQuibs = {
   cover?: string | null | undefined;
   upvotes?: number[] | undefined;
   comments?: number[] | undefined;
-}[];
+};
+
+interface IRecentQuib extends Quib {
+  timestamp: Date;
+}
 
 const stored_recent_quibs = browser ? localStorage.getItem('recent_posts_store') : null;
-const parsed_stored_recent_quibs: RecentQuibs = stored_recent_quibs
+const parsed_stored_recent_quibs: IRecentQuib[] = stored_recent_quibs
   ? JSON.parse(stored_recent_quibs)
   : [];
 
-let recent_quibs_state = $state<RecentQuibs>(parsed_stored_recent_quibs);
+let recent_quibs_state = $state<IRecentQuib[]>(parsed_stored_recent_quibs);
 
 function sync_to_localstorage() {
   if (browser) {
@@ -26,16 +30,26 @@ function sync_to_localstorage() {
   }
 }
 
+function get_sorted_recent_quibs_state(input: IRecentQuib) {
+  return [...recent_quibs_state, input].sort(
+    (a, b) => b.timestamp.getTime() - a.timestamp.getTime()
+  );
+}
+
 export function createRecentQuibsStore() {
   return {
     get state() {
       return recent_quibs_state;
     },
-    add_quib(quib: RecentQuibs[number]) {
+    add_quib(quib: Quib) {
       const exists = recent_quibs_state.some((q) => q.id === quib.id);
       if (exists) return;
 
-      recent_quibs_state.push(quib);
+      recent_quibs_state = get_sorted_recent_quibs_state({
+        ...quib,
+        timestamp: new Date(Date.now())
+      });
+
       sync_to_localstorage();
     }
   };
