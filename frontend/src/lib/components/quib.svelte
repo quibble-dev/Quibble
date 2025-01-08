@@ -54,7 +54,7 @@
   {/if}
 {/snippet}
 
-{#snippet avatar_name_date()}
+{#snippet avatar_name_date_more()}
   <div class="flex items-center gap-2">
     <a
       href="/{get_name()}"
@@ -74,7 +74,7 @@
   </div>
 {/snippet}
 
-{#snippet vote_comment_share_more()}
+{#snippet vote_comment_share()}
   <div class="flex items-center gap-2">
     <button class="flex items-center gap-2" aria-label="upvote">
       <coreicons-shape-thumbs variant="up" class="size-4" class:text-primary={is_upvoted}
@@ -112,12 +112,12 @@
   {#if viewStore.state === 'card'}
     <div class="relative flex flex-col gap-2 p-4 transition-colors hover:bg-base-200">
       {@render href_overlay()}
-      {@render avatar_name_date()}
+      {@render avatar_name_date_more()}
       <h2 class="text-xl font-bold text-info">{quib.title}</h2>
       {@render content_or_cover()}
     </div>
     <div class="flex items-center gap-4 border-t border-neutral px-4 py-2.5">
-      {@render vote_comment_share_more()}
+      {@render vote_comment_share()}
     </div>
   {:else}
     <div class="flex flex-1 gap-4 p-4 p-4">
@@ -130,7 +130,7 @@
         style="background-image: url({quib.cover});"
       ></div>
       <div class="flex w-full flex-col gap-1">
-        {@render avatar_name_date()}
+        {@render avatar_name_date_more()}
         <h2 class="text-lg font-bold text-info">{quib.title}</h2>
         <div class="mt-auto flex items-center gap-4">
           <button
@@ -145,7 +145,7 @@
               <span class="text-sm font-medium">Expand</span>
             {/if}
           </button>
-          {@render vote_comment_share_more()}
+          {@render vote_comment_share()}
         </div>
       </div>
     </div>

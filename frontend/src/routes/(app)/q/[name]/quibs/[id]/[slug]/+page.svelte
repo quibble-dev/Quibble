@@ -68,7 +68,7 @@
   <title>{quib.title} : q/{quib.quiblet.name}</title>
 </svelte:head>
 
-<!-- quibber and quiblet details -->
+<!-- quibber and quiblet details and more -->
 <div class="flex items-center gap-2">
   <button
     onclick={handle_back}
@@ -97,6 +97,9 @@
       </a>
     </div>
   </div>
+  <button class="ml-auto flex items-center gap-2" aria-label="more">
+    <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
+  </button>
 </div>
 <!-- title -->
 <h2 class="text-2xl font-bold text-info">{quib.title}</h2>
@@ -112,7 +115,7 @@
     </Zoom>
   </BackdropImage>
 {/if}
-<!-- quib options like vote share and more -->
+<!-- quib options like vote share -->
 <div class="flex items-center gap-4">
   <div class="flex items-center gap-2">
     <button class="flex items-center gap-2" aria-label="upvote">
@@ -131,9 +134,6 @@
   <button class="flex items-center gap-2">
     <coreicons-shape-share class="size-4"></coreicons-shape-share>
     <span class="text-sm font-medium">Share</span>
-  </button>
-  <button class="ml-auto flex items-center gap-2" aria-label="more">
-    <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
   </button>
 </div>
 <!-- add comment dynamic box -->

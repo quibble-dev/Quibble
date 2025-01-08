@@ -13,7 +13,7 @@
   {@render children()}
 </div>
 <!-- fixed sidebar about quiblet details -->
-<div class="w-80">
+<div class="hidden w-80 md:flex">
   <div
     class="fixed top-[3.75rem] flex h-[calc(100dvh-3.75rem)] w-80 flex-col gap-4 overflow-y-scroll p-4 scrollbar-none"
   >
