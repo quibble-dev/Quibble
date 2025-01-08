@@ -15,7 +15,8 @@
 
   let { children, data }: { children: Snippet; data: { profile: Profile } } = $props();
 
-  let show_sidebar = $state(false);
+  let sidebar_show = $state(false);
+  let sidebar_transitioning = $state(false);
 
   const authStore = createAuthStore();
 
@@ -30,15 +31,16 @@
     defineCustomElements();
   });
 
-  const debounced_toggle_show_sidebar = debounce(() => {
-    show_sidebar = !show_sidebar;
-  }, 300);
+  const toggle_show_sidebar = () => {
+    if (sidebar_transitioning) return;
+    sidebar_show = !sidebar_show;
+  };
 </script>
 
 <!-- render available models -->
 <Modals />
 <main class="flex h-dvh w-dvw flex-col font-sans">
-  <Header on_menu_click={debounced_toggle_show_sidebar} />
+  <Header on_menu_click={toggle_show_sidebar} />
   <section class="mt-[3.75rem] flex">
     <!-- sidebar for medium screens -->
     <div class="hidden w-72 md:flex">
@@ -47,15 +49,17 @@
     <!-- sidebar for small screens with transition -->
     <div
       class="fixed left-0 top-[3.75rem] z-50 flex h-[calc(100dvh-3.75rem)] w-72 transform transition-transform duration-300 md:hidden"
-      class:-translate-x-72={!show_sidebar}
+      class:-translate-x-72={!sidebar_show}
+      ontransitionstart={() => (sidebar_transitioning = true)}
+      ontransitionend={() => (sidebar_transitioning = false)}
     >
       <Sidebar />
     </div>
     <!-- background clicker to toggle show_sidebar state (small screens) -->
     <button
-      onclick={debounced_toggle_show_sidebar}
+      onclick={toggle_show_sidebar}
       class={cn(
-        show_sidebar ? 'opacity-100' : 'pointer-events-none opacity-0',
+        sidebar_show ? 'opacity-100' : 'pointer-events-none opacity-0',
         'fixed z-40 h-[calc(100dvh-3.75rem)] w-dvw bg-base-300/55 transition-opacity duration-300 md:hidden'
       )}
       aria-label="toggle sidebar"
