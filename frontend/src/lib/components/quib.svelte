@@ -106,7 +106,7 @@
 <div
   class={cn(
     viewStore.state === 'compact' && 'transition-colors hover:bg-base-200',
-    'relative flex flex-col overflow-hidden border-neutral bg-base-300 md:rounded-2xl md:border'
+    'relative flex flex-col overflow-hidden rounded-2xl border border-neutral bg-base-300'
   )}
 >
   {#if viewStore.state === 'card'}
@@ -116,9 +116,7 @@
       <h2 class="text-xl font-bold text-info">{quib.title}</h2>
       {@render content_or_cover()}
     </div>
-    <div
-      class="flex items-center gap-4 border-neutral px-4 pb-2.5 pt-0 md:border-t md:pt-2.5"
-    >
+    <div class="flex items-center gap-4 border-t border-neutral px-4 py-2.5">
       {@render vote_comment_share()}
     </div>
   {:else}
