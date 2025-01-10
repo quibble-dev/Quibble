@@ -75,11 +75,17 @@
     </label>
   </div>
   <div class="flex items-center gap-2">
+    <button aria-label="Expand search" class="btn size-10 p-0 md:hidden">
+      <coreicons-shape-search variant="no-border" class="size-5"></coreicons-shape-search>
+    </button>
     {#if authStore.state.is_authenticated}
       <div class="tooltip tooltip-bottom" data-tip="Create a Quib">
-        <button aria-label="Create a Post" class="btn btn-primary h-10 px-3">
+        <button
+          aria-label="Create a Post"
+          class="btn h-10 w-10 p-0 md:btn-primary md:w-auto md:px-3"
+        >
           <coreicons-shape-plus variant="no-border" class="size-5"></coreicons-shape-plus>
-          <span class="text-sm font-medium">Create</span>
+          <span class="hidden text-sm font-medium md:flex">Create</span>
         </button>
       </div>
       <div class="tooltip tooltip-bottom" data-tip="Inbox">

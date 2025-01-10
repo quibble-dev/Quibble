@@ -40,12 +40,13 @@
   let active_view_icon = $derived(mapping.view[active_mapping.view]);
 </script>
 
-<div class="flex items-center justify-between">
+<div class="flex items-start justify-between">
   <div class="flex gap-3">
     {#each Object.entries(mapping.filters) as [key, item]}
       {@const is_active = active_mapping.filter === key}
+      {@const hide_on_mobile = key === 'top'}
 
-      <div class="flex flex-col items-center gap-1">
+      <div class={cn(hide_on_mobile ? 'hidden' : 'flex', 'flex-col items-center gap-1')}>
         <a href={item.href} aria-label={key} class="flex items-center gap-2">
           <item.icon class={cn(is_active && 'text-primary', 'size-4')} />
           <span class="text-sm font-medium capitalize">{key}</span>

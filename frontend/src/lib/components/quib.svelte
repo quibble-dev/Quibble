@@ -68,30 +68,36 @@
     <span class="text-xs font-medium text-base-content/75"
       >{new FormatDate(quib.created_at).timeAgo()}</span
     >
-    <button class="ml-auto flex items-center gap-2" aria-label="more">
+    <button class="ml-auto hidden items-center gap-2 md:flex" aria-label="more">
       <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
     </button>
   </div>
 {/snippet}
 
-{#snippet vote_comment_share()}
+{#snippet vote_comment_share_more()}
   <div class="flex items-center gap-2">
     <button class="flex items-center gap-2" aria-label="upvote">
       <coreicons-shape-thumbs variant="up" class="size-4" class:text-primary={is_upvoted}
       ></coreicons-shape-thumbs>
     </button>
-    <span class="text-sm font-medium">{readable(quib.upvotes?.length ?? 0)}</span>
+    <span class="text-xs font-medium md:text-sm">{readable(quib.upvotes?.length ?? 0)}</span
+    >
     <button class="flex items-center gap-2" aria-label="downvote">
       <coreicons-shape-thumbs variant="down" class="size-4"></coreicons-shape-thumbs>
     </button>
   </div>
   <button class="flex items-center gap-2">
     <coreicons-shape-forum class="size-4"></coreicons-shape-forum>
-    <span class="text-sm font-medium">{readable(quib.comments?.length ?? 0)} comments</span>
+    <span class="text-xs font-medium md:text-sm"
+      >{readable(quib.comments?.length ?? 0)} comments</span
+    >
   </button>
-  <button class="flex items-center gap-2">
+  <button class="hidden items-center gap-2 md:flex">
     <coreicons-shape-share class="size-4"></coreicons-shape-share>
     <span class="text-sm font-medium">Share</span>
+  </button>
+  <button class="flex items-center gap-2 md:hidden" aria-label="more">
+    <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
   </button>
 {/snippet}
 
@@ -113,29 +119,29 @@
     <div class="relative flex flex-col gap-2 p-4 transition-colors hover:bg-base-200">
       {@render href_overlay()}
       {@render avatar_name_date_more()}
-      <h2 class="text-xl font-bold text-info">{quib.title}</h2>
+      <h2 class="text-lg font-bold text-info md:text-xl">{quib.title}</h2>
       {@render content_or_cover()}
     </div>
     <div class="flex items-center gap-4 border-t border-neutral px-4 py-2.5">
-      {@render vote_comment_share()}
+      {@render vote_comment_share_more()}
     </div>
   {:else}
-    <div class="flex flex-1 gap-4 p-4 p-4">
+    <div class="flex flex-1 flex-row-reverse gap-4 p-4 p-4 md:flex-row">
       {@render href_overlay()}
       <div
-        class="size-20 flex-shrink-0 cursor-pointer rounded-xl bg-cover bg-center bg-no-repeat
-            inner-border inner-border-base-content/15"
-        class:relative={quib.cover}
-        class:bg-base-100={!quib.cover}
+        class={cn(
+          quib.cover ? 'relative' : 'hidden bg-transparent md:flex',
+          'size-20 flex-shrink-0 cursor-pointer rounded-xl bg-cover bg-center bg-no-repeat inner-border inner-border-base-content/15'
+        )}
         style="background-image: url({quib.cover});"
       ></div>
       <div class="flex w-full flex-col gap-1">
         {@render avatar_name_date_more()}
-        <h2 class="text-lg font-bold text-info">{quib.title}</h2>
+        <h2 class="text-base font-bold text-info md:text-lg">{quib.title}</h2>
         <div class="mt-auto flex items-center gap-4">
           <button
             onclick={() => (is_expanded = !is_expanded)}
-            class="relative flex items-center gap-2"
+            class="relative flex hidden items-center gap-2 md:flex"
           >
             {#if is_expanded}
               <coreicons-shape-shrink class="size-4 text-primary"></coreicons-shape-shrink>
@@ -145,7 +151,7 @@
               <span class="text-sm font-medium">Expand</span>
             {/if}
           </button>
-          {@render vote_comment_share()}
+          {@render vote_comment_share_more()}
         </div>
       </div>
     </div>
