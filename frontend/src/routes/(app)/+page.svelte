@@ -15,9 +15,11 @@
   <title>Quibble - Delve into real conversations.</title>
 </svelte:head>
 
-<div class="flex h-max flex-1 flex-col gap-4 p-4">
+<div class="flex h-max flex-1 flex-col md:gap-4 md:p-4">
   <QuibsHeader />
-  <div class="flex flex-1 flex-col gap-4">
+  <div
+    class="flex flex-1 flex-col divide-y border-y border-neutral md:gap-4 md:divide-y-0 md:border-none"
+  >
     {#if data.quibs}
       {#each data.quibs as quib}
         <Quib {...quib} />

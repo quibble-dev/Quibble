@@ -40,7 +40,7 @@
   let active_view_icon = $derived(mapping.view[active_mapping.view]);
 </script>
 
-<div class="flex items-center justify-between">
+<div class="flex items-center justify-between px-4 py-3 md:p-0">
   <div class="flex gap-3">
     {#each Object.entries(mapping.filters) as [key, item]}
       {@const is_active = active_mapping.filter === key}
