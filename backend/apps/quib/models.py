@@ -6,7 +6,9 @@ from dynamic_filenames import FilePattern
 from apps.comment.models import Comment
 from apps.quiblet.models import Quiblet
 from apps.user.models import Profile
-from common.mixins.model_mixins import CreatedAtMixin, IsPublicMixin, ShortUUIDMixin
+from mixins.models.created_at import CreatedAtMixin
+from mixins.models.is_public import IsPublicMixin
+from mixins.models.shortuuid import ShortUUIDMixin
 
 cover_file_pattern = FilePattern(filename_pattern="cover/{uuid:s}{ext}")
 
