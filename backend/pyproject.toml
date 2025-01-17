@@ -84,7 +84,7 @@ mkmsgs = "django-admin makemessages -a"
 compilemsgs = "django-admin compilemessages"
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "config.settings"
+DJANGO_SETTINGS_MODULE = "core.settings"
 pythonpath = ["."]
 python_files = ["test_*.py"]
 
