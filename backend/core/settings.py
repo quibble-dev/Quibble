@@ -82,7 +82,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES,
     'EXCEPTION_HANDLER': 'drf_standardized_errors.handler.exception_handler',
-    'DEFAULT_SCHEMA_CLASS': 'common.api.openapi.CustomAutoSchema',
+    'DEFAULT_SCHEMA_CLASS': 'apps.api.openapi.CustomAutoSchema',
 }
 
 # https://drf-standardized-errors.readthedocs.io/en/latest/openapi.html#tips-and-tricks
