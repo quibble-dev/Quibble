@@ -11,7 +11,7 @@
   import { FormatDate } from '$lib/functions/date';
   import { is_valid } from '$lib/functions/is_valid';
   import { createAuthStore } from '$lib/stores/auth.svelte';
-  import { createRecentQuibsStore } from '$lib/stores/recent_quibs.svelte';
+  import { createRecentQuibsStore } from '$lib/stores/recent_posts.svelte';
   import type { PageData } from './$types';
   import readable from 'readable-numbers';
   import { onMount } from 'svelte';
