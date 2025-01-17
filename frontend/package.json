@@ -17,6 +17,8 @@
   "devDependencies": {
     "@coreproject-moe/icons": "^0.0.67",
     "@dotenvx/dotenvx": "^1.28.0",
+    "@hey-api/client-fetch": "^0.7.0",
+    "@hey-api/openapi-ts": "^0.62.1",
     "@playwright/test": "^1.45.3",
     "@quibble-dev/tailwindcss-inner-border": "^0.0.4",
     "@sveltejs/adapter-auto": "^3.0.0",

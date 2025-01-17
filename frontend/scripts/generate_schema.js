@@ -1,4 +1,4 @@
-import { exec } from 'child_process';
+import { createClient } from '@hey-api/openapi-ts';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -11,14 +11,10 @@ if (!api_url) {
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const output_path = path.resolve(__dirname, '../src/lib/clients/v1.ts');
+const output_path = path.resolve(__dirname, '../src/lib/clients/v1/');
 
-const command = `openapi-typescript ${api_url}/api/v1/schema/ -o ${output_path}`;
-
-exec(command, (error, stdout) => {
-  if (error) {
-    console.log(`error: ${error}`);
-    return;
-  }
-  console.log(`stdout: ${stdout}`);
+createClient({
+  client: '@hey-api/client-fetch',
+  input: `${api_url}/api/v1/schema/`,
+  output: output_path
 });
