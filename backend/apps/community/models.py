@@ -14,12 +14,12 @@ banner_file_pattern = FilePattern(filename_pattern="banner/{uuid:s}{ext}")
 # Create your models here.
 
 
-class Quiblet(AvatarMixin, CreatedAtMixin, IsPublicMixin):
+class Community(AvatarMixin, CreatedAtMixin, IsPublicMixin):
     name = models.CharField(
         _('name'),
         unique=True,
         max_length=25,
-        error_messages={'unique': 'Quiblet with this name already exists.'},
+        error_messages={'unique': 'Community with this name already exists.'},
     )
     description = models.TextField(_('description'))
     title = models.CharField(_('title'), max_length=50, null=True, blank=True)
@@ -30,19 +30,19 @@ class Quiblet(AvatarMixin, CreatedAtMixin, IsPublicMixin):
         null=True,
     )
     members = models.ManyToManyField(
-        Profile, related_name='joined_quiblets', blank=True, verbose_name=_('members')
+        Profile, related_name='joined_communities', blank=True, verbose_name=_('members')
     )
     rangers = models.ManyToManyField(
-        Profile, related_name='ranged_quiblets', blank=True, verbose_name=_('rangers')
+        Profile, related_name='ranged_communities', blank=True, verbose_name=_('rangers')
     )
 
     def __str__(self) -> str:
         return f'q/{self.name}'
 
     class Meta:  # pyright: ignore
-        verbose_name = 'Quiblet'
-        verbose_name_plural = 'Quiblets'
+        verbose_name = 'Community'
+        verbose_name_plural = 'Communities'
         ordering = ['-created_at']
         constraints = [
-            UniqueConstraint(Lower('name'), name='unique_quiblet_name_case_insensitive')
+            UniqueConstraint(Lower('name'), name='unique_community_name_case_insensitive')
         ]

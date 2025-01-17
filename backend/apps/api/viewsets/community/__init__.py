@@ -6,44 +6,44 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import exceptions, response, viewsets
 from rest_framework.decorators import action
 
-from apps.quiblet.models import Quiblet
+from apps.community.models import Community
 
 from ...http import HttpRequest
 from ...serializers.community import (
-    QuibletDetailedSerializer,
-    QuibletExistsSerializer,
-    QuibletSerializer,
+    CommunityDetailedSerializer,
+    CommunityExistsSerializer,
+    CommunitySerializer,
 )
-from ...serializers.post import QuibSerializer
-from ...serializers.post.highlighted import QuibHighlightedSerializer
+from ...serializers.post import PostSerializer
+from ...serializers.post.highlighted import PostHighlightedSerializer
 
 
-class QuibletViewSet(viewsets.ModelViewSet):
-    queryset = Quiblet.objects.all()
+class CommunityViewSet(viewsets.ModelViewSet):
+    queryset = Community.objects.all()
     # default serializer
-    serializer_class = QuibletSerializer
+    serializer_class = CommunitySerializer
     lookup_field = 'name'
 
     # extra custom serializers
     serializer_classes = {
-        'retrieve': QuibletDetailedSerializer,
+        'retrieve': CommunityDetailedSerializer,
         # extra actions
-        'exists': QuibletExistsSerializer,
-        'quibs': QuibSerializer,
-        'highlighted_quibs': QuibHighlightedSerializer,
+        'exists': CommunityExistsSerializer,
+        'posts': PostSerializer,
+        'highlighted_posts': PostHighlightedSerializer,
     }
 
-    def get_queryset(self) -> QuerySet[Quiblet]:  # pyright: ignore
+    def get_queryset(self) -> QuerySet[Community]:  # pyright: ignore
         return super().get_queryset()
 
-    def get_object(self) -> Quiblet:  # pyright: ignore
+    def get_object(self) -> Community:  # pyright: ignore
         qs = self.get_queryset()
         filter_kwargs = {f'{self.lookup_field}__iexact': self.kwargs[self.lookup_field]}
         obj = qs.filter(**filter_kwargs).first()
 
         if not obj:
             raise exceptions.NotFound(
-                f'Quiblet with name <b>{self.kwargs[self.lookup_field]}</b> not found.'
+                f'Community with name <b>{self.kwargs[self.lookup_field]}</b> not found.'
             )
         return obj
 
@@ -56,27 +56,27 @@ class QuibletViewSet(viewsets.ModelViewSet):
     def exists(self, request, name=None):
         res = dict(exists=False, name=name)
 
-        quiblet = self.get_queryset().filter(name__iexact=name).first()
-        if quiblet is not None:
+        community = self.get_queryset().filter(name__iexact=name).first()
+        if community is not None:
             res['exists'] = True
-            res['name'] = quiblet.name
+            res['name'] = community.name
 
         return response.Response(res)
 
-    @extend_schema(responses=QuibSerializer(many=True))
+    @extend_schema(responses=PostSerializer(many=True))
     @action(detail=True, methods=[HTTPMethod.GET])
-    def quibs(self, request, name=None):
-        quibs = self.get_object().quibs.all()  # pyright: ignore
-        serializer = QuibSerializer(quibs, many=True, context={'request': request})
+    def posts(self, request, name=None):
+        posts = self.get_object().posts.all()  # pyright: ignore
+        serializer = PostSerializer(posts, many=True, context={'request': request})
 
         return response.Response(serializer.data)
 
-    @extend_schema(responses=QuibHighlightedSerializer(many=True))
+    @extend_schema(responses=PostHighlightedSerializer(many=True))
     @action(detail=True, methods=[HTTPMethod.GET])
-    def highlighted_quibs(self, request, name=None):
-        quibs = self.get_object().quibs.filter(highlighted=True)  # pyright: ignore
-        serializer = QuibHighlightedSerializer(
-            quibs, many=True, context={'request': request}
+    def highlighted_posts(self, request, name=None):
+        posts = self.get_object().posts.filter(highlighted=True)  # pyright: ignore
+        serializer = PostHighlightedSerializer(
+            posts, many=True, context={'request': request}
         )
 
         return response.Response(serializer.data)
@@ -84,9 +84,8 @@ class QuibletViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         patched_request = cast(HttpRequest, self.request)
 
-        quibbler = patched_request.user_profile
-
-        quiblet = serializer.save()
-        # add creator as member and ranger of the quiblet
-        quiblet.members.add(quibbler)
-        quiblet.rangers.add(quibbler)
+        creator = patched_request.user_profile
+        # add creator as member and ranger of the community
+        community = serializer.save()
+        community.members.add(creator)
+        community.rangers.add(creator)
