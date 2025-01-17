@@ -9,8 +9,6 @@ from mixins.models.avatar import AvatarMixin
 from mixins.models.created_at import CreatedAtMixin
 from mixins.models.is_public import IsPublicMixin
 
-banner_file_pattern = FilePattern(filename_pattern="banner/{uuid:s}{ext}")
-
 # Create your models here.
 
 
@@ -25,7 +23,7 @@ class Community(AvatarMixin, CreatedAtMixin, IsPublicMixin):
     title = models.CharField(_('title'), max_length=50, null=True, blank=True)
     banner = models.ImageField(
         _('banner'),
-        upload_to=banner_file_pattern,
+        upload_to=FilePattern(filename_pattern="community_banner/{uuid:s}{ext}"),
         blank=True,
         null=True,
     )
