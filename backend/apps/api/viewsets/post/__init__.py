@@ -5,15 +5,15 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import response, status, viewsets
 from rest_framework.decorators import action
 
-from apps.quib.models import Quib
+from apps.post.models import Post
 
 from ...serializers.comment import CommentCreateSerializer, CommentDetailSerializer
-from ...serializers.post import QuibSerializer
+from ...serializers.post import PostSerializer
 
 
-class QuibViewSet(viewsets.ModelViewSet):
-    queryset = Quib.objects.all()
-    serializer_class = QuibSerializer
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
 
     def get_serializer_class(self):  # pyright: ignore
         # if custom action: 'comment'
@@ -24,12 +24,12 @@ class QuibViewSet(viewsets.ModelViewSet):
     @extend_schema(responses=CommentDetailSerializer(many=True))
     @action(detail=True, methods=[HTTPMethod.GET, HTTPMethod.POST])
     def comments(self, request, pk=None):
-        quib_instance = get_object_or_404(Quib, pk=pk)
+        post_instance = get_object_or_404(Post, pk=pk)
 
         context = {'request': request}
 
         if request.method == HTTPMethod.GET:
-            comments = quib_instance.comments.with_annotated_ratio()  # pyright: ignore
+            comments = post_instance.comments.with_annotated_ratio()  # pyright: ignore
             serializer = CommentDetailSerializer(comments, many=True, context=context)
 
             return response.Response(serializer.data, status=status.HTTP_200_OK)
@@ -38,6 +38,6 @@ class QuibViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
 
         comment_instance = serializer.save()
-        quib_instance.comments.add(comment_instance)
+        post_instance.comments.add(comment_instance)
 
         return response.Response(serializer.data, status=status.HTTP_201_CREATED)

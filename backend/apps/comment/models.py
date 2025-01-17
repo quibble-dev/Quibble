@@ -12,18 +12,22 @@ from .managers import CommentManager
 
 
 class Comment(CreatedAtMixin, TreeModel):
-    quibbler = models.ForeignKey(
-        Profile, on_delete=models.SET_NULL, null=True, verbose_name=_('quibbler')
+    commenter = models.ForeignKey(
+        Profile,
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name=_('commenter'),
+        related_name=_('comments'),
     )
     content = models.TextField(_('content'))
     upvotes = models.ManyToManyField(
-        Profile, related_name='upvoted_comments', blank=True, verbose_name=_('upvotes')
+        Profile, blank=True, verbose_name=_('upvotes'), related_name=_('upvoted_comments')
     )
     downvotes = models.ManyToManyField(
         Profile,
-        related_name='downvoted_comments',
         blank=True,
         verbose_name=_('downvotes'),
+        related_name=_('downvoted_comments'),
     )
     # flag
     deleted = models.BooleanField(default=False)
@@ -35,7 +39,7 @@ class Comment(CreatedAtMixin, TreeModel):
         return self.children().count()
 
     def __str__(self) -> str:
-        return f"Comment by {self.quibbler}"
+        return f"Comment by {self.commenter}"
 
     class Meta:  # pyright: ignore
         indexes = [idx.GistIndex(fields=['path'])]

@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
 
 from apps.comment.models import Comment
-from apps.quiblet.models import Quiblet
+from apps.community.models import Community
 from apps.user.models import Profile
 from mixins.models.created_at import CreatedAtMixin
 from mixins.models.is_public import IsPublicMixin
@@ -15,17 +15,17 @@ cover_file_pattern = FilePattern(filename_pattern="cover/{uuid:s}{ext}")
 # Create your models here.
 
 
-class Quib(CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
-    quiblet = models.ForeignKey(
-        Quiblet,
-        related_name='quibs',
-        verbose_name=_('quiblet'),
+class Post(CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
+    community = models.ForeignKey(
+        Community,
+        related_name='posts',
+        verbose_name=_('community'),
         on_delete=models.CASCADE,
     )
-    quibber = models.ForeignKey(
+    poster = models.ForeignKey(
         Profile,
-        related_name='quibs',
-        verbose_name=_('quibber'),
+        related_name='posts',
+        verbose_name=_('poster'),
         on_delete=models.CASCADE,
     )
     highlighted = models.BooleanField(_('highlighted'), default=False)
@@ -39,13 +39,10 @@ class Quib(CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
         null=True,
     )
     upvotes = models.ManyToManyField(
-        Profile, related_name='upvoted_quibs', blank=True, verbose_name=_('upvotes')
+        Profile, blank=True, verbose_name=_('upvotes'), related_name=_('upvoted_posts')
     )
     downvotes = models.ManyToManyField(
-        Profile,
-        related_name='downvoted_quibs',
-        blank=True,
-        verbose_name=_('downvotes'),
+        Profile, blank=True, verbose_name=_('downvotes'), related_name=_('downvoted_posts')
     )
     comments = models.ManyToManyField(
         Comment, related_name='comments', blank=True, verbose_name=_('comments')
@@ -62,6 +59,6 @@ class Quib(CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
         return f'{self.pk}/{self.slug}'
 
     class Meta:  # pyright: ignore
-        verbose_name = 'Quib'
-        verbose_name_plural = 'Quibs'
+        verbose_name = 'Post'
+        verbose_name_plural = 'Posts'
         ordering = ['-created_at']

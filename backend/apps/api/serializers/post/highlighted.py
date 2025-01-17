@@ -1,9 +1,9 @@
 from rest_framework import serializers
 
-from apps.quib.models import Quib
+from apps.post.models import Post
 
 
-class QuibHighlightedSerializer(serializers.ModelSerializer):
+class PostHighlightedSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Quib
+        model = Post
         fields = ('cover', 'title', 'id', 'slug', 'created_at')

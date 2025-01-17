@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
 
-class QuibletExistsSerializer(serializers.Serializer):
+class CommunityExistsSerializer(serializers.Serializer):
     exists = serializers.BooleanField()
     name = serializers.CharField()

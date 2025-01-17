@@ -1,15 +1,15 @@
 from rest_framework import serializers
 
-from apps.quib.models import Quib
+from apps.post.models import Post
 
-from ...serializers.community import QuibletBasicSerializer
+from ...serializers.community import CommunityBasicSerializer
 from ...serializers.user.profile import ProfileBasicSerializer
 
 
-class QuibSerializer(serializers.ModelSerializer):
-    quiblet = QuibletBasicSerializer(read_only=True)
-    quibber = ProfileBasicSerializer(read_only=True)
+class PostSerializer(serializers.ModelSerializer):
+    community = CommunityBasicSerializer(read_only=True)
+    poster = ProfileBasicSerializer(read_only=True)
 
     class Meta:
-        model = Quib
+        model = Post
         fields = '__all__'

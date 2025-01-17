@@ -4,14 +4,14 @@ from rest_framework import routers
 from .views.user import MeAPIView
 from .views.user.auth import LoginAPIView, LogoutAPIView, RegisterAPIView
 from .viewsets.comment import CommentViewSet
-from .viewsets.community import QuibletViewSet
-from .viewsets.post import QuibViewSet
+from .viewsets.community import CommunityViewSet
+from .viewsets.post import PostViewSet
 from .viewsets.user import MyProfilesViewSet, ProfileViewSet
 
 main_router = routers.DefaultRouter()
 main_router.register(r'comments', CommentViewSet, basename='comments')
-main_router.register(r'posts', QuibViewSet, basename='posts')
-main_router.register(r'communities', QuibletViewSet, basename='communities')
+main_router.register(r'posts', PostViewSet, basename='posts')
+main_router.register(r'communities', CommunityViewSet, basename='communities')
 # user routes
 user_router = routers.DefaultRouter()
 user_router.register(r'users/profiles', ProfileViewSet, basename='profiles')
