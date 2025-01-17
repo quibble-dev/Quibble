@@ -14,8 +14,8 @@
 
   let { on_menu_click }: Props = $props();
 
-  const show_search_in_quiblet = $derived.by(
-    () => $page.url.pathname.includes('/q/') && $page.data.quiblet
+  const show_search_in_community = $derived(
+    $page.url.pathname.includes('/q/') && $page.data.community
   );
 
   const modalsStore = createModalsStore(),
@@ -44,11 +44,11 @@
         <coreicons-shape-home class="size-5 text-primary"></coreicons-shape-home>
         <span class="text-sm font-medium">Home</span>
       </a>
-      <a href="/q/popular" aria-label="Popular Quibbles" class="flex items-center gap-2">
+      <a href="/q/popular" aria-label="Popular Communities" class="flex items-center gap-2">
         <ChartBarsIcon variant="popular" class="size-5" />
         <span class="text-sm font-medium">Popular</span>
       </a>
-      <a href="/q/all" aria-label="All Quibbles" class="flex items-center gap-2">
+      <a href="/q/all" aria-label="All Communities" class="flex items-center gap-2">
         <ChartBarsIcon variant="all" class="size-5" />
         <span class="text-sm font-medium">All</span>
       </a>
@@ -57,18 +57,20 @@
       class="input input-bordered relative flex h-10 w-96 items-center bg-transparent px-3"
     >
       <coreicons-shape-search class="size-5"></coreicons-shape-search>
-      {#if show_search_in_quiblet}
+      {#if show_search_in_community}
         <div
           class="ml-2 flex items-center gap-2 rounded-lg border border-neutral bg-base-100 p-1 px-1.5"
         >
-          <Avatar src={$page.data.quiblet.avatar} class="size-5 rounded-full" />
-          <h5 class="whitespace-nowrap text-xs font-medium">q/{$page.data.quiblet.name}</h5>
+          <Avatar src={$page.data.community.avatar} class="size-5 rounded-full" />
+          <h5 class="whitespace-nowrap text-xs font-medium">
+            q/{$page.data.community.name}
+          </h5>
         </div>
       {/if}
       <input
         type="text"
         class="grow border-none text-sm font-medium focus:ring-0"
-        placeholder={show_search_in_quiblet
+        placeholder={show_search_in_community
           ? `Search in q/${$page.params.name}`
           : 'Search...'}
       />
@@ -79,7 +81,7 @@
       <coreicons-shape-search variant="no-border" class="size-5"></coreicons-shape-search>
     </button>
     {#if authStore.state.is_authenticated}
-      <div class="tooltip tooltip-bottom" data-tip="Create a Quib">
+      <div class="tooltip tooltip-bottom" data-tip="Create a Post">
         <button
           aria-label="Create a Post"
           class="btn h-10 w-10 p-0 md:btn-primary md:w-auto md:px-3"

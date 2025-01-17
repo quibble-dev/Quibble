@@ -40,8 +40,8 @@
       {#if comment.deleted}
         <Avatar class="size-8 flex-shrink-0" />
       {:else}
-        <a href="/u/{comment.quibbler?.username}">
-          <Avatar src={comment.quibbler?.avatar} class="size-8 flex-shrink-0" />
+        <a href="/u/{comment.commenter?.username}">
+          <Avatar src={comment.commenter?.avatar} class="size-8 flex-shrink-0" />
         </a>
       {/if}
       <button
@@ -62,10 +62,10 @@
         <h3 class="text-xs font-semibold">[deleted]</h3>
       {:else}
         <a
-          href="/u/{comment.quibbler?.username}"
+          href="/u/{comment.commenter?.username}"
           class="flex items-center gap-2 hover:text-accent hover:underline"
         >
-          <h3 class="text-xs font-semibold">u/{comment.quibbler?.username}</h3>
+          <h3 class="text-xs font-semibold">u/{comment.commenter?.username}</h3>
         </a>
       {/if}
       <coreicons-shape-circle variant="filled" class="size-0.5 text-base-content/75"

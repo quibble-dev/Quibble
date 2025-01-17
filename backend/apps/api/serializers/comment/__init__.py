@@ -33,7 +33,7 @@ class CommentCreateSerializer(serializers.ModelSerializer):
 
 
 class CommentDetailSerializer(serializers.ModelSerializer):
-    quibbler = ProfileBasicSerializer(allow_null=True)
+    commenter = ProfileBasicSerializer(allow_null=True)
     ratio = serializers.IntegerField()
 
     class Meta:
