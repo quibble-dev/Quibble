@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django_ltree.models import TreeModel
 
 from apps.user.models import Profile
-from common.mixins.model_mixins import CreatedAtMixin
+from mixins.models.created_at import CreatedAtMixin
 
 from .managers import CommentManager
 

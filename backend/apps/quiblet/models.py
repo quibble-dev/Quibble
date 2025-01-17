@@ -5,7 +5,9 @@ from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
 
 from apps.user.models import Profile
-from common.mixins.model_mixins import AvatarMixin, CreatedAtMixin, IsPublicMixin
+from mixins.models.avatar import AvatarMixin
+from mixins.models.created_at import CreatedAtMixin
+from mixins.models.is_public import IsPublicMixin
 
 banner_file_pattern = FilePattern(filename_pattern="banner/{uuid:s}{ext}")
 
