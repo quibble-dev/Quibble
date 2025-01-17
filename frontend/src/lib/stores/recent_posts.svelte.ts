@@ -2,7 +2,7 @@ import { browser } from '$app/environment';
 
 type Post = {
   id: string;
-  postlet: {
+  community: {
     avatar?: string | null | undefined;
     name: string;
   };

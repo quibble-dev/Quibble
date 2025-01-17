@@ -11,7 +11,7 @@
   import { FormatDate } from '$lib/functions/date';
   import { is_valid } from '$lib/functions/is_valid';
   import { createAuthStore } from '$lib/stores/auth.svelte';
-  import { createRecentQuibsStore } from '$lib/stores/recent_posts.svelte';
+  import { createRecentPostsStore } from '$lib/stores/recent_posts.svelte';
   import type { PageData } from './$types';
   import readable from 'readable-numbers';
   import { onMount } from 'svelte';
@@ -20,7 +20,7 @@
   const { post, comments } = data;
 
   const authStore = createAuthStore();
-  const recentQuibsStore = createRecentQuibsStore();
+  const recentPostsStore = createRecentPostsStore();
 
   const is_upvoted = $derived.by(check_if_upvoted);
   function check_if_upvoted() {
@@ -52,9 +52,9 @@
   }
 
   onMount(() => {
-    recentQuibsStore.add_quib({
+    recentPostsStore.add_post({
       id: post.id,
-      quiblet: post.quiblet,
+      community: post.community,
       title: post.title,
       slug: post.slug,
       cover: post.cover,
@@ -65,10 +65,10 @@
 </script>
 
 <svelte:head>
-  <title>{post.title} : q/{post.quiblet.name}</title>
+  <title>{post.title} : q/{post.community.name}</title>
 </svelte:head>
 
-<!-- quibber and quiblet details and more -->
+<!-- poster and community details and more -->
 <div class="flex items-center gap-2">
   <button
     onclick={handle_back}
@@ -78,13 +78,13 @@
     <coreicons-shape-arrow variant="left" class="size-5"></coreicons-shape-arrow>
   </button>
   <div class="flex items-center gap-2">
-    <a href="/q/{post.quiblet.name}">
-      <Avatar src={post.quiblet.avatar} class="size-8 rounded-full" />
+    <a href="/q/{post.community.name}">
+      <Avatar src={post.community.avatar} class="size-8 rounded-full" />
     </a>
     <div class="flex flex-col">
       <div class="flex items-center gap-2">
-        <a href="/q/{post.quiblet.name}" class="hover:text-accent hover:underline">
-          <h3 class="text-xs font-semibold">q/{post.quiblet.name}</h3>
+        <a href="/q/{post.community.name}" class="hover:text-accent hover:underline">
+          <h3 class="text-xs font-semibold">q/{post.community.name}</h3>
         </a>
         <coreicons-shape-circle variant="filled" class="size-0.5 text-base-content/75"
         ></coreicons-shape-circle>
@@ -92,8 +92,8 @@
           >{new FormatDate(post.created_at).timeAgo()}</span
         >
       </div>
-      <a href="/u/{post.quibber.username}" class="w-max hover:underline">
-        <h3 class="text-xs">{post.quibber.username}</h3>
+      <a href="/u/{post.poster.username}" class="w-max hover:underline">
+        <h3 class="text-xs">{post.poster.username}</h3>
       </a>
     </div>
   </div>
@@ -115,7 +115,7 @@
     </Zoom>
   </BackdropImage>
 {/if}
-<!-- quib options like vote share -->
+<!-- post options like vote share -->
 <div class="flex items-center gap-4">
   <div class="flex items-center gap-2">
     <button class="flex items-center gap-2" aria-label="upvote">
