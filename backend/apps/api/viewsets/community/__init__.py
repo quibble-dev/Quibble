@@ -3,18 +3,19 @@ from typing import cast
 
 from django.db.models import QuerySet
 from drf_spectacular.utils import extend_schema
-from patches.request import PatchHttpRequest
 from rest_framework import exceptions, response, viewsets
 from rest_framework.decorators import action
 
-from apps.quib.api.v1.serializers import QuibHighlightedSerializer, QuibSerializer
+from apps.quiblet.models import Quiblet
 
-from ...models import Quiblet
-from .serializers import (
+from ...http import HttpRequest
+from ...serializers.community import (
     QuibletDetailedSerializer,
     QuibletExistsSerializer,
     QuibletSerializer,
 )
+from ...serializers.post import QuibSerializer
+from ...serializers.post.highlighted import QuibHighlightedSerializer
 
 
 class QuibletViewSet(viewsets.ModelViewSet):
@@ -81,7 +82,7 @@ class QuibletViewSet(viewsets.ModelViewSet):
         return response.Response(serializer.data)
 
     def perform_create(self, serializer):
-        patched_request = cast(PatchHttpRequest, self.request)
+        patched_request = cast(HttpRequest, self.request)
 
         quibbler = patched_request.user_profile
 
