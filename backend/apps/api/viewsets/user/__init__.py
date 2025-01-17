@@ -1,8 +1,9 @@
 from django.conf import settings
 from rest_framework import exceptions, filters, permissions, viewsets
 
-from ...models import Profile
-from .serializers import ProfileSerializer
+from apps.user.models import Profile
+
+from ...serializers.user.profile import ProfileSerializer
 
 
 class ProfileViewSet(viewsets.ReadOnlyModelViewSet):

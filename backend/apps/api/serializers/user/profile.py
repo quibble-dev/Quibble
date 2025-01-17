@@ -2,29 +2,9 @@ from typing import Optional
 
 from rest_framework import serializers
 
-from ...models import Profile, User
+from apps.user.models import Profile
 
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('id', 'email', 'password', 'date_joined')
-        read_only_fields = ('date_joined',)
-        extra_kwargs = {'password': {'write_only': True}}
-
-    def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)  # pyright: ignore
-        return user
-
-
-class AuthSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('email', 'password')
-
-
-class AuthTokenSerializer(serializers.Serializer):
-    token = serializers.CharField()
+from ...serializers.user import UserSerializer
 
 
 class ProfileSerializer(serializers.ModelSerializer):
