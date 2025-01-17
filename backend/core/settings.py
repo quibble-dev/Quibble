@@ -58,6 +58,7 @@ THIRD_PARTY_APPS = [
 ]
 
 SELF_APPS = [
+    'apps.api',
     'apps.user',
     'apps.comment',
     'apps.quiblet',

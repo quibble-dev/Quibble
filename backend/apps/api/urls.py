@@ -10,7 +10,7 @@ from .viewsets.user import MyProfilesViewSet, ProfileViewSet
 
 main_router = routers.DefaultRouter()
 main_router.register(r'comments', CommentViewSet, basename='comments')
-main_router.register(r'post', QuibViewSet, basename='posts')
+main_router.register(r'posts', QuibViewSet, basename='posts')
 main_router.register(r'communities', QuibletViewSet, basename='communities')
 # user routes
 user_router = routers.DefaultRouter()
