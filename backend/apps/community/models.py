@@ -30,8 +30,8 @@ class Community(AvatarMixin, CreatedAtMixin, IsPublicMixin):
     members = models.ManyToManyField(
         Profile, related_name='joined_communities', blank=True, verbose_name=_('members')
     )
-    rangers = models.ManyToManyField(
-        Profile, related_name='ranged_communities', blank=True, verbose_name=_('rangers')
+    moderators = models.ManyToManyField(
+        Profile, related_name='moded_communities', blank=True, verbose_name=_('moderators')
     )
 
     def __str__(self) -> str:
