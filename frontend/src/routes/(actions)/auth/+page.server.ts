@@ -1,5 +1,5 @@
 import { dev } from '$app/environment';
-import client from '$lib/clients/client';
+import client from '$lib/clients/v1/client';
 import type { Actions } from './$types';
 import { fail } from '@sveltejs/kit';
 
@@ -7,7 +7,7 @@ export const actions = {
   login: async ({ request, cookies }) => {
     const form_data = await request.formData();
 
-    const { data, error, response } = await client.POST('/api/v1/users/auth/login/', {
+    const { data, error, response } = await client.POST('/api/v1/auth/login/', {
       body: {
         email: String(form_data.get('email')),
         password: String(form_data.get('password'))

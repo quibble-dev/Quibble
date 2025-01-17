@@ -11,22 +11,22 @@
   import { onMount } from 'svelte';
 
   const { data }: { data: PageData } = $props();
-  const { quiblet, quibs, highlighted_quibs } = data;
+  const { community, posts, highlighted_posts } = data;
 
   const authStore = createAuthStore(),
     sidebarStore = createSidebarStore();
 
   const is_joined = $derived.by(() => {
     if (!authStore.state.is_authenticated) return false;
-    if (authStore.state.profile && quiblet) {
-      return quiblet.members?.includes(authStore.state.profile.id);
+    if (authStore.state.profile && community) {
+      return community.members?.includes(authStore.state.profile.id);
     }
   });
 
   function add_to_sidebar_store(key: string) {
     sidebarStore.add_quiblet(key, {
-      avatar: quiblet.avatar,
-      name: quiblet.name
+      avatar: community.avatar,
+      name: community.name
     });
   }
 
@@ -37,17 +37,17 @@
 </script>
 
 <svelte:head>
-  <title>q/{quiblet?.name}</title>
+  <title>q/{community?.name}</title>
 </svelte:head>
 
 <div class="relative">
   <!-- show quiblet cover if not null or solid bg -->
   <div
     class={cn(
-      !quiblet?.banner ? 'h-24 bg-neutral' : 'h-24 bg-cover bg-center md:h-40',
+      !community?.banner ? 'h-24 bg-neutral' : 'h-24 bg-cover bg-center md:h-40',
       'w-full rounded-2xl'
     )}
-    style="background-image: url({quiblet?.banner});"
+    style="background-image: url({community?.banner});"
   ></div>
   <div
     class="inset-x-0 -bottom-12 flex flex-col justify-between gap-4 md:absolute md:flex-row md:items-end md:px-4"
@@ -55,21 +55,21 @@
     <div class="mt-4 flex items-center gap-2 md:mt-0 md:items-end">
       <Avatar
         class="size-14 flex-shrink-0 rounded-full outline-8 outline-base-300 md:size-20 md:outline"
-        src={quiblet?.avatar}
+        src={community?.avatar}
       />
       <div class="flex flex-col">
-        <h3 class="text-xl font-bold text-info md:text-2xl">q/{quiblet?.name}</h3>
+        <h3 class="text-xl font-bold text-info md:text-2xl">q/{community?.name}</h3>
         <div class="flex items-center gap-2 md:hidden">
           <div class="flex items-center gap-1">
-            <span class="text-sm text-info">{quiblet?.members?.length}</span>
+            <span class="text-sm text-info">{community?.members?.length}</span>
             <span class="text-xs text-base-content/75"
-              >{pluralize('Member', quiblet?.members?.length ?? 0)}</span
+              >{pluralize('Member', community?.members?.length ?? 0)}</span
             >
           </div>
           <div class="flex items-center gap-1">
-            <span class="text-sm text-info">{quiblet?.quibs}</span>
+            <span class="text-sm text-info">{community?.quibs}</span>
             <span class="text-xs text-base-content/75"
-              >{pluralize('Quib', quiblet?.quibs)}</span
+              >{pluralize('Quib', community?.quibs)}</span
             >
           </div>
         </div>
@@ -93,14 +93,14 @@
 <div class="hidden h-12 md:flex"></div>
 <QuibsHeader />
 <!-- list highlighted quibs if exists -->
-{#if highlighted_quibs?.length}
+{#if highlighted_posts?.length}
   <div class="flex flex-col gap-4">
     <div class="flex items-center gap-2">
       <coreicons-shape-hash class="size-5"></coreicons-shape-hash>
       <h4 class="font-medium">Highlights</h4>
     </div>
     <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
-      {#each highlighted_quibs as quib}
+      {#each highlighted_posts as quib}
         <div
           class="relative flex h-40 flex-col gap-2 overflow-hidden rounded-2xl border border-neutral p-2 transition-colors hover:bg-base-200"
         >
@@ -117,7 +117,7 @@
             >
           </div>
           <a
-            href="./{quiblet?.name}/quibs/{quib.id}/{quib.slug}"
+            href="./{community?.name}/quibs/{quib.id}/{quib.slug}"
             class="absolute inset-0"
             aria-label={quib.title}
           ></a>
@@ -127,8 +127,8 @@
   </div>
 {/if}
 <!-- list quibs -->
-{#if quibs}
-  {#each quibs as quib}
+{#if posts}
+  {#each posts as quib}
     <Quib {...quib} />
   {/each}
 {/if}

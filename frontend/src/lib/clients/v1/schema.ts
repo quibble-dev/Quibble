@@ -4,6 +4,60 @@
  */
 
 export interface paths {
+  '/api/v1/auth/login/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** @description Customized drf basic token authentication.
+     *
+     *     This view authenticates the user using email and password credentials
+     *     and issues a token upon successful login. */
+    post: operations['auth_login_create'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/auth/logout/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** @description View to handle user logout by deleting the authentication token. */
+    post: operations['auth_logout_create'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/api/v1/auth/register/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** @description View to handle registering of new users. */
+    post: operations['auth_register_create'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/api/v1/comments/{id}/': {
     parameters: {
       query?: never;
@@ -36,62 +90,46 @@ export interface paths {
     patch: operations['comments_partial_update'];
     trace?: never;
   };
-  '/api/v1/quiblets/': {
+  '/api/v1/communities/': {
     parameters: {
       query?: never;
       header?: never;
       path?: never;
       cookie?: never;
     };
-    get: operations['quiblets_list'];
+    get: operations['communities_list'];
     put?: never;
-    post: operations['quiblets_create'];
+    post: operations['communities_create'];
     delete?: never;
     options?: never;
     head?: never;
     patch?: never;
     trace?: never;
   };
-  '/api/v1/quiblets/{name}/': {
+  '/api/v1/communities/{name}/': {
     parameters: {
       query?: never;
       header?: never;
       path?: never;
       cookie?: never;
     };
-    get: operations['quiblets_retrieve'];
-    put: operations['quiblets_update'];
+    get: operations['communities_retrieve'];
+    put: operations['communities_update'];
     post?: never;
-    delete: operations['quiblets_destroy'];
+    delete: operations['communities_destroy'];
     options?: never;
     head?: never;
-    patch: operations['quiblets_partial_update'];
+    patch: operations['communities_partial_update'];
     trace?: never;
   };
-  '/api/v1/quiblets/{name}/exists/': {
+  '/api/v1/communities/{name}/exists/': {
     parameters: {
       query?: never;
       header?: never;
       path?: never;
       cookie?: never;
     };
-    get: operations['quiblets_exists_retrieve'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/quiblets/{name}/highlighted_quibs/': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['quiblets_highlighted_quibs_list'];
+    get: operations['communities_exists_retrieve'];
     put?: never;
     post?: never;
     delete?: never;
@@ -100,14 +138,14 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/api/v1/quiblets/{name}/quibs/': {
+  '/api/v1/communities/{name}/highlighted_posts/': {
     parameters: {
       query?: never;
       header?: never;
       path?: never;
       cookie?: never;
     };
-    get: operations['quiblets_quibs_list'];
+    get: operations['communities_highlighted_posts_list'];
     put?: never;
     post?: never;
     delete?: never;
@@ -116,102 +154,64 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/api/v1/quibs/': {
+  '/api/v1/communities/{name}/posts/': {
     parameters: {
       query?: never;
       header?: never;
       path?: never;
       cookie?: never;
     };
-    get: operations['quibs_list'];
+    get: operations['communities_posts_list'];
     put?: never;
-    post: operations['quibs_create'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/quibs/{id}/': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['quibs_retrieve'];
-    put: operations['quibs_update'];
     post?: never;
-    delete: operations['quibs_destroy'];
-    options?: never;
-    head?: never;
-    patch: operations['quibs_partial_update'];
-    trace?: never;
-  };
-  '/api/v1/quibs/{id}/comments/': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['quibs_comments_list'];
-    put?: never;
-    post: operations['quibs_comments_create'];
     delete?: never;
     options?: never;
     head?: never;
     patch?: never;
     trace?: never;
   };
-  '/api/v1/users/auth/login/': {
+  '/api/v1/posts/': {
     parameters: {
       query?: never;
       header?: never;
       path?: never;
       cookie?: never;
     };
-    get?: never;
+    get: operations['posts_list'];
     put?: never;
-    /** @description Customized drf basic token authentication.
-     *
-     *     This view authenticates the user using email and password credentials
-     *     and issues a token upon successful login. */
-    post: operations['users_auth_login_create'];
+    post: operations['posts_create'];
     delete?: never;
     options?: never;
     head?: never;
     patch?: never;
     trace?: never;
   };
-  '/api/v1/users/auth/logout/': {
+  '/api/v1/posts/{id}/': {
     parameters: {
       query?: never;
       header?: never;
       path?: never;
       cookie?: never;
     };
-    get?: never;
-    put?: never;
-    /** @description View to handle user logout by deleting the authentication token. */
-    post: operations['users_auth_logout_create'];
-    delete?: never;
+    get: operations['posts_retrieve'];
+    put: operations['posts_update'];
+    post?: never;
+    delete: operations['posts_destroy'];
     options?: never;
     head?: never;
-    patch?: never;
+    patch: operations['posts_partial_update'];
     trace?: never;
   };
-  '/api/v1/users/auth/register/': {
+  '/api/v1/posts/{id}/comments/': {
     parameters: {
       query?: never;
       header?: never;
       path?: never;
       cookie?: never;
     };
-    get?: never;
+    get: operations['posts_comments_list'];
     put?: never;
-    /** @description View to handle registering of new users. */
-    post: operations['users_auth_register_create'];
+    post: operations['posts_comments_create'];
     delete?: never;
     options?: never;
     head?: never;
@@ -348,6 +348,158 @@ export interface components {
       email: string;
       password: string;
     };
+    AuthLoginCreateEmailErrorComponent: {
+      /**
+       * @description * `email` - email (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'email';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    AuthLoginCreateError:
+      | components['schemas']['AuthLoginCreateNonFieldErrorsErrorComponent']
+      | components['schemas']['AuthLoginCreateEmailErrorComponent']
+      | components['schemas']['AuthLoginCreatePasswordErrorComponent'];
+    AuthLoginCreateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    AuthLoginCreatePasswordErrorComponent: {
+      /**
+       * @description * `password` - password (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'password';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    AuthLoginCreateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['AuthLoginCreateError'][];
+    };
+    AuthRegisterCreateEmailErrorComponent: {
+      /**
+       * @description * `email` - email (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'email';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    AuthRegisterCreateError:
+      | components['schemas']['AuthRegisterCreateNonFieldErrorsErrorComponent']
+      | components['schemas']['AuthRegisterCreateEmailErrorComponent']
+      | components['schemas']['AuthRegisterCreatePasswordErrorComponent'];
+    AuthRegisterCreateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    AuthRegisterCreatePasswordErrorComponent: {
+      /**
+       * @description * `password` - password (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'password';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    AuthRegisterCreateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['AuthRegisterCreateError'][];
+    };
     AuthToken: {
       token: string;
     };
@@ -363,7 +515,7 @@ export interface components {
     CommentDetail: {
       readonly id: number;
       quibbler: components['schemas']['ProfileBasic'] | null;
-      readonly ratio: string;
+      ratio: number;
       path: string;
       /**
        * Create at
@@ -372,8 +524,23 @@ export interface components {
       readonly created_at: string;
       content: string;
       deleted?: boolean;
+      commenter?: number | null;
       upvotes?: number[];
       downvotes?: number[];
+    };
+    CommentsPartialUpdateCommenterErrorComponent: {
+      /**
+       * @description * `commenter` - commenter (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'commenter';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type';
+      detail: string;
     };
     CommentsPartialUpdateContentErrorComponent: {
       /**
@@ -434,9 +601,11 @@ export interface components {
       | components['schemas']['CommentsPartialUpdateQuibblerNonFieldErrorsErrorComponent']
       | components['schemas']['CommentsPartialUpdateQuibblerUsernameErrorComponent']
       | components['schemas']['CommentsPartialUpdateQuibblerAvatarErrorComponent']
+      | components['schemas']['CommentsPartialUpdateRatioErrorComponent']
       | components['schemas']['CommentsPartialUpdatePathErrorComponent']
       | components['schemas']['CommentsPartialUpdateContentErrorComponent']
       | components['schemas']['CommentsPartialUpdateDeletedErrorComponent']
+      | components['schemas']['CommentsPartialUpdateCommenterErrorComponent']
       | components['schemas']['CommentsPartialUpdateUpvotesErrorComponent']
       | components['schemas']['CommentsPartialUpdateDownvotesErrorComponent'];
     CommentsPartialUpdateNonFieldErrorsErrorComponent: {
@@ -538,6 +707,22 @@ export interface components {
         | 'unique';
       detail: string;
     };
+    CommentsPartialUpdateRatioErrorComponent: {
+      /**
+       * @description * `ratio` - ratio (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'ratio';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_string_length` - max_string_length
+       *     * `null` - null
+       *     * `required` - required
+       * @enum {string}
+       */
+      code: 'invalid' | 'max_string_length' | 'null' | 'required';
+      detail: string;
+    };
     CommentsPartialUpdateUpvotesErrorComponent: {
       /**
        * @description * `upvotes` - upvotes (enum property replaced by openapi-typescript)
@@ -557,6 +742,20 @@ export interface components {
     CommentsPartialUpdateValidationError: {
       type: components['schemas']['ValidationErrorEnum'];
       errors: components['schemas']['CommentsPartialUpdateError'][];
+    };
+    CommentsUpdateCommenterErrorComponent: {
+      /**
+       * @description * `commenter` - commenter (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'commenter';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type';
+      detail: string;
     };
     CommentsUpdateContentErrorComponent: {
       /**
@@ -617,9 +816,11 @@ export interface components {
       | components['schemas']['CommentsUpdateQuibblerNonFieldErrorsErrorComponent']
       | components['schemas']['CommentsUpdateQuibblerUsernameErrorComponent']
       | components['schemas']['CommentsUpdateQuibblerAvatarErrorComponent']
+      | components['schemas']['CommentsUpdateRatioErrorComponent']
       | components['schemas']['CommentsUpdatePathErrorComponent']
       | components['schemas']['CommentsUpdateContentErrorComponent']
       | components['schemas']['CommentsUpdateDeletedErrorComponent']
+      | components['schemas']['CommentsUpdateCommenterErrorComponent']
       | components['schemas']['CommentsUpdateUpvotesErrorComponent']
       | components['schemas']['CommentsUpdateDownvotesErrorComponent'];
     CommentsUpdateNonFieldErrorsErrorComponent: {
@@ -721,6 +922,22 @@ export interface components {
         | 'unique';
       detail: string;
     };
+    CommentsUpdateRatioErrorComponent: {
+      /**
+       * @description * `ratio` - ratio (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'ratio';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_string_length` - max_string_length
+       *     * `null` - null
+       *     * `required` - required
+       * @enum {string}
+       */
+      code: 'invalid' | 'max_string_length' | 'null' | 'required';
+      detail: string;
+    };
     CommentsUpdateUpvotesErrorComponent: {
       /**
        * @description * `upvotes` - upvotes (enum property replaced by openapi-typescript)
@@ -740,6 +957,593 @@ export interface components {
     CommentsUpdateValidationError: {
       type: components['schemas']['ValidationErrorEnum'];
       errors: components['schemas']['CommentsUpdateError'][];
+    };
+    CommunitiesCreateAvatarErrorComponent: {
+      /**
+       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'avatar';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    CommunitiesCreateBannerErrorComponent: {
+      /**
+       * @description * `banner` - banner (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'banner';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    CommunitiesCreateDescriptionErrorComponent: {
+      /**
+       * @description * `description` - description (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'description';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    CommunitiesCreateError:
+      | components['schemas']['CommunitiesCreateNonFieldErrorsErrorComponent']
+      | components['schemas']['CommunitiesCreateAvatarErrorComponent']
+      | components['schemas']['CommunitiesCreateIsPublicErrorComponent']
+      | components['schemas']['CommunitiesCreateNameErrorComponent']
+      | components['schemas']['CommunitiesCreateDescriptionErrorComponent']
+      | components['schemas']['CommunitiesCreateTitleErrorComponent']
+      | components['schemas']['CommunitiesCreateBannerErrorComponent']
+      | components['schemas']['CommunitiesCreateMembersErrorComponent']
+      | components['schemas']['CommunitiesCreateModeratorsErrorComponent'];
+    CommunitiesCreateIsPublicErrorComponent: {
+      /**
+       * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'is_public';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    CommunitiesCreateMembersErrorComponent: {
+      /**
+       * @description * `members` - members (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'members';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    CommunitiesCreateModeratorsErrorComponent: {
+      /**
+       * @description * `moderators` - moderators (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'moderators';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    CommunitiesCreateNameErrorComponent: {
+      /**
+       * @description * `name` - name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'name';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    CommunitiesCreateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    CommunitiesCreateTitleErrorComponent: {
+      /**
+       * @description * `title` - title (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'title';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    CommunitiesCreateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['CommunitiesCreateError'][];
+    };
+    CommunitiesPartialUpdateAvatarErrorComponent: {
+      /**
+       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'avatar';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    CommunitiesPartialUpdateBannerErrorComponent: {
+      /**
+       * @description * `banner` - banner (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'banner';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    CommunitiesPartialUpdateDescriptionErrorComponent: {
+      /**
+       * @description * `description` - description (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'description';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    CommunitiesPartialUpdateError:
+      | components['schemas']['CommunitiesPartialUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['CommunitiesPartialUpdateAvatarErrorComponent']
+      | components['schemas']['CommunitiesPartialUpdateIsPublicErrorComponent']
+      | components['schemas']['CommunitiesPartialUpdateNameErrorComponent']
+      | components['schemas']['CommunitiesPartialUpdateDescriptionErrorComponent']
+      | components['schemas']['CommunitiesPartialUpdateTitleErrorComponent']
+      | components['schemas']['CommunitiesPartialUpdateBannerErrorComponent']
+      | components['schemas']['CommunitiesPartialUpdateMembersErrorComponent']
+      | components['schemas']['CommunitiesPartialUpdateModeratorsErrorComponent'];
+    CommunitiesPartialUpdateIsPublicErrorComponent: {
+      /**
+       * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'is_public';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    CommunitiesPartialUpdateMembersErrorComponent: {
+      /**
+       * @description * `members` - members (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'members';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    CommunitiesPartialUpdateModeratorsErrorComponent: {
+      /**
+       * @description * `moderators` - moderators (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'moderators';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    CommunitiesPartialUpdateNameErrorComponent: {
+      /**
+       * @description * `name` - name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'name';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    CommunitiesPartialUpdateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    CommunitiesPartialUpdateTitleErrorComponent: {
+      /**
+       * @description * `title` - title (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'title';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    CommunitiesPartialUpdateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['CommunitiesPartialUpdateError'][];
+    };
+    CommunitiesUpdateAvatarErrorComponent: {
+      /**
+       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'avatar';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    CommunitiesUpdateBannerErrorComponent: {
+      /**
+       * @description * `banner` - banner (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'banner';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    CommunitiesUpdateDescriptionErrorComponent: {
+      /**
+       * @description * `description` - description (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'description';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    CommunitiesUpdateError:
+      | components['schemas']['CommunitiesUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['CommunitiesUpdateAvatarErrorComponent']
+      | components['schemas']['CommunitiesUpdateIsPublicErrorComponent']
+      | components['schemas']['CommunitiesUpdateNameErrorComponent']
+      | components['schemas']['CommunitiesUpdateDescriptionErrorComponent']
+      | components['schemas']['CommunitiesUpdateTitleErrorComponent']
+      | components['schemas']['CommunitiesUpdateBannerErrorComponent']
+      | components['schemas']['CommunitiesUpdateMembersErrorComponent']
+      | components['schemas']['CommunitiesUpdateModeratorsErrorComponent'];
+    CommunitiesUpdateIsPublicErrorComponent: {
+      /**
+       * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'is_public';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    CommunitiesUpdateMembersErrorComponent: {
+      /**
+       * @description * `members` - members (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'members';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    CommunitiesUpdateModeratorsErrorComponent: {
+      /**
+       * @description * `moderators` - moderators (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'moderators';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    CommunitiesUpdateNameErrorComponent: {
+      /**
+       * @description * `name` - name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'name';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    CommunitiesUpdateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    CommunitiesUpdateTitleErrorComponent: {
+      /**
+       * @description * `title` - title (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'title';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    CommunitiesUpdateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['CommunitiesUpdateError'][];
+    };
+    Community: {
+      readonly id: number;
+      /** Format: uri */
+      avatar?: string | null;
+      /**
+       * Create at
+       * Format: date-time
+       */
+      readonly created_at: string;
+      is_public?: boolean;
+      name: string;
+      description: string;
+      title?: string | null;
+      /** Format: uri */
+      banner?: string | null;
+      members?: number[];
+      moderators?: number[];
+    };
+    CommunityBasic: {
+      name: string;
+      /** Format: uri */
+      avatar?: string | null;
+    };
+    CommunityDetailed: {
+      readonly id: number;
+      rangers: components['schemas']['ProfileBasic'][];
+      readonly quibs: number;
+      /** Format: uri */
+      avatar?: string | null;
+      /**
+       * Create at
+       * Format: date-time
+       */
+      readonly created_at: string;
+      is_public?: boolean;
+      name: string;
+      description: string;
+      title?: string | null;
+      /** Format: uri */
+      banner?: string | null;
+      members?: number[];
+      moderators?: number[];
+    };
+    CommunityExists: {
+      exists: boolean;
+      name: string;
     };
     /** @description Serializer for views returning just a response with detail key */
     DetailResponse: {
@@ -776,7 +1580,7 @@ export interface components {
     PatchedCommentDetail: {
       readonly id?: number;
       quibbler?: components['schemas']['ProfileBasic'] | null;
-      readonly ratio?: string;
+      ratio?: number;
       path?: string;
       /**
        * Create at
@@ -785,29 +1589,32 @@ export interface components {
       readonly created_at?: string;
       content?: string;
       deleted?: boolean;
+      commenter?: number | null;
       upvotes?: number[];
       downvotes?: number[];
     };
-    PatchedProfile: {
+    PatchedCommunity: {
       readonly id?: number;
-      readonly user?: components['schemas']['User'];
+      /** Format: uri */
+      avatar?: string | null;
       /**
        * Create at
        * Format: date-time
        */
       readonly created_at?: string;
+      is_public?: boolean;
+      name?: string;
+      description?: string;
+      title?: string | null;
       /** Format: uri */
-      avatar?: string | null;
-      /** @description Required. 25 characters or fewer. Letters, digits and ./_ only. */
-      username?: string;
-      first_name?: string | null;
-      last_name?: string | null;
-      bio?: string | null;
+      banner?: string | null;
+      members?: number[];
+      moderators?: number[];
     };
-    PatchedQuib: {
+    PatchedPost: {
       readonly id?: string;
-      readonly quiblet?: components['schemas']['QuibletBasic'];
-      readonly quibber?: components['schemas']['ProfileBasic'];
+      readonly community?: components['schemas']['CommunityBasic'];
+      readonly poster?: components['schemas']['ProfileBasic'];
       /**
        * Create at
        * Format: date-time
@@ -824,51 +1631,26 @@ export interface components {
       downvotes?: number[];
       comments?: number[];
     };
-    PatchedQuiblet: {
+    PatchedProfile: {
       readonly id?: number;
+      readonly user?: components['schemas']['User'];
+      /** Format: uri */
+      avatar?: string | null;
       /**
        * Create at
        * Format: date-time
        */
       readonly created_at?: string;
-      /** Format: uri */
-      avatar?: string | null;
-      is_public?: boolean;
-      name?: string;
-      description?: string;
-      title?: string | null;
-      /** Format: uri */
-      banner?: string | null;
-      members?: number[];
-      rangers?: number[];
-    };
-    Profile: {
-      readonly id: number;
-      readonly user: components['schemas']['User'];
-      /**
-       * Create at
-       * Format: date-time
-       */
-      readonly created_at: string;
-      /** Format: uri */
-      avatar?: string | null;
       /** @description Required. 25 characters or fewer. Letters, digits and ./_ only. */
-      username: string;
+      username?: string;
       first_name?: string | null;
       last_name?: string | null;
       bio?: string | null;
     };
-    ProfileBasic: {
-      /** @description Required. 25 characters or fewer. Letters, digits and ./_ only. */
-      username: string;
-      /** Format: uri */
-      avatar?: string | null;
-      readonly name: string | null;
-    };
-    Quib: {
+    Post: {
       readonly id: string;
-      readonly quiblet: components['schemas']['QuibletBasic'];
-      readonly quibber: components['schemas']['ProfileBasic'];
+      readonly community: components['schemas']['CommunityBasic'];
+      readonly poster: components['schemas']['ProfileBasic'];
       /**
        * Create at
        * Format: date-time
@@ -885,7 +1667,7 @@ export interface components {
       downvotes?: number[];
       comments?: number[];
     };
-    QuibHighlighted: {
+    PostHighlighted: {
       /** Format: uri */
       cover?: string | null;
       title: string;
@@ -897,593 +1679,7 @@ export interface components {
        */
       readonly created_at: string;
     };
-    Quiblet: {
-      readonly id: number;
-      /**
-       * Create at
-       * Format: date-time
-       */
-      readonly created_at: string;
-      /** Format: uri */
-      avatar?: string | null;
-      is_public?: boolean;
-      name: string;
-      description: string;
-      title?: string | null;
-      /** Format: uri */
-      banner?: string | null;
-      members?: number[];
-      rangers?: number[];
-    };
-    QuibletBasic: {
-      name: string;
-      /** Format: uri */
-      avatar?: string | null;
-    };
-    QuibletDetailed: {
-      readonly id: number;
-      rangers: components['schemas']['ProfileBasic'][];
-      readonly quibs: number;
-      /**
-       * Create at
-       * Format: date-time
-       */
-      readonly created_at: string;
-      /** Format: uri */
-      avatar?: string | null;
-      is_public?: boolean;
-      name: string;
-      description: string;
-      title?: string | null;
-      /** Format: uri */
-      banner?: string | null;
-      members?: number[];
-    };
-    QuibletExists: {
-      exists: boolean;
-      name: string;
-    };
-    QuibletsCreateAvatarErrorComponent: {
-      /**
-       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'avatar';
-      /**
-       * @description * `empty` - empty
-       *     * `invalid` - invalid
-       *     * `invalid_image` - invalid_image
-       *     * `max_length` - max_length
-       *     * `no_name` - no_name
-       * @enum {string}
-       */
-      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-      detail: string;
-    };
-    QuibletsCreateBannerErrorComponent: {
-      /**
-       * @description * `banner` - banner (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'banner';
-      /**
-       * @description * `empty` - empty
-       *     * `invalid` - invalid
-       *     * `invalid_image` - invalid_image
-       *     * `max_length` - max_length
-       *     * `no_name` - no_name
-       * @enum {string}
-       */
-      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-      detail: string;
-    };
-    QuibletsCreateDescriptionErrorComponent: {
-      /**
-       * @description * `description` - description (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'description';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    QuibletsCreateError:
-      | components['schemas']['QuibletsCreateNonFieldErrorsErrorComponent']
-      | components['schemas']['QuibletsCreateAvatarErrorComponent']
-      | components['schemas']['QuibletsCreateIsPublicErrorComponent']
-      | components['schemas']['QuibletsCreateNameErrorComponent']
-      | components['schemas']['QuibletsCreateDescriptionErrorComponent']
-      | components['schemas']['QuibletsCreateTitleErrorComponent']
-      | components['schemas']['QuibletsCreateBannerErrorComponent']
-      | components['schemas']['QuibletsCreateMembersErrorComponent']
-      | components['schemas']['QuibletsCreateRangersErrorComponent'];
-    QuibletsCreateIsPublicErrorComponent: {
-      /**
-       * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'is_public';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    QuibletsCreateMembersErrorComponent: {
-      /**
-       * @description * `members` - members (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'members';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `not_a_list` - not_a_list
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-      detail: string;
-    };
-    QuibletsCreateNameErrorComponent: {
-      /**
-       * @description * `name` - name (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'name';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       *     * `unique` - unique
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'max_length'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed'
-        | 'unique';
-      detail: string;
-    };
-    QuibletsCreateNonFieldErrorsErrorComponent: {
-      /**
-       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'non_field_errors';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    QuibletsCreateRangersErrorComponent: {
-      /**
-       * @description * `rangers` - rangers (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'rangers';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `not_a_list` - not_a_list
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-      detail: string;
-    };
-    QuibletsCreateTitleErrorComponent: {
-      /**
-       * @description * `title` - title (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'title';
-      /**
-       * @description * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'invalid'
-        | 'max_length'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    QuibletsCreateValidationError: {
-      type: components['schemas']['ValidationErrorEnum'];
-      errors: components['schemas']['QuibletsCreateError'][];
-    };
-    QuibletsPartialUpdateAvatarErrorComponent: {
-      /**
-       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'avatar';
-      /**
-       * @description * `empty` - empty
-       *     * `invalid` - invalid
-       *     * `invalid_image` - invalid_image
-       *     * `max_length` - max_length
-       *     * `no_name` - no_name
-       * @enum {string}
-       */
-      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-      detail: string;
-    };
-    QuibletsPartialUpdateBannerErrorComponent: {
-      /**
-       * @description * `banner` - banner (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'banner';
-      /**
-       * @description * `empty` - empty
-       *     * `invalid` - invalid
-       *     * `invalid_image` - invalid_image
-       *     * `max_length` - max_length
-       *     * `no_name` - no_name
-       * @enum {string}
-       */
-      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-      detail: string;
-    };
-    QuibletsPartialUpdateDescriptionErrorComponent: {
-      /**
-       * @description * `description` - description (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'description';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    QuibletsPartialUpdateError:
-      | components['schemas']['QuibletsPartialUpdateNonFieldErrorsErrorComponent']
-      | components['schemas']['QuibletsPartialUpdateAvatarErrorComponent']
-      | components['schemas']['QuibletsPartialUpdateIsPublicErrorComponent']
-      | components['schemas']['QuibletsPartialUpdateNameErrorComponent']
-      | components['schemas']['QuibletsPartialUpdateDescriptionErrorComponent']
-      | components['schemas']['QuibletsPartialUpdateTitleErrorComponent']
-      | components['schemas']['QuibletsPartialUpdateBannerErrorComponent']
-      | components['schemas']['QuibletsPartialUpdateMembersErrorComponent']
-      | components['schemas']['QuibletsPartialUpdateRangersErrorComponent'];
-    QuibletsPartialUpdateIsPublicErrorComponent: {
-      /**
-       * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'is_public';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    QuibletsPartialUpdateMembersErrorComponent: {
-      /**
-       * @description * `members` - members (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'members';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `not_a_list` - not_a_list
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-      detail: string;
-    };
-    QuibletsPartialUpdateNameErrorComponent: {
-      /**
-       * @description * `name` - name (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'name';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       *     * `unique` - unique
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'max_length'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed'
-        | 'unique';
-      detail: string;
-    };
-    QuibletsPartialUpdateNonFieldErrorsErrorComponent: {
-      /**
-       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'non_field_errors';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    QuibletsPartialUpdateRangersErrorComponent: {
-      /**
-       * @description * `rangers` - rangers (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'rangers';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `not_a_list` - not_a_list
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-      detail: string;
-    };
-    QuibletsPartialUpdateTitleErrorComponent: {
-      /**
-       * @description * `title` - title (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'title';
-      /**
-       * @description * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'invalid'
-        | 'max_length'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    QuibletsPartialUpdateValidationError: {
-      type: components['schemas']['ValidationErrorEnum'];
-      errors: components['schemas']['QuibletsPartialUpdateError'][];
-    };
-    QuibletsUpdateAvatarErrorComponent: {
-      /**
-       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'avatar';
-      /**
-       * @description * `empty` - empty
-       *     * `invalid` - invalid
-       *     * `invalid_image` - invalid_image
-       *     * `max_length` - max_length
-       *     * `no_name` - no_name
-       * @enum {string}
-       */
-      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-      detail: string;
-    };
-    QuibletsUpdateBannerErrorComponent: {
-      /**
-       * @description * `banner` - banner (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'banner';
-      /**
-       * @description * `empty` - empty
-       *     * `invalid` - invalid
-       *     * `invalid_image` - invalid_image
-       *     * `max_length` - max_length
-       *     * `no_name` - no_name
-       * @enum {string}
-       */
-      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-      detail: string;
-    };
-    QuibletsUpdateDescriptionErrorComponent: {
-      /**
-       * @description * `description` - description (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'description';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    QuibletsUpdateError:
-      | components['schemas']['QuibletsUpdateNonFieldErrorsErrorComponent']
-      | components['schemas']['QuibletsUpdateAvatarErrorComponent']
-      | components['schemas']['QuibletsUpdateIsPublicErrorComponent']
-      | components['schemas']['QuibletsUpdateNameErrorComponent']
-      | components['schemas']['QuibletsUpdateDescriptionErrorComponent']
-      | components['schemas']['QuibletsUpdateTitleErrorComponent']
-      | components['schemas']['QuibletsUpdateBannerErrorComponent']
-      | components['schemas']['QuibletsUpdateMembersErrorComponent']
-      | components['schemas']['QuibletsUpdateRangersErrorComponent'];
-    QuibletsUpdateIsPublicErrorComponent: {
-      /**
-       * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'is_public';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    QuibletsUpdateMembersErrorComponent: {
-      /**
-       * @description * `members` - members (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'members';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `not_a_list` - not_a_list
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-      detail: string;
-    };
-    QuibletsUpdateNameErrorComponent: {
-      /**
-       * @description * `name` - name (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'name';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       *     * `unique` - unique
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'max_length'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed'
-        | 'unique';
-      detail: string;
-    };
-    QuibletsUpdateNonFieldErrorsErrorComponent: {
-      /**
-       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'non_field_errors';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    QuibletsUpdateRangersErrorComponent: {
-      /**
-       * @description * `rangers` - rangers (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'rangers';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `not_a_list` - not_a_list
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-      detail: string;
-    };
-    QuibletsUpdateTitleErrorComponent: {
-      /**
-       * @description * `title` - title (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'title';
-      /**
-       * @description * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'invalid'
-        | 'max_length'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    QuibletsUpdateValidationError: {
-      type: components['schemas']['ValidationErrorEnum'];
-      errors: components['schemas']['QuibletsUpdateError'][];
-    };
-    QuibsCommentsCreateContentErrorComponent: {
+    PostsCommentsCreateContentErrorComponent: {
       /**
        * @description * `content` - content (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1507,11 +1703,11 @@ export interface components {
         | 'surrogate_characters_not_allowed';
       detail: string;
     };
-    QuibsCommentsCreateError:
-      | components['schemas']['QuibsCommentsCreateNonFieldErrorsErrorComponent']
-      | components['schemas']['QuibsCommentsCreatePathErrorComponent']
-      | components['schemas']['QuibsCommentsCreateContentErrorComponent'];
-    QuibsCommentsCreateNonFieldErrorsErrorComponent: {
+    PostsCommentsCreateError:
+      | components['schemas']['PostsCommentsCreateNonFieldErrorsErrorComponent']
+      | components['schemas']['PostsCommentsCreatePathErrorComponent']
+      | components['schemas']['PostsCommentsCreateContentErrorComponent'];
+    PostsCommentsCreateNonFieldErrorsErrorComponent: {
       /**
        * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1525,7 +1721,7 @@ export interface components {
       code: 'invalid' | 'null';
       detail: string;
     };
-    QuibsCommentsCreatePathErrorComponent: {
+    PostsCommentsCreatePathErrorComponent: {
       /**
        * @description * `path` - path (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1547,11 +1743,11 @@ export interface components {
         | 'surrogate_characters_not_allowed';
       detail: string;
     };
-    QuibsCommentsCreateValidationError: {
+    PostsCommentsCreateValidationError: {
       type: components['schemas']['ValidationErrorEnum'];
-      errors: components['schemas']['QuibsCommentsCreateError'][];
+      errors: components['schemas']['PostsCommentsCreateError'][];
     };
-    QuibsCreateCommentsErrorComponent: {
+    PostsCreateCommentsErrorComponent: {
       /**
        * @description * `comments` - comments (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1567,7 +1763,7 @@ export interface components {
       code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
       detail: string;
     };
-    QuibsCreateContentErrorComponent: {
+    PostsCreateContentErrorComponent: {
       /**
        * @description * `content` - content (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1587,7 +1783,7 @@ export interface components {
         | 'surrogate_characters_not_allowed';
       detail: string;
     };
-    QuibsCreateCoverErrorComponent: {
+    PostsCreateCoverErrorComponent: {
       /**
        * @description * `cover` - cover (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1604,7 +1800,7 @@ export interface components {
       code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
       detail: string;
     };
-    QuibsCreateDownvotesErrorComponent: {
+    PostsCreateDownvotesErrorComponent: {
       /**
        * @description * `downvotes` - downvotes (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1620,18 +1816,18 @@ export interface components {
       code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
       detail: string;
     };
-    QuibsCreateError:
-      | components['schemas']['QuibsCreateNonFieldErrorsErrorComponent']
-      | components['schemas']['QuibsCreateIsPublicErrorComponent']
-      | components['schemas']['QuibsCreateHighlightedErrorComponent']
-      | components['schemas']['QuibsCreateTitleErrorComponent']
-      | components['schemas']['QuibsCreateSlugErrorComponent']
-      | components['schemas']['QuibsCreateContentErrorComponent']
-      | components['schemas']['QuibsCreateCoverErrorComponent']
-      | components['schemas']['QuibsCreateUpvotesErrorComponent']
-      | components['schemas']['QuibsCreateDownvotesErrorComponent']
-      | components['schemas']['QuibsCreateCommentsErrorComponent'];
-    QuibsCreateHighlightedErrorComponent: {
+    PostsCreateError:
+      | components['schemas']['PostsCreateNonFieldErrorsErrorComponent']
+      | components['schemas']['PostsCreateIsPublicErrorComponent']
+      | components['schemas']['PostsCreateHighlightedErrorComponent']
+      | components['schemas']['PostsCreateTitleErrorComponent']
+      | components['schemas']['PostsCreateSlugErrorComponent']
+      | components['schemas']['PostsCreateContentErrorComponent']
+      | components['schemas']['PostsCreateCoverErrorComponent']
+      | components['schemas']['PostsCreateUpvotesErrorComponent']
+      | components['schemas']['PostsCreateDownvotesErrorComponent']
+      | components['schemas']['PostsCreateCommentsErrorComponent'];
+    PostsCreateHighlightedErrorComponent: {
       /**
        * @description * `highlighted` - highlighted (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1645,7 +1841,7 @@ export interface components {
       code: 'invalid' | 'null';
       detail: string;
     };
-    QuibsCreateIsPublicErrorComponent: {
+    PostsCreateIsPublicErrorComponent: {
       /**
        * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1659,7 +1855,7 @@ export interface components {
       code: 'invalid' | 'null';
       detail: string;
     };
-    QuibsCreateNonFieldErrorsErrorComponent: {
+    PostsCreateNonFieldErrorsErrorComponent: {
       /**
        * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1673,7 +1869,7 @@ export interface components {
       code: 'invalid' | 'null';
       detail: string;
     };
-    QuibsCreateSlugErrorComponent: {
+    PostsCreateSlugErrorComponent: {
       /**
        * @description * `slug` - slug (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1695,7 +1891,7 @@ export interface components {
         | 'surrogate_characters_not_allowed';
       detail: string;
     };
-    QuibsCreateTitleErrorComponent: {
+    PostsCreateTitleErrorComponent: {
       /**
        * @description * `title` - title (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1721,7 +1917,7 @@ export interface components {
         | 'surrogate_characters_not_allowed';
       detail: string;
     };
-    QuibsCreateUpvotesErrorComponent: {
+    PostsCreateUpvotesErrorComponent: {
       /**
        * @description * `upvotes` - upvotes (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1737,11 +1933,11 @@ export interface components {
       code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
       detail: string;
     };
-    QuibsCreateValidationError: {
+    PostsCreateValidationError: {
       type: components['schemas']['ValidationErrorEnum'];
-      errors: components['schemas']['QuibsCreateError'][];
+      errors: components['schemas']['PostsCreateError'][];
     };
-    QuibsPartialUpdateCommentsErrorComponent: {
+    PostsPartialUpdateCommentsErrorComponent: {
       /**
        * @description * `comments` - comments (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1757,7 +1953,7 @@ export interface components {
       code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
       detail: string;
     };
-    QuibsPartialUpdateContentErrorComponent: {
+    PostsPartialUpdateContentErrorComponent: {
       /**
        * @description * `content` - content (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1777,7 +1973,7 @@ export interface components {
         | 'surrogate_characters_not_allowed';
       detail: string;
     };
-    QuibsPartialUpdateCoverErrorComponent: {
+    PostsPartialUpdateCoverErrorComponent: {
       /**
        * @description * `cover` - cover (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1794,7 +1990,7 @@ export interface components {
       code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
       detail: string;
     };
-    QuibsPartialUpdateDownvotesErrorComponent: {
+    PostsPartialUpdateDownvotesErrorComponent: {
       /**
        * @description * `downvotes` - downvotes (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1810,18 +2006,18 @@ export interface components {
       code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
       detail: string;
     };
-    QuibsPartialUpdateError:
-      | components['schemas']['QuibsPartialUpdateNonFieldErrorsErrorComponent']
-      | components['schemas']['QuibsPartialUpdateIsPublicErrorComponent']
-      | components['schemas']['QuibsPartialUpdateHighlightedErrorComponent']
-      | components['schemas']['QuibsPartialUpdateTitleErrorComponent']
-      | components['schemas']['QuibsPartialUpdateSlugErrorComponent']
-      | components['schemas']['QuibsPartialUpdateContentErrorComponent']
-      | components['schemas']['QuibsPartialUpdateCoverErrorComponent']
-      | components['schemas']['QuibsPartialUpdateUpvotesErrorComponent']
-      | components['schemas']['QuibsPartialUpdateDownvotesErrorComponent']
-      | components['schemas']['QuibsPartialUpdateCommentsErrorComponent'];
-    QuibsPartialUpdateHighlightedErrorComponent: {
+    PostsPartialUpdateError:
+      | components['schemas']['PostsPartialUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['PostsPartialUpdateIsPublicErrorComponent']
+      | components['schemas']['PostsPartialUpdateHighlightedErrorComponent']
+      | components['schemas']['PostsPartialUpdateTitleErrorComponent']
+      | components['schemas']['PostsPartialUpdateSlugErrorComponent']
+      | components['schemas']['PostsPartialUpdateContentErrorComponent']
+      | components['schemas']['PostsPartialUpdateCoverErrorComponent']
+      | components['schemas']['PostsPartialUpdateUpvotesErrorComponent']
+      | components['schemas']['PostsPartialUpdateDownvotesErrorComponent']
+      | components['schemas']['PostsPartialUpdateCommentsErrorComponent'];
+    PostsPartialUpdateHighlightedErrorComponent: {
       /**
        * @description * `highlighted` - highlighted (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1835,7 +2031,7 @@ export interface components {
       code: 'invalid' | 'null';
       detail: string;
     };
-    QuibsPartialUpdateIsPublicErrorComponent: {
+    PostsPartialUpdateIsPublicErrorComponent: {
       /**
        * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1849,7 +2045,7 @@ export interface components {
       code: 'invalid' | 'null';
       detail: string;
     };
-    QuibsPartialUpdateNonFieldErrorsErrorComponent: {
+    PostsPartialUpdateNonFieldErrorsErrorComponent: {
       /**
        * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1863,7 +2059,7 @@ export interface components {
       code: 'invalid' | 'null';
       detail: string;
     };
-    QuibsPartialUpdateSlugErrorComponent: {
+    PostsPartialUpdateSlugErrorComponent: {
       /**
        * @description * `slug` - slug (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1885,7 +2081,7 @@ export interface components {
         | 'surrogate_characters_not_allowed';
       detail: string;
     };
-    QuibsPartialUpdateTitleErrorComponent: {
+    PostsPartialUpdateTitleErrorComponent: {
       /**
        * @description * `title` - title (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1911,7 +2107,7 @@ export interface components {
         | 'surrogate_characters_not_allowed';
       detail: string;
     };
-    QuibsPartialUpdateUpvotesErrorComponent: {
+    PostsPartialUpdateUpvotesErrorComponent: {
       /**
        * @description * `upvotes` - upvotes (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1927,11 +2123,11 @@ export interface components {
       code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
       detail: string;
     };
-    QuibsPartialUpdateValidationError: {
+    PostsPartialUpdateValidationError: {
       type: components['schemas']['ValidationErrorEnum'];
-      errors: components['schemas']['QuibsPartialUpdateError'][];
+      errors: components['schemas']['PostsPartialUpdateError'][];
     };
-    QuibsUpdateCommentsErrorComponent: {
+    PostsUpdateCommentsErrorComponent: {
       /**
        * @description * `comments` - comments (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1947,7 +2143,7 @@ export interface components {
       code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
       detail: string;
     };
-    QuibsUpdateContentErrorComponent: {
+    PostsUpdateContentErrorComponent: {
       /**
        * @description * `content` - content (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1967,7 +2163,7 @@ export interface components {
         | 'surrogate_characters_not_allowed';
       detail: string;
     };
-    QuibsUpdateCoverErrorComponent: {
+    PostsUpdateCoverErrorComponent: {
       /**
        * @description * `cover` - cover (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -1984,7 +2180,7 @@ export interface components {
       code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
       detail: string;
     };
-    QuibsUpdateDownvotesErrorComponent: {
+    PostsUpdateDownvotesErrorComponent: {
       /**
        * @description * `downvotes` - downvotes (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -2000,18 +2196,18 @@ export interface components {
       code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
       detail: string;
     };
-    QuibsUpdateError:
-      | components['schemas']['QuibsUpdateNonFieldErrorsErrorComponent']
-      | components['schemas']['QuibsUpdateIsPublicErrorComponent']
-      | components['schemas']['QuibsUpdateHighlightedErrorComponent']
-      | components['schemas']['QuibsUpdateTitleErrorComponent']
-      | components['schemas']['QuibsUpdateSlugErrorComponent']
-      | components['schemas']['QuibsUpdateContentErrorComponent']
-      | components['schemas']['QuibsUpdateCoverErrorComponent']
-      | components['schemas']['QuibsUpdateUpvotesErrorComponent']
-      | components['schemas']['QuibsUpdateDownvotesErrorComponent']
-      | components['schemas']['QuibsUpdateCommentsErrorComponent'];
-    QuibsUpdateHighlightedErrorComponent: {
+    PostsUpdateError:
+      | components['schemas']['PostsUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['PostsUpdateIsPublicErrorComponent']
+      | components['schemas']['PostsUpdateHighlightedErrorComponent']
+      | components['schemas']['PostsUpdateTitleErrorComponent']
+      | components['schemas']['PostsUpdateSlugErrorComponent']
+      | components['schemas']['PostsUpdateContentErrorComponent']
+      | components['schemas']['PostsUpdateCoverErrorComponent']
+      | components['schemas']['PostsUpdateUpvotesErrorComponent']
+      | components['schemas']['PostsUpdateDownvotesErrorComponent']
+      | components['schemas']['PostsUpdateCommentsErrorComponent'];
+    PostsUpdateHighlightedErrorComponent: {
       /**
        * @description * `highlighted` - highlighted (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -2025,7 +2221,7 @@ export interface components {
       code: 'invalid' | 'null';
       detail: string;
     };
-    QuibsUpdateIsPublicErrorComponent: {
+    PostsUpdateIsPublicErrorComponent: {
       /**
        * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -2039,7 +2235,7 @@ export interface components {
       code: 'invalid' | 'null';
       detail: string;
     };
-    QuibsUpdateNonFieldErrorsErrorComponent: {
+    PostsUpdateNonFieldErrorsErrorComponent: {
       /**
        * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -2053,7 +2249,7 @@ export interface components {
       code: 'invalid' | 'null';
       detail: string;
     };
-    QuibsUpdateSlugErrorComponent: {
+    PostsUpdateSlugErrorComponent: {
       /**
        * @description * `slug` - slug (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -2075,7 +2271,7 @@ export interface components {
         | 'surrogate_characters_not_allowed';
       detail: string;
     };
-    QuibsUpdateTitleErrorComponent: {
+    PostsUpdateTitleErrorComponent: {
       /**
        * @description * `title` - title (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -2101,7 +2297,7 @@ export interface components {
         | 'surrogate_characters_not_allowed';
       detail: string;
     };
-    QuibsUpdateUpvotesErrorComponent: {
+    PostsUpdateUpvotesErrorComponent: {
       /**
        * @description * `upvotes` - upvotes (enum property replaced by openapi-typescript)
        * @enum {string}
@@ -2117,9 +2313,32 @@ export interface components {
       code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
       detail: string;
     };
-    QuibsUpdateValidationError: {
+    PostsUpdateValidationError: {
       type: components['schemas']['ValidationErrorEnum'];
-      errors: components['schemas']['QuibsUpdateError'][];
+      errors: components['schemas']['PostsUpdateError'][];
+    };
+    Profile: {
+      readonly id: number;
+      readonly user: components['schemas']['User'];
+      /** Format: uri */
+      avatar?: string | null;
+      /**
+       * Create at
+       * Format: date-time
+       */
+      readonly created_at: string;
+      /** @description Required. 25 characters or fewer. Letters, digits and ./_ only. */
+      username: string;
+      first_name?: string | null;
+      last_name?: string | null;
+      bio?: string | null;
+    };
+    ProfileBasic: {
+      /** @description Required. 25 characters or fewer. Letters, digits and ./_ only. */
+      username: string;
+      /** Format: uri */
+      avatar?: string | null;
+      readonly name: string | null;
     };
     /**
      * @description * `server_error` - Server Error
@@ -2136,158 +2355,6 @@ export interface components {
       password: string;
       /** Format: date-time */
       readonly date_joined: string;
-    };
-    UsersAuthLoginCreateEmailErrorComponent: {
-      /**
-       * @description * `email` - email (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'email';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       *     * `unique` - unique
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'max_length'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed'
-        | 'unique';
-      detail: string;
-    };
-    UsersAuthLoginCreateError:
-      | components['schemas']['UsersAuthLoginCreateNonFieldErrorsErrorComponent']
-      | components['schemas']['UsersAuthLoginCreateEmailErrorComponent']
-      | components['schemas']['UsersAuthLoginCreatePasswordErrorComponent'];
-    UsersAuthLoginCreateNonFieldErrorsErrorComponent: {
-      /**
-       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'non_field_errors';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    UsersAuthLoginCreatePasswordErrorComponent: {
-      /**
-       * @description * `password` - password (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'password';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'max_length'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    UsersAuthLoginCreateValidationError: {
-      type: components['schemas']['ValidationErrorEnum'];
-      errors: components['schemas']['UsersAuthLoginCreateError'][];
-    };
-    UsersAuthRegisterCreateEmailErrorComponent: {
-      /**
-       * @description * `email` - email (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'email';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       *     * `unique` - unique
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'max_length'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed'
-        | 'unique';
-      detail: string;
-    };
-    UsersAuthRegisterCreateError:
-      | components['schemas']['UsersAuthRegisterCreateNonFieldErrorsErrorComponent']
-      | components['schemas']['UsersAuthRegisterCreateEmailErrorComponent']
-      | components['schemas']['UsersAuthRegisterCreatePasswordErrorComponent'];
-    UsersAuthRegisterCreateNonFieldErrorsErrorComponent: {
-      /**
-       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'non_field_errors';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    UsersAuthRegisterCreatePasswordErrorComponent: {
-      /**
-       * @description * `password` - password (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'password';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'max_length'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    UsersAuthRegisterCreateValidationError: {
-      type: components['schemas']['ValidationErrorEnum'];
-      errors: components['schemas']['UsersAuthRegisterCreateError'][];
     };
     UsersMeProfilesCreateAvatarErrorComponent: {
       /**
@@ -2678,6 +2745,115 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+  auth_login_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Auth'];
+        'application/x-www-form-urlencoded': components['schemas']['Auth'];
+        'multipart/form-data': components['schemas']['Auth'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AuthToken'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AuthLoginCreateValidationError'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  auth_logout_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['DetailResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  auth_register_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Auth'];
+        'application/x-www-form-urlencoded': components['schemas']['Auth'];
+        'multipart/form-data': components['schemas']['Auth'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Auth'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AuthRegisterCreateValidationError'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
   comments_retrieve: {
     parameters: {
       query?: never;
@@ -2857,7 +3033,7 @@ export interface operations {
       };
     };
   };
-  quiblets_list: {
+  communities_list: {
     parameters: {
       query?: never;
       header?: never;
@@ -2871,7 +3047,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Quiblet'][];
+          'application/json': components['schemas']['Community'][];
         };
       };
       500: {
@@ -2884,7 +3060,7 @@ export interface operations {
       };
     };
   };
-  quiblets_create: {
+  communities_create: {
     parameters: {
       query?: never;
       header?: never;
@@ -2893,9 +3069,9 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['Quiblet'];
-        'application/x-www-form-urlencoded': components['schemas']['Quiblet'];
-        'multipart/form-data': components['schemas']['Quiblet'];
+        'application/json': components['schemas']['Community'];
+        'application/x-www-form-urlencoded': components['schemas']['Community'];
+        'multipart/form-data': components['schemas']['Community'];
       };
     };
     responses: {
@@ -2904,7 +3080,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Quiblet'];
+          'application/json': components['schemas']['Community'];
         };
       };
       400: {
@@ -2912,7 +3088,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibletsCreateValidationError'];
+          'application/json': components['schemas']['CommunitiesCreateValidationError'];
         };
       };
       500: {
@@ -2925,7 +3101,7 @@ export interface operations {
       };
     };
   };
-  quiblets_retrieve: {
+  communities_retrieve: {
     parameters: {
       query?: never;
       header?: never;
@@ -2941,7 +3117,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibletDetailed'];
+          'application/json': components['schemas']['CommunityDetailed'];
         };
       };
       404: {
@@ -2962,7 +3138,7 @@ export interface operations {
       };
     };
   };
-  quiblets_update: {
+  communities_update: {
     parameters: {
       query?: never;
       header?: never;
@@ -2973,9 +3149,9 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['Quiblet'];
-        'application/x-www-form-urlencoded': components['schemas']['Quiblet'];
-        'multipart/form-data': components['schemas']['Quiblet'];
+        'application/json': components['schemas']['Community'];
+        'application/x-www-form-urlencoded': components['schemas']['Community'];
+        'multipart/form-data': components['schemas']['Community'];
       };
     };
     responses: {
@@ -2984,7 +3160,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Quiblet'];
+          'application/json': components['schemas']['Community'];
         };
       };
       400: {
@@ -2992,7 +3168,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibletsUpdateValidationError'];
+          'application/json': components['schemas']['CommunitiesUpdateValidationError'];
         };
       };
       404: {
@@ -3013,7 +3189,7 @@ export interface operations {
       };
     };
   };
-  quiblets_destroy: {
+  communities_destroy: {
     parameters: {
       query?: never;
       header?: never;
@@ -3049,7 +3225,7 @@ export interface operations {
       };
     };
   };
-  quiblets_partial_update: {
+  communities_partial_update: {
     parameters: {
       query?: never;
       header?: never;
@@ -3060,9 +3236,9 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        'application/json': components['schemas']['PatchedQuiblet'];
-        'application/x-www-form-urlencoded': components['schemas']['PatchedQuiblet'];
-        'multipart/form-data': components['schemas']['PatchedQuiblet'];
+        'application/json': components['schemas']['PatchedCommunity'];
+        'application/x-www-form-urlencoded': components['schemas']['PatchedCommunity'];
+        'multipart/form-data': components['schemas']['PatchedCommunity'];
       };
     };
     responses: {
@@ -3071,7 +3247,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Quiblet'];
+          'application/json': components['schemas']['Community'];
         };
       };
       400: {
@@ -3079,7 +3255,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibletsPartialUpdateValidationError'];
+          'application/json': components['schemas']['CommunitiesPartialUpdateValidationError'];
         };
       };
       404: {
@@ -3100,7 +3276,7 @@ export interface operations {
       };
     };
   };
-  quiblets_exists_retrieve: {
+  communities_exists_retrieve: {
     parameters: {
       query?: never;
       header?: never;
@@ -3116,7 +3292,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibletExists'];
+          'application/json': components['schemas']['CommunityExists'];
         };
       };
       404: {
@@ -3137,7 +3313,7 @@ export interface operations {
       };
     };
   };
-  quiblets_highlighted_quibs_list: {
+  communities_highlighted_posts_list: {
     parameters: {
       query?: never;
       header?: never;
@@ -3153,7 +3329,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibHighlighted'][];
+          'application/json': components['schemas']['PostHighlighted'][];
         };
       };
       404: {
@@ -3174,7 +3350,7 @@ export interface operations {
       };
     };
   };
-  quiblets_quibs_list: {
+  communities_posts_list: {
     parameters: {
       query?: never;
       header?: never;
@@ -3190,7 +3366,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Quib'][];
+          'application/json': components['schemas']['Post'][];
         };
       };
       404: {
@@ -3211,7 +3387,7 @@ export interface operations {
       };
     };
   };
-  quibs_list: {
+  posts_list: {
     parameters: {
       query?: never;
       header?: never;
@@ -3225,7 +3401,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Quib'][];
+          'application/json': components['schemas']['Post'][];
         };
       };
       500: {
@@ -3238,7 +3414,7 @@ export interface operations {
       };
     };
   };
-  quibs_create: {
+  posts_create: {
     parameters: {
       query?: never;
       header?: never;
@@ -3247,9 +3423,9 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['Quib'];
-        'application/x-www-form-urlencoded': components['schemas']['Quib'];
-        'multipart/form-data': components['schemas']['Quib'];
+        'application/json': components['schemas']['Post'];
+        'application/x-www-form-urlencoded': components['schemas']['Post'];
+        'multipart/form-data': components['schemas']['Post'];
       };
     };
     responses: {
@@ -3258,7 +3434,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Quib'];
+          'application/json': components['schemas']['Post'];
         };
       };
       400: {
@@ -3266,7 +3442,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibsCreateValidationError'];
+          'application/json': components['schemas']['PostsCreateValidationError'];
         };
       };
       500: {
@@ -3279,12 +3455,12 @@ export interface operations {
       };
     };
   };
-  quibs_retrieve: {
+  posts_retrieve: {
     parameters: {
       query?: never;
       header?: never;
       path: {
-        /** @description A unique value identifying this Quib. */
+        /** @description A unique value identifying this Post. */
         id: string;
       };
       cookie?: never;
@@ -3296,7 +3472,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Quib'];
+          'application/json': components['schemas']['Post'];
         };
       };
       404: {
@@ -3317,21 +3493,21 @@ export interface operations {
       };
     };
   };
-  quibs_update: {
+  posts_update: {
     parameters: {
       query?: never;
       header?: never;
       path: {
-        /** @description A unique value identifying this Quib. */
+        /** @description A unique value identifying this Post. */
         id: string;
       };
       cookie?: never;
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['Quib'];
-        'application/x-www-form-urlencoded': components['schemas']['Quib'];
-        'multipart/form-data': components['schemas']['Quib'];
+        'application/json': components['schemas']['Post'];
+        'application/x-www-form-urlencoded': components['schemas']['Post'];
+        'multipart/form-data': components['schemas']['Post'];
       };
     };
     responses: {
@@ -3340,7 +3516,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Quib'];
+          'application/json': components['schemas']['Post'];
         };
       };
       400: {
@@ -3348,7 +3524,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibsUpdateValidationError'];
+          'application/json': components['schemas']['PostsUpdateValidationError'];
         };
       };
       404: {
@@ -3369,12 +3545,12 @@ export interface operations {
       };
     };
   };
-  quibs_destroy: {
+  posts_destroy: {
     parameters: {
       query?: never;
       header?: never;
       path: {
-        /** @description A unique value identifying this Quib. */
+        /** @description A unique value identifying this Post. */
         id: string;
       };
       cookie?: never;
@@ -3406,21 +3582,21 @@ export interface operations {
       };
     };
   };
-  quibs_partial_update: {
+  posts_partial_update: {
     parameters: {
       query?: never;
       header?: never;
       path: {
-        /** @description A unique value identifying this Quib. */
+        /** @description A unique value identifying this Post. */
         id: string;
       };
       cookie?: never;
     };
     requestBody?: {
       content: {
-        'application/json': components['schemas']['PatchedQuib'];
-        'application/x-www-form-urlencoded': components['schemas']['PatchedQuib'];
-        'multipart/form-data': components['schemas']['PatchedQuib'];
+        'application/json': components['schemas']['PatchedPost'];
+        'application/x-www-form-urlencoded': components['schemas']['PatchedPost'];
+        'multipart/form-data': components['schemas']['PatchedPost'];
       };
     };
     responses: {
@@ -3429,7 +3605,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Quib'];
+          'application/json': components['schemas']['Post'];
         };
       };
       400: {
@@ -3437,7 +3613,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibsPartialUpdateValidationError'];
+          'application/json': components['schemas']['PostsPartialUpdateValidationError'];
         };
       };
       404: {
@@ -3458,12 +3634,12 @@ export interface operations {
       };
     };
   };
-  quibs_comments_list: {
+  posts_comments_list: {
     parameters: {
       query?: never;
       header?: never;
       path: {
-        /** @description A unique value identifying this Quib. */
+        /** @description A unique value identifying this Post. */
         id: string;
       };
       cookie?: never;
@@ -3496,12 +3672,12 @@ export interface operations {
       };
     };
   };
-  quibs_comments_create: {
+  posts_comments_create: {
     parameters: {
       query?: never;
       header?: never;
       path: {
-        /** @description A unique value identifying this Quib. */
+        /** @description A unique value identifying this Post. */
         id: string;
       };
       cookie?: never;
@@ -3527,7 +3703,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['QuibsCommentsCreateValidationError'];
+          'application/json': components['schemas']['PostsCommentsCreateValidationError'];
         };
       };
       404: {
@@ -3536,115 +3712,6 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['ErrorResponse404'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse500'];
-        };
-      };
-    };
-  };
-  users_auth_login_create: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['Auth'];
-        'application/x-www-form-urlencoded': components['schemas']['Auth'];
-        'multipart/form-data': components['schemas']['Auth'];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['AuthToken'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['UsersAuthLoginCreateValidationError'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse500'];
-        };
-      };
-    };
-  };
-  users_auth_logout_create: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['DetailResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse500'];
-        };
-      };
-    };
-  };
-  users_auth_register_create: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['Auth'];
-        'application/x-www-form-urlencoded': components['schemas']['Auth'];
-        'multipart/form-data': components['schemas']['Auth'];
-      };
-    };
-    responses: {
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['Auth'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['UsersAuthRegisterCreateValidationError'];
         };
       };
       500: {

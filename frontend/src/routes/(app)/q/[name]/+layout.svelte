@@ -6,7 +6,7 @@
   import type { Snippet } from 'svelte';
 
   const { data, children }: { data: PageData; children: Snippet } = $props();
-  const { quiblet } = data;
+  const { community } = data;
 </script>
 
 <div class="flex h-max flex-1 flex-col gap-4 p-4">
@@ -19,28 +19,28 @@
   >
     <!-- basic details -->
     <div class="flex flex-col gap-2">
-      <h3 class="font-medium">{quiblet?.title ?? `q/${quiblet?.name}`}</h3>
-      <p class="text-sm text-base-content/75">{quiblet?.description}</p>
+      <h3 class="font-medium">{community?.title ?? `q/${community?.name}`}</h3>
+      <p class="text-sm text-base-content/75">{community?.description}</p>
       <div class="flex items-center gap-2 text-xs">
         <coreicons-shape-gift class="size-4"></coreicons-shape-gift>
-        Created {new FormatDate(quiblet?.created_at ?? '').format()}
+        Created {new FormatDate(community?.created_at ?? '').format()}
       </div>
       <div class="flex items-center gap-2 text-xs">
         <coreicons-shape-globe class="size-4"></coreicons-shape-globe>
-        {quiblet?.is_public ? 'Public' : 'Private'}
+        {community?.is_public ? 'Public' : 'Private'}
       </div>
     </div>
     <div class="flex items-center gap-4">
       <div class="flex flex-col">
-        <span class="text-sm text-info">{quiblet?.members?.length}</span>
+        <span class="text-sm text-info">{community?.members?.length}</span>
         <span class="text-xs text-base-content/75"
-          >{pluralize('Member', quiblet?.members?.length ?? 0)}</span
+          >{pluralize('Member', community?.members?.length ?? 0)}</span
         >
       </div>
       <div class="flex flex-col">
-        <span class="text-sm text-info">{quiblet?.quibs}</span>
+        <span class="text-sm text-info">{community?.quibs}</span>
         <span class="text-xs text-base-content/75"
-          >{pluralize('Quib', quiblet?.quibs ?? 0)}</span
+          >{pluralize('Quib', community?.quibs ?? 0)}</span
         >
       </div>
     </div>
@@ -52,9 +52,9 @@
         <coreicons-shape-help-circle class="size-[0.85rem]"></coreicons-shape-help-circle>
       </div>
     </div>
-    {#if quiblet?.rangers}
+    {#if community?.rangers}
       <div class="flex flex-col gap-2">
-        {#each quiblet?.rangers as ranger}
+        {#each community?.rangers as ranger}
           <div class="flex items-center gap-2">
             <Avatar src={ranger.avatar} class="size-6 rounded-full" />
             <div class="flex flex-col">

@@ -17,15 +17,15 @@
   import { onMount } from 'svelte';
 
   const { data }: { data: PageData } = $props();
-  const { quib, comments } = data;
+  const { post, comments } = data;
 
   const authStore = createAuthStore();
   const recentQuibsStore = createRecentQuibsStore();
 
   const is_upvoted = $derived.by(check_if_upvoted);
   function check_if_upvoted() {
-    if (authStore.state.profile && quib.upvotes) {
-      return quib.upvotes.includes(authStore.state.profile.id);
+    if (authStore.state.profile && post.upvotes) {
+      return post.upvotes.includes(authStore.state.profile.id);
     } else {
       return false;
     }
@@ -53,19 +53,19 @@
 
   onMount(() => {
     recentQuibsStore.add_quib({
-      id: quib.id,
-      quiblet: quib.quiblet,
-      title: quib.title,
-      slug: quib.slug,
-      cover: quib.cover,
-      upvotes: quib.upvotes,
-      comments: quib.comments
+      id: post.id,
+      quiblet: post.quiblet,
+      title: post.title,
+      slug: post.slug,
+      cover: post.cover,
+      upvotes: post.upvotes,
+      comments: post.comments
     });
   });
 </script>
 
 <svelte:head>
-  <title>{quib.title} : q/{quib.quiblet.name}</title>
+  <title>{post.title} : q/{post.quiblet.name}</title>
 </svelte:head>
 
 <!-- quibber and quiblet details and more -->
@@ -78,22 +78,22 @@
     <coreicons-shape-arrow variant="left" class="size-5"></coreicons-shape-arrow>
   </button>
   <div class="flex items-center gap-2">
-    <a href="/q/{quib.quiblet.name}">
-      <Avatar src={quib.quiblet.avatar} class="size-8 rounded-full" />
+    <a href="/q/{post.quiblet.name}">
+      <Avatar src={post.quiblet.avatar} class="size-8 rounded-full" />
     </a>
     <div class="flex flex-col">
       <div class="flex items-center gap-2">
-        <a href="/q/{quib.quiblet.name}" class="hover:text-accent hover:underline">
-          <h3 class="text-xs font-semibold">q/{quib.quiblet.name}</h3>
+        <a href="/q/{post.quiblet.name}" class="hover:text-accent hover:underline">
+          <h3 class="text-xs font-semibold">q/{post.quiblet.name}</h3>
         </a>
         <coreicons-shape-circle variant="filled" class="size-0.5 text-base-content/75"
         ></coreicons-shape-circle>
         <span class="text-xs font-medium text-base-content/75"
-          >{new FormatDate(quib.created_at).timeAgo()}</span
+          >{new FormatDate(post.created_at).timeAgo()}</span
         >
       </div>
-      <a href="/u/{quib.quibber.username}" class="w-max hover:underline">
-        <h3 class="text-xs">{quib.quibber.username}</h3>
+      <a href="/u/{post.quibber.username}" class="w-max hover:underline">
+        <h3 class="text-xs">{post.quibber.username}</h3>
       </a>
     </div>
   </div>
@@ -102,16 +102,16 @@
   </button>
 </div>
 <!-- title -->
-<h1 class="text-xl font-bold text-info md:text-2xl">{quib.title}</h1>
+<h1 class="text-xl font-bold text-info md:text-2xl">{post.title}</h1>
 <!-- content or cover -->
-{#if is_valid(quib.content)}
+{#if is_valid(post.content)}
   <p class="text-sm font-normal">
-    {quib.content}
+    {post.content}
   </p>
 {:else}
-  <BackdropImage src={quib.cover} class="z-10">
+  <BackdropImage src={post.cover} class="z-10">
     <Zoom>
-      <img src={quib.cover} alt="" class="max-h-[25rem] object-contain" />
+      <img src={post.cover} alt="" class="max-h-[25rem] object-contain" />
     </Zoom>
   </BackdropImage>
 {/if}
@@ -122,14 +122,14 @@
       <coreicons-shape-thumbs variant="up" class="size-4" class:text-primary={is_upvoted}
       ></coreicons-shape-thumbs>
     </button>
-    <span class="text-sm font-medium">{readable(quib.upvotes?.length ?? 0)}</span>
+    <span class="text-sm font-medium">{readable(post.upvotes?.length ?? 0)}</span>
     <button class="flex items-center gap-2" aria-label="downvote">
       <coreicons-shape-thumbs variant="down" class="size-4"></coreicons-shape-thumbs>
     </button>
   </div>
   <button class="flex items-center gap-2">
     <coreicons-shape-forum class="size-4"></coreicons-shape-forum>
-    <span class="text-sm font-medium">{readable(quib.comments?.length ?? 0)} comments</span>
+    <span class="text-sm font-medium">{readable(post.comments?.length ?? 0)} comments</span>
   </button>
   <button class="flex items-center gap-2">
     <coreicons-shape-share class="size-4"></coreicons-shape-share>

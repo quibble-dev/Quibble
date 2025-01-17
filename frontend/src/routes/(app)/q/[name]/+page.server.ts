@@ -1,16 +1,16 @@
-import client from '$lib/clients/client';
+import client from '$lib/clients/v1/client';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params, parent }) => {
   await parent();
 
-  const [quibs, highlighted_quibs] = await Promise.all([
-    client.GET('/api/v1/quiblets/{name}/quibs/', {
+  const [posts, highlighted_posts] = await Promise.all([
+    client.GET('/api/v1/communities/{name}/posts/', {
       params: {
         path: { name: params.name }
       }
     }),
-    client.GET('/api/v1/quiblets/{name}/highlighted_quibs/', {
+    client.GET('/api/v1/communities/{name}/highlighted_posts/', {
       params: {
         path: { name: params.name }
       }
@@ -18,14 +18,14 @@ export const load: PageServerLoad = async ({ params, parent }) => {
   ]);
 
   if (
-    quibs.response.ok &&
-    quibs.data &&
-    highlighted_quibs.response &&
-    highlighted_quibs.data
+    posts.response.ok &&
+    posts.data &&
+    highlighted_posts.response &&
+    highlighted_posts.data
   ) {
-    return { quibs: quibs.data, highlighted_quibs: highlighted_quibs.data };
+    return { posts: posts.data, highlighted_posts: highlighted_posts.data };
   } else {
-    const errors = [quibs.error, highlighted_quibs.error].filter((error) => error);
+    const errors = [posts.error, highlighted_posts.error].filter((error) => error);
     console.error(errors);
   }
 };

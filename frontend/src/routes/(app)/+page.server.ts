@@ -1,8 +1,8 @@
-import client from '$lib/clients/client';
+import client from '$lib/clients/v1/client';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-  const { data: quibs } = await client.GET('/api/v1/quibs/');
+  const { data: posts_data } = await client.GET('/api/v1/posts/');
 
-  return { quibs };
+  return { posts: posts_data };
 };
