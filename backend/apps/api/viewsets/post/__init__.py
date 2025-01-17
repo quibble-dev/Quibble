@@ -5,13 +5,10 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import response, status, viewsets
 from rest_framework.decorators import action
 
-from apps.comment.api.v1.serializers import (
-    CommentCreateSerializer,
-    CommentDetailSerializer,
-)
+from apps.quib.models import Quib
 
-from ...models import Quib
-from .serializers import QuibSerializer
+from ...serializers.comment import CommentCreateSerializer, CommentDetailSerializer
+from ...serializers.post import QuibSerializer
 
 
 class QuibViewSet(viewsets.ModelViewSet):

@@ -1,9 +1,8 @@
 from rest_framework import serializers
 
+from apps.quib.models import Quib
 from apps.quiblet.api.v1.serializers import QuibletBasicSerializer
 from apps.user.api.v1.serializers import ProfileBasicSerializer
-
-from ...models import Quib
 
 
 class QuibSerializer(serializers.ModelSerializer):
@@ -13,9 +12,3 @@ class QuibSerializer(serializers.ModelSerializer):
     class Meta:
         model = Quib
         fields = '__all__'
-
-
-class QuibHighlightedSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Quib
-        fields = ('cover', 'title', 'id', 'slug', 'created_at')
