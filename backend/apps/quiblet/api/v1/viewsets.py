@@ -7,7 +7,7 @@ from rest_framework import exceptions, response, viewsets
 from rest_framework.decorators import action
 
 from apps.quib.api.v1.serializers import QuibHighlightedSerializer, QuibSerializer
-from common.patches.request import PatchedHttpRequest
+from patches.request import PatchHttpRequest
 
 from ...models import Quiblet
 from .serializers import (
@@ -81,7 +81,7 @@ class QuibletViewSet(viewsets.ModelViewSet):
         return response.Response(serializer.data)
 
     def perform_create(self, serializer):
-        patched_request = cast(PatchedHttpRequest, self.request)
+        patched_request = cast(PatchHttpRequest, self.request)
 
         quibbler = patched_request.user_profile
 

@@ -6,7 +6,7 @@ from django.http import HttpRequest
 from apps.user.models import Profile, User
 
 
-class PatchedHttpRequest(HttpRequest):
+class PatchHttpRequest(HttpRequest):
     """
     Patched version of native HttpRequest with extra types.
     """
