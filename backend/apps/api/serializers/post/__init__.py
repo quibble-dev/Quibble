@@ -1,8 +1,9 @@
 from rest_framework import serializers
 
 from apps.quib.models import Quib
-from apps.quiblet.api.v1.serializers import QuibletBasicSerializer
-from apps.user.api.v1.serializers import ProfileBasicSerializer
+
+from ...serializers.community import QuibletBasicSerializer
+from ...serializers.user.profile import ProfileBasicSerializer
 
 
 class QuibSerializer(serializers.ModelSerializer):
