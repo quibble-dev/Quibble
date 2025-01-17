@@ -1,7 +1,7 @@
-from common.api.bases.viewsets import UpdateRetrieveDestroyViewSet
+from apps.comment.models import Comment
 
-from ...models import Comment
-from .serializers import CommentDetailSerializer
+from ...bases.viewsets import UpdateRetrieveDestroyViewSet
+from ...serializers.comment import CommentDetailSerializer
 
 
 class CommentViewSet(UpdateRetrieveDestroyViewSet):

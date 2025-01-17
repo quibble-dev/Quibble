@@ -1,9 +1,8 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
+from apps.comment.models import Comment
 from apps.user.api.v1.serializers import ProfileBasicSerializer
-
-from ...models import Comment
 
 
 class CommentCreateSerializer(serializers.ModelSerializer):
