@@ -16,18 +16,18 @@ class Comment(CreatedAtMixin, TreeModel):
         Profile,
         on_delete=models.SET_NULL,
         null=True,
-        verbose_name=_('commenter'),
-        related_name=_('comments'),
+        verbose_name=_('Commenter'),
+        related_name='comments',
     )
     content = models.TextField(_('content'))
     upvotes = models.ManyToManyField(
-        Profile, blank=True, verbose_name=_('upvotes'), related_name=_('upvoted_comments')
+        Profile, blank=True, verbose_name=_('Upvotes'), related_name='upvoted_comments'
     )
     downvotes = models.ManyToManyField(
         Profile,
         blank=True,
-        verbose_name=_('downvotes'),
-        related_name=_('downvoted_comments'),
+        verbose_name=_('Downvotes'),
+        related_name='downvoted_comments',
     )
     # flag
     deleted = models.BooleanField(default=False)
@@ -43,5 +43,5 @@ class Comment(CreatedAtMixin, TreeModel):
 
     class Meta:  # pyright: ignore
         indexes = [idx.GistIndex(fields=['path'])]
-        verbose_name = 'Comment'
-        verbose_name_plural = 'Comments'
+        verbose_name = _('Comment')
+        verbose_name_plural = _('Comments')

@@ -10,18 +10,18 @@ from .validators import UsernameValidator
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(_('email address'), unique=True)
-    date_joined = models.DateTimeField(_('date joined'), auto_now_add=True)
+    email = models.EmailField(_('Email address'), unique=True)
+    date_joined = models.DateTimeField(_('Date joined'), auto_now_add=True)
     is_staff = models.BooleanField(
-        _("staff status"),
+        _("Staff status"),
         default=False,
-        help_text=_("designates whether the user can log into this admin site."),
+        help_text=_("Designates whether the user can log into this admin site."),
     )
     is_active = models.BooleanField(
-        _("active"),
+        _("Active"),
         default=True,
         help_text=_(
-            "designates whether this user should be treated as active. unselect this instead of deleting accounts."
+            "Designates whether this user should be treated as active. Unselect this instead of deleting accounts."
         ),
     )
 
@@ -31,17 +31,19 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     class Meta:  # pyright: ignore
-        verbose_name = 'User'
-        verbose_name_plural = 'Users'
+        verbose_name = _('User')
+        verbose_name_plural = _('Users')
         ordering = ['-date_joined']
 
 
 class Profile(CreatedAtMixin, AvatarMixin):
     username_validator = UsernameValidator()
 
-    user = models.ForeignKey(User, related_name='profiles', on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, related_name='profiles', on_delete=models.CASCADE, verbose_name=_('User')
+    )
     username = models.CharField(
-        _('username'),
+        _('Username'),
         unique=True,
         max_length=25,
         validators=[username_validator],
@@ -50,14 +52,14 @@ class Profile(CreatedAtMixin, AvatarMixin):
             "unique": _("A profile with that username already exists."),
         },
     )
-    first_name = models.CharField(_('first name'), max_length=255, blank=True, null=True)
-    last_name = models.CharField(_('last name'), max_length=255, blank=True, null=True)
+    first_name = models.CharField(_('First name'), max_length=255, blank=True, null=True)
+    last_name = models.CharField(_('Last name'), max_length=255, blank=True, null=True)
     bio = models.TextField(_('Bio'), blank=True, null=True)
 
     def __str__(self):
         return f"u/{self.username}"
 
     class Meta:  # pyright: ignore
-        verbose_name = 'Profile'
-        verbose_name_plural = 'Profiles'
+        verbose_name = _('Profile')
+        verbose_name_plural = _('Profiles')
         ordering = ['-created_at']

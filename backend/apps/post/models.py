@@ -10,8 +10,6 @@ from mixins.models.created_at import CreatedAtMixin
 from mixins.models.is_public import IsPublicMixin
 from mixins.models.shortuuid import ShortUUIDMixin
 
-cover_file_pattern = FilePattern(filename_pattern="cover/{uuid:s}{ext}")
-
 # Create your models here.
 
 
@@ -19,33 +17,33 @@ class Post(CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
     community = models.ForeignKey(
         Community,
         related_name='posts',
-        verbose_name=_('community'),
+        verbose_name=_('Community'),
         on_delete=models.CASCADE,
     )
     poster = models.ForeignKey(
         Profile,
         related_name='posts',
-        verbose_name=_('poster'),
+        verbose_name=_('Poster'),
         on_delete=models.CASCADE,
     )
-    highlighted = models.BooleanField(_('highlighted'), default=False)
-    title = models.CharField(_('title'), max_length=255)
-    slug = models.SlugField(_('slug'), max_length=25, blank=True)
-    content = models.TextField(_('content'), blank=True)
+    highlighted = models.BooleanField(_('Highlighted'), default=False)
+    title = models.CharField(_('Title'), max_length=255)
+    slug = models.SlugField(_('Slug'), max_length=25, blank=True)
+    content = models.TextField(_('Content'), blank=True)
     cover = models.ImageField(
-        _('cover'),
-        upload_to=cover_file_pattern,
+        _('Cover'),
+        upload_to=FilePattern(filename_pattern="cover/{uuid:s}{ext}"),
         blank=True,
         null=True,
     )
     upvotes = models.ManyToManyField(
-        Profile, blank=True, verbose_name=_('upvotes'), related_name=_('upvoted_posts')
+        Profile, related_name='upvoted_posts', blank=True, verbose_name=_('Upvotes')
     )
     downvotes = models.ManyToManyField(
-        Profile, blank=True, verbose_name=_('downvotes'), related_name=_('downvoted_posts')
+        Profile, related_name='downvoted_posts', blank=True, verbose_name=_('Downvotes')
     )
     comments = models.ManyToManyField(
-        Comment, related_name='comments', blank=True, verbose_name=_('comments')
+        Comment, related_name='comments', blank=True, verbose_name=_('Comments')
     )
 
     def save(self, *args, **kwargs):
@@ -59,6 +57,6 @@ class Post(CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
         return f'{self.pk}/{self.slug}'
 
     class Meta:  # pyright: ignore
-        verbose_name = 'Post'
-        verbose_name_plural = 'Posts'
+        verbose_name = _('Post')
+        verbose_name_plural = _('Posts')
         ordering = ['-created_at']

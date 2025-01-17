@@ -14,32 +14,35 @@ from mixins.models.is_public import IsPublicMixin
 
 class Community(AvatarMixin, CreatedAtMixin, IsPublicMixin):
     name = models.CharField(
-        _('name'),
+        _('Name'),
         unique=True,
         max_length=25,
         error_messages={'unique': 'Community with this name already exists.'},
     )
-    description = models.TextField(_('description'))
-    title = models.CharField(_('title'), max_length=50, null=True, blank=True)
+    description = models.TextField(_('Description'))
+    title = models.CharField(_('Title'), max_length=50, null=True, blank=True)
     banner = models.ImageField(
-        _('banner'),
+        _('Banner'),
         upload_to=FilePattern(filename_pattern="community_banner/{uuid:s}{ext}"),
         blank=True,
         null=True,
     )
     members = models.ManyToManyField(
-        Profile, related_name='joined_communities', blank=True, verbose_name=_('members')
+        Profile, related_name='joined_communities', blank=True, verbose_name=_('Members')
     )
     moderators = models.ManyToManyField(
-        Profile, related_name='moded_communities', blank=True, verbose_name=_('moderators')
+        Profile,
+        related_name='moderated_communities',
+        blank=True,
+        verbose_name=_('Moderators'),
     )
 
     def __str__(self) -> str:
         return f'q/{self.name}'
 
     class Meta:  # pyright: ignore
-        verbose_name = 'Community'
-        verbose_name_plural = 'Communities'
+        verbose_name = _('Community')
+        verbose_name_plural = _('Communities')
         ordering = ['-created_at']
         constraints = [
             UniqueConstraint(Lower('name'), name='unique_community_name_case_insensitive')
