@@ -3,11 +3,11 @@ from typing import cast
 
 from django.db.models import QuerySet
 from drf_spectacular.utils import extend_schema
+from patches.request import PatchHttpRequest
 from rest_framework import exceptions, response, viewsets
 from rest_framework.decorators import action
 
 from apps.quib.api.v1.serializers import QuibHighlightedSerializer, QuibSerializer
-from patches.request import PatchHttpRequest
 
 from ...models import Quiblet
 from .serializers import (

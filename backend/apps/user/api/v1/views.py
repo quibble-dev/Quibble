@@ -1,11 +1,10 @@
+from common.api.exceptions import ServerError
+from common.api.serializers import DetailResponseSerializer
 from django.contrib.auth import authenticate
 from drf_spectacular.utils import extend_schema
 from rest_framework import exceptions, generics, permissions, views
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
-
-from common.api.exceptions import ServerError
-from common.api.serializers import DetailResponseSerializer
 
 from .serializers import AuthSerializer, AuthTokenSerializer, ProfileSerializer
 
