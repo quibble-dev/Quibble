@@ -20,10 +20,14 @@
     return async ({ result }) => {
       if (result.type === 'success') {
         errors = undefined;
-        // save token on forms_state
-        update_forms_state('join', { token: result.data?.token });
-        // next form
-        goto_form('profile_select');
+        if (auth_type === 'login') {
+          // save token on forms_state
+          update_forms_state('join', { token: result.data?.token });
+          // next form
+          goto_form('profile_select');
+        } else if (auth_type === 'register') {
+          handle_auth_type_change();
+        }
       } else if (result.type === 'failure') {
         errors = result.data;
       }

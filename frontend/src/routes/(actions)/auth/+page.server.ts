@@ -26,5 +26,21 @@ export const actions = {
     } else if (error) {
       return fail(response.status, error.errors[0]);
     }
+  },
+  register: async ({ request }) => {
+    const form_data = await request.formData();
+
+    const { data, error, response } = await client.POST('/api/v1/auth/register/', {
+      body: {
+        email: String(form_data.get('email')),
+        password: String(form_data.get('password'))
+      }
+    });
+
+    if (response.ok && data) {
+      return { success: true };
+    } else if (error) {
+      return fail(response.status, error.errors[0]);
+    }
   }
 } satisfies Actions;
