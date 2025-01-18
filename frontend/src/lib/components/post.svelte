@@ -8,7 +8,7 @@
   import { FormatDate } from '$lib/functions/date';
   import { is_valid } from '$lib/functions/is_valid';
   import { createAuthStore } from '$lib/stores/auth.svelte';
-  import { createViewStore } from '$lib/stores/view.svelte';
+  import { createLayoutStore } from '$lib/stores/layout.svelte';
   import readable from 'readable-numbers';
 
   type PostProps = components['schemas']['Post'];
@@ -16,7 +16,7 @@
   let post: PostProps = $props();
 
   const authStore = createAuthStore(),
-    viewStore = createViewStore();
+    layoutStore = createLayoutStore();
 
   let is_expanded = $state(false);
 
@@ -103,7 +103,7 @@
 
 {#snippet href_overlay()}
   <a
-    href="/q/{post.community.name}/quibs/{post.id}/{post.slug}"
+    href="/q/{post.community.name}/posts/{post.id}/{post.slug}"
     class="absolute inset-0"
     aria-label={post.title}
   ></a>
@@ -111,11 +111,11 @@
 
 <div
   class={cn(
-    viewStore.state === 'compact' && 'transition-colors hover:bg-base-200',
+    layoutStore.state === 'compact' && 'transition-colors hover:bg-base-200',
     'relative flex flex-col overflow-hidden rounded-2xl border border-neutral bg-base-300'
   )}
 >
-  {#if viewStore.state === 'card'}
+  {#if layoutStore.state === 'card'}
     <div class="relative flex flex-col gap-2 p-4 transition-colors hover:bg-base-200">
       {@render href_overlay()}
       {@render avatar_name_date_more()}

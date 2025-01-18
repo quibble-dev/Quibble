@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Quib from '$lib/components/quib.svelte';
-  import QuibsHeader from '$lib/components/quibs_header.svelte';
+  import Post from '$lib/components/post.svelte';
+  import PostsHeader from '$lib/components/posts_header.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
@@ -24,7 +24,7 @@
   });
 
   function add_to_sidebar_store(key: string) {
-    sidebarStore.add_quiblet(key, {
+    sidebarStore.add_community(key, {
       avatar: community.avatar,
       name: community.name
     });
@@ -41,7 +41,7 @@
 </svelte:head>
 
 <div class="relative">
-  <!-- show quiblet cover if not null or solid bg -->
+  <!-- show community cover if not null or solid bg -->
   <div
     class={cn(
       !community?.banner ? 'h-24 bg-neutral' : 'h-24 bg-cover bg-center md:h-40',
@@ -67,21 +67,21 @@
             >
           </div>
           <div class="flex items-center gap-1">
-            <span class="text-sm text-info">{community?.quibs}</span>
+            <span class="text-sm text-info">{community?.posts_count}</span>
             <span class="text-xs text-base-content/75"
-              >{pluralize('Quib', community?.quibs)}</span
+              >{pluralize('Post', community?.posts_count)}</span
             >
           </div>
         </div>
       </div>
     </div>
-    <!-- quiblet basic operations -->
+    <!-- community basic operations -->
     <div class="flex items-center gap-2">
       <button class="btn btn-primary h-10 px-3" aria-label="Create a Post">
         <coreicons-shape-plus variant="no-border" class="size-5"></coreicons-shape-plus>
-        <span class="text-sm font-medium">Create Quib</span>
+        <span class="text-sm font-medium">Create Post</span>
       </button>
-      <button class="btn btn-secondary h-10 px-3" aria-label="Join quiblet">
+      <button class="btn btn-secondary h-10 px-3" aria-label="Join Community">
         <span class="text-sm font-medium">{is_joined ? 'Joined' : 'Join'}</span>
       </button>
       <button class="btn btn-neutral ml-auto size-10 p-0 md:ml-0" aria-label="More options">
@@ -91,8 +91,8 @@
   </div>
 </div>
 <div class="hidden h-12 md:flex"></div>
-<QuibsHeader />
-<!-- list highlighted quibs if exists -->
+<PostsHeader />
+<!-- list highlighted posts if exists -->
 {#if highlighted_posts?.length}
   <div class="flex flex-col gap-4">
     <div class="flex items-center gap-2">
@@ -100,35 +100,35 @@
       <h4 class="font-medium">Highlights</h4>
     </div>
     <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
-      {#each highlighted_posts as quib}
+      {#each highlighted_posts as post}
         <div
           class="relative flex h-40 flex-col gap-2 overflow-hidden rounded-2xl border border-neutral p-2 transition-colors hover:bg-base-200"
         >
           <div
             class="flex-1 rounded-xl bg-cover bg-center inner-border
             inner-border-base-content/15"
-            class:bg-base-100={!quib.cover}
-            style="background-image: url({quib.cover});"
+            class:bg-base-100={!post.cover}
+            style="background-image: url({post.cover});"
           ></div>
           <div class="flex flex-col p-2 pt-0.5">
-            <h4 class="line-clamp-1 font-medium">{quib.title}</h4>
+            <h4 class="line-clamp-1 font-medium">{post.title}</h4>
             <span class="text-xs font-medium text-base-content/75"
-              >{new FormatDate(quib.created_at).format()}</span
+              >{new FormatDate(post.created_at).format()}</span
             >
           </div>
           <a
-            href="./{community?.name}/quibs/{quib.id}/{quib.slug}"
+            href="./{community?.name}/posts/{post.id}/{post.slug}"
             class="absolute inset-0"
-            aria-label={quib.title}
+            aria-label={post.title}
           ></a>
         </div>
       {/each}
     </div>
   </div>
 {/if}
-<!-- list quibs -->
+<!-- list posts -->
 {#if posts}
-  {#each posts as quib}
-    <Quib {...quib} />
+  {#each posts as post}
+    <Post {...post} />
   {/each}
 {/if}

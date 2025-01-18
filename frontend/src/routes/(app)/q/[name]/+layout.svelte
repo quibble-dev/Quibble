@@ -12,7 +12,7 @@
 <div class="flex h-max flex-1 flex-col gap-4 p-4">
   {@render children()}
 </div>
-<!-- fixed sidebar about quiblet details -->
+<!-- fixed sidebar about community details -->
 <div class="hidden w-80 md:flex">
   <div
     class="fixed top-[3.75rem] flex h-[calc(100dvh-3.75rem)] w-80 flex-col gap-4 overflow-y-scroll p-4 scrollbar-none"
@@ -38,9 +38,9 @@
         >
       </div>
       <div class="flex flex-col">
-        <span class="text-sm text-info">{community?.quibs}</span>
+        <span class="text-sm text-info">{community?.posts_count}</span>
         <span class="text-xs text-base-content/75"
-          >{pluralize('Quib', community?.quibs ?? 0)}</span
+          >{pluralize('Quib', community?.posts_count ?? 0)}</span
         >
       </div>
     </div>

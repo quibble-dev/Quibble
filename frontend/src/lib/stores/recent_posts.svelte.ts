@@ -1,8 +1,8 @@
 import { browser } from '$app/environment';
 
-type Quib = {
+type Post = {
   id: string;
-  quiblet: {
+  community: {
     avatar?: string | null | undefined;
     name: string;
   };
@@ -13,20 +13,20 @@ type Quib = {
   comments?: number[] | undefined;
 };
 
-interface IRecentQuib extends Quib {
+interface IRecentPost extends Post {
   timestamp: Date;
 }
 
-const stored_recent_quibs = browser ? localStorage.getItem('recent_posts_store') : null;
-const parsed_stored_recent_quibs: IRecentQuib[] = stored_recent_quibs
+const stored_recent_posts = browser ? localStorage.getItem('recent_posts_store') : null;
+const parsed_stored_recent_posts: IRecentPost[] = stored_recent_posts
   ? // convert string to Date object
-    (JSON.parse(stored_recent_quibs) as IRecentQuib[]).map((q) => ({
+    (JSON.parse(stored_recent_posts) as IRecentPost[]).map((q) => ({
       ...q,
       timestamp: new Date(q.timestamp)
     }))
   : [];
 
-let recent_quibs_state = $state<IRecentQuib[]>(parsed_stored_recent_quibs);
+let recent_posts_state = $state<IRecentPost[]>(parsed_stored_recent_posts);
 
 function sync_to_localstorage() {
   if (browser) {
@@ -34,7 +34,7 @@ function sync_to_localstorage() {
     localStorage.setItem(
       'recent_posts_store',
       JSON.stringify(
-        recent_quibs_state.map((q) => ({
+        recent_posts_state.map((q) => ({
           ...q,
           timestamp: q.timestamp.toISOString()
         }))
@@ -43,23 +43,23 @@ function sync_to_localstorage() {
   }
 }
 
-function get_sorted_recent_quibs_state(input: IRecentQuib) {
-  return [...recent_quibs_state, input].sort(
+function get_sorted_recent_posts_state(input: IRecentPost) {
+  return [...recent_posts_state, input].sort(
     (a, b) => b.timestamp.getTime() - a.timestamp.getTime()
   );
 }
 
-export function createRecentQuibsStore() {
+export function createRecentPostsStore() {
   return {
     get state() {
-      return recent_quibs_state;
+      return recent_posts_state;
     },
-    add_quib(quib: Quib) {
-      const exists = recent_quibs_state.some((q) => q.id === quib.id);
+    add_post(post: Post) {
+      const exists = recent_posts_state.some((q) => q.id === post.id);
       if (exists) return;
 
-      recent_quibs_state = get_sorted_recent_quibs_state({
-        ...quib,
+      recent_posts_state = get_sorted_recent_posts_state({
+        ...post,
         timestamp: new Date(Date.now())
       });
 

@@ -4,7 +4,7 @@
 </script>
 
 <svelte:head>
-  <title>Quiblet not found</title>
+  <title>Community not found</title>
 </svelte:head>
 
 <div class="mt-5 flex flex-1 items-end justify-center gap-5">

@@ -1,4 +1,4 @@
-import type { components } from '$lib/clients/v1';
+import type { components } from '$lib/clients/v1/schema';
 import type { Nullable } from '$lib/types/shared';
 
 type Profile = components['schemas']['Profile'];

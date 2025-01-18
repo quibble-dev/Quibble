@@ -514,7 +514,7 @@ export interface components {
     };
     CommentDetail: {
       readonly id: number;
-      quibbler: components['schemas']['ProfileBasic'] | null;
+      commenter: components['schemas']['ProfileBasic'] | null;
       ratio: number;
       path: string;
       /**
@@ -524,22 +524,66 @@ export interface components {
       readonly created_at: string;
       content: string;
       deleted?: boolean;
-      commenter?: number | null;
       upvotes?: number[];
       downvotes?: number[];
     };
-    CommentsPartialUpdateCommenterErrorComponent: {
+    CommentsPartialUpdateCommenterAvatarErrorComponent: {
       /**
-       * @description * `commenter` - commenter (enum property replaced by openapi-typescript)
+       * @description * `commenter.avatar` - commenter.avatar (enum property replaced by openapi-typescript)
        * @enum {string}
        */
-      attr: 'commenter';
+      attr: 'commenter.avatar';
       /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
        * @enum {string}
        */
-      code: 'does_not_exist' | 'incorrect_type';
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    CommentsPartialUpdateCommenterNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `commenter.non_field_errors` - commenter.non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'commenter.non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `required` - required
+       * @enum {string}
+       */
+      code: 'invalid' | 'required';
+      detail: string;
+    };
+    CommentsPartialUpdateCommenterUsernameErrorComponent: {
+      /**
+       * @description * `commenter.username` - commenter.username (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'commenter.username';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
       detail: string;
     };
     CommentsPartialUpdateContentErrorComponent: {
@@ -598,14 +642,13 @@ export interface components {
     };
     CommentsPartialUpdateError:
       | components['schemas']['CommentsPartialUpdateNonFieldErrorsErrorComponent']
-      | components['schemas']['CommentsPartialUpdateQuibblerNonFieldErrorsErrorComponent']
-      | components['schemas']['CommentsPartialUpdateQuibblerUsernameErrorComponent']
-      | components['schemas']['CommentsPartialUpdateQuibblerAvatarErrorComponent']
+      | components['schemas']['CommentsPartialUpdateCommenterNonFieldErrorsErrorComponent']
+      | components['schemas']['CommentsPartialUpdateCommenterUsernameErrorComponent']
+      | components['schemas']['CommentsPartialUpdateCommenterAvatarErrorComponent']
       | components['schemas']['CommentsPartialUpdateRatioErrorComponent']
       | components['schemas']['CommentsPartialUpdatePathErrorComponent']
       | components['schemas']['CommentsPartialUpdateContentErrorComponent']
       | components['schemas']['CommentsPartialUpdateDeletedErrorComponent']
-      | components['schemas']['CommentsPartialUpdateCommenterErrorComponent']
       | components['schemas']['CommentsPartialUpdateUpvotesErrorComponent']
       | components['schemas']['CommentsPartialUpdateDownvotesErrorComponent'];
     CommentsPartialUpdateNonFieldErrorsErrorComponent: {
@@ -641,65 +684,6 @@ export interface components {
       code:
         | 'blank'
         | 'invalid'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed'
-        | 'unique';
-      detail: string;
-    };
-    CommentsPartialUpdateQuibblerAvatarErrorComponent: {
-      /**
-       * @description * `quibbler.avatar` - quibbler.avatar (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'quibbler.avatar';
-      /**
-       * @description * `empty` - empty
-       *     * `invalid` - invalid
-       *     * `invalid_image` - invalid_image
-       *     * `max_length` - max_length
-       *     * `no_name` - no_name
-       * @enum {string}
-       */
-      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-      detail: string;
-    };
-    CommentsPartialUpdateQuibblerNonFieldErrorsErrorComponent: {
-      /**
-       * @description * `quibbler.non_field_errors` - quibbler.non_field_errors (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'quibbler.non_field_errors';
-      /**
-       * @description * `invalid` - invalid
-       *     * `required` - required
-       * @enum {string}
-       */
-      code: 'invalid' | 'required';
-      detail: string;
-    };
-    CommentsPartialUpdateQuibblerUsernameErrorComponent: {
-      /**
-       * @description * `quibbler.username` - quibbler.username (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'quibbler.username';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       *     * `unique` - unique
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'max_length'
         | 'null'
         | 'null_characters_not_allowed'
         | 'required'
@@ -743,18 +727,63 @@ export interface components {
       type: components['schemas']['ValidationErrorEnum'];
       errors: components['schemas']['CommentsPartialUpdateError'][];
     };
-    CommentsUpdateCommenterErrorComponent: {
+    CommentsUpdateCommenterAvatarErrorComponent: {
       /**
-       * @description * `commenter` - commenter (enum property replaced by openapi-typescript)
+       * @description * `commenter.avatar` - commenter.avatar (enum property replaced by openapi-typescript)
        * @enum {string}
        */
-      attr: 'commenter';
+      attr: 'commenter.avatar';
       /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
        * @enum {string}
        */
-      code: 'does_not_exist' | 'incorrect_type';
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    CommentsUpdateCommenterNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `commenter.non_field_errors` - commenter.non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'commenter.non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `required` - required
+       * @enum {string}
+       */
+      code: 'invalid' | 'required';
+      detail: string;
+    };
+    CommentsUpdateCommenterUsernameErrorComponent: {
+      /**
+       * @description * `commenter.username` - commenter.username (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'commenter.username';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
       detail: string;
     };
     CommentsUpdateContentErrorComponent: {
@@ -813,14 +842,13 @@ export interface components {
     };
     CommentsUpdateError:
       | components['schemas']['CommentsUpdateNonFieldErrorsErrorComponent']
-      | components['schemas']['CommentsUpdateQuibblerNonFieldErrorsErrorComponent']
-      | components['schemas']['CommentsUpdateQuibblerUsernameErrorComponent']
-      | components['schemas']['CommentsUpdateQuibblerAvatarErrorComponent']
+      | components['schemas']['CommentsUpdateCommenterNonFieldErrorsErrorComponent']
+      | components['schemas']['CommentsUpdateCommenterUsernameErrorComponent']
+      | components['schemas']['CommentsUpdateCommenterAvatarErrorComponent']
       | components['schemas']['CommentsUpdateRatioErrorComponent']
       | components['schemas']['CommentsUpdatePathErrorComponent']
       | components['schemas']['CommentsUpdateContentErrorComponent']
       | components['schemas']['CommentsUpdateDeletedErrorComponent']
-      | components['schemas']['CommentsUpdateCommenterErrorComponent']
       | components['schemas']['CommentsUpdateUpvotesErrorComponent']
       | components['schemas']['CommentsUpdateDownvotesErrorComponent'];
     CommentsUpdateNonFieldErrorsErrorComponent: {
@@ -856,65 +884,6 @@ export interface components {
       code:
         | 'blank'
         | 'invalid'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed'
-        | 'unique';
-      detail: string;
-    };
-    CommentsUpdateQuibblerAvatarErrorComponent: {
-      /**
-       * @description * `quibbler.avatar` - quibbler.avatar (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'quibbler.avatar';
-      /**
-       * @description * `empty` - empty
-       *     * `invalid` - invalid
-       *     * `invalid_image` - invalid_image
-       *     * `max_length` - max_length
-       *     * `no_name` - no_name
-       * @enum {string}
-       */
-      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-      detail: string;
-    };
-    CommentsUpdateQuibblerNonFieldErrorsErrorComponent: {
-      /**
-       * @description * `quibbler.non_field_errors` - quibbler.non_field_errors (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'quibbler.non_field_errors';
-      /**
-       * @description * `invalid` - invalid
-       *     * `required` - required
-       * @enum {string}
-       */
-      code: 'invalid' | 'required';
-      detail: string;
-    };
-    CommentsUpdateQuibblerUsernameErrorComponent: {
-      /**
-       * @description * `quibbler.username` - quibbler.username (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'quibbler.username';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       *     * `unique` - unique
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'max_length'
         | 'null'
         | 'null_characters_not_allowed'
         | 'required'
@@ -1524,7 +1493,7 @@ export interface components {
     CommunityDetailed: {
       readonly id: number;
       rangers: components['schemas']['ProfileBasic'][];
-      readonly quibs: number;
+      readonly posts_count: number;
       /** Format: uri */
       avatar?: string | null;
       /**
@@ -1579,7 +1548,7 @@ export interface components {
     };
     PatchedCommentDetail: {
       readonly id?: number;
-      quibbler?: components['schemas']['ProfileBasic'] | null;
+      commenter?: components['schemas']['ProfileBasic'] | null;
       ratio?: number;
       path?: string;
       /**
@@ -1589,7 +1558,6 @@ export interface components {
       readonly created_at?: string;
       content?: string;
       deleted?: boolean;
-      commenter?: number | null;
       upvotes?: number[];
       downvotes?: number[];
     };
