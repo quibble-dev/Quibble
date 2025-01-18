@@ -9,6 +9,8 @@
 
   let { update_forms_state, goto_form }: FormProps = $props();
 
+  let auth_type = $state<'login' | 'register'>('login');
+
   let errors = $state<Record<string, string> | undefined>();
   let pending = $state(false);
 
@@ -19,7 +21,7 @@
       if (result.type === 'success') {
         errors = undefined;
         // save token on forms_state
-        update_forms_state('login', { token: result.data?.token });
+        update_forms_state('join', { token: result.data?.token });
         // next form
         goto_form('profile_select');
       } else if (result.type === 'failure') {
@@ -28,6 +30,10 @@
       pending = false;
     };
   };
+
+  function handle_auth_type_change() {
+    auth_type = auth_type === 'login' ? 'register' : 'login';
+  }
 </script>
 
 <div class="flex flex-col gap-4">
@@ -47,7 +53,7 @@
   <div class="divider my-0 text-xs font-bold">OR</div>
   <form
     method="POST"
-    action="/auth?/login"
+    action="/auth?/{auth_type}"
     use:enhance={handle_submit}
     class="flex flex-col gap-3"
   >
@@ -79,22 +85,28 @@
         <span class="text-xs text-error">{errors.detail}</span>
       </div>
     {/if}
-    <button
-      type="submit"
-      class={cn(pending && 'btn-active pointer-events-none', 'btn btn-primary')}
-    >
-      {#if pending}
-        Logging in
-        <span class="loading loading-spinner loading-xs"></span>
-      {:else}
-        Log in
-        <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
-      {/if}
-    </button>
+    <div class="flex items-center gap-3">
+      <button
+        type="submit"
+        class={cn(pending && 'btn-active pointer-events-none', 'btn btn-primary flex-1')}
+      >
+        {#if pending}
+          {auth_type === 'login' ? 'Logging in' : 'Registering'}
+          <span class="loading loading-spinner loading-xs"></span>
+        {:else}
+          {auth_type === 'login' ? 'Log in' : 'Register'}
+          <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
+        {/if}
+      </button>
+      <button type="button" class="btn btn-secondary" onclick={handle_auth_type_change}>
+        {auth_type === 'login' ? 'Register' : 'Login'}
+        <coreicons-shape-repeat class="size-4"></coreicons-shape-repeat>
+      </button>
+    </div>
   </form>
-  <div class="flex items-center gap-2 text-sm">
-    <span>Not a member yet?</span>
-    <button class="font-info font-medium underline">Register now!</button>
+  <div class="flex hidden items-center gap-2 text-sm">
+    <span>Not a member?</span>
+    <button class="font-info font-medium">Signup now!</button>
   </div>
   <p class="text-center text-xs">
     By continuing, you agree to the <a

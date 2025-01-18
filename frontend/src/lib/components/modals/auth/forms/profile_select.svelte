@@ -47,7 +47,7 @@
 
       const { data, error, response } = await client.GET('/api/v1/users/me/profiles/', {
         headers: {
-          Authorization: `Bearer ${(forms_state.login as { token: string }).token}`
+          Authorization: `Bearer ${(forms_state.join as { token: string }).token}`
         }
       });
 

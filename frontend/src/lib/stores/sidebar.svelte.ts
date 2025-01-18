@@ -8,7 +8,6 @@ type Community = {
 };
 
 const stored_sidebar = browser ? localStorage.getItem('sidebar') : null;
-
 const parsed_sidebar: Sidebar = stored_sidebar ? JSON.parse(stored_sidebar) : {};
 
 const sidebar = $state<Sidebar>(

@@ -1,9 +1,10 @@
 <script lang="ts">
   import { createModalsStore } from '$lib/stores/modals.svelte';
+  import type { Nullable } from '$lib/types/shared';
   import forms from './forms';
   import type { FormsState, FormSubmitData, Forms } from './types';
 
-  let _form = $state<Forms>('login');
+  let _form = $state<Forms>('join');
 
   let current_form = $derived(forms[_form]);
 
@@ -21,7 +22,7 @@
     _form = form;
   }
 
-  let dialog_element: HTMLDialogElement | undefined = undefined;
+  let dialog_element = $state<Nullable<HTMLDialogElement>>(null);
 
   const modalsStore = createModalsStore();
 
