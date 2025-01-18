@@ -73,7 +73,10 @@
           </div>
         {/each}
       {:else}
-        <span class="text-sm font-medium">Nothing here yet—go find a Post!</span>
+        <div class="flex flex-col">
+          <span class="text-lg font-medium">&gt;_&lt;</span>
+          <span class="text-sm">Nothing here yet—go find a Post!</span>
+        </div>
       {/if}
     </div>
   </div>

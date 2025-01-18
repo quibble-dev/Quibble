@@ -6,16 +6,16 @@
   import RocketIcon from '$lib/components/icons/rocket.svelte';
   import TopIcon from '$lib/components/icons/top.svelte';
   import { cn } from '$lib/functions/classnames';
-  import { createLayoutStore } from '$lib/stores/layout.svelte';
+  import { createLayoutTypeStore } from '$lib/stores/layout_type.svelte';
 
-  const layoutStore = createLayoutStore();
+  const layoutTypeStore = createLayoutTypeStore();
 
   let active_mapping = $derived<{
     filter: keyof typeof mapping.filters;
     view: keyof typeof mapping.view;
   }>({
     filter: 'best',
-    view: layoutStore.state
+    view: layoutTypeStore.state
   });
 
   const mapping = {
@@ -28,11 +28,11 @@
     view: {
       card: {
         icon: CardIcon,
-        onclick: () => layoutStore.update('card')
+        onclick: () => layoutTypeStore.update('card')
       },
       compact: {
         icon: CompactIcon,
-        onclick: () => layoutStore.update('compact')
+        onclick: () => layoutTypeStore.update('compact')
       }
     }
   };

@@ -55,7 +55,7 @@
         {/each}
       </div>
     {:else}
-      <span class="text-sm font-medium">Just in—take a peek.</span>
+      <span class="text-sm">Just in—take a peek.</span>
     {/if}
   </div>
   <div class="collapse gap-2 overflow-visible rounded-none">
@@ -87,7 +87,7 @@
         {/each}
       </div>
     {:else}
-      <span class="text-sm font-medium">Ready to quibble? Join in.</span>
+      <span class="text-sm">Ready to quibble? Join in.</span>
     {/if}
   </div>
   <div class="collapse gap-2 overflow-visible rounded-none">

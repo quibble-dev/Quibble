@@ -1,25 +1,23 @@
 import { SvelteMap } from 'svelte/reactivity';
 
-const modals = ['auth'] as const;
-type IModals = (typeof modals)[number];
+const modals_map = ['auth'] as const;
+type Modals = (typeof modals_map)[number];
 
-const modals_state = $state(
-  new SvelteMap<IModals, boolean>(modals.map((item) => [item, false]))
+const modals = $state(
+  new SvelteMap<Modals, boolean>(modals_map.map((item) => [item, false]))
 );
 
 export function createModalsStore() {
   return {
     get state() {
-      return modals_state;
+      return modals;
     },
-    open(modal: IModals) {
-      modals_state.keys().forEach((key) => {
-        modals_state.set(key, false);
-      });
-      modals_state.set(modal, true);
+    open(modal: Modals) {
+      modals.keys().forEach((key) => modals.set(key, false));
+      modals.set(modal, true);
     },
-    close(modal: IModals) {
-      modals_state.set(modal, false);
+    close(modal: Modals) {
+      modals.set(modal, false);
     }
   };
 }

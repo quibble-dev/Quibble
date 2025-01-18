@@ -1,23 +1,20 @@
 import { browser } from '$app/environment';
 
-type SidebarStore = Record<string, Community>;
-
+type Sidebar = Record<string, Community[]>;
 type Community = {
   avatar?: string | null | undefined;
   name: string;
   starred?: boolean;
-}[];
+};
 
-const stored_sidebar_store = browser ? localStorage.getItem('sidebar_store') : null;
+const stored_sidebar = browser ? localStorage.getItem('sidebar') : null;
 
-const parsed_stored_sidebar_store: SidebarStore = stored_sidebar_store
-  ? JSON.parse(stored_sidebar_store)
-  : {};
+const parsed_sidebar: Sidebar = stored_sidebar ? JSON.parse(stored_sidebar) : {};
 
-const sidebar_state = $state<SidebarStore>(
+const sidebar = $state<Sidebar>(
   // sort initial data
   Object.fromEntries(
-    Object.entries(parsed_stored_sidebar_store).map(([key, community]) => [
+    Object.entries(parsed_sidebar).map(([key, community]) => [
       key,
       get_sorted_communities(community)
     ])
@@ -26,12 +23,12 @@ const sidebar_state = $state<SidebarStore>(
 
 function sync_to_localstorage() {
   if (browser) {
-    localStorage.setItem('sidebar_store', JSON.stringify(sidebar_state));
+    localStorage.setItem('sidebar', JSON.stringify(sidebar));
   }
 }
 
-function get_sorted_communities(community: Community) {
-  return [...community].sort((a, b) => {
+function get_sorted_communities(communities: Community[]) {
+  return [...communities].sort((a, b) => {
     if (a.starred !== b.starred) {
       return b.starred ? 1 : -1;
     }
@@ -42,30 +39,28 @@ function get_sorted_communities(community: Community) {
 export function createSidebarStore() {
   return {
     get state() {
-      return sidebar_state;
+      return sidebar;
     },
-    add_community(type: string, community: Community[number]) {
+    add_community(type: string, community: Community) {
       // initialize empty array for new type type
-      if (!sidebar_state[type]) {
-        sidebar_state[type] = [];
+      if (!sidebar[type]) {
+        sidebar[type] = [];
       }
 
-      const exists = sidebar_state[type].some((c) => c.name === community.name);
+      const exists = sidebar[type].some((c) => c.name === community.name);
       if (exists) return;
 
-      sidebar_state[type] = get_sorted_communities([
-        ...sidebar_state[type],
+      sidebar[type] = get_sorted_communities([
+        ...sidebar[type],
         { ...community, starred: false }
       ]);
       sync_to_localstorage();
     },
     toggle_star(type: string, name: string) {
-      if (!sidebar_state[type]) return;
+      if (!sidebar[type]) return;
 
-      sidebar_state[type] = get_sorted_communities(
-        sidebar_state[type].map((c) =>
-          c.name === name ? { ...c, starred: !c.starred } : c
-        )
+      sidebar[type] = get_sorted_communities(
+        sidebar[type].map((c) => (c.name === name ? { ...c, starred: !c.starred } : c))
       );
       sync_to_localstorage();
     }

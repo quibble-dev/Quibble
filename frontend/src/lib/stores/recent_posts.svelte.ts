@@ -17,8 +17,8 @@ interface IRecentPost extends Post {
   timestamp: Date;
 }
 
-const stored_recent_posts = browser ? localStorage.getItem('recent_posts_store') : null;
-const parsed_stored_recent_posts: IRecentPost[] = stored_recent_posts
+const stored_recent_posts = browser ? localStorage.getItem('recent_posts') : null;
+const parsed_recent_posts: IRecentPost[] = stored_recent_posts
   ? // convert string to Date object
     (JSON.parse(stored_recent_posts) as IRecentPost[]).map((q) => ({
       ...q,
@@ -26,15 +26,15 @@ const parsed_stored_recent_posts: IRecentPost[] = stored_recent_posts
     }))
   : [];
 
-let recent_posts_state = $state<IRecentPost[]>(parsed_stored_recent_posts);
+let recent_posts = $state<IRecentPost[]>(parsed_recent_posts);
 
 function sync_to_localstorage() {
   if (browser) {
     // convert Date object to string
     localStorage.setItem(
-      'recent_posts_store',
+      'recent_posts',
       JSON.stringify(
-        recent_posts_state.map((q) => ({
+        recent_posts.map((q) => ({
           ...q,
           timestamp: q.timestamp.toISOString()
         }))
@@ -43,8 +43,8 @@ function sync_to_localstorage() {
   }
 }
 
-function get_sorted_recent_posts_state(input: IRecentPost) {
-  return [...recent_posts_state, input].sort(
+function get_sorted_recent_posts(input: IRecentPost) {
+  return [...recent_posts, input].sort(
     (a, b) => b.timestamp.getTime() - a.timestamp.getTime()
   );
 }
@@ -52,13 +52,13 @@ function get_sorted_recent_posts_state(input: IRecentPost) {
 export function createRecentPostsStore() {
   return {
     get state() {
-      return recent_posts_state;
+      return recent_posts;
     },
     add_post(post: Post) {
-      const exists = recent_posts_state.some((q) => q.id === post.id);
+      const exists = recent_posts.some((p) => p.id === post.id);
       if (exists) return;
 
-      recent_posts_state = get_sorted_recent_posts_state({
+      recent_posts = get_sorted_recent_posts({
         ...post,
         timestamp: new Date(Date.now())
       });
