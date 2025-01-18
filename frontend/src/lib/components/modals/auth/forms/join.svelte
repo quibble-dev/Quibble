@@ -26,7 +26,7 @@
           // next form
           goto_form('profile_select');
         } else if (auth_type === 'register') {
-          handle_auth_type_change();
+          auth_type = 'login';
         }
       } else if (result.type === 'failure') {
         errors = result.data;
@@ -50,7 +50,7 @@
       Join in, share your take, and<br /> make some waves!
     </p>
   </div>
-  <button class="btn btn-neutral hover:btn-ghost">
+  <button class="btn btn-ghost btn-active">
     <GoogleLogo class="size-5" />
     Continue with Google
   </button>
@@ -82,13 +82,16 @@
         placeholder="Password*"
       />
     </label>
-    {#if errors?.detail}
-      <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2">
+      {#if errors?.detail}
         <coreicons-shape-alert-triangle class="size-3 text-error"
         ></coreicons-shape-alert-triangle>
         <span class="text-xs text-error">{errors.detail}</span>
-      </div>
-    {/if}
+      {:else}
+        <coreicons-shape-info class="size-3"></coreicons-shape-info>
+        <span class="text-xs">Hint: you can switch b/w 'login' and 'register'.</span>
+      {/if}
+    </div>
     <div class="flex items-center gap-3">
       <button
         type="submit"
@@ -102,9 +105,13 @@
           <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
         {/if}
       </button>
-      <button type="button" class="btn btn-secondary" onclick={handle_auth_type_change}>
-        {auth_type === 'login' ? 'Register' : 'Login'}
-        <coreicons-shape-repeat class="size-4"></coreicons-shape-repeat>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        onclick={handle_auth_type_change}
+        aria-label="Switch b/w authentication type"
+      >
+        <coreicons-shape-refresh class="size-4"></coreicons-shape-refresh>
       </button>
     </div>
   </form>
