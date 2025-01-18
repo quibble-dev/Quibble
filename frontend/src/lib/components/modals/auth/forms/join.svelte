@@ -31,6 +31,7 @@
           auth_type = 'login';
         }
       } else if (result.type === 'failure') {
+        console.log(result);
         errors = result.data;
       }
       pending = false;
@@ -66,6 +67,7 @@
     action="/auth?/{auth_type}"
     use:enhance={handle_submit}
     class="flex flex-col gap-3"
+    novalidate
   >
     <label class="input input-bordered flex items-center gap-2">
       <coreicons-shape-mail class="size-4"></coreicons-shape-mail>
