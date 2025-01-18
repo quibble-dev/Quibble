@@ -6,10 +6,12 @@
   import { cn } from '$lib/functions/classnames';
   import type { FormProps } from '../types';
   import type { SubmitFunction } from '@sveltejs/kit';
+  import type { HTMLInputAttributes } from 'svelte/elements';
 
   let { update_forms_state, goto_form }: FormProps = $props();
 
   let auth_type = $state<'login' | 'register'>('login');
+  let password_type = $state<HTMLInputAttributes['type']>('password');
 
   let errors = $state<Record<string, string> | undefined>();
   let pending = $state(false);
@@ -37,6 +39,10 @@
 
   function handle_auth_type_change() {
     auth_type = auth_type === 'login' ? 'register' : 'login';
+  }
+
+  function handle_toggle_password_type() {
+    password_type = password_type === 'password' ? 'text' : 'password';
   }
 </script>
 
@@ -71,16 +77,32 @@
         placeholder="Email address*"
       />
     </label>
-    <label class="input input-bordered flex items-center gap-2">
+    <label class="input input-bordered flex items-center gap-2 pr-2">
       <coreicons-shape-lock class="size-4"></coreicons-shape-lock>
       <input
-        type="password"
+        type={password_type}
         name="password"
         required
         minlength="8"
         class="grow border-none p-2 text-sm font-medium focus:ring-0"
         placeholder="Password*"
       />
+      <button
+        type="button"
+        class={cn(
+          password_type === 'password'
+            ? 'btn-neutral border border-base-content/25'
+            : 'btn-ghost btn-active',
+          'btn btn-square btn-sm ml-auto hover:btn-ghost'
+        )}
+        aria-label="Show/hide password"
+        onclick={handle_toggle_password_type}
+      >
+        <coreicons-shape-eye
+          class="size-4"
+          variant={password_type === 'password' ? 'open' : 'close'}
+        ></coreicons-shape-eye>
+      </button>
     </label>
     <div class="flex items-center gap-2">
       {#if errors?.detail}
