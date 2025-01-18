@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from '$app/stores';
+  import { page } from '$app/state';
   import ChartBarsIcon from '$lib/components/icons/chart_bars.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
@@ -15,7 +15,7 @@
   let { on_menu_click }: Props = $props();
 
   const show_search_in_community = $derived(
-    $page.url.pathname.includes('/q/') && $page.data.community
+    page.url.pathname.includes('/q/') && page.data.community
   );
 
   const modalsStore = createModalsStore(),
@@ -61,9 +61,9 @@
         <div
           class="ml-2 flex items-center gap-2 rounded-lg border border-neutral bg-base-100 p-1 px-1.5"
         >
-          <Avatar src={$page.data.community.avatar} class="size-5 rounded-full" />
+          <Avatar src={page.data.community.avatar} class="size-5 rounded-full" />
           <h5 class="whitespace-nowrap text-xs font-medium">
-            q/{$page.data.community.name}
+            q/{page.data.community.name}
           </h5>
         </div>
       {/if}
@@ -71,7 +71,7 @@
         type="text"
         class="grow border-none text-sm font-medium focus:ring-0"
         placeholder={show_search_in_community
-          ? `Search in q/${$page.params.name}`
+          ? `Search in q/${page.params.name}`
           : 'Search...'}
       />
     </label>

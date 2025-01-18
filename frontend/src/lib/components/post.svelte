@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { page } from '$app/stores';
+  import { page } from '$app/state';
   import type { components } from '$lib/clients/v1/schema';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import BackdropImage from '$lib/components/ui/backdrop_image.svelte';
@@ -30,11 +30,11 @@
   }
 
   function get_avatar() {
-    return $page.url.pathname.includes('/q/') ? post.poster.avatar : post.poster.avatar;
+    return page.url.pathname.includes('/q/') ? post.poster.avatar : post.poster.avatar;
   }
 
   function get_name() {
-    return $page.url.pathname.includes('/q/')
+    return page.url.pathname.includes('/q/')
       ? `u/${post.poster.username}`
       : `q/${post.community.name}`;
   }
