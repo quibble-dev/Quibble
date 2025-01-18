@@ -19,14 +19,14 @@ class CommunityBasicSerializer(serializers.ModelSerializer):
 
 class CommunityDetailedSerializer(serializers.ModelSerializer):
     rangers = ProfileBasicSerializer(many=True)
-    quibs = serializers.SerializerMethodField()
+    posts_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Community
         fields = '__all__'
 
-    def get_quibs(self, obj) -> int:
-        return obj.quibs.count()
+    def get_posts_count(self, obj) -> int:
+        return obj.posts.count()
 
 
 class CommunityExistsSerializer(serializers.Serializer):

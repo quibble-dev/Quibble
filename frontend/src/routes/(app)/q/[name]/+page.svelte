@@ -67,9 +67,9 @@
             >
           </div>
           <div class="flex items-center gap-1">
-            <span class="text-sm text-info">{community?.quibs}</span>
+            <span class="text-sm text-info">{community?.posts_count}</span>
             <span class="text-xs text-base-content/75"
-              >{pluralize('Post', community?.quibs)}</span
+              >{pluralize('Post', community?.posts_count)}</span
             >
           </div>
         </div>

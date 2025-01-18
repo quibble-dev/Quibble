@@ -1493,7 +1493,7 @@ export interface components {
     CommunityDetailed: {
       readonly id: number;
       rangers: components['schemas']['ProfileBasic'][];
-      readonly quibs: number;
+      readonly posts_count: number;
       /** Format: uri */
       avatar?: string | null;
       /**
