@@ -16,6 +16,9 @@
   let errors = $state<Record<string, string> | undefined>();
   let pending = $state(false);
 
+  let invalid_email = $derived(errors?.detail?.toLowerCase().includes('email'));
+  let invalid_password = $derived(errors?.detail?.toLowerCase().includes('password'));
+
   const handle_submit: SubmitFunction = async () => {
     pending = true;
 
@@ -71,9 +74,10 @@
   >
     <label
       class="input input-bordered flex items-center gap-2 transition-[border-color]"
-      class:input-error={errors?.detail?.toLowerCase().includes('email')}
+      class:input-error={invalid_email}
     >
-      <coreicons-shape-mail class="size-4"></coreicons-shape-mail>
+      <coreicons-shape-mail class="size-4" class:text-error={invalid_email}
+      ></coreicons-shape-mail>
       <input
         type="email"
         name="email"
@@ -84,9 +88,10 @@
     </label>
     <label
       class="input input-bordered flex items-center gap-2 pr-2 transition-[border-color]"
-      class:input-error={errors?.detail?.toLowerCase().includes('password')}
+      class:input-error={invalid_password}
     >
-      <coreicons-shape-lock class="size-4"></coreicons-shape-lock>
+      <coreicons-shape-lock class="size-4" class:text-error={invalid_password}
+      ></coreicons-shape-lock>
       <input
         type={password_type}
         name="password"
