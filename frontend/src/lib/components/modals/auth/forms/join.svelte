@@ -69,7 +69,10 @@
     class="flex flex-col gap-3"
     novalidate
   >
-    <label class="input input-bordered flex items-center gap-2">
+    <label
+      class="input input-bordered flex items-center gap-2 transition-[border-color]"
+      class:input-error={errors?.detail?.toLowerCase().includes('email')}
+    >
       <coreicons-shape-mail class="size-4"></coreicons-shape-mail>
       <input
         type="email"
@@ -79,7 +82,10 @@
         placeholder="Email address*"
       />
     </label>
-    <label class="input input-bordered flex items-center gap-2 pr-2">
+    <label
+      class="input input-bordered flex items-center gap-2 pr-2 transition-[border-color]"
+      class:input-error={errors?.detail?.toLowerCase().includes('password')}
+    >
       <coreicons-shape-lock class="size-4"></coreicons-shape-lock>
       <input
         type={password_type}
