@@ -11,6 +11,8 @@
   let errors = $state<Record<string, string> | undefined>();
   let pending = $state(false);
 
+  let invalid_username = $derived(errors?.detail?.toLowerCase().includes('username'));
+
   const handle_submit: SubmitFunction = async () => {
     pending = true;
 
@@ -35,20 +37,25 @@
 </script>
 
 <div class="flex flex-col gap-4">
-  <div class="flex flex-col items-center justify-center gap-4">
-    <div class="flex items-center gap-2">
+  <div class="flex flex-col items-center justify-center gap-1">
+    <div class="mb-3 flex items-center gap-2">
       <QuibbleLogo class="size-7" />
       <QuibbleTextLogo class="h-7 w-auto" />
     </div>
     <p class="text-center font-medium">Let's create new one!</p>
+    <p class="text-center text-xs">You can edit this profile from settings page later.</p>
   </div>
   <form
     method="POST"
     action="/settings/profile?/create"
     use:enhance={handle_submit}
     class="flex flex-col gap-3"
+    novalidate
   >
-    <label class="input input-bordered flex items-center gap-2">
+    <label
+      class="input input-bordered flex items-center gap-2"
+      class:input-error={invalid_username}
+    >
       <coreicons-shape-at-sign class="size-4"></coreicons-shape-at-sign>
       <input
         type="text"
@@ -79,5 +86,4 @@
       {/if}
     </button>
   </form>
-  <p class="text-center text-xs">You can do more things from settings page later.</p>
 </div>

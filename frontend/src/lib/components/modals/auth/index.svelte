@@ -5,9 +5,9 @@
   import type { FormsState, FormSubmitData, Forms } from './types';
 
   let _form = $state<Forms>('join');
+  let prev_form_history = $state<Forms[]>(['join']);
 
   let current_form = $derived(forms[_form]);
-  let prev_form_history = $state<Forms[]>(['join']);
 
   const initial_forms_state = Object.fromEntries(
     Object.keys(forms).map((key) => [key, {}])

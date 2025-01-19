@@ -11,3 +11,11 @@ export const auth_schema = z.object({
 });
 
 export type AuthSchema = z.infer<typeof auth_schema>;
+
+export const profile_create_schema = z.object({
+  username: zod_required_string({ field_name: 'Username' }).min(3, {
+    message: 'Username must contain atleast 3 chararcters'
+  })
+});
+
+export type ProfileCreateSchema = z.infer<typeof profile_create_schema>;
