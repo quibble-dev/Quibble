@@ -2,13 +2,26 @@
   import Post from '$lib/components/post.svelte';
   import PostsHeader from '$lib/components/posts_header.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import Quibble_404_2 from '$lib/components/vectors/quibble_404_2.svelte';
+  import { createAuthStore } from '$lib/stores/auth.svelte';
+  import { createModalsStore } from '$lib/stores/modals.svelte';
   import { createRecentPostsStore } from '$lib/stores/recent_posts.svelte';
   import type { PageData } from './$types';
   import readable from 'readable-numbers';
 
   const { data }: { data: PageData } = $props();
 
-  const recentPostsStore = createRecentPostsStore();
+  const recentPostsStore = createRecentPostsStore(),
+    authStore = createAuthStore(),
+    modalsStore = createModalsStore();
+
+  function handle_404_action_btn_click() {
+    if (authStore.state.is_authenticated) {
+      // open post create modal
+    } else {
+      modalsStore.open('auth');
+    }
+  }
 </script>
 
 <svelte:head>
@@ -18,10 +31,32 @@
 <div class="flex h-max flex-1 flex-col gap-4 p-4">
   <PostsHeader />
   <div class="flex flex-1 flex-col gap-4">
-    {#if data.posts}
+    {#if data.posts && data.posts.length}
       {#each data.posts as post}
         <Post {...post} />
       {/each}
+    {:else}
+      <div class="mt-5 flex flex-1 items-end justify-center gap-5">
+        <Quibble_404_2 class="h-auto w-28" />
+        <div class="flex flex-col">
+          <h4 class="text-lg font-bold text-error md:text-xl">oh oh!!</h4>
+          <h5 class="text-sm md:text-base">The silence is deafening—why not break it?</h5>
+          <button
+            class="btn btn-primary btn-sm mt-2 w-max md:mt-4"
+            aria-label="404 action"
+            onclick={handle_404_action_btn_click}
+          >
+            {#if authStore.state.is_authenticated}
+              <coreicons-shape-plus variant="no-border" class="size-4"
+              ></coreicons-shape-plus>
+              <span>Create</span>
+            {:else}
+              <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
+              <span>Join in</span>
+            {/if}
+          </button>
+        </div>
+      </div>
     {/if}
   </div>
 </div>
