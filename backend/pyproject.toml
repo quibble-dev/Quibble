@@ -43,7 +43,7 @@ poethepoet = "^0.32.1"
 django-extensions = "^3.2.3"
 # typing support
 django-types = "^0.20.0"
-django-stubs-ext = "^5.1.1"
+django-stubs-ext = "^5.1.2"
 # graphs
 pyparsing = "^3.2.1"
 pydot = "^3.0.4"
