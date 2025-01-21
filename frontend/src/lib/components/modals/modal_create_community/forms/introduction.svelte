@@ -1,3 +1,10 @@
+<script lang="ts">
+  import type { FormProps } from '../../types';
+  import forms from '../forms';
+
+  let {}: FormProps<typeof forms> = $props();
+</script>
+
 <div>
   <div>
     <h3>Introduce Your Community</h3>

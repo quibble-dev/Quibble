@@ -4,25 +4,25 @@
   import type { FormsState, FormSubmitData, Forms } from '../types';
   import forms from './forms';
 
-  type AuthForms = Forms<typeof forms>;
-  type AuthFormsState = FormsState<typeof forms>;
+  type CForms = Forms<typeof forms>;
+  type CFormsState = FormsState<typeof forms>;
 
-  let _form = $state<AuthForms>('join');
-  let prev_form_history = $state<AuthForms[]>(['join']);
+  let _form = $state<CForms>('introduction');
+  let prev_form_history = $state<CForms[]>(['introduction']);
 
   let current_form = $derived(forms[_form]);
 
   const initial_forms_state = Object.fromEntries(
     Object.keys(forms).map((key) => [key, {}])
-  ) as AuthFormsState;
+  ) as CFormsState;
 
-  let forms_state = $state<AuthFormsState>(initial_forms_state);
+  let forms_state = $state<CFormsState>(initial_forms_state);
 
-  function update_forms_state(form: AuthForms, data: FormSubmitData) {
+  function update_forms_state(form: CForms, data: FormSubmitData) {
     forms_state[form] = { ...forms_state[form], ...data };
   }
 
-  function goto_form(form: AuthForms) {
+  function goto_form(form: CForms) {
     // if navigating to a form thats already in the history stack,
     // truncate the stack upto the most recent occurance of that form
     // (avoiding duplicate entiries)
@@ -53,7 +53,7 @@
   const modalsStore = createModalsStore();
 
   $effect(() => {
-    if (modalsStore.state.get('auth')) {
+    if (modalsStore.state.get('create_community')) {
       dialog_element?.showModal();
     } else {
       dialog_element?.close();
@@ -64,26 +64,12 @@
 <dialog
   class="modal modal-bottom sm:modal-middle"
   bind:this={dialog_element}
-  onclose={() => modalsStore.close('auth')}
+  onclose={() => modalsStore.close('create_community')}
 >
-  <div class="modal-box !w-[25rem]">
+  <div class="modal-box">
     {#await current_form then Form}
       <Form.default {forms_state} {update_forms_state} {goto_form} />
     {/await}
-    {#if prev_form_history.length > 1}
-      <div
-        class="tooltip tooltip-right absolute left-2.5 top-2.5 flex before:capitalize"
-        data-tip={prev_form_history.at(-2)?.replace('_', ' ')}
-      >
-        <button
-          class="btn btn-square btn-circle btn-ghost btn-sm"
-          aria-label="Close modal"
-          onclick={handle_go_back}
-        >
-          <coreicons-shape-arrow class="size-5" variant="left"></coreicons-shape-arrow>
-        </button>
-      </div>
-    {/if}
     <button
       class="btn btn-square btn-circle btn-ghost btn-sm absolute right-2.5 top-2.5"
       aria-label="Close modal"

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import AuthModal from './auth/index.svelte';
-  import CreateCommunityModal from './create_community/index.svelte';
+  import ModalAuth from './modal_auth/index.svelte';
+  import ModalCreateCommunity from './modal_create_community/index.svelte';
 </script>
 
-<AuthModal />
-<CreateCommunityModal />
+<ModalAuth />
+<ModalCreateCommunity />
