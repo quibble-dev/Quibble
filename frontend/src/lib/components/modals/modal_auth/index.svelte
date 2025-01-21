@@ -1,15 +1,18 @@
 <script lang="ts">
   import { createModalsStore } from '$lib/stores/modals.svelte';
   import type { Nullable } from '$lib/types/shared';
+  import BaseModal from '../_components/base_modal.svelte';
+  import { create_form_history } from '../_utils/history.svelte';
   import type { FormsState, FormSubmitData, Forms } from '../types';
-  import { create_form_history } from '../utils/history.svelte';
   import forms from './forms';
 
   type AuthForms = Forms<typeof forms>;
   type AuthFormsState = FormsState<typeof forms>;
 
+  const modalsStore = createModalsStore();
+
   const form_history = create_form_history<typeof forms>('join');
-  let current_form = $derived(forms[form_history.history.at(-1) ?? 'join']);
+  let form = $derived(forms[form_history.history.at(-1) ?? 'join']);
 
   const initial_forms_state = Object.fromEntries(
     Object.keys(forms).map((key) => [key, {}])
@@ -29,26 +32,19 @@
     form_history.go_back();
   }
 
-  let dialog_element = $state<Nullable<HTMLDialogElement>>(null);
-
-  const modalsStore = createModalsStore();
-
-  $effect(() => {
-    if (modalsStore.state.get('auth')) {
-      dialog_element?.showModal();
-    } else {
-      dialog_element?.close();
-    }
-  });
+  let dialog_el = $state<Nullable<HTMLDialogElement>>(null);
 </script>
 
-<dialog
-  class="modal modal-bottom sm:modal-middle"
-  bind:this={dialog_element}
+<BaseModal
+  bind:dialog_el
+  open={modalsStore.state.get('auth') === true}
   onclose={() => modalsStore.close('auth')}
 >
-  <div class="modal-box !w-[25rem]">
-    {#await current_form then Form}
+  <div
+    class="modal-box max-w-[25rem] overflow-hidden duration-300
+    md:max-w-[25rem]"
+  >
+    {#await form then Form}
       <Form.default {forms_state} {update_forms_state} {goto_form} />
     {/await}
     {#if form_history.history.length > 1}
@@ -68,12 +64,9 @@
     <button
       class="btn btn-square btn-circle btn-ghost btn-sm absolute right-2.5 top-2.5"
       aria-label="Close modal"
-      onclick={() => dialog_element?.close()}
+      onclick={() => dialog_el?.close()}
     >
       <coreicons-shape-x class="size-5" variant="no-border"></coreicons-shape-x>
     </button>
   </div>
-  <form method="dialog" class="modal-backdrop">
-    <button>close</button>
-  </form>
-</dialog>
+</BaseModal>
