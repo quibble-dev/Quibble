@@ -1,6 +1,6 @@
 import { SvelteMap } from 'svelte/reactivity';
 
-const modals_map = ['auth'] as const;
+const modals_map = ['auth', 'create_community'] as const;
 type Modals = (typeof modals_map)[number];
 
 const modals = $state(new SvelteMap<Modals, boolean>(modals_map.map((item) => [item, false])));

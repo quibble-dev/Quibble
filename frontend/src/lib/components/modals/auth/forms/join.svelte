@@ -4,11 +4,12 @@
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
   import { cn } from '$lib/functions/classnames';
-  import type { FormProps } from '../types';
+  import type { FormProps } from '../../types';
+  import forms from '../forms';
   import type { SubmitFunction } from '@sveltejs/kit';
   import type { HTMLInputAttributes } from 'svelte/elements';
 
-  let { update_forms_state, goto_form }: FormProps = $props();
+  let { update_forms_state, goto_form }: FormProps<typeof forms> = $props();
 
   let auth_type = $state<'login' | 'register'>('login');
   let password_type = $state<HTMLInputAttributes['type']>('password');

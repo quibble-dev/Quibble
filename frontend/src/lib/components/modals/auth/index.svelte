@@ -1,25 +1,28 @@
 <script lang="ts">
   import { createModalsStore } from '$lib/stores/modals.svelte';
   import type { Nullable } from '$lib/types/shared';
+  import type { FormsState, FormSubmitData, Forms } from '../types';
   import forms from './forms';
-  import type { FormsState, FormSubmitData, Forms } from './types';
 
-  let _form = $state<Forms>('join');
-  let prev_form_history = $state<Forms[]>(['join']);
+  type AuthForms = Forms<typeof forms>;
+  type AuthFormsState = FormsState<typeof forms>;
+
+  let _form = $state<AuthForms>('join');
+  let prev_form_history = $state<AuthForms[]>(['join']);
 
   let current_form = $derived(forms[_form]);
 
   const initial_forms_state = Object.fromEntries(
     Object.keys(forms).map((key) => [key, {}])
-  ) as FormsState;
+  ) as AuthFormsState;
 
-  let forms_state = $state<FormsState>(initial_forms_state);
+  let forms_state = $state<AuthFormsState>(initial_forms_state);
 
-  function update_forms_state(form: Forms, data: FormSubmitData) {
+  function update_forms_state(form: AuthForms, data: FormSubmitData) {
     forms_state[form] = { ...forms_state[form], ...data };
   }
 
-  function goto_form(form: Forms) {
+  function goto_form(form: AuthForms) {
     // if navigating to a form thats already in the history stack,
     // truncate the stack upto the most recent occurance of that form
     // (avoiding duplicate entiries)
@@ -89,7 +92,7 @@
       <coreicons-shape-x class="size-5" variant="no-border"></coreicons-shape-x>
     </button>
   </div>
-  <form method="dialog" class="modal-backdrop bg-base-300/25">
+  <form method="dialog" class="modal-backdrop">
     <button>close</button>
   </form>
 </dialog>

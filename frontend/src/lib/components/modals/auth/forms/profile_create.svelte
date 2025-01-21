@@ -3,10 +3,11 @@
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
   import { cn } from '$lib/functions/classnames';
-  import type { FormProps } from '../types';
+  import type { FormProps } from '../../types';
+  import forms from '../forms';
   import type { SubmitFunction } from '@sveltejs/kit';
 
-  let { forms_state, update_forms_state, goto_form }: FormProps = $props();
+  let { forms_state, update_forms_state, goto_form }: FormProps<typeof forms> = $props();
 
   let errors = $state<Record<string, string> | undefined>();
   let pending = $state(false);

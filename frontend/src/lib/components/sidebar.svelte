@@ -1,9 +1,11 @@
 <script lang="ts">
   import QuibbleIcon from '$lib/components/icons/logos/quibble.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import { createModalsStore } from '$lib/stores/modals.svelte';
   import { createSidebarStore } from '$lib/stores/sidebar.svelte';
 
-  const sidebarStore = createSidebarStore();
+  const sidebarStore = createSidebarStore(),
+    modalsStore = createModalsStore();
 </script>
 
 <div
@@ -19,9 +21,12 @@
       />
       <coreicons-shape-filter class="size-3"></coreicons-shape-filter>
     </label>
-    <button class="flex items-center gap-2">
+    <button
+      class="btn btn-ghost btn-xs flex w-max items-center gap-2"
+      onclick={() => modalsStore.open('create_community')}
+    >
       <coreicons-shape-plus variant="circle" class="size-4"></coreicons-shape-plus>
-      <span class="text-xs font-medium">Create Community</span>
+      <span class="text-xs font-medium">Create a community</span>
     </button>
   </div>
   <div class="collapse gap-2 overflow-visible rounded-none">

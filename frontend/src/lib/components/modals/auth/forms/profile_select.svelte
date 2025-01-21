@@ -7,13 +7,14 @@
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';
-  import type { FormProps } from '../types';
+  import type { FormProps } from '../../types';
+  import forms from '../forms';
   import type { SubmitFunction } from '@sveltejs/kit';
   import { onMount } from 'svelte';
 
   type Profile = components['schemas']['Profile'];
 
-  let { update_forms_state, forms_state, goto_form }: FormProps = $props();
+  let { update_forms_state, forms_state, goto_form }: FormProps<typeof forms> = $props();
 
   let pending = $state(false);
   let status_text = $state<string | null>(null);
