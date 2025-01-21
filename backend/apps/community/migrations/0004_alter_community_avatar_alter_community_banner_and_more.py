@@ -18,9 +18,7 @@ class Migration(migrations.Migration):
             field=models.ImageField(
                 blank=True,
                 null=True,
-                upload_to=dynamic_filenames.FilePattern(
-                    filename_pattern='avatar/{uuid:s}{ext}'
-                ),
+                upload_to=dynamic_filenames.FilePattern(filename_pattern='avatar/{uuid:s}{ext}'),
                 verbose_name='Avatar',
             ),
         ),
@@ -84,8 +82,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='community',
             name='title',
-            field=models.CharField(
-                blank=True, max_length=50, null=True, verbose_name='Title'
-            ),
+            field=models.CharField(blank=True, max_length=50, null=True, verbose_name='Title'),
         ),
     ]

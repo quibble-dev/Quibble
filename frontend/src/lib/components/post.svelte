@@ -80,8 +80,7 @@
       <coreicons-shape-thumbs variant="up" class="size-4" class:text-primary={is_upvoted}
       ></coreicons-shape-thumbs>
     </button>
-    <span class="text-xs font-medium md:text-sm">{readable(post.upvotes?.length ?? 0)}</span
-    >
+    <span class="text-xs font-medium md:text-sm">{readable(post.upvotes?.length ?? 0)}</span>
     <button class="flex items-center gap-2" aria-label="downvote">
       <coreicons-shape-thumbs variant="down" class="size-4"></coreicons-shape-thumbs>
     </button>
