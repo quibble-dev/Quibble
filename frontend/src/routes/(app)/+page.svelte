@@ -46,13 +46,8 @@
             aria-label="404 action"
             onclick={handle_404_action_btn_click}
           >
-            {#if authStore.state.is_authenticated}
-              <coreicons-shape-plus variant="no-border" class="size-4"></coreicons-shape-plus>
-              <span>Create</span>
-            {:else}
-              <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
-              <span>Join in</span>
-            {/if}
+            <coreicons-shape-plus variant="no-border" class="size-4"></coreicons-shape-plus>
+            <span>Create</span>
           </button>
         </div>
       </div>

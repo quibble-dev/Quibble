@@ -5,8 +5,8 @@
   import type { FormsState, FormSubmitData, Forms } from '../types';
   import forms from './forms';
 
-  type CForms = Forms<typeof forms>;
-  type CFormsState = FormsState<typeof forms>;
+  type CCForms = Forms<typeof forms>;
+  type CCFormsState = FormsState<typeof forms>;
 
   const modalsStore = createModalsStore();
 
@@ -27,15 +27,15 @@
 
   const initial_forms_state = Object.fromEntries(
     Object.keys(forms).map((key) => [key, {}])
-  ) as CFormsState;
+  ) as CCFormsState;
 
-  let forms_state = $state<CFormsState>(initial_forms_state);
+  let forms_state = $state<CCFormsState>(initial_forms_state);
 
-  function update_forms_state(form: CForms, data: FormSubmitData) {
+  function update_forms_state(form: CCForms, data: FormSubmitData) {
     forms_state[form] = { ...forms_state[form], ...data };
   }
 
-  function goto_form(form: CForms) {
+  function goto_form(form: CCForms) {
     form_history.go_to_form(form);
   }
 
@@ -68,7 +68,7 @@
           class:opacity-50={!is_active}
           aria-label="Go to
           {_form}"
-          onclick={() => goto_form(_form as CForms)}
+          onclick={() => goto_form(_form as CCForms)}
         ></button>
       {/each}
     </div>

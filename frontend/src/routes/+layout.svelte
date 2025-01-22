@@ -3,6 +3,7 @@
   import Header from '$lib/components/header.svelte';
   import Modals from '$lib/components/modals/index.svelte';
   import Sidebar from '$lib/components/sidebar.svelte';
+  import Toaster from '$lib/components/ui/toast/toaster.svelte';
   import { cn } from '$lib/functions/classnames';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import '../styles/app.css';
@@ -38,6 +39,8 @@
 
 <!-- render available models -->
 <Modals />
+<!-- render toasts -->
+<Toaster />
 <main class="flex h-dvh w-dvw flex-col font-sans">
   <Header on_menu_click={toggle_show_sidebar} />
   <section class="mt-[3.75rem] flex">
