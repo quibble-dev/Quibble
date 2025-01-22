@@ -76,8 +76,7 @@
       class="input input-bordered flex items-center gap-2 transition-[border-color]"
       class:input-error={invalid_email}
     >
-      <coreicons-shape-mail class="size-4" class:text-error={invalid_email}
-      ></coreicons-shape-mail>
+      <coreicons-shape-mail class="size-4" class:text-error={invalid_email}></coreicons-shape-mail>
       <input
         type="email"
         name="email"
@@ -119,8 +118,7 @@
     </label>
     <div class="flex items-center gap-2">
       {#if errors?.detail}
-        <coreicons-shape-alert-triangle class="size-3 text-error"
-        ></coreicons-shape-alert-triangle>
+        <coreicons-shape-alert-triangle class="size-3 text-error"></coreicons-shape-alert-triangle>
         <span class="text-xs text-error">{errors.detail}</span>
       {:else}
         <coreicons-shape-info class="size-3"></coreicons-shape-info>

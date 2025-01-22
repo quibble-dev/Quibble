@@ -36,7 +36,8 @@ export const actions = {
         httpOnly: true,
         secure: !dev,
         path: '/',
-        sameSite: 'lax'
+        sameSite: 'lax',
+        maxAge: 60 * 60 * 24 * 30 // 30 days
       });
 
       return { token: res_data.token };

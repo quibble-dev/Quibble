@@ -42,9 +42,7 @@ class Migration(migrations.Migration):
                 (
                     'name',
                     models.CharField(
-                        error_messages={
-                            'unique': 'Community with this name already exists.'
-                        },
+                        error_messages={'unique': 'Community with this name already exists.'},
                         max_length=25,
                         unique=True,
                         verbose_name='name',
@@ -53,9 +51,7 @@ class Migration(migrations.Migration):
                 ('description', models.TextField(verbose_name='description')),
                 (
                     'title',
-                    models.CharField(
-                        blank=True, max_length=50, null=True, verbose_name='title'
-                    ),
+                    models.CharField(blank=True, max_length=50, null=True, verbose_name='title'),
                 ),
                 (
                     'banner',

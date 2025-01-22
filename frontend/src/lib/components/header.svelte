@@ -53,9 +53,7 @@
         <span class="text-sm font-medium">All</span>
       </a>
     </div>
-    <label
-      class="input input-bordered relative flex h-10 w-96 items-center bg-transparent px-3"
-    >
+    <label class="input input-bordered relative flex h-10 w-96 items-center bg-transparent px-3">
       <coreicons-shape-search class="size-5"></coreicons-shape-search>
       {#if show_search_in_community}
         <div
@@ -70,9 +68,7 @@
       <input
         type="text"
         class="grow border-none text-sm font-medium focus:ring-0"
-        placeholder={show_search_in_community
-          ? `Search in q/${page.params.name}`
-          : 'Search...'}
+        placeholder={show_search_in_community ? `Search in q/${page.params.name}` : 'Search...'}
       />
     </label>
   </div>

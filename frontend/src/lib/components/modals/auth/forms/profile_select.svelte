@@ -78,9 +78,7 @@
       <p class="text-center font-medium">
         {status_text ?? "Who's quibbling?"}
       </p>
-      <span class="self-center text-xs"
-        >You can later switch b/w profiles on settings page.</span
-      >
+      <span class="self-center text-xs">You can later switch b/w profiles on settings page.</span>
     </div>
   </div>
   <div
@@ -90,10 +88,7 @@
     {#each profiles as profile}
       <form method="POST" action="/settings/profile?/select" use:enhance={handle_submit}>
         <input type="hidden" name="profile_id" value={profile.id} />
-        <button
-          type="submit"
-          class="group flex flex-col items-center justify-center gap-2.5"
-        >
+        <button type="submit" class="group flex flex-col items-center justify-center gap-2.5">
           <Avatar
             class="size-20 rounded-2xl outline outline-offset-4 outline-neutral"
             src={profile.avatar}

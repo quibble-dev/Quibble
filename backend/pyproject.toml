@@ -89,7 +89,7 @@ pythonpath = ["."]
 python_files = ["test_*.py"]
 
 [tool.black]
-line-length = 92
+line-length = 100
 target-version = ["py36", "py37", "py38"]
 skip-string-normalization = true
 

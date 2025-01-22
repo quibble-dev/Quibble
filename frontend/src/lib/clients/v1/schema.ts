@@ -1744,11 +1744,7 @@ export interface components {
        *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
        * @enum {string}
        */
-      code:
-        | 'invalid'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
+      code: 'invalid' | 'null' | 'null_characters_not_allowed' | 'surrogate_characters_not_allowed';
       detail: string;
     };
     PostsCreateCoverErrorComponent: {
@@ -1934,11 +1930,7 @@ export interface components {
        *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
        * @enum {string}
        */
-      code:
-        | 'invalid'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
+      code: 'invalid' | 'null' | 'null_characters_not_allowed' | 'surrogate_characters_not_allowed';
       detail: string;
     };
     PostsPartialUpdateCoverErrorComponent: {
@@ -2124,11 +2116,7 @@ export interface components {
        *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
        * @enum {string}
        */
-      code:
-        | 'invalid'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
+      code: 'invalid' | 'null' | 'null_characters_not_allowed' | 'surrogate_characters_not_allowed';
       detail: string;
     };
     PostsUpdateCoverErrorComponent: {
