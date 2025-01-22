@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Toaster from '$lib/components/ui/toast/toaster.svelte';
   import { cn } from '$lib/functions/classnames';
   import type { Nullable } from '$lib/types/shared';
   import type { Snippet } from 'svelte';
@@ -30,4 +31,8 @@
   <form method="dialog" class="modal-backdrop">
     <button>close</button>
   </form>
+  <!-- render toasts -->
+  <!-- https://stackoverflow.com/questions/77099074/layering-toast-alerts-above-dialog-modal -->
+  <!-- https://github.com/saadeghi/daisyui/issues/2858#issuecomment-2010246981 -->
+  <Toaster />
 </dialog>

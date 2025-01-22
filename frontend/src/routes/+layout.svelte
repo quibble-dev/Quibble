@@ -37,10 +37,11 @@
   };
 </script>
 
+<!-- render toasts -->
+<!-- https://stackoverflow.com/questions/77099074/layering-toast-alerts-above-dialog-modal -->
+<Toaster />
 <!-- render available models -->
 <Modals />
-<!-- render toasts -->
-<Toaster />
 <main class="flex h-dvh w-dvw flex-col font-sans">
   <Header on_menu_click={toggle_show_sidebar} />
   <section class="mt-[3.75rem] flex">

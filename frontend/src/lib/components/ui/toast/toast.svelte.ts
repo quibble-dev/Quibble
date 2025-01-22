@@ -1,27 +1,27 @@
 import { generate_id } from '$lib/functions/generate_id';
 
-type Toast = {
+type ToastIn = {
   message: string;
   class?: string;
   duration?: number;
 };
 
-type ToastWithId = Toast & {
+type Toast = ToastIn & {
   id: string;
   timer: NodeJS.Timeout;
 };
 
-let toasts = $state<ToastWithId[]>([]);
+let toasts = $state<Toast[]>([]);
 
 export const toast = {
-  get state() {
+  get toasts() {
     return toasts;
   },
-  push: (toast: Toast) => {
+  push: (toast: ToastIn) => {
     const exists = toasts.find((t) => t.message === toast.message);
     if (exists !== undefined) return exists.id;
 
-    const new_toast: ToastWithId = {
+    const new_toast: Toast = {
       ...toast,
       id: generate_id(),
       timer: setTimeout(() => {
