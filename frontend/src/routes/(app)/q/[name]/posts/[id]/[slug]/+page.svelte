@@ -70,11 +70,7 @@
 
 <!-- poster and community details and more -->
 <div class="flex items-center gap-2">
-  <button
-    onclick={handle_back}
-    class="btn btn-neutral size-8 rounded-full p-0"
-    aria-label="back"
-  >
+  <button onclick={handle_back} class="btn btn-neutral size-8 rounded-full p-0" aria-label="back">
     <coreicons-shape-arrow variant="left" class="size-5"></coreicons-shape-arrow>
   </button>
   <div class="flex items-center gap-2">
@@ -153,10 +149,7 @@
         ></coreicons-shape-chevron>
       </div>
       <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-      <ul
-        tabindex="0"
-        class="menu dropdown-content z-10 mt-2 gap-1 rounded-2xl bg-base-100 p-1.5"
-      >
+      <ul tabindex="0" class="menu dropdown-content z-10 mt-2 gap-1 rounded-2xl bg-base-100 p-1.5">
         {#each Object.entries(mapping.filters) as [key, item]}
           {@const is_active = active_mapping.filter === key}
           <li>

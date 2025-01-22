@@ -75,9 +75,7 @@ class CommunityViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=[HTTPMethod.GET])
     def highlighted_posts(self, request, name=None):
         posts = self.get_object().posts.filter(highlighted=True)  # pyright: ignore
-        serializer = PostHighlightedSerializer(
-            posts, many=True, context={'request': request}
-        )
+        serializer = PostHighlightedSerializer(posts, many=True, context={'request': request})
 
         return response.Response(serializer.data)
 

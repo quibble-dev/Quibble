@@ -65,10 +65,7 @@
         <coreicons-shape-chevron variant="down" class="size-4"></coreicons-shape-chevron>
       </div>
       <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-      <ul
-        tabindex="0"
-        class="menu dropdown-content z-10 mt-2 gap-1 rounded-2xl bg-base-100 p-1.5"
-      >
+      <ul tabindex="0" class="menu dropdown-content z-10 mt-2 gap-1 rounded-2xl bg-base-100 p-1.5">
         {#each Object.entries(mapping.view) as [key, item]}
           {@const is_active = active_mapping.view === key}
           <li>
@@ -78,10 +75,7 @@
               class="flex items-center gap-2 rounded-xl p-2"
             >
               <item.icon
-                class={cn(
-                  is_active ? 'stroke-primary' : 'stroke-neutral-content',
-                  'size-4'
-                )}
+                class={cn(is_active ? 'stroke-primary' : 'stroke-neutral-content', 'size-4')}
               />
               <span class="text-sm font-medium capitalize" class:text-primary={is_active}
                 >{key}</span

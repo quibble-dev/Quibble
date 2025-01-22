@@ -44,9 +44,7 @@ function sync_to_localstorage() {
 }
 
 function get_sorted_recent_posts(input: IRecentPost) {
-  return [...recent_posts, input].sort(
-    (a, b) => b.timestamp.getTime() - a.timestamp.getTime()
-  );
+  return [...recent_posts, input].sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
 }
 
 export function createRecentPostsStore() {

@@ -25,9 +25,7 @@ class CommentCreateSerializer(serializers.ModelSerializer):
                 parent=parent_instance, **data
             )
         else:
-            comment_instance: Comment = Comment.objects.create_child(
-                **data
-            )  # pyright: ignore
+            comment_instance: Comment = Comment.objects.create_child(**data)  # pyright: ignore
         comment_instance.save()
         return comment_instance
 
