@@ -49,10 +49,7 @@ export function createSidebarStore() {
       const exists = sidebar[type].some((c) => c.name === community.name);
       if (exists) return;
 
-      sidebar[type] = get_sorted_communities([
-        ...sidebar[type],
-        { ...community, starred: false }
-      ]);
+      sidebar[type] = get_sorted_communities([...sidebar[type], { ...community, starred: false }]);
       sync_to_localstorage();
     },
     toggle_star(type: string, name: string) {

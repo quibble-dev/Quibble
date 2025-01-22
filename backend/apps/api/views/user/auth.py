@@ -21,9 +21,7 @@ class LoginAPIView(views.APIView):
 
     @extend_schema(responses=AuthTokenSerializer)
     def post(self, request, format=None):
-        user = authenticate(
-            email=request.data.get('email'), password=request.data.get('password')
-        )
+        user = authenticate(email=request.data.get('email'), password=request.data.get('password'))
         if user:
             token, _ = Token.objects.get_or_create(user=user)
             return Response({'token': token.key})

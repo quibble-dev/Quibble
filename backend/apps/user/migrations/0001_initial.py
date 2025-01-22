@@ -45,9 +45,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'email',
-                    models.EmailField(
-                        max_length=254, unique=True, verbose_name='email address'
-                    ),
+                    models.EmailField(max_length=254, unique=True, verbose_name='email address'),
                 ),
                 (
                     'date_joined',
@@ -131,9 +129,7 @@ class Migration(migrations.Migration):
                 (
                     'username',
                     models.CharField(
-                        error_messages={
-                            'unique': 'A profile with that username already exists.'
-                        },
+                        error_messages={'unique': 'A profile with that username already exists.'},
                         help_text='Required. 25 characters or fewer. Letters, digits and ./_ only.',
                         max_length=25,
                         unique=True,

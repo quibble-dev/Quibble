@@ -47,9 +47,7 @@ class Migration(migrations.Migration):
             field=models.ImageField(
                 blank=True,
                 null=True,
-                upload_to=dynamic_filenames.FilePattern(
-                    filename_pattern='cover/{uuid:s}{ext}'
-                ),
+                upload_to=dynamic_filenames.FilePattern(filename_pattern='cover/{uuid:s}{ext}'),
                 verbose_name='Cover',
             ),
         ),
