@@ -59,7 +59,7 @@
   >
     <coreicons-shape-x class="size-5" variant="no-border"></coreicons-shape-x>
   </button>
-  <div class="flex items-end justify-between">
+  <div class="flex items-center justify-between">
     <div class="flex items-center gap-2">
       {#each Object.keys(forms) as _form}
         {@const is_active = _form === form_history.history.at(-1)}
