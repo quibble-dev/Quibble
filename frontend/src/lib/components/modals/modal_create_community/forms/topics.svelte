@@ -7,10 +7,10 @@
 
 <div>
   <div class="flex flex-col gap-2">
-    <h3 class="text-xl font-semibold text-info">Introduce your community</h3>
+    <h3 class="text-xl font-semibold text-info">Choose topics</h3>
     <p class="text-sm">
-      Give your community a name and a description that reflects its purpose and vibe. This will
-      help others discover and connect with it.
+      Select up to 3 topics that represent what your community is about. This will help people with
+      similar interests discover it.
     </p>
   </div>
 </div>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { cn } from '$lib/functions/classnames';
   import type { Nullable } from '$lib/types/shared';
   import type { Snippet } from 'svelte';
 
@@ -6,10 +7,12 @@
     children: Snippet<[]>;
     open: boolean;
     onclose: () => void;
-    dialog_el: Nullable<HTMLDialogElement>;
+    class?: string;
   };
 
-  let { children, open, onclose, dialog_el = $bindable() }: Props = $props();
+  let { children, open, onclose, class: klass }: Props = $props();
+
+  let dialog_el = $state<Nullable<HTMLDialogElement>>(null);
 
   $effect(() => {
     if (open) {
@@ -20,8 +23,10 @@
   });
 </script>
 
-<dialog bind:this={dialog_el} class="modal modal-bottom sm:modal-middle" {onclose}>
-  {@render children()}
+<dialog bind:this={dialog_el} class="modal modal-bottom px-4 sm:modal-middle" {onclose}>
+  <div class={cn(klass, 'modal-box duration-300')}>
+    {@render children()}
+  </div>
   <form method="dialog" class="modal-backdrop">
     <button>close</button>
   </form>

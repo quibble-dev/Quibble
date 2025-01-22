@@ -32,41 +32,38 @@
     form_history.go_back();
   }
 
-  let dialog_el = $state<Nullable<HTMLDialogElement>>(null);
+  function handle_modal_close() {
+    modalsStore.close('auth');
+  }
 </script>
 
 <BaseModal
-  bind:dialog_el
   open={modalsStore.state.get('auth') === true}
-  onclose={() => modalsStore.close('auth')}
+  onclose={handle_modal_close}
+  class="max-w-[25rem] md:max-w-[25rem]"
 >
-  <div
-    class="modal-box max-w-[25rem] overflow-hidden duration-300
-    md:max-w-[25rem]"
-  >
-    {#await form then Form}
-      <Form.default {forms_state} {update_forms_state} {goto_form} />
-    {/await}
-    {#if form_history.history.length > 1}
-      <div
-        class="tooltip tooltip-right absolute left-2.5 top-2.5 flex before:capitalize"
-        data-tip={form_history.history.at(-2)?.replace('_', ' ')}
-      >
-        <button
-          class="btn btn-square btn-circle btn-ghost btn-sm"
-          aria-label="Close modal"
-          onclick={handle_go_back}
-        >
-          <coreicons-shape-arrow class="size-5" variant="left"></coreicons-shape-arrow>
-        </button>
-      </div>
-    {/if}
-    <button
-      class="btn btn-square btn-circle btn-ghost btn-sm absolute right-2.5 top-2.5"
-      aria-label="Close modal"
-      onclick={() => dialog_el?.close()}
+  {#await form then Form}
+    <Form.default {forms_state} {update_forms_state} {goto_form} />
+  {/await}
+  {#if form_history.history.length > 1}
+    <div
+      class="tooltip tooltip-right absolute left-2.5 top-2.5 flex before:capitalize"
+      data-tip={form_history.history.at(-2)?.replace('_', ' ')}
     >
-      <coreicons-shape-x class="size-5" variant="no-border"></coreicons-shape-x>
-    </button>
-  </div>
+      <button
+        class="btn btn-square btn-circle btn-ghost btn-sm"
+        aria-label="Close modal"
+        onclick={handle_go_back}
+      >
+        <coreicons-shape-arrow class="size-5" variant="left"></coreicons-shape-arrow>
+      </button>
+    </div>
+  {/if}
+  <button
+    class="btn btn-square btn-circle btn-ghost btn-sm absolute right-2.5 top-2.5"
+    aria-label="Close modal"
+    onclick={handle_modal_close}
+  >
+    <coreicons-shape-x class="size-5" variant="no-border"></coreicons-shape-x>
+  </button>
 </BaseModal>

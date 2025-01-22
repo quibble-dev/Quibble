@@ -26,11 +26,20 @@ export function create_form_history<T extends FormConfig>(initial_form: keyof T)
     return history.at(-1);
   }
 
+  function go_next(forms: Record<keyof T, unknown>) {
+    const current_form_index = Object.keys(forms).indexOf(history.at(-1) as string);
+    const next_index = current_form_index + 1;
+    if (next_index < Object.keys(forms).length) {
+      go_to_form(Object.keys(forms)[next_index] as keyof T);
+    }
+  }
+
   return {
     get history() {
       return history;
     },
     go_to_form,
-    go_back
+    go_back,
+    go_next
   };
 }
