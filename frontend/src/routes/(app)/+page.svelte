@@ -47,8 +47,7 @@
             onclick={handle_404_action_btn_click}
           >
             {#if authStore.state.is_authenticated}
-              <coreicons-shape-plus variant="no-border" class="size-4"
-              ></coreicons-shape-plus>
+              <coreicons-shape-plus variant="no-border" class="size-4"></coreicons-shape-plus>
               <span>Create</span>
             {:else}
               <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
@@ -99,8 +98,7 @@
               <p class="text-xs font-medium">
                 {readable(post.upvotes?.length ?? 0)} upvotes
               </p>
-              <coreicons-shape-circle variant="filled" class="size-0.5"
-              ></coreicons-shape-circle>
+              <coreicons-shape-circle variant="filled" class="size-0.5"></coreicons-shape-circle>
               <p class="text-xs font-medium">
                 {readable(post.comments?.length ?? 0)} comments
               </p>

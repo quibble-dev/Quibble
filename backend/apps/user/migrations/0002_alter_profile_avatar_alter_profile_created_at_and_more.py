@@ -21,9 +21,7 @@ class Migration(migrations.Migration):
             field=models.ImageField(
                 blank=True,
                 null=True,
-                upload_to=dynamic_filenames.FilePattern(
-                    filename_pattern='avatar/{uuid:s}{ext}'
-                ),
+                upload_to=dynamic_filenames.FilePattern(filename_pattern='avatar/{uuid:s}{ext}'),
                 verbose_name='Avatar',
             ),
         ),
@@ -42,9 +40,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='profile',
             name='last_name',
-            field=models.CharField(
-                blank=True, max_length=255, null=True, verbose_name='Last name'
-            ),
+            field=models.CharField(blank=True, max_length=255, null=True, verbose_name='Last name'),
         ),
         migrations.AlterField(
             model_name='profile',
@@ -76,9 +72,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='user',
             name='email',
-            field=models.EmailField(
-                max_length=254, unique=True, verbose_name='Email address'
-            ),
+            field=models.EmailField(max_length=254, unique=True, verbose_name='Email address'),
         ),
         migrations.AlterField(
             model_name='user',

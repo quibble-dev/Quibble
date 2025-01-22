@@ -1,7 +1,7 @@
 {
   "singleQuote": true,
   "trailingComma": "none",
-  "printWidth": 92,
+  "printWidth": 100,
   "tabWidth": 2,
   "plugins": [
     "prettier-plugin-svelte",

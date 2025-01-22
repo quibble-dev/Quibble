@@ -58,9 +58,7 @@
           <div class="flex items-center gap-2">
             <Avatar src={ranger.avatar} class="size-6 rounded-full" />
             <div class="flex flex-col">
-              <a href="/u/{ranger.username}" class="text-sm font-medium"
-                >u/{ranger.username}</a
-              >
+              <a href="/u/{ranger.username}" class="text-sm font-medium">u/{ranger.username}</a>
               <span class="text-xs text-base-content/75">{ranger.name}</span>
             </div>
           </div>

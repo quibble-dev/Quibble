@@ -17,12 +17,7 @@ export const load: PageServerLoad = async ({ params, parent }) => {
     })
   ]);
 
-  if (
-    posts.response.ok &&
-    posts.data &&
-    highlighted_posts.response &&
-    highlighted_posts.data
-  ) {
+  if (posts.response.ok && posts.data && highlighted_posts.response && highlighted_posts.data) {
     return { posts: posts.data, highlighted_posts: highlighted_posts.data };
   } else {
     const errors = [posts.error, highlighted_posts.error].filter((error) => error);

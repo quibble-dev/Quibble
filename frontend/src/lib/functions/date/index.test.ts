@@ -4,9 +4,7 @@ import { describe, it, expect } from 'vitest';
 describe('FormatDate', () => {
   describe('timeAgo', () => {
     it('should throw Error "invalid date format" for invalid date strings', () => {
-      expect(() => new FormatDate('invalid-date').timeAgo()).toThrowError(
-        'invalid date format'
-      );
+      expect(() => new FormatDate('invalid-date').timeAgo()).toThrowError('invalid date format');
     });
 
     it('should return "just now" for future dates', () => {
