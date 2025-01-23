@@ -23,6 +23,7 @@
     }
   }
 
+  // when changes form update forms_state
   onDestroy(() => {
     update_forms_state('introduction', {
       name,
@@ -89,7 +90,7 @@
       <div class="overflow-hidden rounded-2xl bg-neutral shadow-xl">
         <div
           class="flex h-10 bg-base-content bg-cover bg-center"
-          style="background-image: url({cover || ''});"
+          style="background-image: url({cover});"
         >
           <input
             id="community-cover-upload"
@@ -100,16 +101,18 @@
           />
           <label
             for="community-cover-upload"
-            class="btn btn-square btn-circle btn-sm m-1 ml-auto bg-cover"
+            class="btn btn-square btn-circle btn-sm m-1 ml-auto border-none bg-base-300/50"
             aria-label="Upload community cover"
           >
-            <coreicons-shape-plus variant="circle" class="size-4"></coreicons-shape-plus>
+            <coreicons-shape-edit variant="line-with-pencil" class="size-4"></coreicons-shape-edit>
           </label>
         </div>
         <div class="flex flex-col gap-4 p-4">
           <div class="flex items-center gap-4">
-            <div class="group relative flex items-center justify-center">
-              <Avatar src={avatar || ''} class="size-14 flex-shrink-0 !bg-base-content/25" />
+            <div
+              class="group relative flex items-center justify-center overflow-hidden rounded-full"
+            >
+              <Avatar src={avatar} class="size-14 flex-shrink-0 !bg-base-content/25" />
               <input
                 id="community-avatar-upload"
                 type="file"
@@ -119,10 +122,11 @@
               />
               <label
                 for="community-avatar-upload"
-                class="btn btn-square btn-circle btn-sm absolute m-1 opacity-0 group-hover:opacity-100"
+                class="btn btn-square btn-circle btn-sm absolute m-0 translate-y-12 transform opacity-100 transition-transform duration-300 group-hover:translate-y-0 group-hover:opacity-100"
                 aria-label="Upload community avatar"
               >
-                <coreicons-shape-plus variant="circle" class="size-4"></coreicons-shape-plus>
+                <coreicons-shape-edit variant="line-with-pencil" class="size-4"
+                ></coreicons-shape-edit>
               </label>
             </div>
             <div class="flex flex-col">
