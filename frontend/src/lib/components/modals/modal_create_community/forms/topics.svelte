@@ -2,7 +2,11 @@
   import type { FormProps } from '../../types';
   import forms from '../forms';
 
-  let {}: FormProps<typeof forms> = $props();
+  let { forms_state }: FormProps<typeof forms> = $props();
+
+  $effect(() => {
+    console.log(forms_state);
+  });
 </script>
 
 <div>
