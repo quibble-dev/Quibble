@@ -8,11 +8,27 @@
 
   let name = $state((forms_state.introduction as { name: string }).name ?? '');
   let description = $state((forms_state.introduction as { description: string }).description ?? '');
+  let avatar = $state((forms_state.introduction as { avatar: string }).avatar ?? '');
+  let cover = $state((forms_state.introduction as { cover: string }).cover ?? '');
+
+  function handle_file_change(e: Event, type: 'avatar' | 'cover') {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (type === 'avatar') avatar = String(reader.result);
+        if (type === 'cover') cover = String(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
 
   onDestroy(() => {
     update_forms_state('introduction', {
       name,
-      description
+      description,
+      avatar,
+      cover
     });
   });
 </script>
@@ -71,10 +87,44 @@
     </div>
     <div class="flex-1 p-7">
       <div class="overflow-hidden rounded-2xl bg-neutral shadow-xl">
-        <div class="h-10 bg-base-content"></div>
+        <div
+          class="flex h-10 bg-base-content bg-cover bg-center"
+          style="background-image: url({cover || ''});"
+        >
+          <input
+            id="community-cover-upload"
+            type="file"
+            accept="image/*"
+            class="hidden"
+            onchange={(e) => handle_file_change(e, 'cover')}
+          />
+          <label
+            for="community-cover-upload"
+            class="btn btn-square btn-circle btn-sm m-1 ml-auto bg-cover"
+            aria-label="Upload community cover"
+          >
+            <coreicons-shape-plus variant="circle" class="size-4"></coreicons-shape-plus>
+          </label>
+        </div>
         <div class="flex flex-col gap-4 p-4">
           <div class="flex items-center gap-4">
-            <Avatar class="size-14 flex-shrink-0 !bg-base-content/25" />
+            <div class="group relative flex items-center justify-center">
+              <Avatar src={avatar || ''} class="size-14 flex-shrink-0 !bg-base-content/25" />
+              <input
+                id="community-avatar-upload"
+                type="file"
+                accept="image/*"
+                class="hidden"
+                onchange={(e) => handle_file_change(e, 'avatar')}
+              />
+              <label
+                for="community-avatar-upload"
+                class="btn btn-square btn-circle btn-sm absolute m-1 opacity-0 group-hover:opacity-100"
+                aria-label="Upload community avatar"
+              >
+                <coreicons-shape-plus variant="circle" class="size-4"></coreicons-shape-plus>
+              </label>
+            </div>
             <div class="flex flex-col">
               <span class="break-all text-lg font-semibold text-info"
                 >q/{name || 'communityname'}</span
