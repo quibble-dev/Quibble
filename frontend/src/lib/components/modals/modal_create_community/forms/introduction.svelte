@@ -1,8 +1,14 @@
 <script lang="ts">
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import { zod_required_string } from '$lib/utils/zod';
   import type { FormProps } from '../../types';
   import forms from '../forms';
   import { onDestroy } from 'svelte';
+
+  const name_schema = zod_required_string({ field_name: 'Name' }).min(3, {
+    message: 'Name must contain at least 3 character(s)'
+  });
+  const description_schema = zod_required_string({ field_name: 'Description' });
 
   let { update_forms_state, forms_state }: FormProps<typeof forms> = $props();
 
@@ -10,6 +16,8 @@
   let description = $state((forms_state.introduction as { description: string }).description ?? '');
   let avatar = $state((forms_state.introduction as { avatar: string }).avatar ?? '');
   let cover = $state((forms_state.introduction as { cover: string }).cover ?? '');
+  // error states
+  let errors = $state<Partial<{ name: string; description: string }>>({});
 
   function handle_file_change(e: Event, type: 'avatar' | 'cover') {
     const file = (e.target as HTMLInputElement).files?.[0];
@@ -20,6 +28,19 @@
         if (type === 'cover') cover = String(reader.result);
       };
       reader.readAsDataURL(file);
+    }
+  }
+
+  function handle_input_blur(field: 'name' | 'description') {
+    if (field === 'name') {
+      const result = name_schema.safeParse(name);
+      errors = { ...errors, name: result.success ? undefined : result.error.errors[0]?.message };
+    } else if (field === 'description') {
+      const result = description_schema.safeParse(description);
+      errors = {
+        ...errors,
+        description: result.success ? undefined : result.error.errors[0]?.message
+      };
     }
   }
 
@@ -42,27 +63,36 @@
       help others discover and connect with it.
     </p>
   </div>
-  <form class="flex grid grid-cols-2">
+  <form class="flex items-start gap-6">
     <div class="flex-1">
       <label class="form-control">
         <div class="label pt-0">
           <span class="label-text font-medium">Community name*</span>
         </div>
-        <label class="input input-bordered flex items-center gap-2 text-sm font-medium">
+        <label
+          class="input input-bordered flex items-center gap-2 text-sm font-medium"
+          class:input-error={errors?.name}
+        >
           q/
           <input
             bind:value={name}
             type="text"
             class="grow border-none p-0 text-sm focus:ring-0"
             placeholder="eg: quibble"
-            oninput={() => (name = name.replace(/\s/g, ''))}
             maxlength={25}
+            onblur={() => handle_input_blur('name')}
+            oninput={() => (name = name.replace(/\s/g, ''))}
           />
         </label>
         <div class="label">
-          <span class="label-text-alt flex items-center gap-1.5">
-            <coreicons-shape-info class="size-4"></coreicons-shape-info>
-            Name it unique and cool!
+          <span class="label-text-alt flex items-center gap-1.5" class:text-error={errors?.name}>
+            {#if errors?.name}
+              <coreicons-shape-alert-triangle class="size-4"></coreicons-shape-alert-triangle>
+              {errors.name}
+            {:else}
+              <coreicons-shape-info class="size-4"></coreicons-shape-info>
+              Name it unique and cool!
+            {/if}
           </span>
           <span class="label-text-alt">{name.length}/25</span>
         </div>
@@ -74,19 +104,30 @@
         <textarea
           bind:value={description}
           class="textarea textarea-bordered h-40 leading-normal"
+          class:textarea-error={errors?.description}
           placeholder="Tell something nice about your community..."
           maxlength={255}
+          onblur={() => handle_input_blur('description')}
         ></textarea>
         <div class="label">
-          <span class="label-text-alt flex items-center gap-1.5">
-            <coreicons-shape-info class="size-4"></coreicons-shape-info>
-            A quick cool introduction!
+          <span
+            class="label-text-alt flex items-center gap-1.5"
+            class:text-error={errors?.description}
+          >
+            {#if errors?.description}
+              <coreicons-shape-alert-triangle class="size-4"></coreicons-shape-alert-triangle>
+              {errors.description}
+            {:else}
+              <coreicons-shape-info class="size-4"></coreicons-shape-info>
+              A quick cool introduction!
+            {/if}
           </span>
           <span class="label-text-alt">{description.length}/255</span>
         </div>
       </label>
     </div>
-    <div class="flex-1 p-7">
+    <div class="flex w-72 flex-col gap-2">
+      <span class="text-sm font-medium">Preview</span>
       <div class="overflow-hidden rounded-2xl bg-neutral shadow-xl">
         <div
           class="flex h-10 bg-base-content bg-cover bg-center"
