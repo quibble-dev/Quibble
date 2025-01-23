@@ -40,7 +40,7 @@ export const actions = {
   },
   select: async ({ request, cookies }) => {
     const form_data = await request.formData();
-    const profile_id = form_data.get('profile_id') as string;
+    const profile_id = String(form_data.get('profile_id'));
 
     cookies.set('auth_user_profile_id', profile_id, {
       httpOnly: true,

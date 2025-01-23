@@ -6,14 +6,16 @@
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import { toast } from '$lib/components/ui/toast/toast.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';
-  import type { FormProps } from '../types';
+  import type { FormProps } from '../../types';
+  import forms from '../forms';
   import type { SubmitFunction } from '@sveltejs/kit';
   import { onMount } from 'svelte';
 
   type Profile = components['schemas']['Profile'];
 
-  let { update_forms_state, forms_state, goto_form }: FormProps = $props();
+  let { update_forms_state, forms_state, goto_form }: FormProps<typeof forms> = $props();
 
   let pending = $state(false);
   let status_text = $state<string | null>(null);
@@ -26,10 +28,11 @@
     pending = true;
     status_text = 'Setting up profile...';
 
-    return async () => {
+    return async ({ formData }) => {
       // re-run load functions and close this modal
       await invalidateAll();
       modalsStore.close('auth');
+      toast.push({ message: `Logged in as u/${String(formData.get('profile_username'))}` });
 
       pending = false;
       status_text = null;
@@ -88,6 +91,7 @@
     {#each profiles as profile}
       <form method="POST" action="/settings/profile?/select" use:enhance={handle_submit}>
         <input type="hidden" name="profile_id" value={profile.id} />
+        <input type="hidden" name="profile_username" value={profile.username} />
         <button type="submit" class="group flex flex-col items-center justify-center gap-2.5">
           <Avatar
             class="size-20 rounded-2xl outline outline-offset-4 outline-neutral"

@@ -3,6 +3,7 @@
   import Header from '$lib/components/header.svelte';
   import Modals from '$lib/components/modals/index.svelte';
   import Sidebar from '$lib/components/sidebar.svelte';
+  import Toaster from '$lib/components/ui/toast/toaster.svelte';
   import { cn } from '$lib/functions/classnames';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import '../styles/app.css';
@@ -36,6 +37,9 @@
   };
 </script>
 
+<!-- render toasts -->
+<!-- https://stackoverflow.com/questions/77099074/layering-toast-alerts-above-dialog-modal -->
+<Toaster />
 <!-- render available models -->
 <Modals />
 <main class="flex h-dvh w-dvw flex-col font-sans">

@@ -2,6 +2,7 @@
   import Post from '$lib/components/post.svelte';
   import PostsHeader from '$lib/components/posts_header.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import { toast } from '$lib/components/ui/toast/toast.svelte';
   import Quibble_404_2 from '$lib/components/vectors/quibble_404_2.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';
@@ -20,6 +21,7 @@
       // open post create modal
     } else {
       modalsStore.open('auth');
+      toast.push({ message: 'Please login to do this action!' });
     }
   }
 </script>
@@ -46,13 +48,8 @@
             aria-label="404 action"
             onclick={handle_404_action_btn_click}
           >
-            {#if authStore.state.is_authenticated}
-              <coreicons-shape-plus variant="no-border" class="size-4"></coreicons-shape-plus>
-              <span>Create</span>
-            {:else}
-              <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
-              <span>Join in</span>
-            {/if}
+            <coreicons-shape-plus variant="no-border" class="size-4"></coreicons-shape-plus>
+            <span>Create</span>
           </button>
         </div>
       </div>

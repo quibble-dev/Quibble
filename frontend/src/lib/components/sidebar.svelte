@@ -1,9 +1,23 @@
 <script lang="ts">
   import QuibbleIcon from '$lib/components/icons/logos/quibble.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import { toast } from '$lib/components/ui/toast/toast.svelte';
+  import { createAuthStore } from '$lib/stores/auth.svelte';
+  import { createModalsStore } from '$lib/stores/modals.svelte';
   import { createSidebarStore } from '$lib/stores/sidebar.svelte';
 
-  const sidebarStore = createSidebarStore();
+  const sidebarStore = createSidebarStore(),
+    modalsStore = createModalsStore(),
+    authStore = createAuthStore();
+
+  function handle_create_a_communiy_btn_click() {
+    if (authStore.state.is_authenticated) {
+      modalsStore.open('create_community');
+    } else {
+      modalsStore.open('auth');
+      toast.push({ message: 'Please login to do this action!' });
+    }
+  }
 </script>
 
 <div
@@ -19,9 +33,12 @@
       />
       <coreicons-shape-filter class="size-3"></coreicons-shape-filter>
     </label>
-    <button class="flex items-center gap-2">
+    <button
+      class="btn btn-ghost btn-xs flex w-max items-center gap-2"
+      onclick={handle_create_a_communiy_btn_click}
+    >
       <coreicons-shape-plus variant="circle" class="size-4"></coreicons-shape-plus>
-      <span class="text-xs font-medium">Create Community</span>
+      <span class="text-xs font-medium">Create a community</span>
     </button>
   </div>
   <div class="collapse gap-2 overflow-visible rounded-none">

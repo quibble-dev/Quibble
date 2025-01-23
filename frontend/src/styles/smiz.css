@@ -78,11 +78,13 @@
 }
 
 [data-smiz-modal-overlay='hidden'] {
-  background-color: oklch(var(--b3) / 0);
+  /* background-color: oklch(var(--b3) / 0); */
+  background-color: #0000;
 }
 
 [data-smiz-modal-overlay='visible'] {
-  background-color: oklch(var(--b3) / 0.55);
+  /* background-color: oklch(var(--b3) / 0.55); */
+  background-color: #0006;
 }
 
 [data-smiz-modal-content] {
