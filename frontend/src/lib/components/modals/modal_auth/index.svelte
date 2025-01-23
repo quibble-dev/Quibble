@@ -1,6 +1,5 @@
 <script lang="ts">
   import { createModalsStore } from '$lib/stores/modals.svelte';
-  import type { Nullable } from '$lib/types/shared';
   import BaseModal from '../_components/base_modal.svelte';
   import { create_form_history } from '../_utils/history.svelte';
   import type { FormsState, FormSubmitData, Forms } from '../types';
