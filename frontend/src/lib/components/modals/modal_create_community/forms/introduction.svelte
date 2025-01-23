@@ -12,45 +12,62 @@
 
   let { update_forms_state, forms_state }: FormProps<typeof forms> = $props();
 
-  let name = $state((forms_state.introduction as { name: string }).name ?? '');
-  let description = $state((forms_state.introduction as { description: string }).description ?? '');
-  let avatar = $state((forms_state.introduction as { avatar: string }).avatar ?? '');
-  let cover = $state((forms_state.introduction as { cover: string }).cover ?? '');
+  const introduction_data = $state({
+    ...(
+      forms_state.introduction as {
+        data: Partial<{
+          name: string;
+          description: string;
+          avatar: string;
+          cover: string;
+        }>;
+      }
+    ).data
+  });
   // error states
-  let errors = $state<Partial<{ name: string; description: string }>>({});
+  let errors = $state<Partial<{ name: string; description: string }>>({
+    name: undefined,
+    description: undefined
+  });
+
+  function validate_and_update(field: 'name' | 'description', value: string) {
+    const schema = field === 'name' ? name_schema : description_schema;
+    const result = schema.safeParse(value);
+
+    errors = {
+      ...errors,
+      [field]: result.success ? undefined : result.error.errors[0]?.message
+    };
+
+    if (result.success) {
+      const is_valid = Object.values(errors).every((err) => err === undefined);
+      console.log(is_valid);
+    }
+  }
+
+  $inspect(errors);
 
   function handle_file_change(e: Event, type: 'avatar' | 'cover') {
     const file = (e.target as HTMLInputElement).files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        if (type === 'avatar') avatar = String(reader.result);
-        if (type === 'cover') cover = String(reader.result);
+        if (type === 'avatar') introduction_data.avatar = String(reader.result);
+        if (type === 'cover') introduction_data.cover = String(reader.result);
       };
       reader.readAsDataURL(file);
     }
   }
 
   function handle_input_blur(field: 'name' | 'description') {
-    if (field === 'name') {
-      const result = name_schema.safeParse(name);
-      errors = { ...errors, name: result.success ? undefined : result.error.errors[0]?.message };
-    } else if (field === 'description') {
-      const result = description_schema.safeParse(description);
-      errors = {
-        ...errors,
-        description: result.success ? undefined : result.error.errors[0]?.message
-      };
-    }
+    const value = field === 'name' ? introduction_data.name : introduction_data.description;
+    validate_and_update(field, String(value));
   }
 
   // when changes form update forms_state
   onDestroy(() => {
     update_forms_state('introduction', {
-      name,
-      description,
-      avatar,
-      cover
+      data: { ...introduction_data }
     });
   });
 </script>
@@ -75,13 +92,13 @@
         >
           q/
           <input
-            bind:value={name}
+            bind:value={introduction_data.name}
             type="text"
             class="grow border-none p-0 text-sm focus:ring-0"
             placeholder="eg: quibble"
             maxlength={25}
             onblur={() => handle_input_blur('name')}
-            oninput={() => (name = name.replace(/\s/g, ''))}
+            oninput={(e) => (introduction_data.name = e.currentTarget.value.replace(/\s/g, ''))}
           />
         </label>
         <div class="label">
@@ -94,7 +111,7 @@
               Name it unique and cool!
             {/if}
           </span>
-          <span class="label-text-alt">{name.length}/25</span>
+          <span class="label-text-alt">{introduction_data.name?.length}/25</span>
         </div>
       </label>
       <label class="form-control">
@@ -102,7 +119,7 @@
           <span class="label-text font-medium">Description*</span>
         </div>
         <textarea
-          bind:value={description}
+          bind:value={introduction_data.description}
           class="textarea textarea-bordered h-40 leading-normal"
           class:textarea-error={errors?.description}
           placeholder="Tell something nice about your community..."
@@ -122,7 +139,7 @@
               A quick cool introduction!
             {/if}
           </span>
-          <span class="label-text-alt">{description.length}/255</span>
+          <span class="label-text-alt">{introduction_data.description?.length}/255</span>
         </div>
       </label>
     </div>
@@ -131,7 +148,7 @@
       <div class="overflow-hidden rounded-2xl bg-neutral shadow-xl">
         <div
           class="flex h-10 bg-base-content bg-cover bg-center"
-          style="background-image: url({cover});"
+          style="background-image: url({introduction_data.cover});"
         >
           <input
             id="community-cover-upload"
@@ -153,7 +170,10 @@
             <div
               class="group relative flex items-center justify-center overflow-hidden rounded-full"
             >
-              <Avatar src={avatar} class="size-14 flex-shrink-0 !bg-base-content/25" />
+              <Avatar
+                src={introduction_data.avatar}
+                class="size-14 flex-shrink-0 !bg-base-content/25"
+              />
               <input
                 id="community-avatar-upload"
                 type="file"
@@ -172,7 +192,7 @@
             </div>
             <div class="flex flex-col">
               <span class="break-all text-lg font-semibold text-info"
-                >q/{name || 'communityname'}</span
+                >q/{introduction_data.name || 'communityname'}</span
               >
               <div class="flex items-center gap-2">
                 <span class="text-xs">1 member</span>
@@ -182,7 +202,7 @@
             </div>
           </div>
           <p class="whitespace-pre-line text-sm">
-            {description || 'Community description'}
+            {introduction_data.description || 'Community description'}
           </p>
         </div>
       </div>

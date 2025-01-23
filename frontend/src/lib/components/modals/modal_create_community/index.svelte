@@ -26,7 +26,7 @@
   });
 
   const initial_forms_state = Object.fromEntries(
-    Object.keys(forms).map((key) => [key, {}])
+    Object.keys(forms).map((key) => [key, { valid: false, data: {} }])
   ) as CCFormsState;
 
   let forms_state = $state<CCFormsState>(initial_forms_state);
