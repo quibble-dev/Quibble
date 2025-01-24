@@ -1,7 +1,7 @@
 <script lang="ts">
-  import QuibbleIcon from '$lib/components/icons/logos/quibble.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { toast } from '$lib/components/ui/toast/toast.svelte';
+  import QuibbleIcon from '$lib/icons/logos/quibble.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';
   import { createSidebarStore } from '$lib/stores/sidebar.svelte';

@@ -1,10 +1,10 @@
 <script lang="ts">
   import { page } from '$app/state';
-  import ChartBarsIcon from '$lib/components/icons/chart_bars.svelte';
-  import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
-  import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
-  import NotificationIcon from '$lib/components/icons/notification.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import ChartBarsIcon from '$lib/icons/chart_bars.svelte';
+  import QuibbleLogo from '$lib/icons/logos/quibble.svelte';
+  import QuibbleTextLogo from '$lib/icons/logos/quibble_text.svelte';
+  import NotificationIcon from '$lib/icons/notification.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';
 

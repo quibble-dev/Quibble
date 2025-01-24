@@ -3,7 +3,7 @@
   import PostsHeader from '$lib/components/posts_header.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { toast } from '$lib/components/ui/toast/toast.svelte';
-  import Quibble_404_2 from '$lib/components/vectors/quibble_404_2.svelte';
+  import Quibble_404_2 from '$lib/icons/vectors/quibble_404_2.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';
   import { createRecentPostsStore } from '$lib/stores/recent_posts.svelte';

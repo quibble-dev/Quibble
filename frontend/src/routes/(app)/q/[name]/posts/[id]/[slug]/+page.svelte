@@ -1,15 +1,15 @@
 <script lang="ts">
   import { browser } from '$app/environment';
   import CommentBlock from '$lib/components/comment_block.svelte';
-  import NewIcon from '$lib/components/icons/new.svelte';
-  import RocketIcon from '$lib/components/icons/rocket.svelte';
-  import TopIcon from '$lib/components/icons/top.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import BackdropImage from '$lib/components/ui/backdrop_image.svelte';
   import Zoom from '$lib/components/ui/zoom.svelte';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
   import { is_valid } from '$lib/functions/is_valid';
+  import NewIcon from '$lib/icons/new.svelte';
+  import RocketIcon from '$lib/icons/rocket.svelte';
+  import TopIcon from '$lib/icons/top.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { createRecentPostsStore } from '$lib/stores/recent_posts.svelte';
   import type { PageData } from './$types';

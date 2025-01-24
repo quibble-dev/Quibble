@@ -3,10 +3,10 @@
   import { invalidateAll } from '$app/navigation';
   import type { components } from '$lib/clients/v1';
   import client from '$lib/clients/v1/client';
-  import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
-  import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { toast } from '$lib/components/ui/toast/toast.svelte';
+  import QuibbleLogo from '$lib/icons/logos/quibble.svelte';
+  import QuibbleTextLogo from '$lib/icons/logos/quibble_text.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';
   import type { FormProps } from '../../types';
   import forms from '../forms';

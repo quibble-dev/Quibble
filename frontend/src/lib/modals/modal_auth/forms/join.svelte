@@ -1,10 +1,10 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
-  import GoogleLogo from '$lib/components/icons/logos/google.svelte';
-  import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
-  import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
   import ZodErrors from '$lib/components/shared/zod-errors.svelte';
   import { cn } from '$lib/functions/classnames';
+  import GoogleLogo from '$lib/icons/logos/google.svelte';
+  import QuibbleLogo from '$lib/icons/logos/quibble.svelte';
+  import QuibbleTextLogo from '$lib/icons/logos/quibble_text.svelte';
   import type { FormProps } from '../../types';
   import forms from '../forms';
   import type { SubmitFunction } from '@sveltejs/kit';

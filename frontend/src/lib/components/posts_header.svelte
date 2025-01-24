@@ -1,11 +1,11 @@
 <script lang="ts">
-  import CardIcon from '$lib/components/icons/card.svelte';
-  import CompactIcon from '$lib/components/icons/compact.svelte';
-  import HotIcon from '$lib/components/icons/hot.svelte';
-  import NewIcon from '$lib/components/icons/new.svelte';
-  import RocketIcon from '$lib/components/icons/rocket.svelte';
-  import TopIcon from '$lib/components/icons/top.svelte';
   import { cn } from '$lib/functions/classnames';
+  import CardIcon from '$lib/icons/card.svelte';
+  import CompactIcon from '$lib/icons/compact.svelte';
+  import HotIcon from '$lib/icons/hot.svelte';
+  import NewIcon from '$lib/icons/new.svelte';
+  import RocketIcon from '$lib/icons/rocket.svelte';
+  import TopIcon from '$lib/icons/top.svelte';
   import { createLayoutTypeStore } from '$lib/stores/layout_type.svelte';
 
   const layoutTypeStore = createLayoutTypeStore();
