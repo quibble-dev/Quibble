@@ -1,5 +1,5 @@
 import { PUBLIC_API_URL } from '$env/static/public';
-import type { paths } from './schema';
+import type { paths } from './v1';
 import createClient from 'openapi-fetch';
 
 /**

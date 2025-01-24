@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from '$app/state';
-  import type { components } from '$lib/clients/v1/schema';
+  import type { components } from '$lib/clients/v1';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import BackdropImage from '$lib/components/ui/backdrop_image.svelte';
   import Zoom from '$lib/components/ui/zoom.svelte';

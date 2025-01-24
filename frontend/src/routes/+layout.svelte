@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { components } from '$lib/clients/v1/schema';
+  import type { components } from '$lib/clients/v1';
   import Header from '$lib/components/header.svelte';
   import Modals from '$lib/components/modals/index.svelte';
   import Sidebar from '$lib/components/sidebar.svelte';
