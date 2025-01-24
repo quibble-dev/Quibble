@@ -1,5 +1,5 @@
+import client from '$lib/clients/client';
 import type { components } from '$lib/clients/v1';
-import client from '$lib/clients/v1/client';
 import type { Handle, HandleFetch } from '@sveltejs/kit';
 
 type Profile = components['schemas']['Profile'];

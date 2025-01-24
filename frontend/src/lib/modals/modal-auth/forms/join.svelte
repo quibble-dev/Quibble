@@ -1,9 +1,9 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
   import GoogleLogo from '$lib/components/icons/logos/google.svelte';
+  import QuibbleTextLogo from '$lib/components/icons/logos/quibble-text.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
-  import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
-  import ZodErrors from '$lib/components/shared/zod-errors.svelte';
+  import ZodErrors from '$lib/components/zod-errors.svelte';
   import { cn } from '$lib/functions/classnames';
   import type { FormProps } from '../../types';
   import forms from '../forms';

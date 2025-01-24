@@ -1,12 +1,12 @@
 <script lang="ts">
   import Post from '$lib/components/post.svelte';
-  import PostsHeader from '$lib/components/posts_header.svelte';
+  import PostsHeader from '$lib/components/posts-header.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { toast } from '$lib/components/ui/toast/toast.svelte';
-  import Quibble_404_2 from '$lib/components/vectors/quibble_404_2.svelte';
+  import Quibble4042 from '$lib/components/vectors/quibble-404-2.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';
-  import { createRecentPostsStore } from '$lib/stores/recent_posts.svelte';
+  import { createRecentPostsStore } from '$lib/stores/recent-posts.svelte';
   import type { PageData } from './$types';
   import readable from 'readable-numbers';
 
@@ -39,7 +39,7 @@
       {/each}
     {:else}
       <div class="mt-5 flex flex-1 items-end justify-center gap-5">
-        <Quibble_404_2 class="h-auto w-28" />
+        <Quibble4042 class="h-auto w-28" />
         <div class="flex flex-col">
           <h4 class="text-lg font-bold text-error md:text-xl">oh oh!!</h4>
           <h5 class="text-sm md:text-base">The silence is deafening—why not break it?</h5>

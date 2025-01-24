@@ -1,10 +1,10 @@
 <script lang="ts">
+  import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import type { CommentTree } from '$lib/types/comment';
-  import CommentBlock from './comment_block.svelte';
-  import Avatar from './ui/avatar.svelte';
+  import CommentBlock from './comment-block.svelte';
 
   let comment: CommentTree = $props();
 

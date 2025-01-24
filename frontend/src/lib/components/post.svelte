@@ -2,13 +2,13 @@
   import { page } from '$app/state';
   import type { components } from '$lib/clients/v1';
   import Avatar from '$lib/components/ui/avatar.svelte';
-  import BackdropImage from '$lib/components/ui/backdrop_image.svelte';
+  import BackdropImage from '$lib/components/ui/backdrop-image.svelte';
   import Zoom from '$lib/components/ui/zoom.svelte';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
-  import { is_valid } from '$lib/functions/is_valid';
+  import { is_valid } from '$lib/functions/is-valid';
   import { createAuthStore } from '$lib/stores/auth.svelte';
-  import { createLayoutTypeStore } from '$lib/stores/layout_type.svelte';
+  import { createLayoutTypeStore } from '$lib/stores/layout-type.svelte';
   import readable from 'readable-numbers';
 
   type PostProps = components['schemas']['Post'];

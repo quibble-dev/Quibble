@@ -1,5 +1,5 @@
 import { dev } from '$app/environment';
-import client from '$lib/clients/v1/client';
+import client from '$lib/clients/client';
 import type { Actions } from './$types';
 import { fail } from '@sveltejs/kit';
 

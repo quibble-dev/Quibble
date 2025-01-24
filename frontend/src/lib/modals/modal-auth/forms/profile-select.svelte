@@ -1,10 +1,10 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
   import { invalidateAll } from '$app/navigation';
+  import client from '$lib/clients/client';
   import type { components } from '$lib/clients/v1';
-  import client from '$lib/clients/v1/client';
+  import QuibbleTextLogo from '$lib/components/icons/logos/quibble-text.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
-  import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { toast } from '$lib/components/ui/toast/toast.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';

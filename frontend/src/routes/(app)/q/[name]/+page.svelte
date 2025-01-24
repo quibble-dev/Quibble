@@ -1,6 +1,6 @@
 <script lang="ts">
   import Post from '$lib/components/post.svelte';
-  import PostsHeader from '$lib/components/posts_header.svelte';
+  import PostsHeader from '$lib/components/posts-header.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';

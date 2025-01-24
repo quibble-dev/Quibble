@@ -1,6 +1,6 @@
 <script lang="ts">
-  import ZodErrors from '$lib/components/shared/zod-errors.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import ZodErrors from '$lib/components/zod-errors.svelte';
   import type { FormProps } from '../../types';
   import forms from '../forms';
   import { z } from 'zod';
