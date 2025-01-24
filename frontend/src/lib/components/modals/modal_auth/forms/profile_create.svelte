@@ -7,7 +7,12 @@
   import type { FormProps } from '../../types';
   import forms from '../forms';
   import type { SubmitFunction } from '@sveltejs/kit';
-  import type { ZodIssue } from 'zod';
+  import { z, type ZodIssue } from 'zod';
+
+  // zod schema
+  const schema = z.object({
+    username: z.string().min(3)
+  });
 
   let { forms_state, update_forms_state, goto_form }: FormProps<typeof forms> = $props();
 
@@ -16,16 +21,26 @@
   let error = $state<string>();
   let pending = $state(false);
 
-  let invalid_username = $derived(
-    Boolean(error || errors?.some((err) => err.path.includes('username')))
-  );
-
-  const handle_submit: SubmitFunction = async () => {
+  const handle_submit: SubmitFunction = async ({ formData, cancel }) => {
     pending = true;
 
+    const { error: zod_error, success: zod_success } = schema.safeParse({
+      username: formData.get('username') ?? ''
+    });
+
+    if (!zod_success) {
+      cancel();
+      pending = false;
+      // errors
+      errors = zod_error.errors;
+    }
+
     return async ({ result }) => {
+      pending = false;
+      // clean errors for fresh re-assign
+      error = undefined;
+      errors = undefined;
       if (result.type === 'success') {
-        errors = undefined;
         // append to existing profiles on forms_state
         update_forms_state('profile_select', {
           profiles: [
@@ -35,18 +50,11 @@
         });
         goto_form('profile_select');
       } else if (result.type === 'failure') {
-        // cleanup errors for fresh assigning
-        errors = undefined;
-        error = undefined;
         // authentication error
         if (result.status === 401) {
           error = result.data?.error;
-        } else {
-          // zod errors
-          errors = result.data?.errors;
         }
       }
-      pending = false;
     };
   };
 </script>

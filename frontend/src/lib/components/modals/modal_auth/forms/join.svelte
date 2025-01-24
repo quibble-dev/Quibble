@@ -5,6 +5,7 @@
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
   import ZodErrors from '$lib/components/shared/zod-errors.svelte';
   import { cn } from '$lib/functions/classnames';
+  import { auth_schema } from '$lib/zod_schemas/auth';
   import type { FormProps } from '../../types';
   import forms from '../forms';
   import type { SubmitFunction } from '@sveltejs/kit';
@@ -21,20 +22,28 @@
   let error = $state<string>();
   let pending = $state(false);
 
-  let invalid_email = $derived(has_error('email'));
-  let invalid_password = $derived(has_error('password'));
-
-  // helper func to check if error exists for specific path
-  function has_error(path: string) {
-    return Boolean(error || errors?.some((err) => err.path.includes(path)));
-  }
-
-  const handle_submit: SubmitFunction = async () => {
+  const handle_submit: SubmitFunction = async ({ cancel, formData }) => {
     pending = true;
 
+    const { error: parse_error, success: parse_success } = auth_schema.safeParse({
+      email: formData.get('email') ?? '',
+      password: formData.get('password') ?? ''
+    });
+
+    if (!parse_success) {
+      cancel();
+      pending = false;
+      // errors
+      errors = parse_error.errors;
+    }
+
     return async ({ result }) => {
+      pending = false;
+      // clean errors for fresh re-assign
+      error = undefined;
+      errors = undefined;
       if (result.type === 'success') {
-        errors = undefined;
+        error = undefined;
         if (auth_type === 'login') {
           // save token on forms_state
           update_forms_state('join', { token: result.data?.token });
@@ -44,18 +53,11 @@
           auth_type = 'login';
         }
       } else if (result.type === 'failure') {
-        // cleanup errors for fresh assigning
-        errors = undefined;
-        error = undefined;
         // authentication error
         if (result.status === 401) {
           error = result.data?.error;
-        } else {
-          // zod errors
-          errors = result.data?.errors;
         }
       }
-      pending = false;
     };
   };
 

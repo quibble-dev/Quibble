@@ -1,24 +1,11 @@
 import { dev } from '$app/environment';
 import client from '$lib/clients/v1/client';
-import { profile_create_schema } from '$lib/zod_schemas/auth';
 import type { Actions } from './$types';
 import { fail } from '@sveltejs/kit';
 
 export const actions = {
   create: async ({ request, cookies }) => {
     const form_data = await request.formData();
-
-    const {
-      data: parse_data,
-      error: parse_error,
-      success: parse_success
-    } = profile_create_schema.safeParse({
-      username: form_data.get('username') ?? ''
-    });
-
-    if (!parse_success) {
-      return fail(400, { errors: parse_error.errors });
-    }
 
     const {
       data: api_data,
@@ -29,7 +16,7 @@ export const actions = {
         Authorization: `Bearer ${cookies.get('auth_token')}`
       },
       // @ts-expect-error: only requires username for POST req
-      body: { ...parse_data }
+      body: { username: form_data.get('username') }
     });
 
     if (api_response.ok && api_data) {

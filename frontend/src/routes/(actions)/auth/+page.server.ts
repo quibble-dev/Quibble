@@ -1,6 +1,5 @@
 import { dev } from '$app/environment';
 import client from '$lib/clients/v1/client';
-import { auth_schema } from '$lib/zod_schemas/auth';
 import type { Actions } from './$types';
 import { fail } from '@sveltejs/kit';
 
@@ -9,24 +8,14 @@ export const actions = {
     const form_data = await request.formData();
 
     const {
-      data: parse_data,
-      error: parse_error,
-      success: parse_success
-    } = auth_schema.safeParse({
-      email: form_data.get('email') ?? '',
-      password: form_data.get('password') ?? ''
-    });
-
-    if (!parse_success) {
-      return fail(400, { errors: parse_error.errors });
-    }
-
-    const {
       data: api_data,
       error: api_error,
       response: api_response
     } = await client.POST('/api/v1/auth/login/', {
-      body: { ...parse_data }
+      body: {
+        email: String(form_data.get('email')),
+        password: String(form_data.get('password'))
+      }
     });
 
     if (api_response.ok && api_data) {
@@ -56,7 +45,7 @@ export const actions = {
     if (response.ok && data) {
       return { success: true };
     } else if (error) {
-      return fail(response.status, error.errors[0]);
+      return fail(401, { error: error.errors[0]?.detail });
     }
   }
 } satisfies Actions;
