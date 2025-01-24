@@ -6,7 +6,7 @@
   import RocketIcon from '$lib/components/icons/rocket.svelte';
   import TopIcon from '$lib/components/icons/top.svelte';
   import { cn } from '$lib/functions/classnames';
-  import { createLayoutTypeStore } from '$lib/stores/layout_type.svelte';
+  import { createLayoutTypeStore } from '$lib/stores/layout-type.svelte';
 
   const layoutTypeStore = createLayoutTypeStore();
 

@@ -6,12 +6,12 @@
   import Avatar from '$lib/components/ui/avatar.svelte';
   import BackdropImage from '$lib/components/ui/backdrop-image.svelte';
   import Zoom from '$lib/components/ui/zoom.svelte';
-  import { CommentBlock } from '$lib/features/comment';
+  import { CommentBlock } from '$lib/features/comments';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
-  import { is_valid } from '$lib/functions/is_valid';
+  import { is_valid } from '$lib/functions/is-valid';
   import { createAuthStore } from '$lib/stores/auth.svelte';
-  import { createRecentPostsStore } from '$lib/stores/recent_posts.svelte';
+  import { createRecentPostsStore } from '$lib/stores/recent-posts.svelte';
   import type { PageData } from './$types';
   import readable from 'readable-numbers';
   import { onMount } from 'svelte';
