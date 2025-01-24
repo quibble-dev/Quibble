@@ -90,8 +90,8 @@
     class="flex flex-col gap-3"
     novalidate
   >
-    <label class="input input-bordered flex items-center gap-2" class:input-error={invalid_email}>
-      <coreicons-shape-mail class="size-4" class:text-error={invalid_email}></coreicons-shape-mail>
+    <label class="input input-bordered flex items-center gap-2">
+      <coreicons-shape-mail class="size-4"></coreicons-shape-mail>
       <input
         type="email"
         name="email"
@@ -99,12 +99,8 @@
         placeholder="Email address*"
       />
     </label>
-    <label
-      class="input input-bordered flex items-center gap-2 pr-2"
-      class:input-error={invalid_password}
-    >
-      <coreicons-shape-lock class="size-4" class:text-error={invalid_password}
-      ></coreicons-shape-lock>
+    <label class="input input-bordered flex items-center gap-2 pr-2">
+      <coreicons-shape-lock class="size-4"></coreicons-shape-lock>
       <input
         type={password_type}
         name="password"
@@ -132,8 +128,13 @@
       <ZodErrors {errors} />
     {:else}
       <div class="flex items-center gap-2" class:text-error={error !== undefined}>
-        <coreicons-shape-info class="size-3"></coreicons-shape-info>
-        <span class="text-xs">{error ?? "Hint: you can switch b/w 'login' and 'register'."}</span>
+        {#if error}
+          <coreicons-shape-alert-triangle class="size-3.5"></coreicons-shape-alert-triangle>
+          <span class="text-xs">{error}</span>
+        {:else}
+          <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
+          <span class="text-xs">Hint: you can switch b/w 'login' and 'register'.</span>
+        {/if}
       </div>
     {/if}
     <div class="flex items-center gap-3">

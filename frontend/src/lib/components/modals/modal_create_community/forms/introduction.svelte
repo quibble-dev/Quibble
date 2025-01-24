@@ -69,7 +69,7 @@
           <span class="label-text font-medium">Community name*</span>
         </div>
         <label
-          class="input input-bordered flex items-center gap-2 text-sm font-medium"
+          class="input input-bordered flex items-center gap-2 bg-neutral text-sm font-medium"
           class:input-error={errors?.name}
         >
           q/
@@ -104,7 +104,7 @@
         </div>
         <textarea
           bind:value={introduction_data.description}
-          class="textarea textarea-bordered h-40 leading-normal"
+          class="textarea textarea-bordered h-40 bg-neutral leading-normal"
           class:textarea-error={errors?.description}
           placeholder="Tell something nice about your community..."
           maxlength={255}

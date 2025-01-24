@@ -67,16 +67,11 @@
     class="flex flex-col gap-3"
     novalidate
   >
-    <label
-      class="input input-bordered flex items-center gap-2"
-      class:input-error={invalid_username}
-    >
+    <label class="input input-bordered flex items-center gap-2">
       <coreicons-shape-at-sign class="size-4"></coreicons-shape-at-sign>
       <input
         type="text"
         name="username"
-        required
-        minlength="3"
         class="grow border-none p-2 text-sm font-medium focus:ring-0"
         placeholder="Username*"
       />
@@ -85,10 +80,13 @@
       <ZodErrors {errors} />
     {:else}
       <div class="flex items-center gap-2" class:text-error={error !== undefined}>
-        <coreicons-shape-info class="size-3"></coreicons-shape-info>
-        <span class="text-xs">
-          {error ?? 'Hint: Make it epic—you only get 3!'}
-        </span>
+        {#if error}
+          <coreicons-shape-alert-triangle class="size-3.5"></coreicons-shape-alert-triangle>
+          <span class="text-xs">{error}</span>
+        {:else}
+          <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
+          <span class="text-xs">Hint: Make it epic—you only get 3!</span>
+        {/if}
       </div>
     {/if}
     <button
