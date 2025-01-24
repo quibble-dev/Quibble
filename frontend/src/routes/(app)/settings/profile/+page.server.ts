@@ -13,11 +13,11 @@ export const actions = {
       error: parse_error,
       success: parse_success
     } = profile_create_schema.safeParse({
-      username: form_data.get('username')
+      username: form_data.get('username') ?? ''
     });
 
     if (!parse_success) {
-      return fail(400, { detail: parse_error.flatten().fieldErrors.username?.[0] });
+      return fail(400, { errors: parse_error.errors });
     }
 
     const {
@@ -35,7 +35,7 @@ export const actions = {
     if (api_response.ok && api_data) {
       return api_data;
     } else if (api_error) {
-      return fail(api_response.status, api_error.errors[0]);
+      return fail(401, { error: api_error.errors[0]?.detail });
     }
   },
   select: async ({ request, cookies }) => {

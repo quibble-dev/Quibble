@@ -2,17 +2,23 @@
   import { enhance } from '$app/forms';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
+  import ZodErrors from '$lib/components/shared/zod-errors.svelte';
   import { cn } from '$lib/functions/classnames';
   import type { FormProps } from '../../types';
   import forms from '../forms';
   import type { SubmitFunction } from '@sveltejs/kit';
+  import type { ZodIssue } from 'zod';
 
   let { forms_state, update_forms_state, goto_form }: FormProps<typeof forms> = $props();
 
-  let errors = $state<Record<string, string> | undefined>();
+  let errors = $state<ZodIssue[]>();
+  // for single errors
+  let error = $state<string>();
   let pending = $state(false);
 
-  let invalid_username = $derived(errors?.detail?.toLowerCase().includes('username'));
+  let invalid_username = $derived(
+    Boolean(error || errors?.some((err) => err.path.includes('username')))
+  );
 
   const handle_submit: SubmitFunction = async () => {
     pending = true;
@@ -29,9 +35,17 @@
         });
         goto_form('profile_select');
       } else if (result.type === 'failure') {
-        errors = result.data;
+        // cleanup errors for fresh assigning
+        errors = undefined;
+        error = undefined;
+        // authentication error
+        if (result.status === 401) {
+          error = result.data?.error;
+        } else {
+          // zod errors
+          errors = result.data?.errors;
+        }
       }
-
       pending = false;
     };
   };
@@ -67,11 +81,14 @@
         placeholder="Username*"
       />
     </label>
-    {#if errors?.detail}
-      <div class="flex items-center gap-2">
-        <coreicons-shape-alert-triangle class="size-3 flex-shrink-0 text-error"
-        ></coreicons-shape-alert-triangle>
-        <span class="text-xs text-error first-letter:uppercase">{errors.detail}</span>
+    {#if errors}
+      <ZodErrors {errors} />
+    {:else}
+      <div class="flex items-center gap-2" class:text-error={error !== undefined}>
+        <coreicons-shape-info class="size-3"></coreicons-shape-info>
+        <span class="text-xs">
+          {error ?? 'Hint: Make it epic—you only get 3!'}
+        </span>
       </div>
     {/if}
     <button
@@ -83,7 +100,7 @@
         <span class="loading loading-spinner loading-xs"></span>
       {:else}
         Create profile
-        <coreicons-shape-chevron variant="right" class="size-4"></coreicons-shape-chevron>
+        <coreicons-shape-arrow variant="right" class="size-4"></coreicons-shape-arrow>
       {/if}
     </button>
   </form>

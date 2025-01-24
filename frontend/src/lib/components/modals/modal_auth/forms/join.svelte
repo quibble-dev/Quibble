@@ -3,22 +3,31 @@
   import GoogleLogo from '$lib/components/icons/logos/google.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
+  import ZodErrors from '$lib/components/shared/zod-errors.svelte';
   import { cn } from '$lib/functions/classnames';
   import type { FormProps } from '../../types';
   import forms from '../forms';
   import type { SubmitFunction } from '@sveltejs/kit';
   import type { HTMLInputAttributes } from 'svelte/elements';
+  import type { ZodIssue } from 'zod';
 
   let { update_forms_state, goto_form }: FormProps<typeof forms> = $props();
 
   let auth_type = $state<'login' | 'register'>('login');
   let password_type = $state<HTMLInputAttributes['type']>('password');
 
-  let errors = $state<Record<string, string> | undefined>();
+  let errors = $state<ZodIssue[]>();
+  // for single errors
+  let error = $state<string>();
   let pending = $state(false);
 
-  let invalid_email = $derived(errors?.detail?.toLowerCase().includes('email'));
-  let invalid_password = $derived(errors?.detail?.toLowerCase().includes('password'));
+  let invalid_email = $derived(has_error('email'));
+  let invalid_password = $derived(has_error('password'));
+
+  // helper func to check if error exists for specific path
+  function has_error(path: string) {
+    return Boolean(error || errors?.some((err) => err.path.includes(path)));
+  }
 
   const handle_submit: SubmitFunction = async () => {
     pending = true;
@@ -35,8 +44,16 @@
           auth_type = 'login';
         }
       } else if (result.type === 'failure') {
-        console.log(result);
-        errors = result.data;
+        // cleanup errors for fresh assigning
+        errors = undefined;
+        error = undefined;
+        // authentication error
+        if (result.status === 401) {
+          error = result.data?.error;
+        } else {
+          // zod errors
+          errors = result.data?.errors;
+        }
       }
       pending = false;
     };
@@ -73,21 +90,17 @@
     class="flex flex-col gap-3"
     novalidate
   >
-    <label
-      class="input input-bordered flex items-center gap-2 transition-[border-color]"
-      class:input-error={invalid_email}
-    >
+    <label class="input input-bordered flex items-center gap-2" class:input-error={invalid_email}>
       <coreicons-shape-mail class="size-4" class:text-error={invalid_email}></coreicons-shape-mail>
       <input
         type="email"
         name="email"
-        required
         class="grow border-none p-2 text-sm font-medium focus:ring-0"
         placeholder="Email address*"
       />
     </label>
     <label
-      class="input input-bordered flex items-center gap-2 pr-2 transition-[border-color]"
+      class="input input-bordered flex items-center gap-2 pr-2"
       class:input-error={invalid_password}
     >
       <coreicons-shape-lock class="size-4" class:text-error={invalid_password}
@@ -95,8 +108,6 @@
       <input
         type={password_type}
         name="password"
-        required
-        minlength="8"
         class="grow border-none p-2 text-sm font-medium focus:ring-0"
         placeholder="Password*"
       />
@@ -117,15 +128,14 @@
         ></coreicons-shape-eye>
       </button>
     </label>
-    <div class="flex items-center gap-2">
-      {#if errors?.detail}
-        <coreicons-shape-alert-triangle class="size-3 text-error"></coreicons-shape-alert-triangle>
-        <span class="text-xs text-error">{errors.detail}</span>
-      {:else}
+    {#if errors}
+      <ZodErrors {errors} />
+    {:else}
+      <div class="flex items-center gap-2" class:text-error={error !== undefined}>
         <coreicons-shape-info class="size-3"></coreicons-shape-info>
-        <span class="text-xs">Hint: you can switch b/w 'login' and 'register'.</span>
-      {/if}
-    </div>
+        <span class="text-xs">{error ?? "Hint: you can switch b/w 'login' and 'register'."}</span>
+      </div>
+    {/if}
     <div class="flex items-center gap-3">
       <button
         type="submit"
