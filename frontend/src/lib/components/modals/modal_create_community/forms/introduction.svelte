@@ -1,19 +1,21 @@
 <script lang="ts">
+  import ZodErrors from '$lib/components/shared/zod-errors.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import type { FormProps } from '../../types';
   import forms from '../forms';
   import { z } from 'zod';
 
   const schema = z.object({
-    name: z.string().min(3),
+    name: z
+      .string()
+      .min(3)
+      .regex(/^[a-zA-Z0-9_]+$/, { message: 'Only letters, numbers and underscore are allowed' }),
     description: z.string().min(1)
   });
 
-  type SchemaErrors = z.inferFlattenedErrors<typeof schema>;
-
   let { update_forms_state, forms_state }: FormProps<typeof forms> = $props();
 
-  let errors = $state<SchemaErrors['fieldErrors']>();
+  let errors = $state<z.ZodIssue[]>();
   const introduction_data = $state({
     ...(
       forms_state.introduction as {
@@ -45,7 +47,7 @@
       description: introduction_data.description ?? ''
     });
 
-    errors = result.error?.flatten().fieldErrors;
+    errors = result.error?.errors;
 
     update_forms_state('introduction', {
       valid: errors === undefined,
@@ -63,10 +65,11 @@
     </p>
   </div>
   <form class="flex items-start gap-6">
-    <div class="flex-1">
+    <div class="flex flex-1 flex-col gap-2">
       <label class="form-control">
         <div class="label pt-0">
           <span class="label-text font-medium">Community name*</span>
+          <span class="label-text-alt">{introduction_data.name?.length ?? 0}/25</span>
         </div>
         <label class="input input-bordered flex items-center gap-2 text-sm font-medium">
           q/
@@ -82,22 +85,11 @@
             }}
           />
         </label>
-        <div class="label">
-          <span class="label-text-alt flex items-center gap-1.5" class:text-error={errors?.name}>
-            {#if errors?.name}
-              <coreicons-shape-alert-triangle class="size-4"></coreicons-shape-alert-triangle>
-              {errors.name}
-            {:else}
-              <coreicons-shape-info class="size-4"></coreicons-shape-info>
-              Name it unique and cool!
-            {/if}
-          </span>
-          <span class="label-text-alt">{introduction_data.name?.length ?? 0}/25</span>
-        </div>
       </label>
       <label class="form-control">
         <div class="label pt-0">
           <span class="label-text font-medium">Description*</span>
+          <span class="label-text-alt">{introduction_data.description?.length ?? 0}/255</span>
         </div>
         <textarea
           bind:value={introduction_data.description}
@@ -106,26 +98,14 @@
           maxlength={255}
           oninput={handle_input}
         ></textarea>
-        <div class="label">
-          <span
-            class="label-text-alt flex items-center gap-1.5"
-            class:text-error={errors?.description}
-          >
-            {#if errors?.description}
-              <coreicons-shape-alert-triangle class="size-4"></coreicons-shape-alert-triangle>
-              {errors.description}
-            {:else}
-              <coreicons-shape-info class="size-4"></coreicons-shape-info>
-              A quick cool introduction!
-            {/if}
-          </span>
-          <span class="label-text-alt">{introduction_data.description?.length ?? 0}/255</span>
-        </div>
       </label>
+      {#if errors}
+        <ZodErrors {errors} />
+      {/if}
     </div>
     <div class="flex w-72 flex-col gap-2">
       <span class="text-sm font-medium">Preview</span>
-      <div class="overflow-hidden rounded-2xl shadow-xl">
+      <div class="overflow-hidden rounded-2xl bg-neutral shadow-xl">
         <div
           class="flex h-10 bg-base-content bg-cover bg-center"
           style="background-image: url({introduction_data.cover});"
