@@ -68,10 +68,7 @@
         <div class="label pt-0">
           <span class="label-text font-medium">Community name*</span>
         </div>
-        <label
-          class="input input-bordered flex items-center gap-2 bg-neutral text-sm font-medium"
-          class:input-error={errors?.name}
-        >
+        <label class="input input-bordered flex items-center gap-2 text-sm font-medium">
           q/
           <input
             bind:value={introduction_data.name}
@@ -104,8 +101,7 @@
         </div>
         <textarea
           bind:value={introduction_data.description}
-          class="textarea textarea-bordered h-40 bg-neutral leading-normal"
-          class:textarea-error={errors?.description}
+          class="textarea textarea-bordered h-40 leading-normal"
           placeholder="Tell something nice about your community..."
           maxlength={255}
           oninput={handle_input}
@@ -129,7 +125,7 @@
     </div>
     <div class="flex w-72 flex-col gap-2">
       <span class="text-sm font-medium">Preview</span>
-      <div class="overflow-hidden rounded-2xl bg-neutral shadow-xl">
+      <div class="overflow-hidden rounded-2xl shadow-xl">
         <div
           class="flex h-10 bg-base-content bg-cover bg-center"
           style="background-image: url({introduction_data.cover});"
