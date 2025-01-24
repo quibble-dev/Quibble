@@ -1,17 +1,19 @@
 <script lang="ts">
   import Avatar from '$lib/components/ui/avatar.svelte';
-  import { zod_required_string } from '$lib/utils/zod';
   import type { FormProps } from '../../types';
   import forms from '../forms';
-  import { onDestroy } from 'svelte';
+  import { z } from 'zod';
 
-  const name_schema = zod_required_string({ field_name: 'Name' }).min(3, {
-    message: 'Name must contain at least 3 character(s)'
+  const schema = z.object({
+    name: z.string().min(3),
+    description: z.string().min(1)
   });
-  const description_schema = zod_required_string({ field_name: 'Description' });
+
+  type SchemaErrors = z.inferFlattenedErrors<typeof schema>;
 
   let { update_forms_state, forms_state }: FormProps<typeof forms> = $props();
 
+  let errors = $state<SchemaErrors['fieldErrors']>();
   const introduction_data = $state({
     ...(
       forms_state.introduction as {
@@ -24,28 +26,6 @@
       }
     ).data
   });
-  // error states
-  let errors = $state<Partial<{ name: string; description: string }>>({
-    name: undefined,
-    description: undefined
-  });
-
-  function validate_and_update(field: 'name' | 'description', value: string) {
-    const schema = field === 'name' ? name_schema : description_schema;
-    const result = schema.safeParse(value);
-
-    errors = {
-      ...errors,
-      [field]: result.success ? undefined : result.error.errors[0]?.message
-    };
-
-    if (result.success) {
-      const is_valid = Object.values(errors).every((err) => err === undefined);
-      console.log(is_valid);
-    }
-  }
-
-  $inspect(errors);
 
   function handle_file_change(e: Event, type: 'avatar' | 'cover') {
     const file = (e.target as HTMLInputElement).files?.[0];
@@ -59,17 +39,19 @@
     }
   }
 
-  function handle_input_blur(field: 'name' | 'description') {
-    const value = field === 'name' ? introduction_data.name : introduction_data.description;
-    validate_and_update(field, String(value));
-  }
+  function handle_input_blur() {
+    const result = schema.safeParse({
+      name: introduction_data.name ?? '',
+      description: introduction_data.description ?? ''
+    });
 
-  // when changes form update forms_state
-  onDestroy(() => {
+    errors = result.error?.flatten().fieldErrors;
+
     update_forms_state('introduction', {
+      valid: errors === undefined,
       data: { ...introduction_data }
     });
-  });
+  }
 </script>
 
 <div class="flex flex-col gap-4">
@@ -97,7 +79,7 @@
             class="grow border-none p-0 text-sm focus:ring-0"
             placeholder="eg: quibble"
             maxlength={25}
-            onblur={() => handle_input_blur('name')}
+            onblur={handle_input_blur}
             oninput={(e) => (introduction_data.name = e.currentTarget.value.replace(/\s/g, ''))}
           />
         </label>
@@ -111,7 +93,7 @@
               Name it unique and cool!
             {/if}
           </span>
-          <span class="label-text-alt">{introduction_data.name?.length}/25</span>
+          <span class="label-text-alt">{introduction_data.name?.length ?? 0}/25</span>
         </div>
       </label>
       <label class="form-control">
@@ -124,7 +106,7 @@
           class:textarea-error={errors?.description}
           placeholder="Tell something nice about your community..."
           maxlength={255}
-          onblur={() => handle_input_blur('description')}
+          onblur={handle_input_blur}
         ></textarea>
         <div class="label">
           <span
@@ -139,7 +121,7 @@
               A quick cool introduction!
             {/if}
           </span>
-          <span class="label-text-alt">{introduction_data.description?.length}/255</span>
+          <span class="label-text-alt">{introduction_data.description?.length ?? 0}/255</span>
         </div>
       </label>
     </div>

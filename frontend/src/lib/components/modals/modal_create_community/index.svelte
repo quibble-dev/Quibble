@@ -31,6 +31,10 @@
 
   let forms_state = $state<CCFormsState>(initial_forms_state);
 
+  let is_valid = $derived(
+    (forms_state[form_history.history.at(-1) as CCForms] as { valid: boolean }).valid
+  );
+
   function update_forms_state(form: CCForms, data: FormSubmitData) {
     forms_state[form] = { ...forms_state[form], ...data };
   }
@@ -66,9 +70,9 @@
         <button
           class="size-2 rounded-full bg-base-content"
           class:opacity-50={!is_active}
-          aria-label="Go to
-          {_form}"
+          aria-label="Go to {_form}"
           onclick={() => goto_form(_form as CCForms)}
+          disabled={!is_valid && !(forms_state[_form as CCForms] as { valid: boolean }).valid}
         ></button>
       {/each}
     </div>
@@ -94,6 +98,7 @@
             form_history.go_next(forms);
           }
         }}
+        disabled={!is_valid}
       >
         {form_step === 'end' ? 'Create' : 'Next'}
         <coreicons-shape-arrow variant="right" class="size-4"></coreicons-shape-arrow>
