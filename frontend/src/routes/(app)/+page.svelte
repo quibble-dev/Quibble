@@ -6,7 +6,7 @@
   import Quibble4042 from '$lib/components/vectors/quibble-404-2.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';
-  import { createRecentPostsStore } from '$lib/stores/recent_posts.svelte';
+  import { createRecentPostsStore } from '$lib/stores/recent-posts.svelte';
   import type { PageData } from './$types';
   import readable from 'readable-numbers';
 
