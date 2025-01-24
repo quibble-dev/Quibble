@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { cn } from '$lib/functions/classnames';
   import { createModalsStore } from '$lib/stores/modals.svelte';
   import BaseModal from '../_components/base_modal.svelte';
   import { create_form_history } from '../_utils/history.svelte';
@@ -72,7 +73,8 @@
           class:opacity-50={!is_active}
           aria-label="Go to {_form}"
           onclick={() => goto_form(_form as CCForms)}
-          disabled={!is_valid && !(forms_state[_form as CCForms] as { valid: boolean }).valid}
+          disabled={_form === form_history.history.at(-1) ||
+            (!is_valid && !(forms_state[_form as CCForms] as { valid: boolean }).valid)}
         ></button>
       {/each}
     </div>
@@ -90,7 +92,7 @@
         {form_step === 'start' ? 'Cancel' : 'Back'}
       </button>
       <button
-        class="btn btn-primary"
+        class={cn(!is_valid && 'btn-active pointer-events-none', 'btn btn-primary')}
         onclick={() => {
           if (form_step === 'end') {
             // community creation logic goes here
@@ -98,7 +100,6 @@
             form_history.go_next(forms);
           }
         }}
-        disabled={!is_valid}
       >
         {form_step === 'end' ? 'Create' : 'Next'}
         <coreicons-shape-arrow variant="right" class="size-4"></coreicons-shape-arrow>

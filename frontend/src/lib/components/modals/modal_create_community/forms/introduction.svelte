@@ -39,7 +39,7 @@
     }
   }
 
-  function handle_input_blur() {
+  function handle_input() {
     const result = schema.safeParse({
       name: introduction_data.name ?? '',
       description: introduction_data.description ?? ''
@@ -79,8 +79,10 @@
             class="grow border-none p-0 text-sm focus:ring-0"
             placeholder="eg: quibble"
             maxlength={25}
-            onblur={handle_input_blur}
-            oninput={(e) => (introduction_data.name = e.currentTarget.value.replace(/\s/g, ''))}
+            oninput={(e) => {
+              introduction_data.name = e.currentTarget.value.replace(/\s/g, '');
+              handle_input();
+            }}
           />
         </label>
         <div class="label">
@@ -106,7 +108,7 @@
           class:textarea-error={errors?.description}
           placeholder="Tell something nice about your community..."
           maxlength={255}
-          onblur={handle_input_blur}
+          oninput={handle_input}
         ></textarea>
         <div class="label">
           <span
