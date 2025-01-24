@@ -5,12 +5,17 @@
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble_text.svelte';
   import ZodErrors from '$lib/components/shared/zod-errors.svelte';
   import { cn } from '$lib/functions/classnames';
-  import { auth_schema } from '$lib/zod_schemas/auth';
   import type { FormProps } from '../../types';
   import forms from '../forms';
   import type { SubmitFunction } from '@sveltejs/kit';
   import type { HTMLInputAttributes } from 'svelte/elements';
-  import type { ZodIssue } from 'zod';
+  import { z, type ZodIssue } from 'zod';
+
+  // zod schema
+  const schema = z.object({
+    email: z.string().email(),
+    password: z.string().min(8)
+  });
 
   let { update_forms_state, goto_form }: FormProps<typeof forms> = $props();
 
@@ -25,7 +30,7 @@
   const handle_submit: SubmitFunction = async ({ cancel, formData }) => {
     pending = true;
 
-    const { error: parse_error, success: parse_success } = auth_schema.safeParse({
+    const { error: parse_error, success: parse_success } = schema.safeParse({
       email: formData.get('email') ?? '',
       password: formData.get('password') ?? ''
     });
