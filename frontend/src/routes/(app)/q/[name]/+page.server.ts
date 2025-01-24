@@ -1,4 +1,4 @@
-import client from '$lib/clients/client';
+import client from '$lib/clients';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params, parent }) => {

@@ -1,4 +1,4 @@
-import client from '$lib/clients/client';
+import client from '$lib/clients';
 import type { components } from '$lib/clients/v1';
 import type { Handle, HandleFetch } from '@sveltejs/kit';
 

@@ -1,4 +1,4 @@
-import client from '$lib/clients/client';
+import client from '$lib/clients';
 import { CommentTreeBuilder } from '$lib/functions/comment';
 import type { PageServerLoad } from './$types';
 import { error as raise_error, redirect } from '@sveltejs/kit';

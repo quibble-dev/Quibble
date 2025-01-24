@@ -1,7 +1,7 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
   import { invalidateAll } from '$app/navigation';
-  import client from '$lib/clients/client';
+  import client from '$lib/clients';
   import type { components } from '$lib/clients/v1';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble-text.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
