@@ -1,10 +1,10 @@
 <script lang="ts">
   import type { components } from '$lib/clients/v1';
   import Header from '$lib/components/header.svelte';
-  import Modals from '$lib/components/modals/index.svelte';
   import Sidebar from '$lib/components/sidebar.svelte';
   import Toaster from '$lib/components/ui/toast/toaster.svelte';
   import { cn } from '$lib/functions/classnames';
+  import Modals from '$lib/modals/index.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import '../styles/app.css';
   import '../styles/smiz.css';

@@ -1,4 +1,4 @@
-import { generate_id } from '$lib/functions/generate_id';
+import { generate_id } from '$lib/functions/generate-id';
 
 type ToastIn = {
   message: string;

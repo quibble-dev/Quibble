@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from '$app/state';
-  import Quibble_404 from '$lib/components/vectors/quibble_404.svelte';
+  import Quibble404 from '$lib/components/vectors/quibble-404.svelte';
 </script>
 
 <svelte:head>
@@ -8,7 +8,7 @@
 </svelte:head>
 
 <div class="mt-5 flex flex-1 items-end justify-center gap-5">
-  <Quibble_404 class="h-auto w-28" />
+  <Quibble404 class="h-auto w-28" />
   <div class="flex flex-col">
     <h4 class="text-xl font-bold text-error">oh noh!!</h4>
     <!-- eslint-disable svelte/no-at-html-tags -->
