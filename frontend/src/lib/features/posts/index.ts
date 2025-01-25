@@ -1,2 +1,2 @@
-export { default as PostCard } from './post-card.svelte';
-export { default as PostsHeader } from './posts-header.svelte';
+export { default as PostCard } from './components/post-card.svelte';
+export { default as PostsHeader } from './components/posts-header.svelte';

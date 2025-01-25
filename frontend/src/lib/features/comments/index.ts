@@ -1,1 +1,1 @@
-export { default as CommentBlock } from './comment-block.svelte';
+export { default as CommentBlock } from './components/comment-block.svelte';
