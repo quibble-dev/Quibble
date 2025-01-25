@@ -1,9 +1,8 @@
 <script lang="ts">
-  import Post from '$lib/components/post.svelte';
-  import PostsHeader from '$lib/components/posts-header.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { toast } from '$lib/components/ui/toast/toast.svelte';
   import Quibble4042 from '$lib/components/vectors/quibble-404-2.svelte';
+  import { PostCard, PostsHeader } from '$lib/features/posts';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';
   import { createRecentPostsStore } from '$lib/stores/recent-posts.svelte';
@@ -35,7 +34,7 @@
   <div class="flex flex-1 flex-col gap-4">
     {#if data.posts && data.posts.length}
       {#each data.posts as post}
-        <Post {...post} />
+        <PostCard {...post} />
       {/each}
     {:else}
       <div class="mt-5 flex flex-1 items-end justify-center gap-5">

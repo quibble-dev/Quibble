@@ -1,7 +1,6 @@
 <script lang="ts">
-  import Post from '$lib/components/post.svelte';
-  import PostsHeader from '$lib/components/posts-header.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import { PostCard, PostsHeader } from '$lib/features/posts';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
   import { pluralize } from '$lib/functions/pluralize';
@@ -129,6 +128,6 @@
 <!-- list posts -->
 {#if posts}
   {#each posts as post}
-    <Post {...post} />
+    <PostCard {...post} />
   {/each}
 {/if}
