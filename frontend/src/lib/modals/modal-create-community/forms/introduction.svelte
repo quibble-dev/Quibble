@@ -61,7 +61,6 @@
     <h3 class="text-xl font-semibold text-info">Introduce your community</h3>
     <p class="text-sm">
       Give your community a name and a description that reflects its purpose and vibe.
-      <span class="hidden md:block">This will help others discover and connect with it.</span>
     </p>
   </div>
   <form class="flex items-start gap-6">
@@ -107,7 +106,7 @@
       <span class="text-sm font-medium">Preview</span>
       <div class="overflow-hidden rounded-2xl bg-neutral shadow-xl">
         <div
-          class="flex h-10 bg-base-content bg-cover bg-center"
+          class="flex h-10 bg-info bg-cover bg-center"
           style="background-image: url({introduction_data.cover});"
         >
           <input
@@ -132,7 +131,7 @@
             >
               <Avatar
                 src={introduction_data.avatar}
-                class="size-14 flex-shrink-0 !bg-base-content/25"
+                class="size-14 flex-shrink-0 !bg-base-content/15"
               />
               <input
                 id="community-avatar-upload"

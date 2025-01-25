@@ -52,7 +52,7 @@
 <BaseModal
   open={modalsStore.state.get('create_community') === true}
   onclose={handle_modal_close}
-  class="flex max-w-[25rem] flex-col gap-4 md:block md:max-w-[45rem]"
+  class="flex max-w-[25rem] flex-col gap-4 md:max-w-[45rem]"
 >
   {#await form then Form}
     <Form.default {forms_state} {update_forms_state} {goto_form} />
