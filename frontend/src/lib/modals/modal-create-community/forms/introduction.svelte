@@ -60,15 +60,15 @@
   <div class="flex flex-col gap-2">
     <h3 class="text-xl font-semibold text-info">Introduce your community</h3>
     <p class="text-sm">
-      Give your community a name and a description that reflects its purpose and vibe. This will
-      help others discover and connect with it.
+      Give your community a name and a description that reflects its purpose and vibe.
+      <span class="hidden md:block">This will help others discover and connect with it.</span>
     </p>
   </div>
   <form class="flex items-start gap-6">
-    <div class="flex flex-1 flex-col gap-2">
+    <div class="flex w-full flex-1 flex-col gap-2">
       <label class="form-control">
-        <div class="label pt-0">
-          <span class="label-text font-medium">Community name*</span>
+        <div class="label p-0 pb-1">
+          <span class="label-text font-medium">Name*</span>
           <span class="label-text-alt">{introduction_data.name?.length ?? 0}/25</span>
         </div>
         <label class="input input-bordered flex items-center gap-2 text-sm font-medium">
@@ -87,7 +87,7 @@
         </label>
       </label>
       <label class="form-control">
-        <div class="label pt-0">
+        <div class="label p-0 pb-1">
           <span class="label-text font-medium">Description*</span>
           <span class="label-text-alt">{introduction_data.description?.length ?? 0}/255</span>
         </div>
@@ -103,7 +103,7 @@
         <ZodErrors {errors} />
       {/if}
     </div>
-    <div class="flex w-72 flex-col gap-2">
+    <div class="hidden w-72 flex-col gap-1 md:flex">
       <span class="text-sm font-medium">Preview</span>
       <div class="overflow-hidden rounded-2xl bg-neutral shadow-xl">
         <div
