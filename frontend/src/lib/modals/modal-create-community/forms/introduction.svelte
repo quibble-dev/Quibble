@@ -1,4 +1,5 @@
 <script lang="ts">
+  import autosize from '$lib/actions/autosize';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import ZodErrors from '$lib/components/zod-errors.svelte';
   import type { FormProps } from '../../types';
@@ -66,11 +67,11 @@
   <form class="flex items-start gap-6">
     <div class="flex w-full flex-1 flex-col gap-2">
       <label class="form-control">
-        <div class="label p-0 pb-1">
-          <span class="label-text font-medium">Name*</span>
+        <div class="label py-1">
+          <span class="label-text">Name*</span>
           <span class="label-text-alt">{introduction_data.name?.length ?? 0}/25</span>
         </div>
-        <label class="input input-bordered flex items-center gap-2 text-sm font-medium">
+        <label class="input input-bordered flex h-10 items-center gap-2 text-sm font-medium">
           q/
           <input
             bind:value={introduction_data.name}
@@ -86,13 +87,14 @@
         </label>
       </label>
       <label class="form-control">
-        <div class="label p-0 pb-1">
-          <span class="label-text font-medium">Description*</span>
+        <div class="label py-1">
+          <span class="label-text">Description*</span>
           <span class="label-text-alt">{introduction_data.description?.length ?? 0}/255</span>
         </div>
         <textarea
           bind:value={introduction_data.description}
-          class="textarea textarea-bordered h-40 leading-normal"
+          use:autosize
+          class="textarea textarea-bordered max-h-40 min-h-[5.5rem] leading-normal"
           placeholder="Tell something nice about your community..."
           maxlength={255}
           oninput={handle_input}
@@ -102,8 +104,8 @@
         <ZodErrors {errors} />
       {/if}
     </div>
-    <div class="hidden w-72 flex-col gap-1 md:flex">
-      <span class="text-sm font-medium">Preview</span>
+    <div class="hidden w-72 flex-col md:flex">
+      <span class="py-1 text-sm">Preview</span>
       <div class="overflow-hidden rounded-2xl bg-neutral shadow-xl">
         <div
           class="flex h-10 bg-info bg-cover bg-center"
@@ -160,7 +162,7 @@
               </div>
             </div>
           </div>
-          <p class="whitespace-pre-line text-sm">
+          <p class="whitespace-pre-line break-words text-sm">
             {introduction_data.description || 'Community description'}
           </p>
         </div>
