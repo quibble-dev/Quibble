@@ -26,7 +26,7 @@
     }
     // update state
     update_forms_state('topics', {
-      valid: selected_topics.length >= 3,
+      valid: selected_topics.length >= 1,
       data: { topics: [...selected_topics] }
     });
   }

@@ -92,7 +92,8 @@
         {form_step === 'start' ? 'Cancel' : 'Back'}
       </button>
       <button
-        class={cn(!is_valid && 'btn-active pointer-events-none', 'btn btn-primary')}
+        class="btn btn-primary"
+        disabled={!is_valid}
         onclick={() => {
           if (form_step === 'end') {
             // community creation logic goes here
