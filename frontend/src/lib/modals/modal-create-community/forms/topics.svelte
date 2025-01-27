@@ -11,10 +11,30 @@
 
   let { forms_state, update_forms_state }: FormProps<typeof forms> = $props();
 
-  let topics = $state<Topic[]>(topics_data);
+  let filter_input_value = $state('');
   let selected_topics = $state<Topic['topics']>(
     (forms_state.topics as { data: { topics: Topic['topics'] } }).data.topics ?? []
   );
+
+  let topics = $derived.by<Topic[]>(() => {
+    const value = filter_input_value.toLowerCase();
+    // https://stackoverflow.com/a/41543705/26860113
+    const emoji_regex = /([\uE000-\uF8FF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDDFF])/g;
+
+    function normalize_str(str: string) {
+      return str.replace(emoji_regex, '').trim().toLowerCase();
+    }
+
+    function filter_str(str: string) {
+      return normalize_str(str)
+        .split(' ')
+        .some((s) => s.startsWith(value));
+    }
+
+    return topics_data.filter(
+      (topic) => filter_str(topic.category) || topic.topics.some(filter_str)
+    );
+  });
 
   function handle_toggle_select_topic(topic: string) {
     // remove topic if already selected
@@ -30,26 +50,6 @@
       data: { topics: [...selected_topics] }
     });
   }
-
-  function handle_filter_input(e: Event) {
-    const value = (e.target as HTMLInputElement).value.toLowerCase();
-    // https://stackoverflow.com/a/41543705/26860113
-    const emoji_regex = /([\uE000-\uF8FF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDDFF])/g;
-
-    function normalize_str(str: string) {
-      return str.replace(emoji_regex, '').trim().toLowerCase();
-    }
-
-    function filter_str(str: string) {
-      return normalize_str(str)
-        .split(' ')
-        .some((s) => s.startsWith(value));
-    }
-
-    topics = topics_data.filter(
-      (topic) => filter_str(topic.category) || topic.topics.some(filter_str)
-    );
-  }
 </script>
 
 <div class="flex flex-col gap-4">
@@ -58,14 +58,22 @@
     <p class="text-sm">Select up to 3 topics that represent what your community is about.</p>
   </div>
   <div class="flex flex-col gap-2">
-    <label class="input input-bordered relative flex h-10 items-center px-3">
+    <label class="input input-bordered relative flex h-10 items-center bg-transparent pl-3 pr-1.5">
       <coreicons-shape-search class="size-5"></coreicons-shape-search>
       <input
+        bind:value={filter_input_value}
         type="text"
         class="grow border-none text-sm font-medium focus:ring-0"
         placeholder="Filter topics..."
-        oninput={handle_filter_input}
       />
+      <button
+        class="btn btn-square btn-ghost btn-xs"
+        aria-label="Clear topic filters"
+        disabled={filter_input_value.length === 0}
+        onclick={() => (filter_input_value = '')}
+      >
+        <coreicons-shape-x class="size-4" variant="no-border"></coreicons-shape-x>
+      </button>
     </label>
     <div class="flex items-center gap-2">
       <span class="text-sm font-medium">Topics {selected_topics.length}/3:</span>
