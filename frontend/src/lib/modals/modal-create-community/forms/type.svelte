@@ -4,9 +4,13 @@
   import forms from '../forms';
   import { untrack } from 'svelte';
 
+  type Type = keyof typeof type_mapping;
+
   let { update_forms_state, forms_state }: FormProps<typeof forms> = $props();
 
-  let checked_type = $state<keyof typeof type_mapping>('public');
+  let checked_type = $state<Type>(
+    (forms_state.type as { data: { type: Type } }).data.type ?? 'public'
+  );
 
   const type_mapping = {
     public: {
