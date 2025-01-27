@@ -1,5 +1,10 @@
 <script lang="ts">
   import { cn } from '$lib/functions/classnames';
+  import type { FormProps } from '$lib/modals/types';
+  import forms from '../forms';
+  import { untrack } from 'svelte';
+
+  let { update_forms_state, forms_state }: FormProps<typeof forms> = $props();
 
   let checked_type = $state<keyof typeof type_mapping>('public');
 
@@ -20,6 +25,16 @@
       icon: '<coreicons-shape-lock class="flex-shrink-0 size-4 md:size-5"></coreicons-shape-lock>'
     }
   };
+
+  $effect(() => {
+    const type = checked_type;
+    untrack(() =>
+      update_forms_state('type', {
+        valid: true,
+        data: { type }
+      })
+    );
+  });
 </script>
 
 <div class="flex flex-col gap-4">
