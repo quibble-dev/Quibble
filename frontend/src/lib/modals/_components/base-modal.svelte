@@ -25,7 +25,7 @@
 </script>
 
 <dialog bind:this={dialog_el} class="modal modal-bottom px-4 sm:modal-middle" {onclose}>
-  <div class={cn(klass, 'modal-box bg-base-300 duration-300')}>
+  <div class={cn(klass, 'borders modal-box border-neutral bg-base-300 duration-300')}>
     {@render children()}
   </div>
   <form method="dialog" class="modal-backdrop">

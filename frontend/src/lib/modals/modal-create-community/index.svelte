@@ -10,8 +10,8 @@
 
   const modalsStore = createModalsStore();
 
-  const form_history = create_form_history<typeof forms>('topics');
-  let form = $derived(forms[form_history.history.at(-1) ?? 'topics']);
+  const form_history = create_form_history<typeof forms>('introduction');
+  let form = $derived(forms[form_history.history.at(-1) ?? 'introduction']);
 
   const form_keys = Object.keys(forms);
   const form_step = $derived.by<'start' | 'middle' | 'end'>(() => {
