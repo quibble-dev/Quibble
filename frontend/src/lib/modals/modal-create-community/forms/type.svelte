@@ -56,6 +56,7 @@
       <div class={cn(checked && 'bg-base-200 ring-1', 'form-control rounded-xl p-3 ring-neutral')}>
         <label class="label cursor-pointer gap-2 p-0">
           <div class="flex items-center gap-3">
+            <!-- eslint-disable svelte/no-at-html-tags -->
             {@html item.icon}
             <div class="flex flex-col">
               <span class="label-text font-medium text-info">{item.label}</span>
