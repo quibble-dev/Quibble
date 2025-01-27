@@ -9,10 +9,12 @@
     topics: Array<string>;
   };
 
-  let { forms_state }: FormProps<typeof forms> = $props();
+  let { forms_state, update_forms_state }: FormProps<typeof forms> = $props();
 
   let topics = $state<Topic[]>(topics_data);
-  let selected_topics = $state<Topic['topics']>([]);
+  let selected_topics = $state<Topic['topics']>(
+    (forms_state.topics as { data: { topics: Topic['topics'] } }).data.topics ?? []
+  );
 
   function handle_toggle_select_topic(topic: string) {
     // remove topic if already selected
@@ -22,6 +24,11 @@
       if (selected_topics.length >= 3) return;
       selected_topics = [...selected_topics, topic];
     }
+    // update state
+    update_forms_state('topics', {
+      valid: selected_topics.length >= 3,
+      data: { topics: [...selected_topics] }
+    });
   }
 
   function handle_filter_input(e: Event) {
@@ -29,16 +36,20 @@
     // https://stackoverflow.com/a/41543705/26860113
     const emoji_regex = /([\uE000-\uF8FF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDDFF])/g;
 
+    function normalize_str(str: string) {
+      return str.replace(emoji_regex, '').trim().toLowerCase();
+    }
+
+    function filter_str(str: string) {
+      return normalize_str(str)
+        .split(' ')
+        .some((s) => s.startsWith(value));
+    }
+
     topics = topics_data.filter(
-      (t) =>
-        t.category.replace(emoji_regex, '').trim().toLowerCase().startsWith(value) ||
-        t.topics.some((topic) => topic.toLowerCase().startsWith(value))
+      (topic) => filter_str(topic.category) || topic.topics.some(filter_str)
     );
   }
-
-  $effect(() => {
-    console.log(forms_state);
-  });
 </script>
 
 <div class="flex flex-col gap-4">
