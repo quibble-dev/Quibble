@@ -1,17 +1,18 @@
 <script lang="ts">
-  import topics from '$lib/data/topics.json';
+  import topics_data from '$lib/data/topics.json';
   import { cn } from '$lib/functions/classnames';
   import type { FormProps } from '../../types';
   import forms from '../forms';
 
-  type Topics = Array<{
+  type Topic = {
     category: string;
     topics: Array<string>;
-  }>;
+  };
 
   let { forms_state }: FormProps<typeof forms> = $props();
 
-  let selected_topics = $state<Topics[number]['topics']>([]);
+  let topics = $state<Topic[]>(topics_data);
+  let selected_topics = $state<Topic['topics']>([]);
 
   function handle_toggle_select_topic(topic: string) {
     // remove topic if already selected
@@ -21,6 +22,12 @@
       if (selected_topics.length >= 3) return;
       selected_topics.push(topic);
     }
+  }
+
+  function handle_filter_input(e: Event) {
+    const _topics: Topic[] = [...topics_data];
+    const value = (e.target as HTMLInputElement).value;
+    topics = _topics.filter((t) => t.topics.some((topic) => topic.toLowerCase().startsWith(value)));
   }
 
   $effect(() => {
@@ -40,6 +47,7 @@
         type="text"
         class="grow border-none text-sm font-medium focus:ring-0"
         placeholder="Filter topics..."
+        oninput={handle_filter_input}
       />
     </label>
     <div class="flex items-center gap-2">
@@ -56,7 +64,7 @@
     </div>
   </div>
   <div class="flex max-h-64 flex-col gap-4 overflow-scroll pr-2">
-    {#each topics as Topics as t}
+    {#each topics as t}
       <div class="flex flex-col gap-2">
         <span class="text-sm font-medium">{t.category}</span>
         <div class="flex flex-wrap items-center gap-2">
