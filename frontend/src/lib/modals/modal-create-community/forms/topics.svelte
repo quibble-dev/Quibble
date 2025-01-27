@@ -20,14 +20,20 @@
       selected_topics = selected_topics.filter((t) => t !== topic);
     } else {
       if (selected_topics.length >= 3) return;
-      selected_topics.push(topic);
+      selected_topics = [...selected_topics, topic];
     }
   }
 
   function handle_filter_input(e: Event) {
-    const _topics: Topic[] = [...topics_data];
-    const value = (e.target as HTMLInputElement).value;
-    topics = _topics.filter((t) => t.topics.some((topic) => topic.toLowerCase().startsWith(value)));
+    const value = (e.target as HTMLInputElement).value.toLowerCase();
+    // https://stackoverflow.com/a/41543705/26860113
+    const emoji_regex = /([\uE000-\uF8FF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDDFF])/g;
+
+    topics = topics_data.filter(
+      (t) =>
+        t.category.replace(emoji_regex, '').trim().toLowerCase().startsWith(value) ||
+        t.topics.some((topic) => topic.toLowerCase().startsWith(value))
+    );
   }
 
   $effect(() => {
