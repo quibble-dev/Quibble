@@ -71,7 +71,9 @@
           <span class="label-text">Name*</span>
           <span class="label-text-alt">{introduction_data.name?.length ?? 0}/25</span>
         </div>
-        <label class="input input-bordered flex h-10 items-center gap-2 text-sm font-medium">
+        <label
+          class="input input-bordered flex h-10 items-center gap-2 bg-transparent text-sm font-medium"
+        >
           q/
           <input
             bind:value={introduction_data.name}
@@ -94,7 +96,7 @@
         <textarea
           bind:value={introduction_data.description}
           use:autosize
-          class="textarea textarea-bordered max-h-40 min-h-[5.5rem] leading-normal"
+          class="textarea textarea-bordered max-h-40 min-h-[5.5rem] bg-transparent leading-normal"
           placeholder="Tell something nice about your community..."
           maxlength={255}
           oninput={handle_input}
@@ -106,7 +108,7 @@
     </div>
     <div class="hidden w-72 flex-col md:flex">
       <span class="py-1 text-sm">Preview</span>
-      <div class="overflow-hidden rounded-2xl bg-neutral shadow-xl">
+      <div class="overflow-hidden rounded-2xl bg-base-100">
         <div
           class="flex h-10 bg-info bg-cover bg-center"
           style="background-image: url({introduction_data.cover});"
