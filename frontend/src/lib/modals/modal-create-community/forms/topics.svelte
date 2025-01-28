@@ -63,7 +63,7 @@
       <input
         bind:value={filter_input_value}
         type="text"
-        class="grow border-none text-sm font-medium focus:ring-0"
+        class="grow border-none px-2 text-sm font-medium placeholder:opacity-50 focus:ring-0"
         placeholder="Filter topics..."
       />
       <button

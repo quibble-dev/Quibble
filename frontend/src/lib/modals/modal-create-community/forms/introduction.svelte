@@ -78,7 +78,7 @@
           <input
             bind:value={introduction_data.name}
             type="text"
-            class="grow border-none p-0 text-sm focus:ring-0"
+            class="grow border-none p-0 text-sm placeholder:opacity-50 focus:ring-0"
             placeholder="eg: quibble"
             maxlength={25}
             oninput={(e) => {
@@ -96,7 +96,7 @@
         <textarea
           bind:value={introduction_data.description}
           use:autosize
-          class="textarea textarea-bordered max-h-40 min-h-[5.5rem] bg-transparent leading-normal"
+          class="textarea textarea-bordered max-h-40 min-h-[5.5rem] bg-transparent leading-normal placeholder:opacity-50"
           placeholder="Tell something nice about your community..."
           maxlength={255}
           oninput={handle_input}
