@@ -8,6 +8,9 @@
 
   let { update_forms_state, forms_state }: FormProps<typeof forms> = $props();
 
+  let checked_mature = $state<boolean>(
+    (forms_state.type as { data: { mature: boolean } }).data.mature ?? false
+  );
   let checked_type = $state<Type>(
     (forms_state.type as { data: { type: Type } }).data.type ?? 'public'
   );
@@ -32,10 +35,11 @@
 
   $effect(() => {
     const type = checked_type;
+    const mature = checked_mature;
     untrack(() =>
       update_forms_state('type', {
         valid: true,
-        data: { type }
+        data: { type, mature }
       })
     );
   });
@@ -78,12 +82,12 @@
     {/each}
   </div>
   <div class="divider my-0 h-max before:h-px after:h-px"></div>
-
   <div class="form-control">
     <label class="label size-full cursor-pointer gap-2 p-0 p-3">
       <div class="flex items-center gap-3">
         <!-- eslint-disable svelte/no-at-html-tags -->
-        <coreicons-shape-users class="size-5"></coreicons-shape-users>
+        <coreicons-shape-users class="size-5" class:text-accent={checked_mature}
+        ></coreicons-shape-users>
         <div class="flex flex-col">
           <span class="label-text font-medium text-info">Mature (18+)</span>
           <span class="text-xs text-base-content/75"
@@ -91,7 +95,20 @@
           >
         </div>
       </div>
-      <input type="checkbox" class="toggle toggle-accent toggle-sm" />
+      <input type="checkbox" class="toggle toggle-accent toggle-sm" bind:checked={checked_mature} />
     </label>
   </div>
+  <span class="flex items-start gap-2 text-sm">
+    <coreicons-shape-info class="mt-0.5 size-4"></coreicons-shape-info>
+    <p class="text-base-content/75">
+      By continuing, you agree to our <a
+        href="/policies/moderator-code-of-conduct"
+        class="text-base-content underline"
+      >
+        Mod Code of Conduct
+      </a>
+      and acknowledge that you understand the
+      <a href="/policies/quibble-rules" class="text-base-content underline">Quibble Rules</a>.
+    </p>
+  </span>
 </div>
