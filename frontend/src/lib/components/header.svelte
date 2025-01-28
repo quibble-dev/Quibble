@@ -67,7 +67,7 @@
       {/if}
       <input
         type="text"
-        class="grow border-none text-sm font-medium focus:ring-0"
+        class="grow border-none px-2 text-sm font-medium focus:ring-0"
         placeholder={show_search_in_community ? `Search in q/${page.params.name}` : 'Search...'}
       />
     </label>

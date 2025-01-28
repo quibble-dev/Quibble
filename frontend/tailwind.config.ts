@@ -1,7 +1,7 @@
-import innerBorder from '@quibble-dev/tailwindcss-inner-border';
-import aspectRatio from '@tailwindcss/aspect-ratio';
+import inner_border from '@quibble-dev/tailwindcss-inner-border';
+import aspect_ratio from '@tailwindcss/aspect-ratio';
 import daisyui from 'daisyui';
-import tailwindScroll from 'tailwind-scrollbar';
+import tailwind_scrollbar from 'tailwind-scrollbar';
 import type { Config } from 'tailwindcss';
 
 export default {
@@ -20,5 +20,5 @@ export default {
     logs: false
   },
 
-  plugins: [aspectRatio, daisyui, tailwindScroll, innerBorder]
+  plugins: [aspect_ratio, daisyui, tailwind_scrollbar, inner_border]
 } satisfies Config;

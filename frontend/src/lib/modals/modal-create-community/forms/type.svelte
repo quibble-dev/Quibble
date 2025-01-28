@@ -68,8 +68,8 @@
           <input
             type="radio"
             name="type"
-            class="radio radio-sm bg-transparent checked:bg-accent checked:hover:bg-accent
-            checked:focus:bg-accent"
+            class="radio radio-sm"
+            class:radio-accent={checked}
             bind:group={checked_type}
             value={key}
           />
