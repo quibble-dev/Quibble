@@ -75,11 +75,11 @@
         <coreicons-shape-x class="size-4" variant="no-border"></coreicons-shape-x>
       </button>
     </label>
-    <div class="flex items-center gap-2">
+    <div class="flex flex-wrap items-center gap-2">
       <span class="text-sm font-medium">Topics {selected_topics.length}/3:</span>
       {#each selected_topics as topic}
         <button
-          class="btn btn-ghost btn-active btn-sm"
+          class="btn btn-ghost btn-active btn-xs md:btn-sm"
           onclick={() => handle_toggle_select_topic(topic)}
         >
           {topic}
@@ -99,7 +99,7 @@
             <button
               class={cn(
                 is_selected ? 'btn-info' : 'bg-base-content/10 hover:btn-ghost',
-                'btn btn-sm border-none'
+                'btn btn-xs border-none md:btn-sm'
               )}
               onclick={() => handle_toggle_select_topic(topic)}
             >

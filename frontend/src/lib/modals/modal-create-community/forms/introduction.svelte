@@ -64,7 +64,7 @@
       Give your community a name and a description that reflects its purpose and vibe.
     </p>
   </div>
-  <form class="flex items-start gap-6">
+  <form class="flex flex-col-reverse items-start gap-2 md:flex-row md:gap-6">
     <div class="flex w-full flex-1 flex-col gap-2">
       <label class="form-control">
         <div class="label py-1">
@@ -106,8 +106,8 @@
         <ZodErrors {errors} />
       {/if}
     </div>
-    <div class="hidden w-72 flex-col gap-2 md:flex">
-      <div class="grid grid-cols-2 gap-2">
+    <div class="flex flex-col-reverse gap-2 md:w-72 md:flex-col">
+      <div class="grid grid-cols-2 gap-4 md:gap-2">
         <label class="form-control">
           <div class="label py-1">
             <span class="label-text">Avatar</span>
@@ -140,10 +140,10 @@
           <div class="flex items-center gap-4">
             <Avatar
               src={introduction_data.avatar}
-              class="size-14 flex-shrink-0 !bg-base-content/15"
+              class="size-12 flex-shrink-0 !bg-base-content/15 md:size-14"
             />
             <div class="flex flex-col">
-              <span class="break-all text-lg font-semibold text-info"
+              <span class="break-all text-base font-semibold text-info md:text-lg"
                 >q/{introduction_data.name || 'communityname'}</span
               >
               <div class="flex items-center gap-2">
