@@ -53,11 +53,13 @@
     {#each Object.entries(type_mapping) as [key, item]}
       {@const checked = checked_type === key}
 
-      <div class={cn(checked && 'bg-base-200 ring-1', 'form-control rounded-xl p-3 ring-neutral')}>
-        <label class="label cursor-pointer gap-2 p-0">
+      <div class={cn(checked && 'bg-base-200 ring-1', 'form-control rounded-xl ring-neutral')}>
+        <label class="label size-full cursor-pointer gap-2 p-0 p-3">
           <div class="flex items-center gap-3">
             <!-- eslint-disable svelte/no-at-html-tags -->
-            {@html item.icon}
+            <span class:text-accent={checked}>
+              {@html item.icon}
+            </span>
             <div class="flex flex-col">
               <span class="label-text font-medium text-info">{item.label}</span>
               <span class="text-xs text-base-content/75">{item.description}</span>
@@ -66,12 +68,30 @@
           <input
             type="radio"
             name="type"
-            class="radio radio-sm bg-transparent checked:bg-accent"
+            class="radio radio-sm bg-transparent checked:bg-accent checked:hover:bg-accent
+            checked:focus:bg-accent"
             bind:group={checked_type}
             value={key}
           />
         </label>
       </div>
     {/each}
+  </div>
+  <div class="divider my-0 h-max before:h-px after:h-px"></div>
+
+  <div class="form-control">
+    <label class="label size-full cursor-pointer gap-2 p-0 p-3">
+      <div class="flex items-center gap-3">
+        <!-- eslint-disable svelte/no-at-html-tags -->
+        <coreicons-shape-users class="size-5"></coreicons-shape-users>
+        <div class="flex flex-col">
+          <span class="label-text font-medium text-info">Mature (18+)</span>
+          <span class="text-xs text-base-content/75"
+            >Users must be over 18 to view and contribute</span
+          >
+        </div>
+      </div>
+      <input type="checkbox" class="toggle toggle-accent toggle-sm" />
+    </label>
   </div>
 </div>
