@@ -1,32 +1,16 @@
 import { browser } from '$app/environment';
-
-type Post = {
-  id: string;
-  community: {
-    avatar?: string | null | undefined;
-    name: string;
-  };
-  title: string;
-  slug?: string | undefined;
-  cover?: string | null | undefined;
-  upvotes?: number[] | undefined;
-  comments?: number[] | undefined;
-};
-
-interface IRecentPost extends Post {
-  timestamp: Date;
-}
+import type { Post, RecentPost } from '../types/recent-post.type';
 
 const stored_recent_posts = browser ? localStorage.getItem('recent_posts') : null;
-const parsed_recent_posts: IRecentPost[] = stored_recent_posts
+const parsed_recent_posts: RecentPost[] = stored_recent_posts
   ? // convert string to Date object
-    (JSON.parse(stored_recent_posts) as IRecentPost[]).map((q) => ({
+    (JSON.parse(stored_recent_posts) as RecentPost[]).map((q) => ({
       ...q,
       timestamp: new Date(q.timestamp)
     }))
   : [];
 
-let recent_posts = $state<IRecentPost[]>(parsed_recent_posts);
+let recent_posts = $state<RecentPost[]>(parsed_recent_posts);
 
 function sync_to_localstorage() {
   if (browser) {
@@ -43,7 +27,7 @@ function sync_to_localstorage() {
   }
 }
 
-function get_sorted_recent_posts(input: IRecentPost) {
+function get_sorted_recent_posts(input: RecentPost) {
   return [...recent_posts, input].sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
 }
 

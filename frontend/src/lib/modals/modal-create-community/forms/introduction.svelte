@@ -118,7 +118,7 @@
 
     <!-- right column: avatar and banner -->
     <div class="flex flex-col-reverse gap-2 md:w-72 md:flex-col">
-      <!-- File Inputs -->
+      <!-- file inputs -->
       <div class="grid grid-cols-2 gap-4 md:gap-2">
         <label class="form-control">
           <div class="label py-1">

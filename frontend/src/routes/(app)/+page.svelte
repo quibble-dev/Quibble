@@ -3,9 +3,9 @@
   import { toast } from '$lib/components/ui/toast/toast.svelte';
   import Quibble4042 from '$lib/components/vectors/quibble-404-2.svelte';
   import { PostCard, PostsHeader } from '$lib/features/posts';
+  import { createRecentPostsStore } from '$lib/features/posts/features/posts/stores/recent-posts.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';
-  import { createRecentPostsStore } from '$lib/stores/recent-posts.svelte';
   import type { PageData } from './$types';
   import readable from 'readable-numbers';
 
@@ -25,18 +25,24 @@
   }
 </script>
 
+<!-- site head and seo -->
 <svelte:head>
   <title>Quibble - Delve into real conversations.</title>
 </svelte:head>
 
 <div class="flex h-max flex-1 flex-col gap-4 p-4">
+  <!-- posts header: filter and change layout type -->
   <PostsHeader />
+
+  <!-- list posts section -->
   <div class="flex flex-1 flex-col gap-4">
+    <!-- if posts available -->
     {#if data.posts && data.posts.length}
       {#each data.posts as post}
         <PostCard {...post} />
       {/each}
     {:else}
+      <!-- if not available: render fallback -->
       <div class="mt-5 flex flex-1 items-end justify-center gap-5">
         <Quibble4042 class="h-auto w-28" />
         <div class="flex flex-col">
@@ -55,12 +61,15 @@
     {/if}
   </div>
 </div>
+
+<!-- fixed shared sidebar for recent posts -->
 <div class="hidden w-80 md:flex">
-  <!-- fixed shared sidebar for recent posts -->
   <div
     class="fixed top-[3.75rem] flex h-[calc(100dvh-3.75rem)] w-72 flex-col gap-4 overflow-y-scroll p-4 scrollbar-none"
   >
     <h2 class="font-medium">Recent Posts</h2>
+
+    <!-- render recent posts from localstorage -->
     <div class="flex flex-col gap-4">
       {#if recentPostsStore.state.length}
         {#each recentPostsStore.state as post}
@@ -102,6 +111,7 @@
           </div>
         {/each}
       {:else}
+        <!-- fallback content if there are no recent posts -->
         <div class="flex flex-col">
           <span class="text-lg font-medium">&gt;_&lt;</span>
           <span class="text-sm">Nothing here yet—go find a Post!</span>

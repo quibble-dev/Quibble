@@ -42,13 +42,19 @@
 <Toaster />
 <!-- render available models -->
 <Modals />
+
+<!-- main ui layout -->
 <main class="flex h-dvh w-dvw flex-col font-sans">
+  <!-- header section -->
   <Header on_menu_click={toggle_show_sidebar} />
+
+  <!-- main body section -->
   <section class="mt-[3.75rem] flex">
     <!-- sidebar for medium screens -->
     <div class="hidden w-72 md:flex">
       <Sidebar />
     </div>
+
     <!-- sidebar for small screens with transition -->
     <div
       class="fixed left-0 top-[3.75rem] z-50 flex h-[calc(100dvh-3.75rem)] w-72 transform transition-transform duration-300 md:hidden"
@@ -58,6 +64,7 @@
     >
       <Sidebar />
     </div>
+
     <!-- background clicker to toggle show_sidebar state (small screens) -->
     <button
       onclick={toggle_show_sidebar}
@@ -67,6 +74,8 @@
       )}
       aria-label="toggle sidebar"
     ></button>
+
+    <!-- render children content -->
     <div class="mx-auto flex flex-1 xl:max-w-6xl">
       {@render children()}
     </div>
