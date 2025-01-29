@@ -10,7 +10,7 @@
     name: z
       .string()
       .min(3)
-      .regex(/^[a-zA-Z0-9_]+$/, { message: 'Only letters, numbers and underscore are allowed' }),
+      .regex(/^[a-zA-Z0-9_]+$/, { message: 'Only letters, numbers, and underscores are allowed' }),
     description: z.string().min(1)
   });
 
@@ -32,14 +32,14 @@
 
   function handle_file_change(e: Event, type: 'avatar' | 'banner') {
     const file = (e.target as HTMLInputElement).files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        if (type === 'avatar') introduction_data.avatar = String(reader.result);
-        if (type === 'banner') introduction_data.banner = String(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (type === 'avatar') introduction_data.avatar = String(reader.result);
+      if (type === 'banner') introduction_data.banner = String(reader.result);
+    };
+    reader.readAsDataURL(file);
   }
 
   function handle_input() {
@@ -51,21 +51,26 @@
     errors = result.error?.errors;
 
     update_forms_state('introduction', {
-      valid: errors === undefined,
+      valid: !errors,
       data: { ...introduction_data }
     });
   }
 </script>
 
 <div class="flex flex-col gap-4">
+  <!-- header section -->
   <div class="flex flex-col gap-2">
     <h3 class="text-xl font-semibold text-info">Introduce your community</h3>
     <p class="text-sm">
       Give your community a name and a description that reflects its purpose and vibe.
     </p>
   </div>
+
+  <!-- form section -->
   <form class="flex flex-col-reverse items-start gap-2 md:flex-row md:gap-6">
+    <!-- left column: input fields -->
     <div class="flex w-full flex-1 flex-col gap-2">
+      <!-- name input -->
       <label class="form-control">
         <div class="label py-1">
           <span class="label-text">Name*</span>
@@ -88,6 +93,8 @@
           />
         </label>
       </label>
+
+      <!-- description input -->
       <label class="form-control">
         <div class="label py-1">
           <span class="label-text">Description*</span>
@@ -102,11 +109,16 @@
           oninput={handle_input}
         ></textarea>
       </label>
+
+      <!-- display zod errors -->
       {#if errors}
         <ZodErrors {errors} />
       {/if}
     </div>
+
+    <!-- right column: avatar and banner -->
     <div class="flex flex-col-reverse gap-2 md:w-72 md:flex-col">
+      <!-- File Inputs -->
       <div class="grid grid-cols-2 gap-4 md:gap-2">
         <label class="form-control">
           <div class="label py-1">
@@ -114,8 +126,7 @@
           </div>
           <input
             type="file"
-            class="file-input file-input-bordered file-input-xs bg-transparent
-            file:border-none file:bg-base-100"
+            class="file-input file-input-bordered file-input-xs bg-transparent file:border-none file:bg-base-100"
             onchange={(e) => handle_file_change(e, 'avatar')}
           />
         </label>
@@ -125,12 +136,13 @@
           </div>
           <input
             type="file"
-            class="file-input file-input-bordered file-input-xs bg-transparent
-            file:border-none file:bg-base-100"
+            class="file-input file-input-bordered file-input-xs bg-transparent file:border-none file:bg-base-100"
             onchange={(e) => handle_file_change(e, 'banner')}
           />
         </label>
       </div>
+
+      <!-- preview section -->
       <div class="overflow-hidden rounded-2xl bg-base-100">
         <div
           class="flex h-10 bg-info bg-cover bg-center"
@@ -143,9 +155,9 @@
               class="size-12 flex-shrink-0 !bg-base-content/15 md:size-14"
             />
             <div class="flex flex-col">
-              <span class="break-all text-base font-semibold text-info md:text-lg"
-                >q/{introduction_data.name || 'communityname'}</span
-              >
+              <span class="break-all text-base font-semibold text-info md:text-lg">
+                q/{introduction_data.name || 'communityname'}
+              </span>
               <div class="flex items-center gap-2">
                 <span class="text-xs">1 member</span>
                 <coreicons-shape-circle class="size-0.5" variant="filled"></coreicons-shape-circle>

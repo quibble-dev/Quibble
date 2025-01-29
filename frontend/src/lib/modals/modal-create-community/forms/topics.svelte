@@ -53,11 +53,15 @@
 </script>
 
 <div class="flex flex-col gap-4">
+  <!-- header section -->
   <div class="flex flex-col gap-2">
     <h3 class="text-xl font-semibold text-info">Choose topics</h3>
     <p class="text-sm">Select up to 3 topics that represent what your community is about.</p>
   </div>
+
+  <!-- topics section -->
   <div class="flex flex-col gap-2">
+    <!-- filter topics input -->
     <label class="input input-bordered relative flex h-10 items-center bg-transparent pl-3 pr-1.5">
       <coreicons-shape-search class="size-5"></coreicons-shape-search>
       <input
@@ -66,15 +70,18 @@
         class="grow border-none px-2 text-sm font-medium placeholder:opacity-50 focus:ring-0"
         placeholder="Filter topics..."
       />
+      <!-- clear filter button -->
       <button
         class="btn btn-square btn-ghost btn-xs"
-        aria-label="Clear topic filters"
+        aria-label="clear topic filters"
         disabled={filter_input_value.length === 0}
         onclick={() => (filter_input_value = '')}
       >
         <coreicons-shape-x class="size-4" variant="no-border"></coreicons-shape-x>
       </button>
     </label>
+
+    <!-- list selected topics section -->
     <div class="flex flex-wrap items-center gap-2">
       <span class="text-sm font-medium">Topics {selected_topics.length}/3:</span>
       {#each selected_topics as topic}
@@ -88,14 +95,19 @@
       {/each}
     </div>
   </div>
+
+  <!-- list available topics section -->
   <div class="flex max-h-64 flex-col gap-4 overflow-scroll pr-2">
     {#each topics as t}
       <div class="flex flex-col gap-2">
+        <!-- category title -->
         <span class="text-sm font-medium">{t.category}</span>
         <div class="flex flex-wrap items-center gap-2">
           {#each t.topics as topic}
+            <!-- check if topic is selected -->
             {@const is_selected = selected_topics.includes(topic)}
 
+            <!-- topic button -->
             <button
               class={cn(
                 is_selected ? 'btn-info' : 'bg-base-content/10 hover:btn-ghost',
@@ -104,6 +116,7 @@
               onclick={() => handle_toggle_select_topic(topic)}
             >
               {topic}
+              <!-- show remove icon if selected -->
               {#if is_selected}
                 <coreicons-shape-x variant="circle" class="size-4"></coreicons-shape-x>
               {/if}

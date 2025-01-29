@@ -53,9 +53,12 @@
   onclose={handle_modal_close}
   class="flex max-w-[25rem] flex-col gap-4 md:max-w-[45rem]"
 >
+  <!-- async form rendering -->
   {#await form then Form}
     <Form.default {forms_state} {update_forms_state} {goto_form} />
   {/await}
+
+  <!-- close button for the modal -->
   <button
     class="btn btn-square btn-circle btn-ghost btn-sm absolute right-2.5 top-2.5"
     aria-label="Close modal"
@@ -63,7 +66,10 @@
   >
     <coreicons-shape-x class="size-5" variant="no-border"></coreicons-shape-x>
   </button>
+
+  <!-- form navigation and actions -->
   <div class="flex items-center justify-between">
+    <!-- form step indicators -->
     <div class="flex items-center gap-2">
       {#each Object.keys(forms) as _form}
         {@const is_active = _form === form_history.history.at(-1)}
@@ -77,6 +83,8 @@
         ></button>
       {/each}
     </div>
+
+    <!-- back and next/cancel buttons -->
     <div class="flex items-center gap-2">
       <button
         class="btn btn-ghost"

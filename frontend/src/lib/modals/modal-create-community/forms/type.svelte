@@ -47,6 +47,7 @@
 </script>
 
 <div class="flex flex-col gap-4">
+  <!-- community type selection section -->
   <div class="flex flex-col gap-2">
     <h3 class="text-xl font-semibold text-info">Set your community type</h3>
     <p class="text-sm">
@@ -54,6 +55,8 @@
       private ones are invite-only.
     </p>
   </div>
+
+  <!-- dynamic radio buttons for community types -->
   <div class="flex flex-col">
     {#each Object.entries(type_mapping) as [key, item]}
       {@const checked = checked_type === key}
@@ -82,16 +85,20 @@
       </div>
     {/each}
   </div>
+
+  <!-- divider between sections -->
   <div class="divider my-0 h-max before:h-px after:h-px"></div>
+
+  <!-- mature content toggle section -->
   <div class="form-control">
     <label class="label size-full cursor-pointer gap-2 p-0 p-3">
       <div class="flex items-center gap-3">
         <EighteenPlusIcon class={cn(checked_mature && 'text-accent', 'size-5')} />
         <div class="flex flex-col">
           <span class="label-text font-medium text-info">Mature (18+)</span>
-          <span class="text-xs text-base-content/75"
-            >Users must be over 18 to view and contribute</span
-          >
+          <span class="text-xs text-base-content/75">
+            Users must be over 18 to view and contribute
+          </span>
         </div>
       </div>
       <input
@@ -101,11 +108,11 @@
       />
     </label>
   </div>
+
+  <!-- footer with links to policies -->
   <span class="text-sm text-base-content/75">
-    By continuing, you agree to our <a
-      href="/policies/moderator-code-of-conduct"
-      class="text-base-content underline"
-    >
+    By continuing, you agree to our
+    <a href="/policies/moderator-code-of-conduct" class="text-base-content underline">
       Mod Code of Conduct
     </a>
     and acknowledge that you understand the
