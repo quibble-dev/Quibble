@@ -13,6 +13,6 @@ export interface RecentPost {
   comments?: number[];
 }
 
-export type RecentPostWithTimestamp = RecentPost & {
+export interface RecentPostWithTimestamp extends RecentPost {
   timestamp: Date;
-};
+}

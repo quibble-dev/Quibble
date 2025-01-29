@@ -1,5 +1,5 @@
 import { browser } from '$app/environment';
-import type { RecentPost, RecentPostWithTimestamp } from '../types/recent-post';
+import type { RecentPost, RecentPostWithTimestamp } from '../types/recent-post.type';
 
 const stored_recent_post = browser ? localStorage.getItem('recent-post-store') : null;
 const parsed_recent_post: RecentPostWithTimestamp[] = stored_recent_post
