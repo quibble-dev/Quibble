@@ -7,7 +7,7 @@
   import BackdropImage from '$lib/components/ui/backdrop-image.svelte';
   import Zoom from '$lib/components/ui/zoom.svelte';
   import { CommentBlock } from '$lib/features/comments';
-  import { createRecentPostsStore } from '$lib/features/posts/stores/recent-posts.svelte';
+  import { createRecentPostStore } from '$lib/features/posts/stores/recent-post.svelte';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
   import { is_valid } from '$lib/functions/is-valid';
@@ -20,7 +20,7 @@
   const { post, comments } = data;
 
   const authStore = createAuthStore();
-  const recentPostsStore = createRecentPostsStore();
+  const recentPostStore = createRecentPostStore();
 
   const is_upvoted = $derived.by(check_if_upvoted);
   function check_if_upvoted() {
@@ -52,7 +52,7 @@
   }
 
   onMount(() => {
-    recentPostsStore.add_post({
+    recentPostStore.add_post({
       id: post.id,
       community: post.community,
       title: post.title,

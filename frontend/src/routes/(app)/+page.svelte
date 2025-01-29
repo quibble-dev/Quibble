@@ -3,7 +3,7 @@
   import { toast } from '$lib/components/ui/toast/toast.svelte';
   import Quibble4042 from '$lib/components/vectors/quibble-404-2.svelte';
   import { PostCard, PostsHeader } from '$lib/features/posts';
-  import { createRecentPostsStore } from '$lib/features/posts/features/posts/stores/recent-posts.svelte';
+  import { createRecentPostStore } from '$lib/features/posts/stores/recent-post.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';
   import type { PageData } from './$types';
@@ -11,7 +11,7 @@
 
   const { data }: { data: PageData } = $props();
 
-  const recentPostsStore = createRecentPostsStore(),
+  const recentPostStore = createRecentPostStore(),
     authStore = createAuthStore(),
     modalsStore = createModalsStore();
 
@@ -71,8 +71,8 @@
 
     <!-- render recent posts from localstorage -->
     <div class="flex flex-col gap-4">
-      {#if recentPostsStore.state.length}
-        {#each recentPostsStore.state as post}
+      {#if recentPostStore.state.length}
+        {#each recentPostStore.state as post}
           <!-- recent post component -->
           <div class="flex flex-col gap-2">
             <div class="flex justify-between gap-2">
