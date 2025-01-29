@@ -1,6 +1,6 @@
 <script lang="ts">
   import Avatar from '$lib/components/ui/avatar.svelte';
-  import type { RecentPost } from '../types/recent-post.type';
+  import type { RecentPost } from '../types/recent-post';
   import readable from 'readable-numbers';
 
   let post: RecentPost = $props();

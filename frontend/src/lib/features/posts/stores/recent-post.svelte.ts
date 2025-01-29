@@ -1,16 +1,16 @@
 import { browser } from '$app/environment';
-import type { Post, RecentPost } from '../types/recent-post.type';
+import type { RecentPost, RecentPostWithTimestamp } from '../types/recent-post';
 
 const stored_recent_post = browser ? localStorage.getItem('recent-post-store') : null;
-const parsed_recent_post: RecentPost[] = stored_recent_post
+const parsed_recent_post: RecentPostWithTimestamp[] = stored_recent_post
   ? // convert string to Date object
-    (JSON.parse(stored_recent_post) as RecentPost[]).map((q) => ({
+    (JSON.parse(stored_recent_post) as RecentPostWithTimestamp[]).map((q) => ({
       ...q,
       timestamp: new Date(q.timestamp)
     }))
   : [];
 
-let recent_post = $state<RecentPost[]>(parsed_recent_post);
+let recent_post = $state<RecentPostWithTimestamp[]>(parsed_recent_post);
 
 function sync_to_localstorage() {
   if (browser) {
@@ -27,7 +27,7 @@ function sync_to_localstorage() {
   }
 }
 
-function get_sorted_recent_post(input: RecentPost) {
+function get_sorted_recent_post(input: RecentPostWithTimestamp) {
   return [...recent_post, input].sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
 }
 
@@ -36,7 +36,7 @@ export function createRecentPostStore() {
     get state() {
       return recent_post;
     },
-    add_post(post: Post) {
+    add_post(post: RecentPost) {
       const exists = recent_post.some((p) => p.id === post.id);
       if (exists) return;
 
