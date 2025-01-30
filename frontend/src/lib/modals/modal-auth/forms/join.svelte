@@ -55,54 +55,54 @@
     class="flex flex-col gap-3"
     novalidate
   >
-    <label class="input input-bordered flex items-center gap-2 bg-transparent">
-      <coreicons-shape-mail class="size-4"></coreicons-shape-mail>
-      <input
-        type="email"
-        name="email"
-        class="grow border-none p-2 text-sm font-medium focus:ring-0"
-        placeholder="Email address*"
-        bind:value={$form.email}
-      />
-    </label>
-    {#if $errors.email}
-      <span class="flex items-center gap-2 text-error">
-        <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
-        <span class="text-xs">{$errors.email}</span>
-      </span>
-    {/if}
-    <label class="input input-bordered flex items-center gap-2 bg-transparent pr-2">
-      <coreicons-shape-lock class="size-4"></coreicons-shape-lock>
-      <input
-        type={password_type}
-        name="password"
-        class="grow border-none p-2 text-sm font-medium focus:ring-0"
-        placeholder="Password*"
-        bind:value={$form.password}
-      />
-      <button
-        type="button"
-        class={cn(
-          password_type === 'password'
-            ? 'btn-neutral border border-base-content/25'
-            : 'btn-ghost btn-active',
-          'btn btn-square btn-sm ml-auto hover:btn-ghost'
-        )}
-        aria-label="Show/hide password"
-        onclick={handle_toggle_password_type}
-      >
-        <coreicons-shape-eye
-          class="size-4"
-          variant={password_type === 'password' ? 'open' : 'close'}
-        ></coreicons-shape-eye>
-      </button>
-    </label>
-    {#if $errors.password}
-      <span class="flex items-center gap-2 text-error">
-        <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
-        <span class="text-xs">{$errors.password}</span>
-      </span>
-    {/if}
+    <div class="flex flex-col gap-1">
+      <label class="input input-bordered flex items-center gap-2 bg-transparent">
+        <coreicons-shape-mail class="size-4"></coreicons-shape-mail>
+        <input
+          type="email"
+          name="email"
+          class="grow border-none p-2 text-sm font-medium focus:ring-0"
+          placeholder="Email address*"
+          bind:value={$form.email}
+        />
+      </label>
+      {#if $errors.email}
+        <span class="flex items-center gap-2 text-error">
+          <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
+          <span class="text-xs">{$errors.email}</span>
+        </span>
+      {/if}
+    </div>
+    <div class="flex flex-col gap-1">
+      <label class="input input-bordered flex items-center gap-2 bg-transparent pr-2">
+        <coreicons-shape-lock class="size-4"></coreicons-shape-lock>
+        <input
+          type={password_type}
+          name="password"
+          class="grow border-none p-2 text-sm font-medium focus:ring-0"
+          placeholder="Password*"
+          bind:value={$form.password}
+        />
+        <button
+          type="button"
+          class="btn btn-square btn-ghost btn-sm ml-auto border border-base-content/25 bg-transparent"
+          class:btn-active={password_type === 'text'}
+          aria-label="Show/hide password"
+          onclick={handle_toggle_password_type}
+        >
+          <coreicons-shape-eye
+            class="size-4"
+            variant={password_type === 'password' ? 'open' : 'close'}
+          ></coreicons-shape-eye>
+        </button>
+      </label>
+      {#if $errors.password}
+        <span class="flex items-center gap-2 text-error">
+          <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
+          <span class="text-xs">{$errors.password}</span>
+        </span>
+      {/if}
+    </div>
     <div class="flex items-center gap-2">
       <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
       <span class="text-xs">Hint: you can switch b/w 'login' and 'register'.</span>
