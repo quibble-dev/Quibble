@@ -30,7 +30,7 @@
       } else if (auth_type === 'register') {
         auth_type = 'login';
         // show toast
-        toast.push({ message: 'Suceess! now log in with same credentials.' });
+        toast.push({ message: 'Suceess! Log in to get started.' });
       }
     }
   });

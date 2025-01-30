@@ -14,16 +14,12 @@ export const actions = {
       return fail(400, { form });
     }
 
-    const {
-      data: api_data,
-      error: api_error,
-      response: api_response
-    } = await client.POST('/api/v1/auth/login/', {
+    const { data, error, response } = await client.POST('/api/v1/auth/login/', {
       body: { ...form.data }
     });
 
-    if (api_response.ok && api_data) {
-      cookies.set('auth_token', api_data.token, {
+    if (response.ok && data) {
+      cookies.set('auth_token', data.token, {
         httpOnly: true,
         secure: !dev,
         path: '/',
@@ -31,9 +27,9 @@ export const actions = {
         maxAge: 60 * 60 * 24 * 30 // 30 days
       });
 
-      return { form, token: api_data.token };
-    } else if (api_error) {
-      return message(form, api_error.errors[0]?.detail, { status: 401 });
+      return { form, token: data.token };
+    } else if (error) {
+      return message(form, error.errors[0]?.detail, { status: 401 });
     }
   },
   register: async ({ request }) => {
@@ -43,18 +39,14 @@ export const actions = {
       return fail(400, { form });
     }
 
-    const {
-      data: api_data,
-      error: api_error,
-      response: api_response
-    } = await client.POST('/api/v1/auth/register/', {
+    const { data, error, response } = await client.POST('/api/v1/auth/register/', {
       body: { ...form.data }
     });
 
-    if (api_response.ok && api_data) {
+    if (response.ok && data) {
       return { form };
-    } else if (api_error) {
-      return message(form, api_error.errors[0]?.detail, { status: 401 });
+    } else if (error) {
+      return message(form, error.errors[0]?.detail, { status: 401 });
     }
   }
 } satisfies Actions;
