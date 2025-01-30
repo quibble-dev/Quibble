@@ -13,11 +13,11 @@
 
   let {}: FormProps<typeof forms> = $props();
 
-  const { form, enhance, errors, message } = superForm(page.data.form_join, {
+  const { form, enhance, errors, message, delayed } = superForm(page.data.form_join, {
     resetForm: false,
     validators: zod(JoinSchema),
-    onUpdate({ form }) {
-      console.log(form);
+    onResult({ result }) {
+      console.log(result);
     }
   });
 
@@ -110,15 +110,14 @@
     <div class="flex items-center gap-3">
       <button
         type="submit"
-        class={cn(false && 'btn-active pointer-events-none', 'btn btn-primary flex-1')}
+        class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary flex-1')}
       >
-        <!-- {#if pending} -->
-        <!--   {auth_type === 'login' ? 'Logging in' : 'Registering'} -->
-        <!--   <span class="loading loading-spinner loading-xs"></span> -->
-        <!-- {:else} -->
         {auth_type === 'login' ? 'Log in' : 'Register'}
-        <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
-        <!-- {/if} -->
+        {#if $delayed}
+          <span class="loading loading-spinner loading-xs"></span>
+        {:else}
+          <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
+        {/if}
       </button>
       <button
         type="button"

@@ -8,10 +8,10 @@ import { zod } from 'sveltekit-superforms/adapters';
 
 export const actions = {
   login: async ({ request, cookies }) => {
-    const form_join = await superValidate(request, zod(JoinSchema));
+    const form = await superValidate(request, zod(JoinSchema));
 
-    if (!form_join.valid) {
-      return fail(400, { form_join });
+    if (!form.valid) {
+      return fail(400, { form });
     }
 
     const {
@@ -19,7 +19,7 @@ export const actions = {
       error: api_error,
       response: api_response
     } = await client.POST('/api/v1/auth/login/', {
-      body: { ...form_join.data }
+      body: { ...form.data }
     });
 
     if (api_response.ok && api_data) {
@@ -31,9 +31,9 @@ export const actions = {
         maxAge: 60 * 60 * 24 * 30 // 30 days
       });
 
-      return { form_join, token: api_data.token };
+      return { form, token: api_data.token };
     } else if (api_error) {
-      return message(form_join, api_error.errors[0]?.detail, { status: 401 });
+      return message(form, api_error.errors[0]?.detail, { status: 401 });
     }
   },
   register: async ({ request }) => {
