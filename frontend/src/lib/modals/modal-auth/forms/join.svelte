@@ -14,7 +14,7 @@
 
   let { update_forms_state, goto_form }: FormProps<typeof forms> = $props();
 
-  const { form, enhance, errors, message, delayed } = superForm(page.data.form_join, {
+  const { form, enhance, errors, message, delayed } = superForm(page.data.form_auth_join, {
     resetForm: false,
     validators: zod(AuthSchema),
     onResult({ result }) {

@@ -5,6 +5,6 @@ export const AuthSchema = z.object({
   password: z.string().min(8)
 });
 
-export const ProfileCreateSchema = z.object({
+export const ProfileNewSchema = z.object({
   username: z.string().min(3)
 });
