@@ -13,7 +13,7 @@
 
   let {}: FormProps<typeof forms> = $props();
 
-  const { form, enhance, errors } = superForm(page.data.form_join, {
+  const { form, enhance, errors, message } = superForm(page.data.form_join, {
     resetForm: false,
     validators: zod(JoinSchema),
     onUpdate({ form }) {
@@ -103,9 +103,9 @@
         </span>
       {/if}
     </div>
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2" class:text-error={$message}>
       <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-      <span class="text-xs">Hint: you can switch b/w 'login' and 'register'.</span>
+      <span class="text-xs">{$message ?? `Hint: you can switch b/w 'login' and 'register'.`}</span>
     </div>
     <div class="flex items-center gap-3">
       <button
