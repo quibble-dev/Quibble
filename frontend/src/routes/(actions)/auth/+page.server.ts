@@ -37,19 +37,24 @@ export const actions = {
     }
   },
   register: async ({ request }) => {
-    const form_data = await request.formData();
+    const form = await superValidate(request, zod(AuthSchema));
 
-    const { data, error, response } = await client.POST('/api/v1/auth/register/', {
-      body: {
-        email: String(form_data.get('email')),
-        password: String(form_data.get('password'))
-      }
+    if (!form.valid) {
+      return fail(400, { form });
+    }
+
+    const {
+      data: api_data,
+      error: api_error,
+      response: api_response
+    } = await client.POST('/api/v1/auth/register/', {
+      body: { ...form.data }
     });
 
-    if (response.ok && data) {
-      return { success: true };
-    } else if (error) {
-      return fail(401, { error: error.errors[0]?.detail });
+    if (api_response.ok && api_data) {
+      return { form };
+    } else if (api_error) {
+      return message(form, api_error.errors[0]?.detail, { status: 401 });
     }
   }
 } satisfies Actions;

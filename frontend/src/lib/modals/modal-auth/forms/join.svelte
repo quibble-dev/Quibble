@@ -3,6 +3,7 @@
   import GoogleLogo from '$lib/components/icons/logos/google.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble-text.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
+  import { toast } from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
   import { AuthSchema } from '$lib/schemas/auth';
   import type { FormProps } from '../../types';
@@ -28,6 +29,8 @@
         goto_form('profile_select');
       } else if (auth_type === 'register') {
         auth_type = 'login';
+        // show toast
+        toast.push({ message: 'Suceess! now log in with same credentials.' });
       }
     }
   });

@@ -2,7 +2,7 @@
   import type { components } from '$lib/clients/v1';
   import Header from '$lib/components/header.svelte';
   import Sidebar from '$lib/components/sidebar.svelte';
-  import Toaster from '$lib/components/ui/toast/toaster.svelte';
+  import Toaster from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
   import Modals from '$lib/modals/index.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';

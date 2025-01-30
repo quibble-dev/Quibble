@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Toaster from '$lib/components/ui/toast/toaster.svelte';
+  import Toaster from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
   import type { Nullable } from '$lib/types/shared';
   import type { Snippet } from 'svelte';
