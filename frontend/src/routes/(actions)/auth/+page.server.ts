@@ -8,14 +8,14 @@ import { zod } from 'sveltekit-superforms/adapters';
 
 export const actions = {
   login: async ({ request, cookies }) => {
-    const form_join = await superValidate(request, zod(JoinSchema));
-    console.log(form_join);
+    const form = await superValidate(request, zod(JoinSchema));
+    console.log(form);
 
-    if (!form_join.valid) {
-      return fail(400, { form_join });
+    if (!form.valid) {
+      return fail(400, { form });
     }
 
-    return { form_join };
+    return { form };
 
     // const form_data = await request.formData();
     //

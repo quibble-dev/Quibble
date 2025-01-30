@@ -4,18 +4,22 @@
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble-text.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import { cn } from '$lib/functions/classnames';
-  import { JoinSchema } from '$lib/schemas/auth';
   import type { FormProps } from '../../types';
   import forms from '../forms';
   import type { HTMLInputAttributes } from 'svelte/elements';
-  import { zodClient } from 'sveltekit-superforms/adapters';
-  import { superForm } from 'sveltekit-superforms/client';
+  import { superForm } from 'sveltekit-superforms';
 
-  let { update_forms_state, goto_form }: FormProps<typeof forms> = $props();
+  let {}: FormProps<typeof forms> = $props();
 
-  const { form, enhance, errors } = superForm(page.data.form_join, {
+  const { form, enhance, errors, allErrors } = superForm(page.data.form_join, {
     resetForm: false,
-    validators: zodClient(JoinSchema)
+    // validators: zod(JoinSchema),
+    onUpdate({ form }) {
+      console.log(form);
+    },
+    onResult({ result }) {
+      console.log(result);
+    }
   });
 
   let auth_type = $state<'login' | 'register'>('login');
@@ -52,6 +56,16 @@
     class="flex flex-col gap-3"
     novalidate
   >
+    {#if $allErrors.length}
+      <ul>
+        {#each $allErrors as error}
+          <li>
+            <b>{error.path}:</b>
+            {error.messages.join('. ')}
+          </li>
+        {/each}
+      </ul>
+    {/if}
     <label class="input input-bordered flex items-center gap-2 bg-transparent">
       <coreicons-shape-mail class="size-4"></coreicons-shape-mail>
       <input
@@ -63,9 +77,9 @@
       />
     </label>
     {#if $errors.email}
-      <span class="flex items-center gap-1 text-xs text-error">
-        <coreicons-shape-x variant="circle"></coreicons-shape-x>
-        {$errors.email}
+      <span class="flex items-center gap-2 text-error">
+        <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
+        <span class="text-xs">{$errors.email}</span>
       </span>
     {/if}
     <label class="input input-bordered flex items-center gap-2 bg-transparent pr-2">
@@ -95,9 +109,9 @@
       </button>
     </label>
     {#if $errors.password}
-      <span class="flex items-center gap-1 text-xs text-error">
-        <coreicons-shape-x variant="circle"></coreicons-shape-x>
-        {$errors.password}
+      <span class="flex items-center gap-2 text-error">
+        <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
+        <span class="text-xs">{$errors.password}</span>
       </span>
     {/if}
     <div class="flex items-center gap-2">
