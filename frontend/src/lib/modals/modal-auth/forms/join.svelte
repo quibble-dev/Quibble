@@ -4,21 +4,20 @@
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble-text.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import { cn } from '$lib/functions/classnames';
+  import { JoinSchema } from '$lib/schemas/auth';
   import type { FormProps } from '../../types';
   import forms from '../forms';
   import type { HTMLInputAttributes } from 'svelte/elements';
   import { superForm } from 'sveltekit-superforms';
+  import { zod } from 'sveltekit-superforms/adapters';
 
   let {}: FormProps<typeof forms> = $props();
 
-  const { form, enhance, errors, allErrors } = superForm(page.data.form_join, {
+  const { form, enhance, errors } = superForm(page.data.form_join, {
     resetForm: false,
-    // validators: zod(JoinSchema),
+    validators: zod(JoinSchema),
     onUpdate({ form }) {
       console.log(form);
-    },
-    onResult({ result }) {
-      console.log(result);
     }
   });
 
@@ -56,16 +55,6 @@
     class="flex flex-col gap-3"
     novalidate
   >
-    {#if $allErrors.length}
-      <ul>
-        {#each $allErrors as error}
-          <li>
-            <b>{error.path}:</b>
-            {error.messages.join('. ')}
-          </li>
-        {/each}
-      </ul>
-    {/if}
     <label class="input input-bordered flex items-center gap-2 bg-transparent">
       <coreicons-shape-mail class="size-4"></coreicons-shape-mail>
       <input

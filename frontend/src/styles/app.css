@@ -65,3 +65,8 @@ html {
 .btn {
   @apply min-h-max;
 }
+
+.input,
+.input input {
+  @apply placeholder:font-normal placeholder:text-base-content/75;
+}

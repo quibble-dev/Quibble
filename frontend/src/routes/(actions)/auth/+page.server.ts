@@ -1,4 +1,4 @@
-import { dev } from '$app/environment';
+// import { dev } from '$app/environment';
 import client from '$lib/clients';
 import { JoinSchema } from '$lib/schemas/auth';
 import type { Actions } from './$types';
@@ -7,15 +7,15 @@ import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 
 export const actions = {
-  login: async ({ request, cookies }) => {
-    const form = await superValidate(request, zod(JoinSchema));
-    console.log(form);
+  login: async ({ request }) => {
+    const form_join = await superValidate(request, zod(JoinSchema));
+    console.log(form_join);
 
-    if (!form.valid) {
-      return fail(400, { form });
+    if (!form_join.valid) {
+      return fail(400, { form_join });
     }
 
-    return { form };
+    return { form_join };
 
     // const form_data = await request.formData();
     //
