@@ -1,70 +1,25 @@
 <script lang="ts">
-  import { enhance } from '$app/forms';
+  import { page } from '$app/state';
   import GoogleLogo from '$lib/components/icons/logos/google.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble-text.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
-  import ZodErrors from '$lib/components/zod-errors.svelte';
   import { cn } from '$lib/functions/classnames';
+  import { JoinSchema } from '$lib/schemas/auth';
   import type { FormProps } from '../../types';
   import forms from '../forms';
-  import type { SubmitFunction } from '@sveltejs/kit';
   import type { HTMLInputAttributes } from 'svelte/elements';
-  import { z, type ZodIssue } from 'zod';
-
-  // zod schema
-  const schema = z.object({
-    email: z.string().email(),
-    password: z.string().min(8)
-  });
+  import { zodClient } from 'sveltekit-superforms/adapters';
+  import { superForm } from 'sveltekit-superforms/client';
 
   let { update_forms_state, goto_form }: FormProps<typeof forms> = $props();
 
+  const { form, enhance, errors } = superForm(page.data.form_join, {
+    resetForm: false,
+    validators: zodClient(JoinSchema)
+  });
+
   let auth_type = $state<'login' | 'register'>('login');
   let password_type = $state<HTMLInputAttributes['type']>('password');
-
-  let errors = $state<ZodIssue[]>();
-  // for single errors
-  let error = $state<string>();
-  let pending = $state(false);
-
-  const handle_submit: SubmitFunction = async ({ cancel, formData }) => {
-    pending = true;
-
-    const { error: parse_error, success: parse_success } = schema.safeParse({
-      email: formData.get('email') ?? '',
-      password: formData.get('password') ?? ''
-    });
-
-    if (!parse_success) {
-      cancel();
-      pending = false;
-      // errors
-      errors = parse_error.errors;
-    }
-
-    return async ({ result }) => {
-      pending = false;
-      // clean errors for fresh re-assign
-      error = undefined;
-      errors = undefined;
-      if (result.type === 'success') {
-        error = undefined;
-        if (auth_type === 'login') {
-          // save token on forms_state
-          update_forms_state('join', { token: result.data?.token });
-          // next form
-          goto_form('profile_select');
-        } else if (auth_type === 'register') {
-          auth_type = 'login';
-        }
-      } else if (result.type === 'failure') {
-        // authentication error
-        if (result.status === 401) {
-          error = result.data?.error;
-        }
-      }
-    };
-  };
 
   function handle_auth_type_change() {
     auth_type = auth_type === 'login' ? 'register' : 'login';
@@ -93,26 +48,34 @@
   <form
     method="POST"
     action="/auth?/{auth_type}"
-    use:enhance={handle_submit}
+    use:enhance
     class="flex flex-col gap-3"
     novalidate
   >
-    <label class="input input-bordered flex items-center gap-2">
+    <label class="input input-bordered flex items-center gap-2 bg-transparent">
       <coreicons-shape-mail class="size-4"></coreicons-shape-mail>
       <input
         type="email"
         name="email"
         class="grow border-none p-2 text-sm font-medium focus:ring-0"
         placeholder="Email address*"
+        bind:value={$form.email}
       />
     </label>
-    <label class="input input-bordered flex items-center gap-2 pr-2">
+    {#if $errors.email}
+      <span class="flex items-center gap-1 text-xs text-error">
+        <coreicons-shape-x variant="circle"></coreicons-shape-x>
+        {$errors.email}
+      </span>
+    {/if}
+    <label class="input input-bordered flex items-center gap-2 bg-transparent pr-2">
       <coreicons-shape-lock class="size-4"></coreicons-shape-lock>
       <input
         type={password_type}
         name="password"
         class="grow border-none p-2 text-sm font-medium focus:ring-0"
         placeholder="Password*"
+        bind:value={$form.password}
       />
       <button
         type="button"
@@ -131,31 +94,28 @@
         ></coreicons-shape-eye>
       </button>
     </label>
-    {#if errors}
-      <ZodErrors {errors} />
-    {:else}
-      <div class="flex items-center gap-2" class:text-error={error !== undefined}>
-        {#if error}
-          <coreicons-shape-alert-triangle class="size-3.5"></coreicons-shape-alert-triangle>
-          <span class="text-xs">{error}</span>
-        {:else}
-          <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-          <span class="text-xs">Hint: you can switch b/w 'login' and 'register'.</span>
-        {/if}
-      </div>
+    {#if $errors.password}
+      <span class="flex items-center gap-1 text-xs text-error">
+        <coreicons-shape-x variant="circle"></coreicons-shape-x>
+        {$errors.password}
+      </span>
     {/if}
+    <div class="flex items-center gap-2">
+      <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
+      <span class="text-xs">Hint: you can switch b/w 'login' and 'register'.</span>
+    </div>
     <div class="flex items-center gap-3">
       <button
         type="submit"
-        class={cn(pending && 'btn-active pointer-events-none', 'btn btn-primary flex-1')}
+        class={cn(false && 'btn-active pointer-events-none', 'btn btn-primary flex-1')}
       >
-        {#if pending}
-          {auth_type === 'login' ? 'Logging in' : 'Registering'}
-          <span class="loading loading-spinner loading-xs"></span>
-        {:else}
-          {auth_type === 'login' ? 'Log in' : 'Register'}
-          <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
-        {/if}
+        <!-- {#if pending} -->
+        <!--   {auth_type === 'login' ? 'Logging in' : 'Registering'} -->
+        <!--   <span class="loading loading-spinner loading-xs"></span> -->
+        <!-- {:else} -->
+        {auth_type === 'login' ? 'Log in' : 'Register'}
+        <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
+        <!-- {/if} -->
       </button>
       <button
         type="button"
