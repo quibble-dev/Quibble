@@ -1,6 +1,6 @@
 import { dev } from '$app/environment';
 import client from '$lib/clients';
-import { JoinSchema } from '$lib/schemas/auth';
+import { AuthSchema } from '$lib/schemas/auth';
 import type { Actions } from './$types';
 import { fail } from '@sveltejs/kit';
 import { superValidate, message } from 'sveltekit-superforms';
@@ -8,7 +8,7 @@ import { zod } from 'sveltekit-superforms/adapters';
 
 export const actions = {
   login: async ({ request, cookies }) => {
-    const form = await superValidate(request, zod(JoinSchema));
+    const form = await superValidate(request, zod(AuthSchema));
 
     if (!form.valid) {
       return fail(400, { form });

@@ -4,7 +4,7 @@
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble-text.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import { cn } from '$lib/functions/classnames';
-  import { JoinSchema } from '$lib/schemas/auth';
+  import { AuthSchema } from '$lib/schemas/auth';
   import type { FormProps } from '../../types';
   import forms from '../forms';
   import type { HTMLInputAttributes } from 'svelte/elements';
@@ -15,7 +15,7 @@
 
   const { form, enhance, errors, message, delayed } = superForm(page.data.form_join, {
     resetForm: false,
-    validators: zod(JoinSchema),
+    validators: zod(AuthSchema),
     onResult({ result }) {
       if (result.type === 'failure') return;
 
