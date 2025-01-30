@@ -8,16 +8,27 @@
   import type { FormProps } from '../../types';
   import forms from '../forms';
   import type { HTMLInputAttributes } from 'svelte/elements';
-  import { superForm } from 'sveltekit-superforms';
+  import { superForm, type FormResult } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
 
-  let {}: FormProps<typeof forms> = $props();
+  let { update_forms_state, goto_form }: FormProps<typeof forms> = $props();
 
   const { form, enhance, errors, message, delayed } = superForm(page.data.form_join, {
     resetForm: false,
     validators: zod(JoinSchema),
     onResult({ result }) {
-      console.log(result);
+      if (result.type === 'failure') return;
+
+      if (auth_type === 'login') {
+        // save token on forms_state
+        update_forms_state('join', {
+          token: (result as FormResult<{ data?: { token?: string } }>).data?.token
+        });
+        // next form
+        goto_form('profile_select');
+      } else if (auth_type === 'register') {
+        auth_type = 'login';
+      }
     }
   });
 
