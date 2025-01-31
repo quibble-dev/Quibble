@@ -1,17 +1,16 @@
 <script lang="ts">
-  import { page } from '$app/state';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble-text.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import { cn } from '$lib/functions/classnames';
   import { ProfileNewSchema } from '$lib/schemas/auth';
   import type { FormProps } from '../../types';
   import forms from '../forms';
-  import { superForm, type FormResult } from 'sveltekit-superforms';
+  import { defaults, superForm, type FormResult } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
 
   let { forms_state, update_forms_state, goto_form }: FormProps<typeof forms> = $props();
 
-  const { form, enhance, errors, message, delayed } = superForm(page.data.form_auth_profile_new, {
+  const { form, enhance, errors, message, delayed } = superForm(defaults(zod(ProfileNewSchema)), {
     resetForm: false,
     validators: zod(ProfileNewSchema),
     onResult({ result }) {

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { page } from '$app/state';
   import GoogleLogo from '$lib/components/icons/logos/google.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble-text.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
@@ -9,31 +8,39 @@
   import type { FormProps } from '../../types';
   import forms from '../forms';
   import type { HTMLInputAttributes } from 'svelte/elements';
-  import { superForm, type FormResult } from 'sveltekit-superforms';
+  import { defaults, superForm, type FormResult } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
 
-  let { update_forms_state, goto_form }: FormProps<typeof forms> = $props();
+  let { update_forms_state, goto_form, forms_state }: FormProps<typeof forms> = $props();
 
-  const { form, enhance, errors, message, delayed } = superForm(page.data.form_auth_join, {
-    resetForm: false,
-    validators: zod(AuthSchema),
-    onResult({ result }) {
-      if (result.type === 'failure') return;
+  const initial_data = {
+    email: (forms_state.join as { email?: string }).email,
+    password: (forms_state.join as { password?: string }).password
+  };
 
-      if (auth_type === 'login') {
-        // save token on forms_state
-        update_forms_state('join', {
-          token: (result as FormResult<{ data?: { token?: string } }>).data?.token
-        });
-        // next form
-        goto_form('profile_select');
-      } else if (auth_type === 'register') {
-        auth_type = 'login';
-        // show toast
-        toast.push({ message: 'Suceess! Log in to get started.' });
+  const { form, enhance, errors, message, delayed } = superForm(
+    defaults(initial_data, zod(AuthSchema)),
+    {
+      resetForm: false,
+      validators: zod(AuthSchema),
+      onResult({ result }) {
+        if (result.type === 'failure') return;
+
+        if (auth_type === 'login') {
+          // save token on forms_state
+          update_forms_state('join', {
+            token: (result as FormResult<{ data?: { token?: string } }>).data?.token
+          });
+          // next form
+          goto_form('profile_select');
+        } else if (auth_type === 'register') {
+          auth_type = 'login';
+          // show toast
+          toast.push({ message: 'Suceess! Log in to get started.' });
+        }
       }
     }
-  });
+  );
 
   let auth_type = $state<'login' | 'register'>('login');
   let password_type = $state<HTMLInputAttributes['type']>('password');
