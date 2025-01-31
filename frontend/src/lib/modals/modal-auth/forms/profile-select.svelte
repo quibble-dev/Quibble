@@ -41,11 +41,17 @@
   };
 
   onMount(async () => {
-    // check if forms_state has profiles
-    // so avoid a query
-    if ((forms_state.profile_select as { profiles: Profile[] }).profiles) {
+    if (
+      (forms_state.join as { token: string }).token ===
+      (forms_state.profile_select as { token: string }).token
+    ) {
+      console.log('same token detected!');
+      console.log('re-using...');
       profiles = (forms_state.profile_select as { profiles: Profile[] }).profiles;
     } else {
+      console.log('new user');
+      console.log('fetching...');
+      // so avoid a query
       pending = true;
       status_text = 'Fetching profiles...';
 
@@ -58,7 +64,10 @@
       if (response.ok && data) {
         profiles = data;
         // add to forms_state
-        update_forms_state('profile_select', { profiles });
+        update_forms_state('profile_select', {
+          token: (forms_state.join as { token: string }).token,
+          profiles
+        });
       } else if (error) {
         console.log(error);
       }
