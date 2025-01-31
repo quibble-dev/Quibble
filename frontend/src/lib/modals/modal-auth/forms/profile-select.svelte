@@ -7,6 +7,7 @@
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { toast } from '$lib/components/ui/toast/toast.svelte';
+  import { cn } from '$lib/functions/classnames';
   import { createModalsStore } from '$lib/stores/modals.svelte';
   import type { FormProps } from '../../types';
   import forms from '../forms';
@@ -85,19 +86,22 @@
     </div>
   </div>
   <div
-    class="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 self-center"
+    class="flex flex-wrap items-center justify-center gap-4 self-center"
     class:pointer-events-none={pending}
   >
     {#each profiles as profile}
       <form method="POST" action="/settings/profile?/select" use:enhance={handle_submit}>
         <input type="hidden" name="profile_id" value={profile.id} />
         <input type="hidden" name="profile_username" value={profile.username} />
-        <button type="submit" class="group flex flex-col items-center justify-center gap-2.5">
+        <button type="submit" class="group flex flex-col items-center justify-center gap-1.5">
           <Avatar
-            class="size-20 rounded-2xl outline outline-offset-4 outline-neutral"
+            class={cn(
+              !profile.avatar && 'border-2',
+              'size-24 rounded-box border-base-content/25 !bg-base-300'
+            )}
             src={profile.avatar}
           />
-          <span class="line-clamp-1 max-w-20 break-all text-xs font-medium"
+          <span class="line-clamp-1 max-w-24 break-all text-xs font-medium"
             >u/{profile.username}</span
           >
         </button>
@@ -106,11 +110,9 @@
     {#if !(profiles.length >= 3)}
       <button
         onclick={() => goto_form('profile_create')}
-        class="flex flex-col items-center justify-center gap-2.5"
+        class="flex flex-col items-center justify-center gap-1.5"
       >
-        <div
-          class="grid size-20 place-items-center rounded-2xl bg-neutral outline outline-offset-4 outline-neutral"
-        >
+        <div class="grid size-24 place-items-center rounded-box bg-base-300">
           <coreicons-shape-plus variant="no-border" class="size-8"></coreicons-shape-plus>
         </div>
         <span class="text-xs font-medium">Create new</span>
