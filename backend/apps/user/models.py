@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from dynamic_filenames import FilePattern
 
 from mixins.models.avatar import AvatarMixin
 from mixins.models.created_at import CreatedAtMixin
@@ -55,6 +56,12 @@ class Profile(CreatedAtMixin, AvatarMixin):
     first_name = models.CharField(_('First name'), max_length=255, blank=True, null=True)
     last_name = models.CharField(_('Last name'), max_length=255, blank=True, null=True)
     bio = models.TextField(_('Bio'), blank=True, null=True)
+    banner = models.ImageField(
+        _('Banner'),
+        upload_to=FilePattern(filename_pattern="banner/{uuid:s}{ext}"),
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         return f"u/{self.username}"
