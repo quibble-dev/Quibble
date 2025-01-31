@@ -21,7 +21,7 @@
         profiles: [
           // @ts-expect-error: it's so obvious
           ...forms_state.profile_select.profiles,
-          (result as FormResult<{ data: unknown }>).data
+          (result as FormResult<{ data?: { profile: object[] } }>).data?.profile
         ]
       });
       goto_form('profile_select');
