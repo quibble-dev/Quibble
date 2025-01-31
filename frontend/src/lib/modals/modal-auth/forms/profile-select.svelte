@@ -7,6 +7,7 @@
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { toast } from '$lib/components/ui/toast/toast.svelte';
+  import { PROFILE_CREATE_LIMIT } from '$lib/constants/limits';
   import { cn } from '$lib/functions/classnames';
   import { createModalsStore } from '$lib/stores/modals.svelte';
   import type { FormProps } from '../../types';
@@ -20,7 +21,6 @@
 
   let pending = $state(false);
   let status_text = $state<string | null>(null);
-
   let profiles = $state<Profile[]>([]);
 
   const modalsStore = createModalsStore();
@@ -40,57 +40,65 @@
     };
   };
 
+  const fetch_profiles = async () => {
+    pending = true;
+    status_text = 'Fetching profiles...';
+
+    const { data, error, response } = await client.GET('/api/v1/users/me/profiles/', {
+      headers: {
+        Authorization: `Bearer ${(forms_state.join as { token: string }).token}`
+      }
+    });
+
+    if (response.ok && data) {
+      profiles = data;
+      update_forms_state('profile_select', {
+        token: (forms_state.join as { token: string }).token,
+        profiles
+      });
+    } else if (error) {
+      console.error(error);
+    }
+
+    pending = false;
+    status_text = null;
+  };
+
   onMount(async () => {
     // check if forms_state has profiles and tokens are same
     // if tokens are same- it means, user is same, otherwise- different (fetch)
     // so avoid some query
 
-    type TokenState = { token: string };
-    type ProfileState = Partial<{ profiles: Profile[] }>;
-
-    const join_state = forms_state.join as TokenState;
-    const profile_select_state = forms_state.profile_select as TokenState & ProfileState;
+    const join_state = forms_state.join as { token: string };
+    const profile_select_state = forms_state.profile_select as {
+      token: string;
+      profiles?: Profile[];
+    };
 
     if (join_state.token === profile_select_state.token && profile_select_state.profiles) {
       // requested for same user (re-use)
       profiles = profile_select_state.profiles;
     } else {
       // new request (fetch)
-      pending = true;
-      status_text = 'Fetching profiles...';
-
-      const { data, error, response } = await client.GET('/api/v1/users/me/profiles/', {
-        headers: {
-          Authorization: `Bearer ${(forms_state.join as { token: string }).token}`
-        }
-      });
-
-      if (response.ok && data) {
-        profiles = data;
-        // add to forms_state
-        update_forms_state('profile_select', {
-          token: join_state.token,
-          profiles
-        });
-      } else if (error) {
-        console.log(error);
-      }
-
-      pending = false;
-      status_text = null;
+      await fetch_profiles();
     }
   });
 </script>
 
+<!-- loading spinner on actions -->
 {#if pending}
   <span class="loading loading-spinner loading-md absolute right-2.5 top-2.5"></span>
 {/if}
+
 <div class="flex flex-col gap-4">
+  <!-- header section -->
   <div class="flex flex-col items-center justify-center gap-4">
     <div class="flex items-center gap-2">
       <QuibbleLogo class="size-7" />
       <QuibbleTextLogo class="h-7 w-auto" />
     </div>
+
+    <!-- helper texts -->
     <div class="flex flex-col gap-1">
       <p class="text-center font-medium">
         {status_text ?? "Who's quibbling?"}
@@ -98,10 +106,13 @@
       <span class="self-center text-xs">You can later switch b/w profiles on settings page.</span>
     </div>
   </div>
+
+  <!-- list profiles accosiated with user and show create new btn -->
   <div
     class="flex flex-wrap items-center justify-center gap-4 self-center"
     class:pointer-events-none={pending}
   >
+    <!-- list profiles -->
     {#each profiles as profile}
       <form method="POST" action="/settings/profile?/select" use:enhance={handle_submit}>
         <input type="hidden" name="profile_id" value={profile.id} />
@@ -120,7 +131,9 @@
         </button>
       </form>
     {/each}
-    {#if !(profiles.length >= 3)}
+
+    <!-- show create new profile option only when profiles count is under limit -->
+    {#if profiles.length < PROFILE_CREATE_LIMIT}
       <button
         onclick={() => goto_form('profile_create')}
         class="flex flex-col items-center justify-center gap-1.5"
