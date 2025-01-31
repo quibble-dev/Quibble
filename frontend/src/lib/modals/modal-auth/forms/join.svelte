@@ -13,6 +13,7 @@
 
   let { update_forms_state, goto_form, forms_state }: FormProps<typeof forms> = $props();
 
+  // for persisent data even after navigating b/w forms
   const initial_data = {
     email: (forms_state.join as { email?: string }).email,
     password: (forms_state.join as { password?: string }).password
@@ -20,6 +21,7 @@
 
   const { form, enhance, errors, message, delayed } = superForm(
     defaults(initial_data, zod(AuthSchema)),
+    // form options
     {
       resetForm: false,
       validators: zod(AuthSchema),
@@ -29,7 +31,10 @@
         if (auth_type === 'login') {
           // save token on forms_state
           update_forms_state('join', {
-            token: (result as FormResult<{ data?: { token?: string } }>).data?.token
+            token: (result as FormResult<{ data?: { token?: string } }>).data?.token,
+            // for persisent form datas
+            email: $form.email,
+            password: $form.password
           });
           // next form
           goto_form('profile_select');
