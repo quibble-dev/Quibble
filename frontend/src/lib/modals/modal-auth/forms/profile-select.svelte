@@ -114,16 +114,16 @@
   >
     <!-- list profiles -->
     {#each profiles as profile}
-      <form method="POST" action="/settings/profile?/select" use:enhance={handle_submit}>
+      <form method="POST" action="/auth?/profile_select" use:enhance={handle_submit}>
         <input type="hidden" name="profile_id" value={profile.id} />
         <input type="hidden" name="profile_username" value={profile.username} />
         <button type="submit" class="group flex flex-col items-center justify-center gap-1.5">
           <Avatar
+            src={profile.avatar}
             class={cn(
               !profile.avatar && 'border-2',
               'size-24 rounded-box border-base-content/25 !bg-base-300'
             )}
-            src={profile.avatar}
           />
           <span class="line-clamp-1 max-w-24 break-all text-xs font-medium"
             >u/{profile.username}</span

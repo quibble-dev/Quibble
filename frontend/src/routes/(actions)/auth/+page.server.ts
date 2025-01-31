@@ -56,20 +56,18 @@ export const actions = {
       return fail(400, { form });
     }
 
-    const form_data = await request.formData();
-
     const { data, error, response } = await client.POST('/api/v1/users/me/profiles/', {
       headers: {
         Authorization: `Bearer ${cookies.get('auth_token')}`
       },
       // @ts-expect-error: only requires username for POST req
-      body: { username: form_data.get('username') }
+      body: { ...form.data }
     });
 
     if (response.ok && data) {
-      return data;
+      return { form, profile: data };
     } else if (error) {
-      return fail(401, { error: error.errors[0]?.detail });
+      return message(form, error.errors[0]?.detail, { status: 409 });
     }
   },
   profile_select: async ({ request, cookies }) => {

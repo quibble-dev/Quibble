@@ -48,6 +48,7 @@
 </script>
 
 <div class="flex flex-col gap-4">
+  <!-- header section -->
   <div class="flex flex-col items-center justify-center gap-4">
     <div class="flex items-center gap-2">
       <QuibbleLogo class="size-7" />
@@ -57,11 +58,16 @@
       Join in, share your take, and<br /> make some waves!
     </p>
   </div>
+
+  <!-- oauth sections: google -->
   <button class="btn btn-ghost btn-active">
     <GoogleLogo class="size-5" />
     Continue with Google
   </button>
   <div class="divider my-0 text-xs font-bold">OR</div>
+
+  <!-- form element: email and password -->
+  <!-- for login and register -->
   <form
     method="POST"
     action="/auth?/{auth_type}"
@@ -69,6 +75,7 @@
     class="flex flex-col gap-3"
     novalidate
   >
+    <!-- email input field with errors store -->
     <div class="flex flex-col gap-1">
       <label class="input input-bordered flex items-center gap-2 bg-transparent">
         <coreicons-shape-mail class="size-4"></coreicons-shape-mail>
@@ -80,6 +87,8 @@
           bind:value={$form.email}
         />
       </label>
+
+      <!-- error store -->
       {#if $errors.email}
         <span class="flex items-center gap-2 text-error">
           <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
@@ -87,6 +96,8 @@
         </span>
       {/if}
     </div>
+
+    <!-- password input field with errors store -->
     <div class="flex flex-col gap-1">
       <label class="input input-bordered flex items-center gap-2 bg-transparent pr-2">
         <coreicons-shape-lock class="size-4"></coreicons-shape-lock>
@@ -97,6 +108,8 @@
           placeholder="Password*"
           bind:value={$form.password}
         />
+
+        <!-- change password field type to see -->
         <button
           type="button"
           class="btn btn-square btn-ghost btn-sm ml-auto border border-base-content/25 bg-transparent"
@@ -110,6 +123,8 @@
           ></coreicons-shape-eye>
         </button>
       </label>
+
+      <!-- errors store -->
       {#if $errors.password}
         <span class="flex items-center gap-2 text-error">
           <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
@@ -117,22 +132,30 @@
         </span>
       {/if}
     </div>
+
+    <!-- render message store if any, else render help text -->
     <div class="flex items-center gap-2" class:text-error={$message}>
       <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
       <span class="text-xs">{$message ?? `Hint: you can switch b/w 'login' and 'register'.`}</span>
     </div>
+
+    <!-- submit btn with auth type changer -->
     <div class="flex items-center gap-3">
       <button
         type="submit"
         class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary flex-1')}
       >
         {auth_type === 'login' ? 'Log in' : 'Register'}
+
+        <!-- delayed store -->
         {#if $delayed}
           <span class="loading loading-spinner loading-xs"></span>
         {:else}
           <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
         {/if}
       </button>
+
+      <!-- switch b/w login and register -->
       <button
         type="button"
         class="btn btn-secondary"
@@ -143,10 +166,8 @@
       </button>
     </div>
   </form>
-  <div class="flex hidden items-center gap-2 text-sm">
-    <span>Not a member?</span>
-    <button class="font-info font-medium">Signup now!</button>
-  </div>
+
+  <!-- footer section -->
   <p class="text-center text-xs">
     By continuing, you agree to the <a
       href="/support/terms-and-conditions"
