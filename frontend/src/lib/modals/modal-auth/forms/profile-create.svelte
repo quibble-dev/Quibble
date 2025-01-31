@@ -30,6 +30,7 @@
 </script>
 
 <div class="flex flex-col gap-4">
+  <!-- header section -->
   <div class="flex flex-col items-center justify-center gap-1">
     <div class="mb-3 flex items-center gap-2">
       <QuibbleLogo class="size-7" />
@@ -38,6 +39,8 @@
     <p class="text-center font-medium">Let's create new one!</p>
     <p class="text-center text-xs">You can edit this profile from settings page later.</p>
   </div>
+
+  <!-- username input form section -->
   <form
     method="POST"
     action="/auth?/profile_new"
@@ -45,6 +48,7 @@
     class="flex flex-col gap-3"
     novalidate
   >
+    <!-- username input and errors store -->
     <div class="flex flex-col gap-1">
       <label class="input input-bordered flex items-center gap-2 bg-transparent">
         <coreicons-shape-at-sign class="size-4"></coreicons-shape-at-sign>
@@ -56,6 +60,8 @@
           bind:value={$form.username}
         />
       </label>
+
+      <!-- superforms errors store -->
       {#if $errors.username}
         <span class="flex items-center gap-2 text-error">
           <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
@@ -63,10 +69,13 @@
         </span>
       {/if}
     </div>
+
+    <!-- render message store if any or help text -->
     <div class="flex items-center gap-2" class:text-error={$message}>
       <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
       <span class="text-xs">{$message ?? `Hint: Make it epic—you only get 3!`}</span>
     </div>
+    <!-- with delayed store -->
     <button
       type="submit"
       class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary')}
@@ -75,7 +84,7 @@
         Creating
         <span class="loading loading-spinner loading-xs"></span>
       {:else}
-        Create profile
+        Create Profile
         <coreicons-shape-arrow variant="right" class="size-4"></coreicons-shape-arrow>
       {/if}
     </button>
