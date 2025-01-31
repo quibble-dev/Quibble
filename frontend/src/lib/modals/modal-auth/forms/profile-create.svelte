@@ -44,7 +44,8 @@
         // append to existing profiles on forms_state
         update_forms_state('profile_select', {
           profiles: [
-            ...(forms_state.profile_select as { profiles: object[] }).profiles,
+            // @ts-expect-error: no typing needs for this part
+            ...forms_state.profile_select.profiles,
             result.data
           ]
         });
