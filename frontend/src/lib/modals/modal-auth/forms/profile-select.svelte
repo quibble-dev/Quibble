@@ -7,6 +7,7 @@
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { toast } from '$lib/components/ui/toast/toast.svelte';
+  import { PROFILE_CREATE_LIMIT } from '$lib/constants/limits';
   import { cn } from '$lib/functions/classnames';
   import { createModalsStore } from '$lib/stores/modals.svelte';
   import type { FormProps } from '../../types';
@@ -132,7 +133,7 @@
     {/each}
 
     <!-- show create new profile option only when profiles count is under limit -->
-    {#if profiles.length < 3}
+    {#if profiles.length < PROFILE_CREATE_LIMIT}
       <button
         onclick={() => goto_form('profile_create')}
         class="flex flex-col items-center justify-center gap-1.5"
