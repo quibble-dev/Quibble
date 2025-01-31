@@ -41,17 +41,21 @@
   };
 
   onMount(async () => {
-    if (
-      (forms_state.join as { token: string }).token ===
-      (forms_state.profile_select as { token: string }).token
-    ) {
-      console.log('same token detected!');
-      console.log('re-using...');
-      profiles = (forms_state.profile_select as { profiles: Profile[] }).profiles;
+    // check if forms_state has profiles and tokens are same
+    // if tokens are same- it means, user is same, otherwise- different (fetch)
+    // so avoid some query
+
+    type TokenState = { token: string };
+    type ProfileState = Partial<{ profiles: Profile[] }>;
+
+    const join_state = forms_state.join as TokenState;
+    const profile_select_state = forms_state.profile_select as TokenState & ProfileState;
+
+    if (join_state.token === profile_select_state.token && profile_select_state.profiles) {
+      // requested for same user (re-use)
+      profiles = profile_select_state.profiles;
     } else {
-      console.log('new user');
-      console.log('fetching...');
-      // so avoid a query
+      // new request (fetch)
       pending = true;
       status_text = 'Fetching profiles...';
 
@@ -65,7 +69,7 @@
         profiles = data;
         // add to forms_state
         update_forms_state('profile_select', {
-          token: (forms_state.join as { token: string }).token,
+          token: join_state.token,
           profiles
         });
       } else if (error) {
