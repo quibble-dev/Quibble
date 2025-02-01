@@ -18,7 +18,7 @@ class CommunityBasicSerializer(serializers.ModelSerializer):
 
 
 class CommunityDetailedSerializer(serializers.ModelSerializer):
-    rangers = ProfileBasicSerializer(many=True)
+    moderators = ProfileBasicSerializer(many=True)
     posts_count = serializers.SerializerMethodField()
 
     class Meta:

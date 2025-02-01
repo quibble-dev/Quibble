@@ -84,6 +84,6 @@ class CommunityViewSet(viewsets.ModelViewSet):
 
         creator = patched_request.user_profile
         # add creator as member and ranger of the community
-        community = serializer.save()
+        community: Community = serializer.save()
         community.members.add(creator)
-        community.rangers.add(creator)
+        community.moderators.add(creator)
