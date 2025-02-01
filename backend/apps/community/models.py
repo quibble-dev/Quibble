@@ -36,6 +36,12 @@ class Community(AvatarMixin, CreatedAtMixin, IsPublicMixin):
         blank=True,
         verbose_name=_('Moderators'),
     )
+    rangers = models.ManyToManyField(
+        Profile,
+        related_name='ranged_communities',
+        blank=True,
+        verbose_name=_('Rangers'),
+    )
 
     def __str__(self) -> str:
         return f'q/{self.name}'
