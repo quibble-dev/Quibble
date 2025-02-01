@@ -12,27 +12,14 @@
       .string()
       .min(3)
       .regex(/^[a-zA-Z0-9_]+$/, { message: 'Only letters, numbers, and underscores are allowed' }),
-    description: z.string().min(1)
+    description: z.string().min(1),
+    avatar: z.string().optional(),
+    banner: z.string().optional()
   });
 
-  let { forms_state }: FormProps<typeof forms> = $props();
+  let { forms_state, update_forms_state }: FormProps<typeof forms> = $props();
 
-  const { form, enhance, errors, validate } = superForm(defaults(zod(schema)), {
-    SPA: true,
-    resetForm: false,
-    validators: zod(schema),
-    onUpdate({ form }) {
-      console.log(form);
-      if (form.valid) {
-        // call an external API with form.data, await the result and update form
-      }
-    },
-    onChange({ get }) {
-      console.log('get', get('name'));
-    }
-  });
-
-  const introduction_data = $state({
+  const initial_data = {
     ...(
       forms_state.introduction as {
         data: Partial<{
@@ -43,7 +30,25 @@
         }>;
       }
     ).data
-  });
+  };
+
+  const { form, enhance, errors, validate, validateForm } = superForm(
+    defaults(initial_data, zod(schema)),
+    {
+      SPA: true,
+      resetForm: false,
+      validators: zod(schema),
+      onChange: async () => {
+        // TODO: call external API to check for name availability
+
+        const result = await validateForm({ update: false });
+        update_forms_state('introduction', {
+          valid: result.valid,
+          data: { ...result.data }
+        });
+      }
+    }
+  );
 
   function handle_file_change(e: Event, type: 'avatar' | 'banner') {
     const file = (e.target as HTMLInputElement).files?.[0];
@@ -52,8 +57,7 @@
     // convert image file to data uri
     const reader = new FileReader();
     reader.onload = () => {
-      if (type === 'avatar') introduction_data.avatar = String(reader.result);
-      if (type === 'banner') introduction_data.banner = String(reader.result);
+      $form[type] = String(reader.result);
     };
     reader.readAsDataURL(file);
   }
@@ -86,7 +90,7 @@
       <label class="form-control">
         <div class="label py-1">
           <span class="label-text">Name*</span>
-          <span class="label-text-alt">{introduction_data.name?.length ?? 0}/25</span>
+          <span class="label-text-alt">{initial_data.name?.length ?? 0}/25</span>
         </div>
         <label
           class="input input-bordered flex h-10 items-center gap-2 bg-transparent text-sm font-medium"
@@ -117,7 +121,7 @@
       <label class="form-control">
         <div class="label py-1">
           <span class="label-text">Description*</span>
-          <span class="label-text-alt">{introduction_data.description?.length ?? 0}/255</span>
+          <span class="label-text-alt">{initial_data.description?.length ?? 0}/255</span>
         </div>
         <textarea
           use:autosize
@@ -170,17 +174,17 @@
       <div class="overflow-hidden rounded-2xl bg-base-100">
         <div
           class="flex h-10 bg-info bg-cover bg-center"
-          style="background-image: url({introduction_data.banner});"
+          style="background-image: url({$form.banner});"
         ></div>
         <div class="flex flex-col gap-4 p-4">
           <div class="flex items-center gap-4">
             <Avatar
-              src={introduction_data.avatar}
+              src={$form.avatar}
               class="size-12 flex-shrink-0 !bg-base-content/15 md:size-14"
             />
             <div class="flex flex-col">
               <span class="break-all text-base font-semibold text-info md:text-lg">
-                q/{introduction_data.name || 'communityname'}
+                q/{initial_data.name || 'communityname'}
               </span>
               <div class="flex items-center gap-2">
                 <span class="text-xs">1 member</span>
@@ -190,7 +194,7 @@
             </div>
           </div>
           <p class="whitespace-pre-line break-words text-sm">
-            {introduction_data.description || 'Community description'}
+            {initial_data.description || 'Community description'}
           </p>
         </div>
       </div>
