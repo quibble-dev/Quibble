@@ -133,7 +133,7 @@
           <div class="label py-1">
             <span class="label-text flex items-center gap-2 text-error">
               <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
-              <span class="text-xs">{$errors.description}</span>
+              <span class="text-xs">{$errors.description[0]}</span>
             </span>
           </div>
         {/if}
