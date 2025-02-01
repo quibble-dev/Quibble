@@ -31,7 +31,8 @@ urlpatterns = [
     path('users/', include([
         # user view of requested user
         path('me/', MeAPIView.as_view(), name='me'),
-    ]))
+    ])),
+    path("u/<str:username>/overview/", ProfileViewSet.as_view({'get': 'overview'}), name="profile-overview")
 ]
 # fmt: on
 
