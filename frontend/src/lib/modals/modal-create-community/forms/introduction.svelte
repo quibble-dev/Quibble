@@ -90,7 +90,7 @@
       <label class="form-control">
         <div class="label py-1">
           <span class="label-text">Name*</span>
-          <span class="label-text-alt">{initial_data.name?.length ?? 0}/25</span>
+          <span class="label-text-alt">{$form.name.length}/25</span>
         </div>
         <label
           class="input input-bordered flex h-10 items-center gap-2 bg-transparent text-sm font-medium"
@@ -121,7 +121,7 @@
       <label class="form-control">
         <div class="label py-1">
           <span class="label-text">Description*</span>
-          <span class="label-text-alt">{initial_data.description?.length ?? 0}/255</span>
+          <span class="label-text-alt">{$form.description.length}/255</span>
         </div>
         <textarea
           use:autosize
@@ -184,7 +184,7 @@
             />
             <div class="flex flex-col">
               <span class="break-all text-base font-semibold text-info md:text-lg">
-                q/{initial_data.name || 'communityname'}
+                q/{$form.name || 'communityname'}
               </span>
               <div class="flex items-center gap-2">
                 <span class="text-xs">1 member</span>
@@ -194,7 +194,7 @@
             </div>
           </div>
           <p class="whitespace-pre-line break-words text-sm">
-            {initial_data.description || 'Community description'}
+            {$form.description || 'Community description'}
           </p>
         </div>
       </div>
