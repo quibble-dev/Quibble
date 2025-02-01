@@ -1,7 +1,6 @@
 <script lang="ts">
   import autosize from '$lib/actions/autosize';
   import Avatar from '$lib/components/ui/avatar.svelte';
-  import ZodErrors from '$lib/components/zod-errors.svelte';
   import type { FormProps } from '../../types';
   import forms from '../forms';
   import { defaults, superForm } from 'sveltekit-superforms';
@@ -16,7 +15,7 @@
     description: z.string().min(1)
   });
 
-  let { update_forms_state, forms_state }: FormProps<typeof forms> = $props();
+  let { forms_state }: FormProps<typeof forms> = $props();
 
   const { form, enhance, errors, validate } = superForm(defaults(zod(schema)), {
     SPA: true,
