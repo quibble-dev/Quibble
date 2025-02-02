@@ -62,7 +62,7 @@ jobs:
   # JOB to link backend code
   frontend:
     needs: changes
-    if: ${{ needs.changes.outputs.backend == 'true' }}
+    if: ${{ needs.changes.outputs.frontend == 'true' }}
     defaults:
       run:
         working-directory: ./frontend
