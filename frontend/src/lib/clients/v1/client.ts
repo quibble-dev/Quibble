@@ -7,7 +7,7 @@ import createClient from 'openapi-fetch';
  *
  * @example
  * ```ts
- * const { data, error } = await client.GET('/api/v1/endpoint/{id}', {
+ * const { data, error } = await client.GET('/endpoint/{id}', {
  *    params: { id: 69 }
  * })
  * ```
