@@ -1,5 +1,5 @@
 import client from '$lib/clients';
-import type { components } from '$lib/clients/v1';
+import type { components } from '$lib/clients/v1/schema';
 import type { Handle, HandleFetch } from '@sveltejs/kit';
 
 type Profile = components['schemas']['Profile'];
@@ -11,7 +11,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   let profile: Profile | null = null;
 
   if (auth_token && auth_user_profile_id) {
-    const { data, error, response } = await client.GET('/api/v1/users/me/', {
+    const { data, error, response } = await client.GET('/u/me/', {
       headers: {
         Authorization: `Bearer ${auth_token}`,
         'Profile-Id': auth_user_profile_id.toString()

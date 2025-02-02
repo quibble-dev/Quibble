@@ -9,6 +9,7 @@ from ...exceptions import ServerError
 from ...serializers.user.auth import AuthSerializer, AuthTokenSerializer
 
 
+@extend_schema(tags=['auth'])
 class LoginAPIView(views.APIView):
     """
     Customized drf basic token authentication.
@@ -29,6 +30,7 @@ class LoginAPIView(views.APIView):
             raise exceptions.AuthenticationFailed()
 
 
+@extend_schema(tags=['auth'])
 class LogoutAPIView(views.APIView):
     """
     View to handle user logout by deleting the authentication token.
@@ -46,6 +48,7 @@ class LogoutAPIView(views.APIView):
             raise ServerError(f"An error occurred while logging out: {str(e)}")
 
 
+@extend_schema(tags=['auth'])
 class RegisterAPIView(generics.CreateAPIView):
     """
     View to handle registering of new users.

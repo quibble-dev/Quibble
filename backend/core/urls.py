@@ -16,20 +16,9 @@ admin.site.site_title = 'Quibble'
 urlpatterns = [
     # admin
     path('admin/', admin.site.urls),
-    # api endpoints
-    # path(
-    #     'api/v1/',
-    #     include(
-    #         [
-    #             path('users/', include('apps.user.api.v1.urls')),
-    #             path('quiblets/', include('apps.quiblet.api.v1.urls')),
-    #             path('quibs/', include('apps.quib.api.v1.urls')),
-    #             path('comments/', include('apps.comment.api.v1.urls')),
-    #         ]
-    #     ),
-    # ),
-    # openapi
+    # v1
     path('api/v1/', include('apps.api.urls')),
+    # openapi(v1)
     path('api/v1/schema/', SpectacularAPIView.as_view(api_version='v1'), name='schema'),
     path('api/v1/schema.json', SpectacularJSONAPIView.as_view(), name='schema-json'),
 ]

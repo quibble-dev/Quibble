@@ -2,7 +2,7 @@
   import { enhance } from '$app/forms';
   import { invalidateAll } from '$app/navigation';
   import client from '$lib/clients';
-  import type { components } from '$lib/clients/v1';
+  import type { components } from '$lib/clients/v1/schema';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble-text.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
@@ -44,7 +44,7 @@
     pending = true;
     status_text = 'Fetching profiles...';
 
-    const { data, error, response } = await client.GET('/api/v1/users/me/profiles/', {
+    const { data, error, response } = await client.GET('/u/me/profiles/', {
       headers: {
         Authorization: `Bearer ${(forms_state.join as { token: string }).token}`
       }

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { components } from '$lib/clients/v1';
+  import type { components } from '$lib/clients/v1/schema';
   import Header from '$lib/components/header.svelte';
   import Sidebar from '$lib/components/sidebar.svelte';
   import Toaster from '$lib/components/ui/toast';

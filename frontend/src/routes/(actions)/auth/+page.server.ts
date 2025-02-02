@@ -14,7 +14,7 @@ export const actions = {
       return fail(400, { form });
     }
 
-    const { data, error, response } = await client.POST('/api/v1/auth/login/', {
+    const { data, error, response } = await client.POST('/u/login/', {
       body: { ...form.data }
     });
 
@@ -39,7 +39,7 @@ export const actions = {
       return fail(400, { form });
     }
 
-    const { data, error, response } = await client.POST('/api/v1/auth/register/', {
+    const { data, error, response } = await client.POST('/u/register/', {
       body: { ...form.data }
     });
 
@@ -56,7 +56,7 @@ export const actions = {
       return fail(400, { form });
     }
 
-    const { data, error, response } = await client.POST('/api/v1/users/me/profiles/', {
+    const { data, error, response } = await client.POST('/u/me/profiles/', {
       headers: {
         Authorization: `Bearer ${cookies.get('auth_token')}`
       },

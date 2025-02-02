@@ -5,12 +5,12 @@ export const load: PageServerLoad = async ({ params, parent }) => {
   await parent();
 
   const [posts, highlighted_posts] = await Promise.all([
-    client.GET('/api/v1/communities/{name}/posts/', {
+    client.GET('/communities/{name}/posts/', {
       params: {
         path: { name: params.name }
       }
     }),
-    client.GET('/api/v1/communities/{name}/highlighted_posts/', {
+    client.GET('/communities/{name}/highlighted_posts/', {
       params: {
         path: { name: params.name }
       }
