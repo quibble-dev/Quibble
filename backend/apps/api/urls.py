@@ -22,16 +22,14 @@ main_router.registry.extend(user_router.registry)
 
 # fmt: off
 urlpatterns = [
-    # auth endpoints
     path('u/', include([
+        # auth
         path('login/', LoginAPIView.as_view(), name='login'),
         path('logout/', LogoutAPIView.as_view(), name='logout'),
         path('register/', RegisterAPIView.as_view(), name='register'),
-    ]),),
-    path('u/', include([
         # user view of requested user
         path('me/', MeAPIView.as_view(), name='me'),
-    ]))
+    ])),
 ]
 # fmt: on
 
