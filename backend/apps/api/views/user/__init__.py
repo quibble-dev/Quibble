@@ -1,9 +1,11 @@
+from drf_spectacular.utils import extend_schema
 from rest_framework import exceptions, permissions, views
 from rest_framework.response import Response
 
 from ...serializers.user.profile import ProfileSerializer
 
 
+@extend_schema(tags=['user & profiles'])
 class MeAPIView(views.APIView):
     """
     View to retrieve information for the currently authenticated user.

@@ -14,8 +14,8 @@ main_router.register(r'posts', PostViewSet, basename='posts')
 main_router.register(r'communities', CommunityViewSet, basename='communities')
 # user routes
 user_router = routers.DefaultRouter()
-user_router.register(r'users/profiles', ProfileViewSet, basename='profiles')
-user_router.register(r'users/me/profiles', MyProfilesViewSet, basename='me-profiles')
+user_router.register(r'u/profiles', ProfileViewSet, basename='profiles')
+user_router.register(r'u/me/profiles', MyProfilesViewSet, basename='me-profiles')
 
 # https://stackoverflow.com/a/65186703
 main_router.registry.extend(user_router.registry)
@@ -23,12 +23,12 @@ main_router.registry.extend(user_router.registry)
 # fmt: off
 urlpatterns = [
     # auth endpoints
-    path('auth/', include([
+    path('u/', include([
         path('login/', LoginAPIView.as_view(), name='login'),
         path('logout/', LogoutAPIView.as_view(), name='logout'),
         path('register/', RegisterAPIView.as_view(), name='register'),
     ]),),
-    path('users/', include([
+    path('u/', include([
         # user view of requested user
         path('me/', MeAPIView.as_view(), name='me'),
     ]))
