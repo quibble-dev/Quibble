@@ -102,6 +102,7 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
     'SCHEMA_PATH_PREFIX': r'/api/v[1-9]/',
     'SCHEMA_PATH_PREFIX_TRIM': True,
+    'SERVERS': [{'url': '/api/v1', 'description': 'v1 API version'}],
     # sidecar config
     'SWAGGER_UI_DIST': 'SIDECAR',
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
