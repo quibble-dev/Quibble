@@ -2,15 +2,11 @@ from http import HTTPMethod
 from itertools import chain
 
 from django.conf import settings
-from django.db.models import CharField, Value
-from django.http import Http404
-from django.shortcuts import get_object_or_404
+from django.db.models import CharField, QuerySet, Value
 from drf_spectacular.utils import extend_schema
-from rest_framework import exceptions, filters, permissions, response, status, viewsets
+from rest_framework import exceptions, filters, permissions, response, viewsets
 from rest_framework.decorators import action
 
-from apps.comment.models import Comment
-from apps.post.models import Post
 from apps.user.models import Profile
 
 from ...serializers.user.profile import ProfileSerializer
@@ -31,44 +27,44 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
     filter_backends = (filters.SearchFilter,)
     search_fields = ("username",)
 
-    @action(
-        detail=False,
-        methods=[HTTPMethod.GET],
-        url_path=r"(?P<username>[^/.]+)/overview",
-    )
-    def overview(self, request, username=None):
-        """Returns a mixed list of posts and comments by the user, ordered by date."""
-        try:
-            profile = get_object_or_404(Profile, username=username)
+    serializer_classes = {
+        "overview": OverviewSerializer,
+    }
 
-            posts = (
-                Post.objects.filter(poster=profile)
-                .annotate(type=Value("post", CharField()))
-                .order_by("-created_at")
-            )
-            comments = (
-                Comment.objects.with_annotated_ratio()
-                .filter(commenter=profile)
-                .annotate(type=Value("comment", CharField()))
-                .order_by("-created_at")
-            )
+    def get_serializer_class(self):
+        if self.action in self.serializer_classes:
+            return self.serializer_classes[self.action]
+        return self.serializer_class
 
-            post_data = OverviewSerializer(posts, many=True).data
-            comment_data = OverviewSerializer(comments, many=True).data
+    def get_queryset(self) -> QuerySet[Profile]:
+        return super().get_queryset()
 
-            combined_data = sorted(
-                chain(post_data, comment_data),
-                key=lambda x: x["data"]["created_at"],
-                reverse=True,
-            )
+    def get_object(self) -> Profile:
+        qs = self.get_queryset()
+        filter_kwargs = {f"{self.lookup_field}": self.kwargs[self.lookup_field]}
+        obj = qs.filter(**filter_kwargs).first()
 
-            return response.Response(combined_data, status=status.HTTP_200_OK)
-
-        except Http404:
+        if not obj:
             raise exceptions.NotFound(
-                detail="No Profile matches the given query.",
-                code=status.HTTP_404_NOT_FOUND,
+                f"Profile with ID {self.kwargs[self.lookup_field]} not found."
             )
+        return obj
+
+    @extend_schema(responses=OverviewSerializer(many=True))
+    @action(detail=True, methods=[HTTPMethod.GET])
+    def overview(self, request, pk=None):
+        """Returns a mixed list of posts and comments by the user, ordered by date."""
+        profile = self.get_object()
+        posts = profile.posts.all().annotate(type=Value("post", CharField()))
+        comments = profile.comments.with_annotated_ratio().annotate(
+            type=Value("comment", CharField())
+        )
+
+        combined_data = sorted(chain(posts, comments), key=lambda obj: obj.created_at, reverse=True)
+        serialized_data = self.get_serializer(
+            combined_data, context={'request': request}, many=True
+        ).data
+        return response.Response(serialized_data)
 
 
 @extend_schema(tags=["user & profiles"])

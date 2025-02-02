@@ -2,9 +2,8 @@ from typing import Optional
 
 from rest_framework import serializers
 
+from apps.api.serializers.user import UserSerializer
 from apps.user.models import Profile
-
-from ....serializers.user import UserSerializer
 
 
 class ProfileSerializer(serializers.ModelSerializer):
