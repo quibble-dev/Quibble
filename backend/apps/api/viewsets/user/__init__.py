@@ -7,10 +7,13 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import exceptions, filters, permissions, response, viewsets
 from rest_framework.decorators import action
 
+from apps.api.serializers.comment import CommentDetailSerializer
+from apps.api.serializers.post import PostSerializer
+from apps.api.serializers.user.profile import ProfileSerializer
+from apps.api.serializers.user.profile.downvoted import DownvotedSerializer
+from apps.api.serializers.user.profile.overview import OverviewSerializer
+from apps.api.serializers.user.profile.upvoted import UpvotedSerializer
 from apps.user.models import Profile
-
-from ...serializers.user.profile import ProfileSerializer
-from ...serializers.user.profile.overview import OverviewSerializer
 
 
 @extend_schema(tags=["user & profiles"])
@@ -29,6 +32,10 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_classes = {
         "overview": OverviewSerializer,
+        "posts": PostSerializer,
+        "comments": CommentDetailSerializer,
+        "upvoted": UpvotedSerializer,
+        "downvoted": DownvotedSerializer,
     }
 
     def get_serializer_class(self):
@@ -63,6 +70,58 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
         combined_data = sorted(chain(posts, comments), key=lambda obj: obj.created_at, reverse=True)
         serialized_data = self.get_serializer(
             combined_data, context={'request': request}, many=True
+        ).data
+        return response.Response(serialized_data)
+
+    @extend_schema(responses=PostSerializer(many=True))
+    @action(detail=True, methods=[HTTPMethod.GET])
+    def posts(self, request, pk=None):
+        """Returns a list of posts by the user, ordered by date."""
+        profile = self.get_object()
+        posts = profile.posts.all().order_by("-created_at")
+        serialized_data = self.get_serializer(posts, context={"request": request}, many=True).data
+        return response.Response(serialized_data)
+
+    @extend_schema(responses=CommentDetailSerializer(many=True))
+    @action(detail=True, methods=[HTTPMethod.GET])
+    def comments(self, request, pk=None):
+        """Returns a list of comments by the user, ordered by date."""
+        profile = self.get_object()
+        comments = profile.comments.with_annotated_ratio().order_by("-created_at")
+        serialized_data = self.get_serializer(
+            comments, context={"request": request}, many=True
+        ).data
+        return response.Response(serialized_data)
+
+    @extend_schema(responses=UpvotedSerializer(many=True))
+    @action(detail=True, methods=[HTTPMethod.GET])
+    def upvoted(self, request, pk=None):
+        """Returns a mixed list of upvoted posts and comments by the user, ordered by date."""
+        profile = self.get_object()
+        posts = profile.upvoted_posts.all().annotate(type=Value("post", CharField()))
+        comments = profile.upvoted_comments.with_annotated_ratio().annotate(
+            type=Value("comment", CharField())
+        )
+
+        combined_data = sorted(chain(posts, comments), key=lambda obj: obj.created_at, reverse=True)
+        serialized_data = self.get_serializer(
+            combined_data, context={"request": request}, many=True
+        ).data
+        return response.Response(serialized_data)
+
+    @extend_schema(responses=DownvotedSerializer(many=True))
+    @action(detail=True, methods=[HTTPMethod.GET])
+    def downvoted(self, request, pk=None):
+        """Returns a mixed list of downvoted posts and comments by the user, ordered by date."""
+        profile = self.get_object()
+        posts = profile.downvoted_posts.all().annotate(type=Value("post", CharField()))
+        comments = profile.downvoted_comments.with_annotated_ratio().annotate(
+            type=Value("comment", CharField())
+        )
+
+        combined_data = sorted(chain(posts, comments), key=lambda obj: obj.created_at, reverse=True)
+        serialized_data = self.get_serializer(
+            combined_data, context={"request": request}, many=True
         ).data
         return response.Response(serialized_data)
 
