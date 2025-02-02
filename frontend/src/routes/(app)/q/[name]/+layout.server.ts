@@ -3,7 +3,7 @@ import type { LayoutServerLoad } from './$types';
 import { error as raise_error, redirect } from '@sveltejs/kit';
 
 export const load: LayoutServerLoad = async ({ params }) => {
-  const { data, error, response } = await client.GET('/api/v1/communities/{name}/', {
+  const { data, error, response } = await client.GET('/communities/{name}/', {
     params: {
       path: { name: params.name }
     }

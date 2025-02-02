@@ -5,12 +5,12 @@ import { error as raise_error, redirect } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ params }) => {
   const [post, comments] = await Promise.all([
-    await client.GET('/api/v1/posts/{id}/', {
+    await client.GET('/posts/{id}/', {
       params: {
         path: { id: params.id }
       }
     }),
-    await client.GET('/api/v1/posts/{id}/comments/', {
+    await client.GET('/posts/{id}/comments/', {
       params: {
         path: { id: params.id }
       }

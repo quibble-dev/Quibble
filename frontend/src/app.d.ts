@@ -1,5 +1,5 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
-import type { components } from '$lib/clients/v1';
+import type { components } from '$lib/clients/v1/schema';
 
 type Profile = components['schemas']['Profile'];
 

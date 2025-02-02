@@ -100,7 +100,8 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': openapi_description,
     'VERSION': '0.0.1',
     'SERVE_INCLUDE_SCHEMA': False,
-    # 'SCHEMA_PATH_PREFIX': r'/api',
+    'SCHEMA_PATH_PREFIX': r'/api/v[1-9]/',
+    'SCHEMA_PATH_PREFIX_TRIM': True,
     # sidecar config
     'SWAGGER_UI_DIST': 'SIDECAR',
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',

@@ -5,6 +5,7 @@ from django.conf import settings
 from django.db.models import CharField, Value
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from drf_spectacular.utils import extend_schema
 from rest_framework import exceptions, filters, permissions, response, status, viewsets
 from rest_framework.decorators import action
 
@@ -16,6 +17,7 @@ from ...serializers.user.profile import ProfileSerializer
 from ...serializers.user.profile.overview import OverviewSerializer
 
 
+@extend_schema(tags=["user & profiles"])
 class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
     """
     ViewSet for performing read-only operations on the Profile model.
@@ -27,9 +29,13 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('username',)
+    search_fields = ("username",)
 
-    @action(detail=False, methods=[HTTPMethod.GET], url_path=r'(?P<username>[^/.]+)/overview')
+    @action(
+        detail=False,
+        methods=[HTTPMethod.GET],
+        url_path=r"(?P<username>[^/.]+)/overview",
+    )
     def overview(self, request, username=None):
         """Returns a mixed list of posts and comments by the user, ordered by date."""
         try:
@@ -38,30 +44,34 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
             posts = (
                 Post.objects.filter(poster=profile)
                 .annotate(type=Value("post", CharField()))
-                .order_by('-created_at')
+                .order_by("-created_at")
             )
             comments = (
                 Comment.objects.with_annotated_ratio()
                 .filter(commenter=profile)
                 .annotate(type=Value("comment", CharField()))
-                .order_by('-created_at')
+                .order_by("-created_at")
             )
 
             post_data = OverviewSerializer(posts, many=True).data
             comment_data = OverviewSerializer(comments, many=True).data
 
             combined_data = sorted(
-                chain(post_data, comment_data), key=lambda x: x['data']['created_at'], reverse=True
+                chain(post_data, comment_data),
+                key=lambda x: x["data"]["created_at"],
+                reverse=True,
             )
 
             return response.Response(combined_data, status=status.HTTP_200_OK)
 
         except Http404:
             raise exceptions.NotFound(
-                detail="No Profile matches the given query.", code=status.HTTP_404_NOT_FOUND
+                detail="No Profile matches the given query.",
+                code=status.HTTP_404_NOT_FOUND,
             )
 
 
+@extend_schema(tags=["user & profiles"])
 class MyProfilesViewSet(viewsets.ModelViewSet):
     """
     ViewSet to manage profiles associated with the authenticated user.
@@ -78,7 +88,7 @@ class MyProfilesViewSet(viewsets.ModelViewSet):
         Restrict queryset to profiles owned by the currently authenticated user.
         """
         # during schema generation
-        if getattr(self, 'swagger_fake_view', False):
+        if getattr(self, "swagger_fake_view", False):
             return Profile.objects.none()
         user = self.request.user
         return user.profiles.all()  # pyright: ignore
@@ -93,6 +103,6 @@ class MyProfilesViewSet(viewsets.ModelViewSet):
         user = self.request.user
         if user.profiles.count() >= settings.PROFILE_LIMIT:  # pyright: ignore
             raise exceptions.ValidationError(
-                f'A user cannot have more than {settings.PROFILE_LIMIT} profiles.'
+                f"A user cannot have more than {settings.PROFILE_LIMIT} profiles."
             )
         serializer.save(user=user)
