@@ -18,6 +18,8 @@ jobs:
       backend: ${{ steps.filter.outputs.backend }}
       frontend: ${{ steps.filter.outputs.frontend }}
     steps:
+      # https://github.com/dorny/paths-filter/issues/212#issuecomment-1960976719
+      - uses: actions/checkout@v4
       # For pull requests it's not necessary to checkout the code
       - uses: dorny/paths-filter@v3
         id: filter
