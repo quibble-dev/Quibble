@@ -4,61 +4,7 @@
  */
 
 export interface paths {
-  '/api/v1/auth/login/': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /** @description Customized drf basic token authentication.
-     *
-     *     This view authenticates the user using email and password credentials
-     *     and issues a token upon successful login. */
-    post: operations['auth_login_create'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/auth/logout/': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /** @description View to handle user logout by deleting the authentication token. */
-    post: operations['auth_logout_create'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/auth/register/': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /** @description View to handle registering of new users. */
-    post: operations['auth_register_create'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/api/v1/comments/{id}/': {
+  '/comments/{id}/': {
     parameters: {
       query?: never;
       header?: never;
@@ -90,7 +36,7 @@ export interface paths {
     patch: operations['comments_partial_update'];
     trace?: never;
   };
-  '/api/v1/communities/': {
+  '/communities/': {
     parameters: {
       query?: never;
       header?: never;
@@ -106,7 +52,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/api/v1/communities/{name}/': {
+  '/communities/{name}/': {
     parameters: {
       query?: never;
       header?: never;
@@ -122,7 +68,7 @@ export interface paths {
     patch: operations['communities_partial_update'];
     trace?: never;
   };
-  '/api/v1/communities/{name}/exists/': {
+  '/communities/{name}/exists/': {
     parameters: {
       query?: never;
       header?: never;
@@ -138,7 +84,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/api/v1/communities/{name}/highlighted_posts/': {
+  '/communities/{name}/highlighted_posts/': {
     parameters: {
       query?: never;
       header?: never;
@@ -154,7 +100,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/api/v1/communities/{name}/posts/': {
+  '/communities/{name}/posts/': {
     parameters: {
       query?: never;
       header?: never;
@@ -170,7 +116,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/api/v1/posts/': {
+  '/posts/': {
     parameters: {
       query?: never;
       header?: never;
@@ -186,7 +132,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/api/v1/posts/{id}/': {
+  '/posts/{id}/': {
     parameters: {
       query?: never;
       header?: never;
@@ -202,7 +148,7 @@ export interface paths {
     patch: operations['posts_partial_update'];
     trace?: never;
   };
-  '/api/v1/posts/{id}/comments/': {
+  '/posts/{id}/comments/': {
     parameters: {
       query?: never;
       header?: never;
@@ -218,7 +164,44 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/api/v1/users/me/': {
+  '/u/login/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** @description Customized drf basic token authentication.
+     *
+     *     This view authenticates the user using email and password credentials
+     *     and issues a token upon successful login. */
+    post: operations['u_login_create'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/u/logout/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** @description View to handle user logout by deleting the authentication token. */
+    post: operations['u_logout_create'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/u/me/': {
     parameters: {
       query?: never;
       header?: never;
@@ -231,7 +214,7 @@ export interface paths {
      *
      *     Permission:
      *     - Requires user authentication. */
-    get: operations['users_me_retrieve'];
+    get: operations['u_me_retrieve'];
     put?: never;
     post?: never;
     delete?: never;
@@ -240,7 +223,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/api/v1/users/me/profiles/': {
+  '/u/me/profiles/': {
     parameters: {
       query?: never;
       header?: never;
@@ -251,20 +234,20 @@ export interface paths {
      *
      *     Permissions:
      *     - Requires user authentication to access and modify profiles. */
-    get: operations['users_me_profiles_list'];
+    get: operations['u_me_profiles_list'];
     put?: never;
     /** @description ViewSet to manage profiles associated with the authenticated user.
      *
      *     Permissions:
      *     - Requires user authentication to access and modify profiles. */
-    post: operations['users_me_profiles_create'];
+    post: operations['u_me_profiles_create'];
     delete?: never;
     options?: never;
     head?: never;
     patch?: never;
     trace?: never;
   };
-  '/api/v1/users/me/profiles/{id}/': {
+  '/u/me/profiles/{id}/': {
     parameters: {
       query?: never;
       header?: never;
@@ -275,28 +258,28 @@ export interface paths {
      *
      *     Permissions:
      *     - Requires user authentication to access and modify profiles. */
-    get: operations['users_me_profiles_retrieve'];
+    get: operations['u_me_profiles_retrieve'];
     /** @description ViewSet to manage profiles associated with the authenticated user.
      *
      *     Permissions:
      *     - Requires user authentication to access and modify profiles. */
-    put: operations['users_me_profiles_update'];
+    put: operations['u_me_profiles_update'];
     post?: never;
     /** @description ViewSet to manage profiles associated with the authenticated user.
      *
      *     Permissions:
      *     - Requires user authentication to access and modify profiles. */
-    delete: operations['users_me_profiles_destroy'];
+    delete: operations['u_me_profiles_destroy'];
     options?: never;
     head?: never;
     /** @description ViewSet to manage profiles associated with the authenticated user.
      *
      *     Permissions:
      *     - Requires user authentication to access and modify profiles. */
-    patch: operations['users_me_profiles_partial_update'];
+    patch: operations['u_me_profiles_partial_update'];
     trace?: never;
   };
-  '/api/v1/users/profiles/': {
+  '/u/profiles/': {
     parameters: {
       query?: never;
       header?: never;
@@ -307,7 +290,7 @@ export interface paths {
      *
      *     Filtering:
      *     - Allows searching profiles by username. */
-    get: operations['users_profiles_list'];
+    get: operations['u_profiles_list'];
     put?: never;
     post?: never;
     delete?: never;
@@ -316,7 +299,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/api/v1/users/profiles/{id}/': {
+  '/u/profiles/{id}/': {
     parameters: {
       query?: never;
       header?: never;
@@ -327,9 +310,26 @@ export interface paths {
      *
      *     Filtering:
      *     - Allows searching profiles by username. */
-    get: operations['users_profiles_retrieve'];
+    get: operations['u_profiles_retrieve'];
     put?: never;
     post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/u/register/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** @description View to handle registering of new users. */
+    post: operations['u_register_create'];
     delete?: never;
     options?: never;
     head?: never;
@@ -347,158 +347,6 @@ export interface components {
        */
       email: string;
       password: string;
-    };
-    AuthLoginCreateEmailErrorComponent: {
-      /**
-       * @description * `email` - email (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'email';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       *     * `unique` - unique
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'max_length'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed'
-        | 'unique';
-      detail: string;
-    };
-    AuthLoginCreateError:
-      | components['schemas']['AuthLoginCreateNonFieldErrorsErrorComponent']
-      | components['schemas']['AuthLoginCreateEmailErrorComponent']
-      | components['schemas']['AuthLoginCreatePasswordErrorComponent'];
-    AuthLoginCreateNonFieldErrorsErrorComponent: {
-      /**
-       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'non_field_errors';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    AuthLoginCreatePasswordErrorComponent: {
-      /**
-       * @description * `password` - password (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'password';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'max_length'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    AuthLoginCreateValidationError: {
-      type: components['schemas']['ValidationErrorEnum'];
-      errors: components['schemas']['AuthLoginCreateError'][];
-    };
-    AuthRegisterCreateEmailErrorComponent: {
-      /**
-       * @description * `email` - email (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'email';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       *     * `unique` - unique
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'max_length'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed'
-        | 'unique';
-      detail: string;
-    };
-    AuthRegisterCreateError:
-      | components['schemas']['AuthRegisterCreateNonFieldErrorsErrorComponent']
-      | components['schemas']['AuthRegisterCreateEmailErrorComponent']
-      | components['schemas']['AuthRegisterCreatePasswordErrorComponent'];
-    AuthRegisterCreateNonFieldErrorsErrorComponent: {
-      /**
-       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'non_field_errors';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    AuthRegisterCreatePasswordErrorComponent: {
-      /**
-       * @description * `password` - password (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'password';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'max_length'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    AuthRegisterCreateValidationError: {
-      type: components['schemas']['ValidationErrorEnum'];
-      errors: components['schemas']['AuthRegisterCreateError'][];
     };
     AuthToken: {
       token: string;
@@ -1492,7 +1340,7 @@ export interface components {
     };
     CommunityDetailed: {
       readonly id: number;
-      rangers: components['schemas']['ProfileBasic'][];
+      moderators: components['schemas']['ProfileBasic'][];
       readonly posts_count: number;
       /** Format: uri */
       avatar?: string | null;
@@ -1508,7 +1356,6 @@ export interface components {
       /** Format: uri */
       banner?: string | null;
       members?: number[];
-      moderators?: number[];
     };
     CommunityExists: {
       exists: boolean;
@@ -1614,6 +1461,8 @@ export interface components {
       first_name?: string | null;
       last_name?: string | null;
       bio?: string | null;
+      /** Format: uri */
+      banner?: string | null;
     };
     Post: {
       readonly id: string;
@@ -2288,6 +2137,8 @@ export interface components {
       first_name?: string | null;
       last_name?: string | null;
       bio?: string | null;
+      /** Format: uri */
+      banner?: string | null;
     };
     ProfileBasic: {
       /** @description Required. 25 characters or fewer. Letters, digits and ./_ only. */
@@ -2301,6 +2152,587 @@ export interface components {
      * @enum {string}
      */
     ServerErrorEnum: 'server_error';
+    ULoginCreateEmailErrorComponent: {
+      /**
+       * @description * `email` - email (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'email';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    ULoginCreateError:
+      | components['schemas']['ULoginCreateNonFieldErrorsErrorComponent']
+      | components['schemas']['ULoginCreateEmailErrorComponent']
+      | components['schemas']['ULoginCreatePasswordErrorComponent'];
+    ULoginCreateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    ULoginCreatePasswordErrorComponent: {
+      /**
+       * @description * `password` - password (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'password';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    ULoginCreateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['ULoginCreateError'][];
+    };
+    UMeProfilesCreateAvatarErrorComponent: {
+      /**
+       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'avatar';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    UMeProfilesCreateBannerErrorComponent: {
+      /**
+       * @description * `banner` - banner (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'banner';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    UMeProfilesCreateBioErrorComponent: {
+      /**
+       * @description * `bio` - bio (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'bio';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code: 'invalid' | 'null_characters_not_allowed' | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    UMeProfilesCreateError:
+      | components['schemas']['UMeProfilesCreateNonFieldErrorsErrorComponent']
+      | components['schemas']['UMeProfilesCreateAvatarErrorComponent']
+      | components['schemas']['UMeProfilesCreateUsernameErrorComponent']
+      | components['schemas']['UMeProfilesCreateFirstNameErrorComponent']
+      | components['schemas']['UMeProfilesCreateLastNameErrorComponent']
+      | components['schemas']['UMeProfilesCreateBioErrorComponent']
+      | components['schemas']['UMeProfilesCreateBannerErrorComponent'];
+    UMeProfilesCreateFirstNameErrorComponent: {
+      /**
+       * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'first_name';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    UMeProfilesCreateLastNameErrorComponent: {
+      /**
+       * @description * `last_name` - last_name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'last_name';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    UMeProfilesCreateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    UMeProfilesCreateUsernameErrorComponent: {
+      /**
+       * @description * `username` - username (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'username';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    UMeProfilesCreateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['UMeProfilesCreateError'][];
+    };
+    UMeProfilesPartialUpdateAvatarErrorComponent: {
+      /**
+       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'avatar';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    UMeProfilesPartialUpdateBannerErrorComponent: {
+      /**
+       * @description * `banner` - banner (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'banner';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    UMeProfilesPartialUpdateBioErrorComponent: {
+      /**
+       * @description * `bio` - bio (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'bio';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code: 'invalid' | 'null_characters_not_allowed' | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    UMeProfilesPartialUpdateError:
+      | components['schemas']['UMeProfilesPartialUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['UMeProfilesPartialUpdateAvatarErrorComponent']
+      | components['schemas']['UMeProfilesPartialUpdateUsernameErrorComponent']
+      | components['schemas']['UMeProfilesPartialUpdateFirstNameErrorComponent']
+      | components['schemas']['UMeProfilesPartialUpdateLastNameErrorComponent']
+      | components['schemas']['UMeProfilesPartialUpdateBioErrorComponent']
+      | components['schemas']['UMeProfilesPartialUpdateBannerErrorComponent'];
+    UMeProfilesPartialUpdateFirstNameErrorComponent: {
+      /**
+       * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'first_name';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    UMeProfilesPartialUpdateLastNameErrorComponent: {
+      /**
+       * @description * `last_name` - last_name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'last_name';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    UMeProfilesPartialUpdateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    UMeProfilesPartialUpdateUsernameErrorComponent: {
+      /**
+       * @description * `username` - username (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'username';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    UMeProfilesPartialUpdateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['UMeProfilesPartialUpdateError'][];
+    };
+    UMeProfilesUpdateAvatarErrorComponent: {
+      /**
+       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'avatar';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    UMeProfilesUpdateBannerErrorComponent: {
+      /**
+       * @description * `banner` - banner (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'banner';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    UMeProfilesUpdateBioErrorComponent: {
+      /**
+       * @description * `bio` - bio (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'bio';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code: 'invalid' | 'null_characters_not_allowed' | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    UMeProfilesUpdateError:
+      | components['schemas']['UMeProfilesUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['UMeProfilesUpdateAvatarErrorComponent']
+      | components['schemas']['UMeProfilesUpdateUsernameErrorComponent']
+      | components['schemas']['UMeProfilesUpdateFirstNameErrorComponent']
+      | components['schemas']['UMeProfilesUpdateLastNameErrorComponent']
+      | components['schemas']['UMeProfilesUpdateBioErrorComponent']
+      | components['schemas']['UMeProfilesUpdateBannerErrorComponent'];
+    UMeProfilesUpdateFirstNameErrorComponent: {
+      /**
+       * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'first_name';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    UMeProfilesUpdateLastNameErrorComponent: {
+      /**
+       * @description * `last_name` - last_name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'last_name';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    UMeProfilesUpdateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    UMeProfilesUpdateUsernameErrorComponent: {
+      /**
+       * @description * `username` - username (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'username';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    UMeProfilesUpdateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['UMeProfilesUpdateError'][];
+    };
+    URegisterCreateEmailErrorComponent: {
+      /**
+       * @description * `email` - email (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'email';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    URegisterCreateError:
+      | components['schemas']['URegisterCreateNonFieldErrorsErrorComponent']
+      | components['schemas']['URegisterCreateEmailErrorComponent']
+      | components['schemas']['URegisterCreatePasswordErrorComponent'];
+    URegisterCreateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    URegisterCreatePasswordErrorComponent: {
+      /**
+       * @description * `password` - password (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'password';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    URegisterCreateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['URegisterCreateError'][];
+    };
     User: {
       readonly id: number;
       /**
@@ -2311,381 +2743,6 @@ export interface components {
       password: string;
       /** Format: date-time */
       readonly date_joined: string;
-    };
-    UsersMeProfilesCreateAvatarErrorComponent: {
-      /**
-       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'avatar';
-      /**
-       * @description * `empty` - empty
-       *     * `invalid` - invalid
-       *     * `invalid_image` - invalid_image
-       *     * `max_length` - max_length
-       *     * `no_name` - no_name
-       * @enum {string}
-       */
-      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-      detail: string;
-    };
-    UsersMeProfilesCreateBioErrorComponent: {
-      /**
-       * @description * `bio` - bio (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'bio';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code: 'invalid' | 'null_characters_not_allowed' | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    UsersMeProfilesCreateError:
-      | components['schemas']['UsersMeProfilesCreateNonFieldErrorsErrorComponent']
-      | components['schemas']['UsersMeProfilesCreateAvatarErrorComponent']
-      | components['schemas']['UsersMeProfilesCreateUsernameErrorComponent']
-      | components['schemas']['UsersMeProfilesCreateFirstNameErrorComponent']
-      | components['schemas']['UsersMeProfilesCreateLastNameErrorComponent']
-      | components['schemas']['UsersMeProfilesCreateBioErrorComponent'];
-    UsersMeProfilesCreateFirstNameErrorComponent: {
-      /**
-       * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'first_name';
-      /**
-       * @description * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'invalid'
-        | 'max_length'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    UsersMeProfilesCreateLastNameErrorComponent: {
-      /**
-       * @description * `last_name` - last_name (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'last_name';
-      /**
-       * @description * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'invalid'
-        | 'max_length'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    UsersMeProfilesCreateNonFieldErrorsErrorComponent: {
-      /**
-       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'non_field_errors';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    UsersMeProfilesCreateUsernameErrorComponent: {
-      /**
-       * @description * `username` - username (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'username';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       *     * `unique` - unique
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'max_length'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed'
-        | 'unique';
-      detail: string;
-    };
-    UsersMeProfilesCreateValidationError: {
-      type: components['schemas']['ValidationErrorEnum'];
-      errors: components['schemas']['UsersMeProfilesCreateError'][];
-    };
-    UsersMeProfilesPartialUpdateAvatarErrorComponent: {
-      /**
-       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'avatar';
-      /**
-       * @description * `empty` - empty
-       *     * `invalid` - invalid
-       *     * `invalid_image` - invalid_image
-       *     * `max_length` - max_length
-       *     * `no_name` - no_name
-       * @enum {string}
-       */
-      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-      detail: string;
-    };
-    UsersMeProfilesPartialUpdateBioErrorComponent: {
-      /**
-       * @description * `bio` - bio (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'bio';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code: 'invalid' | 'null_characters_not_allowed' | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    UsersMeProfilesPartialUpdateError:
-      | components['schemas']['UsersMeProfilesPartialUpdateNonFieldErrorsErrorComponent']
-      | components['schemas']['UsersMeProfilesPartialUpdateAvatarErrorComponent']
-      | components['schemas']['UsersMeProfilesPartialUpdateUsernameErrorComponent']
-      | components['schemas']['UsersMeProfilesPartialUpdateFirstNameErrorComponent']
-      | components['schemas']['UsersMeProfilesPartialUpdateLastNameErrorComponent']
-      | components['schemas']['UsersMeProfilesPartialUpdateBioErrorComponent'];
-    UsersMeProfilesPartialUpdateFirstNameErrorComponent: {
-      /**
-       * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'first_name';
-      /**
-       * @description * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'invalid'
-        | 'max_length'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    UsersMeProfilesPartialUpdateLastNameErrorComponent: {
-      /**
-       * @description * `last_name` - last_name (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'last_name';
-      /**
-       * @description * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'invalid'
-        | 'max_length'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    UsersMeProfilesPartialUpdateNonFieldErrorsErrorComponent: {
-      /**
-       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'non_field_errors';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    UsersMeProfilesPartialUpdateUsernameErrorComponent: {
-      /**
-       * @description * `username` - username (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'username';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       *     * `unique` - unique
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'max_length'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed'
-        | 'unique';
-      detail: string;
-    };
-    UsersMeProfilesPartialUpdateValidationError: {
-      type: components['schemas']['ValidationErrorEnum'];
-      errors: components['schemas']['UsersMeProfilesPartialUpdateError'][];
-    };
-    UsersMeProfilesUpdateAvatarErrorComponent: {
-      /**
-       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'avatar';
-      /**
-       * @description * `empty` - empty
-       *     * `invalid` - invalid
-       *     * `invalid_image` - invalid_image
-       *     * `max_length` - max_length
-       *     * `no_name` - no_name
-       * @enum {string}
-       */
-      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-      detail: string;
-    };
-    UsersMeProfilesUpdateBioErrorComponent: {
-      /**
-       * @description * `bio` - bio (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'bio';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code: 'invalid' | 'null_characters_not_allowed' | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    UsersMeProfilesUpdateError:
-      | components['schemas']['UsersMeProfilesUpdateNonFieldErrorsErrorComponent']
-      | components['schemas']['UsersMeProfilesUpdateAvatarErrorComponent']
-      | components['schemas']['UsersMeProfilesUpdateUsernameErrorComponent']
-      | components['schemas']['UsersMeProfilesUpdateFirstNameErrorComponent']
-      | components['schemas']['UsersMeProfilesUpdateLastNameErrorComponent']
-      | components['schemas']['UsersMeProfilesUpdateBioErrorComponent'];
-    UsersMeProfilesUpdateFirstNameErrorComponent: {
-      /**
-       * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'first_name';
-      /**
-       * @description * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'invalid'
-        | 'max_length'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    UsersMeProfilesUpdateLastNameErrorComponent: {
-      /**
-       * @description * `last_name` - last_name (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'last_name';
-      /**
-       * @description * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'invalid'
-        | 'max_length'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    UsersMeProfilesUpdateNonFieldErrorsErrorComponent: {
-      /**
-       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'non_field_errors';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    UsersMeProfilesUpdateUsernameErrorComponent: {
-      /**
-       * @description * `username` - username (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'username';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       *     * `unique` - unique
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'max_length'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed'
-        | 'unique';
-      detail: string;
-    };
-    UsersMeProfilesUpdateValidationError: {
-      type: components['schemas']['ValidationErrorEnum'];
-      errors: components['schemas']['UsersMeProfilesUpdateError'][];
     };
     /**
      * @description * `validation_error` - Validation Error
@@ -2701,115 +2758,6 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
-  auth_login_create: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['Auth'];
-        'application/x-www-form-urlencoded': components['schemas']['Auth'];
-        'multipart/form-data': components['schemas']['Auth'];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['AuthToken'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['AuthLoginCreateValidationError'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse500'];
-        };
-      };
-    };
-  };
-  auth_logout_create: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['DetailResponse'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse500'];
-        };
-      };
-    };
-  };
-  auth_register_create: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['Auth'];
-        'application/x-www-form-urlencoded': components['schemas']['Auth'];
-        'multipart/form-data': components['schemas']['Auth'];
-      };
-    };
-    responses: {
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['Auth'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['AuthRegisterCreateValidationError'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse500'];
-        };
-      };
-    };
-  };
   comments_retrieve: {
     parameters: {
       query?: never;
@@ -3680,7 +3628,75 @@ export interface operations {
       };
     };
   };
-  users_me_retrieve: {
+  u_login_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Auth'];
+        'application/x-www-form-urlencoded': components['schemas']['Auth'];
+        'multipart/form-data': components['schemas']['Auth'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AuthToken'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ULoginCreateValidationError'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  u_logout_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['DetailResponse'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  u_me_retrieve: {
     parameters: {
       query?: never;
       header?: never;
@@ -3707,7 +3723,7 @@ export interface operations {
       };
     };
   };
-  users_me_profiles_list: {
+  u_me_profiles_list: {
     parameters: {
       query?: never;
       header?: never;
@@ -3734,7 +3750,7 @@ export interface operations {
       };
     };
   };
-  users_me_profiles_create: {
+  u_me_profiles_create: {
     parameters: {
       query?: never;
       header?: never;
@@ -3762,7 +3778,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UsersMeProfilesCreateValidationError'];
+          'application/json': components['schemas']['UMeProfilesCreateValidationError'];
         };
       };
       500: {
@@ -3775,7 +3791,7 @@ export interface operations {
       };
     };
   };
-  users_me_profiles_retrieve: {
+  u_me_profiles_retrieve: {
     parameters: {
       query?: never;
       header?: never;
@@ -3813,7 +3829,7 @@ export interface operations {
       };
     };
   };
-  users_me_profiles_update: {
+  u_me_profiles_update: {
     parameters: {
       query?: never;
       header?: never;
@@ -3844,7 +3860,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UsersMeProfilesUpdateValidationError'];
+          'application/json': components['schemas']['UMeProfilesUpdateValidationError'];
         };
       };
       404: {
@@ -3865,7 +3881,7 @@ export interface operations {
       };
     };
   };
-  users_me_profiles_destroy: {
+  u_me_profiles_destroy: {
     parameters: {
       query?: never;
       header?: never;
@@ -3902,7 +3918,7 @@ export interface operations {
       };
     };
   };
-  users_me_profiles_partial_update: {
+  u_me_profiles_partial_update: {
     parameters: {
       query?: never;
       header?: never;
@@ -3933,7 +3949,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['UsersMeProfilesPartialUpdateValidationError'];
+          'application/json': components['schemas']['UMeProfilesPartialUpdateValidationError'];
         };
       };
       404: {
@@ -3954,7 +3970,7 @@ export interface operations {
       };
     };
   };
-  users_profiles_list: {
+  u_profiles_list: {
     parameters: {
       query?: {
         /** @description A search term. */
@@ -3984,7 +4000,7 @@ export interface operations {
       };
     };
   };
-  users_profiles_retrieve: {
+  u_profiles_retrieve: {
     parameters: {
       query?: never;
       header?: never;
@@ -4010,6 +4026,47 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  u_register_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Auth'];
+        'application/x-www-form-urlencoded': components['schemas']['Auth'];
+        'multipart/form-data': components['schemas']['Auth'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Auth'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['URegisterCreateValidationError'];
         };
       };
       500: {
