@@ -1,5 +1,5 @@
 from drf_standardized_errors.handler import (
-    exception_handler as standardized_errors_handler
+    exception_handler as standardized_errors_handler,
 )
 from drf_standardized_errors.openapi import AutoSchema
 
