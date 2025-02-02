@@ -3,23 +3,38 @@ name: Lint
 on:
   push:
     branches:
-      - '*'
-    paths:
-      - 'backend/**'
-      - 'frontend/**'
+      - main
   pull_request:
-    branches:
-      - '*'
-    paths:
-      - 'backend/**'
-      - 'frontend/**'
 
 jobs:
+  # JOB to run change detection
+  changes:
+    runs-on: ubuntu-latest
+    # Required permissions
+    permissions:
+      pull-requests: read
+    # Set job outputs to values from filter step
+    outputs:
+      backend: ${{ steps.filter.outputs.backend }}
+      frontend: ${{ steps.filter.outputs.frontend }}
+    steps:
+      # For pull requests it's not necessary to checkout the code
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            backend:
+              - 'backend/**'
+            frontend:
+              - 'frontend/**'
+
+  # JOB to link backend code
   backend:
+    needs: changes
+    if: ${{ needs.changes.outputs.backend == 'true' }}
     defaults:
       run:
         working-directory: ./backend
-    if: "contains(github.event.head_commit.modified, 'backend/')"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -44,11 +59,13 @@ jobs:
       - name: Run isort and flake8
         run: poetry run poe lint
 
+  # JOB to link backend code
   frontend:
+    needs: changes
+    if: ${{ needs.changes.outputs.backend == 'true' }}
     defaults:
       run:
         working-directory: ./frontend
-    if: "contains(github.event.head_commit.modified, 'frontend/')"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
