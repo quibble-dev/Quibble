@@ -67,6 +67,7 @@
   }
 
   async function handle_name_input(e: Event) {
+    name_taken = false;
     // remove unncessarry characters
     $form.name = (e.currentTarget as HTMLInputElement).value.replace(/\s/g, '');
     await validate('name');
@@ -97,9 +98,7 @@
   }
 
   const debounced_handle_check_name_exists = debounce(async () => {
-    const exists = await handle_check_name_exists();
-    name_taken = exists;
-    $errors.name = exists ? [`"q/${$form.name}" is already taken`] : undefined;
+    name_taken = await handle_check_name_exists();
   }, 500);
 
   onMount(async () => {
@@ -142,11 +141,13 @@
         </label>
 
         <!-- error store -->
-        {#if $errors.name}
+        {#if $errors.name || name_taken}
           <div class="label py-1">
             <span class="label-text flex items-center gap-2 text-error">
               <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
-              <span class="text-xs">{$errors.name[0]}</span>
+              <span class="text-xs"
+                >{name_taken ? `"q/${$form.name}" is already taken` : $errors.name?.[0]}</span
+              >
             </span>
           </div>
         {/if}
