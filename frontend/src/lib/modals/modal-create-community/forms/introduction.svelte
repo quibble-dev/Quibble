@@ -5,6 +5,7 @@
   import { debounce } from '$lib/functions/debounce';
   import type { FormProps } from '../../types';
   import forms from '../forms';
+  import { onMount } from 'svelte';
   import { defaults, superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
   import { z } from 'zod';
@@ -34,12 +35,15 @@
     ).data
   };
 
+  let name_taken = $state(false);
+
   const { form, enhance, errors, validate, validateForm } = superForm(
     defaults(initial_data, zod(schema)),
     {
       SPA: true,
       resetForm: false,
       validators: zod(schema),
+      validationMethod: 'oninput',
       onChange: async () => {
         const result = await validateForm({ update: false });
         update_forms_state('introduction', {
@@ -62,6 +66,9 @@
     reader.readAsDataURL(file);
   }
 
+  $inspect(name_taken);
+  $inspect($errors);
+
   async function handle_name_input(e: Event) {
     // remove unncessarry characters
     $form.name = (e.currentTarget as HTMLInputElement).value.replace(/\s/g, '');
@@ -74,12 +81,10 @@
   }
 
   function handle_description_input() {
+    if (name_taken) return;
     validate('description');
   }
 
-  const debounced_handle_check_name_exists = debounce(async () => {
-    return await handle_check_name_exists();
-  }, 500);
   async function handle_check_name_exists() {
     const { data, response } = await client.GET('/communities/{name}/exists/', {
       params: {
@@ -93,6 +98,17 @@
       return false;
     }
   }
+
+  const debounced_handle_check_name_exists = debounce(async () => {
+    const exists = await handle_check_name_exists();
+    name_taken = exists;
+    $errors.name = exists ? [`"q/${$form.name}" is already taken`] : undefined;
+  }, 500);
+
+  onMount(async () => {
+    await debounced_handle_check_name_exists();
+    if (!name_taken) await validateForm();
+  });
 </script>
 
 <div class="flex flex-col gap-4">
