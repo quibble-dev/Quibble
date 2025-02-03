@@ -1,8 +1,11 @@
 <script lang="ts">
   import autosize from '$lib/actions/autosize';
+  import client from '$lib/clients';
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import { debounce } from '$lib/functions/debounce';
   import type { FormProps } from '../../types';
   import forms from '../forms';
+  import { onMount } from 'svelte';
   import { defaults, superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
   import { z } from 'zod';
@@ -32,15 +35,16 @@
     ).data
   };
 
+  let name_taken = $state(false);
+
   const { form, enhance, errors, validate, validateForm } = superForm(
     defaults(initial_data, zod(schema)),
     {
       SPA: true,
       resetForm: false,
       validators: zod(schema),
+      validationMethod: 'oninput',
       onChange: async () => {
-        // TODO: call external API to check for name availability
-
         const result = await validateForm({ update: false });
         update_forms_state('introduction', {
           valid: result.valid,
@@ -62,15 +66,45 @@
     reader.readAsDataURL(file);
   }
 
-  function handle_name_input(e: Event) {
+  async function handle_name_input(e: Event) {
+    name_taken = false;
     // remove unncessarry characters
     $form.name = (e.currentTarget as HTMLInputElement).value.replace(/\s/g, '');
-    validate('name');
+    await validate('name');
+
+    if (!$errors.name) {
+      // call API to validate name if it exists or not
+      await debounced_handle_check_name_exists();
+    }
   }
 
   function handle_description_input() {
+    if (name_taken) return;
     validate('description');
   }
+
+  async function handle_check_name_exists() {
+    const { data, response } = await client.GET('/communities/{name}/exists/', {
+      params: {
+        path: { name: $form.name }
+      }
+    });
+
+    if (data && response.ok) {
+      return data.exists;
+    } else {
+      return false;
+    }
+  }
+
+  const debounced_handle_check_name_exists = debounce(async () => {
+    name_taken = await handle_check_name_exists();
+  }, 500);
+
+  onMount(async () => {
+    await debounced_handle_check_name_exists();
+    if (!name_taken) await validateForm();
+  });
 </script>
 
 <div class="flex flex-col gap-4">
@@ -107,11 +141,13 @@
         </label>
 
         <!-- error store -->
-        {#if $errors.name}
+        {#if name_taken || $errors.name}
           <div class="label py-1">
             <span class="label-text flex items-center gap-2 text-error">
               <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
-              <span class="text-xs">{$errors.name[0]}</span>
+              <span class="text-xs"
+                >{name_taken ? `"q/${$form.name}" is already taken` : $errors.name?.[0]}</span
+              >
             </span>
           </div>
         {/if}
