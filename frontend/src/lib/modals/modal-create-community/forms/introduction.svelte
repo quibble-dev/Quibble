@@ -109,7 +109,7 @@
 
 <div class="flex flex-col gap-4">
   <!-- header section -->
-  <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-1">
     <h3 class="text-xl font-semibold text-info">Introduce your community</h3>
     <p class="text-sm">
       Give your community a name and a description that reflects its purpose and vibe.
@@ -117,7 +117,7 @@
   </div>
 
   <!-- form section -->
-  <form use:enhance class="flex flex-col-reverse items-start gap-2 md:flex-row md:gap-6">
+  <form use:enhance class="flex flex-col-reverse items-start gap-2 md:flex-row md:gap-4">
     <!-- left column: input fields -->
     <div class="flex w-full flex-1 flex-col gap-2">
       <!-- name input -->
@@ -181,7 +181,7 @@
     </div>
 
     <!-- right column: avatar and banner -->
-    <div class="flex flex-col-reverse gap-2 md:w-72 md:flex-col">
+    <div class="flex flex-1 flex-col-reverse gap-2 md:flex-col">
       <!-- file inputs -->
       <div class="grid grid-cols-2 gap-4 md:gap-2">
         <label class="form-control">

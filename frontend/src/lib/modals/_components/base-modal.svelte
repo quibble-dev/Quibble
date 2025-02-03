@@ -26,7 +26,10 @@
 
 <dialog bind:this={dialog_el} class="modal modal-bottom px-4 sm:modal-middle" {onclose}>
   <div
-    class={cn(klass, 'borders modal-box border-neutral bg-base-300 duration-300 scrollbar-none')}
+    class={cn(
+      klass,
+      'modal-box !rounded-t-2xl border border-neutral bg-base-300 p-4 duration-300 scrollbar-none md:!rounded-2xl'
+    )}
   >
     {@render children()}
   </div>
