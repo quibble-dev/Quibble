@@ -66,9 +66,6 @@
     reader.readAsDataURL(file);
   }
 
-  $inspect(name_taken);
-  $inspect($errors);
-
   async function handle_name_input(e: Event) {
     // remove unncessarry characters
     $form.name = (e.currentTarget as HTMLInputElement).value.replace(/\s/g, '');
