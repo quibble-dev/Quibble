@@ -1,7 +1,9 @@
-export function debounce(fn: (...args: unknown[]) => void, t: number) {
+export function debounce<T extends (...args: unknown[]) => unknown>(fn: T, t: number) {
   let timer: NodeJS.Timeout;
-  return (...args: unknown[]) => {
+  return (...args: Parameters<T>): ReturnType<T> => {
     clearTimeout(timer);
-    timer = setTimeout(() => fn(...args), t);
+    return new Promise((resolve) => {
+      timer = setTimeout(() => resolve(fn(...args)), t);
+    }) as ReturnType<T>;
   };
 }

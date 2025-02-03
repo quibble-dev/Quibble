@@ -1,6 +1,8 @@
 <script lang="ts">
   import autosize from '$lib/actions/autosize';
+  import client from '$lib/clients';
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import { debounce } from '$lib/functions/debounce';
   import type { FormProps } from '../../types';
   import forms from '../forms';
   import { defaults, superForm } from 'sveltekit-superforms';
@@ -39,8 +41,6 @@
       resetForm: false,
       validators: zod(schema),
       onChange: async () => {
-        // TODO: call external API to check for name availability
-
         const result = await validateForm({ update: false });
         update_forms_state('introduction', {
           valid: result.valid,
@@ -62,14 +62,36 @@
     reader.readAsDataURL(file);
   }
 
-  function handle_name_input(e: Event) {
+  async function handle_name_input(e: Event) {
     // remove unncessarry characters
     $form.name = (e.currentTarget as HTMLInputElement).value.replace(/\s/g, '');
-    validate('name');
+    await validate('name');
+
+    if (!$errors.name) {
+      // call API to validate name if it exists or not
+      await debounced_handle_check_name_exists();
+    }
   }
 
   function handle_description_input() {
     validate('description');
+  }
+
+  const debounced_handle_check_name_exists = debounce(async () => {
+    return await handle_check_name_exists();
+  }, 500);
+  async function handle_check_name_exists() {
+    const { data, response } = await client.GET('/communities/{name}/exists/', {
+      params: {
+        path: { name: $form.name }
+      }
+    });
+
+    if (data && response.ok) {
+      return data.exists;
+    } else {
+      return false;
+    }
   }
 </script>
 
