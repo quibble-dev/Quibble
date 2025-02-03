@@ -141,7 +141,7 @@
         </label>
 
         <!-- error store -->
-        {#if $errors.name || name_taken}
+        {#if name_taken || $errors.name}
           <div class="label py-1">
             <span class="label-text flex items-center gap-2 text-error">
               <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
