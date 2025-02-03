@@ -5,7 +5,7 @@ from ...serializers.comment import CommentDetailSerializer
 
 
 class CommentViewSet(UpdateRetrieveDestroyViewSet):
-    queryset = Comment.objects.all()
+    queryset = Comment.objects.with_annotated_ratio()
     serializer_class = CommentDetailSerializer
 
     def perform_destroy(self, instance):
