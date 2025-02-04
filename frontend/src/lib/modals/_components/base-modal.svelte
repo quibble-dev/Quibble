@@ -43,5 +43,5 @@
   <!-- render toasts -->
   <!-- https://stackoverflow.com/questions/77099074/layering-toast-alerts-above-dialog-modal -->
   <!-- https://github.com/saadeghi/daisyui/issues/2858#issuecomment-2010246981 -->
-  <Toaster />
+  <Toaster inside_modal={true} />
 </dialog>

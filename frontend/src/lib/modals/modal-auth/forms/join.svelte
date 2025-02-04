@@ -41,7 +41,7 @@
         } else if (auth_type === 'register') {
           auth_type = 'login';
           // show toast
-          toast.push({ message: 'Suceess! Log in to get started.' });
+          toast.push({ message: 'Suceess! Log in to get started.', inside_modal: true });
         }
       }
     }

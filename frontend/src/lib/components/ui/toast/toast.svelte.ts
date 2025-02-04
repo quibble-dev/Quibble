@@ -4,6 +4,7 @@ type ToastIn = {
   message: string;
   class?: string;
   duration?: number;
+  inside_modal?: boolean;
 };
 
 type Toast = ToastIn & {
@@ -18,11 +19,14 @@ export const toast = {
     return toasts;
   },
   push: (toast: ToastIn) => {
-    const exists = toasts.find((t) => t.message === toast.message);
+    const exists = toasts.find(
+      (t) => t.message === toast.message && t.inside_modal === t.inside_modal
+    );
     if (exists !== undefined) return exists.id;
 
     const new_toast: Toast = {
       ...toast,
+      inside_modal: toast.inside_modal ?? false,
       id: generate_id(),
       timer: setTimeout(() => {
         toasts = toasts.filter((t) => t.id !== new_toast.id);
