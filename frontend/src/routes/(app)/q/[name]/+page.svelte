@@ -10,7 +10,7 @@
   import { onMount } from 'svelte';
 
   const { data }: { data: PageData } = $props();
-  const { community, posts, highlighted_posts } = data;
+  const { community, posts, highlighted_posts } = $derived(data);
 
   const authStore = createAuthStore(),
     sidebarStore = createSidebarStore();
