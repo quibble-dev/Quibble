@@ -103,7 +103,7 @@
       </div>
       <input
         type="checkbox"
-        class="toggle toggle-accent toggle-sm rounded-box"
+        class="toggle toggle-accent toggle-sm rounded-box checked:!border-accent"
         bind:checked={checked_mature}
       />
     </label>

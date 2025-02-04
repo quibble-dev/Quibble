@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { components } from '$lib/clients/v1/schema';
   import Header from '$lib/components/header.svelte';
   import Sidebar from '$lib/components/sidebar.svelte';
   import Toaster from '$lib/components/ui/toast';
@@ -11,19 +10,17 @@
   import { defineCustomElements } from '@coreproject-moe/icons/loader';
   import { onMount, type Snippet } from 'svelte';
 
-  type Profile = components['schemas']['Profile'];
-
-  let { children, data }: { children: Snippet; data: { profile: Profile } } = $props();
+  let { children, data }: { children: Snippet; data: App.Locals } = $props();
 
   let sidebar_show = $state(false);
   let sidebar_shown = $state(false);
 
   const authStore = createAuthStore();
 
-  $effect.pre(() => {
+  $effect(() => {
     authStore.update({
-      profile: data.profile,
-      is_authenticated: !!data.profile
+      is_authenticated: !!data.profile,
+      profile: data.profile
     });
   });
 

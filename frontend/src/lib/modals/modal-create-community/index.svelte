@@ -1,4 +1,5 @@
 <script lang="ts">
+  import client from '$lib/clients/v1/client';
   import { createModalsStore } from '$lib/stores/modals.svelte';
   import BaseModal from '../_components/base-modal.svelte';
   import { create_form_history } from '../_utils/history.svelte';
@@ -45,6 +46,22 @@
 
   function handle_modal_close() {
     modalsStore.close('create_community');
+  }
+
+  async function handle_create_click() {
+    const { data, response, error } = await client.POST('/communities/', {
+      // @ts-expect-error: no id for creation
+      body: {
+        name: forms_state.introduction.data.name,
+        description: forms_state.introduction.data.description
+      }
+    });
+
+    if (data && response.ok) {
+      console.log(data);
+    } else if (error) {
+      console.log(error);
+    }
   }
 </script>
 
@@ -104,6 +121,7 @@
         onclick={() => {
           if (form_step === 'end') {
             // community creation logic goes here
+            handle_create_click();
           } else {
             form_history.go_next(forms);
           }
