@@ -66,7 +66,7 @@
 
     if (!success && error) {
       if (error.includes('name')) goto_form('introduction');
-      toast.push({ message: error, inside_modal: true });
+      toast.push(error, { inside_modal: true });
     } else {
       modalsStore.close('create_community');
       goto(`/q/${data.name}`);

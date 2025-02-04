@@ -33,7 +33,7 @@
       // re-run load functions and close this modal
       await invalidateAll();
       modalsStore.close('auth');
-      toast.push({ message: `Logged in as u/${String(formData.get('profile_username'))}` });
+      toast.push(`Logged in as u/${String(formData.get('profile_username'))}`);
 
       pending = false;
       status_text = null;

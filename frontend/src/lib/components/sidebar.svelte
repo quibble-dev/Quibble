@@ -15,7 +15,7 @@
       modalsStore.open('create_community');
     } else {
       modalsStore.open('auth');
-      toast.push({ message: 'Please login to do this action!', inside_modal: true });
+      toast.push('Please login to do this action!', { inside_modal: true });
     }
   }
 </script>
