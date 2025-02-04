@@ -50,12 +50,15 @@
   }
 
   async function handle_create_click() {
+    const { name, description } = (
+      forms_state.introduction as { data: { name: string; description: string } }
+    ).data;
     // send request to kit server
     const res = await fetch('/api/communities/', {
       method: 'POST',
       body: JSON.stringify({
-        name: forms_state.introduction.data.name,
-        description: forms_state.introduction.data.description
+        name,
+        description
       })
     });
 
