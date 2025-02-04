@@ -26,6 +26,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   }
 
   event.locals.profile = profile;
+
   const response = await resolve(event);
   return response;
 };

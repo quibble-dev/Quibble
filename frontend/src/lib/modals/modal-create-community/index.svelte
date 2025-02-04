@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
+  import { toast } from '$lib/components/ui/toast';
   import { createModalsStore } from '$lib/stores/modals.svelte';
   import BaseModal from '../_components/base-modal.svelte';
   import { create_form_history } from '../_utils/history.svelte';
@@ -45,6 +47,30 @@
 
   function handle_modal_close() {
     modalsStore.close('create_community');
+  }
+
+  async function handle_create_click() {
+    const { name, description } = (
+      forms_state.introduction as { data: { name: string; description: string } }
+    ).data;
+    // send request to kit server
+    const res = await fetch('/api/communities/', {
+      method: 'POST',
+      body: JSON.stringify({
+        name,
+        description
+      })
+    });
+
+    const { data, success, error } = await res.json();
+
+    if (!success && error) {
+      if (error.includes('name')) goto_form('introduction');
+      toast.push({ message: error });
+    } else {
+      modalsStore.close('create_community');
+      goto(`/q/${data.name}`);
+    }
   }
 </script>
 
@@ -104,6 +130,7 @@
         onclick={() => {
           if (form_step === 'end') {
             // community creation logic goes here
+            handle_create_click();
           } else {
             form_history.go_next(forms);
           }

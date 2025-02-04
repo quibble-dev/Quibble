@@ -17,7 +17,7 @@
   import { onMount } from 'svelte';
 
   const { data }: { data: PageData } = $props();
-  const { post, comments } = data;
+  const { post, comments } = $derived(data);
 
   const authStore = createAuthStore();
   const recentPostStore = createRecentPostStore();

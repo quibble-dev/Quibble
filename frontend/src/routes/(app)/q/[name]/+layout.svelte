@@ -6,7 +6,7 @@
   import type { Snippet } from 'svelte';
 
   const { data, children }: { data: PageData; children: Snippet } = $props();
-  const { community } = data;
+  const { community } = $derived(data);
 </script>
 
 <div class="flex h-max flex-1 flex-col gap-4 p-4">
