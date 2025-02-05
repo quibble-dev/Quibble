@@ -8,8 +8,6 @@
   import type { FormsState, FormSubmitData, Forms } from '../types';
   import forms from './forms';
 
-  // import nodeFetch from 'node-fetch';
-
   type CCForms = Forms<typeof forms>;
   type CCFormsState = FormsState<typeof forms>;
 
@@ -81,20 +79,20 @@
       if (banner) form_data.append('banner', banner);
 
       // send request to kit server
-      const res = await fetch('/api/communities/', {
+      const res = await fetch('/communities/', {
         method: 'POST',
         body: form_data
       });
 
-      const res_data = await res.json();
+      const { data, success, error } = await res.json();
 
-      if (!res_data.success && res_data.error) {
-        if (res_data.error.includes('name')) goto_form('introduction');
-        toast.push(res_data.error, { inside_modal: true });
+      if (!success && error) {
+        if (error.includes('name')) goto_form('introduction');
+        toast.push(error, { inside_modal: true });
       } else {
         reset_forms_state();
         modalsStore.close('create_community');
-        goto(`/q/${res_data.data.name}`);
+        goto(`/q/${data.name}`);
       }
     } catch (err) {
       console.error(err);
