@@ -26,7 +26,7 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
       bodySerializer(body) {
         const fd = new FormData();
         for (const name in body) {
-          // @ts-ignore
+          // @ts-expect-error: openapi-ts transform issue
           fd.set(name, body[name]);
         }
         return fd;
