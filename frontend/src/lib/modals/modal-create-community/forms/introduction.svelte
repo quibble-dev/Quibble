@@ -16,8 +16,14 @@
       .min(3)
       .regex(/^[a-zA-Z0-9_]+$/, { message: 'Only letters, numbers, and underscores are allowed' }),
     description: z.string().min(1),
-    avatar: z.string().optional(),
-    banner: z.string().optional()
+    avatar: z
+      .instanceof(File)
+      .refine((f) => f.size < 100_000, 'Max 100 kB upload size.')
+      .optional(),
+    banner: z
+      .instanceof(File)
+      .refine((f) => f.size < 100_000, 'Max 100 kB upload size.')
+      .optional()
   });
 
   let { forms_state, update_forms_state }: FormProps<typeof forms> = $props();
@@ -28,8 +34,8 @@
         data: Partial<{
           name: string;
           description: string;
-          avatar: string;
-          banner: string;
+          avatar: File | undefined;
+          banner: File | undefined;
         }>;
       }
     ).data
@@ -54,16 +60,15 @@
     }
   );
 
+  $inspect(forms_state);
+  $inspect($errors);
+
   function handle_file_change(e: Event, type: 'avatar' | 'banner') {
     const file = (e.target as HTMLInputElement).files?.[0];
     if (!file) return;
 
-    // convert image file to data uri
-    const reader = new FileReader();
-    reader.onload = () => {
-      $form[type] = String(reader.result);
-    };
-    reader.readAsDataURL(file);
+    // store the file directly
+    $form[type] = file;
   }
 
   async function handle_name_input(e: Event) {
