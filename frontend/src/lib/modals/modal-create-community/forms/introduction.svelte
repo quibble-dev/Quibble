@@ -195,9 +195,20 @@
           </div>
           <input
             type="file"
+            accept="image/*"
             class="file-input file-input-bordered file-input-xs bg-transparent file:border-none file:bg-base-100"
             onchange={(e) => handle_file_change(e, 'avatar')}
           />
+
+          <!-- error store -->
+          {#if $errors.avatar}
+            <div class="label py-1">
+              <span class="label-text flex items-center gap-2 text-error">
+                <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
+                <span class="text-xs">{$errors.avatar?.[0]}</span>
+              </span>
+            </div>
+          {/if}
         </label>
         <label class="form-control">
           <div class="label py-1">
@@ -205,9 +216,20 @@
           </div>
           <input
             type="file"
+            accept="image/*"
             class="file-input file-input-bordered file-input-xs bg-transparent file:border-none file:bg-base-100"
             onchange={(e) => handle_file_change(e, 'banner')}
           />
+
+          <!-- error store -->
+          {#if $errors.banner}
+            <div class="label py-1">
+              <span class="label-text flex items-center gap-2 text-error">
+                <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
+                <span class="text-xs">{$errors.banner?.[0]}</span>
+              </span>
+            </div>
+          {/if}
         </label>
       </div>
 
