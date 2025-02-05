@@ -1,6 +1,7 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { toast } from '$lib/components/ui/toast';
+  import { cn } from '$lib/functions/classnames';
   import { createModalsStore } from '$lib/stores/modals.svelte';
   import BaseModal from '../_components/base-modal.svelte';
   import { create_form_history } from '../_utils/history.svelte';
@@ -33,6 +34,7 @@
 
   let forms_state = $state<CCFormsState>(initial_forms_state);
 
+  let delayed = $state(false);
   let is_valid = $derived(
     (forms_state[form_history.history.at(-1) as CCForms] as { valid: boolean }).valid
   );
@@ -49,27 +51,53 @@
     modalsStore.close('create_community');
   }
 
+  function reset_forms_state() {
+    forms_state = initial_forms_state;
+    form_history.reset();
+  }
+
   async function handle_create_click() {
-    const { name, description } = (
-      forms_state.introduction as { data: { name: string; description: string } }
-    ).data;
-    // send request to kit server
-    const res = await fetch('/api/communities/', {
-      method: 'POST',
-      body: JSON.stringify({
-        name,
-        description
-      })
-    });
+    try {
+      // setTimeout(() => (delayed = true), 500);
+      delayed = true;
+      const { name, description, avatar, banner } = (
+        forms_state.introduction as {
+          data: {
+            name: string;
+            description: string;
+            avatar?: File | null;
+            banner?: File | null;
+          };
+        }
+      ).data;
 
-    const { data, success, error } = await res.json();
+      const form_data = new FormData();
+      form_data.append('name', name);
+      form_data.append('description', description);
 
-    if (!success && error) {
-      if (error.includes('name')) goto_form('introduction');
-      toast.push(error, { inside_modal: true });
-    } else {
-      modalsStore.close('create_community');
-      goto(`/q/${data.name}`);
+      if (avatar) form_data.append('avatar', avatar);
+      if (banner) form_data.append('banner', banner);
+
+      // send request to kit server
+      const res = await fetch('/communities/', {
+        method: 'POST',
+        body: form_data
+      });
+
+      const { data, success, error } = await res.json();
+
+      if (!success && error) {
+        if (error.includes('name')) goto_form('introduction');
+        toast.push(error, { inside_modal: true });
+      } else {
+        reset_forms_state();
+        modalsStore.close('create_community');
+        goto(`/q/${data.name}`);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      delayed = false;
     }
   }
 </script>
@@ -125,19 +153,24 @@
         {form_step === 'start' ? 'Cancel' : 'Back'}
       </button>
       <button
-        class="btn btn-primary"
+        class={cn(delayed && 'btn-active pointer-events-none', 'btn btn-primary')}
         disabled={!is_valid}
-        onclick={() => {
+        onclick={async () => {
           if (form_step === 'end') {
             // community creation logic goes here
-            handle_create_click();
+            await handle_create_click();
           } else {
             form_history.go_next(forms);
           }
         }}
       >
         {form_step === 'end' ? 'Create' : 'Next'}
-        <coreicons-shape-arrow variant="right" class="size-4"></coreicons-shape-arrow>
+        <!-- delayed store -->
+        {#if delayed}
+          <span class="loading loading-spinner loading-xs"></span>
+        {:else}
+          <coreicons-shape-arrow variant="right" class="size-4"></coreicons-shape-arrow>
+        {/if}
       </button>
     </div>
   </div>

@@ -3,7 +3,12 @@ import { json, type RequestHandler } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async ({ cookies, request }) => {
   try {
-    const { name, description } = await request.json();
+    const form_data = await request.formData();
+
+    const name = String(form_data.get('name'));
+    const description = String(form_data.get('description'));
+    const avatar = form_data.get('avatar') as File | null;
+    const banner = form_data.get('banner') as File | null;
 
     const { data, error, response } = await client.POST('/communities/', {
       headers: {
@@ -11,9 +16,20 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
         'Profile-Id': cookies.get('auth_user_profile_id')
       },
       // @ts-expect-error: no id required for creation
+      // body: form_data,
       body: {
         name,
-        description
+        description,
+        ...(avatar && { avatar }),
+        ...(banner && { banner })
+      },
+      bodySerializer(body) {
+        const fd = new FormData();
+        for (const name in body) {
+          // @ts-expect-error: openapi-ts transform issue
+          fd.set(name, body[name]);
+        }
+        return fd;
       }
     });
 

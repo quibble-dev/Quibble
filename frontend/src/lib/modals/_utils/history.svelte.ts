@@ -34,12 +34,17 @@ export function create_form_history<T extends FormConfig>(initial_form: keyof T)
     }
   }
 
+  function reset() {
+    history = [initial_form];
+  }
+
   return {
     get history() {
       return history;
     },
     go_to_form,
     go_back,
-    go_next
+    go_next,
+    reset
   };
 }

@@ -42,6 +42,8 @@
   };
 
   let name_taken = $state(false);
+  let avatar_data_url = $state<string>();
+  let banner_data_url = $state<string>();
 
   const { form, enhance, errors, validate, validateForm } = superForm(
     defaults(initial_data, zod(schema)),
@@ -60,15 +62,20 @@
     }
   );
 
-  $inspect(forms_state);
-  $inspect($errors);
-
   function handle_file_change(e: Event, type: 'avatar' | 'banner') {
     const file = (e.target as HTMLInputElement).files?.[0];
     if (!file) return;
 
     // store the file directly
     $form[type] = file;
+
+    // convert file to data url for preview
+    const reader = new FileReader();
+    reader.onload = function () {
+      if (type === 'avatar') avatar_data_url = String(reader.result);
+      if (type === 'banner') banner_data_url = String(reader.result);
+    };
+    reader.readAsDataURL(file);
   }
 
   async function handle_name_input(e: Event) {
@@ -237,12 +244,12 @@
       <div class="overflow-hidden rounded-2xl bg-base-100">
         <div
           class="flex h-10 bg-info bg-cover bg-center"
-          style="background-image: url({$form.banner});"
+          style="background-image: url({banner_data_url});"
         ></div>
         <div class="flex flex-col gap-4 p-4">
           <div class="flex items-center gap-4">
             <Avatar
-              src={$form.avatar}
+              src={avatar_data_url}
               class="size-12 flex-shrink-0 !bg-base-content/15 md:size-14"
             />
             <div class="flex flex-col">
