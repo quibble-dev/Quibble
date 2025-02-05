@@ -62,9 +62,6 @@
     }
   );
 
-  $inspect(forms_state);
-  $inspect($errors);
-
   function handle_file_change(e: Event, type: 'avatar' | 'banner') {
     const file = (e.target as HTMLInputElement).files?.[0];
     if (!file) return;

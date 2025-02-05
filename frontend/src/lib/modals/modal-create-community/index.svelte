@@ -8,6 +8,8 @@
   import type { FormsState, FormSubmitData, Forms } from '../types';
   import forms from './forms';
 
+  // import nodeFetch from 'node-fetch';
+
   type CCForms = Forms<typeof forms>;
   type CCFormsState = FormsState<typeof forms>;
 
@@ -51,6 +53,11 @@
     modalsStore.close('create_community');
   }
 
+  function reset_forms_state() {
+    forms_state = initial_forms_state;
+    form_history.reset();
+  }
+
   async function handle_create_click() {
     try {
       // setTimeout(() => (delayed = true), 500);
@@ -79,14 +86,15 @@
         body: form_data
       });
 
-      const { data, success, error } = await res.json();
+      const res_data = await res.json();
 
-      if (!success && error) {
-        if (error.includes('name')) goto_form('introduction');
-        toast.push(error, { inside_modal: true });
+      if (!res_data.success && res_data.error) {
+        if (res_data.error.includes('name')) goto_form('introduction');
+        toast.push(res_data.error, { inside_modal: true });
       } else {
+        reset_forms_state();
         modalsStore.close('create_community');
-        goto(`/q/${data.name}`);
+        goto(`/q/${res_data.data.name}`);
       }
     } catch (err) {
       console.error(err);
@@ -149,10 +157,10 @@
       <button
         class={cn(delayed && 'btn-active pointer-events-none', 'btn btn-primary')}
         disabled={!is_valid}
-        onclick={() => {
+        onclick={async () => {
           if (form_step === 'end') {
             // community creation logic goes here
-            handle_create_click();
+            await handle_create_click();
           } else {
             form_history.go_next(forms);
           }
