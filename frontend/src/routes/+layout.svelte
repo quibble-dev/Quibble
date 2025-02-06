@@ -10,7 +10,6 @@
   import { defineCustomElements } from '@coreproject-moe/icons/loader';
   import { onMount, type Snippet } from 'svelte';
 
-  // eslint-disable-next-line no-undef
   let { children, data }: { children: Snippet; data: App.Locals } = $props();
 
   let sidebar_show = $state(false);
