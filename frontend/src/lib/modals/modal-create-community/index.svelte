@@ -7,6 +7,7 @@
   import { create_form_history } from '../_utils/history.svelte';
   import type { FormsState, FormSubmitData, Forms } from '../types';
   import forms from './forms';
+  import type { IntroductionSchemaType } from './schema';
 
   type CCForms = Forms<typeof forms>;
   type CCFormsState = FormsState<typeof forms>;
@@ -61,14 +62,7 @@
       // setTimeout(() => (delayed = true), 500);
       delayed = true;
       const { name, description, avatar, banner } = (
-        forms_state.introduction as {
-          data: {
-            name: string;
-            description: string;
-            avatar?: File | null;
-            banner?: File | null;
-          };
-        }
+        forms_state.introduction as { data: IntroductionSchemaType }
       ).data;
 
       const form_data = new FormData();

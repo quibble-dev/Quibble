@@ -5,52 +5,27 @@
   import { debounce } from '$lib/functions/debounce';
   import type { FormProps } from '../../types';
   import forms from '../forms';
+  import { IntroductionSchema, type IntroductionSchemaType } from '../schema';
   import { onMount } from 'svelte';
   import { defaults, superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
-  import { z } from 'zod';
-
-  const schema = z.object({
-    name: z
-      .string()
-      .min(3)
-      .regex(/^[a-zA-Z0-9_]+$/, { message: 'Only letters, numbers, and underscores are allowed' }),
-    description: z.string().min(1),
-    avatar: z
-      .instanceof(File)
-      .refine((f) => f.size < 100_000, 'Max 100 kB upload size.')
-      .optional(),
-    banner: z
-      .instanceof(File)
-      .refine((f) => f.size < 100_000, 'Max 100 kB upload size.')
-      .optional()
-  });
 
   let { forms_state, update_forms_state }: FormProps<typeof forms> = $props();
-
-  const initial_data = {
-    ...(
-      forms_state.introduction as {
-        data: Partial<{
-          name: string;
-          description: string;
-          avatar: File | undefined;
-          banner: File | undefined;
-        }>;
-      }
-    ).data
-  };
 
   let name_taken = $state(false);
   let avatar_data_url = $state<string>();
   let banner_data_url = $state<string>();
 
+  const initial_data = {
+    ...(forms_state.introduction as { data: Partial<IntroductionSchemaType> }).data
+  };
+
   const { form, enhance, errors, validate, validateForm } = superForm(
-    defaults(initial_data, zod(schema)),
+    defaults(initial_data, zod(IntroductionSchema)),
     {
       SPA: true,
       resetForm: false,
-      validators: zod(schema),
+      validators: zod(IntroductionSchema),
       validationMethod: 'oninput',
       onChange: async () => {
         const result = await validateForm({ update: false });
