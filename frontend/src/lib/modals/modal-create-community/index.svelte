@@ -82,7 +82,7 @@
 
       if (!success && error) {
         if (error.includes('name')) goto_form('introduction');
-        toast.push(error, { inside_modal: true });
+        toast.push(`"q/${name} is already taken`, { inside_modal: true });
       } else {
         reset_forms_state();
         modalsStore.close('create_community');
