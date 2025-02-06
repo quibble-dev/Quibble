@@ -16,8 +16,14 @@
       .min(3)
       .regex(/^[a-zA-Z0-9_]+$/, { message: 'Only letters, numbers, and underscores are allowed' }),
     description: z.string().min(1),
-    avatar: z.string().optional(),
-    banner: z.string().optional()
+    avatar: z
+      .instanceof(File)
+      .refine((f) => f.size < 100_000, 'Max 100 kB upload size.')
+      .optional(),
+    banner: z
+      .instanceof(File)
+      .refine((f) => f.size < 100_000, 'Max 100 kB upload size.')
+      .optional()
   });
 
   let { forms_state, update_forms_state }: FormProps<typeof forms> = $props();
@@ -28,14 +34,16 @@
         data: Partial<{
           name: string;
           description: string;
-          avatar: string;
-          banner: string;
+          avatar: File | undefined;
+          banner: File | undefined;
         }>;
       }
     ).data
   };
 
   let name_taken = $state(false);
+  let avatar_data_url = $state<string>();
+  let banner_data_url = $state<string>();
 
   const { form, enhance, errors, validate, validateForm } = superForm(
     defaults(initial_data, zod(schema)),
@@ -58,10 +66,14 @@
     const file = (e.target as HTMLInputElement).files?.[0];
     if (!file) return;
 
-    // convert image file to data uri
+    // store the file directly
+    $form[type] = file;
+
+    // convert file to data url for preview
     const reader = new FileReader();
-    reader.onload = () => {
-      $form[type] = String(reader.result);
+    reader.onload = function () {
+      if (type === 'avatar') avatar_data_url = String(reader.result);
+      if (type === 'banner') banner_data_url = String(reader.result);
     };
     reader.readAsDataURL(file);
   }
@@ -190,9 +202,20 @@
           </div>
           <input
             type="file"
+            accept="image/*"
             class="file-input file-input-bordered file-input-xs bg-transparent file:border-none file:bg-base-100"
             onchange={(e) => handle_file_change(e, 'avatar')}
           />
+
+          <!-- error store -->
+          {#if $errors.avatar}
+            <div class="label py-1">
+              <span class="label-text flex items-center gap-2 text-error">
+                <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
+                <span class="text-xs">{$errors.avatar?.[0]}</span>
+              </span>
+            </div>
+          {/if}
         </label>
         <label class="form-control">
           <div class="label py-1">
@@ -200,9 +223,20 @@
           </div>
           <input
             type="file"
+            accept="image/*"
             class="file-input file-input-bordered file-input-xs bg-transparent file:border-none file:bg-base-100"
             onchange={(e) => handle_file_change(e, 'banner')}
           />
+
+          <!-- error store -->
+          {#if $errors.banner}
+            <div class="label py-1">
+              <span class="label-text flex items-center gap-2 text-error">
+                <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
+                <span class="text-xs">{$errors.banner?.[0]}</span>
+              </span>
+            </div>
+          {/if}
         </label>
       </div>
 
@@ -210,12 +244,12 @@
       <div class="overflow-hidden rounded-2xl bg-base-100">
         <div
           class="flex h-10 bg-info bg-cover bg-center"
-          style="background-image: url({$form.banner});"
+          style="background-image: url({banner_data_url});"
         ></div>
         <div class="flex flex-col gap-4 p-4">
           <div class="flex items-center gap-4">
             <Avatar
-              src={$form.avatar}
+              src={avatar_data_url}
               class="size-12 flex-shrink-0 !bg-base-content/15 md:size-14"
             />
             <div class="flex flex-col">
