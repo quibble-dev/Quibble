@@ -5,7 +5,7 @@
   import { debounce } from '$lib/functions/debounce';
   import type { FormProps } from '../../types';
   import forms from '../forms';
-  import { IntroductionSchema, type IntroductionSchemaType } from '../schema';
+  import { IntroductionSchema, type IntroductionSchemaType } from '../schemas';
   import { onMount } from 'svelte';
   import { defaults, superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';

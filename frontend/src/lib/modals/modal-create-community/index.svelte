@@ -7,7 +7,7 @@
   import { create_form_history } from '../_utils/history.svelte';
   import type { FormsState, FormSubmitData, Forms } from '../types';
   import forms from './forms';
-  import type { IntroductionSchemaType } from './schema';
+  import type { IntroductionSchemaType } from './schemas';
 
   type CCForms = Forms<typeof forms>;
   type CCFormsState = FormsState<typeof forms>;
