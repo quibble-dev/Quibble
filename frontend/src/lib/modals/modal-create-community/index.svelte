@@ -79,7 +79,7 @@
       if (banner) form_data.append('banner', banner);
 
       // send request to kit server
-      const res = await fetch('/communities/', {
+      const res = await fetch('/communities', {
         method: 'POST',
         body: form_data
       });
