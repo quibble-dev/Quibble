@@ -58,6 +58,7 @@
   }
 
   async function handle_create_click() {
+    // eslint-disable-next-line no-undef
     let delayed_timer: NodeJS.Timeout | undefined = undefined;
     try {
       // delayed store
