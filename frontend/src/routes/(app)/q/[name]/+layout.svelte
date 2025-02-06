@@ -44,22 +44,21 @@
         >
       </div>
     </div>
-    <div class="divider my-0 before:h-px after:h-px"></div>
-    <!-- rangers list -->
-    <div class="flex items-center gap-2">
-      <h3 class="text-sm font-medium">Rangers</h3>
-      <div class="tooltip tooltip-right flex" data-tip="Moderators">
-        <coreicons-shape-help-circle class="size-[0.85rem]"></coreicons-shape-help-circle>
-      </div>
-    </div>
-    {#if community?.rangers}
+    <div class="divider my-0 h-max before:h-px after:h-px"></div>
+
+    <!-- moderators section: title -->
+    <h3 class="text-sm font-medium">Moderators</h3>
+    <!-- moderators list -->
+    {#if community?.moderators}
       <div class="flex flex-col gap-2">
-        {#each community?.rangers as ranger}
+        {#each community?.moderators as moderator}
           <div class="flex items-center gap-2">
-            <Avatar src={ranger.avatar} class="size-6 rounded-full" />
+            <Avatar src={moderator.avatar} class="size-6 rounded-full" />
             <div class="flex flex-col">
-              <a href="/u/{ranger.username}" class="text-sm font-medium">u/{ranger.username}</a>
-              <span class="text-xs text-base-content/75">{ranger.name}</span>
+              <a href="/u/{moderator.username}" class="text-sm font-medium"
+                >u/{moderator.username}</a
+              >
+              <span class="text-xs text-base-content/75">{moderator.name}</span>
             </div>
           </div>
         {/each}
