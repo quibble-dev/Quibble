@@ -58,9 +58,11 @@
   }
 
   async function handle_create_click() {
+    let delayed_timer: NodeJS.Timeout | undefined = undefined;
     try {
-      // setTimeout(() => (delayed = true), 500);
-      delayed = true;
+      // delayed store
+      delayed_timer = setTimeout(() => (delayed = true), 500);
+      // destructure forms_state
       const { name, description, avatar, banner } = (
         forms_state.introduction as { data: IntroductionSchemaType }
       ).data;
@@ -69,14 +71,16 @@
       form_data.append('name', name);
       form_data.append('description', description);
 
-      if (avatar) form_data.append('avatar', avatar);
-      if (banner) form_data.append('banner', banner);
+      if (avatar instanceof File) form_data.append('avatar', avatar);
+      if (banner instanceof File) form_data.append('banner', banner);
 
       // send request to kit server
       const res = await fetch('/communities', {
         method: 'POST',
         body: form_data
       });
+
+      if (!res.ok) throw new Error(`request failed with status ${res.status}`);
 
       const { data, success, error } = await res.json();
 
@@ -91,6 +95,7 @@
     } catch (err) {
       console.error(err);
     } finally {
+      if (delayed_timer) clearTimeout(delayed_timer);
       delayed = false;
     }
   }
