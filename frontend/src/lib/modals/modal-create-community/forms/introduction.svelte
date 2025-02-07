@@ -89,8 +89,8 @@
   }, 500);
 
   onMount(async () => {
-    await debounced_handle_check_name_exists();
-    if (!name_taken) await validateForm();
+    if ($form.name) await debounced_handle_check_name_exists();
+    await validateForm();
   });
 </script>
 
