@@ -2,6 +2,7 @@ name: Bug Report
 description: Report an issue to help us improve Quibble
 title: "[Bug]: "
 labels: ["bug"]
+assignees: ["moonlitgrace"]
 body:
   - type: markdown
     attributes:
@@ -25,6 +26,7 @@ body:
         - Chrome
         - Safari
         - Microsoft Edge
+        - Not browser specific
   - type: textarea
     id: logs
     attributes:
