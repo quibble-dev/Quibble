@@ -7,12 +7,14 @@ from dynamic_filenames import FilePattern
 from apps.user.models import Profile
 from mixins.models.avatar import AvatarMixin
 from mixins.models.created_at import CreatedAtMixin
-from mixins.models.is_public import IsPublicMixin
-
-# Create your models here.
 
 
-class Community(AvatarMixin, CreatedAtMixin, IsPublicMixin):
+class Community(AvatarMixin, CreatedAtMixin):
+    class Type(models.TextChoices):
+        PUBLIC = 'PUBLIC', _('Public')
+        RESTRICTED = 'RESTRICTED', _('Restricted')
+        PRIVATE = 'PRIVATE', _('Private')
+
     name = models.CharField(
         _('Name'),
         unique=True,
@@ -27,6 +29,9 @@ class Community(AvatarMixin, CreatedAtMixin, IsPublicMixin):
         blank=True,
         null=True,
     )
+    type = models.CharField(choices=Type.choices, default=Type.PUBLIC)
+    nsfw = models.BooleanField(_('Nsfw'), default=False)
+    topics = models.JSONField(_('Topics'), default=list, blank=True)
     members = models.ManyToManyField(
         Profile, related_name='joined_communities', blank=True, verbose_name=_('Members')
     )
