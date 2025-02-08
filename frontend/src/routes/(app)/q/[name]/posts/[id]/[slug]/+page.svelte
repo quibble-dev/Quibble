@@ -1,5 +1,6 @@
 <script lang="ts">
   import { browser } from '$app/environment';
+  import client from '$lib/clients/v1/client';
   import NewIcon from '$lib/components/icons/new.svelte';
   import RocketIcon from '$lib/components/icons/rocket.svelte';
   import TopIcon from '$lib/components/icons/top.svelte';
@@ -18,7 +19,9 @@
   import { onMount } from 'svelte';
 
   const { data }: { data: PageData } = $props();
-  const { post, comments } = $derived(data);
+  const { post } = $derived(data);
+
+  const comments = $state(data.comments);
 
   const authStore = createAuthStore();
   const recentPostStore = createRecentPostStore();
@@ -51,6 +54,22 @@
 
   function handle_back() {
     if (browser) window.history.back();
+  }
+
+  async function handle_comment(value: string) {
+    try {
+      const res = await fetch('./', {
+        method: 'POST',
+        body: JSON.stringify({ content: value })
+      });
+
+      if (!res.ok) throw new Error(`request failed with status: ${res.status}`);
+
+      const data = await res.json();
+      console.log(value, data);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   onMount(() => {
@@ -136,13 +155,11 @@
 </div>
 
 {#if show_comment_box}
-  <!-- comment box area -->
   <CommentBox
     oncancel={() => (show_comment_box = false)}
-    oncomment={(value) => console.log(value)}
+    oncomment={(value) => handle_comment(value)}
   />
 {:else}
-  <!-- add comment dynamic box -->
   <button
     class="flex items-center gap-2 rounded-2xl border border-neutral p-2.5 text-sm"
     onclick={() => (show_comment_box = true)}

@@ -15,7 +15,7 @@ class CommentCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         data = {
-            'quibbler': self.context['request'].user_profile,
+            'commenter': self.context['request'].user_profile,
             'content': validated_data['content'],
         }
 

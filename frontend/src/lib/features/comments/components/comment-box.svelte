@@ -24,7 +24,7 @@
     bind:this={textarea_el}
   ></textarea>
   <div class="flex w-full items-center gap-2 p-2">
-    <button class="btn btn-neutral btn-sm ml-auto" onclick={oncancel}>Cancel</button>
+    <button class="btn btn-ghost btn-sm ml-auto" onclick={oncancel}>Cancel</button>
     <button class="btn btn-primary btn-sm" onclick={() => oncomment(String(textarea_el?.value))}>
       Comment
       <coreicons-shape-message-circle class="size-4"></coreicons-shape-message-circle>
