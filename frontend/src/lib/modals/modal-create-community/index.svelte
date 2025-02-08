@@ -67,10 +67,17 @@
       const { name, description, avatar, banner } = (
         forms_state.introduction as { data: IntroductionSchemaType }
       ).data;
+      const { topics } = (forms_state.topics as { data: { topics: string[] } }).data;
+      const { type, nsfw } = (
+        forms_state.type as { data: { type: 'PRIVATE' | 'RESTRICTED' | 'PUBLIC'; nsfw: boolean } }
+      ).data;
 
       const form_data = new FormData();
       form_data.append('name', name);
       form_data.append('description', description);
+      form_data.append('topics', JSON.stringify(topics));
+      form_data.append('type', type);
+      form_data.append('nsfw', String(nsfw));
 
       if (avatar instanceof File) form_data.append('avatar', avatar);
       if (banner instanceof File) form_data.append('banner', banner);
