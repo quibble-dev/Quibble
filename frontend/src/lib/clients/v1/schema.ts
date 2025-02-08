@@ -319,6 +319,91 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/u/profiles/{id}/comments/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description Returns a list of comments by the user, ordered by date. */
+    get: operations['u_profiles_comments_list'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/u/profiles/{id}/downvoted/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description Returns a mixed list of downvoted posts and comments by the user, ordered by date. */
+    get: operations['u_profiles_downvoted_list'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/u/profiles/{id}/overview/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description Returns a mixed list of posts and comments by the user, ordered by date. */
+    get: operations['u_profiles_overview_list'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/u/profiles/{id}/posts/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description Returns a list of posts by the user, ordered by date. */
+    get: operations['u_profiles_posts_list'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/u/profiles/{id}/upvoted/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description Returns a mixed list of upvoted posts and comments by the user, ordered by date. */
+    get: operations['u_profiles_upvoted_list'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/u/register/': {
     parameters: {
       query?: never;
@@ -836,27 +921,15 @@ export interface components {
     CommunitiesCreateError:
       | components['schemas']['CommunitiesCreateNonFieldErrorsErrorComponent']
       | components['schemas']['CommunitiesCreateAvatarErrorComponent']
-      | components['schemas']['CommunitiesCreateIsPublicErrorComponent']
       | components['schemas']['CommunitiesCreateNameErrorComponent']
       | components['schemas']['CommunitiesCreateDescriptionErrorComponent']
       | components['schemas']['CommunitiesCreateTitleErrorComponent']
       | components['schemas']['CommunitiesCreateBannerErrorComponent']
+      | components['schemas']['CommunitiesCreateTypeErrorComponent']
+      | components['schemas']['CommunitiesCreateNsfwErrorComponent']
+      | components['schemas']['CommunitiesCreateTopicsErrorComponent']
       | components['schemas']['CommunitiesCreateMembersErrorComponent']
       | components['schemas']['CommunitiesCreateModeratorsErrorComponent'];
-    CommunitiesCreateIsPublicErrorComponent: {
-      /**
-       * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'is_public';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
     CommunitiesCreateMembersErrorComponent: {
       /**
        * @description * `members` - members (enum property replaced by openapi-typescript)
@@ -931,6 +1004,20 @@ export interface components {
       code: 'invalid' | 'null';
       detail: string;
     };
+    CommunitiesCreateNsfwErrorComponent: {
+      /**
+       * @description * `nsfw` - nsfw (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'nsfw';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
     CommunitiesCreateTitleErrorComponent: {
       /**
        * @description * `title` - title (enum property replaced by openapi-typescript)
@@ -949,6 +1036,34 @@ export interface components {
         | 'max_length'
         | 'null_characters_not_allowed'
         | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    CommunitiesCreateTopicsErrorComponent: {
+      /**
+       * @description * `topics` - topics (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'topics';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    CommunitiesCreateTypeErrorComponent: {
+      /**
+       * @description * `type` - type (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'type';
+      /**
+       * @description * `invalid_choice` - invalid_choice
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid_choice' | 'null';
       detail: string;
     };
     CommunitiesCreateValidationError: {
@@ -1016,27 +1131,15 @@ export interface components {
     CommunitiesPartialUpdateError:
       | components['schemas']['CommunitiesPartialUpdateNonFieldErrorsErrorComponent']
       | components['schemas']['CommunitiesPartialUpdateAvatarErrorComponent']
-      | components['schemas']['CommunitiesPartialUpdateIsPublicErrorComponent']
       | components['schemas']['CommunitiesPartialUpdateNameErrorComponent']
       | components['schemas']['CommunitiesPartialUpdateDescriptionErrorComponent']
       | components['schemas']['CommunitiesPartialUpdateTitleErrorComponent']
       | components['schemas']['CommunitiesPartialUpdateBannerErrorComponent']
+      | components['schemas']['CommunitiesPartialUpdateTypeErrorComponent']
+      | components['schemas']['CommunitiesPartialUpdateNsfwErrorComponent']
+      | components['schemas']['CommunitiesPartialUpdateTopicsErrorComponent']
       | components['schemas']['CommunitiesPartialUpdateMembersErrorComponent']
       | components['schemas']['CommunitiesPartialUpdateModeratorsErrorComponent'];
-    CommunitiesPartialUpdateIsPublicErrorComponent: {
-      /**
-       * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'is_public';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
     CommunitiesPartialUpdateMembersErrorComponent: {
       /**
        * @description * `members` - members (enum property replaced by openapi-typescript)
@@ -1111,6 +1214,20 @@ export interface components {
       code: 'invalid' | 'null';
       detail: string;
     };
+    CommunitiesPartialUpdateNsfwErrorComponent: {
+      /**
+       * @description * `nsfw` - nsfw (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'nsfw';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
     CommunitiesPartialUpdateTitleErrorComponent: {
       /**
        * @description * `title` - title (enum property replaced by openapi-typescript)
@@ -1129,6 +1246,34 @@ export interface components {
         | 'max_length'
         | 'null_characters_not_allowed'
         | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    CommunitiesPartialUpdateTopicsErrorComponent: {
+      /**
+       * @description * `topics` - topics (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'topics';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    CommunitiesPartialUpdateTypeErrorComponent: {
+      /**
+       * @description * `type` - type (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'type';
+      /**
+       * @description * `invalid_choice` - invalid_choice
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid_choice' | 'null';
       detail: string;
     };
     CommunitiesPartialUpdateValidationError: {
@@ -1196,27 +1341,15 @@ export interface components {
     CommunitiesUpdateError:
       | components['schemas']['CommunitiesUpdateNonFieldErrorsErrorComponent']
       | components['schemas']['CommunitiesUpdateAvatarErrorComponent']
-      | components['schemas']['CommunitiesUpdateIsPublicErrorComponent']
       | components['schemas']['CommunitiesUpdateNameErrorComponent']
       | components['schemas']['CommunitiesUpdateDescriptionErrorComponent']
       | components['schemas']['CommunitiesUpdateTitleErrorComponent']
       | components['schemas']['CommunitiesUpdateBannerErrorComponent']
+      | components['schemas']['CommunitiesUpdateTypeErrorComponent']
+      | components['schemas']['CommunitiesUpdateNsfwErrorComponent']
+      | components['schemas']['CommunitiesUpdateTopicsErrorComponent']
       | components['schemas']['CommunitiesUpdateMembersErrorComponent']
       | components['schemas']['CommunitiesUpdateModeratorsErrorComponent'];
-    CommunitiesUpdateIsPublicErrorComponent: {
-      /**
-       * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'is_public';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
     CommunitiesUpdateMembersErrorComponent: {
       /**
        * @description * `members` - members (enum property replaced by openapi-typescript)
@@ -1291,6 +1424,20 @@ export interface components {
       code: 'invalid' | 'null';
       detail: string;
     };
+    CommunitiesUpdateNsfwErrorComponent: {
+      /**
+       * @description * `nsfw` - nsfw (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'nsfw';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
     CommunitiesUpdateTitleErrorComponent: {
       /**
        * @description * `title` - title (enum property replaced by openapi-typescript)
@@ -1311,6 +1458,34 @@ export interface components {
         | 'surrogate_characters_not_allowed';
       detail: string;
     };
+    CommunitiesUpdateTopicsErrorComponent: {
+      /**
+       * @description * `topics` - topics (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'topics';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    CommunitiesUpdateTypeErrorComponent: {
+      /**
+       * @description * `type` - type (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'type';
+      /**
+       * @description * `invalid_choice` - invalid_choice
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid_choice' | 'null';
+      detail: string;
+    };
     CommunitiesUpdateValidationError: {
       type: components['schemas']['ValidationErrorEnum'];
       errors: components['schemas']['CommunitiesUpdateError'][];
@@ -1324,12 +1499,14 @@ export interface components {
        * Format: date-time
        */
       readonly created_at: string;
-      is_public?: boolean;
       name: string;
       description: string;
       title?: string | null;
       /** Format: uri */
       banner?: string | null;
+      type?: components['schemas']['Type801Enum'];
+      nsfw?: boolean;
+      topics?: unknown;
       members?: number[];
       moderators?: number[];
     };
@@ -1349,12 +1526,14 @@ export interface components {
        * Format: date-time
        */
       readonly created_at: string;
-      is_public?: boolean;
       name: string;
       description: string;
       title?: string | null;
       /** Format: uri */
       banner?: string | null;
+      type?: components['schemas']['Type801Enum'];
+      nsfw?: boolean;
+      topics?: unknown;
       members?: number[];
     };
     CommunityExists: {
@@ -1364,6 +1543,12 @@ export interface components {
     /** @description Serializer for views returning just a response with detail key */
     DetailResponse: {
       detail: string;
+    };
+    Downvoted: {
+      type: string;
+      readonly data: {
+        [key: string]: unknown;
+      };
     };
     Error404: {
       code: components['schemas']['ErrorCode404Enum'];
@@ -1393,6 +1578,12 @@ export interface components {
       type: components['schemas']['ServerErrorEnum'];
       errors: components['schemas']['Error500'][];
     };
+    Overview: {
+      type: string;
+      readonly data: {
+        [key: string]: unknown;
+      };
+    };
     PatchedCommentDetail: {
       readonly id?: number;
       commenter?: components['schemas']['ProfileBasic'] | null;
@@ -1417,12 +1608,14 @@ export interface components {
        * Format: date-time
        */
       readonly created_at?: string;
-      is_public?: boolean;
       name?: string;
       description?: string;
       title?: string | null;
       /** Format: uri */
       banner?: string | null;
+      type?: components['schemas']['Type801Enum'];
+      nsfw?: boolean;
+      topics?: unknown;
       members?: number[];
       moderators?: number[];
     };
@@ -2152,6 +2345,13 @@ export interface components {
      * @enum {string}
      */
     ServerErrorEnum: 'server_error';
+    /**
+     * @description * `PUBLIC` - Public
+     *     * `RESTRICTED` - Restricted
+     *     * `PRIVATE` - Private
+     * @enum {string}
+     */
+    Type801Enum: 'PUBLIC' | 'RESTRICTED' | 'PRIVATE';
     ULoginCreateEmailErrorComponent: {
       /**
        * @description * `email` - email (enum property replaced by openapi-typescript)
@@ -2732,6 +2932,12 @@ export interface components {
     URegisterCreateValidationError: {
       type: components['schemas']['ValidationErrorEnum'];
       errors: components['schemas']['URegisterCreateError'][];
+    };
+    Upvoted: {
+      type: string;
+      readonly data: {
+        [key: string]: unknown;
+      };
     };
     User: {
       readonly id: number;
@@ -4018,6 +4224,211 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['Profile'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  u_profiles_comments_list: {
+    parameters: {
+      query?: {
+        /** @description A search term. */
+        search?: string;
+      };
+      header?: never;
+      path: {
+        /** @description A unique integer value identifying this Profile. */
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CommentDetail'][];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  u_profiles_downvoted_list: {
+    parameters: {
+      query?: {
+        /** @description A search term. */
+        search?: string;
+      };
+      header?: never;
+      path: {
+        /** @description A unique integer value identifying this Profile. */
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Downvoted'][];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  u_profiles_overview_list: {
+    parameters: {
+      query?: {
+        /** @description A search term. */
+        search?: string;
+      };
+      header?: never;
+      path: {
+        /** @description A unique integer value identifying this Profile. */
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Overview'][];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  u_profiles_posts_list: {
+    parameters: {
+      query?: {
+        /** @description A search term. */
+        search?: string;
+      };
+      header?: never;
+      path: {
+        /** @description A unique integer value identifying this Profile. */
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Post'][];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  u_profiles_upvoted_list: {
+    parameters: {
+      query?: {
+        /** @description A search term. */
+        search?: string;
+      };
+      header?: never;
+      path: {
+        /** @description A unique integer value identifying this Profile. */
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Upvoted'][];
         };
       };
       404: {

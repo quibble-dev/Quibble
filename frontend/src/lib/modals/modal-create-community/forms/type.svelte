@@ -5,42 +5,40 @@
   import forms from '../forms';
   import { untrack } from 'svelte';
 
-  type Type = keyof typeof type_mapping;
-
   let { update_forms_state, forms_state }: FormProps<typeof forms> = $props();
 
-  let checked_mature = $state<boolean>(
-    (forms_state.type as { data: { mature: boolean } }).data.mature ?? false
+  let checked_type = $state<keyof typeof types>(
+    (forms_state.type as { data: { type: keyof typeof types } }).data.type ?? 'PUBLIC'
   );
-  let checked_type = $state<Type>(
-    (forms_state.type as { data: { type: Type } }).data.type ?? 'private'
+  let checked_nsfw = $state<boolean>(
+    (forms_state.type as { data: { nsfw: boolean } }).data.nsfw ?? false
   );
 
-  const type_mapping = {
-    public: {
-      label: 'Public',
-      description: 'Anyone can view, post, and comment to this community',
-      icon: '<coreicons-shape-globe class="flex-shrink-0 size-4 md:size-5"></coreicons-shape-globe>'
+  const types = {
+    PRIVATE: {
+      label: 'Private',
+      description: 'Only approved users can view and contribute',
+      icon: '<coreicons-shape-lock class="flex-shrink-0 size-4 md:size-5"></coreicons-shape-lock>'
     },
-    restricted: {
+    RESTRICTED: {
       label: 'Restricted',
       description: 'Anyone can view, but only approved users can contribute',
       icon: '<coreicons-shape-shield variant="on" class="flex-shrink-0 size-4 md:size-5"></coreicons-shape-shield>'
     },
-    private: {
-      label: 'Private',
-      description: 'Only approved users can view and contribute',
-      icon: '<coreicons-shape-lock class="flex-shrink-0 size-4 md:size-5"></coreicons-shape-lock>'
+    PUBLIC: {
+      label: 'Public',
+      description: 'Anyone can view, post, and comment to this community',
+      icon: '<coreicons-shape-globe class="flex-shrink-0 size-4 md:size-5"></coreicons-shape-globe>'
     }
   };
 
   $effect(() => {
     const type = checked_type;
-    const mature = checked_mature;
+    const nsfw = checked_nsfw;
     untrack(() =>
       update_forms_state('type', {
         valid: true,
-        data: { type, mature }
+        data: { type, nsfw }
       })
     );
   });
@@ -58,7 +56,7 @@
 
   <!-- dynamic radio buttons for community types -->
   <div class="flex flex-col">
-    {#each Object.entries(type_mapping) as [key, item]}
+    {#each Object.entries(types) as [key, item]}
       {@const checked = checked_type === key}
 
       <div class={cn(checked && 'bg-base-200 ring-1', 'form-control rounded-xl ring-neutral')}>
@@ -89,11 +87,11 @@
   <!-- divider between sections -->
   <div class="divider my-0 h-max before:h-px after:h-px"></div>
 
-  <!-- mature content toggle section -->
+  <!-- nsfw content toggle section -->
   <div class="form-control">
     <label class="label size-full cursor-pointer gap-2 p-0 p-3">
       <div class="flex items-center gap-3">
-        <EighteenPlusIcon class={cn(checked_mature && 'text-accent', 'size-5')} />
+        <EighteenPlusIcon class={cn(checked_nsfw && 'text-accent', 'size-5')} />
         <div class="flex flex-col">
           <span class="label-text font-medium text-info">Mature (18+)</span>
           <span class="text-xs text-base-content/75">
@@ -104,7 +102,7 @@
       <input
         type="checkbox"
         class="toggle toggle-accent toggle-sm rounded-box checked:!border-accent"
-        bind:checked={checked_mature}
+        bind:checked={checked_nsfw}
       />
     </label>
   </div>
