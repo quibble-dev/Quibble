@@ -7,6 +7,7 @@
   import BackdropImage from '$lib/components/ui/backdrop-image.svelte';
   import Zoom from '$lib/components/ui/zoom.svelte';
   import { CommentBlock } from '$lib/features/comments';
+  import CommentBox from '$lib/features/comments/components/comment-box.svelte';
   import { createRecentPostStore } from '$lib/features/posts/stores/recent-post.svelte';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
@@ -46,6 +47,7 @@
   };
 
   let active_filter = $derived(mapping.filters[active_mapping.filter]);
+  let show_comment_box = $state(false);
 
   function handle_back() {
     if (browser) window.history.back();
@@ -132,11 +134,24 @@
     <span class="text-sm font-medium">Share</span>
   </button>
 </div>
-<!-- add comment dynamic box -->
-<button class="flex items-center gap-2 rounded-2xl border border-neutral p-2.5 text-sm">
-  <coreicons-shape-message-circle class="size-5"></coreicons-shape-message-circle>
-  Add a comment...
-</button>
+
+{#if show_comment_box}
+  <!-- comment box area -->
+  <CommentBox
+    oncancel={() => (show_comment_box = false)}
+    oncomment={(value) => console.log(value)}
+  />
+{:else}
+  <!-- add comment dynamic box -->
+  <button
+    class="flex items-center gap-2 rounded-2xl border border-neutral p-2.5 text-sm"
+    onclick={() => (show_comment_box = true)}
+  >
+    <coreicons-shape-message-circle class="size-5"></coreicons-shape-message-circle>
+    Add a comment...
+  </button>
+{/if}
+
 <!-- comment sort and add comment -->
 <div class="flex items-center gap-2">
   <div class="flex items-center gap-2">
