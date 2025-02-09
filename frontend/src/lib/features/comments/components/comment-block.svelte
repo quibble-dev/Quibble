@@ -5,12 +5,16 @@
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import type { CommentTree } from '$lib/types/comment';
   import CommentBlock from './comment-block.svelte';
+  import CommentBox from './comment-box.svelte';
 
-  let comment: CommentTree = $props();
+  let comment_prop: CommentTree = $props();
+  let comment = $state(comment_prop);
 
   const authStore = createAuthStore();
 
   let collapsed = $state(comment.collapsed);
+  let show_comment_box = $state(false);
+  let comment_box_error = $state<string>();
 
   const is_upvoted = $derived.by(check_if_upvoted);
   function check_if_upvoted() {
@@ -23,6 +27,30 @@
 
   function toggle_collapse() {
     collapsed = !collapsed;
+  }
+
+  async function handle_comment(value: string) {
+    comment_box_error = undefined;
+    try {
+      const res = await fetch('./', {
+        method: 'POST',
+        body: JSON.stringify({ path: comment.path, content: value })
+      });
+
+      if (!res.ok) throw new Error(`request failed with status: ${res.status}`);
+
+      const { data, error, success } = await res.json();
+      if (success) {
+        show_comment_box = false;
+
+        const new_comment: CommentTree = { ...data, children: [], collapsed: false };
+        comment.children.unshift(new_comment);
+      } else {
+        comment_box_error = error;
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 </script>
 
@@ -56,7 +84,7 @@
       </button>
     </div>
   {/if}
-  <div class={cn(collapsed && 'ml-1 self-center', 'flex flex-col gap-2')}>
+  <div class={cn(collapsed && 'ml-1 self-center', 'flex w-full flex-col gap-2')}>
     <div class="flex items-center gap-1.5">
       {#if comment.deleted}
         <h3 class="text-xs font-semibold">[deleted]</h3>
@@ -88,7 +116,7 @@
             <coreicons-shape-thumbs variant="down" class="size-4"></coreicons-shape-thumbs>
           </button>
         </div>
-        <button class="flex items-center gap-2">
+        <button class="flex items-center gap-2" onclick={() => (show_comment_box = true)}>
           <coreicons-shape-message-circle class="size-4"></coreicons-shape-message-circle>
           <span class="text-sm font-medium">Reply</span>
         </button>
@@ -100,6 +128,20 @@
           <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
         </button>
       </div>
+      {#if show_comment_box}
+        <div class="flex flex-col gap-1">
+          <CommentBox
+            oncancel={() => (show_comment_box = false)}
+            oncomment={(value) => handle_comment(value)}
+          />
+          {#if comment_box_error}
+            <div class="flex items-center gap-2 text-xs text-error">
+              <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
+              <span>{comment_box_error}</span>
+            </div>
+          {/if}
+        </div>
+      {/if}
       <!-- extra space -->
       <div></div>
       <!-- render reply comments if any -->

@@ -39,5 +39,8 @@ class PostViewSet(viewsets.ModelViewSet):
 
         comment_instance = serializer.save()
         post_instance.comments.add(comment_instance)
+        # hard-code ratio
+        comment_instance.ratio = 1
 
-        return response.Response(serializer.data, status=status.HTTP_201_CREATED)
+        response_serializer = CommentDetailSerializer(comment_instance, context=context)
+        return response.Response(response_serializer.data, status=status.HTTP_201_CREATED)

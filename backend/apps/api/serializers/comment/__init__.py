@@ -15,7 +15,7 @@ class CommentCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         data = {
-            'quibbler': self.context['request'].user_profile,
+            'commenter': self.context['request'].user_profile,
             'content': validated_data['content'],
         }
 
@@ -26,7 +26,8 @@ class CommentCreateSerializer(serializers.ModelSerializer):
             )
         else:
             comment_instance: Comment = Comment.objects.create_child(**data)  # pyright: ignore
-        comment_instance.save()
+
+        comment_instance.upvotes.add(data['commenter'])
         return comment_instance
 
 
