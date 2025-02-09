@@ -15,7 +15,7 @@
   });
 </script>
 
-<div class="flex flex-col rounded-2xl border border-base-content/25">
+<div class="flex flex-col rounded-2xl border border-neutral">
   <textarea
     use:autosize
     class="max-h-40 min-h-10 bg-transparent p-2.5 text-sm leading-normal outline-none

@@ -22,6 +22,7 @@
   const { post } = $derived(data);
 
   const comments = $state(data.comments);
+  let comment_box_error = $state<string>();
 
   const authStore = createAuthStore();
   const recentPostStore = createRecentPostStore();
@@ -57,6 +58,7 @@
   }
 
   async function handle_comment(value: string) {
+    comment_box_error = undefined;
     try {
       const res = await fetch('./', {
         method: 'POST',
@@ -65,8 +67,12 @@
 
       if (!res.ok) throw new Error(`request failed with status: ${res.status}`);
 
-      const data = await res.json();
-      console.log(value, data);
+      const { data, error, success } = await res.json();
+      if (success) {
+        comments.push(data);
+      } else {
+        comment_box_error = error;
+      }
     } catch (err) {
       console.error(err);
     }
@@ -155,10 +161,18 @@
 </div>
 
 {#if show_comment_box}
-  <CommentBox
-    oncancel={() => (show_comment_box = false)}
-    oncomment={(value) => handle_comment(value)}
-  />
+  <div class="flex flex-col gap-1">
+    <CommentBox
+      oncancel={() => (show_comment_box = false)}
+      oncomment={(value) => handle_comment(value)}
+    />
+    {#if comment_box_error}
+      <div class="flex items-center gap-2 text-xs text-error">
+        <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
+        <span>{comment_box_error}</span>
+      </div>
+    {/if}
+  </div>
 {:else}
   <button
     class="flex items-center gap-2 rounded-2xl border border-neutral p-2.5 text-sm"
