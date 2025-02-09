@@ -1,6 +1,5 @@
 <script lang="ts">
   import { browser } from '$app/environment';
-  import client from '$lib/clients/v1/client';
   import NewIcon from '$lib/components/icons/new.svelte';
   import RocketIcon from '$lib/components/icons/rocket.svelte';
   import TopIcon from '$lib/components/icons/top.svelte';
@@ -69,7 +68,7 @@
 
       const { data, error, success } = await res.json();
       if (success) {
-        comments.push(data);
+        comments.unshift(data);
       } else {
         comment_box_error = error;
       }
