@@ -68,6 +68,7 @@
 
       const { data, error, success } = await res.json();
       if (success) {
+        show_comment_box = false;
         comments.unshift(data);
       } else {
         comment_box_error = error;
