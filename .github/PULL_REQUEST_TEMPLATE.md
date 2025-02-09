@@ -1,3 +1,6 @@
+<!-- IMPORTANT: Please make sure you've pre-commit installed and have run it on commit. -->
+<!-- Also follow contribution guidelines: https://github.com/quibble-dev/Quibble/blob/main/CONTRIBUTING.md -->
+
 ## Description
 
 Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context. List any dependencies that are required for this change.
