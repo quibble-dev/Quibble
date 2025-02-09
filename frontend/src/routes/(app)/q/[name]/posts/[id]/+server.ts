@@ -3,14 +3,14 @@ import { json, type RequestHandler } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async ({ params, request, cookies }) => {
   try {
-    const { content } = await request.json();
+    const { content, path } = await request.json();
 
     const { data, error, response } = await client.POST('/posts/{id}/comments/', {
       headers: {
         Authorization: `Bearer ${cookies.get('auth_token')}`,
         'Profile-Id': cookies.get('auth_user_profile_id')
       },
-      body: { content },
+      body: { path, content },
       params: {
         path: { id: String(params.id) }
       }
