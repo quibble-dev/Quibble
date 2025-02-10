@@ -26,10 +26,8 @@
       resetForm: false,
       validators: zod(AuthSchema),
       onResult({ result }) {
-        if (result.type === 'failure') return;
-
-        if (result.type === 'error') {
-          toast.push('Ugh! Something went wrong, Try again later', { inside_modal: true });
+        if (result.type === 'failure' || result.type === 'error') {
+          toast.push('Something went wrong! please try again.', { inside_modal: true });
           return;
         }
 
