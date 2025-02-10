@@ -83,7 +83,7 @@
       if (banner instanceof File) form_data.append('banner', banner);
 
       // send request to kit server
-      const res = await fetch('/communities', {
+      const res = await fetch('/api/v1/communities', {
         method: 'POST',
         body: form_data
       });
