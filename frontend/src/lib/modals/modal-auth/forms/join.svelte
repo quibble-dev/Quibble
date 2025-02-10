@@ -28,6 +28,11 @@
       onResult({ result }) {
         if (result.type === 'failure') return;
 
+        if (result.type === 'error') {
+          toast.push('Ugh! Something went wrong, Try again later', { inside_modal: true });
+          return;
+        }
+
         if (auth_type === 'login') {
           // save token on forms_state
           update_forms_state('join', {
