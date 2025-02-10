@@ -16,7 +16,7 @@
   let show_comment_box = $state(false);
   let comment_box_error = $state<string>();
 
-  const is_upvoted = $derived.by(check_if_upvoted);
+  let reaction = $state<'upvoted' | 'downvoted'>(check_if_upvoted() ? 'upvoted' : 'downvoted');
   function check_if_upvoted() {
     if (authStore.state.profile && comment.upvotes) {
       return comment.upvotes.includes(authStore.state.profile.id);
@@ -55,20 +55,13 @@
 
   async function handle_reaction(action: 'upvote' | 'downvote') {
     try {
+      reaction = `${action}d`;
       const res = await fetch(`/api/v1/comments/${comment.id}/reaction`, {
         method: 'PATCH',
         body: JSON.stringify({ action })
       });
 
       if (!res.ok) throw new Error(`request failed with status: ${res.status}`);
-
-      const { success, error } = await res.json();
-
-      if (success) {
-        console.log(action, success);
-      } else if (error) {
-        console.error(error);
-      }
     } catch (err) {
       console.error(err);
     }
@@ -133,7 +126,10 @@
             aria-label="upvote"
             onclick={() => handle_reaction('upvote')}
           >
-            <coreicons-shape-thumbs variant="up" class="size-4" class:text-primary={is_upvoted}
+            <coreicons-shape-thumbs
+              variant="up"
+              class="size-4"
+              class:text-primary={reaction === 'upvoted'}
             ></coreicons-shape-thumbs>
           </button>
           <span class="text-sm font-medium">{comment.ratio}</span>
@@ -142,7 +138,11 @@
             aria-label="downvote"
             onclick={() => handle_reaction('downvote')}
           >
-            <coreicons-shape-thumbs variant="down" class="size-4"></coreicons-shape-thumbs>
+            <coreicons-shape-thumbs
+              variant="down"
+              class="size-4"
+              class:text-primary={reaction === 'downvoted'}
+            ></coreicons-shape-thumbs>
           </button>
         </div>
         <button class="flex items-center gap-2" onclick={() => (show_comment_box = true)}>
