@@ -52,15 +52,20 @@ class CommentViewSet(UpdateRetrieveDestroyViewSet):
         comment = self.get_object()
         req_user = cast(HttpRequest, self.request).user_profile
 
+        if not req_user:
+            raise exceptions.NotAuthenticated()
+
         if action == 'upvote':
             if req_user and comment.upvotes.filter(pk=req_user.pk).exists():
-                raise exceptions.ValidationError('You have already upvoted this comment.')
+                comment.upvotes.remove(req_user)
+                return response.Response({'success': True})
 
             comment.downvotes.remove(req_user)
             comment.upvotes.add(req_user)
         elif action == 'downvote':
-            if req_user and comment.downvotes.filter(pk=req_user.pk).exists():
-                raise exceptions.ValidationError('You have already downvoted this comment.')
+            if comment.downvotes.filter(pk=req_user.pk).exists():
+                comment.downvotes.remove(req_user)
+                return response.Response({'success': True})
 
             comment.upvotes.remove(req_user)
             comment.downvotes.add(req_user)
