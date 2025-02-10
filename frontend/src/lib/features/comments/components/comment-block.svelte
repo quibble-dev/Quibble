@@ -54,23 +54,20 @@
   }
 
   async function handle_reaction(action: 'upvote' | 'downvote') {
-    comment_box_error = undefined;
     try {
-      const res = await fetch('./reaction', {
-        method: 'POST',
+      const res = await fetch(`/api/v1/comments/${comment.id}/reaction`, {
+        method: 'PATCH',
         body: JSON.stringify({ action })
       });
 
       if (!res.ok) throw new Error(`request failed with status: ${res.status}`);
 
-      const { data, error, success } = await res.json();
-      if (success) {
-        show_comment_box = false;
+      const { success, error } = await res.json();
 
-        const new_comment: CommentTree = { ...data, children: [], collapsed: false };
-        comment.children.unshift(new_comment);
-      } else {
-        comment_box_error = error;
+      if (success) {
+        console.log(action, success);
+      } else if (error) {
+        console.error(error);
       }
     } catch (err) {
       console.error(err);
@@ -131,12 +128,20 @@
       <!-- comment options -->
       <div class="flex items-center gap-4">
         <div class="flex items-center gap-2">
-          <button class="flex items-center gap-2" aria-label="upvote">
+          <button
+            class="flex items-center gap-2"
+            aria-label="upvote"
+            onclick={() => handle_reaction('upvote')}
+          >
             <coreicons-shape-thumbs variant="up" class="size-4" class:text-primary={is_upvoted}
             ></coreicons-shape-thumbs>
           </button>
           <span class="text-sm font-medium">{comment.ratio}</span>
-          <button class="flex items-center gap-2" aria-label="downvote">
+          <button
+            class="flex items-center gap-2"
+            aria-label="downvote"
+            onclick={() => handle_reaction('downvote')}
+          >
             <coreicons-shape-thumbs variant="down" class="size-4"></coreicons-shape-thumbs>
           </button>
         </div>

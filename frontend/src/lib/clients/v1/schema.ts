@@ -36,6 +36,30 @@ export interface paths {
     patch: operations['comments_partial_update'];
     trace?: never;
   };
+  '/comments/{id}/reaction/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** @description This endpoint allows a user to either upvote or downvote a comment.
+     *
+     *     Request Body:
+     *     - `action` (str): Either `"upvote"` or `"downvote"`.
+     *
+     *     Responses:
+     *     - `200 OK`: Reaction applied successfully. Returns `{"success": True}`.
+     *     - `400 Bad Request`: If the user has already applied the same reaction or an invalid action is provided. */
+    patch: operations['comments_reaction_partial_update'];
+    trace?: never;
+  };
   '/communities/': {
     parameters: {
       query?: never;
@@ -659,6 +683,51 @@ export interface components {
     CommentsPartialUpdateValidationError: {
       type: components['schemas']['ValidationErrorEnum'];
       errors: components['schemas']['CommentsPartialUpdateError'][];
+    };
+    CommentsReactionPartialUpdateActionErrorComponent: {
+      /**
+       * @description * `action` - action (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'action';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    CommentsReactionPartialUpdateError:
+      | components['schemas']['CommentsReactionPartialUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['CommentsReactionPartialUpdateActionErrorComponent'];
+    CommentsReactionPartialUpdateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    CommentsReactionPartialUpdateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['CommentsReactionPartialUpdateError'][];
     };
     CommentsUpdateCommenterAvatarErrorComponent: {
       /**
@@ -1540,7 +1609,8 @@ export interface components {
       exists: boolean;
       name: string;
     };
-    /** @description Serializer for views returning just a response with detail key */
+    /** @description Serializer for a response containing a `"detail"` message.
+     *     Used for generic informational responses. */
     DetailResponse: {
       detail: string;
     };
@@ -1598,6 +1668,9 @@ export interface components {
       deleted?: boolean;
       upvotes?: number[];
       downvotes?: number[];
+    };
+    PatchedCommentReaction: {
+      action?: string;
     };
     PatchedCommunity: {
       readonly id?: number;
@@ -2345,6 +2418,11 @@ export interface components {
      * @enum {string}
      */
     ServerErrorEnum: 'server_error';
+    /** @description Serializer for a response with a `"success"` boolean.
+     *     Typically used for confirming successful operations. */
+    SuccessResponse: {
+      success: boolean;
+    };
     /**
      * @description * `PUBLIC` - Public
      *     * `RESTRICTED` - Restricted
@@ -3123,6 +3201,58 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['CommentsPartialUpdateValidationError'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  comments_reaction_partial_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description A unique integer value identifying this Comment. */
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['PatchedCommentReaction'];
+        'application/x-www-form-urlencoded': components['schemas']['PatchedCommentReaction'];
+        'multipart/form-data': components['schemas']['PatchedCommentReaction'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponse'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CommentsReactionPartialUpdateValidationError'];
         };
       };
       404: {

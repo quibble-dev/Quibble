@@ -52,14 +52,10 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
 
     if (data && response.ok) {
       return json({ success: true, data });
-    } else if (error) {
-      console.error(error);
-      return json({ success: false, error: error.errors[0]?.detail });
     }
 
-    return json({ success: false, error: 'Unexpected response from server' });
+    return json({ success: false, error: error?.errors[0]?.detail });
   } catch (err) {
-    console.error('unexected error: ', err);
     return json({ success: false, error: 'Internal server error' }, { status: 500 });
   }
 };
