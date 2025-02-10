@@ -2,6 +2,7 @@
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
+  import { throttle } from '$lib/functions/throttle';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import type { CommentTree } from '$lib/types/comment';
   import CommentBlock from './comment-block.svelte';
@@ -60,6 +61,8 @@
       console.error(err);
     }
   }
+
+  const throttled_handle_reaction = throttle(handle_reaction, 500);
   async function handle_reaction(action: 'upvote' | 'downvote') {
     try {
       if (reaction === `${action}d`) {
@@ -143,7 +146,7 @@
           <button
             class="flex items-center gap-2"
             aria-label="upvote"
-            onclick={() => handle_reaction('upvote')}
+            onclick={() => throttled_handle_reaction('upvote')}
           >
             <coreicons-shape-thumbs
               variant="up"
@@ -155,7 +158,7 @@
           <button
             class="flex items-center gap-2"
             aria-label="downvote"
-            onclick={() => handle_reaction('downvote')}
+            onclick={() => throttled_handle_reaction('downvote')}
           >
             <coreicons-shape-thumbs
               variant="down"
