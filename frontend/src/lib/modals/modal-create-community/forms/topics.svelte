@@ -97,7 +97,7 @@
   </div>
 
   <!-- list available topics section -->
-  <div class="flex max-h-64 flex-col gap-4 overflow-scroll pr-2">
+  <div class="flex max-h-64 flex-col gap-4 overflow-y-scroll pr-2">
     {#each topics as t}
       <div class="flex flex-col gap-2">
         <!-- category title -->
