@@ -52,6 +52,30 @@
       console.error(err);
     }
   }
+
+  async function handle_reaction(action: 'upvote' | 'downvote') {
+    comment_box_error = undefined;
+    try {
+      const res = await fetch('./reaction', {
+        method: 'POST',
+        body: JSON.stringify({ action })
+      });
+
+      if (!res.ok) throw new Error(`request failed with status: ${res.status}`);
+
+      const { data, error, success } = await res.json();
+      if (success) {
+        show_comment_box = false;
+
+        const new_comment: CommentTree = { ...data, children: [], collapsed: false };
+        comment.children.unshift(new_comment);
+      } else {
+        comment_box_error = error;
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
 </script>
 
 <div class="flex items-start gap-2">
