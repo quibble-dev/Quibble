@@ -55,7 +55,7 @@ export const POST: RequestHandler = async ({ cookies, request }) => {
     }
 
     return json({ success: false, error: error?.errors[0]?.detail });
-  } catch (err) {
+  } catch {
     return json({ success: false, error: 'Internal server error' }, { status: 500 });
   }
 };

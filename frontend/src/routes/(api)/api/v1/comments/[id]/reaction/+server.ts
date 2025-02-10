@@ -20,7 +20,7 @@ export const PATCH: RequestHandler = async ({ params, request, cookies }) => {
     }
 
     return json({ success: false, error: error?.errors[0]?.detail });
-  } catch (err) {
+  } catch {
     return json({ success: false, error: 'Internal server error' }, { status: 500 });
   }
 };
