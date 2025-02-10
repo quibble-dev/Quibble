@@ -1,5 +1,5 @@
 from rest_framework import serializers
 
 
-class CommentReactionResponseSerializer(serializers.Serializer):
-    success = serializers.BooleanField()
+class CommentReactionSerializer(serializers.Serializer):
+    action = serializers.CharField()
