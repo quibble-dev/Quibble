@@ -16,12 +16,20 @@
   let show_comment_box = $state(false);
   let comment_box_error = $state<string>();
 
-  let reaction = $state<'upvoted' | 'downvoted'>(check_if_upvoted() ? 'upvoted' : 'downvoted');
-  function check_if_upvoted() {
-    if (authStore.state.profile && comment.upvotes) {
-      return comment.upvotes.includes(authStore.state.profile.id);
+  let ratio = $state(comment.ratio);
+  let reaction = $state<ReturnType<typeof get_reaction>>(get_reaction());
+
+  $effect(() => {
+    reaction = get_reaction();
+  });
+
+  function get_reaction(): 'upvoted' | 'downvoted' | null {
+    if (authStore.state.profile) {
+      if (comment.upvotes?.includes(authStore.state.profile.id)) return 'upvoted';
+      else if (comment.downvotes?.includes(authStore.state.profile.id)) return 'downvoted';
+      else return null;
     } else {
-      return false;
+      return null;
     }
   }
 
@@ -52,10 +60,21 @@
       console.error(err);
     }
   }
-
   async function handle_reaction(action: 'upvote' | 'downvote') {
     try {
-      reaction = `${action}d`;
+      if (reaction === `${action}d`) {
+        // undo reaction
+        reaction = null;
+        ratio += action === 'upvote' ? -1 : 1;
+      } else {
+        if (reaction === 'upvoted') ratio -= 1;
+        if (reaction === 'downvoted') ratio += 1;
+
+        reaction = `${action}d`;
+        if (reaction === 'upvoted') ratio += 1;
+        if (reaction === 'downvoted') ratio -= 1;
+      }
+
       const res = await fetch(`/api/v1/comments/${comment.id}/reaction`, {
         method: 'PATCH',
         body: JSON.stringify({ action })
@@ -132,7 +151,7 @@
               class:text-primary={reaction === 'upvoted'}
             ></coreicons-shape-thumbs>
           </button>
-          <span class="text-sm font-medium">{comment.ratio}</span>
+          <span class="text-sm font-medium">{ratio}</span>
           <button
             class="flex items-center gap-2"
             aria-label="downvote"
