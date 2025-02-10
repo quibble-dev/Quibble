@@ -2,7 +2,7 @@ from http import HTTPMethod
 from typing import cast
 
 from drf_spectacular.utils import extend_schema
-from rest_framework import exceptions, response, status
+from rest_framework import exceptions, response
 from rest_framework.decorators import action
 
 from apps.api.bases.serializers import SuccessResponseSerializer
