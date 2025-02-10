@@ -64,8 +64,6 @@ class CommentViewSet(UpdateRetrieveDestroyViewSet):
 
             comment.upvotes.remove(req_user)
             comment.downvotes.add(req_user)
-        else:
-            raise exceptions.ValidationError(f'Invalid action: {action}')
 
         return response.Response({'success': True})
 
