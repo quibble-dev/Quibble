@@ -1,10 +1,12 @@
 import { browser } from '$app/environment';
+import { SIDEBAR_MAX_ITEMS_LIMIT } from '$lib/constants/limits';
 
 type Sidebar = Record<string, Community[]>;
 type Community = {
   avatar?: string | null | undefined;
   name: string;
   starred?: boolean;
+  timestamp?: number;
 };
 
 const stored_sidebar = browser ? localStorage.getItem('sidebar') : null;
@@ -31,7 +33,8 @@ function get_sorted_communities(communities: Community[]) {
     if (a.starred !== b.starred) {
       return b.starred ? 1 : -1;
     }
-    return a.name.localeCompare(b.name);
+    // newset first even if both are starred
+    return (b.timestamp ?? 0) - (a.timestamp ?? 0);
   });
 }
 
@@ -49,7 +52,15 @@ export function createSidebarStore() {
       const exists = sidebar[type].some((c) => c.name === community.name);
       if (exists) return;
 
-      sidebar[type] = get_sorted_communities([...sidebar[type], { ...community, starred: false }]);
+      const community_with_timestamp: Community = {
+        ...community,
+        starred: false,
+        timestamp: Date.now()
+      };
+      sidebar[type] = get_sorted_communities([community_with_timestamp, ...sidebar[type]]).slice(
+        0,
+        SIDEBAR_MAX_ITEMS_LIMIT
+      );
       sync_to_localstorage();
     },
     toggle_star(type: string, name: string) {
@@ -58,6 +69,12 @@ export function createSidebarStore() {
       sidebar[type] = get_sorted_communities(
         sidebar[type].map((c) => (c.name === name ? { ...c, starred: !c.starred } : c))
       );
+      sync_to_localstorage();
+    },
+    clear(type: string) {
+      if (!sidebar[type]) return;
+
+      sidebar[type] = get_sorted_communities(sidebar[type].filter((c) => c.starred === true));
       sync_to_localstorage();
     }
   };

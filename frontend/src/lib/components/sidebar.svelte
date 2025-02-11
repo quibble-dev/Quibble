@@ -44,13 +44,20 @@
   <div class="collapse gap-2 overflow-visible rounded-none">
     <input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
     <div
-      class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>coreicons-shape-chevron]:rotate-180"
+      class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>div>coreicons-shape-chevron]:rotate-180"
     >
       Recent
-      <coreicons-shape-chevron class="size-4 transition-transform" variant="down"
-      ></coreicons-shape-chevron>
+      <div class="flex items-center gap-2">
+        <button
+          class="btn btn-ghost btn-xs z-10"
+          disabled={sidebarStore.state.recent?.length === 0}
+          onclick={() => sidebarStore.clear('recent')}>Clear</button
+        >
+        <coreicons-shape-chevron class="size-4 transition-transform" variant="down"
+        ></coreicons-shape-chevron>
+      </div>
     </div>
-    {#if sidebarStore.state.recent}
+    {#if sidebarStore.state.recent?.length}
       <div class="collapse-content flex flex-col gap-2 !p-0">
         {#each sidebarStore.state.recent as community}
           <div class="flex items-center gap-2">
@@ -73,23 +80,31 @@
       <span class="text-sm">Just in—take a peek.</span>
     {/if}
   </div>
+
   <div class="collapse gap-2 overflow-visible rounded-none">
     <input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
     <div
-      class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>coreicons-shape-chevron]:rotate-180"
+      class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>div>coreicons-shape-chevron]:rotate-180"
     >
       Your Communities
-      <coreicons-shape-chevron class="size-4 transition-transform" variant="down"
-      ></coreicons-shape-chevron>
+      <div class="flex items-center gap-2">
+        <button
+          class="btn btn-ghost btn-xs z-10"
+          disabled={sidebarStore.state.your?.length === 0}
+          onclick={() => sidebarStore.clear('your')}>Clear</button
+        >
+        <coreicons-shape-chevron class="size-4 transition-transform" variant="down"
+        ></coreicons-shape-chevron>
+      </div>
     </div>
-    {#if sidebarStore.state.your}
+    {#if sidebarStore.state.your?.length}
       <div class="collapse-content flex flex-col gap-2 !p-0">
         {#each sidebarStore.state.your as community}
           <div class="flex items-center gap-2">
-            <a href="q/{community.name}" class="flex">
+            <a href="/q/{community.name}" class="flex">
               <Avatar src={community.avatar} />
             </a>
-            <a href="q/{community.name}" class="text-sm font-medium">q/{community.name}</a>
+            <a href="/q/{community.name}" class="text-sm font-medium">q/{community.name}</a>
             <button
               onclick={() => sidebarStore.toggle_star('your', community.name)}
               class="ml-auto"
