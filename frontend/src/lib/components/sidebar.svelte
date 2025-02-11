@@ -48,8 +48,10 @@
     >
       Recent
       <div class="flex items-center gap-2">
-        <button class="btn btn-ghost btn-xs z-10" onclick={() => sidebarStore.clear('recent')}
-          >Clear</button
+        <button
+          class="btn btn-ghost btn-xs z-10"
+          disabled={sidebarStore.state.recent?.length === 0}
+          onclick={() => sidebarStore.clear('recent')}>Clear</button
         >
         <coreicons-shape-chevron class="size-4 transition-transform" variant="down"
         ></coreicons-shape-chevron>
@@ -86,8 +88,10 @@
     >
       Your Communities
       <div class="flex items-center gap-2">
-        <button class="btn btn-ghost btn-xs z-10" onclick={() => sidebarStore.clear('your')}
-          >Clear</button
+        <button
+          class="btn btn-ghost btn-xs z-10"
+          disabled={sidebarStore.state.your?.length === 0}
+          onclick={() => sidebarStore.clear('your')}>Clear</button
         >
         <coreicons-shape-chevron class="size-4 transition-transform" variant="down"
         ></coreicons-shape-chevron>
