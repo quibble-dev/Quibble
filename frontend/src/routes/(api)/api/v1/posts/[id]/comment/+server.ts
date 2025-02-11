@@ -19,13 +19,11 @@ export const POST: RequestHandler = async ({ params, request, cookies }) => {
     if (data && response.ok) {
       return json({ success: true, data });
     } else if (error) {
-      console.error(error);
       return json({ success: false, error: error.errors[0]?.detail });
     }
 
     return json({ success: false, error: 'Unexpected response from server' });
   } catch (err) {
-    console.error('unexected error: ', err);
     return json({ success: false, error: 'Internal server error' }, { status: 500 });
   }
 };

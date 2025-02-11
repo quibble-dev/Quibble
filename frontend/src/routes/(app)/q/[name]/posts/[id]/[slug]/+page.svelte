@@ -59,7 +59,7 @@
   async function handle_comment(value: string) {
     comment_box_error = undefined;
     try {
-      const res = await fetch('./', {
+      const res = await fetch(`/api/v1/posts/${post.id}/comment`, {
         method: 'POST',
         body: JSON.stringify({ content: value })
       });
