@@ -24,11 +24,7 @@
   });
 </script>
 
-<dialog
-  bind:this={dialog_el}
-  class="modal modal-bottom px-4 backdrop-blur sm:modal-middle"
-  {onclose}
->
+<dialog class="modal modal-bottom px-4 sm:modal-middle" bind:this={dialog_el} {onclose}>
   <div
     class={cn(
       klass,
