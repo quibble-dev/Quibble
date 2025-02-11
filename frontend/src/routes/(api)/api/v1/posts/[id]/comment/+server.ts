@@ -23,7 +23,7 @@ export const POST: RequestHandler = async ({ params, request, cookies }) => {
     }
 
     return json({ success: false, error: 'Unexpected response from server' });
-  } catch (err) {
+  } catch {
     return json({ success: false, error: 'Internal server error' }, { status: 500 });
   }
 };
