@@ -67,7 +67,14 @@
   <div
     class="fixed top-[3.75rem] flex h-[calc(100dvh-3.75rem)] w-72 flex-col gap-4 overflow-y-scroll p-4 scrollbar-none"
   >
-    <h2 class="font-medium">Recent Posts</h2>
+    <div class="flex items-center justify-between">
+      <h2 class="font-medium">Recent Posts</h2>
+      <button
+        class="btn btn-ghost btn-xs z-10"
+        disabled={recentPostStore.state.length === 0}
+        onclick={recentPostStore.clear}>Clear</button
+      >
+    </div>
 
     <!-- render recent posts from localstorage -->
     <div class="flex flex-col gap-4">

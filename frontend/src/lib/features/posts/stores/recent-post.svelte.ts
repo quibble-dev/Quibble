@@ -46,6 +46,10 @@ export function createRecentPostStore() {
       });
 
       sync_to_localstorage();
+    },
+    clear() {
+      recent_post = [];
+      sync_to_localstorage();
     }
   };
 }
