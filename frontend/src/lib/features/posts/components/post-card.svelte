@@ -45,7 +45,7 @@
     <p class="text-sm font-normal">
       {post.content}
     </p>
-  {:else}
+  {:else if is_valid(post.cover)}
     <BackdropImage src={post.cover} class="z-10">
       <Zoom>
         <img src={post.cover} alt="" class="max-h-[25rem] object-contain" />
@@ -75,7 +75,9 @@
 {/snippet}
 
 {#snippet vote_comment_share_more()}
-  <div class="flex items-center gap-2">
+  <div
+    class="btn btn-neutral flex h-max items-center gap-2 rounded-xl px-2 py-1 group-hover:border-transparent group-hover:bg-base-content/20"
+  >
     <button class="flex items-center gap-2" aria-label="upvote">
       <coreicons-shape-thumbs variant="up" class="size-4" class:text-primary={is_upvoted}
       ></coreicons-shape-thumbs>
@@ -85,13 +87,13 @@
       <coreicons-shape-thumbs variant="down" class="size-4"></coreicons-shape-thumbs>
     </button>
   </div>
-  <button class="flex items-center gap-2">
+  <button
+    class="btn btn-neutral flex h-max items-center gap-2 rounded-xl px-2 py-1 group-hover:border-transparent group-hover:bg-base-content/20"
+  >
     <coreicons-shape-forum class="size-4"></coreicons-shape-forum>
-    <span class="text-xs font-medium md:text-sm"
-      >{readable(post.comments?.length ?? 0)} comments</span
-    >
+    <span class="text-xs font-medium md:text-sm">{readable(post.comments?.length ?? 0)}</span>
   </button>
-  <button class="hidden items-center gap-2 md:flex">
+  <button class="btn hidden h-max items-center gap-2 border-none !bg-transparent p-0 md:flex">
     <coreicons-shape-share class="size-4"></coreicons-shape-share>
     <span class="text-sm font-medium">Share</span>
   </button>
@@ -115,14 +117,16 @@
   )}
 >
   {#if layoutTypeStore.state === 'card'}
-    <div class="relative flex flex-col gap-2 p-4 transition-colors hover:bg-base-200">
+    <div
+      class="duration-50 group relative flex flex-col gap-2 p-4 transition-colors hover:bg-base-200"
+    >
       {@render href_overlay()}
       {@render avatar_name_date_more()}
       <h2 class="text-lg font-bold text-info md:text-xl">{post.title}</h2>
       {@render content_or_cover()}
-    </div>
-    <div class="flex items-center gap-4 border-t border-neutral px-4 py-2.5">
-      {@render vote_comment_share_more()}
+      <div class="relative flex items-center gap-2.5">
+        {@render vote_comment_share_more()}
+      </div>
     </div>
   {:else}
     <div class="flex flex-1 flex-row-reverse gap-4 p-4 p-4 md:flex-row">
