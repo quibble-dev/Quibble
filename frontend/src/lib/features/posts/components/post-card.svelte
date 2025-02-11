@@ -76,7 +76,7 @@
 
 {#snippet vote_comment_share_more()}
   <div
-    class="btn btn-neutral flex h-max items-center gap-2 rounded-xl px-2 py-1 group-hover:border-transparent group-hover:bg-base-content/20"
+    class="btn btn-neutral relative flex h-max items-center gap-2 rounded-xl px-2 py-1 group-hover:border-transparent group-hover:bg-base-content/20"
   >
     <button class="flex items-center gap-2" aria-label="upvote">
       <coreicons-shape-thumbs variant="up" class="size-4" class:text-primary={is_upvoted}
@@ -88,16 +88,18 @@
     </button>
   </div>
   <button
-    class="btn btn-neutral flex h-max items-center gap-2 rounded-xl px-2 py-1 group-hover:border-transparent group-hover:bg-base-content/20"
+    class="btn btn-neutral relative flex h-max items-center gap-2 rounded-xl px-2 py-1 group-hover:border-transparent group-hover:bg-base-content/20"
   >
     <coreicons-shape-forum class="size-4"></coreicons-shape-forum>
     <span class="text-xs font-medium md:text-sm">{readable(post.comments?.length ?? 0)}</span>
   </button>
-  <button class="btn hidden h-max items-center gap-2 border-none !bg-transparent p-0 md:flex">
+  <button
+    class="btn relative hidden h-max items-center gap-2 border-none bg-transparent p-0 hover:bg-transparent md:flex"
+  >
     <coreicons-shape-share class="size-4"></coreicons-shape-share>
     <span class="text-sm font-medium">Share</span>
   </button>
-  <button class="flex items-center gap-2 md:hidden" aria-label="more">
+  <button class="relative flex items-center gap-2 md:hidden" aria-label="more">
     <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
   </button>
 {/snippet}
@@ -124,7 +126,7 @@
       {@render avatar_name_date_more()}
       <h2 class="text-lg font-bold text-info md:text-xl">{post.title}</h2>
       {@render content_or_cover()}
-      <div class="relative flex items-center gap-2.5">
+      <div class="flex items-center gap-2.5">
         {@render vote_comment_share_more()}
       </div>
     </div>
