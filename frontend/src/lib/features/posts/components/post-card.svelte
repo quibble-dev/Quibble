@@ -120,18 +120,18 @@
 >
   {#if layoutTypeStore.state === 'card'}
     <div
-      class="duration-50 group relative flex flex-col gap-2 p-4 transition-colors hover:bg-base-200"
+      class="duration-50 group relative flex flex-col gap-1 p-4 transition-colors hover:bg-base-200"
     >
       {@render href_overlay()}
       {@render avatar_name_date_more()}
       <h2 class="text-lg font-bold text-info md:text-xl">{post.title}</h2>
       {@render content_or_cover()}
-      <div class="flex items-center gap-2.5">
+      <div class="mt-1.5 flex items-center gap-2.5">
         {@render vote_comment_share_more()}
       </div>
     </div>
   {:else}
-    <div class="flex flex-1 flex-row-reverse gap-4 p-4 p-4 md:flex-row">
+    <div class="group flex flex-1 flex-row-reverse gap-4 p-4 p-4 md:flex-row">
       {@render href_overlay()}
       <div
         class={cn(
@@ -143,17 +143,15 @@
       <div class="flex w-full flex-col gap-1">
         {@render avatar_name_date_more()}
         <h2 class="text-base font-bold text-info md:text-lg">{post.title}</h2>
-        <div class="mt-auto flex items-center gap-4">
+        <div class="mt-auto flex items-center gap-2.5">
           <button
             onclick={() => (is_expanded = !is_expanded)}
-            class="relative flex hidden items-center gap-2 md:flex"
+            class="btn btn-neutral relative hidden h-max rounded-xl p-1.5 group-hover:border-transparent group-hover:bg-base-content/20 md:flex"
           >
             {#if is_expanded}
               <coreicons-shape-shrink class="size-4 text-primary"></coreicons-shape-shrink>
-              <span class="text-sm font-medium">Shrink</span>
             {:else}
               <coreicons-shape-expand class="size-4"></coreicons-shape-expand>
-              <span class="text-sm font-medium">Expand</span>
             {/if}
           </button>
           {@render vote_comment_share_more()}
