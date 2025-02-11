@@ -29,6 +29,7 @@
     });
   }
 
+  // It only works on full page reloading. wont work with Client Side navigation.
   onMount(() => {
     add_to_sidebar_store('recent');
     if (is_joined) add_to_sidebar_store('your');
