@@ -1,13 +1,13 @@
 import { browser } from '$app/environment';
+import { SIDEBAR_MAX_ITEMS_LIMIT } from '$lib/constants/limits';
 
 type Sidebar = Record<string, Community[]>;
 type Community = {
   avatar?: string | null | undefined;
   name: string;
   starred?: boolean;
+  timestamp?: number;
 };
-
-const MAX_ITEMS_SHOWN = 4;
 
 const stored_sidebar = browser ? localStorage.getItem('sidebar') : null;
 const parsed_sidebar: Sidebar = stored_sidebar ? JSON.parse(stored_sidebar) : {};
@@ -17,9 +17,7 @@ const sidebar = $state<Sidebar>(
   Object.fromEntries(
     Object.entries(parsed_sidebar).map(([key, community]) => [
       key,
-      key === 'recents'
-        ? get_sorted_communities(community, true)
-        : get_sorted_communities(community)
+      get_sorted_communities(community)
     ])
   )
 );
@@ -30,20 +28,13 @@ function sync_to_localstorage() {
   }
 }
 
-function get_sorted_communities(
-  communities: Community[],
-  sortByName: boolean = true,
-  starred_only: boolean = false
-) {
-  const filteredCommunities = starred_only
-    ? communities.filter((community) => community.starred)
-    : communities;
-
-  return [...filteredCommunities].sort((a, b) => {
+function get_sorted_communities(communities: Community[]) {
+  return [...communities].sort((a, b) => {
     if (a.starred !== b.starred) {
       return b.starred ? 1 : -1;
     }
-    return sortByName ? a.name.localeCompare(b.name) : 1;
+    // newset first even if both are starred
+    return (b.timestamp ?? 0) - (a.timestamp ?? 0);
   });
 }
 
@@ -61,19 +52,15 @@ export function createSidebarStore() {
       const exists = sidebar[type].some((c) => c.name === community.name);
       if (exists) return;
 
-      // Recent items should not be sorted by name.
-      if (type == 'recent') {
-        sidebar[type] = get_sorted_communities(
-          [{ ...community, starred: false }, ...sidebar[type]],
-          false
-        ).slice(0, MAX_ITEMS_SHOWN);
-      } else {
-        sidebar[type] = get_sorted_communities([
-          ...sidebar[type],
-          { ...community, starred: false }
-        ]).slice(0, MAX_ITEMS_SHOWN);
-      }
-
+      const community_with_timestamp: Community = {
+        ...community,
+        starred: false,
+        timestamp: Date.now()
+      };
+      sidebar[type] = get_sorted_communities([community_with_timestamp, ...sidebar[type]]).slice(
+        0,
+        SIDEBAR_MAX_ITEMS_LIMIT
+      );
       sync_to_localstorage();
     },
     toggle_star(type: string, name: string) {
@@ -84,8 +71,10 @@ export function createSidebarStore() {
       );
       sync_to_localstorage();
     },
-    clear_recents() {
-      sidebar['recent'] = get_sorted_communities(sidebar['recent'] as Community[], false, true);
+    clear(type: string) {
+      if (!sidebar[type]) return;
+
+      sidebar[type] = get_sorted_communities(sidebar[type].filter((c) => c.starred === true));
       sync_to_localstorage();
     }
   };

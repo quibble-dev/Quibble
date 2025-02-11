@@ -5,7 +5,6 @@
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';
   import { createSidebarStore } from '$lib/stores/sidebar.svelte';
-  import { fly } from 'svelte/transition';
 
   const sidebarStore = createSidebarStore(),
     modalsStore = createModalsStore(),
@@ -45,23 +44,21 @@
   <div class="collapse gap-2 overflow-visible rounded-none">
     <input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
     <div
-      class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>coreicons-shape-chevron]:rotate-180"
+      class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>div>coreicons-shape-chevron]:rotate-180"
     >
       Recent
       <div class="flex items-center gap-2">
-        <button
-          onclick={sidebarStore.clear_recents}
-          class="z-10 rounded-full p-1 px-2 text-xs transition-colors hover:bg-primary/40 hover:text-white"
+        <button class="btn btn-ghost btn-xs z-10" onclick={() => sidebarStore.clear('recent')}
           >Clear</button
         >
         <coreicons-shape-chevron class="size-4 transition-transform" variant="down"
         ></coreicons-shape-chevron>
       </div>
     </div>
-    {#if sidebarStore.state.recent}
+    {#if sidebarStore.state.recent?.length}
       <div class="collapse-content flex flex-col gap-2 !p-0">
         {#each sidebarStore.state.recent as community}
-          <div class="flex items-center gap-2" transition:fly={{ y: -15 }}>
+          <div class="flex items-center gap-2">
             <a href="/q/{community.name}" class="flex">
               <Avatar src={community.avatar} />
             </a>
@@ -85,13 +82,18 @@
   <div class="collapse gap-2 overflow-visible rounded-none">
     <input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
     <div
-      class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>coreicons-shape-chevron]:rotate-180"
+      class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>div>coreicons-shape-chevron]:rotate-180"
     >
       Your Communities
-      <coreicons-shape-chevron class="size-4 transition-transform" variant="down"
-      ></coreicons-shape-chevron>
+      <div class="flex items-center gap-2">
+        <button class="btn btn-ghost btn-xs z-10" onclick={() => sidebarStore.clear('your')}
+          >Clear</button
+        >
+        <coreicons-shape-chevron class="size-4 transition-transform" variant="down"
+        ></coreicons-shape-chevron>
+      </div>
     </div>
-    {#if sidebarStore.state.your}
+    {#if sidebarStore.state.your?.length}
       <div class="collapse-content flex flex-col gap-2 !p-0">
         {#each sidebarStore.state.your as community}
           <div class="flex items-center gap-2">
