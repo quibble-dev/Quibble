@@ -92,7 +92,7 @@
                   <h3 class="text-xs font-semibold">q/{post.community.name}</h3>
                 </a>
                 <a
-                  href="/q/{post.community.name}/posts/{post.slug}"
+                  href="/q/{post.community.name}/posts/{post.id}/{post.slug}"
                   class="font-semibold text-info hover:underline"
                 >
                   {post.title}
