@@ -3,9 +3,20 @@
   import { page } from '$app/state';
   import autosize from '$lib/actions/autosize';
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import { cn } from '$lib/functions/classnames.js';
+  import { PostSubmitSchema } from '$lib/schemas/post-submit.js';
+  import { superForm } from 'sveltekit-superforms';
+  import { zod } from 'sveltekit-superforms/adapters';
+
+  let { data } = $props();
 
   type Type = keyof typeof types;
   let active_type = $state<Type>('TEXT');
+
+  const { form, errors, enhance, delayed } = superForm(data.form, {
+    resetForm: false,
+    validators: zod(PostSubmitSchema)
+  });
 
   const types = {
     TEXT: {
@@ -83,7 +94,7 @@
     {/each}
   </div>
   <!-- post form -->
-  <form class="flex flex-col gap-2">
+  <form method="POST" class="flex flex-col gap-2" use:enhance>
     <label class="form-control w-full">
       <input
         type="text"
@@ -91,9 +102,18 @@
         placeholder="Title*"
         class="input input-bordered w-full bg-transparent text-info"
         maxlength={300}
+        bind:value={$form.title}
       />
       <div class="label py-1">
-        <span class="label-text-alt"></span>
+        <span class="label-text-alt flex items-center gap-2" class:text-error={$errors.title}>
+          {#if $errors.title}
+            <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
+            <span class="text-xs">{$errors.title[0]}</span>
+          {:else}
+            <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
+            <span class="text-xs">Think of a title that grabs attention!</span>
+          {/if}
+        </span>
         <span class="label-text-alt">0/300</span>
       </div>
     </label>
@@ -102,10 +122,14 @@
       name="content"
       class="textarea textarea-bordered min-h-[10rem] w-full bg-transparent leading-normal placeholder:opacity-75"
       placeholder="What’s on your mind?"
+      bind:value={$form.content}
     ></textarea>
     <div class="ml-auto flex items-center gap-2">
-      <button type="button" class="btn btn-neutral">Save Draft</button>
-      <button class="btn btn-primary">Post</button>
+      <button type="button" class="btn btn-neutral" disabled>Save Draft</button>
+      <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary')}>
+        Post
+        {#if $delayed}<span class="loading loading-spinner loading-xs"></span>{/if}
+      </button>
     </div>
   </form>
 </div>
