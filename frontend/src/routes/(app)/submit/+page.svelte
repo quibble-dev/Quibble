@@ -16,6 +16,7 @@
   type Type = keyof typeof types;
   let active_type = $state<Type>('TEXT');
 
+  let selected_community = $state<(typeof communities_select_list)[number] | null>(null);
   const communities_select_list = $derived.by(() => {
     const merged = [...(sidebarStore.state.recent ?? []), ...(sidebarStore.state.your ?? [])];
     return Array.from(new Map(merged.map((c) => [c.name, c])).values());
@@ -79,8 +80,10 @@
   <!-- select community dropdown and select -->
   <div class="dropdown w-max">
     <div tabindex="0" role="button" class="btn btn-neutral h-max p-1 hover:btn-ghost">
-      <Avatar />
-      <span class="text-info">Select a community</span>
+      <Avatar src={selected_community?.avatar} />
+      <span class="text-info"
+        >{selected_community ? `q/${selected_community.name}` : 'Select a community'}</span
+      >
       <coreicons-shape-chevron variant="down" class="size-4"></coreicons-shape-chevron>
     </div>
     <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
@@ -92,12 +95,21 @@
         type="text"
         placeholder="Search filter..."
         class="input input-sm input-bordered w-full rounded-xl bg-base-200"
+        disabled
       />
       {#each communities_select_list as item}
+        {@const selected = selected_community === item}
         <li>
-          <button class="flex items-center gap-2 rounded-xl p-1">
+          <button
+            class="flex items-center gap-2 rounded-xl p-1"
+            class:active={selected}
+            onclick={() => (selected_community = item)}
+          >
             <Avatar src={item.avatar} />
-            <span class="text-sm font-medium">r/{item.name}</span>
+            <span class="whitespace-nowrap text-sm font-medium">r/{item.name}</span>
+            <div class="btn btn-circle btn-accent ml-auto size-4 p-0" class:invisible={!selected}>
+              <coreicons-shape-check class="size-2.5"></coreicons-shape-check>
+            </div>
           </button>
         </li>
       {/each}
