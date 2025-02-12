@@ -1,32 +1,53 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
+  import { page } from '$app/state';
   import autosize from '$lib/actions/autosize';
   import Avatar from '$lib/components/ui/avatar.svelte';
 
   type Type = keyof typeof types;
-  let active_type = $state<Type>('text');
+  let active_type = $state<Type>('TEXT');
 
   const types = {
-    text: {
+    TEXT: {
       label: 'Text',
       onclick: () => null,
       disabled: false
     },
-    images_and_video: {
+    IMAGE: {
       label: 'Images & Video',
       onclick: () => null,
       disabled: true
     },
-    link: {
+    LINK: {
       label: 'Link',
       onclick: () => null,
       disabled: true
     },
-    poll: {
+    POLL: {
       label: 'Poll',
       onclick: () => null,
       disabled: true
     }
   };
+
+  $effect(() => {
+    const url = new URL(page.url);
+    const params = url.searchParams;
+    const param_type = params.get('type')?.toUpperCase();
+
+    if (param_type && param_type in types) {
+      const type_info = types[param_type as Type];
+
+      if (!type_info.disabled) {
+        active_type = param_type as Type;
+      }
+    }
+
+    if (params.get('type') !== active_type) {
+      params.set('type', active_type);
+      goto(`?${params.toString()}`, { replaceState: true });
+    }
+  });
 </script>
 
 <svelte:head>
@@ -83,8 +104,8 @@
       placeholder="What’s on your mind?"
     ></textarea>
     <div class="ml-auto flex items-center gap-2">
-      <button type="button" class="btn btn-neutral h-10">Save Draft</button>
-      <button class="btn btn-primary h-10">Post</button>
+      <button type="button" class="btn btn-neutral">Save Draft</button>
+      <button class="btn btn-primary">Post</button>
     </div>
   </form>
 </div>
