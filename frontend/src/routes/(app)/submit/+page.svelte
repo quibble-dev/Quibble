@@ -9,24 +9,6 @@
   import { superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
 
-  let { data } = $props();
-
-  const sidebarStore = createSidebarStore();
-
-  type Type = keyof typeof types;
-  let active_type = $state<Type>('TEXT');
-
-  let selected_community = $state<(typeof communities_select_list)[number] | null>(null);
-  const communities_select_list = $derived.by(() => {
-    const merged = [...(sidebarStore.state.recent ?? []), ...(sidebarStore.state.your ?? [])];
-    return Array.from(new Map(merged.map((c) => [c.name, c])).values());
-  });
-
-  const { form, errors, enhance, delayed } = superForm(data.form, {
-    resetForm: false,
-    validators: zod(PostSubmitSchema)
-  });
-
   const types = {
     TEXT: {
       label: 'Text',
@@ -49,6 +31,29 @@
       disabled: true
     }
   };
+
+  let { data } = $props();
+
+  const sidebarStore = createSidebarStore();
+
+  type Type = keyof typeof types;
+  let active_type = $state<Type>('TEXT');
+
+  let selected_community = $state<(typeof communities_select_list)[number] | null>(null);
+  let filter_communities_query = $state('');
+
+  const communities_select_list = $derived.by(() => {
+    const merged = [...(sidebarStore.state.recent ?? []), ...(sidebarStore.state.your ?? [])];
+    const deduped = Array.from(new Map(merged.map((c) => [c.name, c])).values());
+    if (filter_communities_query)
+      return deduped.filter((c) => c.name.startsWith(filter_communities_query.toLowerCase()));
+    return deduped;
+  });
+
+  const { form, errors, enhance, delayed } = superForm(data.form, {
+    resetForm: false,
+    validators: zod(PostSubmitSchema)
+  });
 
   $effect(() => {
     const url = new URL(page.url);
@@ -95,24 +100,31 @@
         type="text"
         placeholder="Search filter..."
         class="input input-sm input-bordered w-full rounded-xl bg-base-200"
-        disabled
+        bind:value={filter_communities_query}
       />
-      {#each communities_select_list as item}
-        {@const selected = selected_community === item}
-        <li>
-          <button
-            class="flex items-center gap-2 rounded-xl p-1"
-            class:active={selected}
-            onclick={() => (selected_community = item)}
-          >
-            <Avatar src={item.avatar} />
-            <span class="whitespace-nowrap text-sm font-medium">r/{item.name}</span>
-            <div class="btn btn-circle btn-accent ml-auto size-4 p-0" class:invisible={!selected}>
-              <coreicons-shape-check class="size-2.5"></coreicons-shape-check>
-            </div>
-          </button>
-        </li>
-      {/each}
+      {#if communities_select_list.length}
+        {#each communities_select_list as item}
+          {@const selected = selected_community === item}
+          <li>
+            <button
+              class="flex items-center gap-2 rounded-xl p-1"
+              class:active={selected}
+              onclick={() => (selected_community = item)}
+            >
+              <Avatar src={item.avatar} />
+              <span class="whitespace-nowrap text-sm font-medium">r/{item.name}</span>
+              <div class="btn btn-circle btn-accent ml-auto size-4 p-0" class:invisible={!selected}>
+                <coreicons-shape-check class="size-2.5"></coreicons-shape-check>
+              </div>
+            </button>
+          </li>
+        {/each}
+      {:else}
+        <span class="flex items-center gap-1 text-xs">
+          <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
+          Nothin' to show!</span
+        >
+      {/if}
     </ul>
   </div>
   <!-- select post type section -->
