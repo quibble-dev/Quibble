@@ -5,13 +5,21 @@
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
   import { PostSubmitSchema } from '$lib/schemas/post-submit';
+  import { createSidebarStore } from '$lib/stores/sidebar.svelte';
   import { superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
 
   let { data } = $props();
 
+  const sidebarStore = createSidebarStore();
+
   type Type = keyof typeof types;
   let active_type = $state<Type>('TEXT');
+
+  const communities_select_list = $derived.by(() => {
+    const merged = [...(sidebarStore.state.recent ?? []), ...(sidebarStore.state.your ?? [])];
+    return Array.from(new Map(merged.map((c) => [c.name, c])).values());
+  });
 
   const { form, errors, enhance, delayed } = superForm(data.form, {
     resetForm: false,
@@ -69,12 +77,31 @@
   <!-- section title -->
   <h2 class="text-xl font-semibold text-info">Create Post</h2>
   <!-- select community dropdown and select -->
-  <div>
-    <div class="btn btn-neutral h-max p-1 hover:btn-ghost">
+  <div class="dropdown w-max">
+    <div tabindex="0" role="button" class="btn btn-neutral h-max p-1 hover:btn-ghost">
       <Avatar />
       <span class="text-info">Select a community</span>
       <coreicons-shape-chevron variant="down" class="size-4"></coreicons-shape-chevron>
     </div>
+    <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+    <ul
+      tabindex="0"
+      class="menu dropdown-content z-10 mt-2 min-w-full gap-1 rounded-2xl bg-base-100 p-1.5"
+    >
+      <input
+        type="text"
+        placeholder="Search filter..."
+        class="input input-sm input-bordered w-full rounded-xl bg-base-200"
+      />
+      {#each communities_select_list as item}
+        <li>
+          <button class="flex items-center gap-2 rounded-xl p-1">
+            <Avatar src={item.avatar} />
+            <span class="text-sm font-medium">r/{item.name}</span>
+          </button>
+        </li>
+      {/each}
+    </ul>
   </div>
   <!-- select post type section -->
   <div class="flex items-center gap-2">
