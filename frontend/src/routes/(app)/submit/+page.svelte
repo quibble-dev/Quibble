@@ -96,35 +96,33 @@
       tabindex="0"
       class="menu dropdown-content z-10 mt-2 min-w-full gap-1 rounded-2xl bg-base-100 p-1.5"
     >
-      <input
-        type="text"
-        placeholder="Search filter..."
-        class="input input-sm input-bordered w-full rounded-xl bg-base-200"
-        bind:value={filter_communities_query}
-      />
-      {#if communities_select_list.length}
-        {#each communities_select_list as item}
-          {@const selected = selected_community === item}
-          <li>
-            <button
-              class="flex items-center gap-2 rounded-xl p-1"
-              class:active={selected}
-              onclick={() => (selected_community = item)}
-            >
-              <Avatar src={item.avatar} />
-              <span class="whitespace-nowrap text-sm font-medium">r/{item.name}</span>
-              <div class="btn btn-circle btn-accent ml-auto size-4 p-0" class:invisible={!selected}>
-                <coreicons-shape-check class="size-2.5"></coreicons-shape-check>
-              </div>
-            </button>
-          </li>
-        {/each}
-      {:else}
-        <span class="flex items-center gap-1 text-xs">
-          <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-          Nothin' to show!</span
-        >
-      {/if}
+      <div class="form-control">
+        <input
+          type="text"
+          placeholder="Search filter..."
+          class="input input-sm input-bordered w-full rounded-xl bg-base-200"
+          bind:value={filter_communities_query}
+        />
+        <div class="label py-1">
+          <span class="label-text-alt text-xs">Results: {communities_select_list.length}</span>
+        </div>
+      </div>
+      {#each communities_select_list as item}
+        {@const selected = selected_community === item}
+        <li>
+          <button
+            class="flex items-center gap-2 rounded-xl p-1"
+            class:active={selected}
+            onclick={() => (selected_community = item)}
+          >
+            <Avatar src={item.avatar} />
+            <span class="whitespace-nowrap text-sm font-medium">r/{item.name}</span>
+            <div class="btn btn-circle btn-accent ml-auto size-4 p-0" class:invisible={!selected}>
+              <coreicons-shape-check class="size-2.5"></coreicons-shape-check>
+            </div>
+          </button>
+        </li>
+      {/each}
     </ul>
   </div>
   <!-- select post type section -->
