@@ -3,8 +3,8 @@
   import { page } from '$app/state';
   import autosize from '$lib/actions/autosize';
   import Avatar from '$lib/components/ui/avatar.svelte';
-  import { cn } from '$lib/functions/classnames.js';
-  import { PostSubmitSchema } from '$lib/schemas/post-submit.js';
+  import { cn } from '$lib/functions/classnames';
+  import { PostSubmitSchema } from '$lib/schemas/post-submit';
   import { superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
 
@@ -95,6 +95,7 @@
   </div>
   <!-- post form -->
   <form method="POST" class="flex flex-col gap-2" use:enhance>
+    <!-- title input -->
     <label class="form-control w-full">
       <input
         type="text"
@@ -105,6 +106,7 @@
         bind:value={$form.title}
       />
       <div class="label py-1">
+        <!-- error store and helptext -->
         <span class="label-text-alt flex items-center gap-2" class:text-error={$errors.title}>
           {#if $errors.title}
             <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
@@ -117,6 +119,7 @@
         <span class="label-text-alt">0/300</span>
       </div>
     </label>
+    <!-- content input -->
     <textarea
       use:autosize
       name="content"
@@ -124,8 +127,11 @@
       placeholder="What’s on your mind?"
       bind:value={$form.content}
     ></textarea>
+    <!-- form actions -->
     <div class="ml-auto flex items-center gap-2">
+      <!-- draft feature later -->
       <button type="button" class="btn btn-neutral" disabled>Save Draft</button>
+      <!-- create post with delayed state -->
       <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary')}>
         Post
         {#if $delayed}<span class="loading loading-spinner loading-xs"></span>{/if}
