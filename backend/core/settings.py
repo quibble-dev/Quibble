@@ -65,6 +65,9 @@ SELF_APPS = [
     'apps.comment',
 ]
 
+if DEBUG:
+    THIRD_PARTY_APPS.append('silk')
+
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + SELF_APPS
 
 DEFAULT_RENDERER_CLASSES = ('rest_framework.renderers.JSONRenderer',)
@@ -147,6 +150,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if DEBUG:
+    MIDDLEWARE.append('silk.middleware.SilkyMiddleware')
 
 ROOT_URLCONF = 'core.urls'
 

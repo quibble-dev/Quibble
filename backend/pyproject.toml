@@ -44,6 +44,8 @@ django-extensions = "^3.2.3"
 # typing support
 django-types = "^0.20.0"
 django-stubs-ext = "^5.1.2"
+# profiler
+django-silk = "^5.3.2"
 # graphs
 pyparsing = "^3.2.1"
 pydot = "^3.0.4"
