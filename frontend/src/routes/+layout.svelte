@@ -42,7 +42,7 @@
 <Modals />
 
 <!-- main ui layout -->
-<main class="flex h-dvh w-dvw flex-col font-sans">
+<main class="flex h-dvh flex-col font-sans">
   <!-- header section -->
   <Header on_menu_click={toggle_show_sidebar} />
 
