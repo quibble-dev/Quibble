@@ -24,6 +24,7 @@
 
   function add_to_sidebar_store(key: string) {
     sidebarStore.add_community(key, {
+      id: community.id,
       avatar: community.avatar,
       name: community.name
     });

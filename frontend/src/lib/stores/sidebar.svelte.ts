@@ -3,6 +3,7 @@ import { SIDEBAR_MAX_ITEMS_LIMIT } from '$lib/constants/limits';
 
 type Sidebar = Record<string, Community[]>;
 type Community = {
+  id: number;
   avatar?: string | null | undefined;
   name: string;
   starred?: boolean;

@@ -5,6 +5,7 @@
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
   import { PostSubmitSchema } from '$lib/schemas/post-submit';
+  import { createAuthStore } from '$lib/stores/auth.svelte.js';
   import { createSidebarStore } from '$lib/stores/sidebar.svelte';
   import { superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
@@ -34,19 +35,19 @@
 
   let { data } = $props();
 
-  const sidebarStore = createSidebarStore();
+  const sidebarStore = createSidebarStore(),
+    authStore = createAuthStore();
 
   type Type = keyof typeof types;
   let active_type = $state<Type>('TEXT');
 
-  let selected_community = $state<(typeof communities_select_list)[number] | null>(null);
-  let filter_communities_query = $state('');
+  let community = $state<(typeof communities_select_list)[number] | null>(null);
+  let filter_query = $state('');
 
   const communities_select_list = $derived.by(() => {
     const merged = [...(sidebarStore.state.recent ?? []), ...(sidebarStore.state.your ?? [])];
-    const deduped = Array.from(new Map(merged.map((c) => [c.name, c])).values());
-    if (filter_communities_query)
-      return deduped.filter((c) => c.name.startsWith(filter_communities_query.toLowerCase()));
+    const deduped = Array.from(new Map(merged.map((c) => [c.id, c])).values());
+    if (filter_query) return deduped.filter((c) => c.name.startsWith(filter_query.toLowerCase()));
     return deduped;
   });
 
@@ -83,47 +84,56 @@
   <!-- section title -->
   <h2 class="text-xl font-semibold text-info">Create Post</h2>
   <!-- select community dropdown and select -->
-  <div class="dropdown w-max">
-    <div tabindex="0" role="button" class="btn btn-neutral h-max p-1 hover:btn-ghost">
-      <Avatar src={selected_community?.avatar} />
-      <span class="text-info"
-        >{selected_community ? `q/${selected_community.name}` : 'Select a community'}</span
-      >
-      <coreicons-shape-chevron variant="down" class="size-4"></coreicons-shape-chevron>
-    </div>
-    <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-    <ul
-      tabindex="0"
-      class="menu dropdown-content z-10 mt-2 min-w-full gap-1 rounded-2xl bg-base-100 p-1.5"
-    >
-      <div class="form-control">
-        <input
-          type="text"
-          placeholder="Search filter..."
-          class="input input-sm input-bordered w-full rounded-xl bg-base-200"
-          bind:value={filter_communities_query}
-        />
-        <div class="label py-1">
-          <span class="label-text-alt text-xs">Results: {communities_select_list.length}</span>
-        </div>
+  <div class="flex flex-col gap-1">
+    <div class="dropdown w-max">
+      <div tabindex="0" role="button" class="btn btn-neutral h-max p-1 hover:btn-ghost">
+        <Avatar src={community?.avatar} />
+        <span class="text-info">{community ? `q/${community.name}` : 'Select a community'}</span>
+        <coreicons-shape-chevron variant="down" class="size-4"></coreicons-shape-chevron>
       </div>
-      {#each communities_select_list as item}
-        {@const selected = selected_community === item}
-        <li>
-          <button
-            class="flex items-center gap-2 rounded-xl p-1"
-            class:active={selected}
-            onclick={() => (selected_community = item)}
-          >
-            <Avatar src={item.avatar} />
-            <span class="whitespace-nowrap text-sm font-medium">r/{item.name}</span>
-            <div class="btn btn-circle btn-accent ml-auto size-4 p-0" class:invisible={!selected}>
-              <coreicons-shape-check class="size-2.5"></coreicons-shape-check>
-            </div>
-          </button>
-        </li>
-      {/each}
-    </ul>
+      <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+      <ul
+        tabindex="0"
+        class="menu dropdown-content z-10 mt-2 min-w-full gap-1 rounded-2xl bg-base-100 p-1.5"
+      >
+        <div class="form-control">
+          <input
+            type="text"
+            placeholder="Search filter..."
+            class="input input-sm input-bordered w-full rounded-xl bg-base-200"
+            bind:value={filter_query}
+          />
+          <div class="label py-1">
+            <span class="label-text-alt text-xs">Results: {communities_select_list.length}</span>
+          </div>
+        </div>
+        {#each communities_select_list as item}
+          {@const selected = community === item}
+          <li>
+            <button
+              class="flex items-center gap-2 rounded-xl p-1"
+              class:active={selected}
+              onclick={() => {
+                community = item;
+                $form.community = item.id;
+              }}
+            >
+              <Avatar src={item.avatar} />
+              <span class="whitespace-nowrap text-sm font-medium">r/{item.name}</span>
+              <div class="btn btn-circle btn-accent ml-auto size-4 p-0" class:invisible={!selected}>
+                <coreicons-shape-check class="size-2.5"></coreicons-shape-check>
+              </div>
+            </button>
+          </li>
+        {/each}
+      </ul>
+    </div>
+    {#if $errors.community}
+      <span class="label-text-alt flex items-center gap-2 text-error">
+        <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
+        <span class="text-xs">{$errors.community[0]}</span>
+      </span>
+    {/if}
   </div>
   <!-- select post type section -->
   <div class="flex items-center gap-2">
@@ -144,6 +154,9 @@
   </div>
   <!-- post form -->
   <form method="POST" class="flex flex-col gap-2" use:enhance>
+    <!-- hidden fields -->
+    <input type="hidden" name="community" value={community?.id} />
+    <input type="hidden" name="poster" value={authStore.state.profile?.id} />
     <!-- title input -->
     <label class="form-control w-full">
       <input
