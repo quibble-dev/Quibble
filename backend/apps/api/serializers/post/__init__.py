@@ -13,3 +13,17 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = '__all__'
+
+
+class PostCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = ['community', 'poster', 'title', 'content', 'cover']
+
+    def create(self, validated_data):
+        poster = self.context['request'].user_profile
+        post = Post.objects.create(**validated_data)
+
+        post.upvotes.add(poster)
+
+        return post

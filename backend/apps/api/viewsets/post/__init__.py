@@ -8,7 +8,7 @@ from rest_framework.decorators import action
 from apps.post.models import Post
 
 from ...serializers.comment import CommentCreateSerializer, CommentDetailSerializer
-from ...serializers.post import PostSerializer
+from ...serializers.post import PostCreateSerializer, PostSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -16,10 +16,23 @@ class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
 
     def get_serializer_class(self):  # pyright: ignore
+        if self.action == 'create':
+            return PostCreateSerializer
         # if custom action: 'comment'
         if self.action == 'comments':
             return CommentCreateSerializer
         return self.serializer_class
+
+    @extend_schema(responses=PostSerializer)
+    def create(self, request):
+        context = {'request': request}
+
+        serializer = PostCreateSerializer(data=request.data, context=context)
+        serializer.is_valid(raise_exception=True)
+        post_instance = serializer.save()
+
+        response_serializer = PostSerializer(post_instance, context=context)
+        return response.Response(response_serializer.data, status=status.HTTP_201_CREATED)
 
     @extend_schema(responses=CommentDetailSerializer(many=True))
     @action(detail=True, methods=[HTTPMethod.GET, HTTPMethod.POST])

@@ -1750,6 +1750,14 @@ export interface components {
       downvotes?: number[];
       comments?: number[];
     };
+    PostCreate: {
+      community: number;
+      poster: number;
+      title: string;
+      content?: string;
+      /** Format: uri */
+      cover?: string | null;
+    };
     PostHighlighted: {
       /** Format: uri */
       cover?: string | null;
@@ -1830,20 +1838,20 @@ export interface components {
       type: components['schemas']['ValidationErrorEnum'];
       errors: components['schemas']['PostsCommentsCreateError'][];
     };
-    PostsCreateCommentsErrorComponent: {
+    PostsCreateCommunityErrorComponent: {
       /**
-       * @description * `comments` - comments (enum property replaced by openapi-typescript)
+       * @description * `community` - community (enum property replaced by openapi-typescript)
        * @enum {string}
        */
-      attr: 'comments';
+      attr: 'community';
       /**
        * @description * `does_not_exist` - does_not_exist
        *     * `incorrect_type` - incorrect_type
-       *     * `not_a_list` - not_a_list
        *     * `null` - null
+       *     * `required` - required
        * @enum {string}
        */
-      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
       detail: string;
     };
     PostsCreateContentErrorComponent: {
@@ -1879,61 +1887,13 @@ export interface components {
       code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
       detail: string;
     };
-    PostsCreateDownvotesErrorComponent: {
-      /**
-       * @description * `downvotes` - downvotes (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'downvotes';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `not_a_list` - not_a_list
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-      detail: string;
-    };
     PostsCreateError:
       | components['schemas']['PostsCreateNonFieldErrorsErrorComponent']
-      | components['schemas']['PostsCreateIsPublicErrorComponent']
-      | components['schemas']['PostsCreateHighlightedErrorComponent']
+      | components['schemas']['PostsCreateCommunityErrorComponent']
+      | components['schemas']['PostsCreatePosterErrorComponent']
       | components['schemas']['PostsCreateTitleErrorComponent']
-      | components['schemas']['PostsCreateSlugErrorComponent']
       | components['schemas']['PostsCreateContentErrorComponent']
-      | components['schemas']['PostsCreateCoverErrorComponent']
-      | components['schemas']['PostsCreateUpvotesErrorComponent']
-      | components['schemas']['PostsCreateDownvotesErrorComponent']
-      | components['schemas']['PostsCreateCommentsErrorComponent'];
-    PostsCreateHighlightedErrorComponent: {
-      /**
-       * @description * `highlighted` - highlighted (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'highlighted';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    PostsCreateIsPublicErrorComponent: {
-      /**
-       * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'is_public';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
+      | components['schemas']['PostsCreateCoverErrorComponent'];
     PostsCreateNonFieldErrorsErrorComponent: {
       /**
        * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
@@ -1948,26 +1908,20 @@ export interface components {
       code: 'invalid' | 'null';
       detail: string;
     };
-    PostsCreateSlugErrorComponent: {
+    PostsCreatePosterErrorComponent: {
       /**
-       * @description * `slug` - slug (enum property replaced by openapi-typescript)
+       * @description * `poster` - poster (enum property replaced by openapi-typescript)
        * @enum {string}
        */
-      attr: 'slug';
+      attr: 'poster';
       /**
-       * @description * `invalid` - invalid
-       *     * `max_length` - max_length
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
        *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `required` - required
        * @enum {string}
        */
-      code:
-        | 'invalid'
-        | 'max_length'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
+      code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
       detail: string;
     };
     PostsCreateTitleErrorComponent: {
@@ -1994,22 +1948,6 @@ export interface components {
         | 'null_characters_not_allowed'
         | 'required'
         | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    PostsCreateUpvotesErrorComponent: {
-      /**
-       * @description * `upvotes` - upvotes (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'upvotes';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `not_a_list` - not_a_list
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
       detail: string;
     };
     PostsCreateValidationError: {
@@ -3663,9 +3601,9 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['Post'];
-        'application/x-www-form-urlencoded': components['schemas']['Post'];
-        'multipart/form-data': components['schemas']['Post'];
+        'application/json': components['schemas']['PostCreate'];
+        'application/x-www-form-urlencoded': components['schemas']['PostCreate'];
+        'multipart/form-data': components['schemas']['PostCreate'];
       };
     };
     responses: {
