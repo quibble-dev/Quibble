@@ -5,7 +5,6 @@
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
   import { PostSubmitSchema } from '$lib/schemas/post-submit';
-  import { createAuthStore } from '$lib/stores/auth.svelte.js';
   import { createSidebarStore } from '$lib/stores/sidebar.svelte';
   import { superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
@@ -35,8 +34,7 @@
 
   let { data } = $props();
 
-  const sidebarStore = createSidebarStore(),
-    authStore = createAuthStore();
+  const sidebarStore = createSidebarStore();
 
   type Type = keyof typeof types;
   let active_type = $state<Type>('TEXT');
@@ -156,7 +154,6 @@
   <form method="POST" class="flex flex-col gap-2" use:enhance>
     <!-- hidden fields -->
     <input type="hidden" name="community" value={community?.id} />
-    <input type="hidden" name="poster" value={authStore.state.profile?.id} />
     <!-- title input -->
     <label class="form-control w-full">
       <input
