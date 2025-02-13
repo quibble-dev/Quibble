@@ -23,6 +23,17 @@ class PostViewSet(viewsets.ModelViewSet):
             return CommentCreateSerializer
         return self.serializer_class
 
+    @extend_schema(responses=PostSerializer)
+    def create(self, request):
+        context = {'request': request}
+
+        serializer = PostCreateSerializer(data=request.data, context=context)
+        serializer.is_valid(raise_exception=True)
+        post_instance = serializer.save()
+
+        response_serializer = PostSerializer(post_instance, context=context)
+        return response.Response(response_serializer.data, status=status.HTTP_201_CREATED)
+
     @extend_schema(responses=CommentDetailSerializer(many=True))
     @action(detail=True, methods=[HTTPMethod.GET, HTTPMethod.POST])
     def comments(self, request, pk=None):

@@ -18,7 +18,7 @@ class PostSerializer(serializers.ModelSerializer):
 class PostCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ['community', 'poster', 'title', 'slug', 'content', 'is_public', 'cover']
+        fields = ['community', 'poster', 'title', 'content', 'cover']
 
     def create(self, validated_data):
         poster = self.context['request'].user_profile
