@@ -1,7 +1,3 @@
-<script lang="ts">
-  import { cn } from '$lib/functions/classnames';
-</script>
-
 <!-- site head and seo -->
 <svelte:head>
   <title>Register on Quibble</title>
