@@ -5,6 +5,11 @@
   import { cn } from '$lib/functions/classnames';
 </script>
 
+<!-- site head and seo -->
+<svelte:head>
+  <title>Login to Quibble</title>
+</svelte:head>
+
 <div class="relative grid flex-1 place-items-center">
   <div
     class="absolute inset-0 bg-base-100 [mask-image:url('/assets/svgs/standalone-auth-bg.svg')] [mask-size:cover]"
@@ -15,15 +20,15 @@
   >
     <!-- header section -->
     <div class="flex flex-col items-center justify-center gap-4">
-      <div class="flex items-center gap-2">
+      <a href="/" class="flex items-center gap-2">
         <QuibbleLogo class="size-7" />
         <QuibbleTextLogo class="h-7 w-auto" />
-      </div>
+      </a>
       <p class="text-center font-medium">
         Join in, share your take, and<br /> make some waves!
       </p>
     </div>
-
+    <!-- oauth section -->
     <div class="flex w-full items-center gap-3">
       <!-- oauth section: google -->
       <button class="btn flex-1">
@@ -36,11 +41,8 @@
         Github
       </button>
     </div>
-
     <div class="divider my-0 text-xs font-bold">OR</div>
-
     <!-- form element: email and password -->
-    <!-- for login and register -->
     <form method="POST" class="flex flex-col gap-3" novalidate>
       <!-- email input field with errors store -->
       <div class="flex flex-col gap-1">
@@ -54,7 +56,6 @@
           />
         </label>
       </div>
-
       <!-- password input field with errors store -->
       <div class="flex flex-col gap-1">
         <label class="input input-bordered flex items-center gap-2 bg-transparent pr-2">
@@ -65,7 +66,6 @@
             class="grow border-none p-2 text-sm font-medium focus:ring-0"
             placeholder="Password*"
           />
-
           <!-- change password field type to see -->
           <button
             type="button"
@@ -76,30 +76,25 @@
           </button>
         </label>
       </div>
-
-      <!-- render message store if any, else render help text -->
-      <div class="flex items-center gap-2">
-        <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-        <span class="text-xs">Hint: you can switch b/w 'login' and 'register</span>
-      </div>
-
-      <!-- submit btn with auth type changer -->
-      <div class="flex items-center gap-3">
-        <button
-          type="submit"
-          class={cn(false && 'btn-active pointer-events-none', 'btn btn-primary flex-1')}
+      <div class="flex flex-col gap-1">
+        <a href="/password" class="btn btn-link h-max w-max p-0 font-medium text-accent"
+          >Forgot password?</a
         >
-          Log in
-          <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
-        </button>
-
-        <!-- switch b/w login and register -->
-        <button type="button" class="btn btn-secondary" aria-label="Switch b/w authentication type">
-          <coreicons-shape-refresh class="size-4"></coreicons-shape-refresh>
-        </button>
+        <span class="text-sm">
+          New to Quibble?
+          <a href="/register" class="btn btn-link h-max w-max p-0 font-medium text-accent"
+            >Sign up</a
+          >
+        </span>
       </div>
+      <button
+        type="button"
+        class={cn(false && 'btn-active pointer-events-none', 'btn btn-primary')}
+      >
+        Log in
+        <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
+      </button>
     </form>
-
     <!-- footer section -->
     <p class="text-center text-xs">
       By continuing, you agree to the <a
