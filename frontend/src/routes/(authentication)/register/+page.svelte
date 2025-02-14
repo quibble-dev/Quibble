@@ -45,7 +45,7 @@
     Already a quibbler?
     <a href="/login" class="font-medium text-accent">Log in</a>
   </span>
-  <button type="button" class={cn(false && 'btn-active pointer-events-none', 'btn btn-primary')}>
+  <button type="button" class="btn btn-primary">
     Register
     <coreicons-shape-arrow class="size-4" variant="right"></coreicons-shape-arrow>
   </button>
