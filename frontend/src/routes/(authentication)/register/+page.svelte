@@ -4,7 +4,7 @@
 
 <!-- site head and seo -->
 <svelte:head>
-  <title>Log in to Quibble</title>
+  <title>Register on Quibble</title>
 </svelte:head>
 
 <!-- form element: email and password -->
@@ -41,15 +41,12 @@
       </button>
     </label>
   </div>
-  <div class="flex flex-col gap-1">
-    <!-- <a href="/password" class="text-sm text-accent">Forgot password?</a> -->
-    <span class="text-sm">
-      New to Quibble?
-      <a href="/register" class="font-medium text-accent">Sign up</a>
-    </span>
-  </div>
+  <span class="text-sm">
+    Already a quibbler?
+    <a href="/login" class="font-medium text-accent">Log in</a>
+  </span>
   <button type="button" class={cn(false && 'btn-active pointer-events-none', 'btn btn-primary')}>
-    Log in
-    <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
+    Register
+    <coreicons-shape-arrow class="size-4" variant="right"></coreicons-shape-arrow>
   </button>
 </form>
