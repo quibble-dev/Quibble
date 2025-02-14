@@ -6,15 +6,18 @@ import { fail, type Actions } from '@sveltejs/kit';
 import { message, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 
-export const load: PageServerLoad = async () => {
-  const form = await superValidate(zod(AuthSchema));
+export const load: PageServerLoad = async ({ url }) => {
+  const initial_data = {
+    email: url.searchParams.get('email') ?? '',
+    password: url.searchParams.get('password') ?? ''
+  };
+  const form = await superValidate(initial_data, zod(AuthSchema));
 
   return { form };
 };
 
 export const actions: Actions = {
   default: async ({ request, cookies }) => {
-    console.log('heyyooj');
     const form = await superValidate(request, zod(AuthSchema));
 
     if (!form.valid) {
