@@ -2,6 +2,7 @@
   import GoogleLogo from '$lib/components/icons/logos/google.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble-text.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
+  import { ProfileSelect } from '$lib/features/auth';
   import type { Nullable } from '$lib/types/shared';
   import { setContext } from 'svelte';
 
@@ -51,7 +52,7 @@
       </span>
     </div>
     {#if show_profile_type === 'select'}
-      <div>Select profile</div>
+      <ProfileSelect token={login_data?.token} />
     {:else if show_profile_type === 'create'}
       <div>Profile create</div>
     {:else}
