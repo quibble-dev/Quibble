@@ -120,7 +120,7 @@
 >
   {#if layoutTypeStore.state === 'card'}
     <div
-      class="duration-50 group relative flex flex-col gap-1 p-4 transition-colors hover:bg-base-200"
+      class="group relative flex flex-col gap-1 p-4 transition-colors duration-75 hover:bg-base-200"
     >
       {@render href_overlay()}
       {@render avatar_name_date_more()}
