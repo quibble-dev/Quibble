@@ -10,7 +10,7 @@
   let { token }: { token?: string } = $props();
 
   const handle_submit: SubmitFunction = async () => {
-    return async ({ formData }) => {
+    return async () => {
       // re-run load functions and close this modal
       // await invalidateAll();
     };
