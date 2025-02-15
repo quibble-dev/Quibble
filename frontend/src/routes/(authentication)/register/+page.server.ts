@@ -1,15 +1,12 @@
 import client from '$lib/clients/v1/client';
 import { AuthSchema } from '$lib/schemas/auth';
 import type { PageServerLoad } from './$types';
-import { fail, type Actions } from '@sveltejs/kit';
+import { fail, redirect, type Actions } from '@sveltejs/kit';
 import { message, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 
 export const load: PageServerLoad = async ({ url }) => {
-  const initial_data = {
-    email: url.searchParams.get('email') ?? '',
-    password: url.searchParams.get('password') ?? ''
-  };
+  const initial_data = { email: url.searchParams.get('email') ?? '' };
   const form = await superValidate(initial_data, zod(AuthSchema), { errors: false });
 
   return { form };
@@ -28,7 +25,10 @@ export const actions: Actions = {
     });
 
     if (response.ok && data) {
-      return { form };
+      const params = new URLSearchParams();
+      params.set('email', form.data.email);
+
+      redirect(307, `/login?${params.toString()}`);
     } else if (error) {
       return message(form, error.errors[0]?.detail, { status: 401 });
     }
