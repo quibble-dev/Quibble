@@ -7,7 +7,12 @@
   import { cn } from '$lib/functions/classnames';
   import type { SubmitFunction } from '@sveltejs/kit';
 
-  let { token, onback }: { token?: string; onback: () => void } = $props();
+  interface Props {
+    token?: string;
+    onback: () => void;
+  }
+
+  let { token, onback }: Props = $props();
 
   const handle_submit: SubmitFunction = async () => {
     return async () => {
@@ -33,6 +38,22 @@
       console.error(err);
     }
   }
+
+  async function handle_profile_select(id: number, username: string) {
+    try {
+      const res = await fetch('/api/v1/login/select', {
+        method: 'POST',
+        body: JSON.stringify({ id, username })
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        console.log(data);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }
 </script>
 
 <div class="tooltip tooltip-right absolute left-2.5 top-2.5 flex before:capitalize" data-tip="Back">
@@ -47,22 +68,21 @@
   {:then profiles}
     {#if profiles}
       {#each profiles as profile}
-        <form method="POST" action="/auth?/profile_select" use:enhance={handle_submit}>
-          <input type="hidden" name="profile_id" value={profile.id} />
-          <input type="hidden" name="profile_username" value={profile.username} />
-          <button type="submit" class="group flex flex-col items-center justify-center gap-1.5">
-            <Avatar
-              src={profile.avatar}
-              class={cn(
-                !profile.avatar && 'border-2',
-                'size-24 rounded-box border-base-content/25 !bg-base-300'
-              )}
-            />
-            <span class="line-clamp-1 max-w-24 break-all text-xs font-medium"
-              >u/{profile.username}</span
-            >
-          </button>
-        </form>
+        <button
+          class="group flex flex-col items-center justify-center gap-1.5"
+          onclick={() => handle_profile_select(profile.id, profile.username)}
+        >
+          <Avatar
+            src={profile.avatar}
+            class={cn(
+              !profile.avatar && 'border-2',
+              'size-24 rounded-box border-base-content/25 !bg-base-300'
+            )}
+          />
+          <span class="line-clamp-1 max-w-24 break-all text-xs font-medium"
+            >u/{profile.username}</span
+          >
+        </button>
       {/each}
     {/if}
     {#if (profiles?.length ?? 0) < PROFILE_CREATE_LIMIT}
