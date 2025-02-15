@@ -1,4 +1,3 @@
-import { dev } from '$app/environment';
 import client from '$lib/clients/v1/client';
 import { AuthSchema } from '$lib/schemas/auth';
 import type { PageServerLoad } from './$types';
@@ -17,27 +16,19 @@ export const load: PageServerLoad = async ({ url }) => {
 };
 
 export const actions: Actions = {
-  default: async ({ request, cookies }) => {
+  default: async ({ request }) => {
     const form = await superValidate(request, zod(AuthSchema));
 
     if (!form.valid) {
       return fail(400, { form });
     }
 
-    const { data, error, response } = await client.POST('/u/login/', {
+    const { data, error, response } = await client.POST('/u/register/', {
       body: { ...form.data }
     });
 
     if (response.ok && data) {
-      cookies.set('auth_token', data.token, {
-        httpOnly: true,
-        secure: !dev,
-        path: '/',
-        sameSite: 'lax',
-        maxAge: 60 * 60 * 24 * 30 // 30 days
-      });
-
-      return { form, token: data.token };
+      return { form };
     } else if (error) {
       return message(form, error.errors[0]?.detail, { status: 401 });
     }
