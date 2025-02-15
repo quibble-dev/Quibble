@@ -1,11 +1,8 @@
 <script lang="ts">
-  import { enhance } from '$app/forms';
-  // import { invalidateAll } from '$app/navigation';
   import client from '$lib/clients/v1/client';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { PROFILE_CREATE_LIMIT } from '$lib/constants/limits';
   import { cn } from '$lib/functions/classnames';
-  import type { SubmitFunction } from '@sveltejs/kit';
 
   interface Props {
     token?: string;
@@ -13,13 +10,6 @@
   }
 
   let { token, onback }: Props = $props();
-
-  const handle_submit: SubmitFunction = async () => {
-    return async () => {
-      // re-run load functions and close this modal
-      // await invalidateAll();
-    };
-  };
 
   async function fetch_profiles() {
     try {
