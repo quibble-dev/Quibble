@@ -7,7 +7,7 @@
   import { cn } from '$lib/functions/classnames';
   import type { SubmitFunction } from '@sveltejs/kit';
 
-  let { token }: { token?: string } = $props();
+  let { token, onback }: { token?: string; onback: () => void } = $props();
 
   const handle_submit: SubmitFunction = async () => {
     return async () => {
@@ -34,6 +34,12 @@
     }
   }
 </script>
+
+<div class="tooltip tooltip-right absolute left-2.5 top-2.5 flex before:capitalize" data-tip="Back">
+  <button class="btn btn-square btn-circle btn-ghost btn-sm" aria-label="Back" onclick={onback}>
+    <coreicons-shape-arrow class="size-5" variant="left"></coreicons-shape-arrow>
+  </button>
+</div>
 
 <div class="flex flex-wrap items-center justify-center gap-4 self-center">
   {#await fetch_profiles()}

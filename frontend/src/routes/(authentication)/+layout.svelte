@@ -51,7 +51,7 @@
       </span>
     </div>
     {#if render_profile_of_type === 'select'}
-      <ProfileSelect token={login_data?.token} />
+      <ProfileSelect token={login_data?.token} onback={() => (render_profile_of_type = null)} />
     {:else if render_profile_of_type === 'create'}
       <div>Profile create</div>
     {:else}
