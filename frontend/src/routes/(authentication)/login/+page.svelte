@@ -1,11 +1,22 @@
 <script lang="ts">
   import { cn } from '$lib/functions/classnames';
+  import { getContext } from 'svelte';
   import { superForm } from 'sveltekit-superforms';
 
   let { data } = $props();
+  const handle_login_success: (data: { token: string; email: string }) => void =
+    getContext('handle_login_success');
 
   const { form, enhance, delayed, errors, message } = superForm(data.form, {
-    resetForm: false
+    resetForm: false,
+    onResult({ result }) {
+      if (result.type === 'success' && result.data) {
+        handle_login_success({
+          token: result.data.token,
+          email: result.data.form.data.email
+        });
+      }
+    }
   });
 </script>
 

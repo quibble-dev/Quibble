@@ -2,8 +2,15 @@
   import GoogleLogo from '$lib/components/icons/logos/google.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble-text.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
+  import { setContext } from 'svelte';
 
   let { children } = $props();
+
+  setContext('handle_login_success', handle_login_success);
+
+  function handle_login_success(data: { token: string; email: string }) {
+    console.log(data);
+  }
 </script>
 
 <div class="relative grid flex-1 place-items-center">
