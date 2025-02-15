@@ -4,17 +4,14 @@
   import { superForm } from 'sveltekit-superforms';
 
   let { data } = $props();
-  const handle_login_success: (data: { token: string; email: string }) => void =
+  const handle_login_success: (data: { token: string }) => void =
     getContext('handle_login_success');
 
   const { form, enhance, delayed, errors, message } = superForm(data.form, {
     resetForm: false,
     onResult({ result }) {
       if (result.type === 'success' && result.data) {
-        handle_login_success({
-          token: result.data.token,
-          email: result.data.form.data.email
-        });
+        handle_login_success({ token: result.data.token });
       }
     }
   });

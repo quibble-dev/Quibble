@@ -1,9 +1,8 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
-  import { invalidateAll } from '$app/navigation';
+  // import { invalidateAll } from '$app/navigation';
   import client from '$lib/clients/v1/client';
   import Avatar from '$lib/components/ui/avatar.svelte';
-  import { toast } from '$lib/components/ui/toast';
   import { PROFILE_CREATE_LIMIT } from '$lib/constants/limits';
   import { cn } from '$lib/functions/classnames';
   import type { SubmitFunction } from '@sveltejs/kit';
@@ -13,8 +12,7 @@
   const handle_submit: SubmitFunction = async () => {
     return async ({ formData }) => {
       // re-run load functions and close this modal
-      await invalidateAll();
-      toast.push(`Logged in as u/${String(formData.get('profile_username'))}`);
+      // await invalidateAll();
     };
   };
 

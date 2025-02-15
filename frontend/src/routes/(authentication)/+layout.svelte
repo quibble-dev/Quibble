@@ -8,19 +8,18 @@
 
   interface LoginData {
     token?: string;
-    email?: string;
   }
 
   let { children } = $props();
 
   let login_data = $state<LoginData>();
-  let show_profile_type = $state<Nullable<'select' | 'create'>>(null);
+  let render_profile_of_type = $state<Nullable<'select' | 'create'>>(null);
 
   setContext('handle_login_success', handle_login_success);
 
-  function handle_login_success(data: { token: string; email: string }) {
+  function handle_login_success(data: LoginData) {
     login_data = { ...data };
-    show_profile_type = 'select';
+    render_profile_of_type = 'select';
   }
 </script>
 
@@ -36,12 +35,12 @@
         <QuibbleTextLogo class="h-7 w-auto" />
       </a>
       <span class="flex flex-col text-center font-medium">
-        {#if show_profile_type === 'select'}
+        {#if render_profile_of_type === 'select'}
           Who's quibbling?
           <span class="text-xs font-normal"
             >You can later switch b/w profiles from settings page</span
           >
-        {:else if show_profile_type === 'create'}
+        {:else if render_profile_of_type === 'create'}
           Let's create a new one!
           <span class="text-xs font-normal"
             >You can later switch b/w profiles from settings page</span
@@ -51,9 +50,9 @@
         {/if}
       </span>
     </div>
-    {#if show_profile_type === 'select'}
+    {#if render_profile_of_type === 'select'}
       <ProfileSelect token={login_data?.token} />
-    {:else if show_profile_type === 'create'}
+    {:else if render_profile_of_type === 'create'}
       <div>Profile create</div>
     {:else}
       <!-- oauth section -->
