@@ -7,13 +7,13 @@ from apps.comment.models import Comment
 from apps.community.models import Community
 from apps.user.models import Profile
 from mixins.models.created_at import CreatedAtMixin
-from mixins.models.is_public import IsPublicMixin
 from mixins.models.shortuuid import ShortUUIDMixin
+from mixins.models.type import TypeMixin
 
 # Create your models here.
 
 
-class Post(CreatedAtMixin, IsPublicMixin, ShortUUIDMixin):
+class Post(CreatedAtMixin, TypeMixin, ShortUUIDMixin):
     community = models.ForeignKey(
         Community,
         related_name='posts',
