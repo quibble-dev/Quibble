@@ -990,11 +990,11 @@ export interface components {
     CommunitiesCreateError:
       | components['schemas']['CommunitiesCreateNonFieldErrorsErrorComponent']
       | components['schemas']['CommunitiesCreateAvatarErrorComponent']
+      | components['schemas']['CommunitiesCreateTypeErrorComponent']
       | components['schemas']['CommunitiesCreateNameErrorComponent']
       | components['schemas']['CommunitiesCreateDescriptionErrorComponent']
       | components['schemas']['CommunitiesCreateTitleErrorComponent']
       | components['schemas']['CommunitiesCreateBannerErrorComponent']
-      | components['schemas']['CommunitiesCreateTypeErrorComponent']
       | components['schemas']['CommunitiesCreateNsfwErrorComponent']
       | components['schemas']['CommunitiesCreateTopicsErrorComponent']
       | components['schemas']['CommunitiesCreateMembersErrorComponent']
@@ -1200,11 +1200,11 @@ export interface components {
     CommunitiesPartialUpdateError:
       | components['schemas']['CommunitiesPartialUpdateNonFieldErrorsErrorComponent']
       | components['schemas']['CommunitiesPartialUpdateAvatarErrorComponent']
+      | components['schemas']['CommunitiesPartialUpdateTypeErrorComponent']
       | components['schemas']['CommunitiesPartialUpdateNameErrorComponent']
       | components['schemas']['CommunitiesPartialUpdateDescriptionErrorComponent']
       | components['schemas']['CommunitiesPartialUpdateTitleErrorComponent']
       | components['schemas']['CommunitiesPartialUpdateBannerErrorComponent']
-      | components['schemas']['CommunitiesPartialUpdateTypeErrorComponent']
       | components['schemas']['CommunitiesPartialUpdateNsfwErrorComponent']
       | components['schemas']['CommunitiesPartialUpdateTopicsErrorComponent']
       | components['schemas']['CommunitiesPartialUpdateMembersErrorComponent']
@@ -1410,11 +1410,11 @@ export interface components {
     CommunitiesUpdateError:
       | components['schemas']['CommunitiesUpdateNonFieldErrorsErrorComponent']
       | components['schemas']['CommunitiesUpdateAvatarErrorComponent']
+      | components['schemas']['CommunitiesUpdateTypeErrorComponent']
       | components['schemas']['CommunitiesUpdateNameErrorComponent']
       | components['schemas']['CommunitiesUpdateDescriptionErrorComponent']
       | components['schemas']['CommunitiesUpdateTitleErrorComponent']
       | components['schemas']['CommunitiesUpdateBannerErrorComponent']
-      | components['schemas']['CommunitiesUpdateTypeErrorComponent']
       | components['schemas']['CommunitiesUpdateNsfwErrorComponent']
       | components['schemas']['CommunitiesUpdateTopicsErrorComponent']
       | components['schemas']['CommunitiesUpdateMembersErrorComponent']
@@ -1568,12 +1568,12 @@ export interface components {
        * Format: date-time
        */
       readonly created_at: string;
+      type?: components['schemas']['Type801Enum'];
       name: string;
       description: string;
       title?: string | null;
       /** Format: uri */
       banner?: string | null;
-      type?: components['schemas']['Type801Enum'];
       nsfw?: boolean;
       topics?: unknown;
       members?: number[];
@@ -1595,12 +1595,12 @@ export interface components {
        * Format: date-time
        */
       readonly created_at: string;
+      type?: components['schemas']['Type801Enum'];
       name: string;
       description: string;
       title?: string | null;
       /** Format: uri */
       banner?: string | null;
-      type?: components['schemas']['Type801Enum'];
       nsfw?: boolean;
       topics?: unknown;
       members?: number[];
@@ -1615,7 +1615,7 @@ export interface components {
       detail: string;
     };
     Downvoted: {
-      type: string;
+      content_type: string;
       readonly data: {
         [key: string]: unknown;
       };
@@ -1649,7 +1649,7 @@ export interface components {
       errors: components['schemas']['Error500'][];
     };
     Overview: {
-      type: string;
+      content_type: string;
       readonly data: {
         [key: string]: unknown;
       };
@@ -1681,12 +1681,12 @@ export interface components {
        * Format: date-time
        */
       readonly created_at?: string;
+      type?: components['schemas']['Type801Enum'];
       name?: string;
       description?: string;
       title?: string | null;
       /** Format: uri */
       banner?: string | null;
-      type?: components['schemas']['Type801Enum'];
       nsfw?: boolean;
       topics?: unknown;
       members?: number[];
@@ -1701,7 +1701,7 @@ export interface components {
        * Format: date-time
        */
       readonly created_at?: string;
-      is_public?: boolean;
+      type?: components['schemas']['Type801Enum'];
       highlighted?: boolean;
       title?: string;
       slug?: string;
@@ -1739,7 +1739,7 @@ export interface components {
        * Format: date-time
        */
       readonly created_at: string;
-      is_public?: boolean;
+      type?: components['schemas']['Type801Enum'];
       highlighted?: boolean;
       title: string;
       slug?: string;
@@ -2021,7 +2021,7 @@ export interface components {
     };
     PostsPartialUpdateError:
       | components['schemas']['PostsPartialUpdateNonFieldErrorsErrorComponent']
-      | components['schemas']['PostsPartialUpdateIsPublicErrorComponent']
+      | components['schemas']['PostsPartialUpdateTypeErrorComponent']
       | components['schemas']['PostsPartialUpdateHighlightedErrorComponent']
       | components['schemas']['PostsPartialUpdateTitleErrorComponent']
       | components['schemas']['PostsPartialUpdateSlugErrorComponent']
@@ -2036,20 +2036,6 @@ export interface components {
        * @enum {string}
        */
       attr: 'highlighted';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    PostsPartialUpdateIsPublicErrorComponent: {
-      /**
-       * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'is_public';
       /**
        * @description * `invalid` - invalid
        *     * `null` - null
@@ -2118,6 +2104,20 @@ export interface components {
         | 'null_characters_not_allowed'
         | 'required'
         | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    PostsPartialUpdateTypeErrorComponent: {
+      /**
+       * @description * `type` - type (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'type';
+      /**
+       * @description * `invalid_choice` - invalid_choice
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid_choice' | 'null';
       detail: string;
     };
     PostsPartialUpdateUpvotesErrorComponent: {
@@ -2207,7 +2207,7 @@ export interface components {
     };
     PostsUpdateError:
       | components['schemas']['PostsUpdateNonFieldErrorsErrorComponent']
-      | components['schemas']['PostsUpdateIsPublicErrorComponent']
+      | components['schemas']['PostsUpdateTypeErrorComponent']
       | components['schemas']['PostsUpdateHighlightedErrorComponent']
       | components['schemas']['PostsUpdateTitleErrorComponent']
       | components['schemas']['PostsUpdateSlugErrorComponent']
@@ -2222,20 +2222,6 @@ export interface components {
        * @enum {string}
        */
       attr: 'highlighted';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    PostsUpdateIsPublicErrorComponent: {
-      /**
-       * @description * `is_public` - is_public (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'is_public';
       /**
        * @description * `invalid` - invalid
        *     * `null` - null
@@ -2304,6 +2290,20 @@ export interface components {
         | 'null_characters_not_allowed'
         | 'required'
         | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    PostsUpdateTypeErrorComponent: {
+      /**
+       * @description * `type` - type (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'type';
+      /**
+       * @description * `invalid_choice` - invalid_choice
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid_choice' | 'null';
       detail: string;
     };
     PostsUpdateUpvotesErrorComponent: {
@@ -2950,7 +2950,7 @@ export interface components {
       errors: components['schemas']['URegisterCreateError'][];
     };
     Upvoted: {
-      type: string;
+      content_type: string;
       readonly data: {
         [key: string]: unknown;
       };
