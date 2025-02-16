@@ -98,13 +98,10 @@
         />
       </div>
     {:else}
-      <button
-        class="btn btn-primary h-10 px-3 text-sm font-bold"
-        onclick={() => modalsStore.open('auth')}
-      >
+      <a href="/login" class="btn btn-primary h-10 px-3 text-sm font-bold">
         Join In!
         <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
-      </button>
+      </a>
     {/if}
   </div>
 </header>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
+  import { goto, invalidateAll } from '$app/navigation';
   import client from '$lib/clients/v1/client';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { PROFILE_CREATE_LIMIT } from '$lib/constants/limits';
@@ -46,7 +46,10 @@
 
       if (res.ok) {
         const data = await res.json();
-        if (data.success) goto('/');
+        if (!data.success) return;
+
+        goto('/');
+        await invalidateAll();
       }
     } catch (err) {
       console.error(err);
