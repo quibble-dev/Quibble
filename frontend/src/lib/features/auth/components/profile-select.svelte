@@ -8,10 +8,10 @@
 
   interface Props {
     token?: string;
-    onback: () => void;
+    onclick: (type: 'back' | 'create') => void;
   }
 
-  let { token, onback }: Props = $props();
+  let { token, onclick }: Props = $props();
 
   let pending = $state(false);
   let selected_profile_id = $state<Nullable<number>>(null);
@@ -60,7 +60,11 @@
 </script>
 
 <div class="tooltip tooltip-right absolute left-2.5 top-2.5 flex before:capitalize" data-tip="Back">
-  <button class="btn btn-square btn-circle btn-ghost btn-sm" aria-label="Back" onclick={onback}>
+  <button
+    class="btn btn-square btn-circle btn-ghost btn-sm"
+    aria-label="Back"
+    onclick={() => onclick('back')}
+  >
     <coreicons-shape-arrow class="size-5" variant="left"></coreicons-shape-arrow>
   </button>
 </div>
@@ -101,6 +105,7 @@
     {/if}
     {#if (profiles?.length ?? 0) < PROFILE_CREATE_LIMIT}
       <button
+        onclick={() => onclick('create')}
         class={cn(
           pending && 'pointer-events-none opacity-50',
           'flex flex-col items-center justify-center gap-1.5 transition-opacity duration-300'

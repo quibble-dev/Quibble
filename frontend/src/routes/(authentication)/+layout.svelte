@@ -50,8 +50,14 @@
         {/if}
       </span>
     </div>
-    {#if render_profile_of_type === 'select'}
-      <ProfileSelect token={login_data?.token} onback={() => (render_profile_of_type = null)} />
+    {#if render_profile_of_type === 'select' && login_data}
+      <ProfileSelect
+        token={login_data.token}
+        onclick={(type) => {
+          if (type === 'back') render_profile_of_type = null;
+          else if (type === 'create') render_profile_of_type = 'create';
+        }}
+      />
     {:else if render_profile_of_type === 'create'}
       <div>Profile create</div>
     {:else}

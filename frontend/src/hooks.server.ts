@@ -1,6 +1,8 @@
 import client from '$lib/clients';
 import type { Handle, HandleFetch } from '@sveltejs/kit';
 
+const auth_routes = ['/login', '/register', '/password'];
+
 export const handle: Handle = async ({ event, resolve }) => {
   const auth_token = event.cookies.get('auth_token');
   const auth_user_profile_id = event.cookies.get('auth_user_profile_id');
@@ -26,7 +28,8 @@ export const handle: Handle = async ({ event, resolve }) => {
     }
   }
 
-  if (event.locals.profile && ['/login', '/register', '/password'].includes(event.url.pathname)) {
+  // authenticated user cant access auth routes
+  if (event.locals.profile && auth_routes.includes(event.url.pathname)) {
     return new Response(null, {
       status: 302,
       headers: { location: '/' }
