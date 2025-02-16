@@ -12,9 +12,13 @@
       <coreicons-shape-edit variant="pencil" class="size-4"></coreicons-shape-edit>
     </button>
     <div class="absolute -bottom-10 flex items-end gap-4">
-      <div class="relative grid size-20 place-items-center">
+      <div class="relative size-20">
         <Avatar class="size-full" />
-        <button type="button" class="btn btn-circle absolute size-8 p-0" aria-label="Select cover">
+        <button
+          type="button"
+          class="btn btn-circle absolute -right-1.5 top-0 size-8 p-0"
+          aria-label="Select cover"
+        >
           <coreicons-shape-edit variant="pencil" class="size-4"></coreicons-shape-edit>
         </button>
       </div>
