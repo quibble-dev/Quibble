@@ -17,28 +17,34 @@
 
       img.onload = () => {
         const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+
+        if (!ctx) {
+          reject(new Error('Could not get canvas context'));
+          return;
+        }
 
         let width = img.width;
         let height = img.height;
 
-        // maintains the ratio
+        // maintain aspect ratio
+        const aspect_ratio = width / height;
         if (width > height) {
           if (width > max_width) {
-            height *= max_width / width;
             width = max_width;
+            height = width / aspect_ratio;
           }
         } else {
           if (height > max_height) {
-            width *= max_height / height;
             height = max_height;
+            width = height * aspect_ratio;
           }
         }
 
         canvas.width = width;
         canvas.height = height;
 
-        ctx?.drawImage(img, 0, 0, width, height);
+        ctx.drawImage(img, 0, 0, width, height);
         resolve(canvas.toDataURL('image/jpeg', 0.8));
       };
 
@@ -53,8 +59,8 @@
 
     try {
       const dimensions: Record<ImageInputType, [number, number]> = {
-        avatar: [200, 200],
-        cover: [800, 200]
+        avatar: [400, 400],
+        cover: [1200, 400]
       };
 
       const data_url = await resize_image(file, dimensions[type][0], dimensions[type][1]);
@@ -94,7 +100,7 @@
           class="hidden"
           onchange={(e) => handle_file_on_change(e, 'avatar')}
         />
-        <label class="btn btn-circle absolute -right-1.5 top-0 size-8 p-0" for="avatar">
+        <label class="btn btn-circle absolute -right-2.5 top-0 size-8 p-0" for="avatar">
           <coreicons-shape-edit variant="pencil" class="size-4"></coreicons-shape-edit>
         </label>
       </div>
