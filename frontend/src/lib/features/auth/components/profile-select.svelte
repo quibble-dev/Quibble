@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import client from '$lib/clients/v1/client';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { PROFILE_CREATE_LIMIT } from '$lib/constants/limits';
@@ -33,21 +34,19 @@
     }
   }
 
-  async function handle_profile_select(id: number, username: string) {
+  async function handle_profile_select(id: number) {
     try {
       pending = true;
       selected_profile_id = id;
 
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      const res = await fetch('/api/v1/login/select', {
+      const res = await fetch('/api/v1/u/login/select', {
         method: 'POST',
-        body: JSON.stringify({ id, username })
+        body: JSON.stringify({ id })
       });
 
       if (res.ok) {
         const data = await res.json();
-        console.log(data);
+        if (data.success) goto('/');
       }
     } catch (err) {
       console.error(err);
