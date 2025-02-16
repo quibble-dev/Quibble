@@ -7,14 +7,10 @@ from dynamic_filenames import FilePattern
 from apps.user.models import Profile
 from mixins.models.avatar import AvatarMixin
 from mixins.models.created_at import CreatedAtMixin
+from mixins.models.type import TypeMixin
 
 
-class Community(AvatarMixin, CreatedAtMixin):
-    class Type(models.TextChoices):
-        PUBLIC = 'PUBLIC', _('Public')
-        RESTRICTED = 'RESTRICTED', _('Restricted')
-        PRIVATE = 'PRIVATE', _('Private')
-
+class Community(AvatarMixin, CreatedAtMixin, TypeMixin):
     name = models.CharField(
         _('Name'),
         unique=True,
@@ -29,7 +25,6 @@ class Community(AvatarMixin, CreatedAtMixin):
         blank=True,
         null=True,
     )
-    type = models.CharField(choices=Type.choices, default=Type.PUBLIC)
     nsfw = models.BooleanField(_('Nsfw'), default=False)
     topics = models.JSONField(_('Topics'), default=list, blank=True)
     members = models.ManyToManyField(
