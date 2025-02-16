@@ -1,23 +1,69 @@
 <script lang="ts">
   import Avatar from '$lib/components/ui/avatar.svelte';
 
+  type ImageInputType = 'avatar' | 'cover';
+
   let avatar_data_url = $state<string>(),
     cover_data_url = $state<string>();
 
-  function handle_file_on_change(e: Event, type: 'avatar' | 'cover') {
+  function resize_image(file: File, max_width: number, max_height: number): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        img.src = e.target?.result as string;
+      };
+
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = img.width;
+        let height = img.height;
+
+        // maintains the ratio
+        if (width > height) {
+          if (width > max_width) {
+            height *= max_width / width;
+            width = max_width;
+          }
+        } else {
+          if (height > max_height) {
+            width *= max_height / height;
+            height = max_height;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        ctx?.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', 0.8));
+      };
+
+      img.onerror = (err) => reject(err);
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function handle_file_on_change(e: Event, type: ImageInputType) {
     const file = (e.target as HTMLInputElement).files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
+    try {
+      const dimensions: Record<ImageInputType, [number, number]> = {
+        avatar: [200, 200],
+        cover: [800, 200]
+      };
 
-    reader.onload = (e) => {
-      const data_url = e.target?.result;
-      if (!data_url) return;
+      const data_url = await resize_image(file, dimensions[type][0], dimensions[type][1]);
 
-      if (type === 'avatar') avatar_data_url = String(data_url);
-      if (type === 'cover') cover_data_url = String(data_url);
-    };
+      if (type === 'avatar') avatar_data_url = data_url;
+      if (type === 'cover') cover_data_url = data_url;
+    } catch (err) {
+      console.error(err);
+    }
   }
 </script>
 
