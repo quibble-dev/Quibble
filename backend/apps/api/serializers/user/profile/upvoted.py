@@ -7,14 +7,14 @@ from apps.api.serializers.post import PostSerializer
 
 
 class UpvotedSerializer(serializers.Serializer):
-    type = serializers.CharField()
+    content_type = serializers.CharField()
     data = serializers.SerializerMethodField()
 
     def get_data(self, obj) -> dict:
-        obj_type = obj.type
+        obj_type = obj.content_type
         obj_copy = copy.copy(obj)
 
-        delattr(obj_copy, "type")
+        delattr(obj_copy, "content_type")
 
         if obj_type == "post":
             return PostSerializer(obj_copy, context=self.context).data

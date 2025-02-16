@@ -62,9 +62,9 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
     def overview(self, request, pk=None):
         """Returns a mixed list of posts and comments by the user, ordered by date."""
         profile = self.get_object()
-        posts = profile.posts.all().annotate(type=Value("post", CharField()))
+        posts = profile.posts.all().annotate(content_type=Value("post", CharField()))
         comments = profile.comments.with_annotated_ratio().annotate(
-            type=Value("comment", CharField())
+            content_type=Value("comment", CharField())
         )
 
         combined_data = sorted(chain(posts, comments), key=lambda obj: obj.created_at, reverse=True)
@@ -98,9 +98,9 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
     def upvoted(self, request, pk=None):
         """Returns a mixed list of upvoted posts and comments by the user, ordered by date."""
         profile = self.get_object()
-        posts = profile.upvoted_posts.all().annotate(type=Value("post", CharField()))
+        posts = profile.upvoted_posts.all().annotate(content_type=Value("post", CharField()))
         comments = profile.upvoted_comments.with_annotated_ratio().annotate(
-            type=Value("comment", CharField())
+            content_type=Value("comment", CharField())
         )
 
         combined_data = sorted(chain(posts, comments), key=lambda obj: obj.created_at, reverse=True)
@@ -114,9 +114,9 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
     def downvoted(self, request, pk=None):
         """Returns a mixed list of downvoted posts and comments by the user, ordered by date."""
         profile = self.get_object()
-        posts = profile.downvoted_posts.all().annotate(type=Value("post", CharField()))
+        posts = profile.downvoted_posts.all().annotate(content_type=Value("post", CharField()))
         comments = profile.downvoted_comments.with_annotated_ratio().annotate(
-            type=Value("comment", CharField())
+            content_type=Value("comment", CharField())
         )
 
         combined_data = sorted(chain(posts, comments), key=lambda obj: obj.created_at, reverse=True)
