@@ -3,6 +3,7 @@
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { PROFILE_CREATE_LIMIT } from '$lib/constants/limits';
   import { cn } from '$lib/functions/classnames';
+  import type { Nullable } from '$lib/types/shared';
 
   interface Props {
     token?: string;
@@ -10,6 +11,9 @@
   }
 
   let { token, onback }: Props = $props();
+
+  let pending = $state(false);
+  let selected_profile_id = $state<Nullable<number>>(null);
 
   async function fetch_profiles() {
     try {
@@ -31,6 +35,11 @@
 
   async function handle_profile_select(id: number, username: string) {
     try {
+      pending = true;
+      selected_profile_id = id;
+
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
       const res = await fetch('/api/v1/login/select', {
         method: 'POST',
         body: JSON.stringify({ id, username })
@@ -42,6 +51,8 @@
       }
     } catch (err) {
       console.error(err);
+    } finally {
+      pending = false;
     }
   }
 </script>
@@ -59,9 +70,20 @@
     {#if profiles}
       {#each profiles as profile}
         <button
-          class="group flex flex-col items-center justify-center gap-1.5"
+          class="group relative flex flex-col items-center justify-center gap-1.5"
+          class:pointer-events-none={pending}
           onclick={() => handle_profile_select(profile.id, profile.username)}
         >
+          <div
+            class={cn(
+              pending ? 'opacity-100' : 'opacity-0',
+              'absolute inset-0 z-10 grid place-items-center bg-base-300/50 transition-opacity duration-300'
+            )}
+          >
+            {#if selected_profile_id === profile.id}
+              <span class="loading loading-spinner -translate-y-2.5 transform"></span>
+            {/if}
+          </div>
           <Avatar
             src={profile.avatar}
             class={cn(
@@ -76,7 +98,12 @@
       {/each}
     {/if}
     {#if (profiles?.length ?? 0) < PROFILE_CREATE_LIMIT}
-      <button class="flex flex-col items-center justify-center gap-1.5">
+      <button
+        class={cn(
+          pending && 'pointer-events-none opacity-50',
+          'flex flex-col items-center justify-center gap-1.5 transition-opacity duration-300'
+        )}
+      >
         <div class="grid size-24 place-items-center rounded-box bg-base-300">
           <coreicons-shape-plus variant="no-border" class="size-8"></coreicons-shape-plus>
         </div>
