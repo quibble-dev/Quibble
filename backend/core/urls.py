@@ -26,8 +26,8 @@ urlpatterns = [
 # only add swagger ui for development
 if settings.DEBUG:
     urlpatterns += [
-        path('api/v1/schema/swagger', SpectacularSwaggerView.as_view(), name='swagger'),
-        path('profiling/', include('silk.urls', namespace='silk')),
+        path('api/v1/schema/swagger/', SpectacularSwaggerView.as_view(), name='swagger'),
+        path('silk/', include('silk.urls', namespace='silk')),
     ]
 
 # https://docs.djangoproject.com/en/2.1/howto/static-files/#serving-static-files-during-development
