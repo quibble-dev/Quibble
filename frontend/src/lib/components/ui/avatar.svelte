@@ -35,7 +35,7 @@
   )}
 >
   {#if valid_src}
-    <img {src} alt="" class="size-full object-cover" />
+    <img {src} alt="" class="size-[inherit] object-cover" />
   {:else}
     <svg
       class="w-1/2 max-w-10 text-neutral-content"

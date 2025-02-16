@@ -6,7 +6,6 @@
   import NotificationIcon from '$lib/components/icons/notification.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
-  import { createModalsStore } from '$lib/stores/modals.svelte';
 
   type Props = {
     on_menu_click?: () => void;
@@ -18,8 +17,7 @@
     page.url.pathname.includes('/q/') && page.data.community
   );
 
-  const modalsStore = createModalsStore(),
-    authStore = createAuthStore();
+  const authStore = createAuthStore();
 </script>
 
 <header
@@ -93,7 +91,7 @@
       </div>
       <div class="tooltip tooltip-bottom flex before:left-0" data-tip="Profile menu">
         <Avatar
-          class="btn btn-neutral size-10 rounded-btn p-0"
+          class="btn btn-neutral size-10 rounded-btn border-none p-0"
           src={authStore.state.profile?.avatar}
         />
       </div>

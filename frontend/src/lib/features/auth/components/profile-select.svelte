@@ -74,7 +74,7 @@
         <button
           class="group relative flex flex-col items-center justify-center gap-1.5"
           class:pointer-events-none={pending}
-          onclick={() => handle_profile_select(profile.id, profile.username)}
+          onclick={() => handle_profile_select(profile.id)}
         >
           <div
             class={cn(
