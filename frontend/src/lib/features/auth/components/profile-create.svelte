@@ -116,7 +116,10 @@
     </div>
   </div>
   <div class="flex items-center gap-4">
-    <button type="button" class="btn flex-1" aria-label="Back" onclick={onback}>Back</button>
+    <button type="button" class="btn flex-1" aria-label="Back" onclick={onback}>
+      <coreicons-shape-arrow variant="left" class="size-4"></coreicons-shape-arrow>
+      Back
+    </button>
     <button
       class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary flex-1')}
       aria-label="Create"
