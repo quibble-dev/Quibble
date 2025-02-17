@@ -9,15 +9,19 @@
 
   interface Props {
     onback: () => void;
+    onsuccess: () => void;
   }
 
-  let { onback }: Props = $props();
+  let { onback, onsuccess }: Props = $props();
 
   let avatar_data_url = $state<string>(),
     cover_data_url = $state<string>();
 
   const { form, enhance, errors, delayed } = superForm(defaults(zod(ProfileCreateSchema)), {
-    resetForm: false
+    resetForm: false,
+    onResult({ result }) {
+      if (result.type === 'success') onsuccess();
+    }
   });
 
   function resize_image(file: File, max_width: number, max_height: number): Promise<string> {

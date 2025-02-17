@@ -59,7 +59,10 @@
         }}
       />
     {:else if render_profile_of_type === 'create'}
-      <ProfileCreate onback={() => (render_profile_of_type = 'select')} />
+      <ProfileCreate
+        onback={() => (render_profile_of_type = 'select')}
+        onsuccess={() => (render_profile_of_type = 'select')}
+      />
     {:else}
       <!-- oauth section -->
       <div class="flex w-full items-center gap-3">
