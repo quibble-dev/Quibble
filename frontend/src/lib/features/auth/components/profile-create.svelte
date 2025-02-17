@@ -24,72 +24,22 @@
     }
   });
 
-  function resize_image(file: File, max_width: number, max_height: number): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      const reader = new FileReader();
-
-      reader.onload = (e) => {
-        img.src = e.target?.result as string;
-      };
-
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d', { willReadFrequently: true });
-
-        if (!ctx) {
-          reject(new Error('Could not get canvas context'));
-          return;
-        }
-
-        let width = img.width;
-        let height = img.height;
-
-        // maintain aspect ratio
-        const aspect_ratio = width / height;
-        if (width > height) {
-          if (width > max_width) {
-            width = max_width;
-            height = width / aspect_ratio;
-          }
-        } else {
-          if (height > max_height) {
-            height = max_height;
-            width = height * aspect_ratio;
-          }
-        }
-
-        canvas.width = width;
-        canvas.height = height;
-
-        ctx.drawImage(img, 0, 0, width, height);
-        resolve(canvas.toDataURL('image/jpeg', 0.8));
-      };
-
-      img.onerror = (err) => reject(err);
-      reader.readAsDataURL(file);
-    });
-  }
-
   async function handle_file_on_change(e: Event, type: ImageInputType) {
     const file = (e.target as HTMLInputElement).files?.[0];
     if (!file) return;
 
     $form[type] = file;
 
-    try {
-      const dimensions: Record<ImageInputType, [number, number]> = {
-        avatar: [400, 400],
-        cover: [1200, 400]
-      };
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
 
-      const data_url = await resize_image(file, dimensions[type][0], dimensions[type][1]);
+    reader.onload = (e) => {
+      const data_url = e.target?.result;
+      if (!data_url) return;
 
-      if (type === 'avatar') avatar_data_url = data_url;
-      if (type === 'cover') cover_data_url = data_url;
-    } catch (err) {
-      console.error(err);
-    }
+      if (type === 'avatar') avatar_data_url = String(data_url);
+      if (type === 'cover') cover_data_url = String(data_url);
+    };
   }
 </script>
 
