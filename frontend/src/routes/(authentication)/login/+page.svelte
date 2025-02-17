@@ -23,7 +23,7 @@
 </svelte:head>
 
 <!-- form element: email and password -->
-<form method="POST" class="flex flex-col gap-3" use:enhance novalidate>
+<form method="POST" action="?/login" class="flex flex-col gap-3" use:enhance novalidate>
   <!-- email input field with errors store -->
   <div class="flex flex-col gap-1">
     <label class="input input-bordered flex items-center gap-2 bg-transparent">

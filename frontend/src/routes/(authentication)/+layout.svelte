@@ -2,7 +2,7 @@
   import GoogleLogo from '$lib/components/icons/logos/google.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble-text.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
-  import { ProfileSelect } from '$lib/features/auth';
+  import { ProfileSelect, ProfileCreate } from '$lib/features/auth';
   import type { Nullable } from '$lib/types/shared';
   import { setContext } from 'svelte';
 
@@ -59,7 +59,10 @@
         }}
       />
     {:else if render_profile_of_type === 'create'}
-      <div>Profile create</div>
+      <ProfileCreate
+        onback={() => (render_profile_of_type = 'select')}
+        onsuccess={() => (render_profile_of_type = 'select')}
+      />
     {:else}
       <!-- oauth section -->
       <div class="flex w-full items-center gap-3">
