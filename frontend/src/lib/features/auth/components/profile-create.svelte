@@ -1,5 +1,6 @@
 <script lang="ts">
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import { cn } from '$lib/functions/classnames';
   import { ProfileCreateSchema } from '$lib/schemas/auth';
   import { defaults, superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
@@ -15,7 +16,7 @@
   let avatar_data_url = $state<string>(),
     cover_data_url = $state<string>();
 
-  const { form, enhance, errors, delayed } = superForm(defaults(zod(ProfileCreateSchema)), {
+  const { form, enhance, errors } = superForm(defaults(zod(ProfileCreateSchema)), {
     resetForm: false
   });
 
@@ -71,6 +72,7 @@
     if (!file) return;
 
     $form[type] = file;
+
     try {
       const dimensions: Record<ImageInputType, [number, number]> = {
         avatar: [400, 400],
@@ -106,9 +108,17 @@
       class="hidden"
       onchange={(e) => handle_file_on_change(e, 'cover')}
     />
-    <label class="btn btn-circle absolute right-2.5 top-2.5 size-8 p-0" for="cover">
-      <coreicons-shape-edit variant="pencil" class="size-4"></coreicons-shape-edit>
-    </label>
+    <div
+      class={cn(
+        $errors.cover && 'tooltip-open before:text-error',
+        'tooltip tooltip-left absolute right-2.5 top-2.5'
+      )}
+      data-tip={$errors.cover?.[0] ?? 'Edit cover'}
+    >
+      <label class="btn btn-circle size-8 p-0" for="cover">
+        <coreicons-shape-edit variant="pencil" class="size-4"></coreicons-shape-edit>
+      </label>
+    </div>
     <div class="absolute -bottom-12 flex items-end gap-4">
       <div class="relative size-20">
         <Avatar src={avatar_data_url} class="size-full ring-8 ring-base-300" />
@@ -120,15 +130,24 @@
           class="hidden"
           onchange={(e) => handle_file_on_change(e, 'avatar')}
         />
-        <label class="btn btn-circle absolute -right-2.5 top-0 size-8 p-0" for="avatar">
-          <coreicons-shape-edit variant="pencil" class="size-4"></coreicons-shape-edit>
-        </label>
+        <div
+          class={cn(
+            $errors.avatar && 'tooltip-open before:text-error',
+            'tooltip tooltip-right absolute -right-2.5 top-0'
+          )}
+          data-tip={$errors.avatar?.[0] ?? 'Edit avatar'}
+        >
+          <label class="btn btn-circle size-8 p-0" for="avatar">
+            <coreicons-shape-edit variant="pencil" class="size-4"></coreicons-shape-edit>
+          </label>
+        </div>
       </div>
       <div class="flex flex-col">
         <label class="flex items-center text-lg">
           <span class="leading-none">u/</span>
           <input
             type="text"
+            name="username"
             class="bg-transparent font-medium text-info outline-none placeholder:font-normal placeholder:text-base-content/50"
             placeholder="username*"
             bind:value={$form.username}

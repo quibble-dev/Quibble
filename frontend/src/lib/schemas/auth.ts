@@ -7,8 +7,14 @@ export const AuthSchema = z.object({
 
 export const ProfileCreateSchema = z.object({
   username: z.string().min(3),
-  avatar: z.instanceof(File).optional(),
-  cover: z.instanceof(File).optional()
+  avatar: z
+    .instanceof(File)
+    .refine((f) => f.size < 5_000_000, 'Max 5 MB upload size.')
+    .optional(),
+  cover: z
+    .instanceof(File)
+    .refine((f) => f.size < 5_000_000, 'Max 5 MB upload size.')
+    .optional()
 });
 
 export const ProfileNewSchema = z.object({

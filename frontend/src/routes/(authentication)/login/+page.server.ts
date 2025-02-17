@@ -3,7 +3,7 @@ import client from '$lib/clients/v1/client';
 import { AuthSchema, ProfileCreateSchema } from '$lib/schemas/auth';
 import type { PageServerLoad } from './$types';
 import { fail, type Actions } from '@sveltejs/kit';
-import { message, superValidate } from 'sveltekit-superforms';
+import { message, superValidate, withFiles } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 
 export const load: PageServerLoad = async ({ url }) => {
@@ -43,9 +43,10 @@ export const actions: Actions = {
     const form = await superValidate(request, zod(ProfileCreateSchema));
 
     if (!form.valid) {
-      return fail(400, { form });
+      return fail(400, withFiles({ form }));
     }
 
-    return { form };
+    // https://superforms.rocks/concepts/files#returning-files-in-form-actions
+    return withFiles({ form });
   }
 };
