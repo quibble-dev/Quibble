@@ -20,7 +20,7 @@ django-cleanup = "^9.0.0"
 djangorestframework = "^3.15.2"
 markdown = "^3.7"
 # 3rd party (django filtering)
-django-filter = "^24.3"
+django-filter = "^25.1"
 # 3rd party (cors headers)
 django-cors-headers = "^4.7.0"
 # 3rd party (token authentication)
