@@ -105,6 +105,8 @@
             class="bg-transparent font-medium text-info outline-none placeholder:font-normal placeholder:text-base-content/50"
             placeholder="username*"
             bind:value={$form.username}
+            oninput={(e) =>
+              ($form.username = (e.target as HTMLInputElement).value.replace(/\s/g, ''))}
           />
         </label>
         <span class="text-xs text-error" class:invisible={!$errors.username}
