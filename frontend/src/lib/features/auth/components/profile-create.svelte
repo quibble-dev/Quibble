@@ -1,10 +1,23 @@
 <script lang="ts">
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import { ProfileCreateSchema } from '$lib/schemas/auth';
+  import { defaults, superForm } from 'sveltekit-superforms';
+  import { zod } from 'sveltekit-superforms/adapters';
 
   type ImageInputType = 'avatar' | 'cover';
 
+  interface Props {
+    onback: () => void;
+  }
+
+  let { onback }: Props = $props();
+
   let avatar_data_url = $state<string>(),
     cover_data_url = $state<string>();
+
+  const { form, enhance, errors, delayed } = superForm(defaults(zod(ProfileCreateSchema)), {
+    resetForm: false
+  });
 
   function resize_image(file: File, max_width: number, max_height: number): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -57,6 +70,7 @@
     const file = (e.target as HTMLInputElement).files?.[0];
     if (!file) return;
 
+    $form[type] = file;
     try {
       const dimensions: Record<ImageInputType, [number, number]> = {
         avatar: [400, 400],
@@ -73,7 +87,13 @@
   }
 </script>
 
-<form class="flex flex-col gap-14">
+<form
+  class="flex flex-col gap-16"
+  method="POST"
+  action="?/create"
+  enctype="multipart/form-data"
+  use:enhance
+>
   <div
     class="relative h-20 rounded-btn bg-base-100 bg-cover bg-center p-4"
     style="background-image: url({cover_data_url});"
@@ -89,7 +109,7 @@
     <label class="btn btn-circle absolute right-2.5 top-2.5 size-8 p-0" for="cover">
       <coreicons-shape-edit variant="pencil" class="size-4"></coreicons-shape-edit>
     </label>
-    <div class="absolute -bottom-10 flex items-end gap-4">
+    <div class="absolute -bottom-12 flex items-end gap-4">
       <div class="relative size-20">
         <Avatar src={avatar_data_url} class="size-full ring-8 ring-base-300" />
         <input
@@ -111,14 +131,17 @@
             type="text"
             class="bg-transparent font-medium text-info outline-none placeholder:font-normal placeholder:text-base-content/50"
             placeholder="username*"
+            bind:value={$form.username}
           />
         </label>
-        <!-- errors goes here -->
+        <span class="text-xs text-error" class:invisible={!$errors.username}
+          >{$errors.username?.[0] ?? 'error!'}</span
+        >
       </div>
     </div>
   </div>
   <div class="flex items-center gap-4">
-    <button type="button" class="btn flex-1" aria-label="Back">Back</button>
+    <button type="button" class="btn flex-1" aria-label="Back" onclick={onback}>Back</button>
     <button class="btn btn-primary flex-1" aria-label="Create">Create</button>
   </div>
 </form>

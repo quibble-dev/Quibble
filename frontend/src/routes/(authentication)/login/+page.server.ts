@@ -1,6 +1,6 @@
 import { dev } from '$app/environment';
 import client from '$lib/clients/v1/client';
-import { AuthSchema } from '$lib/schemas/auth';
+import { AuthSchema, ProfileCreateSchema } from '$lib/schemas/auth';
 import type { PageServerLoad } from './$types';
 import { fail, type Actions } from '@sveltejs/kit';
 import { message, superValidate } from 'sveltekit-superforms';
@@ -14,7 +14,7 @@ export const load: PageServerLoad = async ({ url }) => {
 };
 
 export const actions: Actions = {
-  default: async ({ request, cookies }) => {
+  login: async ({ request, cookies }) => {
     const form = await superValidate(request, zod(AuthSchema));
 
     if (!form.valid) {
@@ -38,5 +38,14 @@ export const actions: Actions = {
     } else if (error) {
       return message(form, error.errors[0]?.detail, { status: 401 });
     }
+  },
+  create: async ({ request }) => {
+    const form = await superValidate(request, zod(ProfileCreateSchema));
+
+    if (!form.valid) {
+      return fail(400, { form });
+    }
+
+    return { form };
   }
 };
