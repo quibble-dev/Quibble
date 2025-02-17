@@ -16,7 +16,7 @@
   let avatar_data_url = $state<string>(),
     cover_data_url = $state<string>();
 
-  const { form, enhance, errors } = superForm(defaults(zod(ProfileCreateSchema)), {
+  const { form, enhance, errors, delayed } = superForm(defaults(zod(ProfileCreateSchema)), {
     resetForm: false
   });
 
@@ -161,6 +161,16 @@
   </div>
   <div class="flex items-center gap-4">
     <button type="button" class="btn flex-1" aria-label="Back" onclick={onback}>Back</button>
-    <button class="btn btn-primary flex-1" aria-label="Create">Create</button>
+    <button
+      class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary flex-1')}
+      aria-label="Create"
+    >
+      Create
+      {#if $delayed}
+        <span class="loading loading-spinner loading-xs"></span>
+      {:else}
+        <coreicons-shape-arrow variant="right" class="size-4"></coreicons-shape-arrow>
+      {/if}
+    </button>
   </div>
 </form>
