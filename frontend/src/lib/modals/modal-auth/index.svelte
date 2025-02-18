@@ -1,4 +1,5 @@
 <script lang="ts">
+  import QuibbleGroup from '$lib/components/vectors/quibble-group.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';
   import BaseModal from '../_components/base-modal.svelte';
 
@@ -11,7 +12,7 @@
 
 <BaseModal open={modalsStore.state.get('auth') === true} onclose={handle_modal_close}>
   <div class="flex flex-col items-center gap-4">
-    <img src="/assets/svgs/quibble-group.svg" alt="Quibble" class="h-24" />
+    <QuibbleGroup class="h-24" />
     <div class="flex flex-col gap-2">
       <h3 class="text-xl font-bold text-info">
         Join Quibble to engage with communities, share posts, and more!
