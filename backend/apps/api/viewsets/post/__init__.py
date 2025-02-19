@@ -30,10 +30,8 @@ class PostViewSet(viewsets.ModelViewSet):
 
         if sort_param == "hot":
             return Post.objects.hot()
-
         elif sort_param == "best":
             return Post.objects.best()
-
         elif sort_param == "new":
             return Post.objects.new()
 

@@ -1,47 +1,40 @@
-from django.db.models import Count, ExpressionWrapper, F, FloatField, Manager
-from django.db.models.functions import ExtractHour, Now
+from django.db.models import Count, ExpressionWrapper, F, FloatField, Manager, Value
+from django.db.models.functions import Coalesce, ExtractHour, Now, NullIf
 
 
 class PostManager(Manager):
+    def with_scores(self):
+        return self.filter(type="PUBLIC").annotate(
+            vote_score=Count("upvotes") - Count("downvotes"),
+            comment_score=Count("comments") * 0.5,
+            score=F("vote_score") + F("comment_score"),
+        )
+
     def hot(self):
         "returns posts ordered by hot score"
         return (
-            self.filter(type="PUBLIC")
+            self.with_scores()
             .annotate(
-                # vote score
-                vote_score=Count("upvotes") - Count("downvotes"),
-                # comment engagement score
-                comment_score=Count("comments") * 0.5,
-                # combined score
-                score=F("vote_score") + F("comment_score"),
                 # hours since post creation
                 hours_elapsed=ExpressionWrapper(
                     ExtractHour(Now() - F("created_at")), output_field=FloatField()
                 ),
-            )
-            .annotate(
+                # avoid zero division
+                adjusted_hours=ExpressionWrapper(
+                    Coalesce(NullIf(F("hours_elapsed"), 0) + Value(2.0), Value(1.0)),
+                    output_field=FloatField(),
+                ),
                 # final hot score
                 hot_score=ExpressionWrapper(
-                    F("score") / (F("hours_elapsed") + 2) ** 1.8, output_field=FloatField()
-                )
+                    F("score") / (F("adjusted_hours") ** 1.8), output_field=FloatField()
+                ),
             )
             .order_by("-hot_score")
         )
 
     def best(self):
         "returns posts ordered by best score"
-        return (
-            self.filter(type="PUBLIC")
-            .annotate(
-                # vote score
-                vote_score=Count("upvotes") - Count("downvotes"),
-                # comment engagement score
-                comment_score=Count("comments") * 0.5,
-                # final best score
-                best_score=F("vote_score") + F("comment_score"),
-            )
-            .order_by("-best_score")
-        )
+        return self.with_scores().order_by("-score")
 
     def new(self):
         "returns latest posts ordered by timestamp"
