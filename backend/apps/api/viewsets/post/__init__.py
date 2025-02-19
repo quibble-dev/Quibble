@@ -1,7 +1,8 @@
 from http import HTTPMethod
 
 from django.shortcuts import get_object_or_404
-from drf_spectacular.utils import extend_schema
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import response, status, viewsets
 from rest_framework.decorators import action
 
@@ -22,6 +23,36 @@ class PostViewSet(viewsets.ModelViewSet):
         if self.action == 'comments':
             return CommentCreateSerializer
         return self.serializer_class
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        sort_param = self.request.query_params.get("sort")
+
+        if sort_param == "hot":
+            return Post.objects.hot()
+
+        elif sort_param == "best":
+            return Post.objects.best()
+
+        elif sort_param == "new":
+            return Post.objects.new()
+
+        return queryset
+
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                name="sort",
+                type=OpenApiTypes.STR,
+                location=OpenApiParameter.QUERY,
+                description="Sort posts by: hot, best, new",
+                enum=["hot", "best", "new"],
+                required=False,
+            )
+        ]
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
     @extend_schema(responses=PostSerializer)
     def create(self, request):

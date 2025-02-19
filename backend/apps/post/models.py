@@ -10,6 +10,8 @@ from mixins.models.created_at import CreatedAtMixin
 from mixins.models.shortuuid import ShortUUIDMixin
 from mixins.models.type import TypeMixin
 
+from .managers import PostManager
+
 # Create your models here.
 
 
@@ -45,6 +47,8 @@ class Post(CreatedAtMixin, TypeMixin, ShortUUIDMixin):
     comments = models.ManyToManyField(
         Comment, related_name='comments', blank=True, verbose_name=_('Comments')
     )
+
+    objects = PostManager()
 
     def save(self, *args, **kwargs):
         """Override save method to slugify title."""
