@@ -1,17 +1,24 @@
 <script lang="ts">
+  import client from '$lib/clients/v1/client';
   import { cn } from '$lib/functions/classnames';
   import { getContext } from 'svelte';
   import { superForm } from 'sveltekit-superforms';
 
   let { data } = $props();
-  const handle_login_success: (data: { token: string }) => void =
+  const handle_login_success: (data: { token: string; has_profiles: boolean }) => void =
     getContext('handle_login_success');
 
   const { form, enhance, delayed, errors, message } = superForm(data.form, {
     resetForm: false,
-    onResult({ result }) {
+    async onResult({ result }) {
       if (result.type === 'success' && result.data) {
-        handle_login_success({ token: result.data.token });
+        const { data } = await client.GET('/u/me/profiles/', {
+          headers: { Authorization: `Bearer ${result.data.token}` }
+        });
+        handle_login_success({
+          token: result.data.token,
+          has_profiles: Boolean(data && data.length > 0)
+        });
       }
     }
   });

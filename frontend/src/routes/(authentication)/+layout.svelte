@@ -8,6 +8,7 @@
 
   interface LoginData {
     token?: string;
+    has_profiles?: boolean;
   }
 
   let { children } = $props();
@@ -19,7 +20,7 @@
 
   function handle_login_success(data: LoginData) {
     login_data = { ...data };
-    render_profile_of_type = 'select';
+    render_profile_of_type = data.has_profiles ? 'select' : 'create';
   }
 </script>
 
