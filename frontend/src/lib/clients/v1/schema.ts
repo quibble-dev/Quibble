@@ -3567,7 +3567,10 @@ export interface operations {
   };
   posts_list: {
     parameters: {
-      query?: never;
+      query?: {
+        /** @description Sort posts by: hot, best, new */
+        sort?: 'best' | 'hot' | 'new';
+      };
       header?: never;
       path?: never;
       cookie?: never;

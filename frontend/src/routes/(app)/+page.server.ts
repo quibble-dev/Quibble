@@ -1,8 +1,16 @@
 import client from '$lib/clients';
+import type { paths } from '$lib/clients/v1/schema';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async () => {
-  const { data: posts_data } = await client.GET('/posts/');
+type PostQuery = paths['/posts/']['get']['parameters']['query'];
 
-  return { posts: posts_data };
+export const load: PageServerLoad = async ({ url }) => {
+  const sort_param = url.searchParams.get('sort');
+  const query: PostQuery = { sort: sort_param ?? 'best' } as PostQuery;
+
+  const { data: posts } = await client.GET('/posts/', {
+    params: { query }
+  });
+
+  return { posts };
 };
