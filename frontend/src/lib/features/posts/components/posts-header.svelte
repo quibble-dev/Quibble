@@ -22,10 +22,10 @@
 
   const mapping = {
     filters: {
-      best: { icon: RocketIcon, href: '/' },
-      hot: { icon: HotIcon, href: '/hot' },
-      new: { icon: NewIcon, href: '/new' },
-      top: { icon: TopIcon, href: '/top' }
+      best: { icon: RocketIcon, href: '?sort=best' },
+      hot: { icon: HotIcon, href: '?sort=hot' },
+      new: { icon: NewIcon, href: '?sort=new' },
+      top: { icon: TopIcon, href: '?sort=top' }
     },
     view: {
       card: {
