@@ -69,14 +69,14 @@
   </button>
 </div>
 
-<div class="flex flex-wrap items-center justify-center gap-4 self-center">
+<div class="grid grid-cols-3 place-items-center gap-2 md:gap-4">
   {#await fetch_profiles()}
-    <span class="loading loading-dots loading-md"></span>
+    <span class="loading loading-dots loading-md col-span-3"></span>
   {:then profiles}
     {#if profiles}
       {#each profiles as profile}
         <button
-          class="group relative flex flex-col items-center justify-center gap-1.5"
+          class="group relative flex size-full flex-col items-center justify-center gap-1.5"
           class:pointer-events-none={pending}
           onclick={() => handle_profile_select(profile.id)}
         >
@@ -94,10 +94,10 @@
             src={profile.avatar}
             class={cn(
               !profile.avatar && 'border-2',
-              'size-24 rounded-box border-base-content/25 !bg-base-300'
+              'aspect-square size-full rounded-box border-base-content/25 !bg-base-300'
             )}
           />
-          <span class="line-clamp-1 max-w-24 break-all text-xs font-medium"
+          <span class="line-clamp-1 break-all text-xs font-medium md:max-w-24"
             >u/{profile.username}</span
           >
         </button>
@@ -108,13 +108,13 @@
         onclick={() => onclick('create')}
         class={cn(
           pending && 'pointer-events-none opacity-50',
-          'flex flex-col items-center justify-center gap-1.5 transition-opacity duration-300'
+          'flex size-full flex-col items-center justify-center gap-1.5 transition-opacity duration-300'
         )}
       >
-        <div class="grid size-24 place-items-center rounded-box bg-base-300">
+        <div class="grid aspect-square size-full place-items-center rounded-box bg-base-300">
           <coreicons-shape-plus variant="no-border" class="size-8"></coreicons-shape-plus>
         </div>
-        <span class="text-xs font-medium">Create new</span>
+        <span class="line-clamp-1 text-xs font-medium md:max-w-24">Create new</span>
       </button>
     {/if}
   {/await}

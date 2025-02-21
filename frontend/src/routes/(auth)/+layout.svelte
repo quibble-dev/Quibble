@@ -24,11 +24,11 @@
   }
 </script>
 
-<div class="relative grid flex-1 place-items-center">
+<div class="relative flex flex-1 items-end justify-center p-4 md:items-center">
   <div
     class="absolute inset-0 bg-base-100 [mask-image:url('/assets/svgs/standalone-auth-bg.svg')] [mask-size:cover]"
   ></div>
-  <div class="relative flex w-[25rem] flex-col gap-4 rounded-box bg-base-300 p-6">
+  <div class="relative flex flex-col gap-4 rounded-box bg-base-300 p-6 md:w-[25rem]">
     <!-- header section -->
     <div class="flex flex-col items-center justify-center gap-4">
       <a href="/" class="flex items-center gap-2">

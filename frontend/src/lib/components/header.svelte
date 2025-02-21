@@ -6,6 +6,7 @@
   import NotificationIcon from '$lib/components/icons/notification.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
+  import { createModalsStore } from '$lib/stores/modals.svelte';
 
   type Props = {
     on_menu_click?: () => void;
@@ -17,7 +18,8 @@
     page.url.pathname.includes('/q/') && page.data.community
   );
 
-  const authStore = createAuthStore();
+  const authStore = createAuthStore(),
+    modalsStore = createModalsStore();
 </script>
 
 <header
@@ -96,10 +98,13 @@
         />
       </div>
     {:else}
-      <a href="/login" class="btn btn-primary h-10 px-3 text-sm font-bold">
+      <button
+        class="btn btn-primary h-10 px-3 text-sm font-bold"
+        onclick={() => modalsStore.open('auth')}
+      >
         Join In!
         <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
-      </a>
+      </button>
     {/if}
   </div>
 </header>
