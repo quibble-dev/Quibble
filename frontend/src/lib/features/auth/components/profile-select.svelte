@@ -76,7 +76,7 @@
     {#if profiles}
       {#each profiles as profile}
         <button
-          class="group relative flex flex-col items-center justify-center gap-1.5"
+          class="group relative flex size-full flex-col items-center justify-center gap-1.5"
           class:pointer-events-none={pending}
           onclick={() => handle_profile_select(profile.id)}
         >

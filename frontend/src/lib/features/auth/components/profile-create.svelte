@@ -102,7 +102,7 @@
           <input
             type="text"
             name="username"
-            class="max-w-32 bg-transparent font-medium text-info outline-none placeholder:font-normal placeholder:text-base-content/50"
+            class="max-w-32 bg-transparent font-medium text-info outline-none placeholder:font-normal placeholder:text-base-content/50 md:max-w-52"
             placeholder="username*"
             bind:value={$form.username}
             oninput={(e) =>
