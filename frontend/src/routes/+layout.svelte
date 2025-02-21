@@ -1,16 +1,31 @@
 <script lang="ts">
+  import { afterNavigate, beforeNavigate } from '$app/navigation';
   import Toaster from '$lib/components/ui/toast';
   import Modals from '$lib/modals/index.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import '../styles/app.css';
+  import '../styles/nprogress.css';
   import '../styles/smiz.css';
   import { defineCustomElements } from '@coreproject-moe/icons/loader';
+  import NProgress from 'nprogress';
   import { onMount, type Snippet } from 'svelte';
 
   // eslint-disable-next-line no-undef
   let { children, data }: { children: Snippet; data: App.Locals } = $props();
 
   const authStore = createAuthStore();
+
+  NProgress.configure({
+    // Full list: https://github.com/rstacruz/nprogress#configuration
+    minimum: 0.16,
+    showSpinner: false
+  });
+
+  beforeNavigate(({ willUnload }) => {
+    if (!willUnload) NProgress.start();
+  });
+
+  afterNavigate(() => NProgress.done());
 
   $effect(() => {
     authStore.update({
