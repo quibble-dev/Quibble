@@ -1,7 +1,8 @@
 import client from '$lib/clients';
-import type { Handle, HandleFetch } from '@sveltejs/kit';
+import type { Handle } from '@sveltejs/kit';
 
 const auth_routes = ['/login', '/register', '/password'];
+const protected_routes = ['/submit'];
 
 export const handle: Handle = async ({ event, resolve }) => {
   const auth_token = event.cookies.get('auth_token');
@@ -22,26 +23,34 @@ export const handle: Handle = async ({ event, resolve }) => {
         console.error(error);
         event.locals.profile = null;
 
-        event.cookies.delete('auth_token', { path: '/' });
-        event.cookies.delete('auth_user_profile_id', { path: '/' });
+        // on auth error
+        if (response.status === 401) {
+          event.cookies.delete('auth_token', { path: '/' });
+          event.cookies.delete('auth_user_profile_id', { path: '/' });
+        }
       }
     }
   }
 
   // authenticated user cant access auth routes
-  if (event.locals.profile && auth_routes.includes(event.url.pathname)) {
+  if (event.locals.profile && auth_routes.some((route) => event.url.pathname.startsWith(route))) {
     return new Response(null, {
       status: 302,
       headers: { location: '/' }
     });
   }
 
+  // unauthenticated user cant access protected routes
+  if (
+    !event.locals.profile &&
+    protected_routes.some((route) => event.url.pathname.startsWith(route))
+  ) {
+    const encoded_dest = encodeURIComponent(event.url.href);
+    return new Response(null, {
+      status: 302,
+      headers: { location: `/login?dest=${encoded_dest}` }
+    });
+  }
+
   return await resolve(event);
-};
-
-export const handleFetch: HandleFetch = async ({ event, request, fetch }) => {
-  const auth_token = event.cookies.get('auth_token');
-  console.log('AUTH_TOKEN', auth_token);
-
-  return fetch(request);
 };

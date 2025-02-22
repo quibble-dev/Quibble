@@ -1,8 +1,12 @@
 <script lang="ts">
+  import { page } from '$app/state';
   import { cn } from '$lib/functions/classnames';
   import { superForm } from 'sveltekit-superforms';
 
   let { data } = $props();
+
+  const dest_param = page.url.searchParams.get('dest');
+  const href_login = dest_param ? `/login?dest=${encodeURIComponent(dest_param)}` : '/login';
 
   const { form, enhance, delayed, errors, message } = superForm(data.form, {
     resetForm: false
@@ -65,7 +69,7 @@
   </div>
   <span class="text-sm">
     Already a quibbler?
-    <a href="/login" class="font-medium text-accent">Log in</a>
+    <a href={href_login} class="font-medium text-accent">Log in</a>
   </span>
   {#if $message}
     <div class="flex items-center gap-2 text-error" class:text-error={$message}>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { goto, invalidateAll } from '$app/navigation';
+  import { page } from '$app/state';
   import client from '$lib/clients/v1/client';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { PROFILE_CREATE_LIMIT } from '$lib/constants/limits';
@@ -48,8 +48,21 @@
         const data = await res.json();
         if (!data.success) return;
 
-        goto('/');
-        await invalidateAll();
+        const dest_param = page.url.searchParams.get('dest') ?? '/';
+
+        try {
+          const dest = new URL(dest_param, window.location.origin);
+
+          if (window.location.origin === dest.origin) {
+            window.location.href = dest.href;
+          } else {
+            console.warn('invalid destination URL: ', dest.href);
+            window.location.href = '/';
+          }
+        } catch {
+          // normal case
+          window.location.href = '/';
+        }
       }
     } catch (err) {
       console.error(err);
