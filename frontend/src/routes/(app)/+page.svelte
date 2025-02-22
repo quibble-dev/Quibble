@@ -63,7 +63,7 @@
 </div>
 
 <!-- fixed shared sidebar for recent posts -->
-<div class="g:flex hidden w-80">
+<div class="hidden w-80 lg:flex">
   <div
     class="fixed top-[3.75rem] flex h-[calc(100dvh-3.75rem)] w-72 flex-col gap-4 overflow-y-scroll p-4 scrollbar-none"
   >
