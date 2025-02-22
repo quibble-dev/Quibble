@@ -28,23 +28,25 @@ class PostViewSet(viewsets.ModelViewSet):
         queryset = super().get_queryset()
         sort_param = self.request.query_params.get("sort")
 
-        if sort_param == "hot":
+        if sort_param == 'hot':
             return Post.objects.hot()
-        elif sort_param == "best":
+        elif sort_param == 'best':
             return Post.objects.best()
-        elif sort_param == "new":
+        elif sort_param == 'new':
             return Post.objects.new()
+        elif sort_param == 'top':
+            return Post.objects.top()
 
         return queryset
 
     @extend_schema(
         parameters=[
             OpenApiParameter(
-                name="sort",
+                name='sort',
                 type=OpenApiTypes.STR,
                 location=OpenApiParameter.QUERY,
-                description="Sort posts by: hot, best, new",
-                enum=["hot", "best", "new"],
+                description='Sort posts by: hot, best, new, top',
+                enum=['hot', 'best', 'new', 'top'],
                 required=False,
             )
         ]

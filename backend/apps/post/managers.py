@@ -39,3 +39,22 @@ class PostManager(Manager):
     def new(self):
         "returns latest posts ordered by timestamp"
         return self.filter(type="PUBLIC").order_by("-created_at")
+
+    def top(self):
+        "returns posts ordered by top score"
+        return (
+            self.with_scores()
+            .annotate(
+                hours_elapsed=ExpressionWrapper(
+                    ExtractHour(Now() - F("created_at")), output_field=FloatField()
+                ),
+                adjusted_hours=ExpressionWrapper(
+                    Coalesce(NullIf(F("hours_elapsed"), 0) + Value(5.0), Value(1.0)),
+                    output_field=FloatField(),
+                ),
+                top_score=ExpressionWrapper(
+                    F("score") / (F("adjusted_hours") ** 1.5), output_field=FloatField()
+                ),
+            )
+            .order_by("-top_score")
+        )
