@@ -6,7 +6,6 @@
   import NotificationIcon from '$lib/components/icons/notification.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
-  import { createModalsStore } from '$lib/stores/modals.svelte';
 
   type Props = {
     on_menu_click?: () => void;
@@ -18,8 +17,7 @@
     page.url.pathname.includes('/q/') && page.data.community
   );
 
-  const authStore = createAuthStore(),
-    modalsStore = createModalsStore();
+  const authStore = createAuthStore();
 </script>
 
 <header
@@ -78,13 +76,14 @@
     </button>
     {#if authStore.state.is_authenticated}
       <div class="tooltip tooltip-bottom" data-tip="Create a Post">
-        <button
+        <a
+          href="/submit"
           aria-label="Create a Post"
           class="btn h-10 w-10 p-0 md:btn-primary md:w-auto md:px-3"
         >
           <coreicons-shape-plus variant="no-border" class="size-5"></coreicons-shape-plus>
           <span class="hidden text-sm font-medium md:flex">Create</span>
-        </button>
+        </a>
       </div>
       <div class="tooltip tooltip-bottom" data-tip="Inbox">
         <button aria-label="Inbox" class="btn btn-neutral size-10 p-0">
@@ -98,13 +97,11 @@
         />
       </div>
     {:else}
-      <button
-        class="btn btn-primary h-10 px-3 text-sm font-bold"
-        onclick={() => modalsStore.open('auth')}
-      >
-        Join In!
+      <a href="/register" class="btn h-10 px-3 text-sm font-bold">Sign up</a>
+      <a href="/login" class="btn btn-primary h-10 px-3 text-sm font-bold">
+        Log in
         <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
-      </button>
+      </a>
     {/if}
   </div>
 </header>
