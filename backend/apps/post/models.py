@@ -34,7 +34,7 @@ class Post(CreatedAtMixin, TypeMixin, ShortUUIDMixin):
     content = models.TextField(_('Content'), blank=True)
     cover = models.ImageField(
         _('Cover'),
-        upload_to=FilePattern(filename_pattern="cover/{uuid:s}{ext}"),
+        upload_to=FilePattern(filename_pattern='cover/{uuid:s}{ext}'),
         blank=True,
         null=True,
     )

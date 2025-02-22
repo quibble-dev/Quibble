@@ -9,19 +9,8 @@
   import { cn } from '$lib/functions/classnames';
   import { createLayoutTypeStore } from '$lib/stores/layout-type.svelte';
 
-  type FilterType = keyof typeof mapping.filters;
-
-  const layoutTypeStore = createLayoutTypeStore();
-
-  let active_view = $derived<keyof typeof mapping.view>(layoutTypeStore.state);
-  let active_filter = $derived.by<FilterType>(() => {
-    const sort_param = page.url.searchParams.get('sort');
-    if (sort_param && ['best', 'hot', 'new'].includes(sort_param)) return sort_param as FilterType;
-    return 'best';
-  });
-
   const mapping = {
-    filters: {
+    sort: {
       best: { icon: RocketIcon, href: '?sort=best' },
       hot: { icon: HotIcon, href: '?sort=hot' },
       new: { icon: NewIcon, href: '?sort=new' },
@@ -39,17 +28,29 @@
     }
   };
 
+  type SortType = keyof typeof mapping.sort;
+  type ViewType = keyof typeof mapping.view;
+
+  const layoutTypeStore = createLayoutTypeStore();
+
+  let active_view = $derived<ViewType>(layoutTypeStore.state);
+  let active_sort = $derived.by<SortType>(() => {
+    const sort_param = page.url.searchParams.get('sort');
+    if (sort_param && Object.keys(mapping.sort).includes(sort_param)) return sort_param as SortType;
+    return 'best';
+  });
+
   // active view icon for rendering
   let ActiveViewIcon = $derived(mapping.view[active_view].icon);
 </script>
 
 <div class="flex items-start justify-between">
   <div class="flex gap-3">
-    {#each Object.entries(mapping.filters) as [key, item]}
-      {@const is_active = active_filter === key}
+    {#each Object.entries(mapping.sort) as [key, item]}
+      {@const is_active = active_sort === key}
       {@const hide_on_mobile = key === 'top'}
 
-      <div class={cn(hide_on_mobile ? 'hidden' : 'flex', 'flex-col items-center gap-1')}>
+      <div class={cn(hide_on_mobile ? 'hidden md:flex' : 'flex', 'flex-col items-center gap-1')}>
         <a href={item.href} aria-label={key} class="flex items-center gap-2">
           <item.icon class={cn(is_active && 'text-primary', 'size-4')} />
           <span class="text-sm font-medium capitalize">{key}</span>
