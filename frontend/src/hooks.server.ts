@@ -5,7 +5,6 @@ const auth_routes = ['/login', '/register', '/password'];
 const protected_routes = ['/submit'];
 
 export const handle: Handle = async ({ event, resolve }) => {
-  console.log('called');
   const auth_token = event.cookies.get('auth_token');
   const auth_user_profile_id = event.cookies.get('auth_user_profile_id');
 

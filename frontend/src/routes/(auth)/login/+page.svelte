@@ -1,10 +1,17 @@
 <script lang="ts">
+  import { page } from '$app/state';
   import client from '$lib/clients/v1/client';
   import { cn } from '$lib/functions/classnames';
   import { getContext } from 'svelte';
   import { superForm } from 'sveltekit-superforms';
 
   let { data } = $props();
+
+  const dest_param = page.url.searchParams.get('dest');
+  const href_register = dest_param
+    ? `/register?dest=${encodeURIComponent(dest_param)}`
+    : '/register';
+
   const handle_login_success: (data: { token: string; has_profiles: boolean }) => void =
     getContext('handle_login_success');
 
@@ -81,7 +88,7 @@
   <div class="flex items-center justify-between gap-1">
     <span class="text-sm">
       New to Quibble?
-      <a href="/register" class="font-medium text-accent">Sign up</a>
+      <a href={href_register} class="font-medium text-accent">Sign up</a>
     </span>
     <a href="/password" class="text-sm text-accent">Forgot password?</a>
   </div>
