@@ -3568,8 +3568,8 @@ export interface operations {
   posts_list: {
     parameters: {
       query?: {
-        /** @description Sort posts by: hot, best, new */
-        sort?: 'best' | 'hot' | 'new';
+        /** @description Sort posts by: hot, best, new, top */
+        sort?: 'best' | 'hot' | 'new' | 'top';
       };
       header?: never;
       path?: never;
