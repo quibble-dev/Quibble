@@ -45,7 +45,7 @@ class LogoutAPIView(views.APIView):
             return Response({'detail': 'Successfully logged out.'})
 
         except Exception as e:
-            raise ServerError(f"An error occurred while logging out: {str(e)}")
+            raise ServerError(f'An error occurred while logging out: {str(e)}')
 
 
 @extend_schema(tags=['auth'])

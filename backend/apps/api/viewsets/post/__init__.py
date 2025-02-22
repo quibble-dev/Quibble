@@ -26,7 +26,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        sort_param = self.request.query_params.get("sort")
+        sort_param = self.request.query_params.get('sort')
 
         if sort_param == 'hot':
             return Post.objects.hot()
