@@ -36,8 +36,8 @@
       <QuibbleTextLogo class="hidden h-7 w-auto md:flex" />
     </a>
   </div>
-  <div class="hidden items-center gap-5 md:flex">
-    <div class="flex gap-2">
+  <div class="hidden items-center gap-5 sm:flex">
+    <div class="hidden gap-2 lg:flex">
       <a href="/" aria-label="Home" class="flex items-center gap-2">
         <coreicons-shape-home class="size-5 text-primary"></coreicons-shape-home>
         <span class="text-sm font-medium">Home</span>
@@ -71,7 +71,7 @@
     </label>
   </div>
   <div class="flex items-center gap-2">
-    <button aria-label="Expand search" class="btn size-10 p-0 md:hidden">
+    <button aria-label="Expand search" class="btn size-10 p-0 sm:hidden">
       <coreicons-shape-search variant="no-border" class="size-5"></coreicons-shape-search>
     </button>
     {#if authStore.state.is_authenticated}
