@@ -4,14 +4,19 @@ from django.db.models.functions import Coalesce, ExtractHour, Now, NullIf
 
 class PostManager(Manager):
     def with_scores(self):
+        "generalized function with most used annotatations"
         return self.filter(type='PUBLIC').annotate(
             vote_score=Count('upvotes') - Count('downvotes'),
             comment_score=Count('comments') * 0.5,
             score=F('vote_score') + F('comment_score'),
         )
 
-    def hot(self):
-        "returns posts ordered by hot score"
+    def sorted_by(self, decay_factor: float, offset: float):
+        """
+        generalized sorting function to compute scores with time decay.
+        - `decay_factor`: controls how quickly older posts lose rank.
+        - `offset`: prevents zero-division and smooths early rankings.
+        """
         return (
             self.with_scores()
             .annotate(
@@ -20,17 +25,22 @@ class PostManager(Manager):
                     ExtractHour(Now() - F('created_at')), output_field=FloatField()
                 ),
                 # avoid zero division
-                adjusted_hours=ExpressionWrapper(
-                    Coalesce(NullIf(F('hours_elapsed'), 0) + Value(2.0), Value(1.0)),
+                adjusted_hours_elapsed=ExpressionWrapper(
+                    Coalesce(NullIf(F('hours_elapsed'), 0) + Value(offset), Value(1.0)),
                     output_field=FloatField(),
                 ),
-                # final hot score
-                hot_score=ExpressionWrapper(
-                    F('score') / (F('adjusted_hours') ** 1.8), output_field=FloatField()
+                # final score
+                final_score=ExpressionWrapper(
+                    F('score') / (F('adjusted_hours_elapsed') ** decay_factor),
+                    output_field=FloatField(),
                 ),
             )
-            .order_by('-hot_score')
+            .order_by('-final_score')
         )
+
+    def hot(self):
+        "returns posts ordered by hot score"
+        return self.sorted_by(decay_factor=1.8, offset=2.0)
 
     def best(self):
         "returns posts ordered by best score"
@@ -42,19 +52,4 @@ class PostManager(Manager):
 
     def top(self):
         "returns posts ordered by top score"
-        return (
-            self.with_scores()
-            .annotate(
-                hours_elapsed=ExpressionWrapper(
-                    ExtractHour(Now() - F('created_at')), output_field=FloatField()
-                ),
-                adjusted_hours=ExpressionWrapper(
-                    Coalesce(NullIf(F('hours_elapsed'), 0) + Value(5.0), Value(1.0)),
-                    output_field=FloatField(),
-                ),
-                top_score=ExpressionWrapper(
-                    F('score') / (F('adjusted_hours') ** 1.5), output_field=FloatField()
-                ),
-            )
-            .order_by('-top_score')
-        )
+        return self.sorted_by(decay_factor=1.5, offset=5.0)
