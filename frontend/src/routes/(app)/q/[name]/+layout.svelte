@@ -13,7 +13,7 @@
   {@render children()}
 </div>
 <!-- fixed sidebar about community details -->
-<div class="hidden w-80 md:flex">
+<div class="hidden w-80 lg:flex">
   <div
     class="fixed top-[3.75rem] flex h-[calc(100dvh-3.75rem)] w-80 flex-col gap-4 overflow-y-scroll p-4 scrollbar-none"
   >
@@ -27,7 +27,7 @@
       </div>
       <div class="flex items-center gap-2 text-xs">
         <coreicons-shape-globe class="size-4"></coreicons-shape-globe>
-        {community?.is_public ? 'Public' : 'Private'}
+        {community.type}
       </div>
     </div>
     <div class="flex items-center gap-4">

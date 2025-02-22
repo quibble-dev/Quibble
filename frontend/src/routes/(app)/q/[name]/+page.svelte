@@ -50,16 +50,16 @@
     style="background-image: url({community?.banner});"
   ></div>
   <div
-    class="inset-x-0 -bottom-12 flex flex-col justify-between gap-4 md:absolute md:flex-row md:items-end md:px-4"
+    class="inset-x-0 -bottom-12 flex flex-col justify-between gap-4 xl:absolute xl:flex-row xl:items-end xl:px-4"
   >
-    <div class="mt-4 flex items-center gap-2 md:mt-0 md:items-end">
+    <div class="mt-4 flex items-center gap-2 xl:mt-0 xl:items-end">
       <Avatar
-        class="size-14 flex-shrink-0 rounded-full outline-8 outline-base-300 md:size-20 md:outline"
+        class="size-14 flex-shrink-0 rounded-full outline-8 outline-base-300 xl:size-20 xl:outline"
         src={community?.avatar}
       />
       <div class="flex flex-col">
-        <h3 class="text-xl font-bold text-info md:text-2xl">q/{community?.name}</h3>
-        <div class="flex items-center gap-2 md:hidden">
+        <h3 class="text-xl font-bold text-info xl:text-2xl">q/{community?.name}</h3>
+        <div class="flex items-center gap-2 xl:hidden">
           <div class="flex items-center gap-1">
             <span class="text-sm text-info">{community?.members?.length}</span>
             <span class="text-xs text-base-content/75"
@@ -90,7 +90,7 @@
     </div>
   </div>
 </div>
-<div class="hidden h-12 md:flex"></div>
+<div class="hidden h-12 xl:flex"></div>
 <PostsHeader />
 <!-- list highlighted posts if exists -->
 {#if highlighted_posts?.length}

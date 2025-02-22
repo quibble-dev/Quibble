@@ -198,4 +198,4 @@
     </div>
   </form>
 </div>
-<div class="hidden w-80 md:flex"></div>
+<div class="hidden w-80 lg:flex"></div>
