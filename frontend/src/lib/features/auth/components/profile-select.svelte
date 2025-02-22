@@ -48,12 +48,19 @@
         const data = await res.json();
         if (!data.success) return;
 
-        const dest = new URL(page.url.searchParams.get('dest') ?? '/');
+        const dest_param = page.url.searchParams.get('dest') ?? '/';
 
-        if (window.location.origin === dest.origin) {
-          window.location.href = dest.href;
-        } else {
-          console.warn('invalid destination URL: ', dest.href);
+        try {
+          const dest = new URL(dest_param, window.location.origin);
+
+          if (window.location.origin === dest.origin) {
+            window.location.href = dest.href;
+          } else {
+            console.warn('invalid destination URL: ', dest.href);
+            window.location.href = '/';
+          }
+        } catch {
+          // normal case
           window.location.href = '/';
         }
       }
