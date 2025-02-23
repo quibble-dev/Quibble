@@ -1,7 +1,10 @@
 import client from '$lib/clients';
+import { CommentCreateSchema } from '$lib/features/comments/schemas';
 import { CommentTreeBuilder } from '$lib/functions/comment';
 import type { PageServerLoad } from './$types';
-import { error as raise_error, redirect } from '@sveltejs/kit';
+import { fail, error as raise_error, redirect, type Actions } from '@sveltejs/kit';
+import { setError, superValidate } from 'sveltekit-superforms';
+import { zod } from 'sveltekit-superforms/adapters';
 
 export const load: PageServerLoad = async ({ params }) => {
   const [post, comments] = await Promise.all([
@@ -29,5 +32,31 @@ export const load: PageServerLoad = async ({ params }) => {
     return { post: post.data, comments: comment_tree };
   } else {
     raise_error(post.response.status, post.error?.errors[0]?.detail);
+  }
+};
+
+export const actions: Actions = {
+  comment: async ({ request, cookies, params }) => {
+    const form = await superValidate(request, zod(CommentCreateSchema));
+
+    if (!form.valid) return fail(400, { form });
+
+    const { data, error, response } = await client.POST('/posts/{id}/comments/', {
+      headers: {
+        Authorization: `Bearer ${cookies.get('auth_token')}`,
+        'Profile-Id': cookies.get('auth_user_profile_id')
+      },
+      body: { ...form.data },
+      params: {
+        path: { id: String(params.id) }
+      }
+    });
+
+    if (response.ok && data) {
+      return { form, data };
+    } else if (error) {
+      console.log(error);
+      return setError(form, 'content', String(error.errors[0]?.detail));
+    }
   }
 };

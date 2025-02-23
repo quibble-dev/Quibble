@@ -1,5 +1,6 @@
 <script lang="ts">
   import { browser } from '$app/environment';
+  import type { components } from '$lib/clients/v1/schema';
   import NewIcon from '$lib/components/icons/new.svelte';
   import RocketIcon from '$lib/components/icons/rocket.svelte';
   import TopIcon from '$lib/components/icons/top.svelte';
@@ -13,15 +14,17 @@
   import { FormatDate } from '$lib/functions/date';
   import { is_valid } from '$lib/functions/is-valid';
   import { createAuthStore } from '$lib/stores/auth.svelte';
+  import type { CommentTree } from '$lib/types/comment';
   import type { PageData } from './$types';
   import readable from 'readable-numbers';
   import { onMount } from 'svelte';
 
-  const { data }: { data: PageData } = $props();
-  const { post } = $derived(data);
+  type Comment = components['schemas']['CommentDetail'];
 
+  const { data }: { data: PageData } = $props();
+
+  const { post } = $derived(data);
   const comments = $state(data.comments);
-  let comment_box_error = $state<string>();
 
   const authStore = createAuthStore();
   const recentPostStore = createRecentPostStore();
@@ -56,27 +59,15 @@
     if (browser) window.history.back();
   }
 
-  async function handle_comment(value: string) {
-    comment_box_error = undefined;
-    try {
-      const res = await fetch(`/api/v1/posts/${post.id}/comment`, {
-        method: 'POST',
-        body: JSON.stringify({ content: value })
-      });
+  async function handle_comment(comment: Comment) {
+    show_comment_box = false;
 
-      if (!res.ok) throw new Error(`request failed with status: ${res.status}`);
-
-      const { data, error, success } = await res.json();
-      if (success) {
-        show_comment_box = false;
-        comments.unshift(data);
-      } else {
-        comment_box_error = error;
-      }
-    } catch (err) {
-      console.error(err);
-    }
+    const new_comment: CommentTree = { ...comment, children: [], collapsed: false };
+    console.log(new_comment);
+    comments.unshift(new_comment);
   }
+
+  $inspect(comments);
 
   onMount(() => {
     recentPostStore.add_post({
@@ -161,18 +152,11 @@
 </div>
 
 {#if show_comment_box}
-  <div class="flex flex-col gap-1">
-    <CommentBox
-      oncancel={() => (show_comment_box = false)}
-      oncomment={(value) => handle_comment(value)}
-    />
-    {#if comment_box_error}
-      <div class="flex items-center gap-2 text-xs text-error">
-        <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-        <span>{comment_box_error}</span>
-      </div>
-    {/if}
-  </div>
+  <!-- root comment -->
+  <CommentBox
+    oncancel={() => (show_comment_box = false)}
+    oncomment={(comment) => handle_comment(comment)}
+  />
 {:else}
   <button
     class="flex items-center gap-2 rounded-2xl border border-neutral p-2.5 text-sm"
