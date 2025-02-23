@@ -100,7 +100,7 @@
       <h4 class="font-medium">Highlights</h4>
     </div>
     <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
-      {#each highlighted_posts as post}
+      {#each highlighted_posts as post (post.id)}
         <div
           class="relative flex h-40 flex-col gap-2 overflow-hidden rounded-2xl border border-neutral p-2 transition-colors hover:bg-base-200"
         >
@@ -128,7 +128,7 @@
 {/if}
 <!-- list posts -->
 {#if posts}
-  {#each posts as post}
+  {#each posts as post (post.id)}
     <PostCard {...post} />
   {/each}
 {/if}

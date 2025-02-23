@@ -5,6 +5,7 @@
   import { PROFILE_CREATE_LIMIT } from '$lib/constants/limits';
   import { cn } from '$lib/functions/classnames';
   import type { Nullable } from '$lib/types/shared';
+  import { onDestroy } from 'svelte';
 
   interface Props {
     token?: string;
@@ -35,10 +36,10 @@
   }
 
   async function handle_profile_select(id: number) {
-    try {
-      pending = true;
-      selected_profile_id = id;
+    pending = true;
+    selected_profile_id = id;
 
+    try {
       const res = await fetch('/api/v1/u/login/select', {
         method: 'POST',
         body: JSON.stringify({ id })
@@ -66,10 +67,16 @@
       }
     } catch (err) {
       console.error(err);
-    } finally {
-      pending = false;
     }
   }
+
+  onDestroy(() => {
+    // if user select a profile and window is redirecting,
+    // keep these states pending
+    // clean only after destroyed
+    pending = false;
+    selected_profile_id = null;
+  });
 </script>
 
 <div class="tooltip tooltip-right absolute left-2.5 top-2.5 flex before:capitalize" data-tip="Back">
@@ -87,7 +94,7 @@
     <span class="loading loading-dots loading-md col-span-3"></span>
   {:then profiles}
     {#if profiles}
-      {#each profiles as profile}
+      {#each profiles as profile (profile.id)}
         <button
           class="group relative flex size-full flex-col items-center justify-center gap-1.5"
           class:pointer-events-none={pending}
@@ -100,7 +107,7 @@
             )}
           >
             {#if selected_profile_id === profile.id}
-              <span class="loading loading-spinner -translate-y-2.5 transform"></span>
+              <span class="loading loading-spinner -translate-y-[0.5rem] transform"></span>
             {/if}
           </div>
           <Avatar

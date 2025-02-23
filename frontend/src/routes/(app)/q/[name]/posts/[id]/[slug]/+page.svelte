@@ -217,7 +217,7 @@
 </div>
 <!-- render comments -->
 {#if comments}
-  {#each comments as comment}
+  {#each comments as comment (comment.id)}
     <CommentBlock {...comment} />
   {/each}
 {/if}

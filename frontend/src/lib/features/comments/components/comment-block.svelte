@@ -197,7 +197,7 @@
       <div></div>
       <!-- render reply comments if any -->
       {#if comment.children && comment.children.length > 0}
-        {#each comment.children as child}
+        {#each comment.children as child (child.id)}
           <CommentBlock {...child} />
         {/each}
       {/if}

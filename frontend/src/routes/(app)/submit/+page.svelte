@@ -105,7 +105,7 @@
             <span class="label-text-alt text-xs">Results: {communities_select_list.length}</span>
           </div>
         </div>
-        {#each communities_select_list as item}
+        {#each communities_select_list as item (item.id)}
           {@const selected = community === item}
           <li>
             <button

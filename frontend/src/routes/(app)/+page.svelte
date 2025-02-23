@@ -38,7 +38,7 @@
   <div class="flex flex-1 flex-col gap-4">
     <!-- if posts available -->
     {#if data.posts && data.posts.length}
-      {#each data.posts as post}
+      {#each data.posts as post (post.id)}
         <PostCard {...post} />
       {/each}
     {:else}
@@ -79,7 +79,7 @@
     <!-- render recent posts from localstorage -->
     <div class="flex flex-col gap-4">
       {#if recentPostStore.state.length}
-        {#each recentPostStore.state as post}
+        {#each recentPostStore.state as post (post.id)}
           <!-- recent post component -->
           <div class="flex flex-col gap-2">
             <div class="flex justify-between gap-2">

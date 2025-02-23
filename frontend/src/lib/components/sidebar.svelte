@@ -57,7 +57,7 @@
     </div>
     {#if sidebarStore.state.recent?.length}
       <div class="collapse-content flex flex-col gap-2 !p-0">
-        {#each sidebarStore.state.recent as community}
+        {#each sidebarStore.state.recent as community (community.id)}
           <div class="flex items-center gap-2">
             <a href="/q/{community.name}" class="flex">
               <Avatar src={community.avatar} />
@@ -97,7 +97,7 @@
     </div>
     {#if sidebarStore.state.your?.length}
       <div class="collapse-content flex flex-col gap-2 !p-0">
-        {#each sidebarStore.state.your as community}
+        {#each sidebarStore.state.your as community (community.id)}
           <div class="flex items-center gap-2">
             <a href="/q/{community.name}" class="flex">
               <Avatar src={community.avatar} />
