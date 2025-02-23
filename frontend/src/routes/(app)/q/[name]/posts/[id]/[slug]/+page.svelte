@@ -63,7 +63,6 @@
     show_comment_box = false;
 
     const new_comment: CommentTree = { ...comment, children: [], collapsed: false };
-    console.log(new_comment);
     comments.unshift(new_comment);
   }
 
