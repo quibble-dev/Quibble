@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { components } from '$lib/clients/v1/schema';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
@@ -8,6 +9,8 @@
   import CommentBlock from './comment-block.svelte';
   import CommentBox from './comment-box.svelte';
 
+  type Comment = components['schemas']['CommentDetail'];
+
   let comment_prop: CommentTree = $props();
   let comment = $state(comment_prop);
 
@@ -15,7 +18,6 @@
 
   let collapsed = $state(comment.collapsed);
   let show_comment_box = $state(false);
-  let comment_box_error = $state<string>();
 
   let ratio = $state(comment.ratio);
   let reaction = $state<ReturnType<typeof get_reaction>>(get_reaction());
@@ -38,28 +40,11 @@
     collapsed = !collapsed;
   }
 
-  async function handle_comment(value: string) {
-    comment_box_error = undefined;
-    try {
-      const res = await fetch('./', {
-        method: 'POST',
-        body: JSON.stringify({ path: comment.path, content: value })
-      });
+  async function handle_comment(data: { comment: Comment }) {
+    show_comment_box = false;
 
-      if (!res.ok) throw new Error(`request failed with status: ${res.status}`);
-
-      const { data, error, success } = await res.json();
-      if (success) {
-        show_comment_box = false;
-
-        const new_comment: CommentTree = { ...data, children: [], collapsed: false };
-        comment.children.unshift(new_comment);
-      } else {
-        comment_box_error = error;
-      }
-    } catch (err) {
-      console.error(err);
-    }
+    const new_comment: CommentTree = { ...data.comment, children: [], collapsed: false };
+    comment.children.unshift(new_comment);
   }
 
   const throttled_handle_reaction = throttle(handle_reaction, 500);
@@ -180,24 +165,18 @@
         </button>
       </div>
       {#if show_comment_box}
-        <div class="flex flex-col gap-1">
-          <CommentBox
-            oncancel={() => (show_comment_box = false)}
-            oncomment={(value) => handle_comment(value)}
-          />
-          {#if comment_box_error}
-            <div class="flex items-center gap-2 text-xs text-error">
-              <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-              <span>{comment_box_error}</span>
-            </div>
-          {/if}
-        </div>
+        <!-- reply comment -->
+        <CommentBox
+          path={comment.path}
+          oncancel={() => (show_comment_box = false)}
+          oncomment={handle_comment}
+        />
       {/if}
       <!-- extra space -->
       <div></div>
       <!-- render reply comments if any -->
       {#if comment.children && comment.children.length > 0}
-        {#each comment.children as child (child.id)}
+        {#each comment.children as child}
           <CommentBlock {...child} />
         {/each}
       {/if}
