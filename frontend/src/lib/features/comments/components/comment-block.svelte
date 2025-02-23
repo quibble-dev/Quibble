@@ -40,10 +40,10 @@
     collapsed = !collapsed;
   }
 
-  async function handle_comment(_comment: Comment) {
+  async function handle_comment(data: { comment: Comment }) {
     show_comment_box = false;
 
-    const new_comment: CommentTree = { ..._comment, children: [], collapsed: false };
+    const new_comment: CommentTree = { ...data.comment, children: [], collapsed: false };
     comment.children.unshift(new_comment);
   }
 

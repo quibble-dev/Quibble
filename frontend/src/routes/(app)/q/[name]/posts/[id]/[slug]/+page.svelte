@@ -59,14 +59,12 @@
     if (browser) window.history.back();
   }
 
-  async function handle_comment(comment: Comment) {
+  async function handle_comment(data: { comment: Comment }) {
     show_comment_box = false;
 
-    const new_comment: CommentTree = { ...comment, children: [], collapsed: false };
+    const new_comment: CommentTree = { ...data.comment, children: [], collapsed: false };
     comments.unshift(new_comment);
   }
-
-  $inspect(comments);
 
   onMount(() => {
     recentPostStore.add_post({

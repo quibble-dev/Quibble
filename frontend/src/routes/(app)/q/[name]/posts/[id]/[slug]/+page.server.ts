@@ -53,7 +53,7 @@ export const actions: Actions = {
     });
 
     if (response.ok && data) {
-      return { form, data };
+      return { form, comment: data };
     } else if (error) {
       console.log(error);
       return setError(form, 'content', String(error.errors[0]?.detail));

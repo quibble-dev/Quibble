@@ -12,7 +12,7 @@
   type Props = {
     path?: string;
     oncancel: () => void;
-    oncomment: (comment: Comment) => void;
+    oncomment: (data: { comment: Comment }) => void;
   };
 
   let { path, oncancel, oncomment }: Props = $props();
@@ -21,7 +21,7 @@
   const { form, errors, enhance, delayed } = superForm(defaults(zod(CommentCreateSchema)), {
     onResult({ result }) {
       if (result.type === 'success' && result.data) {
-        oncomment(result.data.data as Comment);
+        oncomment(result.data as { comment: Comment });
       }
     }
   });
