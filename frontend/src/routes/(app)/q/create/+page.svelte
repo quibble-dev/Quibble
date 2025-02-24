@@ -1,5 +1,12 @@
 <script lang="ts">
-  import autosize from '$lib/actions/autosize';
+  import StepOne from '$lib/pages/q/create/step_one.svelte';
+
+  const steps_mapping = {
+    0: StepOne
+  };
+
+  let step = $state<keyof typeof steps_mapping>(0);
+  const CurrentStep = $derived(steps_mapping[step]);
 </script>
 
 <svelte:head>
@@ -14,42 +21,7 @@
     </p>
   </div>
   <form class="flex flex-col gap-2">
-    <label class="form-control">
-      <label class="input input-bordered flex items-center bg-transparent">
-        q/
-        <input
-          type="text"
-          name="name"
-          class="grow border-none p-0 focus:ring-0"
-          placeholder="name*"
-          maxlength={25}
-        />
-      </label>
-      <div class="label py-1">
-        <!-- error store and helptext -->
-        <span class="label-text-alt flex items-center gap-2">
-          <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-          <span class="text-xs">Think of a name that grabs attention!</span>
-        </span>
-        <span class="label-text-alt">0/25</span>
-      </div>
-    </label>
-    <label class="form-control">
-      <textarea
-        use:autosize
-        class="textarea textarea-bordered max-h-80 min-h-40 bg-transparent leading-normal placeholder:text-base-content/75"
-        placeholder="description"
-        maxlength={255}
-      ></textarea>
-      <div class="label py-1">
-        <!-- error store and helptext -->
-        <span class="label-text-alt flex items-center gap-2">
-          <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-          <span class="text-xs">Let others know what your community is for.</span>
-        </span>
-        <span class="label-text-alt">0/255</span>
-      </div>
-    </label>
+    <CurrentStep />
     <div class="flex items-center justify-between">
       <div></div>
       <div class="flex items-center gap-2">
