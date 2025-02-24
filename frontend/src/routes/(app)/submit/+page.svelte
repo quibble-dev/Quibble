@@ -80,7 +80,7 @@
 
 <div class="flex h-max flex-1 flex-col gap-4 p-4">
   <!-- section title -->
-  <h2 class="text-xl font-semibold text-info">Create Post</h2>
+  <h1 class="text-xl font-semibold text-info">Create Post</h1>
   <!-- select community dropdown and select -->
   <div class="flex flex-col gap-1">
     <div class="dropdown w-max">
