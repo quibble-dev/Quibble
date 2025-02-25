@@ -1,19 +1,24 @@
 <script lang="ts">
-  import StepOne from '$lib/pages/q/create/step_one.svelte';
-  import StepTwo from '$lib/pages/q/create/step_two.svelte';
+  import Step_1 from '$lib/pages/q/create/step_1.svelte';
+  import Step_2 from '$lib/pages/q/create/step_2.svelte';
+  import Step_3 from '$lib/pages/q/create/step_3.svelte';
 
   const steps_mapping = {
     0: {
       title: `Give your community a name and a description that reflects its purpose and vibe.`,
-      component: StepOne
+      component: Step_1
     },
     1: {
       title: `Adding visual flair will catch new members attention and help establish your community's culture!`,
-      component: StepTwo
+      component: Step_2
+    },
+    2: {
+      title: `Add up to 3 topics to help interested redditors find your community.`,
+      component: Step_3
     }
   };
 
-  let step = $state<keyof typeof steps_mapping>(0);
+  let step = $state<keyof typeof steps_mapping>(2);
   const current_step = $derived(steps_mapping[step]);
 
   const MAX_STEP = Object.keys(steps_mapping).length - 1;
