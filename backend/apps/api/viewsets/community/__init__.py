@@ -18,6 +18,7 @@ from ...serializers.post import PostSerializer
 from ...serializers.post.highlighted import PostHighlightedSerializer
 
 
+@extend_schema(tags=['communities & topics'])
 class CommunityViewSet(viewsets.ModelViewSet):
     queryset = Community.objects.all()
     # default serializer
