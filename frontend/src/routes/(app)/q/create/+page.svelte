@@ -45,7 +45,19 @@
     <current_step.component />
     <!-- dynamic step rendering -->
     <div class="flex items-center justify-between">
-      <div></div>
+      <!-- form step indicators -->
+      <div class="flex items-center gap-2">
+        {#each Object.keys(steps_mapping) as _step_idx}
+          {@const is_active = step === Number(_step_idx)}
+          <button
+            type="button"
+            class="size-2 rounded-full bg-base-content"
+            class:opacity-50={!is_active}
+            aria-label="Go to step {_step_idx}"
+            onclick={() => (step = Number(_step_idx) as keyof typeof steps_mapping)}
+          ></button>
+        {/each}
+      </div>
       <div class="flex items-center gap-2">
         <button
           type="button"
