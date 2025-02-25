@@ -1,0 +1,1422 @@
+[
+    {
+        "displayName": "Adult Content",
+        "id": "tx1_20v2840",
+        "icon": "🟥",
+        "sensitivity": "SENSITIVE",
+        "children": [
+            {
+                "displayName": "Adult Content",
+                "id": "tx1_15teiqi",
+                "sensitivity": "SENSITIVE",
+                "icon": "🚫"
+            }
+        ]
+    },
+    {
+        "displayName": "Anime & Cosplay",
+        "id": "tx1_2l65al7",
+        "icon": "🍣",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Anime & Manga",
+                "id": "tx1_100nuks",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🍥"
+            },
+            {
+                "displayName": "Cosplay",
+                "id": "tx1_1q6cnqr",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🧛"
+            }
+        ]
+    },
+    {
+        "displayName": "Art",
+        "id": "tx1_26o987o",
+        "icon": "🧑‍🎨",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Performing Arts",
+                "id": "tx1_1m6aqh5",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🎭"
+            },
+            {
+                "displayName": "Architecture",
+                "id": "tx1_17of7vd",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🏢"
+            },
+            {
+                "displayName": "Design",
+                "id": "tx1_1snmgrk",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "📏"
+            },
+            {
+                "displayName": "Art",
+                "id": "tx1_1hn7m47",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🎨"
+            },
+            {
+                "displayName": "Filmmaking",
+                "id": "tx1_1k4lfls",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🎬"
+            },
+            {
+                "displayName": "Digital Art",
+                "id": "tx1_14ugddk",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "👾"
+            },
+            {
+                "displayName": "Photography",
+                "id": "tx1_1l1r5d9",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "📷"
+            }
+        ]
+    },
+    {
+        "displayName": "Business & Finance",
+        "id": "tx1_2l5tuqe",
+        "icon": "💵",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Personal Finance",
+                "id": "tx1_10q13m3",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "💸"
+            },
+            {
+                "displayName": "Crypto",
+                "id": "tx1_1mhunpv",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🚀"
+            },
+            {
+                "displayName": "Economics",
+                "id": "tx1_1kt8fd3",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "💰"
+            },
+            {
+                "displayName": "Business News & Discussion",
+                "id": "tx1_1mgvgrf",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "📈"
+            },
+            {
+                "displayName": "Deals & Marketplace",
+                "id": "tx1_1nbnlqa",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🛒"
+            },
+            {
+                "displayName": "Startups & Entrepreneurship",
+                "id": "tx1_1ndacnt",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "💼"
+            },
+            {
+                "displayName": "Real Estate",
+                "id": "tx1_15r3dp2",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🏘"
+            },
+            {
+                "displayName": "Stocks & Investing",
+                "id": "tx1_18cnes4",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🤑"
+            }
+        ]
+    },
+    {
+        "displayName": "Collectibles & Other Hobbies",
+        "id": "tx1_2a16gvf",
+        "icon": "🧩",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Model Building",
+                "id": "tx1_1g53dnc",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🚂"
+            },
+            {
+                "displayName": "Collectibles",
+                "id": "tx1_12jlkng",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "📦"
+            },
+            {
+                "displayName": "Other Hobbies",
+                "id": "tx1_1larikk",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🔦"
+            },
+            {
+                "displayName": "Toys",
+                "id": "tx1_11vu4g9",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🧸"
+            }
+        ]
+    },
+    {
+        "displayName": "Education & Career",
+        "id": "tx1_2f40btm",
+        "icon": "🧑‍🏫",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Studying & Education",
+                "id": "tx1_1caodep",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "👨‍🎓"
+            },
+            {
+                "displayName": "Career",
+                "id": "tx1_1vhdkr2",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "👩‍💼"
+            }
+        ]
+    },
+    {
+        "displayName": "Fashion & Beauty",
+        "id": "tx1_2ro27h6",
+        "icon": "🪞",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Nails",
+                "id": "tx1_1nna0ui",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "💅"
+            },
+            {
+                "displayName": "Hair",
+                "id": "tx1_1njhtt7",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "💇"
+            },
+            {
+                "displayName": "Makeup",
+                "id": "tx1_1ess52t",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "💄"
+            },
+            {
+                "displayName": "Fashion",
+                "id": "tx1_18qpdqu",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🛍"
+            },
+            {
+                "displayName": "Accessories & Jewelry",
+                "id": "tx1_1t5c7pv",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "👛"
+            },
+            {
+                "displayName": "Beauty & Grooming",
+                "id": "tx1_1rivqp9",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🪒"
+            },
+            {
+                "displayName": "Weddings",
+                "id": "tx1_1kpt8qg",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "👰‍♀️"
+            },
+            {
+                "displayName": "Tattoos & Piercings",
+                "id": "tx1_1u8b5uq",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "⚓️"
+            },
+            {
+                "displayName": "Skincare",
+                "id": "tx1_1j0om2q",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🧴"
+            },
+            {
+                "displayName": "Watches",
+                "id": "tx1_13ig0iv",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "⏱"
+            },
+            {
+                "displayName": "Streetwear & Sneakers",
+                "id": "tx1_1b5h27s",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "👟"
+            }
+        ]
+    },
+    {
+        "displayName": "Food & Drinks",
+        "id": "tx1_2a54n1t",
+        "icon": "🍔",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Food & Recipes",
+                "id": "tx1_1p0eiau",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🍳"
+            },
+            {
+                "displayName": "Non-Alcoholic Beverages",
+                "id": "tx1_1139hfd",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🥤"
+            },
+            {
+                "displayName": "Baking & Desserts",
+                "id": "tx1_1tk2tb0",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🍞"
+            },
+            {
+                "displayName": "Barbecues & Grilling",
+                "id": "tx1_1ge82fn",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🥩"
+            },
+            {
+                "displayName": "Food industry & Restaurants",
+                "id": "tx1_1ahf69j",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "👩‍🍳"
+            },
+            {
+                "displayName": "Vegetarian & Vegan Food",
+                "id": "tx1_1ocrsu7",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🥦"
+            },
+            {
+                "displayName": "Alcoholic Beverages",
+                "id": "tx1_1f3nna4",
+                "sensitivity": "SENSITIVE",
+                "icon": "🍷"
+            }
+        ]
+    },
+    {
+        "displayName": "Games",
+        "id": "tx1_2q2no54",
+        "icon": "🕹️",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Other Games",
+                "id": "tx1_1auh90s",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🀄️"
+            },
+            {
+                "displayName": "Gaming Consoles & Gear",
+                "id": "tx1_100gp7h",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🎮"
+            },
+            {
+                "displayName": "Esports",
+                "id": "tx1_1tp6inh",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🏆"
+            },
+            {
+                "displayName": "Adventure Games",
+                "id": "tx1_19fb5ep",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "👩‍🚀"
+            },
+            {
+                "displayName": "Gaming News & Discussion",
+                "id": "tx1_1cqnqvh",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "📢"
+            },
+            {
+                "displayName": "Action Games",
+                "id": "tx1_1gm329k",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "💥"
+            },
+            {
+                "displayName": "Strategy Games",
+                "id": "tx1_12vd7ud",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "⌨️"
+            },
+            {
+                "displayName": "Simulation Games",
+                "id": "tx1_15agqu0",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🚜"
+            },
+            {
+                "displayName": "Role-Playing Games",
+                "id": "tx1_18icov9",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🧝‍♂️"
+            },
+            {
+                "displayName": "Sports & Racing Games",
+                "id": "tx1_16fc5ld",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🏁"
+            },
+            {
+                "displayName": "Tabletop Games",
+                "id": "tx1_1lgdp2d",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🎲"
+            },
+            {
+                "displayName": "Mobile Games",
+                "id": "tx1_1fjcm88",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "📱"
+            }
+        ]
+    },
+    {
+        "displayName": "Health",
+        "id": "tx1_2kut29e",
+        "icon": "❤️‍🩹",
+        "sensitivity": "SENSITIVE",
+        "children": [
+            {
+                "displayName": "Mental Health",
+                "id": "tx1_1tvf0v7",
+                "sensitivity": "SENSITIVE",
+                "icon": "🤕"
+            },
+            {
+                "displayName": "Trauma Support",
+                "id": "tx1_1b35tjl",
+                "sensitivity": "SENSITIVE",
+                "icon": "📝"
+            },
+            {
+                "displayName": "Addiction Support",
+                "id": "tx1_1jcflua",
+                "sensitivity": "SENSITIVE",
+                "icon": "🚭"
+            },
+            {
+                "displayName": "Pregnancy",
+                "id": "tx1_1i1u056",
+                "sensitivity": "SENSITIVE",
+                "icon": "🤰"
+            },
+            {
+                "displayName": "Medical Health",
+                "id": "tx1_1bfs44n",
+                "sensitivity": "SENSITIVE",
+                "icon": "🏥"
+            }
+        ]
+    },
+    {
+        "displayName": "Home & Garden",
+        "id": "tx1_27c1m1l",
+        "icon": "🏡",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Home Inspiration & Decor",
+                "id": "tx1_1cvd9uk",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🖼"
+            },
+            {
+                "displayName": "House Plants",
+                "id": "tx1_1pla7l5",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🌵"
+            },
+            {
+                "displayName": "DIY & Crafts",
+                "id": "tx1_13fnq3p",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🧶"
+            },
+            {
+                "displayName": "Gardening & Farming",
+                "id": "tx1_193q21p",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🥕"
+            },
+            {
+                "displayName": "Sustainable Living",
+                "id": "tx1_1psoqdd",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "♻️"
+            },
+            {
+                "displayName": "Home Improvement",
+                "id": "tx1_1be6l4n",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🏠"
+            }
+        ]
+    },
+    {
+        "displayName": "Humanities & Law",
+        "id": "tx1_27k2lsl",
+        "icon": "📜",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Ethics & Philosophy",
+                "id": "tx1_1urvths",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🧐"
+            },
+            {
+                "displayName": "Law",
+                "id": "tx1_116adsd",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "⚖️"
+            },
+            {
+                "displayName": "History",
+                "id": "tx1_1gvasrg",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🏛"
+            },
+            {
+                "displayName": "Languages",
+                "id": "tx1_1rgo49i",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🗣"
+            }
+        ]
+    },
+    {
+        "displayName": "Identity & Relationships",
+        "id": "tx1_2lp3l65",
+        "icon": "🌈",
+        "sensitivity": "SENSITIVE",
+        "children": [
+            {
+                "displayName": "Relationships",
+                "id": "tx1_1ovbejp",
+                "sensitivity": "SENSITIVE",
+                "icon": "🤝"
+            },
+            {
+                "displayName": "Gender & Sexual Orientation",
+                "id": "tx1_1a3s7m4",
+                "sensitivity": "SENSITIVE",
+                "icon": "🏳️‍🌈"
+            },
+            {
+                "displayName": "Family & Parenting",
+                "id": "tx1_11dn3ce",
+                "sensitivity": "SENSITIVE",
+                "icon": "👪"
+            },
+            {
+                "displayName": "Religion & Spirituality",
+                "id": "tx1_1lde2an",
+                "sensitivity": "SENSITIVE",
+                "icon": "🙏"
+            },
+            {
+                "displayName": "Culture, Race, & Ethnicity",
+                "id": "tx1_1hhj7va",
+                "sensitivity": "SENSITIVE",
+                "icon": "👥"
+            },
+            {
+                "displayName": "Love & Dating",
+                "id": "tx1_14ocf2n",
+                "sensitivity": "SENSITIVE",
+                "icon": "❤️"
+            }
+        ]
+    },
+    {
+        "displayName": "Internet Culture",
+        "id": "tx1_2unn29s",
+        "icon": "🙉",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Memes",
+                "id": "tx1_12hn0j3",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "💩"
+            },
+            {
+                "displayName": "Animals & Pets",
+                "id": "tx1_10r413p",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🐶"
+            },
+            {
+                "displayName": "Cringe & Facepalm",
+                "id": "tx1_1rgudlj",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🤦"
+            },
+            {
+                "displayName": "Reddit Meta",
+                "id": "tx1_11v85cl",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🕳"
+            },
+            {
+                "displayName": "Amazing",
+                "id": "tx1_1eba686",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🤯"
+            },
+            {
+                "displayName": "Funny",
+                "id": "tx1_1k3pn50",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "😂"
+            },
+            {
+                "displayName": "Crazy & Shocking",
+                "id": "tx1_11mpk5j",
+                "sensitivity": "SENSITIVE",
+                "icon": "😵"
+            },
+            {
+                "displayName": "Wholesome & Heartwarming",
+                "id": "tx1_1h87rlv",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🥰"
+            },
+            {
+                "displayName": "Interesting",
+                "id": "tx1_1jb26lp",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🤔"
+            },
+            {
+                "displayName": "Oddly Satisfying",
+                "id": "tx1_1u3ff82",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "💆"
+            }
+        ]
+    },
+    {
+        "displayName": "Mature Topics",
+        "id": "tx1_2b40g1a",
+        "icon": "🔞",
+        "sensitivity": "SENSITIVE",
+        "children": [
+            {
+                "displayName": "No Topic/ Other Topic",
+                "id": "tx1_14gsvq1",
+                "sensitivity": "SENSITIVE",
+                "icon": "🤨"
+            },
+            {
+                "displayName": "Guns & Weapons",
+                "id": "tx1_18c3qbq",
+                "sensitivity": "SENSITIVE",
+                "icon": "🔫"
+            },
+            {
+                "displayName": "Smoking & Vaping",
+                "id": "tx1_12l080p",
+                "sensitivity": "SENSITIVE",
+                "icon": "🚬"
+            },
+            {
+                "displayName": "Gambling",
+                "id": "tx1_1nlg6jt",
+                "sensitivity": "SENSITIVE",
+                "icon": "🎰"
+            },
+            {
+                "displayName": "Illegal & Recreational Drugs",
+                "id": "tx1_192ms0u",
+                "sensitivity": "SENSITIVE",
+                "icon": "💊"
+            },
+            {
+                "displayName": "Military",
+                "id": "tx1_1ri658n",
+                "sensitivity": "SENSITIVE",
+                "icon": "🎖"
+            }
+        ]
+    },
+    {
+        "displayName": "Movies & TV",
+        "id": "tx1_2tqlmon",
+        "icon": "🎞️",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Comedy Movies & Series",
+                "id": "tx1_11h22rc",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "😆"
+            },
+            {
+                "displayName": "Action Movies & Series",
+                "id": "tx1_1rv0onc",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🤵‍♂️"
+            },
+            {
+                "displayName": "Fantasy Movies & Series",
+                "id": "tx1_11qf4g3",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🧙"
+            },
+            {
+                "displayName": "Documentary Movies & Series",
+                "id": "tx1_1l1dr6k",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🎥"
+            },
+            {
+                "displayName": "Drama Movies & Series",
+                "id": "tx1_1drip7f",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "😮"
+            },
+            {
+                "displayName": "Crime, Mystery, & Thriller Movies & Series",
+                "id": "tx1_1g9v4j8",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🕵️"
+            },
+            {
+                "displayName": "Animated Movies & Series",
+                "id": "tx1_1jn2dhv",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "📼"
+            },
+            {
+                "displayName": "Sci-Fi Movies & Series",
+                "id": "tx1_1ef70fv",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "👽"
+            },
+            {
+                "displayName": "Romance Movies & Series",
+                "id": "tx1_12be0hm",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "💘"
+            },
+            {
+                "displayName": "Reality TV",
+                "id": "tx1_11pg11m",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "☕️"
+            },
+            {
+                "displayName": "TV News & Discussion",
+                "id": "tx1_1jobeas",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "📺"
+            },
+            {
+                "displayName": "Superhero Movies & Series",
+                "id": "tx1_16s6p5i",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🦸"
+            },
+            {
+                "displayName": "Horror Movies & Series",
+                "id": "tx1_15gl597",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🧟"
+            },
+            {
+                "displayName": "Movie News & Discussion",
+                "id": "tx1_16e2do7",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🍿"
+            }
+        ]
+    },
+    {
+        "displayName": "Music",
+        "id": "tx1_2aivecg",
+        "icon": "🎶",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Musical Instruments & Singing",
+                "id": "tx1_1d48ig3",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🥁"
+            },
+            {
+                "displayName": "Classical Music",
+                "id": "tx1_12n26sb",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🎹"
+            },
+            {
+                "displayName": "Indie & Alternative Music",
+                "id": "tx1_152eiom",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🪕"
+            },
+            {
+                "displayName": "K-Pop",
+                "id": "tx1_1vk46ea",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🇰🇷"
+            },
+            {
+                "displayName": "Music News & Discussion",
+                "id": "tx1_19bap1p",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🎸"
+            },
+            {
+                "displayName": "Dance & Electronic Music",
+                "id": "tx1_1mibo48",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🎛"
+            },
+            {
+                "displayName": "Country Music",
+                "id": "tx1_1jouu3q",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🤠"
+            },
+            {
+                "displayName": "Hip-Hop & Rap Music",
+                "id": "tx1_11841s9",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🎧"
+            },
+            {
+                "displayName": "Other Music Genres",
+                "id": "tx1_14b1j5j",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "📻"
+            },
+            {
+                "displayName": "Jazz Music",
+                "id": "tx1_1h3hb0m",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🎺"
+            },
+            {
+                "displayName": "Rock Music",
+                "id": "tx1_1ipf1hs",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "👨‍🎤"
+            },
+            {
+                "displayName": "R&B Music",
+                "id": "tx1_10ccuuf",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🎵"
+            },
+            {
+                "displayName": "Pop Music",
+                "id": "tx1_12k6o16",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🕺"
+            },
+            {
+                "displayName": "Metal Music",
+                "id": "tx1_156i178",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🤘"
+            },
+            {
+                "displayName": "Music Production",
+                "id": "tx1_13ur2tj",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "💿"
+            }
+        ]
+    },
+    {
+        "displayName": "Nature & Outdoors",
+        "id": "tx1_27340bu",
+        "icon": "🌿",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Fishing",
+                "id": "tx1_1j0ffvs",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🎣"
+            },
+            {
+                "displayName": "Camping & Hiking",
+                "id": "tx1_1oojqic",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "⛺️"
+            },
+            {
+                "displayName": "Hunting",
+                "id": "tx1_1drg0r8",
+                "sensitivity": "SENSITIVE",
+                "icon": "🦌"
+            },
+            {
+                "displayName": "Nature & Wildlife",
+                "id": "tx1_1ktchkg",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🌱"
+            }
+        ]
+    },
+    {
+        "displayName": "News & Politics",
+        "id": "tx1_21o00g3",
+        "icon": "📰",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "News",
+                "id": "tx1_1nb4ghv",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🗞"
+            },
+            {
+                "displayName": "Activism",
+                "id": "tx1_14i2ctk",
+                "sensitivity": "SENSITIVE",
+                "icon": "📣"
+            },
+            {
+                "displayName": "Politics",
+                "id": "tx1_1bka0o2",
+                "sensitivity": "SENSITIVE",
+                "icon": "📄"
+            }
+        ]
+    },
+    {
+        "displayName": "Places & Travel",
+        "id": "tx1_2t17kco",
+        "icon": "🌐",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Places in Africa",
+                "id": "tx1_186i9ug",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🌍"
+            },
+            {
+                "displayName": "Places in Europe",
+                "id": "tx1_15116ss",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🌍"
+            },
+            {
+                "displayName": "Places in Australia & Oceania",
+                "id": "tx1_1g53ldg",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🌏"
+            },
+            {
+                "displayName": "Places in Asia",
+                "id": "tx1_1f2br09",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🌏"
+            },
+            {
+                "displayName": "Places in South America",
+                "id": "tx1_1arjksr",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🌎"
+            },
+            {
+                "displayName": "Places in North America",
+                "id": "tx1_1j38859",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🌎"
+            },
+            {
+                "displayName": "Places in the Middle East",
+                "id": "tx1_1p964gb",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🌍"
+            },
+            {
+                "displayName": "Travel & Holiday",
+                "id": "tx1_1dpn3s2",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🛫"
+            }
+        ]
+    },
+    {
+        "displayName": "Pop Culture",
+        "id": "tx1_27gnd6h",
+        "icon": "✨",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Generations & Nostalgia",
+                "id": "tx1_1qkl7f6",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🕰"
+            },
+            {
+                "displayName": "Creators & Influencers",
+                "id": "tx1_181qcph",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🤳"
+            },
+            {
+                "displayName": "Celebrities",
+                "id": "tx1_1r852qk",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🤩"
+            },
+            {
+                "displayName": "Podcasts",
+                "id": "tx1_1jp77gr",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🎙"
+            },
+            {
+                "displayName": "Streamers",
+                "id": "tx1_1dipcek",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "📹"
+            },
+            {
+                "displayName": "Tarot & Astrology",
+                "id": "tx1_1j76n9q",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🔮"
+            }
+        ]
+    },
+    {
+        "displayName": "Q&As & Stories",
+        "id": "tx1_2c5m807",
+        "icon": "✏️",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Stories & Confessions",
+                "id": "tx1_1kv1o7k",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "😳"
+            },
+            {
+                "displayName": "Q&As",
+                "id": "tx1_1nh3uao",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "❓"
+            }
+        ]
+    },
+    {
+        "displayName": "Reading & Writing",
+        "id": "tx1_20vugk3",
+        "icon": "📖",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Comics",
+                "id": "tx1_143da65",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🦹"
+            },
+            {
+                "displayName": "Books & Literature",
+                "id": "tx1_1rlf8m6",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "📚"
+            },
+            {
+                "displayName": "Writing",
+                "id": "tx1_19ldb0r",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "✍️"
+            }
+        ]
+    },
+    {
+        "displayName": "Sciences",
+        "id": "tx1_2s448hc",
+        "icon": "🧪",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Biological Sciences",
+                "id": "tx1_1finuc3",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🔬"
+            },
+            {
+                "displayName": "Engineering",
+                "id": "tx1_1j99hgs",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🦾"
+            },
+            {
+                "displayName": "Physics",
+                "id": "tx1_1epok4q",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🍎"
+            },
+            {
+                "displayName": "Mathematics",
+                "id": "tx1_1kj099a",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "📐"
+            },
+            {
+                "displayName": "Climate & Environment",
+                "id": "tx1_177v2kc",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🌡"
+            },
+            {
+                "displayName": "Other Sciences",
+                "id": "tx1_114hulb",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "⚗️"
+            },
+            {
+                "displayName": "Science News & Discussion",
+                "id": "tx1_1tctnda",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🧬"
+            },
+            {
+                "displayName": "Psychology & Sociology",
+                "id": "tx1_15c3ust",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🧠"
+            },
+            {
+                "displayName": "Geography",
+                "id": "tx1_1ajjgta",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🗺"
+            },
+            {
+                "displayName": "Data Science",
+                "id": "tx1_1ggperu",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "📊"
+            },
+            {
+                "displayName": "Chemistry",
+                "id": "tx1_1h3ks8c",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "👨‍🔬"
+            },
+            {
+                "displayName": "Space & Astronomy",
+                "id": "tx1_11484pl",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🪐"
+            }
+        ]
+    },
+    {
+        "displayName": "Spooky",
+        "id": "tx1_2guqld6",
+        "icon": "💀",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Paranormal & Unexplained",
+                "id": "tx1_166gkt2",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🛸"
+            },
+            {
+                "displayName": "Weird & Unusual",
+                "id": "tx1_1qnj2f3",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "👀"
+            },
+            {
+                "displayName": "True Crime",
+                "id": "tx1_153gcig",
+                "sensitivity": "SENSITIVE",
+                "icon": "🔪"
+            },
+            {
+                "displayName": "Creepy",
+                "id": "tx1_1l7s6dc",
+                "sensitivity": "SENSITIVE",
+                "icon": "👻"
+            }
+        ]
+    },
+    {
+        "displayName": "Sports",
+        "id": "tx1_2m7jbm2",
+        "icon": "🏅",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Ice Hockey",
+                "id": "tx1_17prdpn",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🏒"
+            },
+            {
+                "displayName": "College Sports",
+                "id": "tx1_15jaj7a",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🎓"
+            },
+            {
+                "displayName": "Basketball",
+                "id": "tx1_1bdisam",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🏀"
+            },
+            {
+                "displayName": "Bikes & Cycling",
+                "id": "tx1_1ibuppu",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🚴"
+            },
+            {
+                "displayName": "Cricket",
+                "id": "tx1_1g511jr",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🏏"
+            },
+            {
+                "displayName": "Baseball",
+                "id": "tx1_1u1096n",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "⚾️"
+            },
+            {
+                "displayName": "Soccer",
+                "id": "tx1_1q7jmfi",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "⚽️"
+            },
+            {
+                "displayName": "Rugby",
+                "id": "tx1_1jagfvk",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🏉"
+            },
+            {
+                "displayName": "Racket Sports",
+                "id": "tx1_18olicj",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🏸"
+            },
+            {
+                "displayName": "Motor Sports",
+                "id": "tx1_1c3jo72",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🏎"
+            },
+            {
+                "displayName": "Golf",
+                "id": "tx1_1b0d4mg",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "⛳️"
+            },
+            {
+                "displayName": "Wrestling & Combat Sports",
+                "id": "tx1_1c7jbbk",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🥊"
+            },
+            {
+                "displayName": "Football",
+                "id": "tx1_1na5u1o",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🏈"
+            },
+            {
+                "displayName": "Winter Sports",
+                "id": "tx1_1jkb77n",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "⛷"
+            },
+            {
+                "displayName": "Water Sports",
+                "id": "tx1_123inq3",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🏊"
+            },
+            {
+                "displayName": "Sports News & Discussion",
+                "id": "tx1_1ljlbji",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🏟️"
+            },
+            {
+                "displayName": "Other Sports",
+                "id": "tx1_1ri39dg",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🎳"
+            }
+        ]
+    },
+    {
+        "displayName": "Technology",
+        "id": "tx1_29m4k39",
+        "icon": "🛰️",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Consumer Electronics",
+                "id": "tx1_1lnabjl",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "⌚️"
+            },
+            {
+                "displayName": "DIY Electronics",
+                "id": "tx1_15oh5kt",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🔋"
+            },
+            {
+                "displayName": "Artificial Intelligence & Machine Learning",
+                "id": "tx1_1k7dmb0",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🤖"
+            },
+            {
+                "displayName": "Computers & Hardware",
+                "id": "tx1_1vl7689",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🖥"
+            },
+            {
+                "displayName": "Programming",
+                "id": "tx1_1hp58k8",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "👩‍💻"
+            },
+            {
+                "displayName": "Software & Apps",
+                "id": "tx1_1na427l",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "📲"
+            },
+            {
+                "displayName": "Virtual & Augmented Reality",
+                "id": "tx1_1rtqpta",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🥽"
+            },
+            {
+                "displayName": "3D Printing",
+                "id": "tx1_16a62rf",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🪀"
+            },
+            {
+                "displayName": "Tech News & Discussion",
+                "id": "tx1_1gnr2rt",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "📡"
+            },
+            {
+                "displayName": "Streaming Services",
+                "id": "tx1_1tptnii",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "⏯"
+            }
+        ]
+    },
+    {
+        "displayName": "Vehicles",
+        "id": "tx1_2092nqc",
+        "icon": "🚗",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Motorcycles",
+                "id": "tx1_135p7uv",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🏍"
+            },
+            {
+                "displayName": "Cars & Trucks",
+                "id": "tx1_1b4fhee",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🚘"
+            },
+            {
+                "displayName": "Boating & Sailing",
+                "id": "tx1_1ukru3r",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "⛴"
+            },
+            {
+                "displayName": "Aviation",
+                "id": "tx1_11tecj9",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "👨‍✈️"
+            },
+            {
+                "displayName": "Trains & Public Transportation",
+                "id": "tx1_16oarth",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🚝"
+            }
+        ]
+    },
+    {
+        "displayName": "Wellness",
+        "id": "tx1_2g1qnei",
+        "icon": "🧘",
+        "sensitivity": "NON_SENSITIVE",
+        "children": [
+            {
+                "displayName": "Diet & Nutrition",
+                "id": "tx1_1s4pvdh",
+                "sensitivity": "SENSITIVE",
+                "icon": "🥗"
+            },
+            {
+                "displayName": "Motivation & Self-Improvement",
+                "id": "tx1_1qa1erq",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "💪"
+            },
+            {
+                "displayName": "Fitness",
+                "id": "tx1_134e9k5",
+                "sensitivity": "NON_SENSITIVE",
+                "icon": "🏋️"
+            },
+            {
+                "displayName": "Weight Loss",
+                "id": "tx1_1p9blen",
+                "sensitivity": "SENSITIVE",
+                "icon": "📉"
+            }
+        ]
+    }
+]

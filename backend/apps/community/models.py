@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import UniqueConstraint
 from django.db.models.functions import Lower
@@ -8,6 +9,30 @@ from apps.user.models import Profile
 from mixins.models.avatar import AvatarMixin
 from mixins.models.created_at import CreatedAtMixin
 from mixins.models.type import TypeMixin
+
+
+class Topic(models.Model):
+    class Sensitivity(models.TextChoices):
+        SENSITIVE = 'SENSITIVE', _('Sensitive')
+        NON_SENSITIVE = 'NON_SENSITIVE', _('Non-Sensitive')
+
+    display_name = models.CharField(_('Display name'), max_length=255)
+    icon = models.CharField(_('Icon'), max_length=10)
+    sensitivity = models.CharField(
+        _('Sensitivity'),
+        max_length=25,
+        choices=Sensitivity.choices,
+        default=Sensitivity.NON_SENSITIVE,
+    )
+    parent = models.ForeignKey(
+        'self', null=True, blank=True, related_name='children', on_delete=models.CASCADE
+    )
+
+    class Meta:
+        ordering = ('display_name',)
+
+    def __str__(self) -> str:
+        return f"{self.display_name} {self.icon}"
 
 
 class Community(AvatarMixin, CreatedAtMixin, TypeMixin):
@@ -26,7 +51,7 @@ class Community(AvatarMixin, CreatedAtMixin, TypeMixin):
         null=True,
     )
     nsfw = models.BooleanField(_('Nsfw'), default=False)
-    topics = models.JSONField(_('Topics'), default=list, blank=True)
+    topics = models.ManyToManyField(Topic, verbose_name=_('Topics'))
     members = models.ManyToManyField(
         Profile, related_name='joined_communities', blank=True, verbose_name=_('Members')
     )
@@ -37,9 +62,6 @@ class Community(AvatarMixin, CreatedAtMixin, TypeMixin):
         verbose_name=_('Moderators'),
     )
 
-    def __str__(self) -> str:
-        return f'q/{self.name}'
-
     class Meta:  # pyright: ignore
         verbose_name = _('Community')
         verbose_name_plural = _('Communities')
@@ -47,3 +69,15 @@ class Community(AvatarMixin, CreatedAtMixin, TypeMixin):
         constraints = [
             UniqueConstraint(Lower('name'), name='unique_community_name_case_insensitive')
         ]
+
+    def __str__(self) -> str:
+        return f'q/{self.name}'
+
+    def save(self, *args, **kwargs):
+        # if action is to update existing one
+        if self.pk:
+            current_topics_count = self.topics.count()
+            if current_topics_count > 3:
+                raise ValidationError('A community can only have upto 3 topics.')
+
+        super().save(*args, **kwargs)

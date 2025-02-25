@@ -5,13 +5,15 @@ from .views.user import MeAPIView
 from .views.user.auth import LoginAPIView, LogoutAPIView, RegisterAPIView
 from .viewsets.comment import CommentViewSet
 from .viewsets.community import CommunityViewSet
+from .viewsets.community.topics import TopicViewSet
 from .viewsets.post import PostViewSet
 from .viewsets.user import MyProfilesViewSet, ProfileViewSet
 
 main_router = routers.DefaultRouter()
 main_router.register(r'comments', CommentViewSet, basename='comments')
 main_router.register(r'posts', PostViewSet, basename='posts')
-main_router.register(r'communities', CommunityViewSet, basename='communities')
+main_router.register(r'q/communities', CommunityViewSet, basename='communities')
+main_router.register(r'q/topics', TopicViewSet, basename='topics')
 # user routes
 user_router = routers.DefaultRouter()
 user_router.register(r'u/profiles', ProfileViewSet, basename='profiles')
