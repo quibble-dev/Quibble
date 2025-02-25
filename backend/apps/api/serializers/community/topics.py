@@ -10,5 +10,5 @@ class TopicSerializer(serializers.ModelSerializer):
         model = Topic
         fields = ('id', 'display_name', 'icon', 'sensitivity', 'children')
 
-    def get_children(self, obj):
+    def get_children(self, obj) -> dict:
         return TopicSerializer(obj.children.all(), many=True).data
