@@ -61,7 +61,7 @@
       selected_topics = selected_topics.filter((t) => t.id !== topic.id);
     } else {
       if (selected_topics.length >= SELECTED_TOPIC_LIMIT) return;
-      selected_topics = [...selected_topics, topic];
+      selected_topics = [...selected_topics, topic].sort((a, b) => a.id - b.id);
     }
   }
 
@@ -79,7 +79,13 @@
       placeholder="Filter topics..."
       bind:value={filter_input_value}
     />
-    <button type="button" class="btn btn-square btn-ghost btn-xs" aria-label="clear topic filters">
+    <button
+      type="button"
+      class="btn btn-square btn-ghost btn-xs"
+      aria-label="clear topic filters"
+      disabled={!filter_input_value}
+      onclick={() => (filter_input_value = '')}
+    >
       <coreicons-shape-x class="size-4" variant="no-border"></coreicons-shape-x>
     </button>
   </label>
@@ -88,7 +94,7 @@
     {#each selected_topics as topic}
       <button
         type="button"
-        class="btn btn-ghost btn-active btn-xs md:btn-sm"
+        class="btn btn-xs md:btn-sm"
         onclick={() => handle_toggle_select_topic(topic)}
       >
         {topic.display_name}
@@ -97,7 +103,7 @@
     {/each}
   </div>
 </div>
-<div class="flex max-h-80 flex-col gap-2 overflow-y-scroll pr-2">
+<div class="mt-2 flex max-h-80 flex-col gap-2 overflow-y-scroll pr-2">
   {#if pending}
     <div class="grid place-items-center">
       <span class="loading loading-dots loading-md"></span>
@@ -105,7 +111,7 @@
     </div>
   {:else}
     {#each topics as topic (topic.id)}
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col gap-1">
         <span class="text-sm font-medium">{topic.icon} {topic.display_name}</span>
         <div class="flex flex-wrap items-center gap-2">
           {#each topic.children as unknown as Topic[] as t (t.id)}
