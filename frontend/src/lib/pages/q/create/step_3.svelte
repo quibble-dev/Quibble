@@ -75,7 +75,7 @@
     <coreicons-shape-search class="size-5"></coreicons-shape-search>
     <input
       type="text"
-      class="grow border-none px-2 text-sm font-medium placeholder:opacity-50 focus:ring-0"
+      class="grow border-none px-2 text-sm font-medium placeholder:text-base-content/75 focus:ring-0"
       placeholder="Filter topics..."
       bind:value={filter_input_value}
     />
