@@ -60,86 +60,6 @@ export interface paths {
     patch: operations['comments_reaction_partial_update'];
     trace?: never;
   };
-  '/communities/': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['communities_list'];
-    put?: never;
-    post: operations['communities_create'];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/communities/{name}/': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['communities_retrieve'];
-    put: operations['communities_update'];
-    post?: never;
-    delete: operations['communities_destroy'];
-    options?: never;
-    head?: never;
-    patch: operations['communities_partial_update'];
-    trace?: never;
-  };
-  '/communities/{name}/exists/': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['communities_exists_retrieve'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/communities/{name}/highlighted_posts/': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['communities_highlighted_posts_list'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
-  '/communities/{name}/posts/': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['communities_posts_list'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
   '/posts/': {
     parameters: {
       query?: never;
@@ -182,6 +102,118 @@ export interface paths {
     get: operations['posts_comments_list'];
     put?: never;
     post: operations['posts_comments_create'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/q/communities/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['q_communities_list'];
+    put?: never;
+    post: operations['q_communities_create'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/q/communities/{name}/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['q_communities_retrieve'];
+    put: operations['q_communities_update'];
+    post?: never;
+    delete: operations['q_communities_destroy'];
+    options?: never;
+    head?: never;
+    patch: operations['q_communities_partial_update'];
+    trace?: never;
+  };
+  '/q/communities/{name}/exists/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['q_communities_exists_retrieve'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/q/communities/{name}/highlighted_posts/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['q_communities_highlighted_posts_list'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/q/communities/{name}/posts/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['q_communities_posts_list'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/q/topics/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['q_topics_list'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/q/topics/{id}/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['q_topics_retrieve'];
+    put?: never;
+    post?: never;
     delete?: never;
     options?: never;
     head?: never;
@@ -929,636 +961,6 @@ export interface components {
       type: components['schemas']['ValidationErrorEnum'];
       errors: components['schemas']['CommentsUpdateError'][];
     };
-    CommunitiesCreateAvatarErrorComponent: {
-      /**
-       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'avatar';
-      /**
-       * @description * `empty` - empty
-       *     * `invalid` - invalid
-       *     * `invalid_image` - invalid_image
-       *     * `max_length` - max_length
-       *     * `no_name` - no_name
-       * @enum {string}
-       */
-      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-      detail: string;
-    };
-    CommunitiesCreateBannerErrorComponent: {
-      /**
-       * @description * `banner` - banner (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'banner';
-      /**
-       * @description * `empty` - empty
-       *     * `invalid` - invalid
-       *     * `invalid_image` - invalid_image
-       *     * `max_length` - max_length
-       *     * `no_name` - no_name
-       * @enum {string}
-       */
-      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-      detail: string;
-    };
-    CommunitiesCreateDescriptionErrorComponent: {
-      /**
-       * @description * `description` - description (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'description';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    CommunitiesCreateError:
-      | components['schemas']['CommunitiesCreateNonFieldErrorsErrorComponent']
-      | components['schemas']['CommunitiesCreateAvatarErrorComponent']
-      | components['schemas']['CommunitiesCreateTypeErrorComponent']
-      | components['schemas']['CommunitiesCreateNameErrorComponent']
-      | components['schemas']['CommunitiesCreateDescriptionErrorComponent']
-      | components['schemas']['CommunitiesCreateTitleErrorComponent']
-      | components['schemas']['CommunitiesCreateBannerErrorComponent']
-      | components['schemas']['CommunitiesCreateNsfwErrorComponent']
-      | components['schemas']['CommunitiesCreateTopicsErrorComponent']
-      | components['schemas']['CommunitiesCreateMembersErrorComponent']
-      | components['schemas']['CommunitiesCreateModeratorsErrorComponent'];
-    CommunitiesCreateMembersErrorComponent: {
-      /**
-       * @description * `members` - members (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'members';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `not_a_list` - not_a_list
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-      detail: string;
-    };
-    CommunitiesCreateModeratorsErrorComponent: {
-      /**
-       * @description * `moderators` - moderators (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'moderators';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `not_a_list` - not_a_list
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-      detail: string;
-    };
-    CommunitiesCreateNameErrorComponent: {
-      /**
-       * @description * `name` - name (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'name';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       *     * `unique` - unique
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'max_length'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed'
-        | 'unique';
-      detail: string;
-    };
-    CommunitiesCreateNonFieldErrorsErrorComponent: {
-      /**
-       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'non_field_errors';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    CommunitiesCreateNsfwErrorComponent: {
-      /**
-       * @description * `nsfw` - nsfw (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'nsfw';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    CommunitiesCreateTitleErrorComponent: {
-      /**
-       * @description * `title` - title (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'title';
-      /**
-       * @description * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'invalid'
-        | 'max_length'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    CommunitiesCreateTopicsErrorComponent: {
-      /**
-       * @description * `topics` - topics (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'topics';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    CommunitiesCreateTypeErrorComponent: {
-      /**
-       * @description * `type` - type (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'type';
-      /**
-       * @description * `invalid_choice` - invalid_choice
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid_choice' | 'null';
-      detail: string;
-    };
-    CommunitiesCreateValidationError: {
-      type: components['schemas']['ValidationErrorEnum'];
-      errors: components['schemas']['CommunitiesCreateError'][];
-    };
-    CommunitiesPartialUpdateAvatarErrorComponent: {
-      /**
-       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'avatar';
-      /**
-       * @description * `empty` - empty
-       *     * `invalid` - invalid
-       *     * `invalid_image` - invalid_image
-       *     * `max_length` - max_length
-       *     * `no_name` - no_name
-       * @enum {string}
-       */
-      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-      detail: string;
-    };
-    CommunitiesPartialUpdateBannerErrorComponent: {
-      /**
-       * @description * `banner` - banner (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'banner';
-      /**
-       * @description * `empty` - empty
-       *     * `invalid` - invalid
-       *     * `invalid_image` - invalid_image
-       *     * `max_length` - max_length
-       *     * `no_name` - no_name
-       * @enum {string}
-       */
-      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-      detail: string;
-    };
-    CommunitiesPartialUpdateDescriptionErrorComponent: {
-      /**
-       * @description * `description` - description (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'description';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    CommunitiesPartialUpdateError:
-      | components['schemas']['CommunitiesPartialUpdateNonFieldErrorsErrorComponent']
-      | components['schemas']['CommunitiesPartialUpdateAvatarErrorComponent']
-      | components['schemas']['CommunitiesPartialUpdateTypeErrorComponent']
-      | components['schemas']['CommunitiesPartialUpdateNameErrorComponent']
-      | components['schemas']['CommunitiesPartialUpdateDescriptionErrorComponent']
-      | components['schemas']['CommunitiesPartialUpdateTitleErrorComponent']
-      | components['schemas']['CommunitiesPartialUpdateBannerErrorComponent']
-      | components['schemas']['CommunitiesPartialUpdateNsfwErrorComponent']
-      | components['schemas']['CommunitiesPartialUpdateTopicsErrorComponent']
-      | components['schemas']['CommunitiesPartialUpdateMembersErrorComponent']
-      | components['schemas']['CommunitiesPartialUpdateModeratorsErrorComponent'];
-    CommunitiesPartialUpdateMembersErrorComponent: {
-      /**
-       * @description * `members` - members (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'members';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `not_a_list` - not_a_list
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-      detail: string;
-    };
-    CommunitiesPartialUpdateModeratorsErrorComponent: {
-      /**
-       * @description * `moderators` - moderators (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'moderators';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `not_a_list` - not_a_list
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-      detail: string;
-    };
-    CommunitiesPartialUpdateNameErrorComponent: {
-      /**
-       * @description * `name` - name (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'name';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       *     * `unique` - unique
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'max_length'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed'
-        | 'unique';
-      detail: string;
-    };
-    CommunitiesPartialUpdateNonFieldErrorsErrorComponent: {
-      /**
-       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'non_field_errors';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    CommunitiesPartialUpdateNsfwErrorComponent: {
-      /**
-       * @description * `nsfw` - nsfw (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'nsfw';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    CommunitiesPartialUpdateTitleErrorComponent: {
-      /**
-       * @description * `title` - title (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'title';
-      /**
-       * @description * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'invalid'
-        | 'max_length'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    CommunitiesPartialUpdateTopicsErrorComponent: {
-      /**
-       * @description * `topics` - topics (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'topics';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    CommunitiesPartialUpdateTypeErrorComponent: {
-      /**
-       * @description * `type` - type (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'type';
-      /**
-       * @description * `invalid_choice` - invalid_choice
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid_choice' | 'null';
-      detail: string;
-    };
-    CommunitiesPartialUpdateValidationError: {
-      type: components['schemas']['ValidationErrorEnum'];
-      errors: components['schemas']['CommunitiesPartialUpdateError'][];
-    };
-    CommunitiesUpdateAvatarErrorComponent: {
-      /**
-       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'avatar';
-      /**
-       * @description * `empty` - empty
-       *     * `invalid` - invalid
-       *     * `invalid_image` - invalid_image
-       *     * `max_length` - max_length
-       *     * `no_name` - no_name
-       * @enum {string}
-       */
-      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-      detail: string;
-    };
-    CommunitiesUpdateBannerErrorComponent: {
-      /**
-       * @description * `banner` - banner (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'banner';
-      /**
-       * @description * `empty` - empty
-       *     * `invalid` - invalid
-       *     * `invalid_image` - invalid_image
-       *     * `max_length` - max_length
-       *     * `no_name` - no_name
-       * @enum {string}
-       */
-      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
-      detail: string;
-    };
-    CommunitiesUpdateDescriptionErrorComponent: {
-      /**
-       * @description * `description` - description (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'description';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    CommunitiesUpdateError:
-      | components['schemas']['CommunitiesUpdateNonFieldErrorsErrorComponent']
-      | components['schemas']['CommunitiesUpdateAvatarErrorComponent']
-      | components['schemas']['CommunitiesUpdateTypeErrorComponent']
-      | components['schemas']['CommunitiesUpdateNameErrorComponent']
-      | components['schemas']['CommunitiesUpdateDescriptionErrorComponent']
-      | components['schemas']['CommunitiesUpdateTitleErrorComponent']
-      | components['schemas']['CommunitiesUpdateBannerErrorComponent']
-      | components['schemas']['CommunitiesUpdateNsfwErrorComponent']
-      | components['schemas']['CommunitiesUpdateTopicsErrorComponent']
-      | components['schemas']['CommunitiesUpdateMembersErrorComponent']
-      | components['schemas']['CommunitiesUpdateModeratorsErrorComponent'];
-    CommunitiesUpdateMembersErrorComponent: {
-      /**
-       * @description * `members` - members (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'members';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `not_a_list` - not_a_list
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-      detail: string;
-    };
-    CommunitiesUpdateModeratorsErrorComponent: {
-      /**
-       * @description * `moderators` - moderators (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'moderators';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `not_a_list` - not_a_list
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-      detail: string;
-    };
-    CommunitiesUpdateNameErrorComponent: {
-      /**
-       * @description * `name` - name (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'name';
-      /**
-       * @description * `blank` - blank
-       *     * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null` - null
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `required` - required
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       *     * `unique` - unique
-       * @enum {string}
-       */
-      code:
-        | 'blank'
-        | 'invalid'
-        | 'max_length'
-        | 'null'
-        | 'null_characters_not_allowed'
-        | 'required'
-        | 'surrogate_characters_not_allowed'
-        | 'unique';
-      detail: string;
-    };
-    CommunitiesUpdateNonFieldErrorsErrorComponent: {
-      /**
-       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'non_field_errors';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    CommunitiesUpdateNsfwErrorComponent: {
-      /**
-       * @description * `nsfw` - nsfw (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'nsfw';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    CommunitiesUpdateTitleErrorComponent: {
-      /**
-       * @description * `title` - title (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'title';
-      /**
-       * @description * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'invalid'
-        | 'max_length'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    CommunitiesUpdateTopicsErrorComponent: {
-      /**
-       * @description * `topics` - topics (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'topics';
-      /**
-       * @description * `invalid` - invalid
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid' | 'null';
-      detail: string;
-    };
-    CommunitiesUpdateTypeErrorComponent: {
-      /**
-       * @description * `type` - type (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'type';
-      /**
-       * @description * `invalid_choice` - invalid_choice
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'invalid_choice' | 'null';
-      detail: string;
-    };
-    CommunitiesUpdateValidationError: {
-      type: components['schemas']['ValidationErrorEnum'];
-      errors: components['schemas']['CommunitiesUpdateError'][];
-    };
     Community: {
       readonly id: number;
       /** Format: uri */
@@ -1575,7 +977,7 @@ export interface components {
       /** Format: uri */
       banner?: string | null;
       nsfw?: boolean;
-      topics?: unknown;
+      topics: number[];
       members?: number[];
       moderators?: number[];
     };
@@ -1602,7 +1004,7 @@ export interface components {
       /** Format: uri */
       banner?: string | null;
       nsfw?: boolean;
-      topics?: unknown;
+      topics: number[];
       members?: number[];
     };
     CommunityExists: {
@@ -1688,7 +1090,7 @@ export interface components {
       /** Format: uri */
       banner?: string | null;
       nsfw?: boolean;
-      topics?: unknown;
+      topics?: number[];
       members?: number[];
       moderators?: number[];
     };
@@ -2351,6 +1753,654 @@ export interface components {
       avatar?: string | null;
       readonly name: string | null;
     };
+    QCommunitiesCreateAvatarErrorComponent: {
+      /**
+       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'avatar';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    QCommunitiesCreateBannerErrorComponent: {
+      /**
+       * @description * `banner` - banner (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'banner';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    QCommunitiesCreateDescriptionErrorComponent: {
+      /**
+       * @description * `description` - description (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'description';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    QCommunitiesCreateError:
+      | components['schemas']['QCommunitiesCreateNonFieldErrorsErrorComponent']
+      | components['schemas']['QCommunitiesCreateAvatarErrorComponent']
+      | components['schemas']['QCommunitiesCreateTypeErrorComponent']
+      | components['schemas']['QCommunitiesCreateNameErrorComponent']
+      | components['schemas']['QCommunitiesCreateDescriptionErrorComponent']
+      | components['schemas']['QCommunitiesCreateTitleErrorComponent']
+      | components['schemas']['QCommunitiesCreateBannerErrorComponent']
+      | components['schemas']['QCommunitiesCreateNsfwErrorComponent']
+      | components['schemas']['QCommunitiesCreateTopicsErrorComponent']
+      | components['schemas']['QCommunitiesCreateMembersErrorComponent']
+      | components['schemas']['QCommunitiesCreateModeratorsErrorComponent'];
+    QCommunitiesCreateMembersErrorComponent: {
+      /**
+       * @description * `members` - members (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'members';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    QCommunitiesCreateModeratorsErrorComponent: {
+      /**
+       * @description * `moderators` - moderators (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'moderators';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    QCommunitiesCreateNameErrorComponent: {
+      /**
+       * @description * `name` - name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'name';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    QCommunitiesCreateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    QCommunitiesCreateNsfwErrorComponent: {
+      /**
+       * @description * `nsfw` - nsfw (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'nsfw';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    QCommunitiesCreateTitleErrorComponent: {
+      /**
+       * @description * `title` - title (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'title';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    QCommunitiesCreateTopicsErrorComponent: {
+      /**
+       * @description * `topics` - topics (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'topics';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `empty` - empty
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       *     * `required` - required
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'empty' | 'incorrect_type' | 'not_a_list' | 'null' | 'required';
+      detail: string;
+    };
+    QCommunitiesCreateTypeErrorComponent: {
+      /**
+       * @description * `type` - type (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'type';
+      /**
+       * @description * `invalid_choice` - invalid_choice
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid_choice' | 'null';
+      detail: string;
+    };
+    QCommunitiesCreateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['QCommunitiesCreateError'][];
+    };
+    QCommunitiesPartialUpdateAvatarErrorComponent: {
+      /**
+       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'avatar';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    QCommunitiesPartialUpdateBannerErrorComponent: {
+      /**
+       * @description * `banner` - banner (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'banner';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    QCommunitiesPartialUpdateDescriptionErrorComponent: {
+      /**
+       * @description * `description` - description (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'description';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    QCommunitiesPartialUpdateError:
+      | components['schemas']['QCommunitiesPartialUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['QCommunitiesPartialUpdateAvatarErrorComponent']
+      | components['schemas']['QCommunitiesPartialUpdateTypeErrorComponent']
+      | components['schemas']['QCommunitiesPartialUpdateNameErrorComponent']
+      | components['schemas']['QCommunitiesPartialUpdateDescriptionErrorComponent']
+      | components['schemas']['QCommunitiesPartialUpdateTitleErrorComponent']
+      | components['schemas']['QCommunitiesPartialUpdateBannerErrorComponent']
+      | components['schemas']['QCommunitiesPartialUpdateNsfwErrorComponent']
+      | components['schemas']['QCommunitiesPartialUpdateTopicsErrorComponent']
+      | components['schemas']['QCommunitiesPartialUpdateMembersErrorComponent']
+      | components['schemas']['QCommunitiesPartialUpdateModeratorsErrorComponent'];
+    QCommunitiesPartialUpdateMembersErrorComponent: {
+      /**
+       * @description * `members` - members (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'members';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    QCommunitiesPartialUpdateModeratorsErrorComponent: {
+      /**
+       * @description * `moderators` - moderators (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'moderators';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    QCommunitiesPartialUpdateNameErrorComponent: {
+      /**
+       * @description * `name` - name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'name';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    QCommunitiesPartialUpdateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    QCommunitiesPartialUpdateNsfwErrorComponent: {
+      /**
+       * @description * `nsfw` - nsfw (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'nsfw';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    QCommunitiesPartialUpdateTitleErrorComponent: {
+      /**
+       * @description * `title` - title (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'title';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    QCommunitiesPartialUpdateTopicsErrorComponent: {
+      /**
+       * @description * `topics` - topics (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'topics';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `empty` - empty
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       *     * `required` - required
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'empty' | 'incorrect_type' | 'not_a_list' | 'null' | 'required';
+      detail: string;
+    };
+    QCommunitiesPartialUpdateTypeErrorComponent: {
+      /**
+       * @description * `type` - type (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'type';
+      /**
+       * @description * `invalid_choice` - invalid_choice
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid_choice' | 'null';
+      detail: string;
+    };
+    QCommunitiesPartialUpdateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['QCommunitiesPartialUpdateError'][];
+    };
+    QCommunitiesUpdateAvatarErrorComponent: {
+      /**
+       * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'avatar';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    QCommunitiesUpdateBannerErrorComponent: {
+      /**
+       * @description * `banner` - banner (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'banner';
+      /**
+       * @description * `empty` - empty
+       *     * `invalid` - invalid
+       *     * `invalid_image` - invalid_image
+       *     * `max_length` - max_length
+       *     * `no_name` - no_name
+       * @enum {string}
+       */
+      code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    QCommunitiesUpdateDescriptionErrorComponent: {
+      /**
+       * @description * `description` - description (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'description';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    QCommunitiesUpdateError:
+      | components['schemas']['QCommunitiesUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['QCommunitiesUpdateAvatarErrorComponent']
+      | components['schemas']['QCommunitiesUpdateTypeErrorComponent']
+      | components['schemas']['QCommunitiesUpdateNameErrorComponent']
+      | components['schemas']['QCommunitiesUpdateDescriptionErrorComponent']
+      | components['schemas']['QCommunitiesUpdateTitleErrorComponent']
+      | components['schemas']['QCommunitiesUpdateBannerErrorComponent']
+      | components['schemas']['QCommunitiesUpdateNsfwErrorComponent']
+      | components['schemas']['QCommunitiesUpdateTopicsErrorComponent']
+      | components['schemas']['QCommunitiesUpdateMembersErrorComponent']
+      | components['schemas']['QCommunitiesUpdateModeratorsErrorComponent'];
+    QCommunitiesUpdateMembersErrorComponent: {
+      /**
+       * @description * `members` - members (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'members';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    QCommunitiesUpdateModeratorsErrorComponent: {
+      /**
+       * @description * `moderators` - moderators (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'moderators';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
+      detail: string;
+    };
+    QCommunitiesUpdateNameErrorComponent: {
+      /**
+       * @description * `name` - name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'name';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       *     * `unique` - unique
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'max_length'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed'
+        | 'unique';
+      detail: string;
+    };
+    QCommunitiesUpdateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    QCommunitiesUpdateNsfwErrorComponent: {
+      /**
+       * @description * `nsfw` - nsfw (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'nsfw';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    QCommunitiesUpdateTitleErrorComponent: {
+      /**
+       * @description * `title` - title (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'title';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    QCommunitiesUpdateTopicsErrorComponent: {
+      /**
+       * @description * `topics` - topics (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'topics';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `empty` - empty
+       *     * `incorrect_type` - incorrect_type
+       *     * `not_a_list` - not_a_list
+       *     * `null` - null
+       *     * `required` - required
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'empty' | 'incorrect_type' | 'not_a_list' | 'null' | 'required';
+      detail: string;
+    };
+    QCommunitiesUpdateTypeErrorComponent: {
+      /**
+       * @description * `type` - type (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'type';
+      /**
+       * @description * `invalid_choice` - invalid_choice
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid_choice' | 'null';
+      detail: string;
+    };
+    QCommunitiesUpdateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['QCommunitiesUpdateError'][];
+    };
+    /**
+     * @description * `SENSITIVE` - Sensitive
+     *     * `NON_SENSITIVE` - Non-Sensitive
+     * @enum {string}
+     */
+    SensitivityEnum: 'SENSITIVE' | 'NON_SENSITIVE';
     /**
      * @description * `server_error` - Server Error
      * @enum {string}
@@ -2360,6 +2410,15 @@ export interface components {
      *     Typically used for confirming successful operations. */
     SuccessResponse: {
       success: boolean;
+    };
+    Topic: {
+      readonly id: number;
+      display_name: string;
+      icon: string;
+      sensitivity?: components['schemas']['SensitivityEnum'];
+      readonly children: {
+        [key: string]: unknown;
+      };
     };
     /**
      * @description * `PUBLIC` - Public
@@ -3211,360 +3270,6 @@ export interface operations {
       };
     };
   };
-  communities_list: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['Community'][];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse500'];
-        };
-      };
-    };
-  };
-  communities_create: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['Community'];
-        'application/x-www-form-urlencoded': components['schemas']['Community'];
-        'multipart/form-data': components['schemas']['Community'];
-      };
-    };
-    responses: {
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['Community'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['CommunitiesCreateValidationError'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse500'];
-        };
-      };
-    };
-  };
-  communities_retrieve: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        name: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['CommunityDetailed'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse404'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse500'];
-        };
-      };
-    };
-  };
-  communities_update: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        name: string;
-      };
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['Community'];
-        'application/x-www-form-urlencoded': components['schemas']['Community'];
-        'multipart/form-data': components['schemas']['Community'];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['Community'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['CommunitiesUpdateValidationError'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse404'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse500'];
-        };
-      };
-    };
-  };
-  communities_destroy: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        name: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      /** @description No response body */
-      204: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse404'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse500'];
-        };
-      };
-    };
-  };
-  communities_partial_update: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        name: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: {
-      content: {
-        'application/json': components['schemas']['PatchedCommunity'];
-        'application/x-www-form-urlencoded': components['schemas']['PatchedCommunity'];
-        'multipart/form-data': components['schemas']['PatchedCommunity'];
-      };
-    };
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['Community'];
-        };
-      };
-      400: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['CommunitiesPartialUpdateValidationError'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse404'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse500'];
-        };
-      };
-    };
-  };
-  communities_exists_retrieve: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        name: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['CommunityExists'];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse404'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse500'];
-        };
-      };
-    };
-  };
-  communities_highlighted_posts_list: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        name: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['PostHighlighted'][];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse404'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse500'];
-        };
-      };
-    };
-  };
-  communities_posts_list: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path: {
-        name: string;
-      };
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['Post'][];
-        };
-      };
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse404'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse500'];
-        };
-      };
-    };
-  };
   posts_list: {
     parameters: {
       query?: {
@@ -3885,6 +3590,425 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['PostsCommentsCreateValidationError'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  q_communities_list: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Community'][];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  q_communities_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Community'];
+        'application/x-www-form-urlencoded': components['schemas']['Community'];
+        'multipart/form-data': components['schemas']['Community'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Community'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['QCommunitiesCreateValidationError'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  q_communities_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        name: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CommunityDetailed'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  q_communities_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        name: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['Community'];
+        'application/x-www-form-urlencoded': components['schemas']['Community'];
+        'multipart/form-data': components['schemas']['Community'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Community'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['QCommunitiesUpdateValidationError'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  q_communities_destroy: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        name: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  q_communities_partial_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        name: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['PatchedCommunity'];
+        'application/x-www-form-urlencoded': components['schemas']['PatchedCommunity'];
+        'multipart/form-data': components['schemas']['PatchedCommunity'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Community'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['QCommunitiesPartialUpdateValidationError'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  q_communities_exists_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        name: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CommunityExists'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  q_communities_highlighted_posts_list: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        name: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PostHighlighted'][];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  q_communities_posts_list: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        name: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Post'][];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  q_topics_list: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Topic'][];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  q_topics_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description A unique integer value identifying this topic. */
+        id: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Topic'];
         };
       };
       404: {
