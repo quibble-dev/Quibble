@@ -4,8 +4,10 @@
   import { cn } from '$lib/functions/classnames';
   import { onMount } from 'svelte';
 
+  // internal types
   type Topic = components['schemas']['Topic'];
 
+  // constants
   const SELECTED_TOPIC_LIMIT = 3;
 
   let pending = $state(false);
@@ -13,6 +15,7 @@
 
   let selected_topics = $state<Topic[]>([]);
   let topics_raw = $state<Topic[]>([]);
+
   let topics = $derived.by<Topic[]>(() => {
     const value = filter_input_value.toLowerCase();
     // https://stackoverflow.com/a/41543705/26860113

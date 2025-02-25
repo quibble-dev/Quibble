@@ -3,6 +3,7 @@
   import Step_2 from '$lib/pages/q/create/step_2.svelte';
   import Step_3 from '$lib/pages/q/create/step_3.svelte';
 
+  // dynamic mappings
   const steps_mapping = {
     0: {
       title: `Give your community a name and a description that reflects its purpose and vibe.`,
@@ -21,6 +22,7 @@
   let step = $state<keyof typeof steps_mapping>(2);
   const current_step = $derived(steps_mapping[step]);
 
+  // constants
   const MAX_STEP = Object.keys(steps_mapping).length - 1;
 
   function handle_back_click() {
