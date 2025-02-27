@@ -22,16 +22,11 @@
   };
 
   let { form }: { form: CommunityCreateFormType } = $props();
-
-  let checked_type = $state<keyof typeof types>('PUBLIC');
-  let checked_nsfw = $state(false);
 </script>
-
-name: {$form.name}
 
 <div class="flex flex-col">
   {#each Object.entries(types) as [key, item]}
-    {@const checked = checked_type === key}
+    {@const checked = $form.type === key}
 
     <div class={cn(checked && 'bg-base-200 ring-1', 'form-control rounded-xl ring-neutral')}>
       <label class="label size-full cursor-pointer gap-2 p-0 p-3">
@@ -50,7 +45,7 @@ name: {$form.name}
           name="type"
           class="radio radio-sm"
           class:radio-accent={checked}
-          bind:group={checked_type}
+          bind:group={$form.type}
           value={key}
         />
       </label>
@@ -61,7 +56,7 @@ name: {$form.name}
 <div class="form-control">
   <label class="label size-full cursor-pointer gap-2 p-0 p-3">
     <div class="flex items-center gap-3">
-      <EighteenPlusIcon class={cn(checked_nsfw && 'text-accent', 'size-5')} />
+      <EighteenPlusIcon class={cn($form.nsfw && 'text-accent', 'size-5')} />
       <div class="flex flex-col">
         <span class="label-text font-medium text-info">Mature (18+)</span>
         <span class="text-xs text-base-content/75">
@@ -72,7 +67,7 @@ name: {$form.name}
     <input
       type="checkbox"
       class="toggle toggle-accent toggle-sm rounded-box checked:!border-accent"
-      bind:checked={checked_nsfw}
+      bind:checked={$form.nsfw}
     />
   </label>
 </div>

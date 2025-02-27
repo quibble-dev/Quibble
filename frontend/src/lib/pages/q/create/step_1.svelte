@@ -5,8 +5,6 @@
   let { form }: { form: CommunityCreateFormType } = $props();
 </script>
 
-name: {$form.name}
-
 <label class="form-control">
   <label class="input input-bordered flex items-center bg-transparent">
     q/
@@ -30,9 +28,10 @@ name: {$form.name}
 </label>
 <label class="form-control">
   <textarea
-    use:autosize
     class="textarea textarea-bordered max-h-80 min-h-40 bg-transparent leading-normal placeholder:text-base-content/75"
     placeholder="description*"
+    use:autosize
+    bind:value={$form.description}
     maxlength={255}
   ></textarea>
   <div class="label py-1">

@@ -65,15 +65,19 @@
     } else {
       if (selected_topics.length >= SELECTED_TOPIC_LIMIT) return;
       selected_topics = [...selected_topics, topic].sort((a, b) => a.id - b.id);
+      // update form state
+      $form.topics.push(topic.id);
     }
   }
 
-  onMount(() => {
-    fetch_topics();
+  onMount(async () => {
+    await fetch_topics();
+    // update selected_topics state
+    if ($form.topics.length) {
+      selected_topics = topics_raw.filter((t) => $form.topics.includes(t.id));
+    }
   });
 </script>
-
-name: {$form.name}
 
 <div class="flex flex-col gap-2">
   <label class="input input-bordered relative flex h-10 items-center bg-transparent pl-3 pr-1.5">
