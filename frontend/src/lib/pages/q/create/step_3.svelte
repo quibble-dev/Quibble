@@ -125,7 +125,7 @@
                 'btn btn-xs border-none md:btn-sm'
               )}
             >
-              <span>{t.icon} {t.display_name}</span>
+              <span>{t.display_name}</span>
               {#if is_selected}
                 <coreicons-shape-x variant="circle" class="size-4"></coreicons-shape-x>
               {/if}
