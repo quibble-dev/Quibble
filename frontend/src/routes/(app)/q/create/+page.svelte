@@ -28,7 +28,7 @@
     }
   };
 
-  let step = $state<keyof typeof steps>(2);
+  let step = $state<keyof typeof steps>(0);
   const current_step = $derived(steps[step]);
 
   // constants

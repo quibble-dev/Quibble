@@ -9,10 +9,9 @@
     modalsStore = createModalsStore(),
     authStore = createAuthStore();
 
-  function handle_create_a_communiy_btn_click() {
-    if (authStore.state.is_authenticated) {
-      modalsStore.open('create_community');
-    } else {
+  function handle_create_a_communiy_btn_click(e: MouseEvent) {
+    if (!authStore.state.is_authenticated) {
+      e.preventDefault();
       modalsStore.open('auth');
     }
   }
@@ -31,13 +30,14 @@
       />
       <coreicons-shape-filter class="size-3"></coreicons-shape-filter>
     </label>
-    <button
+    <a
+      href="/q/create"
       class="btn btn-ghost btn-xs flex w-max items-center gap-2"
       onclick={handle_create_a_communiy_btn_click}
     >
       <coreicons-shape-plus variant="circle" class="size-4"></coreicons-shape-plus>
       <span class="text-xs font-medium">Create a community</span>
-    </button>
+    </a>
   </div>
   <div class="collapse gap-2 overflow-visible rounded-none">
     <input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
