@@ -2,28 +2,37 @@
   import Step_1 from '$lib/pages/q/create/step_1.svelte';
   import Step_2 from '$lib/pages/q/create/step_2.svelte';
   import Step_3 from '$lib/pages/q/create/step_3.svelte';
+  import Step_4 from '$lib/pages/q/create/step_4.svelte';
 
   // dynamic mappings
-  const steps_mapping = {
+  const steps = {
     0: {
-      title: `Give your community a name and a description that reflects its purpose and vibe.`,
+      title: `Introduce your community`,
+      helptext: `Give your community a name and a description that reflects its purpose and vibe.`,
       component: Step_1
     },
     1: {
-      title: `Adding visual flair will catch new members attention and help establish your community's culture!`,
+      title: `Style your community`,
+      helptext: `Adding visual flair will catch new members attention and help establish your community's culture!`,
       component: Step_2
     },
     2: {
-      title: `Add up to 3 topics to help interested redditors find your community.`,
+      title: `Choose topics`,
+      helptext: `Add up to 3 topics to help interested redditors find your community.`,
       component: Step_3
+    },
+    3: {
+      title: `Set your community type`,
+      helptext: `Decide who can view and contribute in your community. Only public communities show up in search.`,
+      component: Step_4
     }
   };
 
-  let step = $state<keyof typeof steps_mapping>(2);
-  const current_step = $derived(steps_mapping[step]);
+  let step = $state<keyof typeof steps>(2);
+  const current_step = $derived(steps[step]);
 
   // constants
-  const MAX_STEP = Object.keys(steps_mapping).length - 1;
+  const MAX_STEP = Object.keys(steps).length - 1;
 
   function handle_back_click() {
     if (step > 0) {
@@ -44,8 +53,8 @@
 
 <div class="flex h-max flex-1 flex-col gap-4 p-4">
   <div class="flex flex-col gap-2">
-    <h1 class="text-xl font-semibold text-info">Create Community</h1>
-    <p class="text-sm">{current_step.title} You can customize its look and settings later.</p>
+    <h1 class="text-xl font-semibold text-info">{current_step.title}</h1>
+    <p class="text-sm">{current_step.helptext} You can customize its look and settings later.</p>
   </div>
   <form class="flex flex-col gap-2">
     <!-- dynamic step rendering -->
@@ -54,14 +63,14 @@
     <div class="flex items-center justify-between">
       <!-- form step indicators -->
       <div class="flex items-center gap-2">
-        {#each Object.keys(steps_mapping) as _step_idx}
+        {#each Object.keys(steps) as _step_idx}
           {@const is_active = step === Number(_step_idx)}
           <button
             type="button"
             class="size-2 rounded-full bg-base-content"
             class:opacity-50={!is_active}
             aria-label="Go to step {_step_idx}"
-            onclick={() => (step = Number(_step_idx) as keyof typeof steps_mapping)}
+            onclick={() => (step = Number(_step_idx) as keyof typeof steps)}
           ></button>
         {/each}
       </div>
