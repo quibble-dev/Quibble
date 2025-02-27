@@ -62,6 +62,9 @@
     // remove topic if already selected
     if (check_is_selected(topic.id)) {
       selected_topics = selected_topics.filter((t) => t.id !== topic.id);
+      // remove from state
+      const topic_idx = $form.topics.indexOf(topic.id);
+      if (topic_idx !== -1) $form.topics.splice(topic_idx, 1);
     } else {
       if (selected_topics.length >= SELECTED_TOPIC_LIMIT) return;
       selected_topics = [...selected_topics, topic].sort((a, b) => a.id - b.id);
@@ -74,7 +77,11 @@
     await fetch_topics();
     // update selected_topics state
     if ($form.topics.length) {
-      selected_topics = topics_raw.filter((t) => $form.topics.includes(t.id));
+      const flattened_topics = topics_raw.flatMap((t) => [
+        t,
+        ...(t.children as unknown as Topic[])
+      ]);
+      selected_topics = flattened_topics.filter((t) => $form.topics.includes(t.id));
     }
   });
 </script>
