@@ -3,6 +3,7 @@
   import Step_2 from '$lib/pages/q/create/step_2.svelte';
   import Step_3 from '$lib/pages/q/create/step_3.svelte';
   import Step_4 from '$lib/pages/q/create/step_4.svelte';
+  import { superForm } from 'sveltekit-superforms';
 
   // dynamic mappings
   const steps = {
@@ -28,11 +29,15 @@
     }
   };
 
+  let { data } = $props();
+
   let step = $state<keyof typeof steps>(0);
   const current_step = $derived(steps[step]);
 
   // constants
   const MAX_STEP = Object.keys(steps).length - 1;
+
+  const { form, enhance } = superForm(data.form);
 
   function handle_back_click() {
     if (step > 0) {
@@ -56,9 +61,9 @@
     <h1 class="text-xl font-semibold text-info">{current_step.title}</h1>
     <p class="text-sm">{current_step.helptext} You can customize its look and settings later.</p>
   </div>
-  <form class="flex flex-col gap-2">
+  <form method="POST" class="flex flex-col gap-2" use:enhance>
     <!-- dynamic step rendering -->
-    <current_step.component />
+    <current_step.component {form} />
     <!-- dynamic step rendering -->
     <div class="flex items-center justify-between">
       <!-- form step indicators -->
@@ -84,7 +89,11 @@
           <coreicons-shape-arrow variant="left" class="size-4"></coreicons-shape-arrow>
           Back
         </button>
-        <button type="button" class="btn btn-primary" onclick={handle_next_click}>
+        <button
+          type={step === MAX_STEP ? 'submit' : 'button'}
+          class="btn btn-primary"
+          onclick={handle_next_click}
+        >
           Next
           <coreicons-shape-arrow variant="right" class="size-4"></coreicons-shape-arrow>
         </button>

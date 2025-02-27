@@ -1,6 +1,7 @@
 <script lang="ts">
   import EighteenPlusIcon from '$lib/components/icons/18-plus.svelte';
   import { cn } from '$lib/functions/classnames';
+  import type { CommunityCreateFormType } from '$lib/schemas/community-create';
 
   const types = {
     PRIVATE: {
@@ -20,9 +21,13 @@
     }
   };
 
+  let { form }: { form: CommunityCreateFormType } = $props();
+
   let checked_type = $state<keyof typeof types>('PUBLIC');
   let checked_nsfw = $state(false);
 </script>
+
+name: {$form.name}
 
 <div class="flex flex-col">
   {#each Object.entries(types) as [key, item]}

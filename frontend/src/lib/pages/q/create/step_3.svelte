@@ -2,6 +2,7 @@
   import client from '$lib/clients/v1/client';
   import type { components } from '$lib/clients/v1/schema';
   import { cn } from '$lib/functions/classnames';
+  import type { CommunityCreateFormType } from '$lib/schemas/community-create';
   import { onMount } from 'svelte';
 
   // internal types
@@ -9,6 +10,8 @@
 
   // constants
   const SELECTED_TOPIC_LIMIT = 3;
+
+  let { form }: { form: CommunityCreateFormType } = $props();
 
   let pending = $state(false);
   let filter_input_value = $state('');
@@ -69,6 +72,8 @@
     fetch_topics();
   });
 </script>
+
+name: {$form.name}
 
 <div class="flex flex-col gap-2">
   <label class="input input-bordered relative flex h-10 items-center bg-transparent pl-3 pr-1.5">

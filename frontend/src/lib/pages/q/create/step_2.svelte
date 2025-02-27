@@ -1,6 +1,11 @@
-<script>
+<script lang="ts">
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import type { CommunityCreateFormType } from '$lib/schemas/community-create';
+
+  let { form }: { form: CommunityCreateFormType } = $props();
 </script>
+
+name: {$form.name}
 
 <div class="grid grid-cols-2 gap-2">
   <label class="form-control w-full">

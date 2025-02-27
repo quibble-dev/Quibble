@@ -1,6 +1,11 @@
 <script lang="ts">
   import autosize from '$lib/actions/autosize';
+  import type { CommunityCreateFormType } from '$lib/schemas/community-create';
+
+  let { form }: { form: CommunityCreateFormType } = $props();
 </script>
+
+name: {$form.name}
 
 <label class="form-control">
   <label class="input input-bordered flex items-center bg-transparent">
@@ -11,6 +16,7 @@
       class="grow border-none p-0 focus:ring-0"
       placeholder="name*"
       maxlength={25}
+      bind:value={$form.name}
     />
   </label>
   <div class="label py-1">
