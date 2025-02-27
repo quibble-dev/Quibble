@@ -7,6 +7,9 @@
 
   // internal types
   type Topic = components['schemas']['Topic'];
+  type RecursiveTopic = Omit<Topic, 'children'> & {
+    children: RecursiveTopic[];
+  };
 
   // constants
   const SELECTED_TOPIC_LIMIT = 3;
@@ -16,10 +19,10 @@
   let pending = $state(false);
   let filter_input_value = $state('');
 
-  let selected_topics = $state<Topic[]>([]);
-  let topics_raw = $state<Topic[]>([]);
+  let selected_topics = $state<RecursiveTopic[]>([]);
+  let topics_raw = $state<RecursiveTopic[]>([]);
 
-  let topics = $derived.by<Topic[]>(() => {
+  let topics = $derived.by<RecursiveTopic[]>(() => {
     const value = filter_input_value.toLowerCase();
     // https://stackoverflow.com/a/41543705/26860113
     const emoji_regex = /([\uE000-\uF8FF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDDFF])/g;
@@ -36,8 +39,7 @@
 
     return topics_raw.filter(
       (topic) =>
-        filter_str(topic.display_name) ||
-        (topic.children as unknown as Topic[]).some((t) => filter_str(t.display_name))
+        filter_str(topic.display_name) || topic.children.some((t) => filter_str(t.display_name))
     );
   });
 
@@ -47,7 +49,7 @@
 
       const { data, response } = await client.GET('/q/topics/');
       if (response.ok && data) {
-        topics_raw = data;
+        topics_raw = data as unknown as RecursiveTopic[];
       }
     } finally {
       pending = false;
@@ -58,7 +60,7 @@
     return selected_topics.some((t) => t.id === id);
   }
 
-  function handle_toggle_select_topic(topic: Topic) {
+  function handle_toggle_select_topic(topic: RecursiveTopic) {
     // remove topic if already selected
     if (check_is_selected(topic.id)) {
       selected_topics = selected_topics.filter((t) => t.id !== topic.id);
@@ -77,10 +79,7 @@
     await fetch_topics();
     // update selected_topics state
     if ($form.topics.length) {
-      const flattened_topics = topics_raw.flatMap((t) => [
-        t,
-        ...(t.children as unknown as Topic[])
-      ]);
+      const flattened_topics = topics_raw.flatMap((t) => [t, ...t.children]);
       selected_topics = flattened_topics.filter((t) => $form.topics.includes(t.id));
     }
   });
@@ -130,7 +129,7 @@
       <div class="flex flex-col gap-1">
         <span class="text-sm font-medium">{topic.icon} {topic.display_name}</span>
         <div class="flex flex-wrap items-center gap-2">
-          {#each topic.children as unknown as Topic[] as t (t.id)}
+          {#each topic.children as t (t.id)}
             {@const is_selected = check_is_selected(t.id)}
 
             <button
