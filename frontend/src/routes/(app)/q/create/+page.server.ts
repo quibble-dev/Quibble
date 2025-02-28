@@ -13,7 +13,6 @@ export const load: PageServerLoad = async () => {
 export const actions: Actions = {
   default: async ({ request }) => {
     const form = await superValidate(request, zod(CommunityCreateSchema));
-    console.log(form);
 
     if (!form.valid) {
       console.log(form.errors);

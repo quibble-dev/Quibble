@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { create_form_data } from '$lib/functions/form';
   import Step_1 from '$lib/pages/q/create/step_1.svelte';
   import Step_2 from '$lib/pages/q/create/step_2.svelte';
   import Step_3 from '$lib/pages/q/create/step_3.svelte';
@@ -40,18 +41,9 @@
   const { form, enhance } = superForm(data.form, {
     resetForm: false,
     onSubmit({ formData }) {
-      Object.entries($form).forEach(([key, value]) => {
-        if (value instanceof File || typeof value === 'string') {
-          formData.set(key, value);
-        } else if (typeof value === 'boolean') {
-          formData.set(key, String(value));
-        } else if (Array.isArray(value)) {
-          value.forEach((item) => {
-            formData.append(key, item.toString());
-          });
-        } else if (value !== undefined && value !== null) {
-          formData.set(key, JSON.stringify(value));
-        }
+      const _form_data = create_form_data($form);
+      _form_data.forEach((value, key) => {
+        formData.set(key, value);
       });
     }
   });

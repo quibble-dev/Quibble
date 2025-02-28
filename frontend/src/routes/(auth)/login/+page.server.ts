@@ -1,5 +1,6 @@
 import { dev } from '$app/environment';
 import client from '$lib/clients/v1/client';
+import { create_form_data, type FormDataObject } from '$lib/functions/form';
 import { AuthSchema, ProfileCreateSchema } from '$lib/schemas/auth';
 import type { PageServerLoad } from './$types';
 import { fail, type Actions } from '@sveltejs/kit';
@@ -53,17 +54,7 @@ export const actions: Actions = {
       // @ts-expect-error: only requires username for POST req
       body: { ...form.data },
       bodySerializer(body) {
-        const fd = new FormData();
-        Object.entries(body).forEach(([key, value]) => {
-          if (value instanceof File || typeof value === 'string') {
-            fd.set(key, value);
-          } else if (typeof value === 'boolean') {
-            fd.set(key, String(value));
-          } else if (value !== undefined && value !== null) {
-            fd.set(key, JSON.stringify(value));
-          }
-        });
-        return fd;
+        return create_form_data(body as unknown as FormDataObject);
       }
     });
 
