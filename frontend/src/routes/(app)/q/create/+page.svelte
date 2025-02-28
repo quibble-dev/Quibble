@@ -37,7 +37,24 @@
   // constants
   const MAX_STEP = Object.keys(steps).length - 1;
 
-  const { form, enhance } = superForm(data.form);
+  const { form, enhance } = superForm(data.form, {
+    resetForm: false,
+    onSubmit({ formData }) {
+      Object.entries($form).forEach(([key, value]) => {
+        if (value instanceof File || typeof value === 'string') {
+          formData.set(key, value);
+        } else if (typeof value === 'boolean') {
+          formData.set(key, String(value));
+        } else if (Array.isArray(value)) {
+          value.forEach((item) => {
+            formData.append(key, item.toString());
+          });
+        } else if (value !== undefined && value !== null) {
+          formData.set(key, JSON.stringify(value));
+        }
+      });
+    }
+  });
 
   function handle_back_click() {
     if (step > 0) {
@@ -45,8 +62,9 @@
     }
   }
 
-  function handle_next_click() {
+  function handle_next_click(e: SubmitEvent) {
     if (step < MAX_STEP) {
+      e.preventDefault();
       step++;
     }
   }
@@ -94,7 +112,7 @@
           class="btn btn-primary"
           onclick={handle_next_click}
         >
-          Next
+          {step === MAX_STEP ? 'Create' : 'Next'}
           <coreicons-shape-arrow variant="right" class="size-4"></coreicons-shape-arrow>
         </button>
       </div>
