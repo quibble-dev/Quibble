@@ -1,4 +1,4 @@
-type FormDataValue = File | string | boolean | Array<any> | object | null | undefined;
+type FormDataValue = File | string | boolean | Array<unknown> | object | null | undefined;
 export type FormDataObject = Record<string, FormDataValue>;
 
 export function create_form_data(body: FormDataObject): FormData {
