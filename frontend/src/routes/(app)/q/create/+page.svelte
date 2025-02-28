@@ -45,6 +45,9 @@
       _form_data.forEach((value, key) => {
         formData.set(key, value);
       });
+    },
+    onResult(event) {
+      console.log(event.result);
     }
   });
 
