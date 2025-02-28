@@ -62,7 +62,7 @@
     }
   }
 
-  function handle_next_click(e: SubmitEvent) {
+  function handle_next_click(e: Event) {
     if (step < MAX_STEP) {
       e.preventDefault();
       step++;
@@ -79,7 +79,7 @@
     <h1 class="text-xl font-semibold text-info">{current_step.title}</h1>
     <p class="text-sm">{current_step.helptext} You can customize its look and settings later.</p>
   </div>
-  <form method="POST" class="flex flex-col gap-2" use:enhance>
+  <form method="POST" enctype="multipart/form-data" class="flex flex-col gap-2" use:enhance>
     <!-- dynamic step rendering -->
     <current_step.component {form} />
     <!-- dynamic step rendering -->
