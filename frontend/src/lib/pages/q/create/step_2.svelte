@@ -4,6 +4,7 @@
     CommunityCreateErrorsType,
     CommunityCreateFormType
   } from '$lib/schemas/community-create';
+  import { untrack } from 'svelte';
   import { fileProxy } from 'sveltekit-superforms';
 
   type Props = {
@@ -15,6 +16,38 @@
 
   const avatar_file = fileProxy(form, 'avatar');
   const banner_file = fileProxy(form, 'banner');
+
+  let avatar_data_uri = $state<string>();
+  let banner_data_uri = $state<string>();
+
+  $effect(() => {
+    read_data_uri($form.avatar).then((data_uri) => {
+      untrack(() => {
+        avatar_data_uri = data_uri;
+      });
+    });
+  });
+
+  $effect(() => {
+    read_data_uri($form.banner).then((data_uri) => {
+      untrack(() => {
+        banner_data_uri = data_uri;
+      });
+    });
+  });
+
+  async function read_data_uri(file?: File): Promise<string | undefined> {
+    return new Promise((resolve) => {
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onload = (e) => {
+        resolve(e.target?.result as string);
+      };
+    });
+  }
 </script>
 
 <div class="grid grid-cols-2 gap-2">
@@ -59,11 +92,14 @@
     {/if}
   </label>
 </div>
-<div class="relative mb-12 h-20 rounded-btn bg-neutral bg-cover bg-center p-4">
+<div
+  class="relative mb-12 h-20 rounded-btn bg-neutral bg-cover bg-center p-4"
+  style="background-image: url({banner_data_uri});"
+>
   <div class="absolute -bottom-12 flex items-end gap-4">
-    <Avatar class="size-20 ring-8 ring-base-300" />
+    <Avatar src={avatar_data_uri} class="size-20 ring-8 ring-base-300" />
     <div class="flex flex-col">
-      <span class="line-clamp-1 text-lg font-semibold">q/{$form.name}</span>
+      <span class="line-clamp-1 text-lg font-semibold">q/{$form.name || 'communityname'}</span>
       <div class="flex items-center gap-2">
         <span class="text-xs">1 member</span>
         <coreicons-shape-circle class="size-0.5" variant="filled"></coreicons-shape-circle>

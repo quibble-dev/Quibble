@@ -38,7 +38,7 @@
       1: ['avatar', 'banner'],
       2: ['topics'],
       3: ['type', 'nsfw']
-    } as const;
+    };
 
   let { data } = $props();
 
