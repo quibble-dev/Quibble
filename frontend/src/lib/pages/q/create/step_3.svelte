@@ -2,7 +2,10 @@
   import client from '$lib/clients/v1/client';
   import type { components } from '$lib/clients/v1/schema';
   import { cn } from '$lib/functions/classnames';
-  import type { CommunityCreateFormType } from '$lib/schemas/community-create';
+  import type {
+    CommunityCreateErrorsType,
+    CommunityCreateFormType
+  } from '$lib/schemas/community-create';
   import { onMount } from 'svelte';
 
   // internal types
@@ -11,10 +14,15 @@
     children: RecursiveTopic[];
   };
 
+  type Props = {
+    form: CommunityCreateFormType;
+    errors: CommunityCreateErrorsType;
+  };
+
   // constants
   const SELECTED_TOPIC_LIMIT = 3;
 
-  let { form }: { form: CommunityCreateFormType } = $props();
+  let { form, errors }: Props = $props();
 
   let pending = $state(false);
   let filter_input_value = $state('');
@@ -116,6 +124,12 @@
         <coreicons-shape-x variant="circle" class="size-4"></coreicons-shape-x>
       </button>
     {/each}
+    {#if $errors.topics?._errors}
+      <span class="label-text-alt flex items-center gap-2 text-error">
+        <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
+        <span class="text-xs">{$errors.topics._errors?.[0]}</span>
+      </span>
+    {/if}
   </div>
 </div>
 <div class="mt-2 flex max-h-80 flex-col gap-2 overflow-y-scroll pr-2">

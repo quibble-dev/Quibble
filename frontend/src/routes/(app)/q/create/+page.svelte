@@ -6,39 +6,48 @@
   import Step_4 from '$lib/pages/q/create/step_4.svelte';
   import { superForm } from 'sveltekit-superforms';
 
+  // internal types
+  type Step = keyof typeof steps;
+
   // dynamic mappings
   const steps = {
-    0: {
-      title: `Introduce your community`,
-      helptext: `Give your community a name and a description that reflects its purpose and vibe.`,
-      component: Step_1
+      0: {
+        title: `Introduce your community`,
+        helptext: `Give your community a name and a description that reflects its purpose and vibe.`,
+        component: Step_1
+      },
+      1: {
+        title: `Style your community`,
+        helptext: `Adding visual flair will catch new members attention and help establish your community's culture!`,
+        component: Step_2
+      },
+      2: {
+        title: `Choose topics`,
+        helptext: `Add up to 3 topics to help interested redditors find your community.`,
+        component: Step_3
+      },
+      3: {
+        title: `Set your community type`,
+        helptext: `Decide who can view and contribute in your community. Only public communities show up in search.`,
+        component: Step_4
+      }
     },
-    1: {
-      title: `Style your community`,
-      helptext: `Adding visual flair will catch new members attention and help establish your community's culture!`,
-      component: Step_2
-    },
-    2: {
-      title: `Choose topics`,
-      helptext: `Add up to 3 topics to help interested redditors find your community.`,
-      component: Step_3
-    },
-    3: {
-      title: `Set your community type`,
-      helptext: `Decide who can view and contribute in your community. Only public communities show up in search.`,
-      component: Step_4
-    }
-  };
+    error_steps: Record<number, string[]> = {
+      0: ['name', 'description'],
+      1: ['avatar', 'banner'],
+      2: ['topics'],
+      3: ['type', 'nsfw']
+    } as const;
 
   let { data } = $props();
 
-  let step = $state<keyof typeof steps>(0);
+  let step = $state<Step>(0);
   const current_step = $derived(steps[step]);
 
   // constants
   const MAX_STEP = Object.keys(steps).length - 1;
 
-  const { form, enhance } = superForm(data.form, {
+  const { form, enhance, errors } = superForm(data.form, {
     resetForm: false,
     onSubmit({ formData }) {
       const _form_data = create_form_data($form);
@@ -46,8 +55,16 @@
         formData.set(key, value);
       });
     },
-    onResult(event) {
-      console.log(event.result);
+    onResult({ result }) {
+      if (result.type === 'failure' && result.data) {
+        const first_error_key = Object.keys(result.data.form.errors)[0]!;
+        const error_step = Object.keys(error_steps).find((key) =>
+          error_steps[Number(key)]?.includes(first_error_key)
+        );
+        if (error_step) step = error_step as unknown as Step;
+      } else if (result.type === 'error') {
+        console.error('Unexpected error:', result.error);
+      }
     }
   });
 
@@ -76,7 +93,7 @@
   </div>
   <form method="POST" enctype="multipart/form-data" class="flex flex-col gap-2" use:enhance>
     <!-- dynamic step rendering -->
-    <current_step.component {form} />
+    <current_step.component {form} {errors} />
     <!-- dynamic step rendering -->
     <div class="flex items-center justify-between">
       <!-- form step indicators -->
