@@ -1,6 +1,7 @@
 <script lang="ts">
   import QuibbleIcon from '$lib/components/icons/logos/quibble.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import { emoticons } from '$lib/constants/emoticons';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';
   import { createSidebarStore } from '$lib/stores/sidebar.svelte';
@@ -75,7 +76,7 @@
         {/each}
       </div>
     {:else}
-      <span class="text-sm">Just in—take a peek.</span>
+      <span class="text-sm">{emoticons.SUSPICIOUS} Just in—take a peek.</span>
     {/if}
   </div>
 
@@ -115,7 +116,7 @@
         {/each}
       </div>
     {:else}
-      <span class="text-sm">Ready to quibble? Join in.</span>
+      <span class="text-sm">{emoticons.SHY} Ready to quibble? Join in.</span>
     {/if}
   </div>
   <div class="collapse gap-2 overflow-visible rounded-none">
