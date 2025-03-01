@@ -1,8 +1,16 @@
 <script lang="ts">
   import autosize from '$lib/actions/autosize';
-  import type { CommunityCreateFormType } from '$lib/schemas/community-create';
+  import type {
+    CommunityCreateErrorsType,
+    CommunityCreateFormType
+  } from '$lib/schemas/community-create';
 
-  let { form }: { form: CommunityCreateFormType } = $props();
+  type Props = {
+    form: CommunityCreateFormType;
+    errors: CommunityCreateErrorsType;
+  };
+
+  let { form, errors }: Props = $props();
 </script>
 
 <label class="form-control">
@@ -18,12 +26,14 @@
     />
   </label>
   <div class="label py-1">
-    <!-- error store and helptext -->
-    <span class="label-text-alt flex items-center gap-2">
+    <span
+      class="label-text-alt flex items-center gap-2"
+      class:text-error={$errors.name !== undefined}
+    >
       <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-      <span class="text-xs">Think of a name that grabs attention!</span>
+      <span class="text-xs">{$errors.name?.[0] ?? 'Think of a name that grabs attention!'}</span>
     </span>
-    <span class="label-text-alt">0/25</span>
+    <span class="label-text-alt">{$form.name.length}/25</span>
   </div>
 </label>
 <label class="form-control">
@@ -35,11 +45,15 @@
     maxlength={255}
   ></textarea>
   <div class="label py-1">
-    <!-- error store and helptext -->
-    <span class="label-text-alt flex items-center gap-2">
+    <span
+      class="label-text-alt flex items-center gap-2"
+      class:text-error={$errors.name !== undefined}
+    >
       <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-      <span class="text-xs">Let others know what your community is for.</span>
+      <span class="text-xs"
+        >{$errors.name?.[0] ?? 'Let others know what your community is for.'}</span
+      >
     </span>
-    <span class="label-text-alt">0/255</span>
+    <span class="label-text-alt">{$form.description.length}/255</span>
   </div>
 </label>

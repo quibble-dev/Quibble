@@ -47,7 +47,7 @@
   // constants
   const MAX_STEP = Object.keys(steps).length - 1;
 
-  const { form, enhance } = superForm(data.form, {
+  const { form, enhance, errors } = superForm(data.form, {
     resetForm: false,
     onSubmit({ formData }) {
       const _form_data = create_form_data($form);
@@ -93,7 +93,7 @@
   </div>
   <form method="POST" enctype="multipart/form-data" class="flex flex-col gap-2" use:enhance>
     <!-- dynamic step rendering -->
-    <current_step.component {form} />
+    <current_step.component {form} {errors} />
     <!-- dynamic step rendering -->
     <div class="flex items-center justify-between">
       <!-- form step indicators -->

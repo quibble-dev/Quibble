@@ -1,7 +1,15 @@
 <script lang="ts">
   import EighteenPlusIcon from '$lib/components/icons/18-plus.svelte';
   import { cn } from '$lib/functions/classnames';
-  import type { CommunityCreateFormType } from '$lib/schemas/community-create';
+  import type {
+    CommunityCreateErrorsType,
+    CommunityCreateFormType
+  } from '$lib/schemas/community-create';
+
+  type Props = {
+    form: CommunityCreateFormType;
+    errors: CommunityCreateErrorsType;
+  };
 
   const types = {
     PRIVATE: {
@@ -21,7 +29,7 @@
     }
   };
 
-  let { form }: { form: CommunityCreateFormType } = $props();
+  let { form, errors }: Props = $props();
 </script>
 
 <div class="flex flex-col">
@@ -71,6 +79,12 @@
     />
   </label>
 </div>
+{#if $errors.type || $errors.nsfw}
+  <span class="label-text-alt flex items-center gap-2 text-error">
+    <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
+    <span class="text-xs">{$errors.type?.[0] || $errors.nsfw?.[0]}</span>
+  </span>
+{/if}
 <span class="text-xs text-base-content/75">
   By continuing, you agree to our
   <a href="/policies/moderator-code-of-conduct" class="text-base-content underline">

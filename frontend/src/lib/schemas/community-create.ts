@@ -1,4 +1,4 @@
-import type { SuperFormData } from 'sveltekit-superforms/client';
+import type { SuperFormData, SuperFormErrors } from 'sveltekit-superforms/client';
 import { z } from 'zod';
 
 export const CommunityCreateSchema = z.object({
@@ -18,4 +18,6 @@ export const CommunityCreateSchema = z.object({
 });
 
 export type CommunityCreateType = typeof CommunityCreateSchema;
+
 export type CommunityCreateFormType = SuperFormData<z.infer<CommunityCreateType>>;
+export type CommunityCreateErrorsType = SuperFormErrors<z.infer<CommunityCreateType>>;

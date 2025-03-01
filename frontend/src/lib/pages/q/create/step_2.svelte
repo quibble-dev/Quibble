@@ -1,9 +1,17 @@
 <script lang="ts">
   import Avatar from '$lib/components/ui/avatar.svelte';
-  import type { CommunityCreateFormType } from '$lib/schemas/community-create';
+  import type {
+    CommunityCreateErrorsType,
+    CommunityCreateFormType
+  } from '$lib/schemas/community-create';
   import { fileProxy } from 'sveltekit-superforms';
 
-  let { form }: { form: CommunityCreateFormType } = $props();
+  type Props = {
+    form: CommunityCreateFormType;
+    errors: CommunityCreateErrorsType;
+  };
+
+  let { form, errors }: Props = $props();
 
   const avatar_file = fileProxy(form, 'avatar');
   const banner_file = fileProxy(form, 'banner');
@@ -21,6 +29,14 @@
       class="file-input file-input-bordered file-input-xs bg-transparent file:border-none file:bg-base-100"
       bind:files={$avatar_file}
     />
+    {#if $errors.avatar}
+      <div class="label py-1">
+        <span class="label-text-alt flex items-center gap-2 text-error">
+          <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
+          <span class="text-xs">{$errors.avatar?.[0]}</span>
+        </span>
+      </div>
+    {/if}
   </label>
   <label class="form-control w-full">
     <div class="label py-1">
@@ -33,6 +49,14 @@
       class="file-input file-input-bordered file-input-xs bg-transparent file:border-none file:bg-base-100"
       bind:files={$banner_file}
     />
+    {#if $errors.banner}
+      <div class="label py-1">
+        <span class="label-text-alt flex items-center gap-2 text-error">
+          <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
+          <span class="text-xs">{$errors.banner?.[0]}</span>
+        </span>
+      </div>
+    {/if}
   </label>
 </div>
 <div class="relative mb-12 h-20 rounded-btn bg-neutral bg-cover bg-center p-4">
