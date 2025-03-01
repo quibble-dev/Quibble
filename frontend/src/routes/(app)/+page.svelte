@@ -1,29 +1,14 @@
 <script lang="ts">
   import Avatar from '$lib/components/ui/avatar.svelte';
-  import { toast } from '$lib/components/ui/toast/toast.svelte';
-  import Quibble4042 from '$lib/components/vectors/quibble-404-2.svelte';
   import { emoticons } from '$lib/constants/emoticons';
   import { PostCard, PostsHeader } from '$lib/features/posts';
   import { createRecentPostStore } from '$lib/features/posts/stores/recent-post.svelte';
-  import { createAuthStore } from '$lib/stores/auth.svelte';
-  import { createModalsStore } from '$lib/stores/modals.svelte';
   import type { PageData } from './$types';
   import readable from 'readable-numbers';
 
   const { data }: { data: PageData } = $props();
 
-  const recentPostStore = createRecentPostStore(),
-    authStore = createAuthStore(),
-    modalsStore = createModalsStore();
-
-  function handle_404_action_btn_click() {
-    if (authStore.state.is_authenticated) {
-      // open post create modal
-    } else {
-      modalsStore.open('auth');
-      toast.push('Please login to do this action!', { inside_modal: true });
-    }
-  }
+  const recentPostStore = createRecentPostStore();
 </script>
 
 <!-- site head and seo -->
@@ -34,7 +19,6 @@
 <div class="flex h-max flex-1 flex-col gap-4 p-4">
   <!-- posts header: filter and change layout type -->
   <PostsHeader />
-
   <!-- list posts section -->
   <div class="flex flex-1 flex-col gap-4">
     <!-- if posts available -->
@@ -51,7 +35,6 @@
     {/if}
   </div>
 </div>
-
 <!-- fixed shared sidebar for recent posts -->
 <div class="hidden w-80 lg:flex">
   <div
@@ -65,7 +48,6 @@
         onclick={recentPostStore.clear}>Clear</button
       >
     </div>
-
     <!-- render recent posts from localstorage -->
     <div class="flex flex-col gap-4">
       {#if recentPostStore.state.length}
