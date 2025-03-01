@@ -61,7 +61,7 @@
         const error_step = Object.keys(error_steps).find((key) =>
           error_steps[Number(key)]?.includes(first_error_key)
         );
-        if (error_step) step = error_step as unknown as Step;
+        if (error_step) step = Number(error_step) as Step;
       } else if (result.type === 'error') {
         console.error('Unexpected error:', result.error);
       }

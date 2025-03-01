@@ -47,11 +47,11 @@
   <div class="label py-1">
     <span
       class="label-text-alt flex items-center gap-2"
-      class:text-error={$errors.name !== undefined}
+      class:text-error={$errors.description !== undefined}
     >
       <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
       <span class="text-xs"
-        >{$errors.name?.[0] ?? 'Let others know what your community is for.'}</span
+        >{$errors.description?.[0] ?? 'Let others know what your community is for.'}</span
       >
     </span>
     <span class="label-text-alt">{$form.description.length}/255</span>
