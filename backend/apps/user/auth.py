@@ -1,24 +1,21 @@
 from rest_framework import exceptions
-from rest_framework.authentication import TokenAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .models import Profile
 
 
-class ExtendedTokenAuthentication(TokenAuthentication):
+class ExtendedJWTAuthentication(JWTAuthentication):
     """
-    Extended drf TokenAuthentication
+    Extended JWTAuthentication
     which includes 'user_profile' field on request
     """
 
-    keyword = 'Bearer'
-
     def authenticate(self, request):
-        user_auth_token_tuple = super().authenticate(request)
-        if not user_auth_token_tuple:
+        user_auth_tuple = super().authenticate(request)
+        if not user_auth_tuple:
             return None
 
-        user, auth_token = user_auth_token_tuple
-
+        user, token = user_auth_tuple
         profile_id = request.headers.get('Profile-Id')
         user_profile = None
 
@@ -30,6 +27,5 @@ class ExtendedTokenAuthentication(TokenAuthentication):
                     'Profile does not exist or does not belong to the authenticated user.'
                 )
 
-        request.user_profile = user_profile
-
-        return (user, auth_token)
+        request['user_profile'] = user_profile
+        return (user, token)

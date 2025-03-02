@@ -42,6 +42,12 @@ THIRD_PARTY_APPS = [
     # rest framework
     'rest_framework',
     'rest_framework.authtoken',
+    # auth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
     # django filtering
     'django_filters',
     # middleware (cors)
@@ -70,6 +76,8 @@ if DEBUG:
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + SELF_APPS
 
+SITE_ID = 1
+
 DEFAULT_RENDERER_CLASSES = ('rest_framework.renderers.JSONRenderer',)
 
 if DEBUG:
@@ -79,7 +87,7 @@ if DEBUG:
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'apps.user.auth.ExtendedTokenAuthentication',
+        'apps.user.auth.ExtendedJWTAuthentication',
     ],
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -87,6 +95,25 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES,
     'EXCEPTION_HANDLER': 'drf_standardized_errors.handler.exception_handler',
     'DEFAULT_SCHEMA_CLASS': 'apps.api.openapi.CustomAutoSchema',
+}
+
+# django-allauth
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_LOGIN_METHODS = {'email'}
+
+# dj-rest-auth settings
+REST_AUTH = {
+    'USE_JWT': True,
+    'JWT_AUTH_COOKIE': 'jwt-auth',
+    'JWT_AUTH_REFRESH_COOKIE': 'jwt-refresh',
+    'JWT_AUTH_SECURE': True,
+    'JWT_AUTH_HTTPONLY': True,
+    'JWT_AUTH_SAMESITE': 'Lax',
+    'JWT_AUTH_RETURN_EXPIRATION': True,
 }
 
 # https://drf-standardized-errors.readthedocs.io/en/latest/openapi.html#tips-and-tricks
@@ -149,6 +176,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # allauth middleware
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 if DEBUG:
@@ -240,7 +269,9 @@ AUTH_USER_MODEL = 'user.User'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     # custom auth backend
-    'apps.user.backends.EmailAuthBackend',
+    # 'apps.user.backends.EmailAuthBackend',
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 # django-cors-headers settins

@@ -32,6 +32,9 @@ urlpatterns = [
         # user view of requested user
         path('me/', MeAPIView.as_view(), name='me'),
     ])),
+    # auth endpoints
+    path('auth/', include('dj_rest_auth.urls')),
+    path('auth/registration/', include('dj_rest_auth.registration.urls')),
 ]
 # fmt: on
 
