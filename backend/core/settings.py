@@ -114,6 +114,8 @@ REST_AUTH = {
     'JWT_AUTH_HTTPONLY': True,
     'JWT_AUTH_SAMESITE': 'Lax',
     'JWT_AUTH_RETURN_EXPIRATION': True,
+    # serializers
+    'LOGIN_SERIALIZER': 'apps.api.serializers.user.auth.LoginSerializer',
 }
 
 # https://drf-standardized-errors.readthedocs.io/en/latest/openapi.html#tips-and-tricks

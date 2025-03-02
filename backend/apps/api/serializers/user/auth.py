@@ -1,3 +1,4 @@
+from dj_rest_auth.serializers import LoginSerializer as RestAuthLoginSerializer
 from rest_framework import serializers
 
 from apps.user.models import User
@@ -15,3 +16,8 @@ class AuthSerializer(serializers.ModelSerializer):
 
 class AuthTokenSerializer(serializers.Serializer):
     token = serializers.CharField()
+
+
+class LoginSerializer(RestAuthLoginSerializer):
+    username = None
+    email = serializers.EmailField(required=True)
