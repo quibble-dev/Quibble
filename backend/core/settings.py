@@ -115,6 +115,7 @@ REST_AUTH = {
     'JWT_AUTH_SAMESITE': 'Lax',
     'JWT_AUTH_RETURN_EXPIRATION': True,
     # serializers
+    'REGISTER_SERIALIZER': 'apps.api.serializers.user.auth.RegisterSerializer',
     'LOGIN_SERIALIZER': 'apps.api.serializers.user.auth.LoginSerializer',
 }
 
@@ -132,9 +133,9 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': openapi_description,
     'VERSION': '0.0.1',
     'SERVE_INCLUDE_SCHEMA': False,
-    'SCHEMA_PATH_PREFIX': r'/api/v[1-9]/',
-    'SCHEMA_PATH_PREFIX_TRIM': True,
-    'SERVERS': [{'url': '/api/v1', 'description': 'v1 API version'}],
+    # 'SCHEMA_PATH_PREFIX': r'/api/v[1-9]/',
+    # 'SCHEMA_PATH_PREFIX_TRIM': True,
+    # 'SERVERS': [{'url': '/api/v1', 'description': 'v1 API version'}],
     # sidecar config
     'SWAGGER_UI_DIST': 'SIDECAR',
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',

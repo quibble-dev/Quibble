@@ -1,3 +1,4 @@
+from dj_rest_auth.registration.views import RegisterView
 from django.urls import include, path
 from rest_framework import routers
 
@@ -34,7 +35,8 @@ urlpatterns = [
     ])),
     # auth endpoints
     path('auth/', include('dj_rest_auth.urls')),
-    path('auth/registration/', include('dj_rest_auth.registration.urls')),
+    # path('auth/registration/', include('dj_rest_auth.registration.urls')),
+    path('auth/registration/', RegisterView.as_view()),
 ]
 # fmt: on
 
