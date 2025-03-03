@@ -6,8 +6,8 @@ from .views.user import MeAPIView
 from .views.user.auth import (
     LoginAPIView,
     LogoutAPIView,
-    ProfileSelectAPIView,
     RegisterAPIView,
+    SelectProfileAPIView,
 )
 from .viewsets.comment import CommentViewSet
 from .viewsets.community import CommunityViewSet
@@ -43,7 +43,7 @@ urlpatterns = [
     path('auth/', include('django.contrib.auth.urls')),
     # path('auth/registration/', include('dj_rest_auth.registration.urls')),
     path('auth/registration/', RegisterView.as_view()),
-    path('auth/select/<int:profile_id>/', ProfileSelectAPIView.as_view(), name='select-profile-id')
+    path('auth/select/<int:profile_id>/', SelectProfileAPIView.as_view(), name='select-profile-id')
 ]
 # fmt: on
 

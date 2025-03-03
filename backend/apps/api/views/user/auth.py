@@ -13,10 +13,10 @@ from ...exceptions import ServerError
 from ...serializers.user.auth import AuthSerializer, AuthTokenSerializer
 
 
-class ProfileSelectAPIView(views.APIView):
+class SelectProfileAPIView(views.APIView):
     """API View to select profile which sets cookie to response"""
 
-    # authentication_classes = []
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, profile_id=None):
         profile = generics.get_object_or_404(Profile, id=profile_id, user=request.user)
