@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from '$app/state';
-  import client from '$lib/clients/v1/client';
+  import api from '$lib/api';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { PROFILE_CREATE_LIMIT } from '$lib/constants/limits';
   import { cn } from '$lib/functions/classnames';
@@ -19,7 +19,7 @@
 
   async function fetch_profiles() {
     try {
-      const { data, error, response } = await client.GET('/u/me/profiles/', {
+      const { data, error, response } = await api.GET('/u/me/profiles/', {
         headers: {
           Authorization: `Bearer ${token}`
         }

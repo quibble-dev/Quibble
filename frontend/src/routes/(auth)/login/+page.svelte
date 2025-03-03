@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from '$app/state';
-  import client from '$lib/clients/v1/client';
+  import api from '$lib/api';
   import { cn } from '$lib/functions/classnames';
   import { getContext } from 'svelte';
   import { superForm } from 'sveltekit-superforms';
@@ -19,7 +19,7 @@
     resetForm: false,
     async onResult({ result }) {
       if (result.type === 'success' && result.data) {
-        const { data } = await client.GET('/u/me/profiles/', {
+        const { data } = await api.GET('/u/me/profiles/', {
           headers: { Authorization: `Bearer ${result.data.token}` }
         });
         handle_login_success({

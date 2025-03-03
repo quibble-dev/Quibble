@@ -1,16 +1,16 @@
-import client from '$lib/clients';
+import api from '$lib/api';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params, parent }) => {
   await parent();
 
   const [posts, highlighted_posts] = await Promise.all([
-    client.GET('/q/communities/{name}/posts/', {
+    api.GET('/q/communities/{name}/posts/', {
       params: {
         path: { name: params.name }
       }
     }),
-    client.GET('/q/communities/{name}/highlighted_posts/', {
+    api.GET('/q/communities/{name}/highlighted_posts/', {
       params: {
         path: { name: params.name }
       }

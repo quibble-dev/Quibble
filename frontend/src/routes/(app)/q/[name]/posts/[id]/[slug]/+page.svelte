@@ -1,6 +1,6 @@
 <script lang="ts">
   import { browser } from '$app/environment';
-  import type { components } from '$lib/clients/v1/schema';
+  import type { components } from '$lib/api';
   import NewIcon from '$lib/components/icons/new.svelte';
   import RocketIcon from '$lib/components/icons/rocket.svelte';
   import TopIcon from '$lib/components/icons/top.svelte';
