@@ -1,4 +1,4 @@
-import client from '$lib/clients';
+import client from '$lib/api';
 import { CommentCreateSchema } from '$lib/features/comments/schemas';
 import { CommentTreeBuilder } from '$lib/functions/comment';
 import type { PageServerLoad } from './$types';

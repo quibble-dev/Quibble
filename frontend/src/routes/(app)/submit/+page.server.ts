@@ -1,4 +1,4 @@
-import client from '$lib/clients/v1/client';
+import client from '$lib/api/v1/client';
 import { PostSubmitSchema } from '$lib/schemas/post-submit';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';

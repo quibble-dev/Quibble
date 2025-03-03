@@ -1,4 +1,4 @@
-import client from '$lib/clients';
+import client from '$lib/api';
 import type { Handle } from '@sveltejs/kit';
 
 const auth_routes = ['/login', '/register', '/password'];

@@ -1,4 +1,4 @@
-import client from '$lib/clients/v1/client';
+import client from '$lib/api/v1/client';
 import { AuthSchema } from '$lib/schemas/auth';
 import type { PageServerLoad } from './$types';
 import { fail, redirect, type Actions } from '@sveltejs/kit';

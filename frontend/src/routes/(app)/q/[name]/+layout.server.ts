@@ -1,4 +1,4 @@
-import client from '$lib/clients';
+import client from '$lib/api';
 import type { LayoutServerLoad } from './$types';
 import { error as raise_error, redirect } from '@sveltejs/kit';
 

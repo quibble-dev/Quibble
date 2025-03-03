@@ -1,4 +1,4 @@
-import client from '$lib/clients/v1/client';
+import client from '$lib/api/v1/client';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 export const PATCH: RequestHandler = async ({ params, request, cookies }) => {

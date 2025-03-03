@@ -1,5 +1,5 @@
 import { dev } from '$app/environment';
-import client from '$lib/clients/v1/client';
+import client from '$lib/api/v1/client';
 import { create_form_data, type FormDataObject } from '$lib/functions/form';
 import { AuthSchema, ProfileCreateSchema } from '$lib/schemas/auth';
 import type { PageServerLoad } from './$types';

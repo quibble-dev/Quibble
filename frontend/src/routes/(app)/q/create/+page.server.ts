@@ -1,4 +1,4 @@
-import client from '$lib/clients/v1/client';
+import client from '$lib/api/v1/client';
 import { create_form_data, type FormDataObject } from '$lib/functions/form';
 import { CommunityCreateSchema } from '$lib/schemas/community-create';
 import type { PageServerLoad } from './$types';
