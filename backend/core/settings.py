@@ -41,7 +41,7 @@ THIRD_PARTY_APPS = [
     'django_extensions',
     # rest framework
     'rest_framework',
-    'rest_framework.authtoken',
+    # 'rest_framework.authtoken',
     # auth
     'allauth',
     'allauth.account',
@@ -108,6 +108,8 @@ ACCOUNT_LOGIN_METHODS = {'email'}
 # dj-rest-auth settings
 REST_AUTH = {
     'USE_JWT': True,
+    'TOKEN_MODEL': None,
+    # jwt settings
     'JWT_AUTH_COOKIE': 'jwt-auth',
     'JWT_AUTH_REFRESH_COOKIE': 'jwt-refresh',
     'JWT_AUTH_SECURE': False if DEBUG else True,
