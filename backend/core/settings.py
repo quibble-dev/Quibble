@@ -87,7 +87,7 @@ if DEBUG:
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'apps.user.auth.ExtendedJWTAuthentication',
+        'apps.user.auth.ExtendedJWTCookieAuthentication',
     ],
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -110,10 +110,9 @@ REST_AUTH = {
     'USE_JWT': True,
     'JWT_AUTH_COOKIE': 'jwt-auth',
     'JWT_AUTH_REFRESH_COOKIE': 'jwt-refresh',
-    'JWT_AUTH_SECURE': True,
+    'JWT_AUTH_SECURE': False if DEBUG else True,
     'JWT_AUTH_HTTPONLY': True,
     'JWT_AUTH_SAMESITE': 'Lax',
-    'JWT_AUTH_RETURN_EXPIRATION': True,
     # serializers
     'REGISTER_SERIALIZER': 'apps.api.serializers.user.auth.RegisterSerializer',
     'LOGIN_SERIALIZER': 'apps.api.serializers.user.auth.LoginSerializer',

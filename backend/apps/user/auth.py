@@ -1,10 +1,12 @@
+from dj_rest_auth.jwt_auth import (
+    JWTCookieAuthentication as RestAuthJWTJWTCookieAuthentication,
+)
 from rest_framework import exceptions
-from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from .models import Profile
 
 
-class ExtendedJWTAuthentication(JWTAuthentication):
+class ExtendedJWTCookieAuthentication(RestAuthJWTJWTCookieAuthentication):
     """
     Extended JWTAuthentication
     which includes 'user_profile' field on request
@@ -27,5 +29,5 @@ class ExtendedJWTAuthentication(JWTAuthentication):
                     'Profile does not exist or does not belong to the authenticated user.'
                 )
 
-        request['user_profile'] = user_profile
+        request.user_profile = user_profile
         return (user, token)
