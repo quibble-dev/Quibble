@@ -7,7 +7,7 @@ from rest_framework import serializers
 
 from apps.user.models import User
 
-from .profile import ProfileWithoutUserSerializer
+from .profile import ProfileBasicSerializer
 
 
 class LoginSerializer(RestAuthLoginSerializer):
@@ -30,9 +30,11 @@ class UserDetailsSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'email', 'date_joined', 'profile')
 
-    @extend_schema_field(ProfileWithoutUserSerializer)
+    @extend_schema_field(ProfileBasicSerializer)
     def get_profile(self, obj):
-        user_profile = self.context.get('user_profile')
+        request = self.context.get('request')
+        user_profile = getattr(request, 'user_profile', None)
+
         if user_profile:
-            return ProfileWithoutUserSerializer(user_profile).data
+            return ProfileBasicSerializer(user_profile).data
         return None
