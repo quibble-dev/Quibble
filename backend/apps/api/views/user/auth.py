@@ -40,7 +40,6 @@ class LogoutAPIView(RestAuthLogoutAPIView):
     http_method_names = ['post']
 
     def post(self, request, *args, **kwargs):
-        print('called')
         response = super().post(request, *args, **kwargs)
         # delete profile-id cookie
         response.delete_cookie('profile-id', samesite='Lax')
