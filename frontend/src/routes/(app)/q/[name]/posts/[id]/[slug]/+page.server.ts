@@ -1,4 +1,4 @@
-import client from '$lib/api';
+import api from '$lib/api';
 import { CommentCreateSchema } from '$lib/features/comments/schemas';
 import { CommentTreeBuilder } from '$lib/functions/comment';
 import type { PageServerLoad } from './$types';
@@ -8,12 +8,12 @@ import { zod } from 'sveltekit-superforms/adapters';
 
 export const load: PageServerLoad = async ({ params }) => {
   const [post, comments] = await Promise.all([
-    await client.GET('/posts/{id}/', {
+    await api.GET('/posts/{id}/', {
       params: {
         path: { id: params.id }
       }
     }),
-    await client.GET('/posts/{id}/comments/', {
+    await api.GET('/posts/{id}/comments/', {
       params: {
         path: { id: params.id }
       }
@@ -41,7 +41,7 @@ export const actions: Actions = {
 
     if (!form.valid) return fail(400, { form });
 
-    const { data, error, response } = await client.POST('/posts/{id}/comments/', {
+    const { data, error, response } = await api.POST('/posts/{id}/comments/', {
       headers: {
         Authorization: `Bearer ${cookies.get('auth_token')}`,
         'Profile-Id': cookies.get('auth_user_profile_id')

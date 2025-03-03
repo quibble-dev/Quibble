@@ -1,4 +1,4 @@
-import client from '$lib/api/v1/client';
+import api from '$lib/api';
 import { PostSubmitSchema } from '$lib/schemas/post-submit';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
@@ -19,7 +19,7 @@ export const actions: Actions = {
       return fail(400, { form });
     }
 
-    const { data, response } = await client.POST('/posts/', {
+    const { data, response } = await api.POST('/posts/', {
       headers: {
         Authorization: `Bearer ${cookies.get('auth_token')}`,
         'Profile-Id': auth_user_profile_id

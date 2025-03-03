@@ -1,10 +1,10 @@
-import client from '$lib/api/v1/client';
+import api from '$lib/api';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 export const PATCH: RequestHandler = async ({ params, request, cookies }) => {
   try {
     const { action } = await request.json();
-    const { data, response, error } = await client.PATCH('/comments/{id}/reaction/', {
+    const { data, response, error } = await api.PATCH('/comments/{id}/reaction/', {
       headers: {
         Authorization: `Bearer ${cookies.get('auth_token')}`,
         'Profile-Id': cookies.get('auth_user_profile_id')

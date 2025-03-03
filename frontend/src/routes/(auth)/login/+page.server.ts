@@ -1,5 +1,5 @@
 import { dev } from '$app/environment';
-import client from '$lib/api/v1/client';
+import api from '$lib/api';
 import { create_form_data, type FormDataObject } from '$lib/functions/form';
 import { AuthSchema, ProfileCreateSchema } from '$lib/schemas/auth';
 import type { PageServerLoad } from './$types';
@@ -22,7 +22,7 @@ export const actions: Actions = {
       return fail(400, { form });
     }
 
-    const { data, error, response } = await client.POST('/u/login/', {
+    const { data, error, response } = await api.POST('/auth/login/', {
       body: { ...form.data }
     });
 
@@ -47,7 +47,7 @@ export const actions: Actions = {
       return fail(400, withFiles({ form }));
     }
 
-    const { data, error, response } = await client.POST('/u/me/profiles/', {
+    const { data, error, response } = await api.POST('/u/me/profiles/', {
       headers: {
         Authorization: `Bearer ${cookies.get('auth_token')}`
       },

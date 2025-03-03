@@ -1,4 +1,4 @@
-import client from '$lib/api/v1/client';
+import api from '$lib/api';
 import { AuthSchema } from '$lib/schemas/auth';
 import type { PageServerLoad } from './$types';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
@@ -20,7 +20,7 @@ export const actions: Actions = {
       return fail(400, { form });
     }
 
-    const { data, error, response } = await client.POST('/u/register/', {
+    const { data, error, response } = await api.POST('/auth/registration/', {
       body: { ...form.data }
     });
 
