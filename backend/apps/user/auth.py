@@ -1,12 +1,10 @@
-from dj_rest_auth.jwt_auth import (
-    JWTCookieAuthentication as RestAuthJWTJWTCookieAuthentication,
-)
+from dj_rest_auth.jwt_auth import JWTCookieAuthentication
 from rest_framework import exceptions
 
 from .models import Profile
 
 
-class ExtendedJWTCookieAuthentication(RestAuthJWTJWTCookieAuthentication):
+class ExtendedJWTCookieAuthentication(JWTCookieAuthentication):
     """
     Extended JWTAuthentication
     which includes 'user_profile' field on request
@@ -18,16 +16,14 @@ class ExtendedJWTCookieAuthentication(RestAuthJWTJWTCookieAuthentication):
             return None
 
         user, token = user_auth_tuple
-        profile_id = request.headers.get('Profile-Id')
+        profile_id = request.COOKIES.get('profile-id')
         user_profile = None
 
-        if profile_id:
+        if profile_id is not None:
             try:
                 user_profile = Profile.objects.get(id=profile_id, user=user)
             except Profile.DoesNotExist:
-                raise exceptions.PermissionDenied(
-                    'Profile does not exist or does not belong to the authenticated user.'
-                )
+                raise exceptions.PermissionDenied('Invalid selected Profile.')
 
         request.user_profile = user_profile
         return (user, token)

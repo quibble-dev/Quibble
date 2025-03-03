@@ -3,7 +3,12 @@ from django.urls import include, path
 from rest_framework import routers
 
 from .views.user import MeAPIView
-from .views.user.auth import LoginAPIView, LogoutAPIView, RegisterAPIView
+from .views.user.auth import (
+    LoginAPIView,
+    LogoutAPIView,
+    ProfileSelectAPIView,
+    RegisterAPIView,
+)
 from .viewsets.comment import CommentViewSet
 from .viewsets.community import CommunityViewSet
 from .viewsets.community.topics import TopicViewSet
@@ -38,6 +43,7 @@ urlpatterns = [
     path('auth/', include('django.contrib.auth.urls')),
     # path('auth/registration/', include('dj_rest_auth.registration.urls')),
     path('auth/registration/', RegisterView.as_view()),
+    path('auth/select/<int:profile_id>/', ProfileSelectAPIView.as_view(), name='select-profile-id')
 ]
 # fmt: on
 

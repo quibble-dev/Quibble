@@ -1,12 +1,37 @@
+from django.conf import settings
 from django.contrib.auth import authenticate
+from django.utils import timezone
 from drf_spectacular.utils import extend_schema
 from rest_framework import exceptions, generics, permissions, views
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 
+from apps.user.models import Profile
+
 from ...bases.serializers import DetailResponseSerializer
 from ...exceptions import ServerError
 from ...serializers.user.auth import AuthSerializer, AuthTokenSerializer
+
+
+class ProfileSelectAPIView(views.APIView):
+    """API View to select profile which sets cookie to response"""
+
+    # authentication_classes = []
+
+    def post(self, request, profile_id=None):
+        profile = generics.get_object_or_404(Profile, id=profile_id, user=request.user)
+
+        response = Response({})
+        response.set_cookie(
+            'profile-id',
+            value=str(profile.pk),
+            expires=timezone.now() + timezone.timedelta(days=7),
+            httponly=True,
+            secure=False if settings.DEBUG else True,
+            samesite='Lax',
+        )
+
+        return response
 
 
 class LoginAPIView(views.APIView):
