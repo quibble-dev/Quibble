@@ -26,3 +26,9 @@ class ProfileBasicSerializer(serializers.ModelSerializer):
             truthy_fields = filter(None, [obj.first_name, obj.last_name])
             return " ".join(truthy_fields)
         return None
+
+
+class ProfileWithoutUserSerializer(ProfileSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields.pop('user', None)

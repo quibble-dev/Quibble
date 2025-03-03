@@ -125,6 +125,7 @@ REST_AUTH = {
     # serializers
     'REGISTER_SERIALIZER': 'apps.api.serializers.user.auth.RegisterSerializer',
     'LOGIN_SERIALIZER': 'apps.api.serializers.user.auth.LoginSerializer',
+    'USER_DETAILS_SERIALIZER': 'apps.api.serializers.user.auth.UserDetailsSerializer',
 }
 
 # https://drf-standardized-errors.readthedocs.io/en/latest/openapi.html#tips-and-tricks

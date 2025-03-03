@@ -1,4 +1,5 @@
 from dj_rest_auth.views import LogoutView as RestAuthLogoutAPIView
+from dj_rest_auth.views import UserDetailsView as RestAuthUserDetailsView
 from django.conf import settings
 from django.utils import timezone
 from rest_framework import generics, permissions, views
@@ -45,3 +46,12 @@ class LogoutAPIView(RestAuthLogoutAPIView):
         response.delete_cookie('profile-id', samesite='Lax')
 
         return response
+
+
+class UserDetailsView(RestAuthUserDetailsView):
+    """Custom UserDetailsView to return user and profile details"""
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['user_profile'] = self.request.user_profile
+        return context
