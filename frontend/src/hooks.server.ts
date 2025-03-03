@@ -1,4 +1,4 @@
-import client from '$lib/clients';
+import api from '$lib/api';
 import type { Handle } from '@sveltejs/kit';
 
 const auth_routes = ['/login', '/register', '/password'];
@@ -10,7 +10,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
   if (auth_token && auth_user_profile_id) {
     if (!event.locals.profile) {
-      const { data, error, response } = await client.GET('/u/me/', {
+      const { data, error, response } = await api.GET('/auth/user/', {
         headers: {
           Authorization: `Bearer ${auth_token}`,
           'Profile-Id': auth_user_profile_id

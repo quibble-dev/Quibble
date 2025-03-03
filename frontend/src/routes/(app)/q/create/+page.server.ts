@@ -1,4 +1,4 @@
-import client from '$lib/clients/v1/client';
+import api from '$lib/api';
 import { create_form_data, type FormDataObject } from '$lib/functions/form';
 import { CommunityCreateSchema } from '$lib/schemas/community-create';
 import type { PageServerLoad } from './$types';
@@ -21,7 +21,7 @@ export const actions: Actions = {
       return fail(400, withFiles({ form }));
     }
 
-    const { data, response, error } = await client.POST('/q/communities/', {
+    const { data, response, error } = await api.POST('/q/communities/', {
       headers: {
         Authorization: `Bearer ${cookies.get('auth_token')}`,
         'Profile-Id': cookies.get('auth_user_profile_id')

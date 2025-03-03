@@ -1,6 +1,6 @@
 <script lang="ts">
   import autosize from '$lib/actions/autosize';
-  import type { components } from '$lib/clients/v1/schema';
+  import type { components } from '$lib/api';
   import { cn } from '$lib/functions/classnames';
   import { CommentCreateSchema } from '../schemas';
   import { onMount } from 'svelte';

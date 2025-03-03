@@ -1,6 +1,5 @@
 <script lang="ts">
-  import client from '$lib/clients/v1/client';
-  import type { components } from '$lib/clients/v1/schema';
+  import api, { type components } from '$lib/api';
   import { cn } from '$lib/functions/classnames';
   import type {
     CommunityCreateErrorsType,
@@ -55,7 +54,7 @@
     try {
       pending = true;
 
-      const { data, response } = await client.GET('/q/topics/');
+      const { data, response } = await api.GET('/q/topics/');
       if (response.ok && data) {
         topics_raw = data as unknown as RecursiveTopic[];
       }

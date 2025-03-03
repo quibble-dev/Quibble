@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { components } from '$lib/clients/v1/schema';
+  import type { components } from '$lib/api';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';

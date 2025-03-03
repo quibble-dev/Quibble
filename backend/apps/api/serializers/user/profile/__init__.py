@@ -19,7 +19,7 @@ class ProfileBasicSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('username', 'avatar', 'name')
+        fields = ('id', 'username', 'avatar', 'name')
 
     def get_name(self, obj) -> Optional[str]:
         if obj.first_name or obj.last_name:
