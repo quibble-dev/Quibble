@@ -289,6 +289,7 @@ AUTHENTICATION_BACKENDS = [
 # django-cors-headers settins
 # https://pypi.org/project/django-cors-headers/
 
+CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = CSRF_TRUSTED_ORIGINS = [
     'http://localhost:5173',
 ]

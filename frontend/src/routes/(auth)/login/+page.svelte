@@ -2,6 +2,7 @@
   import { page } from '$app/state';
   import api from '$lib/api';
   import { cn } from '$lib/functions/classnames';
+  import type { LoginData } from '../+layout.svelte';
   import { getContext } from 'svelte';
   import { superForm } from 'sveltekit-superforms';
 
@@ -12,20 +13,16 @@
     ? `/register?dest=${encodeURIComponent(dest_param)}`
     : '/register';
 
-  const handle_login_success: (data: { token: string; has_profiles: boolean }) => void =
-    getContext('handle_login_success');
+  const handle_login_success: (data: LoginData) => void = getContext('handle_login_success');
 
   const { form, enhance, delayed, errors, message } = superForm(data.form, {
     resetForm: false,
     async onResult({ result }) {
-      if (result.type === 'success' && result.data) {
-        const { data } = await api.GET('/u/me/profiles/', {
-          headers: { Authorization: `Bearer ${result.data.token}` }
-        });
-        handle_login_success({
-          token: result.data.token,
-          has_profiles: Boolean(data && data.length > 0)
-        });
+      if (result.type === 'success') {
+        const { data } = await api.GET('/u/me/profiles/total-count/');
+        // if no profiles- show creation form, otherwise- show selection
+        const type: LoginData['type'] = data && data.total_count > 0 ? 'select' : 'create';
+        handle_login_success({ type });
       }
     }
   });

@@ -1,7 +1,7 @@
-import { dev } from '$app/environment';
 import api from '$lib/api';
 import { create_form_data, type FormDataObject } from '$lib/functions/form';
 import { AuthSchema, ProfileCreateSchema } from '$lib/schemas/auth';
+import { set_cookies_from_header } from '$lib/server/utils/cookie';
 import type { PageServerLoad } from './$types';
 import { fail, type Actions } from '@sveltejs/kit';
 import { message, setError, superValidate, withFiles } from 'sveltekit-superforms';
@@ -27,15 +27,10 @@ export const actions: Actions = {
     });
 
     if (response.ok && data) {
-      cookies.set('auth_token', data.token, {
-        httpOnly: true,
-        secure: !dev,
-        path: '/',
-        sameSite: 'lax',
-        maxAge: 60 * 60 * 24 * 30 // 30 days
-      });
+      const set_cookie_header = response.headers.getSetCookie();
+      set_cookies_from_header(set_cookie_header, cookies);
 
-      return { form, token: data.token };
+      return { form };
     } else if (error) {
       return message(form, error.errors[0]?.detail, { status: 401 });
     }
