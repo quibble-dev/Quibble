@@ -19,11 +19,10 @@
     resetForm: false,
     async onResult({ result }) {
       if (result.type === 'success') {
-        const { data, error } = await api.GET('/u/me/profiles/');
-        console.log(data, error);
+        const { data } = await api.GET('/u/me/profiles/total-count/');
         // if no profiles- show creation form, otherwise- show selection
-        // const type: LoginData['type'] = data && data.length ? 'select' : 'create';
-        // handle_login_success({ type, profiles: data ?? [] });
+        const type: LoginData['type'] = data && data.total_count > 0 ? 'select' : 'create';
+        handle_login_success({ type });
       }
     }
   });

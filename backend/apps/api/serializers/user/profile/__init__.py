@@ -26,3 +26,7 @@ class ProfileBasicSerializer(serializers.ModelSerializer):
             truthy_fields = filter(None, [obj.first_name, obj.last_name])
             return " ".join(truthy_fields)
         return None
+
+
+class ProfileTotalCountSerializer(serializers.Serializer):
+    total_count = serializers.IntegerField()

@@ -11,7 +11,6 @@ class ExtendedJWTCookieAuthentication(JWTCookieAuthentication):
     """
 
     def authenticate(self, request):
-        print("Cookies received:", request.COOKIES, request.path)
         user_auth_tuple = super().authenticate(request)
         if not user_auth_tuple:
             return None

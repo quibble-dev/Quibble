@@ -3,12 +3,10 @@
 
   export interface LoginData {
     type: RenderProfileOfType;
-    profiles: Array<components['schemas']['Profile']>;
   }
 </script>
 
 <script lang="ts">
-  import type { components } from '$lib/api';
   import GoogleLogo from '$lib/components/icons/logos/google.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble-text.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
@@ -18,14 +16,12 @@
 
   let { children } = $props();
 
-  let login_data = $state<LoginData>();
   let render_profile_of_type = $state<Nullable<RenderProfileOfType>>(null);
 
   setContext('handle_login_success', handle_login_success);
 
   function handle_login_success(data: LoginData) {
-    login_data = { ...data };
-    // render_profile_of_type = data.type;
+    render_profile_of_type = data.type;
   }
 </script>
 

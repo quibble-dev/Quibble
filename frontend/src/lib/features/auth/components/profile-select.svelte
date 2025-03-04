@@ -8,7 +8,6 @@
   import { onDestroy } from 'svelte';
 
   interface Props {
-    token?: string;
     onclick: (type: 'back' | 'create') => void;
   }
 
