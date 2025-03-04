@@ -52,7 +52,7 @@ pydot = "^3.0.4"
 # formatter
 black = "^25.1.0"
 # sort imports
-isort = "^6.0.0"
+isort = "^6.0.1"
 # linter
 flake8 = "^7.1.2"
 
