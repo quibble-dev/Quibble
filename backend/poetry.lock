@@ -300,13 +300,13 @@ Django = ">=4.2"
 
 [[package]]
 name = "django-ltree-2"
-version = "0.1.10"
-description = "Continual of django-ltree"
+version = "0.1.11"
+description = "Continual of django-ltree with additional goodies"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "django_ltree_2-0.1.10-py3-none-any.whl", hash = "sha256:1b3b51c5b97beda5254cdf0dcef83a5c4258c791e3b2b6c331d1e52a8b1dd6a2"},
-    {file = "django_ltree_2-0.1.10.tar.gz", hash = "sha256:1540aced6564429865b6330dfe7bbacbb3cedfdff3823b546859265117c9f048"},
+    {file = "django_ltree_2-0.1.11-py3-none-any.whl", hash = "sha256:ee4c69e8d4552cba27f5fe3de1d6fec0c3e45930489fb6ac78342fde941e9963"},
+    {file = "django_ltree_2-0.1.11.tar.gz", hash = "sha256:25eaaf5c22b0ca75a082019ebd602a660893c3fde21f7049d3b51fedf139fd68"},
 ]
 
 [package.dependencies]
@@ -1259,4 +1259,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "33f6c6d458b786046f8d33baeaa80cad12602be430b91b68d3c70718dda90fa4"
+content-hash = "7563c63bd12cc88d8cbeef8a0e5da6e1b1c7e6b5784f279a006ad23e608ac90f"
