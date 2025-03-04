@@ -1,4 +1,14 @@
+<script lang="ts" module>
+  type RenderProfileOfType = 'select' | 'create';
+
+  export interface LoginData {
+    type: RenderProfileOfType;
+    profiles: Array<components['schemas']['Profile']>;
+  }
+</script>
+
 <script lang="ts">
+  import type { components } from '$lib/api';
   import GoogleLogo from '$lib/components/icons/logos/google.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble-text.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
@@ -6,21 +16,16 @@
   import type { Nullable } from '$lib/types/shared';
   import { setContext } from 'svelte';
 
-  interface LoginData {
-    token?: string;
-    has_profiles?: boolean;
-  }
-
   let { children } = $props();
 
   let login_data = $state<LoginData>();
-  let render_profile_of_type = $state<Nullable<'select' | 'create'>>(null);
+  let render_profile_of_type = $state<Nullable<RenderProfileOfType>>(null);
 
   setContext('handle_login_success', handle_login_success);
 
   function handle_login_success(data: LoginData) {
     login_data = { ...data };
-    render_profile_of_type = data.has_profiles ? 'select' : 'create';
+    // render_profile_of_type = data.type;
   }
 </script>
 
@@ -51,9 +56,8 @@
         {/if}
       </span>
     </div>
-    {#if render_profile_of_type === 'select' && login_data}
+    {#if render_profile_of_type === 'select'}
       <ProfileSelect
-        token={login_data.token}
         onclick={(type) => {
           if (type === 'back') render_profile_of_type = null;
           else if (type === 'create') render_profile_of_type = 'create';

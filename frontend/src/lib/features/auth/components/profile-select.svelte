@@ -12,18 +12,14 @@
     onclick: (type: 'back' | 'create') => void;
   }
 
-  let { token, onclick }: Props = $props();
+  let { onclick }: Props = $props();
 
   let pending = $state(false);
   let selected_profile_id = $state<Nullable<number>>(null);
 
   async function fetch_profiles() {
     try {
-      const { data, error, response } = await api.GET('/u/me/profiles/', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+      const { data, error, response } = await api.GET('/u/me/profiles/');
 
       if (response.ok && data) {
         return data;
