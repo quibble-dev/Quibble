@@ -1,5 +1,5 @@
 import api from '$lib/api';
-import type { Handle, HandleFetch } from '@sveltejs/kit';
+import type { Handle } from '@sveltejs/kit';
 
 const auth_routes = ['/login', '/register', '/password'];
 const protected_routes = ['/submit', '/q/create'];
