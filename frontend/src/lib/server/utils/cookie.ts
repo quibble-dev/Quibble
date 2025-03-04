@@ -1,4 +1,5 @@
 import { dev } from '$app/environment';
+import { PUBLIC_API_URL } from '$env/static/public';
 import type { Cookies } from '@sveltejs/kit';
 import set_cookie_parser from 'set-cookie-parser';
 
@@ -14,18 +15,18 @@ export function set_cookies_from_header(set_cookie_header: string[], cookies: Co
   const parsed_cookies = set_cookie_parser(set_cookie_header);
   // set each cookie
   parsed_cookies.forEach((cookie) => {
-    const same_site = cookie.sameSite
+    const sameSite = cookie.sameSite
       ? (cookie.sameSite.toLowerCase() as 'strict' | 'lax' | 'none')
       : undefined;
 
+    const domain = cookie.domain ?? new URL(PUBLIC_API_URL).hostname;
+
     cookies.set(cookie.name, cookie.value, {
+      ...cookie,
       path: cookie.path ?? '/',
-      httpOnly: cookie.httpOnly ?? true,
       secure: cookie.secure ?? !dev,
-      maxAge: cookie.maxAge,
-      expires: cookie.expires,
-      domain: cookie.domain,
-      sameSite: same_site
+      domain,
+      sameSite
     });
   });
 }
