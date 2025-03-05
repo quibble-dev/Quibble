@@ -1,39 +1,68 @@
 import api from '$lib/api';
+import { set_cookies_from_header } from '$lib/server/utils/cookie';
 import type { Handle } from '@sveltejs/kit';
 
 const auth_routes = ['/login', '/register', '/password'];
 const protected_routes = ['/submit', '/q/create'];
 
 export const handle: Handle = async ({ event, resolve }) => {
-  const auth_token = event.cookies.get('auth_token');
-  const auth_user_profile_id = event.cookies.get('auth_user_profile_id');
+  const auth_token = event.cookies.get('jwt-auth');
+  const refresh_token = event.cookies.get('jwt-refresh');
+  const has_profile_selected = Boolean(event.cookies.get('profile-id'));
 
-  if (auth_token && auth_user_profile_id) {
-    if (!event.locals.profile) {
-      const { data, error, response } = await api.GET('/auth/user/', {
-        headers: {
-          Authorization: `Bearer ${auth_token}`,
-          'Profile-Id': auth_user_profile_id
-        }
-      });
+  async function verify_access_token(access_token: string) {
+    const { response } = await api.POST('/auth/token/verify/', {
+      body: { token: access_token }
+    });
 
-      if (response.ok && data) {
-        event.locals.profile = data;
-      } else if (error) {
-        console.error(error);
-        event.locals.profile = null;
+    return response.ok;
+  }
 
-        // on auth error
-        if (response.status === 401) {
-          event.cookies.delete('auth_token', { path: '/' });
-          event.cookies.delete('auth_user_profile_id', { path: '/' });
-        }
+  async function refresh_access_token(refresh_token: string) {
+    const { response, error } = await api.POST('/auth/token/refresh/', {
+      headers: { Cookie: event.request.headers.get('Cookie') },
+      // @ts-expect-error: only refresh token required
+      body: { refresh: refresh_token }
+    });
+
+    if (response.ok) {
+      return response;
+    } else {
+      console.log('refresh_access_token failed with err: ', error);
+      return null;
+    }
+  }
+
+  let valid_token = auth_token ? await verify_access_token(auth_token) : false;
+
+  if (!valid_token && refresh_token && has_profile_selected) {
+    const res = await refresh_access_token(refresh_token);
+    if (res) {
+      set_cookies_from_header(res.headers.getSetCookie(), event.cookies);
+      valid_token = true;
+    }
+  }
+
+  if (valid_token && has_profile_selected) {
+    const { data, error, response } = await api.GET('/auth/user/', {
+      headers: { Cookie: event.request.headers.get('Cookie') }
+    });
+
+    if (response.ok && data) {
+      event.locals.user = data;
+    } else if (error) {
+      console.error(error);
+      event.locals.user = null;
+
+      // on auth error
+      if (response.status === 401) {
+        // ...
       }
     }
   }
 
   // authenticated user cant access auth routes
-  if (event.locals.profile && auth_routes.some((route) => event.url.pathname.startsWith(route))) {
+  if (event.locals.user && auth_routes.some((route) => event.url.pathname.startsWith(route))) {
     return new Response(null, {
       status: 302,
       headers: { location: '/' }
@@ -42,7 +71,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 
   // unauthenticated user cant access protected routes
   if (
-    !event.locals.profile &&
+    !event.locals.user &&
     protected_routes.some((route) => event.url.pathname.startsWith(route))
   ) {
     const encoded_dest = encodeURIComponent(event.url.href);

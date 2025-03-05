@@ -35,7 +35,7 @@ export const actions: Actions = {
       return message(form, error.errors[0]?.detail, { status: 401 });
     }
   },
-  create: async ({ request, cookies }) => {
+  create: async ({ request }) => {
     const form = await superValidate(request, zod(ProfileCreateSchema));
 
     if (!form.valid) {
@@ -43,9 +43,6 @@ export const actions: Actions = {
     }
 
     const { data, error, response } = await api.POST('/u/me/profiles/', {
-      headers: {
-        Authorization: `Bearer ${cookies.get('auth_token')}`
-      },
       // @ts-expect-error: only requires username for POST req
       body: { ...form.data },
       bodySerializer(body) {

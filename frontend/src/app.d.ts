@@ -1,14 +1,14 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 import type { components } from '$lib/api';
+import type { Nullable } from '$lib/types/shared';
 
-type Profile = components['schemas']['Profile'];
-
+type UserDetails = components['schemas']['UserDetails'];
 // for information about these interfaces
 declare global {
   namespace App {
     // interface Error {}
     interface Locals {
-      profile: Profile | null;
+      user: Nullable<UserDetails>;
     }
     // interface PageData {}
     // interface PageState {}

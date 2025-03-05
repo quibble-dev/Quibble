@@ -373,7 +373,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/q/communities/{name}/highlighted_posts/': {
+  '/q/communities/{name}/highlighted-posts/': {
     parameters: {
       query?: never;
       header?: never;
