@@ -1,16 +1,16 @@
-import type { components } from '$lib/api/v1/schema';
+import type { components } from '$lib/api';
 import type { Nullable } from '$lib/types/shared';
 
-type Profile = components['schemas']['Profile'];
+type UserDetails = components['schemas']['UserDetails'];
 
 type AuthState = {
   is_authenticated: boolean;
-  profile: Nullable<Profile>;
+  user: Nullable<UserDetails>;
 };
 
 const auth_state = $state<AuthState>({
   is_authenticated: false,
-  profile: null
+  user: null
 });
 
 export function createAuthStore() {

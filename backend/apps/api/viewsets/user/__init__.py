@@ -4,12 +4,16 @@ from itertools import chain
 from django.conf import settings
 from django.db.models import CharField, QuerySet, Value
 from drf_spectacular.utils import extend_schema
-from rest_framework import exceptions, filters, permissions, response, viewsets
+from rest_framework import exceptions, filters, permissions, viewsets
 from rest_framework.decorators import action
+from rest_framework.response import Response
 
 from apps.api.serializers.comment import CommentDetailSerializer
 from apps.api.serializers.post import PostSerializer
-from apps.api.serializers.user.profile import ProfileSerializer
+from apps.api.serializers.user.profile import (
+    ProfileSerializer,
+    ProfileTotalCountSerializer,
+)
 from apps.api.serializers.user.profile.downvoted import DownvotedSerializer
 from apps.api.serializers.user.profile.overview import OverviewSerializer
 from apps.api.serializers.user.profile.upvoted import UpvotedSerializer
@@ -71,7 +75,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
         serialized_data = self.get_serializer(
             combined_data, context={'request': request}, many=True
         ).data
-        return response.Response(serialized_data)
+        return Response(serialized_data)
 
     @extend_schema(responses=PostSerializer(many=True))
     @action(detail=True, methods=[HTTPMethod.GET])
@@ -80,7 +84,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
         profile = self.get_object()
         posts = profile.posts.all().order_by("-created_at")
         serialized_data = self.get_serializer(posts, context={"request": request}, many=True).data
-        return response.Response(serialized_data)
+        return Response(serialized_data)
 
     @extend_schema(responses=CommentDetailSerializer(many=True))
     @action(detail=True, methods=[HTTPMethod.GET])
@@ -91,7 +95,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
         serialized_data = self.get_serializer(
             comments, context={"request": request}, many=True
         ).data
-        return response.Response(serialized_data)
+        return Response(serialized_data)
 
     @extend_schema(responses=UpvotedSerializer(many=True))
     @action(detail=True, methods=[HTTPMethod.GET])
@@ -107,7 +111,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
         serialized_data = self.get_serializer(
             combined_data, context={"request": request}, many=True
         ).data
-        return response.Response(serialized_data)
+        return Response(serialized_data)
 
     @extend_schema(responses=DownvotedSerializer(many=True))
     @action(detail=True, methods=[HTTPMethod.GET])
@@ -123,7 +127,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
         serialized_data = self.get_serializer(
             combined_data, context={"request": request}, many=True
         ).data
-        return response.Response(serialized_data)
+        return Response(serialized_data)
 
 
 @extend_schema(tags=["user & profiles"])
@@ -161,3 +165,9 @@ class MyProfilesViewSet(viewsets.ModelViewSet):
                 f"A user cannot have more than {settings.PROFILE_LIMIT} profiles."
             )
         serializer.save(user=user)
+
+    @extend_schema(responses=ProfileTotalCountSerializer)
+    @action(detail=False, methods=[HTTPMethod.GET], url_path='total-count')
+    def total_count(self, request):
+        count = request.user.profiles.all().count()
+        return Response({'total_count': count})

@@ -8,22 +8,17 @@
   import { onDestroy } from 'svelte';
 
   interface Props {
-    token?: string;
     onclick: (type: 'back' | 'create') => void;
   }
 
-  let { token, onclick }: Props = $props();
+  let { onclick }: Props = $props();
 
   let pending = $state(false);
   let selected_profile_id = $state<Nullable<number>>(null);
 
   async function fetch_profiles() {
     try {
-      const { data, error, response } = await api.GET('/u/me/profiles/', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+      const { data, error, response } = await api.GET('/u/me/profiles/');
 
       if (response.ok && data) {
         return data;
@@ -40,30 +35,23 @@
     selected_profile_id = id;
 
     try {
-      const res = await fetch('/api/v1/u/login/select', {
-        method: 'POST',
-        body: JSON.stringify({ id })
+      await api.POST('/auth/select/{profile_id}/', {
+        params: { path: { profile_id: id } }
       });
 
-      if (res.ok) {
-        const data = await res.json();
-        if (!data.success) return;
-
+      try {
         const dest_param = page.url.searchParams.get('dest') ?? '/';
+        const dest = new URL(dest_param, window.location.origin);
 
-        try {
-          const dest = new URL(dest_param, window.location.origin);
-
-          if (window.location.origin === dest.origin) {
-            window.location.href = dest.href;
-          } else {
-            console.warn('invalid destination URL: ', dest.href);
-            window.location.href = '/';
-          }
-        } catch {
-          // normal case
+        if (window.location.origin === dest.origin) {
+          window.location.href = dest.href;
+        } else {
+          console.warn('invalid destination URL: ', dest.href);
           window.location.href = '/';
         }
+      } catch {
+        // normal case
+        window.location.href = '/';
       }
     } catch (err) {
       console.error(err);

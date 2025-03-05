@@ -2,6 +2,7 @@ from dj_rest_auth.registration.views import RegisterView as RegisterAPIView
 from django.urls import include, path
 from rest_framework import routers
 
+from .views.user import MeAPIView
 from .views.user.auth import LogoutAPIView, SelectProfileAPIView
 from .viewsets.comment import CommentViewSet
 from .viewsets.community import CommunityViewSet
@@ -24,6 +25,7 @@ main_router.registry.extend(user_router.registry)
 
 # fmt: off
 urlpatterns = [
+    path('u/me/', MeAPIView.as_view(), name='me'),
     # auth endpoints
     # custom logout endpoint (must come before dj_rest_auth.urls)
     path('auth/logout/', LogoutAPIView.as_view(), name='rest_logout'),

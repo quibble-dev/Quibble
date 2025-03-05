@@ -373,7 +373,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/q/communities/{name}/highlighted_posts/': {
+  '/q/communities/{name}/highlighted-posts/': {
     parameters: {
       query?: never;
       header?: never;
@@ -437,6 +437,28 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/u/me/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description View to retrieve information for the currently authenticated user.
+     *
+     *     - `get`: Returns the details of the authenticated user based on their token.
+     *
+     *     Permission:
+     *     - Requires user authentication. */
+    get: operations['u_me_retrieve'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/u/me/profiles/': {
     parameters: {
       query?: never;
@@ -491,6 +513,26 @@ export interface paths {
      *     Permissions:
      *     - Requires user authentication to access and modify profiles. */
     patch: operations['u_me_profiles_partial_update'];
+    trace?: never;
+  };
+  '/u/me/profiles/total-count/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description ViewSet to manage profiles associated with the authenticated user.
+     *
+     *     Permissions:
+     *     - Requires user authentication to access and modify profiles. */
+    get: operations['u_me_profiles_total_count_retrieve'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
     trace?: never;
   };
   '/u/profiles/': {
@@ -2512,6 +2554,9 @@ export interface components {
       /** Format: uri */
       avatar?: string | null;
       readonly name: string | null;
+    };
+    ProfileTotalCount: {
+      total_count: number;
     };
     QCommunitiesCreateAvatarErrorComponent: {
       /**
@@ -5123,6 +5168,33 @@ export interface operations {
       };
     };
   };
+  u_me_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['Profile'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
   u_me_profiles_list: {
     parameters: {
       query?: never;
@@ -5358,6 +5430,33 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  u_me_profiles_total_count_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ProfileTotalCount'];
         };
       };
       500: {
