@@ -32,13 +32,7 @@ export const handle: Handle = async ({ event, resolve }) => {
     if (response.ok && data) {
       event.locals.user = data;
     } else if (error) {
-      console.error(error);
       event.locals.user = null;
-
-      // on auth error
-      if (response.status === 401) {
-        // ...
-      }
     }
   }
 
