@@ -36,5 +36,5 @@ class UserDetailsSerializer(serializers.ModelSerializer):
         user_profile = getattr(request, 'user_profile', None)
 
         if user_profile:
-            return ProfileBasicSerializer(user_profile).data
+            return ProfileBasicSerializer(user_profile, context={'request': request}).data
         return None
