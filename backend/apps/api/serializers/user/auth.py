@@ -1,17 +1,40 @@
+from dj_rest_auth.registration.serializers import (
+    RegisterSerializer as RestAuthRegisterSerializer,
+)
+from dj_rest_auth.serializers import LoginSerializer as RestAuthLoginSerializer
+from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
 from apps.user.models import User
 
+from .profile import ProfileBasicSerializer
 
-class AuthSerializer(serializers.ModelSerializer):
+
+class LoginSerializer(RestAuthLoginSerializer):
+    """Custom LoginSerializer making email field required and removing username field"""
+
+    username = None
+    email = serializers.EmailField(required=True)
+
+
+class RegisterSerializer(RestAuthRegisterSerializer):
+    """Custom RegisterSerializer removing username field"""
+
+    username = None
+
+
+class UserDetailsSerializer(serializers.ModelSerializer):
+    profile = serializers.SerializerMethodField()
+
     class Meta:
         model = User
-        fields = ('email', 'password')
+        fields = ('id', 'email', 'date_joined', 'profile')
 
-    def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)  # pyright: ignore
-        return user
+    @extend_schema_field(ProfileBasicSerializer)
+    def get_profile(self, obj):
+        request = self.context.get('request')
+        user_profile = getattr(request, 'user_profile', None)
 
-
-class AuthTokenSerializer(serializers.Serializer):
-    token = serializers.CharField()
+        if user_profile:
+            return ProfileBasicSerializer(user_profile, context={'request': request}).data
+        return None

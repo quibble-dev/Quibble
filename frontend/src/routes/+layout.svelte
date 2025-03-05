@@ -29,8 +29,8 @@
 
   $effect(() => {
     authStore.update({
-      is_authenticated: !!data.profile,
-      profile: data.profile
+      is_authenticated: !!data.user,
+      user: data.user
     });
   });
 

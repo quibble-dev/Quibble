@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 from pathlib import Path
 
 import dj_database_url
@@ -41,7 +42,13 @@ THIRD_PARTY_APPS = [
     'django_extensions',
     # rest framework
     'rest_framework',
-    'rest_framework.authtoken',
+    # 'rest_framework.authtoken',
+    # auth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
     # django filtering
     'django_filters',
     # middleware (cors)
@@ -70,6 +77,8 @@ if DEBUG:
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + SELF_APPS
 
+SITE_ID = 1
+
 DEFAULT_RENDERER_CLASSES = ('rest_framework.renderers.JSONRenderer',)
 
 if DEBUG:
@@ -79,7 +88,7 @@ if DEBUG:
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'apps.user.auth.ExtendedTokenAuthentication',
+        'apps.user.auth.ExtendedJWTCookieAuthentication',
     ],
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -87,6 +96,36 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES,
     'EXCEPTION_HANDLER': 'drf_standardized_errors.handler.exception_handler',
     'DEFAULT_SCHEMA_CLASS': 'apps.api.openapi.CustomAutoSchema',
+}
+
+# django-allauth
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_LOGIN_METHODS = {'email'}
+
+# JWT settings
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+}
+
+# dj-rest-auth settings
+REST_AUTH = {
+    'USE_JWT': True,
+    'TOKEN_MODEL': None,
+    # jwt settings
+    'JWT_AUTH_COOKIE': 'jwt-auth',
+    'JWT_AUTH_REFRESH_COOKIE': 'jwt-refresh',
+    'JWT_AUTH_SECURE': False if DEBUG else True,
+    'JWT_AUTH_HTTPONLY': True,
+    'JWT_AUTH_SAMESITE': 'Lax',
+    # serializers
+    'REGISTER_SERIALIZER': 'apps.api.serializers.user.auth.RegisterSerializer',
+    'LOGIN_SERIALIZER': 'apps.api.serializers.user.auth.LoginSerializer',
+    'USER_DETAILS_SERIALIZER': 'apps.api.serializers.user.auth.UserDetailsSerializer',
 }
 
 # https://drf-standardized-errors.readthedocs.io/en/latest/openapi.html#tips-and-tricks
@@ -105,7 +144,7 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
     'SCHEMA_PATH_PREFIX': r'/api/v[1-9]/',
     'SCHEMA_PATH_PREFIX_TRIM': True,
-    'SERVERS': [{'url': '/api/v1', 'description': 'v1 API version'}],
+    'SERVERS': [{'url': '/api/v1/'}],
     # sidecar config
     'SWAGGER_UI_DIST': 'SIDECAR',
     'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
@@ -149,6 +188,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # allauth middleware
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 if DEBUG:
@@ -240,12 +281,15 @@ AUTH_USER_MODEL = 'user.User'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     # custom auth backend
-    'apps.user.backends.EmailAuthBackend',
+    # 'apps.user.backends.EmailAuthBackend',
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 # django-cors-headers settins
 # https://pypi.org/project/django-cors-headers/
 
+CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = CSRF_TRUSTED_ORIGINS = [
     'http://localhost:5173',
 ]

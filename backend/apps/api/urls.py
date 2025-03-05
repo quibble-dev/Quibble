@@ -1,8 +1,9 @@
+from dj_rest_auth.registration.views import RegisterView as RegisterAPIView
 from django.urls import include, path
 from rest_framework import routers
 
 from .views.user import MeAPIView
-from .views.user.auth import LoginAPIView, LogoutAPIView, RegisterAPIView
+from .views.user.auth import LogoutAPIView, SelectProfileAPIView
 from .viewsets.comment import CommentViewSet
 from .viewsets.community import CommunityViewSet
 from .viewsets.community.topics import TopicViewSet
@@ -24,14 +25,16 @@ main_router.registry.extend(user_router.registry)
 
 # fmt: off
 urlpatterns = [
-    path('u/', include([
-        # auth
-        path('login/', LoginAPIView.as_view(), name='login'),
-        path('logout/', LogoutAPIView.as_view(), name='logout'),
-        path('register/', RegisterAPIView.as_view(), name='register'),
-        # user view of requested user
-        path('me/', MeAPIView.as_view(), name='me'),
-    ])),
+    path('u/me/', MeAPIView.as_view(), name='me'),
+    # auth endpoints
+    # custom logout endpoint (must come before dj_rest_auth.urls)
+    path('auth/logout/', LogoutAPIView.as_view(), name='rest_logout'),
+    path('auth/select/<int:profile_id>/', SelectProfileAPIView.as_view(), name='select-profile-id'),
+    # dj_rest_auth.urls (default endpoints)
+    path('auth/', include('dj_rest_auth.urls')),
+    path('auth/', include('django.contrib.auth.urls')),
+    # path('auth/registration/', include('dj_rest_auth.registration.urls')),
+    path('auth/registration/', RegisterAPIView.as_view()),
 ]
 # fmt: on
 

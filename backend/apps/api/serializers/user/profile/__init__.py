@@ -19,10 +19,14 @@ class ProfileBasicSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('username', 'avatar', 'name')
+        fields = ('id', 'username', 'avatar', 'name')
 
     def get_name(self, obj) -> Optional[str]:
         if obj.first_name or obj.last_name:
             truthy_fields = filter(None, [obj.first_name, obj.last_name])
             return " ".join(truthy_fields)
         return None
+
+
+class ProfileTotalCountSerializer(serializers.Serializer):
+    total_count = serializers.IntegerField()

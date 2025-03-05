@@ -1,57 +1,47 @@
-from django.contrib.auth import authenticate
-from drf_spectacular.utils import extend_schema
-from rest_framework import exceptions, generics, permissions, views
-from rest_framework.authtoken.models import Token
+from dj_rest_auth.views import LogoutView as RestAuthLogoutAPIView
+from django.conf import settings
+from django.utils import timezone
+from rest_framework import generics, permissions, views
 from rest_framework.response import Response
 
-from ...bases.serializers import DetailResponseSerializer
-from ...exceptions import ServerError
-from ...serializers.user.auth import AuthSerializer, AuthTokenSerializer
+from apps.user.models import Profile
 
 
-@extend_schema(tags=['auth'])
-class LoginAPIView(views.APIView):
+class SelectProfileAPIView(views.APIView):
+    """API View to select profile which sets cookie to response"""
+
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, profile_id=None):
+        profile = generics.get_object_or_404(Profile, id=profile_id, user=request.user)
+
+        response = Response({})
+        response.set_cookie(
+            'profile-id',
+            value=str(profile.pk),
+            expires=timezone.now() + timezone.timedelta(days=7),
+            httponly=True,
+            secure=False if settings.DEBUG else True,
+            samesite='Lax',
+        )
+
+        return response
+
+
+class LogoutAPIView(RestAuthLogoutAPIView):
     """
-    Customized drf basic token authentication.
+    Extended Logout view which also deletes profile-id from cookies,
+    Inherits dj-rest-auth LogoutView.
 
-    This view authenticates the user using email and password credentials
-    and issues a token upon successful login.
-    """
-
-    serializer_class = AuthSerializer
-
-    @extend_schema(responses=AuthTokenSerializer)
-    def post(self, request, format=None):
-        user = authenticate(email=request.data.get('email'), password=request.data.get('password'))
-        if user:
-            token, _ = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key})
-        else:
-            raise exceptions.AuthenticationFailed()
-
-
-@extend_schema(tags=['auth'])
-class LogoutAPIView(views.APIView):
-    """
-    View to handle user logout by deleting the authentication token.
-    """
-
-    permission_classes = (permissions.IsAuthenticated,)
-
-    @extend_schema(request=None, responses=DetailResponseSerializer)
-    def post(self, request, format=None):
-        try:
-            Token.objects.filter(user=request.user).delete()
-            return Response({'detail': 'Successfully logged out.'})
-
-        except Exception as e:
-            raise ServerError(f'An error occurred while logging out: {str(e)}')
-
-
-@extend_schema(tags=['auth'])
-class RegisterAPIView(generics.CreateAPIView):
-    """
-    View to handle registering of new users.
+    Accepts/Returns nothing.
     """
 
-    serializer_class = AuthSerializer
+    # POST requests only
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        # delete profile-id cookie
+        response.delete_cookie('profile-id', samesite='Lax')
+
+        return response
