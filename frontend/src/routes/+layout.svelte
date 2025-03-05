@@ -1,6 +1,7 @@
 <script lang="ts">
   import { afterNavigate, beforeNavigate } from '$app/navigation';
   import Toaster from '$lib/components/ui/toast';
+  import { TOKEN_REFRESH_INTERVAL } from '$lib/constants/auth';
   import Modals from '$lib/modals/index.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import '../styles/app.css';
@@ -36,6 +37,19 @@
 
   onMount(() => {
     defineCustomElements();
+    // send token refresh request interval
+    if (!authStore.state.is_authenticated) return;
+
+    const interval = setInterval(async () => {
+      const res = await fetch('/api/v1/auth/token/refresh', { method: 'POST' });
+      if (!res.ok) {
+        // refresh token expired or invalid
+        window.location.href = '/login?session-expired=true';
+        clearInterval(interval);
+      }
+    }, TOKEN_REFRESH_INTERVAL);
+
+    return () => clearInterval(interval);
   });
 </script>
 

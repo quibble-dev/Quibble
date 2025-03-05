@@ -1,6 +1,6 @@
 import api from '$lib/api';
+import { handle_refresh_access_token, handle_verify_access_token } from '$lib/server/utils/auth';
 import { set_cookies_from_header } from '$lib/server/utils/cookie';
-import type { Nullable } from '$lib/types/shared';
 import type { Handle } from '@sveltejs/kit';
 
 const auth_routes = ['/login', '/register', '/password'];
@@ -64,40 +64,3 @@ export const handle: Handle = async ({ event, resolve }) => {
 
   return await resolve(event);
 };
-
-/**
- * A utility function to check if access token if valid or not.
- * @param access_token - Access token to check.
- * @returns Promise<boolean>
- */
-async function handle_verify_access_token(access_token: string): Promise<boolean> {
-  const { response } = await api.POST('/auth/token/verify/', {
-    body: { token: access_token }
-  });
-
-  return response.ok;
-}
-
-/**
- * A utility function to make API requests.
- * @param refresh_token - Refresh token to send along with request.
- * @param cookie_header - Cookies to send
- * @returns Promise<Nullable<Response>>
- */
-async function handle_refresh_access_token(
-  refresh_token: string,
-  cookie_header: Nullable<string>
-): Promise<Nullable<Response>> {
-  const { response, error } = await api.POST('/auth/token/refresh/', {
-    headers: { Cookie: cookie_header },
-    // @ts-expect-error: only refresh token required
-    body: { refresh: refresh_token }
-  });
-
-  if (response.ok) {
-    return response;
-  } else {
-    console.log('refresh_access_token failed with err: ', error);
-    return null;
-  }
-}
