@@ -93,7 +93,7 @@
       <div class="tooltip tooltip-bottom flex before:left-0" data-tip="Profile menu">
         <Avatar
           class="btn btn-neutral size-10 rounded-btn border-none p-0"
-          src={authStore.state.profile?.avatar}
+          src={authStore.state.user?.profile.avatar}
         />
       </div>
     {:else}
