@@ -41,7 +41,7 @@ dj-rest-auth = {extras = ["with-social"], version = "^7.0.1"}
 
 [tool.poetry.group.dev.dependencies]
 # task runner
-poethepoet = "^0.32.2"
+poethepoet = "^0.33.0"
 # django extentions
 django-extensions = "^3.2.3"
 # typing support
@@ -55,13 +55,13 @@ pydot = "^3.0.4"
 # formatter
 black = "^25.1.0"
 # sort imports
-isort = "^6.0.0"
+isort = "^6.0.1"
 # linter
 flake8 = "^7.1.2"
 
 [tool.poetry.group.test.dependencies]
 # pytest and plugins
-pytest = "^8.3.4"
+pytest = "^8.3.5"
 pytest-cov = "^6.0.0"
 pytest-django = "^4.9.0"
 
