@@ -18,7 +18,7 @@ export const handle: Handle = async ({ event, resolve }) => {
       refresh_token,
       event.request.headers.get('Cookie')
     );
-    if (res) {
+    if (res && res.headers.getSetCookie()) {
       set_cookies_from_header(res.headers.getSetCookie(), event.cookies);
       valid_token = true;
     }
@@ -70,7 +70,7 @@ export const handle: Handle = async ({ event, resolve }) => {
  * @param access_token - Access token to check.
  * @returns Promise<boolean>
  */
-async function handle_verify_access_token(access_token: string) {
+async function handle_verify_access_token(access_token: string): Promise<boolean> {
   const { response } = await api.POST('/auth/token/verify/', {
     body: { token: access_token }
   });
