@@ -1,6 +1,6 @@
 import api from '$lib/api';
 import { create_form_data, type FormDataObject } from '$lib/functions/form';
-import { AuthSchema, ProfileCreateSchema } from '$lib/schemas/auth';
+import { LoginSchema, ProfileCreateSchema } from '$lib/schemas/auth';
 import { set_cookies_from_header } from '$lib/server/utils/cookie';
 import type { PageServerLoad } from './$types';
 import { fail, type Actions } from '@sveltejs/kit';
@@ -9,14 +9,14 @@ import { zod } from 'sveltekit-superforms/adapters';
 
 export const load: PageServerLoad = async ({ url }) => {
   const initial_data = { email: url.searchParams.get('email') ?? '' };
-  const form = await superValidate(initial_data, zod(AuthSchema), { errors: false });
+  const form = await superValidate(initial_data, zod(LoginSchema), { errors: false });
 
   return { form };
 };
 
 export const actions: Actions = {
   login: async ({ request, cookies }) => {
-    const form = await superValidate(request, zod(AuthSchema));
+    const form = await superValidate(request, zod(LoginSchema));
 
     if (!form.valid) {
       return fail(400, { form });

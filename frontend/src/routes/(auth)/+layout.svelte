@@ -1,8 +1,9 @@
 <script lang="ts" module>
-  type RenderProfileOfType = 'select' | 'create';
+  type RenderType = 'select' | 'create' | 'code';
 
-  export interface LoginData {
-    type: RenderProfileOfType;
+  export interface Data {
+    type: RenderType;
+    email?: string;
   }
 </script>
 
@@ -16,12 +17,14 @@
 
   let { children } = $props();
 
-  let render_profile_of_type = $state<Nullable<RenderProfileOfType>>(null);
+  let data = $state<Nullable<Data>>(null);
+  let render_type = $state<Nullable<RenderType>>('code');
 
-  setContext('handle_login_success', handle_login_success);
+  setContext('handle_success', handle_success);
 
-  function handle_login_success(data: LoginData) {
-    render_profile_of_type = data.type;
+  function handle_success(_data: Data) {
+    data = { ..._data };
+    render_type = _data.type;
   }
 </script>
 
@@ -37,32 +40,34 @@
         <QuibbleTextLogo class="h-7 w-auto" />
       </a>
       <span class="flex flex-col text-center font-medium">
-        {#if render_profile_of_type === 'select'}
+        {#if render_type === 'select'}
           Who's quibbling?
           <span class="text-xs font-normal"
             >You can later switch b/w profiles from settings page</span
           >
-        {:else if render_profile_of_type === 'create'}
+        {:else if render_type === 'create'}
           Let's create a new one!
           <span class="text-xs font-normal"
             >You can later switch b/w profiles from settings page</span
           >
+        {:else if render_type === 'code'}
+          Enter the 6-digit code we sent to {data?.email}
         {:else}
           Join in, share your take, and<br /> make some waves!
         {/if}
       </span>
     </div>
-    {#if render_profile_of_type === 'select'}
+    {#if render_type === 'select'}
       <ProfileSelect
         onclick={(type) => {
-          if (type === 'back') render_profile_of_type = null;
-          else if (type === 'create') render_profile_of_type = 'create';
+          if (type === 'back') render_type = null;
+          else if (type === 'create') render_type = 'create';
         }}
       />
-    {:else if render_profile_of_type === 'create'}
+    {:else if render_type === 'create'}
       <ProfileCreate
-        onback={() => (render_profile_of_type = 'select')}
-        onsuccess={() => (render_profile_of_type = 'select')}
+        onback={() => (render_type = 'select')}
+        onsuccess={() => (render_type = 'select')}
       />
     {:else}
       <!-- oauth section -->
