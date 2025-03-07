@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
   import { cn } from '$lib/functions/classnames';
   import { VerificationCodeSchema } from '$lib/schemas/auth';
   import { defaults, superForm } from 'sveltekit-superforms';
