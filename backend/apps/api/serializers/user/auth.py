@@ -1,7 +1,11 @@
+from allauth.account import app_settings as allauth_account_settings
+from allauth.account.adapter import get_adapter
+from allauth.account.models import EmailAddress
 from dj_rest_auth.registration.serializers import (
     RegisterSerializer as RestAuthRegisterSerializer,
 )
 from dj_rest_auth.serializers import LoginSerializer as RestAuthLoginSerializer
+from django.utils.translation import gettext_lazy as _
 from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
@@ -21,6 +25,28 @@ class RegisterSerializer(RestAuthRegisterSerializer):
     """Custom RegisterSerializer removing username field"""
 
     username = None
+
+    # https://github.com/iMerica/dj-rest-auth/pull/680
+    def validate_email(self, email):
+        email = get_adapter().clean_email(email)
+
+        if allauth_account_settings.UNIQUE_EMAIL:
+            existing_email = EmailAddress.objects.filter(email=email).first()
+
+            if existing_email:
+                if (
+                    not existing_email.verified
+                    and allauth_account_settings.EMAIL_VERIFICATION
+                    == allauth_account_settings.EmailVerificationMethod.MANDATORY
+                ):
+                    raise serializers.ValidationError(
+                        _('This email is already in use but has not been verified.')
+                    )
+                raise serializers.ValidationError(
+                    _('A user is already registered with this email address.')
+                )
+
+        return email
 
 
 class UserDetailsSerializer(serializers.ModelSerializer):
