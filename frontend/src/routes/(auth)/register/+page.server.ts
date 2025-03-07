@@ -1,5 +1,5 @@
 import api from '$lib/api';
-import { RegisterSchema } from '$lib/schemas/auth';
+import { RegisterSchema, VerificationCodeSchema } from '$lib/schemas/auth';
 import { set_cookies_from_header } from '$lib/server/utils/cookie';
 import type { PageServerLoad } from './$types';
 import { fail, type Actions } from '@sveltejs/kit';
@@ -14,7 +14,7 @@ export const load: PageServerLoad = async ({ url }) => {
 };
 
 export const actions: Actions = {
-  default: async ({ request, cookies }) => {
+  login: async ({ request, cookies }) => {
     const form = await superValidate(request, zod(RegisterSchema));
 
     if (!form.valid) {
@@ -33,5 +33,14 @@ export const actions: Actions = {
     } else if (error) {
       return message(form, error.errors[0]?.detail, { status: 401 });
     }
+  },
+  code: async ({ request }) => {
+    const form = await superValidate(request, zod(VerificationCodeSchema));
+
+    if (!form.valid) {
+      return fail(400, { form });
+    }
+
+    return { form };
   }
 };

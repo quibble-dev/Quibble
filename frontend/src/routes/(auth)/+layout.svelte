@@ -11,7 +11,7 @@
   import GoogleLogo from '$lib/components/icons/logos/google.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble-text.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
-  import { ProfileSelect, ProfileCreate } from '$lib/features/auth';
+  import { ProfileSelect, ProfileCreate, Code } from '$lib/features/auth';
   import type { Nullable } from '$lib/types/shared';
   import { setContext } from 'svelte';
 
@@ -51,7 +51,8 @@
             >You can later switch b/w profiles from settings page</span
           >
         {:else if render_type === 'code'}
-          Enter the 6-digit code we sent to {data?.email}
+          Verify your email
+          <span class="text-xs font-normal">Enter the 6-digit code we sent to {data?.email}</span>
         {:else}
           Join in, share your take, and<br /> make some waves!
         {/if}
@@ -69,6 +70,8 @@
         onback={() => (render_type = 'select')}
         onsuccess={() => (render_type = 'select')}
       />
+    {:else if render_type === 'code'}
+      <Code />
     {:else}
       <!-- oauth section -->
       <div class="flex w-full items-center gap-3">

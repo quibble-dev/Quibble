@@ -16,6 +16,10 @@ export const RegisterSchema = z
     path: ['password2']
   });
 
+export const VerificationCodeSchema = z.object({
+  code: z.string().min(1).max(6)
+});
+
 export const ProfileCreateSchema = z.object({
   username: z.string().min(3),
   avatar: z
