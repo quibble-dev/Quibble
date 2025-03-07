@@ -1,4 +1,3 @@
-from dj_rest_auth.registration.views import RegisterView as RegisterAPIView
 from django.urls import include, path
 from rest_framework import routers
 
@@ -33,8 +32,7 @@ urlpatterns = [
     # dj_rest_auth.urls (default endpoints)
     path('auth/', include('dj_rest_auth.urls')),
     path('auth/', include('django.contrib.auth.urls')),
-    # path('auth/registration/', include('dj_rest_auth.registration.urls')),
-    path('auth/registration/', RegisterAPIView.as_view()),
+    path('auth/registration/', include('dj_rest_auth.registration.urls')),
 ]
 # fmt: on
 
