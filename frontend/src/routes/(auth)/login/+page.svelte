@@ -69,6 +69,7 @@
       />
       <button
         type="button"
+        tabindex="-1"
         class="btn btn-square btn-ghost btn-sm ml-auto border border-base-content/25 bg-transparent"
         aria-label="Show/hide password"
       >
@@ -85,9 +86,9 @@
   <div class="flex items-center justify-between gap-1">
     <span class="text-sm">
       New to Quibble?
-      <a href={href_register} class="font-medium text-accent">Sign up</a>
+      <a href={href_register} tabindex="-1" class="font-medium text-accent">Sign up</a>
     </span>
-    <a href="/password" class="text-sm text-accent">Forgot password?</a>
+    <a href="/password" tabindex="-1" class="text-sm text-accent">Forgot password?</a>
   </div>
   {#if $message}
     <div class="flex items-center gap-2 text-error" class:text-error={$message}>

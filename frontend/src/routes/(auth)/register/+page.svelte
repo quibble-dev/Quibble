@@ -62,6 +62,7 @@
       />
       <button
         type="button"
+        tabindex="-1"
         class="btn btn-square btn-ghost btn-sm ml-auto border border-base-content/25 bg-transparent"
         aria-label="Show/hide password"
       >
@@ -88,6 +89,7 @@
       />
       <button
         type="button"
+        tabindex="-1"
         class="btn btn-square btn-ghost btn-sm ml-auto border border-base-content/25 bg-transparent"
         aria-label="Show/hide password"
       >
@@ -103,7 +105,7 @@
   </div>
   <span class="text-sm">
     Already a quibbler?
-    <a href={href_login} class="font-medium text-accent">Log in</a>
+    <a href={href_login} tabindex="-1" class="font-medium text-accent">Log in</a>
   </span>
   {#if $message}
     <div class="flex items-center gap-2 text-error" class:text-error={$message}>
