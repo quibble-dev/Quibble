@@ -14,7 +14,7 @@
 
   const { form, enhance, delayed, errors, message } = superForm(data.form, {
     resetForm: false,
-    async onResult({ result }) {
+    onResult({ result }) {
       if (result.type === 'success' && result.data) {
         handle_success({ type: 'code', email: result.data.form.data.email });
       }

@@ -3,7 +3,7 @@ import { RegisterSchema, VerificationCodeSchema } from '$lib/schemas/auth';
 import { set_cookies_from_header } from '$lib/server/utils/cookie';
 import type { PageServerLoad } from './$types';
 import { fail, type Actions } from '@sveltejs/kit';
-import { message, superValidate } from 'sveltekit-superforms';
+import { message, setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 
 export const load: PageServerLoad = async ({ url }) => {
@@ -14,7 +14,7 @@ export const load: PageServerLoad = async ({ url }) => {
 };
 
 export const actions: Actions = {
-  login: async ({ request, cookies }) => {
+  register: async ({ request, cookies }) => {
     const form = await superValidate(request, zod(RegisterSchema));
 
     if (!form.valid) {
@@ -41,6 +41,15 @@ export const actions: Actions = {
       return fail(400, { form });
     }
 
-    return { form };
+    const { response, error } = await api.POST('/auth/registration/verify-email/', {
+      headers: { Cookie: request.headers.get('Cookie') },
+      body: { key: form.data.code }
+    });
+
+    if (response.ok) {
+      return { form };
+    } else if (error) {
+      return setError(form, 'code', String(error.errors[0]?.detail));
+    }
   }
 };

@@ -128,6 +128,44 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/auth/registration/resend-email/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** @description Resends another email to an unverified email.
+     *
+     *     Accepts the following POST parameter: email. */
+    post: operations['auth_registration_resend_email_create'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/auth/registration/verify-email/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** @description Verifies the email associated with the provided key.
+     *
+     *     Accepts the following POST parameter: key. */
+    post: operations['auth_registration_verify_email_create'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/auth/select/{profile_id}/': {
     parameters: {
       query?: never;
@@ -1071,6 +1109,96 @@ export interface components {
     AuthRegistrationCreateValidationError: {
       type: components['schemas']['ValidationErrorEnum'];
       errors: components['schemas']['AuthRegistrationCreateError'][];
+    };
+    AuthRegistrationResendEmailCreateEmailErrorComponent: {
+      /**
+       * @description * `email` - email (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'email';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    AuthRegistrationResendEmailCreateError:
+      | components['schemas']['AuthRegistrationResendEmailCreateNonFieldErrorsErrorComponent']
+      | components['schemas']['AuthRegistrationResendEmailCreateEmailErrorComponent'];
+    AuthRegistrationResendEmailCreateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    AuthRegistrationResendEmailCreateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['AuthRegistrationResendEmailCreateError'][];
+    };
+    AuthRegistrationVerifyEmailCreateError:
+      | components['schemas']['AuthRegistrationVerifyEmailCreateNonFieldErrorsErrorComponent']
+      | components['schemas']['AuthRegistrationVerifyEmailCreateKeyErrorComponent'];
+    AuthRegistrationVerifyEmailCreateKeyErrorComponent: {
+      /**
+       * @description * `key` - key (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'key';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    AuthRegistrationVerifyEmailCreateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    AuthRegistrationVerifyEmailCreateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['AuthRegistrationVerifyEmailCreateError'][];
     };
     AuthTokenRefreshCreateError:
       | components['schemas']['AuthTokenRefreshCreateNonFieldErrorsErrorComponent']
@@ -3207,6 +3335,10 @@ export interface components {
       password1: string;
       password2: string;
     };
+    ResendEmailVerification: {
+      /** Format: email */
+      email: string;
+    };
     RestAuthDetail: {
       readonly detail: string;
     };
@@ -3711,6 +3843,9 @@ export interface components {
      * @enum {string}
      */
     ValidationErrorEnum: 'validation_error';
+    VerifyEmail: {
+      key: string;
+    };
   };
   responses: never;
   parameters: never;
@@ -3930,7 +4065,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['JWT'];
+          'application/json': components['schemas']['RestAuthDetail'];
         };
       };
       400: {
@@ -3939,6 +4074,88 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['AuthRegistrationCreateValidationError'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  auth_registration_resend_email_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['ResendEmailVerification'];
+        'application/x-www-form-urlencoded': components['schemas']['ResendEmailVerification'];
+        'multipart/form-data': components['schemas']['ResendEmailVerification'];
+      };
+    };
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['RestAuthDetail'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AuthRegistrationResendEmailCreateValidationError'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  auth_registration_verify_email_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['VerifyEmail'];
+        'application/x-www-form-urlencoded': components['schemas']['VerifyEmail'];
+        'multipart/form-data': components['schemas']['VerifyEmail'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['RestAuthDetail'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AuthRegistrationVerifyEmailCreateValidationError'];
         };
       };
       500: {

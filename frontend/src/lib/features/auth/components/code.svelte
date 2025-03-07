@@ -1,13 +1,34 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import { cn } from '$lib/functions/classnames';
   import { VerificationCodeSchema } from '$lib/schemas/auth';
   import { defaults, superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
 
+  interface Props {
+    email?: string;
+    onback: () => void;
+  }
+
+  let { onback, email }: Props = $props();
+
   const { form, enhance, errors, delayed } = superForm(defaults(zod(VerificationCodeSchema)), {
-    resetForm: false
+    resetForm: false,
+    onResult({ result }) {
+      if (result.type === 'success') {
+        const new_href = email ? `/login?email=${encodeURIComponent(email)}` : `/login`;
+        // hard redirect to login page
+        window.location.href = new_href;
+      }
+    }
   });
 </script>
+
+<div class="tooltip tooltip-right absolute left-2.5 top-2.5 flex before:capitalize" data-tip="Back">
+  <button class="btn btn-square btn-circle btn-ghost btn-sm" aria-label="Back" onclick={onback}>
+    <coreicons-shape-arrow class="size-5" variant="left"></coreicons-shape-arrow>
+  </button>
+</div>
 
 <form class="flex flex-col gap-2" method="POST" action="?/code" use:enhance>
   <div class="flex flex-col gap-1">

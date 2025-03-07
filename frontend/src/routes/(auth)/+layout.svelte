@@ -18,7 +18,7 @@
   let { children } = $props();
 
   let data = $state<Nullable<Data>>(null);
-  let render_type = $state<Nullable<RenderType>>('code');
+  let render_type = $state<Nullable<RenderType>>(null);
 
   setContext('handle_success', handle_success);
 
@@ -71,7 +71,7 @@
         onsuccess={() => (render_type = 'select')}
       />
     {:else if render_type === 'code'}
-      <Code />
+      <Code email={data?.email} onback={() => (render_type = null)} />
     {:else}
       <!-- oauth section -->
       <div class="flex w-full items-center gap-3">
