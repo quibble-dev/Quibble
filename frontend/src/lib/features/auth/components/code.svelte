@@ -1,6 +1,7 @@
 <script lang="ts">
   import { cn } from '$lib/functions/classnames';
   import { VerificationCodeSchema } from '$lib/schemas/auth';
+  import { onMount } from 'svelte';
   import { defaults, superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
 
@@ -11,6 +12,10 @@
 
   let { onback, email }: Props = $props();
 
+  let countdown = $state(30);
+  let is_resend_disabled = $state(true);
+  let countdown_interval = $state<NodeJS.Timeout>();
+
   const { form, enhance, errors, delayed } = superForm(defaults(zod(VerificationCodeSchema)), {
     resetForm: false,
     onResult({ result }) {
@@ -20,6 +25,31 @@
         window.location.href = new_href;
       }
     }
+  });
+
+  function handle_resend_click() {
+    start_countdown();
+  }
+
+  function start_countdown() {
+    is_resend_disabled = true;
+    countdown = 30;
+    // clear interval (if any)
+    clearInterval(countdown_interval);
+
+    countdown_interval = setInterval(() => {
+      if (countdown > 0) {
+        countdown--;
+      } else {
+        is_resend_disabled = false;
+        clearInterval(countdown_interval);
+      }
+    }, 1000);
+  }
+
+  onMount(() => {
+    start_countdown();
+    return () => clearInterval(countdown_interval);
   });
 </script>
 
@@ -53,7 +83,13 @@
   <div class="flex flex-col gap-1">
     <div class="flex items-center gap-2 self-center text-xs">
       Didn't get an email?
-      <button type="button" class="btn btn-ghost btn-xs">Resend</button>
+      <button
+        type="button"
+        class="btn btn-ghost btn-xs"
+        disabled={is_resend_disabled}
+        onclick={handle_resend_click}
+        >{is_resend_disabled ? `Resend in ${countdown}s` : `Resend`}</button
+      >
     </div>
     <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary')}>
       Continue
