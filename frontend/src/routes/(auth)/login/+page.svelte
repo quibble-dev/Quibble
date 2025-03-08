@@ -1,9 +1,10 @@
 <script lang="ts">
   import { page } from '$app/state';
   import api from '$lib/api';
+  import { toast } from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
   import type { Data } from '../+layout.svelte';
-  import { getContext } from 'svelte';
+  import { getContext, untrack } from 'svelte';
   import { superForm } from 'sveltekit-superforms';
 
   let { data } = $props();
@@ -25,6 +26,11 @@
         handle_success({ type });
       }
     }
+  });
+
+  $effect(() => {
+    const _message = $message;
+    _message && untrack(() => toast.push(_message));
   });
 </script>
 
@@ -90,12 +96,6 @@
     </span>
     <a href="/password" tabindex="-1" class="text-sm text-accent">Forgot password?</a>
   </div>
-  {#if $message}
-    <div class="flex items-center gap-2 text-error" class:text-error={$message}>
-      <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-      <span class="text-xs">{$message}</span>
-    </div>
-  {/if}
   <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary')}>
     Log in
     {#if $delayed}

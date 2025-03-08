@@ -1,8 +1,9 @@
 <script lang="ts">
   import { page } from '$app/state';
+  import { toast } from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
   import type { Data } from '../+layout.svelte';
-  import { getContext } from 'svelte';
+  import { getContext, untrack } from 'svelte';
   import { superForm } from 'sveltekit-superforms';
 
   let { data } = $props();
@@ -19,6 +20,11 @@
         handle_success({ type: 'code', email: result.data.form.data.email });
       }
     }
+  });
+
+  $effect(() => {
+    const _message = $message;
+    _message && untrack(() => toast.push(_message));
   });
 </script>
 
@@ -107,12 +113,6 @@
     Already a quibbler?
     <a href={href_login} tabindex="-1" class="font-medium text-accent">Log in</a>
   </span>
-  {#if $message}
-    <div class="flex items-center gap-2 text-error" class:text-error={$message}>
-      <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-      <span class="text-xs">{$message}</span>
-    </div>
-  {/if}
   <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary')}>
     Register
     {#if $delayed}

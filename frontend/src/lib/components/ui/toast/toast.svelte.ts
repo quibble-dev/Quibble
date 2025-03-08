@@ -19,9 +19,7 @@ export const toast = {
     return toasts;
   },
   push: (message: string, options?: Options) => {
-    const exists = toasts.find(
-      (t) => t.message === message && t.inside_modal === options?.inside_modal
-    );
+    const exists = toasts.find((t) => t.message === message);
     if (exists !== undefined) return exists.id;
 
     const new_toast: Toast = {
