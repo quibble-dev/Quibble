@@ -28,7 +28,7 @@
   }
 </script>
 
-<div class="relative flex flex-1 items-end justify-center p-4 md:items-center">
+<div class="relative flex flex-1 items-center justify-center p-4">
   <div
     class="absolute inset-0 bg-base-100 [mask-image:url('/assets/svgs/standalone-auth-bg.svg')] [mask-size:cover]"
   ></div>
