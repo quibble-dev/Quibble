@@ -14,6 +14,7 @@
 
   let countdown = $state(30);
   let is_resend_disabled = $state(true);
+  // eslint-disable-next-line no-undef
   let countdown_interval = $state<NodeJS.Timeout>();
 
   const { form, enhance, errors, delayed } = superForm(defaults(zod(VerificationCodeSchema)), {
