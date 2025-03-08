@@ -24,7 +24,7 @@
 
   $effect(() => {
     const _message = $message;
-    _message && untrack(() => toast.push(_message));
+    if (_message) untrack(() => toast.push(_message));
   });
 </script>
 
