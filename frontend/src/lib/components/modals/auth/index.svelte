@@ -1,7 +1,7 @@
 <script lang="ts">
   import Quibbles from '$lib/components/icons/logos/quibbles.svelte';
+  import BaseModal from '$lib/components/ui/base-modal.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';
-  import BaseModal from '../_components/base-modal.svelte';
 
   const modalsStore = createModalsStore();
 

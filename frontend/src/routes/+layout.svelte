@@ -1,8 +1,8 @@
 <script lang="ts">
   import { afterNavigate, beforeNavigate } from '$app/navigation';
+  import Modals from '$lib/components/modals/index.svelte';
   import Toaster from '$lib/components/ui/toast';
   import { TOKEN_REFRESH_INTERVAL } from '$lib/constants/auth';
-  import Modals from '$lib/modals/index.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import '../styles/app.css';
   import '../styles/nprogress.css';
