@@ -8,6 +8,10 @@
   --font-sans: Roboto, sans-serif;
 }
 
+@utility tooltip {
+  @apply before:text-xs! before:font-medium after:hidden;
+}
+
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
@@ -74,29 +78,4 @@
     font-style: normal;
     font-display: swap;
   }
-}
-
-@layer base {
-  :root {
-    @apply bg-base-300 text-base-content;
-  }
-}
-
-html {
-  @apply scrollbar-thin;
-}
-
-/* daisyui */
-
-.tooltip {
-  @apply before:rounded-lg before:text-xs before:font-medium after:hidden;
-}
-
-.btn {
-  @apply min-h-max;
-}
-
-.input,
-.input input {
-  @apply placeholder:text-base-content/75 placeholder:font-normal;
 }
