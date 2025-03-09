@@ -54,7 +54,7 @@
   >
     <div class="mt-4 flex items-center gap-2 xl:mt-0 xl:items-end">
       <Avatar
-        class="outline-base-300 size-14 flex-shrink-0 rounded-full outline-8 xl:size-20 xl:outline"
+        class="outline-base-300 size-14 shrink-0 rounded-full outline-8 xl:size-20 xl:outline"
         src={community?.avatar}
       />
       <div class="flex flex-col">

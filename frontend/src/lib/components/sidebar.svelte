@@ -26,7 +26,7 @@
     <label class="input input-sm input-bordered flex items-center rounded-lg bg-transparent">
       <input
         type="text"
-        class="grow border-none pl-0.5 pr-2 text-sm focus:ring-0"
+        class="grow border-none pr-2 pl-0.5 text-sm focus:ring-0"
         placeholder="Search filter..."
       />
       <coreicons-shape-filter class="size-3"></coreicons-shape-filter>
@@ -43,7 +43,7 @@
   <div class="collapse gap-2 overflow-visible rounded-none">
     <input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
     <div
-      class="collapse-title text-base-content/75 flex h-max min-h-max items-center justify-between p-0 text-sm font-medium peer-checked:[&>div>coreicons-shape-chevron]:rotate-180"
+      class="collapse-title text-base-content/75 flex h-max min-h-max items-center justify-between p-0 text-sm font-medium [&>div>coreicons-shape-chevron]:peer-checked:rotate-180"
     >
       Recent
       <div class="flex items-center gap-2">
@@ -57,7 +57,7 @@
       </div>
     </div>
     {#if sidebarStore.state.recent?.length}
-      <div class="collapse-content flex flex-col gap-2 !p-0">
+      <div class="collapse-content flex flex-col gap-2 p-0!">
         {#each sidebarStore.state.recent as community (community.id)}
           <div class="flex items-center gap-2">
             <a href="/q/{community.name}" class="flex">
@@ -83,7 +83,7 @@
   <div class="collapse gap-2 overflow-visible rounded-none">
     <input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
     <div
-      class="collapse-title text-base-content/75 flex h-max min-h-max items-center justify-between p-0 text-sm font-medium peer-checked:[&>div>coreicons-shape-chevron]:rotate-180"
+      class="collapse-title text-base-content/75 flex h-max min-h-max items-center justify-between p-0 text-sm font-medium [&>div>coreicons-shape-chevron]:peer-checked:rotate-180"
     >
       Your Communities
       <div class="flex items-center gap-2">
@@ -97,7 +97,7 @@
       </div>
     </div>
     {#if sidebarStore.state.your?.length}
-      <div class="collapse-content flex flex-col gap-2 !p-0">
+      <div class="collapse-content flex flex-col gap-2 p-0!">
         {#each sidebarStore.state.your as community (community.id)}
           <div class="flex items-center gap-2">
             <a href="/q/{community.name}" class="flex">
@@ -122,13 +122,13 @@
   <div class="collapse gap-2 overflow-visible rounded-none">
     <input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
     <div
-      class="collapse-title text-base-content/75 flex h-max min-h-max items-center justify-between p-0 text-sm font-medium peer-checked:[&>coreicons-shape-chevron]:rotate-180"
+      class="collapse-title text-base-content/75 flex h-max min-h-max items-center justify-between p-0 text-sm font-medium [&>coreicons-shape-chevron]:peer-checked:rotate-180"
     >
       Resources
       <coreicons-shape-chevron class="size-4 transition-transform" variant="down"
       ></coreicons-shape-chevron>
     </div>
-    <div class="collapse-content flex flex-col gap-2 !p-0">
+    <div class="collapse-content flex flex-col gap-2 p-0!">
       <a href="/about" class="flex items-center gap-2">
         <QuibbleIcon class="size-4" />
         <span class="text-sm font-medium">About Quibble</span>

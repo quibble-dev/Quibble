@@ -26,7 +26,7 @@
   <div class="flex items-center gap-4">
     <button
       onclick={on_menu_click}
-      class="btn border-none !bg-transparent p-0 md:hidden"
+      class="btn border-none bg-transparent! p-0 md:hidden"
       aria-label="open up sidebar"
     >
       <coreicons-shape-list class="size-5"></coreicons-shape-list>
@@ -58,7 +58,7 @@
           class="border-neutral bg-base-100 ml-2 flex items-center gap-2 rounded-lg border p-1 px-1.5"
         >
           <Avatar src={page.data.community.avatar} class="size-5 rounded-full" />
-          <h5 class="whitespace-nowrap text-xs font-medium">
+          <h5 class="text-xs font-medium whitespace-nowrap">
             q/{page.data.community.name}
           </h5>
         </div>

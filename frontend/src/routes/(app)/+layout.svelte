@@ -27,7 +27,7 @@
 
   <!-- sidebar for small screens with transition -->
   <div
-    class="fixed left-0 top-[3.75rem] z-50 flex h-[calc(100dvh-3.75rem)] w-72 transform transition-transform duration-300 md:hidden"
+    class="fixed top-[3.75rem] left-0 z-50 flex h-[calc(100dvh-3.75rem)] w-72 transform transition-transform duration-300 md:hidden"
     class:-translate-x-72={!sidebar_show}
     ontransitionstart={() => (sidebar_shown = true)}
     ontransitionend={() => (sidebar_shown = false)}

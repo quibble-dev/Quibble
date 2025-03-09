@@ -72,7 +72,7 @@
               </div>
               {#if post.cover}
                 <img
-                  class="aspect-square size-20 flex-shrink-0 rounded-xl object-cover"
+                  class="aspect-square size-20 shrink-0 rounded-xl object-cover"
                   src={post.cover}
                   alt=""
                 />

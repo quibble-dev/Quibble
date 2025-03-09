@@ -39,7 +39,7 @@
     </div>
   </div>
   <button
-    class="btn btn-square btn-circle btn-ghost btn-sm absolute right-2.5 top-2.5"
+    class="btn btn-square btn-circle btn-ghost btn-sm absolute top-2.5 right-2.5"
     aria-label="Close modal"
     onclick={handle_modal_close}
   >

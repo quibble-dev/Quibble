@@ -93,7 +93,7 @@
 </script>
 
 <div class="flex flex-col gap-2">
-  <label class="input input-bordered relative flex h-10 items-center bg-transparent pl-3 pr-1.5">
+  <label class="input input-bordered relative flex h-10 items-center bg-transparent pr-1.5 pl-3">
     <coreicons-shape-search class="size-5"></coreicons-shape-search>
     <input
       type="text"

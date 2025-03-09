@@ -65,7 +65,7 @@
     <div
       class={cn(
         $errors.cover && 'tooltip-open before:text-error',
-        'tooltip tooltip-left absolute right-2.5 top-2.5'
+        'tooltip tooltip-left absolute top-2.5 right-2.5'
       )}
       data-tip={$errors.cover?.[0] ?? 'Edit cover'}
     >
@@ -87,7 +87,7 @@
         <div
           class={cn(
             $errors.avatar && 'tooltip-open before:text-error',
-            'tooltip tooltip-right absolute -right-2.5 top-0'
+            'tooltip tooltip-right absolute top-0 -right-2.5'
           )}
           data-tip={$errors.avatar?.[0] ?? 'Edit avatar'}
         >
@@ -102,7 +102,7 @@
           <input
             type="text"
             name="username"
-            class="text-info placeholder:text-base-content/50 max-w-32 bg-transparent font-medium outline-none placeholder:font-normal md:max-w-52"
+            class="text-info placeholder:text-base-content/50 max-w-32 bg-transparent font-medium outline-hidden placeholder:font-normal md:max-w-52"
             placeholder="username*"
             bind:value={$form.username}
             oninput={(e) =>

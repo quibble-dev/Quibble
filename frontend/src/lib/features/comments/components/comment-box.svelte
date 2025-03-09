@@ -41,7 +41,7 @@
     <input type="hidden" name="path" value={path} />
     <textarea
       name="content"
-      class="placeholder:text-base-content/75 max-h-40 min-h-10 bg-transparent p-2.5 text-sm leading-normal outline-none"
+      class="placeholder:text-base-content/75 max-h-40 min-h-10 bg-transparent p-2.5 text-sm leading-normal outline-hidden"
       placeholder="Add a comment..."
       use:autosize
       bind:this={textarea_el}

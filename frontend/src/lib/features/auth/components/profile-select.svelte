@@ -67,7 +67,7 @@
   });
 </script>
 
-<div class="tooltip tooltip-right absolute left-2.5 top-2.5 flex before:capitalize" data-tip="Back">
+<div class="tooltip tooltip-right absolute top-2.5 left-2.5 flex before:capitalize" data-tip="Back">
   <button
     class="btn btn-square btn-circle btn-ghost btn-sm"
     aria-label="Back"
@@ -102,10 +102,10 @@
             src={profile.avatar}
             class={cn(
               !profile.avatar && 'border-2',
-              'rounded-box border-base-content/25 !bg-base-300 aspect-square size-full'
+              'rounded-box border-base-content/25 bg-base-300! aspect-square size-full'
             )}
           />
-          <span class="line-clamp-1 break-all text-xs font-medium md:max-w-24"
+          <span class="line-clamp-1 text-xs font-medium break-all md:max-w-24"
             >u/{profile.username}</span
           >
         </button>

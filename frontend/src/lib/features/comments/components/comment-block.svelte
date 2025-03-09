@@ -87,10 +87,10 @@
   {:else}
     <div class="flex flex-col items-center gap-2 self-stretch">
       {#if comment.deleted}
-        <Avatar class="size-8 flex-shrink-0" />
+        <Avatar class="size-8 shrink-0" />
       {:else}
         <a href="/u/{comment.commenter?.username}">
-          <Avatar src={comment.commenter?.avatar} class="size-8 flex-shrink-0" />
+          <Avatar src={comment.commenter?.avatar} class="size-8 shrink-0" />
         </a>
       {/if}
       <button
@@ -124,7 +124,7 @@
       >
     </div>
     <div class="flex flex-col gap-2" class:hidden={collapsed}>
-      <p class="text-info whitespace-pre-wrap text-sm">{comment.content}</p>
+      <p class="text-info text-sm whitespace-pre-wrap">{comment.content}</p>
       <!-- comment options -->
       <div class="flex items-center gap-4">
         <div class="flex items-center gap-2">

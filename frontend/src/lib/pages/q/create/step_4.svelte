@@ -15,17 +15,17 @@
     PRIVATE: {
       label: 'Private',
       description: 'Only approved users can view and contribute',
-      icon: '<coreicons-shape-lock class="flex-shrink-0 size-4 md:size-5"></coreicons-shape-lock>'
+      icon: '<coreicons-shape-lock class="shrink-0 size-4 md:size-5"></coreicons-shape-lock>'
     },
     RESTRICTED: {
       label: 'Restricted',
       description: 'Anyone can view, but only approved users can contribute',
-      icon: '<coreicons-shape-shield variant="on" class="flex-shrink-0 size-4 md:size-5"></coreicons-shape-shield>'
+      icon: '<coreicons-shape-shield variant="on" class="shrink-0 size-4 md:size-5"></coreicons-shape-shield>'
     },
     PUBLIC: {
       label: 'Public',
       description: 'Anyone can view, post, and comment to this community',
-      icon: '<coreicons-shape-globe class="flex-shrink-0 size-4 md:size-5"></coreicons-shape-globe>'
+      icon: '<coreicons-shape-globe class="shrink-0 size-4 md:size-5"></coreicons-shape-globe>'
     }
   };
 
@@ -74,7 +74,7 @@
     </div>
     <input
       type="checkbox"
-      class="toggle toggle-accent toggle-sm rounded-box checked:!border-accent"
+      class="toggle toggle-accent toggle-sm rounded-box checked:border-accent!"
       bind:checked={$form.nsfw}
     />
   </label>

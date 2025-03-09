@@ -28,11 +28,7 @@
     </div>
     <!-- render post cover if contains -->
     {#if post.cover}
-      <img
-        class="aspect-square size-20 flex-shrink-0 rounded-xl object-cover"
-        src={post.cover}
-        alt=""
-      />
+      <img class="aspect-square size-20 shrink-0 rounded-xl object-cover" src={post.cover} alt="" />
     {/if}
   </div>
 

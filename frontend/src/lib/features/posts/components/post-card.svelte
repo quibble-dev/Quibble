@@ -136,7 +136,7 @@
       <div
         class={cn(
           post.cover ? 'relative' : 'hidden bg-transparent md:flex',
-          'inner-border inner-border-base-content/15 size-20 flex-shrink-0 cursor-pointer rounded-xl bg-cover bg-center bg-no-repeat'
+          'inner-border inner-border-base-content/15 size-20 shrink-0 cursor-pointer rounded-xl bg-cover bg-center bg-no-repeat'
         )}
         style="background-image: url({post.cover});"
       ></div>

@@ -117,7 +117,7 @@
               }}
             >
               <Avatar src={item.avatar} />
-              <span class="whitespace-nowrap text-sm font-medium">r/{item.name}</span>
+              <span class="text-sm font-medium whitespace-nowrap">r/{item.name}</span>
               <div class="btn btn-circle btn-accent ml-auto size-4 p-0" class:invisible={!selected}>
                 <coreicons-shape-check class="size-2.5"></coreicons-shape-check>
               </div>
