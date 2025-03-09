@@ -1,4 +1,8 @@
 @import 'tailwindcss';
+@plugin "daisyui" {
+  themes: sunset --default;
+  logs: false;
+}
 
 @theme {
   --font-sans: Roboto, sans-serif;

@@ -31,7 +31,7 @@
     "@types/set-cookie-parser": "^2.4.10",
     "autosize": "^6.0.1",
     "clsx": "^2.1.1",
-    "daisyui": "^4.12.14",
+    "daisyui": "^5.0.0",
     "eslint": "^9.7.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-svelte": "^2.36.0",
