@@ -51,7 +51,7 @@
   use:enhance
 >
   <div
-    class="relative h-20 rounded-btn bg-base-100 bg-cover bg-center p-4"
+    class="rounded-btn bg-base-100 relative h-20 bg-cover bg-center p-4"
     style="background-image: url({cover_data_url});"
   >
     <input
@@ -65,7 +65,7 @@
     <div
       class={cn(
         $errors.cover && 'tooltip-open before:text-error',
-        'tooltip tooltip-left absolute right-2.5 top-2.5'
+        'tooltip tooltip-left absolute top-2.5 right-2.5'
       )}
       data-tip={$errors.cover?.[0] ?? 'Edit cover'}
     >
@@ -75,7 +75,7 @@
     </div>
     <div class="absolute -bottom-12 flex items-end gap-4">
       <div class="relative size-20">
-        <Avatar src={avatar_data_url} class="size-full ring-8 ring-base-300" />
+        <Avatar src={avatar_data_url} class="ring-base-300 size-full ring-8" />
         <input
           type="file"
           accept="image/*"
@@ -87,7 +87,7 @@
         <div
           class={cn(
             $errors.avatar && 'tooltip-open before:text-error',
-            'tooltip tooltip-right absolute -right-2.5 top-0'
+            'tooltip tooltip-right absolute top-0 -right-2.5'
           )}
           data-tip={$errors.avatar?.[0] ?? 'Edit avatar'}
         >
@@ -102,14 +102,14 @@
           <input
             type="text"
             name="username"
-            class="max-w-32 bg-transparent font-medium text-info outline-none placeholder:font-normal placeholder:text-base-content/50 md:max-w-52"
+            class="text-info placeholder:text-base-content/50 max-w-32 bg-transparent font-medium outline-hidden placeholder:font-normal md:max-w-52"
             placeholder="username*"
             bind:value={$form.username}
             oninput={(e) =>
               ($form.username = (e.target as HTMLInputElement).value.replace(/\s/g, ''))}
           />
         </label>
-        <span class="text-xs text-error" class:invisible={!$errors.username}
+        <span class="text-error text-xs" class:invisible={!$errors.username}
           >{$errors.username?.[0] ?? 'error!'}</span
         >
       </div>

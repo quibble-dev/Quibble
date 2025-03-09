@@ -15,17 +15,17 @@
     PRIVATE: {
       label: 'Private',
       description: 'Only approved users can view and contribute',
-      icon: '<coreicons-shape-lock class="flex-shrink-0 size-4 md:size-5"></coreicons-shape-lock>'
+      icon: '<coreicons-shape-lock class="shrink-0 size-4 md:size-5"></coreicons-shape-lock>'
     },
     RESTRICTED: {
       label: 'Restricted',
       description: 'Anyone can view, but only approved users can contribute',
-      icon: '<coreicons-shape-shield variant="on" class="flex-shrink-0 size-4 md:size-5"></coreicons-shape-shield>'
+      icon: '<coreicons-shape-shield variant="on" class="shrink-0 size-4 md:size-5"></coreicons-shape-shield>'
     },
     PUBLIC: {
       label: 'Public',
       description: 'Anyone can view, post, and comment to this community',
-      icon: '<coreicons-shape-globe class="flex-shrink-0 size-4 md:size-5"></coreicons-shape-globe>'
+      icon: '<coreicons-shape-globe class="shrink-0 size-4 md:size-5"></coreicons-shape-globe>'
     }
   };
 
@@ -36,7 +36,7 @@
   {#each Object.entries(types) as [key, item]}
     {@const checked = $form.type === key}
 
-    <div class={cn(checked && 'bg-base-200 ring-1', 'form-control rounded-xl ring-neutral')}>
+    <div class={cn(checked && 'bg-base-200 ring-1', 'form-control ring-neutral rounded-xl')}>
       <label class="label size-full cursor-pointer gap-2 p-0 p-3">
         <div class="flex items-center gap-3">
           <!-- eslint-disable svelte/no-at-html-tags -->
@@ -44,8 +44,8 @@
             {@html item.icon}
           </span>
           <div class="flex flex-col">
-            <span class="label-text font-medium text-info">{item.label}</span>
-            <span class="text-xs text-base-content/75">{item.description}</span>
+            <span class="label-text text-info font-medium">{item.label}</span>
+            <span class="text-base-content/75 text-xs">{item.description}</span>
           </div>
         </div>
         <input
@@ -66,26 +66,26 @@
     <div class="flex items-center gap-3">
       <EighteenPlusIcon class={cn($form.nsfw && 'text-accent', 'size-5')} />
       <div class="flex flex-col">
-        <span class="label-text font-medium text-info">Mature (18+)</span>
-        <span class="text-xs text-base-content/75">
+        <span class="label-text text-info font-medium">Mature (18+)</span>
+        <span class="text-base-content/75 text-xs">
           Users must be over 18 to view and contribute
         </span>
       </div>
     </div>
     <input
       type="checkbox"
-      class="toggle toggle-accent toggle-sm rounded-box checked:!border-accent"
+      class="toggle toggle-accent toggle-sm rounded-box checked:border-accent!"
       bind:checked={$form.nsfw}
     />
   </label>
 </div>
 {#if $errors.type || $errors.nsfw}
-  <span class="label-text-alt flex items-center gap-2 text-error">
+  <span class="label-text-alt text-error flex items-center gap-2">
     <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
     <span class="text-xs">{$errors.type?.[0] || $errors.nsfw?.[0]}</span>
   </span>
 {/if}
-<span class="text-xs text-base-content/75">
+<span class="text-base-content/75 text-xs">
   By continuing, you agree to our
   <a href="/policies/moderator-code-of-conduct" class="text-base-content underline">
     Mod Code of Conduct

@@ -87,10 +87,10 @@
   {:else}
     <div class="flex flex-col items-center gap-2 self-stretch">
       {#if comment.deleted}
-        <Avatar class="size-8 flex-shrink-0" />
+        <Avatar class="size-8 shrink-0" />
       {:else}
         <a href="/u/{comment.commenter?.username}">
-          <Avatar src={comment.commenter?.avatar} class="size-8 flex-shrink-0" />
+          <Avatar src={comment.commenter?.avatar} class="size-8 shrink-0" />
         </a>
       {/if}
       <button
@@ -99,8 +99,8 @@
         class="group grid size-full place-items-center"
       >
         <div
-          class="h-full w-px rounded-full bg-neutral transition-colors group-hover:w-0.5
-        group-hover:bg-primary"
+          class="bg-neutral group-hover:bg-primary h-full w-px rounded-full transition-colors
+        group-hover:w-0.5"
         ></div>
       </button>
     </div>
@@ -112,19 +112,19 @@
       {:else}
         <a
           href="/u/{comment.commenter?.username}"
-          class="flex items-center gap-2 hover:text-accent hover:underline"
+          class="hover:text-accent flex items-center gap-2 hover:underline"
         >
           <h3 class="text-xs font-semibold">u/{comment.commenter?.username}</h3>
         </a>
       {/if}
-      <coreicons-shape-circle variant="filled" class="size-0.5 text-base-content/75"
+      <coreicons-shape-circle variant="filled" class="text-base-content/75 size-0.5"
       ></coreicons-shape-circle>
-      <span class="text-xs font-medium text-base-content/75"
+      <span class="text-base-content/75 text-xs font-medium"
         >{new FormatDate(comment.created_at).timeAgo()}</span
       >
     </div>
     <div class="flex flex-col gap-2" class:hidden={collapsed}>
-      <p class="whitespace-pre-wrap text-sm text-info">{comment.content}</p>
+      <p class="text-info text-sm whitespace-pre-wrap">{comment.content}</p>
       <!-- comment options -->
       <div class="flex items-center gap-4">
         <div class="flex items-center gap-2">

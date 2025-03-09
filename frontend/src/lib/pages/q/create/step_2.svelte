@@ -59,12 +59,12 @@
       type="file"
       name="avatar"
       accept="image/*"
-      class="file-input file-input-bordered file-input-xs bg-transparent file:border-none file:bg-base-100"
+      class="file-input file-input-bordered file-input-xs file:bg-base-100 bg-transparent file:border-none"
       bind:files={$avatar_file}
     />
     {#if $errors.avatar}
       <div class="label py-1">
-        <span class="label-text-alt flex items-center gap-2 text-error">
+        <span class="label-text-alt text-error flex items-center gap-2">
           <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
           <span class="text-xs">{$errors.avatar?.[0]}</span>
         </span>
@@ -79,12 +79,12 @@
       type="file"
       name="banner"
       accept="image/*"
-      class="file-input file-input-bordered file-input-xs bg-transparent file:border-none file:bg-base-100"
+      class="file-input file-input-bordered file-input-xs file:bg-base-100 bg-transparent file:border-none"
       bind:files={$banner_file}
     />
     {#if $errors.banner}
       <div class="label py-1">
-        <span class="label-text-alt flex items-center gap-2 text-error">
+        <span class="label-text-alt text-error flex items-center gap-2">
           <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
           <span class="text-xs">{$errors.banner?.[0]}</span>
         </span>
@@ -93,11 +93,11 @@
   </label>
 </div>
 <div
-  class="relative mb-12 h-20 rounded-btn bg-neutral bg-cover bg-center p-4"
+  class="rounded-btn bg-neutral relative mb-12 h-20 bg-cover bg-center p-4"
   style="background-image: url({banner_data_uri});"
 >
   <div class="absolute -bottom-12 flex items-end gap-4">
-    <Avatar src={avatar_data_uri} class="size-20 ring-8 ring-base-300" />
+    <Avatar src={avatar_data_uri} class="ring-base-300 size-20 ring-8" />
     <div class="flex flex-col">
       <span class="line-clamp-1 text-lg font-semibold">q/{$form.name || 'communityname'}</span>
       <div class="flex items-center gap-2">

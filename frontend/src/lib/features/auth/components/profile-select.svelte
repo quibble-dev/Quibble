@@ -67,7 +67,7 @@
   });
 </script>
 
-<div class="tooltip tooltip-right absolute left-2.5 top-2.5 flex before:capitalize" data-tip="Back">
+<div class="tooltip tooltip-right absolute top-2.5 left-2.5 flex before:capitalize" data-tip="Back">
   <button
     class="btn btn-square btn-circle btn-ghost btn-sm"
     aria-label="Back"
@@ -91,7 +91,7 @@
           <div
             class={cn(
               pending ? 'opacity-100' : 'opacity-0',
-              'absolute inset-0 z-10 grid place-items-center bg-base-300/50 transition-opacity duration-300'
+              'bg-base-300/50 absolute inset-0 z-10 grid place-items-center transition-opacity duration-300'
             )}
           >
             {#if selected_profile_id === profile.id}
@@ -102,10 +102,10 @@
             src={profile.avatar}
             class={cn(
               !profile.avatar && 'border-2',
-              'aspect-square size-full rounded-box border-base-content/25 !bg-base-300'
+              'rounded-box border-base-content/25 bg-base-300! aspect-square size-full'
             )}
           />
-          <span class="line-clamp-1 break-all text-xs font-medium md:max-w-24"
+          <span class="line-clamp-1 text-xs font-medium break-all md:max-w-24"
             >u/{profile.username}</span
           >
         </button>
@@ -119,7 +119,7 @@
           'flex size-full flex-col items-center justify-center gap-1.5 transition-opacity duration-300'
         )}
       >
-        <div class="grid aspect-square size-full place-items-center rounded-box bg-base-300">
+        <div class="rounded-box bg-base-300 grid aspect-square size-full place-items-center">
           <coreicons-shape-plus variant="no-border" class="size-8"></coreicons-shape-plus>
         </div>
         <span class="line-clamp-1 text-xs font-medium md:max-w-24">Create new</span>

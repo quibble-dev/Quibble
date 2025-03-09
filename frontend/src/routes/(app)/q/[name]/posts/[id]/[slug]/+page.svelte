@@ -97,9 +97,9 @@
         <a href="/q/{post.community.name}" class="hover:text-accent hover:underline">
           <h3 class="text-xs font-semibold">q/{post.community.name}</h3>
         </a>
-        <coreicons-shape-circle variant="filled" class="size-0.5 text-base-content/75"
+        <coreicons-shape-circle variant="filled" class="text-base-content/75 size-0.5"
         ></coreicons-shape-circle>
-        <span class="text-xs font-medium text-base-content/75"
+        <span class="text-base-content/75 text-xs font-medium"
           >{new FormatDate(post.created_at).timeAgo()}</span
         >
       </div>
@@ -113,7 +113,7 @@
   </button>
 </div>
 <!-- title -->
-<h1 class="text-xl font-bold text-info md:text-2xl">{post.title}</h1>
+<h1 class="text-info text-xl font-bold md:text-2xl">{post.title}</h1>
 <!-- content or cover -->
 {#if is_valid(post.content)}
   <p class="text-sm font-normal">
@@ -156,7 +156,7 @@
   />
 {:else}
   <button
-    class="flex items-center gap-2 rounded-2xl border border-neutral p-2.5 text-sm"
+    class="border-neutral flex items-center gap-2 rounded-2xl border p-2.5 text-sm"
     onclick={() => (show_comment_box = true)}
   >
     <coreicons-shape-message-circle class="size-5"></coreicons-shape-message-circle>
@@ -170,13 +170,13 @@
     <span class="text-sm">Sort by:</span>
     <div class="dropdown-start dropdown">
       <div tabindex="0" role="button" class="flex items-center gap-2">
-        <active_filter.icon class="size-4 text-primary" />
+        <active_filter.icon class="text-primary size-4" />
         <span class="text-sm font-medium capitalize">{active_mapping.filter}</span>
-        <coreicons-shape-chevron variant="down" class="size-4 text-base-content/75"
+        <coreicons-shape-chevron variant="down" class="text-base-content/75 size-4"
         ></coreicons-shape-chevron>
       </div>
       <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-      <ul tabindex="0" class="menu dropdown-content z-10 mt-2 gap-1 rounded-2xl bg-base-100 p-1.5">
+      <ul tabindex="0" class="menu dropdown-content bg-base-100 z-10 mt-2 gap-1 rounded-2xl p-1.5">
         {#each Object.entries(mapping.filters) as [key, item]}
           {@const is_active = active_mapping.filter === key}
           <li>

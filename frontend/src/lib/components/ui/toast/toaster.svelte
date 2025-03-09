@@ -9,7 +9,7 @@
   let { inside_modal = false }: Props = $props();
 </script>
 
-<div class="toast toast-center toast-bottom z-[999]">
+<div class="toast toast-center toast-bottom z-999">
   {#each toast.toasts.filter((t) => t.inside_modal === inside_modal) as t (t.id)}
     <div
       class="alert flex items-center gap-2 rounded-2xl border-none p-2.5 pl-3 text-xs sm:text-sm"

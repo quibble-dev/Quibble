@@ -38,7 +38,7 @@
 <!-- fixed shared sidebar for recent posts -->
 <div class="hidden w-80 lg:flex">
   <div
-    class="fixed top-[3.75rem] flex h-[calc(100dvh-3.75rem)] w-72 flex-col gap-4 overflow-y-scroll p-4 scrollbar-none"
+    class="scrollbar-none fixed top-[3.75rem] flex h-[calc(100dvh-3.75rem)] w-72 flex-col gap-4 overflow-y-scroll p-4"
   >
     <div class="flex items-center justify-between">
       <h2 class="font-medium">Recent Posts</h2>
@@ -58,21 +58,21 @@
               <div class="flex flex-col gap-1">
                 <a
                   href="/q/{post.community.name}"
-                  class="flex items-center gap-2 hover:text-accent hover:underline"
+                  class="hover:text-accent flex items-center gap-2 hover:underline"
                 >
                   <Avatar src={post.community.avatar} class="size-6 rounded-full" />
                   <h3 class="text-xs font-semibold">q/{post.community.name}</h3>
                 </a>
                 <a
                   href="/q/{post.community.name}/posts/{post.id}/{post.slug}"
-                  class="font-semibold text-info hover:underline"
+                  class="text-info font-semibold hover:underline"
                 >
                   {post.title}
                 </a>
               </div>
               {#if post.cover}
                 <img
-                  class="aspect-square size-20 flex-shrink-0 rounded-xl object-cover"
+                  class="aspect-square size-20 shrink-0 rounded-xl object-cover"
                   src={post.cover}
                   alt=""
                 />

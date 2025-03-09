@@ -56,7 +56,7 @@
           <span class="text-sm font-medium capitalize">{key}</span>
         </a>
         {#if is_active}
-          <div class="h-0.5 w-5 rounded-full bg-primary"></div>
+          <div class="bg-primary h-0.5 w-5 rounded-full"></div>
         {/if}
       </div>
     {/each}
@@ -69,7 +69,7 @@
         <coreicons-shape-chevron variant="down" class="size-4"></coreicons-shape-chevron>
       </div>
       <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-      <ul tabindex="0" class="menu dropdown-content z-10 mt-2 gap-1 rounded-2xl bg-base-100 p-1.5">
+      <ul tabindex="0" class="menu dropdown-content bg-base-100 z-10 mt-2 gap-1 rounded-2xl p-1.5">
         {#each Object.entries(mapping.view) as [key, item]}
           {@const is_active = active_view === key}
           <li>

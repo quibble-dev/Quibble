@@ -38,7 +38,7 @@
 </label>
 <label class="form-control">
   <textarea
-    class="textarea textarea-bordered max-h-80 min-h-40 bg-transparent leading-normal placeholder:text-base-content/75"
+    class="textarea textarea-bordered placeholder:text-base-content/75 max-h-80 min-h-40 bg-transparent leading-normal"
     placeholder="description*"
     use:autosize
     bind:value={$form.description}

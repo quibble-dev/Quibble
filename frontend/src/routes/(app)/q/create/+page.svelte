@@ -89,7 +89,7 @@
 
 <div class="flex h-max flex-1 flex-col gap-4 p-4">
   <div class="flex flex-col gap-2">
-    <h1 class="text-xl font-semibold text-info">{current_step.title}</h1>
+    <h1 class="text-info text-xl font-semibold">{current_step.title}</h1>
     <p class="text-sm">{current_step.helptext} You can customize its look and settings later.</p>
   </div>
   <form method="POST" enctype="multipart/form-data" class="flex flex-col gap-2" use:enhance>
@@ -103,7 +103,7 @@
           {@const is_active = step === Number(_step_idx)}
           <button
             type="button"
-            class="size-2 rounded-full bg-base-content"
+            class="bg-base-content size-2 rounded-full"
             class:opacity-50={!is_active}
             aria-label="Go to step {_step_idx}"
             onclick={() => (step = Number(_step_idx) as keyof typeof steps)}

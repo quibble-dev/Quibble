@@ -31,14 +31,14 @@
     klass,
     !has_size_class && 'size-6',
     !has_rounded_class && 'rounded-full',
-    'grid place-items-center overflow-hidden bg-neutral'
+    'bg-neutral grid place-items-center overflow-hidden'
   )}
 >
   {#if valid_src}
     <img {src} alt="" class="size-[inherit] object-cover" />
   {:else}
     <svg
-      class="w-1/2 max-w-10 text-neutral-content"
+      class="text-neutral-content w-1/2 max-w-10"
       viewBox="0 0 157 86"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
