@@ -80,11 +80,11 @@
 
 <div class="flex h-max flex-1 flex-col gap-4 p-4">
   <!-- section title -->
-  <h1 class="text-xl font-semibold text-info">Create Post</h1>
+  <h1 class="text-info text-xl font-semibold">Create Post</h1>
   <!-- select community dropdown and select -->
   <div class="flex flex-col gap-1">
     <div class="dropdown w-max">
-      <div tabindex="0" role="button" class="btn btn-neutral h-max p-1 hover:btn-ghost">
+      <div tabindex="0" role="button" class="btn btn-neutral hover:btn-ghost h-max p-1">
         <Avatar src={community?.avatar} />
         <span class="text-info">{community ? `q/${community.name}` : 'Select a community'}</span>
         <coreicons-shape-chevron variant="down" class="size-4"></coreicons-shape-chevron>
@@ -92,13 +92,13 @@
       <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
       <ul
         tabindex="0"
-        class="menu dropdown-content z-10 mt-2 min-w-full gap-1 rounded-2xl bg-base-100 p-1.5"
+        class="menu dropdown-content bg-base-100 z-10 mt-2 min-w-full gap-1 rounded-2xl p-1.5"
       >
         <div class="form-control">
           <input
             type="text"
             placeholder="Search filter..."
-            class="input input-sm input-bordered w-full rounded-xl bg-base-200"
+            class="input input-sm input-bordered bg-base-200 w-full rounded-xl"
             bind:value={filter_query}
           />
           <div class="label py-1">
@@ -127,7 +127,7 @@
       </ul>
     </div>
     {#if $errors.community}
-      <span class="label-text-alt flex items-center gap-2 text-error">
+      <span class="label-text-alt text-error flex items-center gap-2">
         <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
         <span class="text-xs">{$errors.community[0]}</span>
       </span>
@@ -145,7 +145,7 @@
           disabled={value.disabled}>{value.label}</button
         >
         {#if active}
-          <div class="absolute -bottom-1.5 h-0.5 w-2/3 bg-primary"></div>
+          <div class="bg-primary absolute -bottom-1.5 h-0.5 w-2/3"></div>
         {/if}
       </div>
     {/each}
@@ -160,7 +160,7 @@
         type="text"
         name="title"
         placeholder="Title*"
-        class="input input-bordered w-full bg-transparent text-info"
+        class="input input-bordered text-info w-full bg-transparent"
         maxlength={300}
         bind:value={$form.title}
       />

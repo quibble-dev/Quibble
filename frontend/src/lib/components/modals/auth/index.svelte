@@ -14,7 +14,7 @@
   <div class="flex flex-col items-center gap-4">
     <Quibbles class="h-20 w-auto" />
     <div class="flex flex-col items-center gap-2">
-      <h3 class="text-center text-xl font-bold text-info">
+      <h3 class="text-info text-center text-xl font-bold">
         Join Quibble to engage with communities, share posts, and more!
       </h3>
       <span class="text-sm">Want to do more? Create an account or log in.</span>
@@ -33,7 +33,7 @@
         >Project is in development, if you see any issues- please <a
           href="https://github.com/quibble-dev/Quibble/issues/new?template=bug_report.yml"
           target="_blank"
-          class="font-medium text-info underline">raise a ticket</a
+          class="text-info font-medium underline">raise a ticket</a
         >.</span
       >
     </div>

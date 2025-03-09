@@ -49,7 +49,7 @@
       />
     </label>
     {#if $errors.email}
-      <span class="flex items-center gap-2 text-error">
+      <span class="text-error flex items-center gap-2">
         <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
         <span class="text-xs">{$errors.email}</span>
       </span>
@@ -69,14 +69,14 @@
       <button
         type="button"
         tabindex="-1"
-        class="btn btn-square btn-ghost btn-sm ml-auto border border-base-content/25 bg-transparent"
+        class="btn btn-square btn-ghost btn-sm border-base-content/25 ml-auto border bg-transparent"
         aria-label="Show/hide password"
       >
         <coreicons-shape-eye class="size-4" variant="open"></coreicons-shape-eye>
       </button>
     </label>
     {#if $errors.password1}
-      <span class="flex items-center gap-2 text-error">
+      <span class="text-error flex items-center gap-2">
         <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
         <span class="text-xs">{$errors.password1}</span>
       </span>
@@ -96,14 +96,14 @@
       <button
         type="button"
         tabindex="-1"
-        class="btn btn-square btn-ghost btn-sm ml-auto border border-base-content/25 bg-transparent"
+        class="btn btn-square btn-ghost btn-sm border-base-content/25 ml-auto border bg-transparent"
         aria-label="Show/hide password"
       >
         <coreicons-shape-eye class="size-4" variant="open"></coreicons-shape-eye>
       </button>
     </label>
     {#if $errors.password2}
-      <span class="flex items-center gap-2 text-error">
+      <span class="text-error flex items-center gap-2">
         <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
         <span class="text-xs">{$errors.password2}</span>
       </span>
@@ -111,7 +111,7 @@
   </div>
   <span class="text-sm">
     Already a quibbler?
-    <a href={href_login} tabindex="-1" class="font-medium text-accent">Log in</a>
+    <a href={href_login} tabindex="-1" class="text-accent font-medium">Log in</a>
   </span>
   <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary')}>
     Register

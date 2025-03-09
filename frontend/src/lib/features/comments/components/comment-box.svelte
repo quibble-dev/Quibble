@@ -35,13 +35,13 @@
   <form
     method="POST"
     action="?/comment"
-    class="flex flex-col rounded-2xl border border-neutral"
+    class="border-neutral flex flex-col rounded-2xl border"
     use:enhance
   >
     <input type="hidden" name="path" value={path} />
     <textarea
       name="content"
-      class="max-h-40 min-h-10 bg-transparent p-2.5 text-sm leading-normal outline-none placeholder:text-base-content/75"
+      class="placeholder:text-base-content/75 max-h-40 min-h-10 bg-transparent p-2.5 text-sm leading-normal outline-none"
       placeholder="Add a comment..."
       use:autosize
       bind:this={textarea_el}
@@ -60,7 +60,7 @@
     </div>
   </form>
   {#if $errors.content}
-    <div class="flex items-center gap-2 text-xs text-error">
+    <div class="text-error flex items-center gap-2 text-xs">
       <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
       <span>{$errors.content}</span>
     </div>

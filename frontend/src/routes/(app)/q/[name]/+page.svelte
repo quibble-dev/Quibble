@@ -44,7 +44,7 @@
   <!-- show community cover if not null or solid bg -->
   <div
     class={cn(
-      !community?.banner ? 'h-24 bg-neutral' : 'h-24 bg-cover bg-center md:h-40',
+      !community?.banner ? 'bg-neutral h-24' : 'h-24 bg-cover bg-center md:h-40',
       'w-full rounded-2xl'
     )}
     style="background-image: url({community?.banner});"
@@ -54,21 +54,21 @@
   >
     <div class="mt-4 flex items-center gap-2 xl:mt-0 xl:items-end">
       <Avatar
-        class="size-14 flex-shrink-0 rounded-full outline-8 outline-base-300 xl:size-20 xl:outline"
+        class="outline-base-300 size-14 flex-shrink-0 rounded-full outline-8 xl:size-20 xl:outline"
         src={community?.avatar}
       />
       <div class="flex flex-col">
-        <h3 class="text-xl font-bold text-info xl:text-2xl">q/{community?.name}</h3>
+        <h3 class="text-info text-xl font-bold xl:text-2xl">q/{community?.name}</h3>
         <div class="flex items-center gap-2 xl:hidden">
           <div class="flex items-center gap-1">
-            <span class="text-sm text-info">{community?.members?.length}</span>
-            <span class="text-xs text-base-content/75"
+            <span class="text-info text-sm">{community?.members?.length}</span>
+            <span class="text-base-content/75 text-xs"
               >{pluralize('Member', community?.members?.length ?? 0)}</span
             >
           </div>
           <div class="flex items-center gap-1">
-            <span class="text-sm text-info">{community?.posts_count}</span>
-            <span class="text-xs text-base-content/75"
+            <span class="text-info text-sm">{community?.posts_count}</span>
+            <span class="text-base-content/75 text-xs"
               >{pluralize('Post', community?.posts_count)}</span
             >
           </div>
@@ -102,17 +102,17 @@
     <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
       {#each highlighted_posts as post (post.id)}
         <div
-          class="relative flex h-40 flex-col gap-2 overflow-hidden rounded-2xl border border-neutral p-2 transition-colors hover:bg-base-200"
+          class="border-neutral hover:bg-base-200 relative flex h-40 flex-col gap-2 overflow-hidden rounded-2xl border p-2 transition-colors"
         >
           <div
-            class="flex-1 rounded-xl bg-cover bg-center inner-border
-            inner-border-base-content/15"
+            class="inner-border inner-border-base-content/15 flex-1 rounded-xl bg-cover
+            bg-center"
             class:bg-base-100={!post.cover}
             style="background-image: url({post.cover});"
           ></div>
           <div class="flex flex-col p-2 pt-0.5">
             <h4 class="line-clamp-1 font-medium">{post.title}</h4>
-            <span class="text-xs font-medium text-base-content/75"
+            <span class="text-base-content/75 text-xs font-medium"
               >{new FormatDate(post.created_at).format()}</span
             >
           </div>

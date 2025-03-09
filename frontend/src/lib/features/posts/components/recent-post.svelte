@@ -13,7 +13,7 @@
       <!-- community details -->
       <a
         href="/q/{post.community.name}"
-        class="flex items-center gap-2 hover:text-accent hover:underline"
+        class="hover:text-accent flex items-center gap-2 hover:underline"
       >
         <Avatar src={post.community.avatar} class="size-6 rounded-full" />
         <h3 class="text-xs font-semibold">q/{post.community.name}</h3>
@@ -21,7 +21,7 @@
       <!-- post title -->
       <a
         href="/q/{post.community.name}/posts/{post.slug}"
-        class="font-semibold text-info hover:underline"
+        class="text-info font-semibold hover:underline"
       >
         {post.title}
       </a>

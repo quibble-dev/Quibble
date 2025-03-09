@@ -10,7 +10,7 @@
 <div class="mt-5 flex flex-1 items-end justify-center gap-5">
   <Quibble404 class="h-auto w-28" />
   <div class="flex flex-col">
-    <h4 class="text-xl font-bold text-error">oh noh!!</h4>
+    <h4 class="text-error text-xl font-bold">oh noh!!</h4>
     <!-- eslint-disable svelte/no-at-html-tags -->
     <h5>{@html page.error?.message}</h5>
     <!-- eslint-enable svelte/no-at-html-tags -->

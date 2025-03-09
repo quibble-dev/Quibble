@@ -19,7 +19,7 @@
 </script>
 
 <div
-  class="fixed flex h-[calc(100dvh-3.75rem)] w-72 flex-col gap-4 overflow-y-scroll border-r border-neutral bg-base-300 p-4 scrollbar-none md:top-[3.75rem] md:z-10"
+  class="border-neutral bg-base-300 scrollbar-none fixed flex h-[calc(100dvh-3.75rem)] w-72 flex-col gap-4 overflow-y-scroll border-r p-4 md:top-[3.75rem] md:z-10"
 >
   <div class="flex flex-col gap-2">
     <h2 class="font-medium">Communities</h2>
@@ -43,7 +43,7 @@
   <div class="collapse gap-2 overflow-visible rounded-none">
     <input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
     <div
-      class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>div>coreicons-shape-chevron]:rotate-180"
+      class="collapse-title text-base-content/75 flex h-max min-h-max items-center justify-between p-0 text-sm font-medium peer-checked:[&>div>coreicons-shape-chevron]:rotate-180"
     >
       Recent
       <div class="flex items-center gap-2">
@@ -83,7 +83,7 @@
   <div class="collapse gap-2 overflow-visible rounded-none">
     <input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
     <div
-      class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>div>coreicons-shape-chevron]:rotate-180"
+      class="collapse-title text-base-content/75 flex h-max min-h-max items-center justify-between p-0 text-sm font-medium peer-checked:[&>div>coreicons-shape-chevron]:rotate-180"
     >
       Your Communities
       <div class="flex items-center gap-2">
@@ -122,7 +122,7 @@
   <div class="collapse gap-2 overflow-visible rounded-none">
     <input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
     <div
-      class="collapse-title flex h-max min-h-max items-center justify-between p-0 text-sm font-medium text-base-content/75 peer-checked:[&>coreicons-shape-chevron]:rotate-180"
+      class="collapse-title text-base-content/75 flex h-max min-h-max items-center justify-between p-0 text-sm font-medium peer-checked:[&>coreicons-shape-chevron]:rotate-180"
     >
       Resources
       <coreicons-shape-chevron class="size-4 transition-transform" variant="down"

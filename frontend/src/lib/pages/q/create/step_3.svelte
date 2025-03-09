@@ -97,7 +97,7 @@
     <coreicons-shape-search class="size-5"></coreicons-shape-search>
     <input
       type="text"
-      class="grow border-none px-2 text-sm font-medium placeholder:text-base-content/75 focus:ring-0"
+      class="placeholder:text-base-content/75 grow border-none px-2 text-sm font-medium focus:ring-0"
       placeholder="Filter topics..."
       bind:value={filter_input_value}
     />
@@ -124,7 +124,7 @@
       </button>
     {/each}
     {#if $errors.topics?._errors}
-      <span class="label-text-alt flex items-center gap-2 text-error">
+      <span class="label-text-alt text-error flex items-center gap-2">
         <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
         <span class="text-xs">{$errors.topics._errors?.[0]}</span>
       </span>
@@ -150,7 +150,7 @@
               onclick={() => handle_toggle_select_topic(t)}
               class={cn(
                 is_selected ? 'btn-ghost btn-active' : 'btn-neutral',
-                'btn btn-xs border-none md:btn-sm'
+                'btn btn-xs md:btn-sm border-none'
               )}
             >
               <span>{t.display_name}</span>

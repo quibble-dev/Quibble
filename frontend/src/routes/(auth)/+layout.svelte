@@ -30,9 +30,9 @@
 
 <div class="relative flex flex-1 items-center justify-center p-4">
   <div
-    class="absolute inset-0 bg-base-100 [mask-image:url('/assets/svgs/standalone-auth-bg.svg')] [mask-size:cover]"
+    class="bg-base-100 absolute inset-0 [mask-image:url('/assets/svgs/standalone-auth-bg.svg')] [mask-size:cover]"
   ></div>
-  <div class="relative flex flex-col gap-5 rounded-box bg-base-300 p-6 md:w-[25rem]">
+  <div class="rounded-box bg-base-300 relative flex flex-col gap-5 p-6 md:w-[25rem]">
     <!-- header section -->
     <div class="flex flex-col items-center justify-center gap-2">
       <a href="/" class="flex items-center gap-2">
@@ -93,10 +93,10 @@
       <p class="text-center text-xs">
         By continuing, you agree to the <a
           href="/support/terms-and-conditions"
-          class="font-medium text-info underline">Terms of use</a
+          class="text-info font-medium underline">Terms of use</a
         >,
-        <a href="/support/privary" class="font-medium text-info underline">Privacy</a>
-        and <a href="/support/policy" class="font-medium text-info underline">Policy</a> Preplaced.
+        <a href="/support/privary" class="text-info font-medium underline">Privacy</a>
+        and <a href="/support/policy" class="text-info font-medium underline">Policy</a> Preplaced.
       </p>
     {/if}
   </div>

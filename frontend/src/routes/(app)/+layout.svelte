@@ -40,7 +40,7 @@
     onclick={toggle_show_sidebar}
     class={cn(
       sidebar_show ? 'opacity-100' : 'pointer-events-none opacity-0',
-      'fixed z-40 h-[calc(100dvh-3.75rem)] w-dvw bg-base-300/55 transition-opacity duration-300 md:hidden'
+      'bg-base-300/55 fixed z-40 h-[calc(100dvh-3.75rem)] w-dvw transition-opacity duration-300 md:hidden'
     )}
     aria-label="toggle sidebar"
   ></button>

@@ -24,8 +24,8 @@
   });
 </script>
 
-<dialog class="modal modal-bottom px-4 sm:modal-middle" bind:this={dialog_el} {onclose}>
-  <div class={cn(klass, 'modal-box bg-base-300 duration-300 scrollbar-none')}>
+<dialog class="modal modal-bottom sm:modal-middle px-4" bind:this={dialog_el} {onclose}>
+  <div class={cn(klass, 'modal-box bg-base-300 scrollbar-none duration-300')}>
     {@render children()}
   </div>
   <form method="dialog" class="modal-backdrop">

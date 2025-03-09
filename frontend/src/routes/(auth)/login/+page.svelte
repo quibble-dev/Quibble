@@ -55,7 +55,7 @@
       />
     </label>
     {#if $errors.email}
-      <span class="flex items-center gap-2 text-error">
+      <span class="text-error flex items-center gap-2">
         <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
         <span class="text-xs">{$errors.email}</span>
       </span>
@@ -76,14 +76,14 @@
       <button
         type="button"
         tabindex="-1"
-        class="btn btn-square btn-ghost btn-sm ml-auto border border-base-content/25 bg-transparent"
+        class="btn btn-square btn-ghost btn-sm border-base-content/25 ml-auto border bg-transparent"
         aria-label="Show/hide password"
       >
         <coreicons-shape-eye class="size-4" variant="open"></coreicons-shape-eye>
       </button>
     </label>
     {#if $errors.password}
-      <span class="flex items-center gap-2 text-error">
+      <span class="text-error flex items-center gap-2">
         <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
         <span class="text-xs">{$errors.password}</span>
       </span>
@@ -92,9 +92,9 @@
   <div class="flex items-center justify-between gap-1">
     <span class="text-sm">
       New to Quibble?
-      <a href={href_register} tabindex="-1" class="font-medium text-accent">Sign up</a>
+      <a href={href_register} tabindex="-1" class="text-accent font-medium">Sign up</a>
     </span>
-    <a href="/password" tabindex="-1" class="text-sm text-accent">Forgot password?</a>
+    <a href="/password" tabindex="-1" class="text-accent text-sm">Forgot password?</a>
   </div>
   <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary')}>
     Log in

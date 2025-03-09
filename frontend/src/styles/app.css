@@ -74,5 +74,5 @@ html {
 
 .input,
 .input input {
-  @apply placeholder:font-normal placeholder:text-base-content/75;
+  @apply placeholder:text-base-content/75 placeholder:font-normal;
 }
