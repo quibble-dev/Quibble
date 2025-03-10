@@ -97,8 +97,8 @@
         />
       </div>
     {:else}
-      <a href="/register" class="btn h-10 px-3 text-sm font-bold">Sign up</a>
-      <a href="/login" class="btn btn-primary h-10 px-3 text-sm font-bold">
+      <a href="/register?ref=header" class="btn h-10 px-3 text-sm font-bold">Sign up</a>
+      <a href="/login?ref=header" class="btn btn-primary h-10 px-3 text-sm font-bold">
         Log in
         <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
       </a>

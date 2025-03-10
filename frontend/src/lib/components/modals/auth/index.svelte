@@ -10,7 +10,11 @@
   }
 </script>
 
-<BaseModal open={modalsStore.state.get('auth') === true} onclose={handle_modal_close}>
+<BaseModal
+  open={modalsStore.state.get('auth') === true}
+  onclose={handle_modal_close}
+  class="flex max-w-[25rem]! flex-col gap-5"
+>
   <div class="flex flex-col items-center gap-4">
     <Quibbles class="h-20 w-auto" />
     <div class="flex flex-col items-center gap-2">
@@ -20,26 +24,24 @@
       <span class="text-sm">Want to do more? Create an account or log in.</span>
     </div>
     <div class="flex w-full flex-col gap-2">
-      <a href="/login" class="btn btn-primary btn-block" onclick={handle_modal_close}>
+      <a href="/login?ref=modal" class="btn btn-primary btn-block" onclick={handle_modal_close}>
         Log in
         <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
       </a>
-      <a href="/register" class="btn btn-block" onclick={handle_modal_close}>Sign up</a>
+      <a href="/register?ref=modal" class="btn btn-block" onclick={handle_modal_close}>Sign up</a>
     </div>
-    <div class="divider my-0 text-xs font-bold">NOTE</div>
-    <div class="flex items-center gap-2 self-start text-sm">
-      <coreicons-shape-info class="shrink-0"></coreicons-shape-info>
-      <span
-        >Project is in development, if you see any issues- please <a
-          href="https://github.com/quibble-dev/Quibble/issues/new?template=bug_report.yml"
-          target="_blank"
-          class="text-info font-medium underline">raise a ticket</a
-        >.</span
-      >
-    </div>
+    <div class="divider my-0 text-xs font-bold before:h-px after:h-px">NOTE</div>
+    <span class="text-center text-xs"
+      >Project is in development, <br /> if you see any issues- please raise a ticket
+      <a
+        href="https://github.com/quibble-dev/Quibble/issues/new?template=bug_report.yml"
+        target="_blank"
+        class="text-info font-medium underline">here</a
+      >.</span
+    >
   </div>
   <button
-    class="btn btn-square btn-circle btn-ghost btn-sm absolute top-2.5 right-2.5"
+    class="btn btn-circle btn-sm absolute top-2.5 right-2.5"
     aria-label="Close modal"
     onclick={handle_modal_close}
   >

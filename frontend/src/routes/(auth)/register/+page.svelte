@@ -34,19 +34,21 @@
 </svelte:head>
 
 <!-- form element: email and password -->
-<form method="POST" action="?/register" class="flex flex-col gap-3" use:enhance novalidate>
+<form method="POST" action="?/register" class="flex flex-col gap-2" use:enhance novalidate>
   <!-- email input field with errors store -->
   <div class="flex flex-col gap-1">
-    <label class="input input-bordered flex items-center gap-2 bg-transparent">
-      <coreicons-shape-mail class="size-4"></coreicons-shape-mail>
-      <input
-        type="email"
-        name="email"
-        class="grow border-none p-2 text-sm font-medium focus:ring-0"
-        placeholder="Email address*"
-        aria-invalid={$errors.email ? 'true' : undefined}
-        bind:value={$form.email}
-      />
+    <label class="floating-label">
+      <span class="bg-base-300! duration-100!">E-mail address*</span>
+      <div class="input w-full bg-transparent" class:input-error={$errors.email}>
+        <coreicons-shape-mail class="size-4 shrink-0 opacity-50"></coreicons-shape-mail>
+        <input
+          type="email"
+          name="email"
+          placeholder="E-mail address*"
+          aria-invalid={$errors.email ? 'true' : undefined}
+          bind:value={$form.email}
+        />
+      </div>
     </label>
     {#if $errors.email}
       <span class="text-error flex items-center gap-2">
@@ -56,24 +58,18 @@
     {/if}
   </div>
   <div class="flex flex-col gap-1">
-    <label class="input input-bordered flex items-center gap-2 bg-transparent pr-2">
-      <coreicons-shape-lock class="size-4"></coreicons-shape-lock>
-      <input
-        type="password"
-        name="password1"
-        class="grow border-none p-2 text-sm font-medium focus:ring-0"
-        placeholder="Password*"
-        aria-invalid={$errors.password1 ? 'true' : undefined}
-        bind:value={$form.password1}
-      />
-      <button
-        type="button"
-        tabindex="-1"
-        class="btn btn-square btn-ghost btn-sm border-base-content/25 ml-auto border bg-transparent"
-        aria-label="Show/hide password"
-      >
-        <coreicons-shape-eye class="size-4" variant="open"></coreicons-shape-eye>
-      </button>
+    <label class="floating-label">
+      <span class="bg-base-300! duration-100!">Password*</span>
+      <div class="input w-full bg-transparent" class:input-error={$errors.password1}>
+        <coreicons-shape-lock class="size-4 shrink-0 opacity-50"></coreicons-shape-lock>
+        <input
+          type="password"
+          name="password1"
+          placeholder="Password*"
+          aria-invalid={$errors.password1 ? 'true' : undefined}
+          bind:value={$form.password1}
+        />
+      </div>
     </label>
     {#if $errors.password1}
       <span class="text-error flex items-center gap-2">
@@ -83,24 +79,18 @@
     {/if}
   </div>
   <div class="flex flex-col gap-1">
-    <label class="input input-bordered flex items-center gap-2 bg-transparent pr-2">
-      <coreicons-shape-lock class="size-4"></coreicons-shape-lock>
-      <input
-        type="password"
-        name="password2"
-        class="grow border-none p-2 text-sm font-medium focus:ring-0"
-        placeholder="Confirm password*"
-        aria-invalid={$errors.password2 ? 'true' : undefined}
-        bind:value={$form.password2}
-      />
-      <button
-        type="button"
-        tabindex="-1"
-        class="btn btn-square btn-ghost btn-sm border-base-content/25 ml-auto border bg-transparent"
-        aria-label="Show/hide password"
-      >
-        <coreicons-shape-eye class="size-4" variant="open"></coreicons-shape-eye>
-      </button>
+    <label class="floating-label">
+      <span class="bg-base-300! duration-100!">Confirm password*</span>
+      <div class="input w-full bg-transparent" class:input-error={$errors.password2}>
+        <coreicons-shape-lock class="size-4 shrink-0 opacity-50"></coreicons-shape-lock>
+        <input
+          type="password"
+          name="password2"
+          placeholder="Confirm password*"
+          aria-invalid={$errors.password2 ? 'true' : undefined}
+          bind:value={$form.password2}
+        />
+      </div>
     </label>
     {#if $errors.password2}
       <span class="text-error flex items-center gap-2">
@@ -109,16 +99,15 @@
       </span>
     {/if}
   </div>
-  <span class="text-sm">
-    Already a quibbler?
-    <a href={href_login} tabindex="-1" class="text-accent font-medium">Log in</a>
-  </span>
-  <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary')}>
-    Register
-    {#if $delayed}
-      <span class="loading loading-spinner loading-xs"></span>
-    {:else}
-      <coreicons-shape-arrow class="size-4" variant="right"></coreicons-shape-arrow>
-    {/if}
-  </button>
+  <div class="flex flex-col items-center gap-2">
+    <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary w-full')}>
+      Register
+      {#if $delayed}
+        <span class="loading loading-spinner loading-xs"></span>
+      {:else}
+        <coreicons-shape-arrow class="size-4" variant="right"></coreicons-shape-arrow>
+      {/if}
+    </button>
+    <a href="/login?ref=auth-page" class="btn w-full">Already? Log in now!</a>
+  </div>
 </form>
