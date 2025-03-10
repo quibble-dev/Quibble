@@ -96,7 +96,7 @@
     </label>
     {#if $errors.username}
       <span class="fieldset-label text-error py-0.5">
-        <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
+        <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
         <span class="text-xs">{$errors.username}</span>
       </span>
     {/if}
