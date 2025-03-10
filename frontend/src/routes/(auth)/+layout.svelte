@@ -5,6 +5,12 @@
     type: RenderType;
     email?: string;
   }
+
+  const type_titles: Record<string, string> = {
+    '/login': 'Sign in',
+    '/register': 'Sign up',
+    '/password': 'Password'
+  };
 </script>
 
 <script lang="ts">
@@ -15,22 +21,10 @@
   import type { Nullable } from '$lib/types/shared';
   import { setContext } from 'svelte';
 
-  // constants
-  const type_titles: Record<string, string> = {
-      '/login': 'Sign in',
-      '/register': 'Sign up',
-      '/password': 'Password'
-    },
-    type_subtitles: Record<RenderType, string> = {
-      select: `Who's quibbling? You can later switch b/w profiles from settings page.`,
-      create: `Let's create a new one! You can later edit this from settings page.`,
-      code: `Verify your email Enter the 6-digit code we sent to {data?.email}.`
-    };
-
   let { children } = $props();
 
   let data = $state<Nullable<Data>>(null);
-  let render_type = $state<Nullable<RenderType>>('create');
+  let render_type = $state<Nullable<RenderType>>(null);
 
   setContext('handle_success', handle_success);
 
@@ -49,11 +43,17 @@
       <div class="flex flex-col gap-2">
         <a href="/" class="w-max"><QuibbleLogo class="size-7" /></a>
         <h2 class="text-info text-3xl font-medium">{type_titles[page.url.pathname]}</h2>
-        <span class="flex flex-col text-sm"
-          >{render_type === null
-            ? `Join in, share your take, and make some waves!`
-            : type_subtitles[render_type]}</span
-        >
+        <span class="flex flex-col text-sm">
+          {#if render_type === 'select'}
+            Who's quibbling? You can later switch b/w profiles from settings page.
+          {:else if render_type === 'create'}
+            Let's create a new one! You can later edit this from settings page.
+          {:else if render_type === 'code'}
+            Verify your e-mail, enter the 6-digit code we sent to {data?.email}.
+          {:else}
+            Join in, share your take, and make some waves!
+          {/if}
+        </span>
       </div>
       <div class="flex flex-col gap-2">
         {#if render_type === 'select'}

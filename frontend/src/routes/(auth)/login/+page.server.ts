@@ -32,7 +32,7 @@ export const actions: Actions = {
 
       return { form };
     } else if (error) {
-      return message(form, error.errors[0]?.detail, { status: 401 });
+      return setError(form, 'email', String(error.errors[0]?.detail));
     }
   },
   create: async ({ request }) => {

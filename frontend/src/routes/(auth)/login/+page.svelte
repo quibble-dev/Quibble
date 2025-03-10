@@ -1,10 +1,9 @@
 <script lang="ts">
   import { page } from '$app/state';
   import api from '$lib/api';
-  import { toast } from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
   import type { Data } from '../+layout.svelte';
-  import { getContext, untrack } from 'svelte';
+  import { getContext } from 'svelte';
   import { superForm } from 'sveltekit-superforms';
 
   let { data } = $props();
@@ -12,11 +11,11 @@
   const dest_param = page.url.searchParams.get('dest');
   const href_register = dest_param
     ? `/register?dest=${encodeURIComponent(dest_param)}`
-    : '/register';
+    : '/register?ref=auth_page';
 
   const handle_success: (data: Data) => void = getContext('handle_success');
 
-  const { form, enhance, delayed, errors, message } = superForm(data.form, {
+  const { form, enhance, delayed, errors } = superForm(data.form, {
     resetForm: false,
     async onResult({ result }) {
       if (result.type === 'success') {
@@ -26,11 +25,6 @@
         handle_success({ type });
       }
     }
-  });
-
-  $effect(() => {
-    const _message = $message;
-    if (_message) untrack(() => toast.push(_message));
   });
 </script>
 
@@ -57,10 +51,7 @@
       </div>
     </label>
     {#if $errors.email}
-      <span class="text-error flex items-center gap-2">
-        <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
-        <span class="text-xs">{$errors.email}</span>
-      </span>
+      <span class="text-error flex items-center gap-2 text-xs">{$errors.email[0]}</span>
     {/if}
   </div>
   <!-- password input field with errors store -->
@@ -79,10 +70,7 @@
       </div>
     </label>
     {#if $errors.password}
-      <span class="text-error flex items-center gap-2">
-        <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
-        <span class="text-xs">{$errors.password}</span>
-      </span>
+      <span class="text-error flex items-center gap-2 text-xs">{$errors.password[0]}</span>
     {/if}
   </div>
   <div class="flex items-center justify-between gap-1">
@@ -101,6 +89,6 @@
         <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
       {/if}
     </button>
-    <a href="/register?ref=auth-page" class="btn w-full">New? Sign up now!</a>
+    <a href={href_register} class="btn w-full">New? Sign up now!</a>
   </div>
 </form>

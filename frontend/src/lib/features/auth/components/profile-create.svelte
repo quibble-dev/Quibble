@@ -63,7 +63,8 @@
       <label
         for="avatar"
         class="fieldset-label py-0.5 leading-none"
-        class:text-error={$errors.avatar}>{$errors.avatar ?? 'Max size 5MB'}</label
+        class:text-error={$errors.avatar}
+        >{$errors.avatar ? $errors.avatar[0] : 'Max size 5MB'}</label
       >
     </fieldset>
     <fieldset class="fieldset">
@@ -76,7 +77,7 @@
         onchange={(e) => handle_file_on_change(e, 'cover')}
       />
       <label for="cover" class="fieldset-label py-0.5 leading-none" class:text-error={$errors.cover}
-        >{$errors.cover ?? 'Max size 5MB'}</label
+        >{$errors.cover ? $errors.cover[0] : 'Max size 5MB'}</label
       >
     </fieldset>
   </div>
@@ -95,10 +96,7 @@
       </div>
     </label>
     {#if $errors.username}
-      <span class="fieldset-label text-error py-0.5">
-        <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-        <span class="text-xs">{$errors.username}</span>
-      </span>
+      <span class="text-error flex items-center gap-2 text-xs">{$errors.username[0]}</span>
     {/if}
   </fieldset>
   <fieldset class="fieldset">

@@ -1,30 +1,26 @@
 <script lang="ts">
   import { page } from '$app/state';
-  import { toast } from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
   import type { Data } from '../+layout.svelte';
-  import { getContext, untrack } from 'svelte';
+  import { getContext } from 'svelte';
   import { superForm } from 'sveltekit-superforms';
 
   let { data } = $props();
 
   const dest_param = page.url.searchParams.get('dest');
-  const href_login = dest_param ? `/login?dest=${encodeURIComponent(dest_param)}` : '/login';
+  const href_login = dest_param
+    ? `/login?dest=${encodeURIComponent(dest_param)}`
+    : '/login?ref=auth_page';
 
   const handle_success: (data: Data) => void = getContext('handle_success');
 
-  const { form, enhance, delayed, errors, message } = superForm(data.form, {
+  const { form, enhance, delayed, errors } = superForm(data.form, {
     resetForm: false,
     onResult({ result }) {
       if (result.type === 'success' && result.data) {
         handle_success({ type: 'code', email: result.data.form.data.email });
       }
     }
-  });
-
-  $effect(() => {
-    const _message = $message;
-    if (_message) untrack(() => toast.push(_message));
   });
 </script>
 
@@ -51,10 +47,7 @@
       </div>
     </label>
     {#if $errors.email}
-      <span class="text-error flex items-center gap-2">
-        <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
-        <span class="text-xs">{$errors.email}</span>
-      </span>
+      <span class="text-error flex items-center gap-2 text-xs">{$errors.email[0]}</span>
     {/if}
   </div>
   <div class="flex flex-col gap-1">
@@ -72,10 +65,7 @@
       </div>
     </label>
     {#if $errors.password1}
-      <span class="text-error flex items-center gap-2">
-        <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
-        <span class="text-xs">{$errors.password1}</span>
-      </span>
+      <span class="text-error flex items-center gap-2 text-xs">{$errors.password1[0]}</span>
     {/if}
   </div>
   <div class="flex flex-col gap-1">
@@ -93,10 +83,7 @@
       </div>
     </label>
     {#if $errors.password2}
-      <span class="text-error flex items-center gap-2">
-        <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
-        <span class="text-xs">{$errors.password2}</span>
-      </span>
+      <span class="text-error flex items-center gap-2 text-xs">{$errors.password2[0]}</span>
     {/if}
   </div>
   <div class="flex flex-col items-center gap-2">
@@ -108,6 +95,6 @@
         <coreicons-shape-arrow class="size-4" variant="right"></coreicons-shape-arrow>
       {/if}
     </button>
-    <a href="/login?ref=auth-page" class="btn w-full">Already? Log in now!</a>
+    <a href={href_login} class="btn w-full">Already? Log in now!</a>
   </div>
 </form>

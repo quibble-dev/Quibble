@@ -55,29 +55,26 @@
 </script>
 
 <form class="flex flex-col gap-2" method="POST" action="?/code" use:enhance>
-  <div class="flex flex-col gap-1">
-    <label class="input input-bordered flex items-center gap-2 bg-transparent pr-2">
-      <coreicons-shape-key class="size-4"></coreicons-shape-key>
-      <input
-        name="code"
-        class="grow border-none p-2 text-sm font-medium focus:ring-0"
-        placeholder="Verification code*"
-        aria-invalid={$errors.code ? 'true' : undefined}
-        bind:value={$form.code}
-      />
+  <fieldset class="fieldset">
+    <label class="floating-label">
+      <span class="bg-base-300! text-base duration-100!">Verification code*</span>
+      <div class="input w-full bg-transparent" class:input-error={$errors.code}>
+        <coreicons-shape-key class="size-4 shrink-0 opacity-50"></coreicons-shape-key>
+        <input
+          name="code"
+          placeholder="Verification code*"
+          aria-invalid={$errors.code ? 'true' : undefined}
+          bind:value={$form.code}
+        />
+      </div>
     </label>
-    <span class="flex items-center gap-2" class:text-error={$errors.code}>
-      {#if $errors.code}
-        <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
-      {:else}
-        <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-      {/if}
-      <span class="text-xs">{$errors.code ?? 'You only got 3 attempts!'}</span>
-    </span>
-  </div>
+    {#if $errors.code}
+      <span class="text-error flex items-center gap-2 text-xs">{$errors.code[0]}</span>
+    {/if}
+  </fieldset>
   <div class="flex flex-col gap-1">
     <div class="flex items-center gap-2 text-xs">
-      Didn't get an email?
+      Didn't get an e-mail?
       <button
         type="button"
         class="btn btn-ghost btn-xs"
