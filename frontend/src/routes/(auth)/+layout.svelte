@@ -17,7 +17,7 @@
   let { children } = $props();
 
   let data = $state<Nullable<Data>>(null);
-  let render_type = $state<Nullable<RenderType>>(null);
+  let render_type = $state<Nullable<RenderType>>('create');
 
   setContext('handle_success', handle_success);
 
