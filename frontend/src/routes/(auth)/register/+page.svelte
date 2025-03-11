@@ -7,6 +7,8 @@
 
   let { data } = $props();
 
+  let show_password = $state(false);
+
   const dest_param = page.url.searchParams.get('dest');
   const href_login = dest_param
     ? `/login?dest=${encodeURIComponent(dest_param)}`
@@ -56,7 +58,7 @@
       <div class="input w-full bg-transparent" class:input-error={$errors.password1}>
         <coreicons-shape-lock class="size-4 shrink-0 opacity-50"></coreicons-shape-lock>
         <input
-          type="password"
+          type={show_password ? 'text' : 'password'}
           name="password1"
           placeholder="Password*"
           aria-invalid={$errors.password1 ? 'true' : undefined}
@@ -74,7 +76,7 @@
       <div class="input w-full bg-transparent" class:input-error={$errors.password2}>
         <coreicons-shape-lock class="size-4 shrink-0 opacity-50"></coreicons-shape-lock>
         <input
-          type="password"
+          type={show_password ? 'text' : 'password'}
           name="password2"
           placeholder="Confirm password*"
           aria-invalid={$errors.password2 ? 'true' : undefined}
@@ -86,6 +88,14 @@
       <span class="text-error flex items-center gap-2 text-xs">{$errors.password2[0]}</span>
     {/if}
   </div>
+  <label class="flex items-center gap-2">
+    <input
+      type="checkbox"
+      class="checkbox checkbox-sm"
+      onchange={() => (show_password = !show_password)}
+    />
+    <span class="cursor-pointer text-sm">Show password</span>
+  </label>
   <div class="flex flex-col items-center gap-2">
     <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary w-full')}>
       Register

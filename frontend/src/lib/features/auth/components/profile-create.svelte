@@ -60,10 +60,7 @@
         class="file-input file-input-sm bg-transparent"
         onchange={(e) => handle_file_on_change(e, 'avatar')}
       />
-      <label
-        for="avatar"
-        class="fieldset-label py-0.5 leading-none"
-        class:text-error={$errors.avatar}
+      <label for="avatar" class="fieldset-label leading-none" class:text-error={$errors.avatar}
         >{$errors.avatar ? $errors.avatar[0] : 'Max size 5MB'}</label
       >
     </fieldset>
@@ -76,7 +73,7 @@
         class="file-input file-input-sm bg-transparent"
         onchange={(e) => handle_file_on_change(e, 'cover')}
       />
-      <label for="cover" class="fieldset-label py-0.5 leading-none" class:text-error={$errors.cover}
+      <label for="cover" class="fieldset-label leading-none" class:text-error={$errors.cover}
         >{$errors.cover ? $errors.cover[0] : 'Max size 5MB'}</label
       >
     </fieldset>
@@ -96,7 +93,7 @@
       </div>
     </label>
     {#if $errors.username}
-      <span class="text-error flex items-center gap-2 text-xs">{$errors.username[0]}</span>
+      <span class="fieldset-label text-error">{$errors.username[0]}</span>
     {/if}
   </fieldset>
   <fieldset class="fieldset">

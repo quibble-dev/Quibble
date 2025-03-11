@@ -8,6 +8,8 @@
 
   let { data } = $props();
 
+  let show_password = $state(false);
+
   const dest_param = page.url.searchParams.get('dest');
   const href_register = dest_param
     ? `/register?dest=${encodeURIComponent(dest_param)}`
@@ -61,7 +63,7 @@
       <div class="input w-full bg-transparent" class:input-error={$errors.password}>
         <coreicons-shape-lock class="size-4 shrink-0 opacity-50"></coreicons-shape-lock>
         <input
-          type="password"
+          type={show_password ? 'text' : 'password'}
           name="password"
           placeholder="Password*"
           aria-invalid={$errors.password ? 'true' : undefined}
@@ -75,7 +77,11 @@
   </div>
   <div class="flex items-center justify-between gap-1">
     <label class="flex items-center gap-2">
-      <input type="checkbox" class="checkbox checkbox-sm" />
+      <input
+        type="checkbox"
+        class="checkbox checkbox-sm"
+        onchange={() => (show_password = !show_password)}
+      />
       <span class="cursor-pointer text-sm">Show password</span>
     </label>
     <a href="/password" tabindex="-1" class="text-accent text-sm">Forgot password?</a>
