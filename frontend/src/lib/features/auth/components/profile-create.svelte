@@ -1,7 +1,9 @@
 <script lang="ts">
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import { toast } from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
   import { ProfileCreateSchema } from '$lib/schemas/auth';
+  import { untrack } from 'svelte';
   import { defaults, superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
 
@@ -17,12 +19,15 @@
   let avatar_data_url = $state<string>(),
     cover_data_url = $state<string>();
 
-  const { form, enhance, errors, delayed } = superForm(defaults(zod(ProfileCreateSchema)), {
-    resetForm: false,
-    onResult({ result }) {
-      if (result.type === 'success') onsuccess();
+  const { form, enhance, errors, delayed, message } = superForm(
+    defaults(zod(ProfileCreateSchema)),
+    {
+      resetForm: false,
+      onResult({ result }) {
+        if (result.type === 'success') onsuccess();
+      }
     }
-  });
+  );
 
   async function handle_file_on_change(e: Event, type: ImageInputType) {
     const file = (e.target as HTMLInputElement).files?.[0];
@@ -41,6 +46,11 @@
       if (type === 'cover') cover_data_url = String(data_url);
     };
   }
+
+  $effect(() => {
+    const _message = $message;
+    if (_message) untrack(() => toast.push(_message));
+  });
 </script>
 
 <form
