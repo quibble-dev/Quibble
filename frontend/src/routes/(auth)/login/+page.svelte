@@ -1,9 +1,10 @@
 <script lang="ts">
   import { page } from '$app/state';
   import api from '$lib/api';
+  import { toast } from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
   import type { Data } from '../+layout.svelte';
-  import { getContext } from 'svelte';
+  import { getContext, untrack } from 'svelte';
   import { superForm } from 'sveltekit-superforms';
 
   let { data } = $props();
@@ -17,7 +18,7 @@
 
   const handle_success: (data: Data) => void = getContext('handle_success');
 
-  const { form, enhance, delayed, errors } = superForm(data.form, {
+  const { form, enhance, delayed, errors, message } = superForm(data.form, {
     resetForm: false,
     async onResult({ result }) {
       if (result.type === 'success') {
@@ -27,6 +28,11 @@
         handle_success({ type });
       }
     }
+  });
+
+  $effect(() => {
+    const _message = $message;
+    if (_message) untrack(() => toast.push(_message));
   });
 </script>
 
