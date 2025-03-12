@@ -22,7 +22,6 @@
   class="border-neutral bg-base-300 scrollbar-none fixed flex h-[calc(100dvh-3.75rem)] w-72 flex-col gap-4 overflow-y-scroll border-r p-4 md:top-[3.75rem] md:z-10"
 >
   <div class="flex flex-col gap-2">
-    <h2 class="font-medium">Communities</h2>
     <label class="input input-sm input-bordered flex items-center rounded-lg bg-transparent">
       <input
         type="text"
@@ -33,17 +32,17 @@
     </label>
     <a
       href="/q/create"
-      class="btn btn-ghost btn-xs flex w-max items-center gap-2"
+      class="btn btn-link btn-xs flex max-h-max w-max items-center gap-2 p-0"
       onclick={handle_create_a_communiy_btn_click}
     >
       <coreicons-shape-plus variant="circle" class="size-4"></coreicons-shape-plus>
       <span class="text-xs font-medium">Create a community</span>
     </a>
   </div>
-  <div class="collapse gap-2 overflow-visible rounded-none">
-    <input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
+  <div class="collapse gap-2 rounded-none">
+    <input type="checkbox" checked={true} class="peer min-h-max! p-0!" />
     <div
-      class="collapse-title text-base-content/75 flex h-max min-h-max items-center justify-between p-0 text-sm font-medium [&>div>coreicons-shape-chevron]:peer-checked:rotate-180"
+      class="collapse-title text-base-content/75 flex min-h-max items-center justify-between p-0 text-sm font-medium peer-checked:[&>div>coreicons-shape-chevron]:rotate-180"
     >
       Recent
       <div class="flex items-center gap-2">
@@ -66,7 +65,7 @@
             <a href="/q/{community.name}" class="text-sm font-medium">q/{community.name}</a>
             <button
               onclick={() => sidebarStore.toggle_star('recent', community.name)}
-              class="ml-auto"
+              class="ml-auto cursor-pointer"
               aria-label="Star Community"
             >
               <coreicons-shape-star class="size-4" class:text-primary={community.starred}
@@ -81,9 +80,9 @@
   </div>
 
   <div class="collapse gap-2 overflow-visible rounded-none">
-    <input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
+    <input type="checkbox" checked={true} class="peer min-h-max! p-0!" />
     <div
-      class="collapse-title text-base-content/75 flex h-max min-h-max items-center justify-between p-0 text-sm font-medium [&>div>coreicons-shape-chevron]:peer-checked:rotate-180"
+      class="collapse-title text-base-content/75 flex min-h-max items-center justify-between p-0 text-sm font-medium peer-checked:[&>div>coreicons-shape-chevron]:rotate-180"
     >
       Your Communities
       <div class="flex items-center gap-2">
@@ -120,9 +119,9 @@
     {/if}
   </div>
   <div class="collapse gap-2 overflow-visible rounded-none">
-    <input type="checkbox" checked={true} class="peer h-max min-h-full w-full" />
+    <input type="checkbox" checked={true} class="peer min-h-max! p-0!" />
     <div
-      class="collapse-title text-base-content/75 flex h-max min-h-max items-center justify-between p-0 text-sm font-medium [&>coreicons-shape-chevron]:peer-checked:rotate-180"
+      class="collapse-title text-base-content/75 flex min-h-max items-center justify-between p-0 text-sm font-medium peer-checked:[&>coreicons-shape-chevron]:rotate-180"
     >
       Resources
       <coreicons-shape-chevron class="size-4 transition-transform" variant="down"
