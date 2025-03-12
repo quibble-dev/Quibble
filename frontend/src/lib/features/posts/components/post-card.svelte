@@ -140,7 +140,7 @@
         <div class="mt-auto flex items-center gap-2.5">
           <button
             onclick={() => (is_expanded = !is_expanded)}
-            class="btn btn-neutral group-hover:bg-base-content/20 relative hidden h-max rounded-xl p-1.5 group-hover:border-transparent md:flex"
+            class="btn btn-sm btn-square btn-neutral relative hidden md:flex"
           >
             {#if is_expanded}
               <coreicons-shape-shrink class="text-primary size-4"></coreicons-shape-shrink>
