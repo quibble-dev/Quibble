@@ -51,12 +51,10 @@
         <span class="text-sm font-medium">All</span>
       </a>
     </div>
-    <label class="input input-bordered relative flex h-10 w-96 items-center bg-transparent px-3">
-      <coreicons-shape-search class="size-5"></coreicons-shape-search>
+    <label class="input relative flex w-96 items-center bg-transparent">
+      <coreicons-shape-search class="size-4 shrink-0"></coreicons-shape-search>
       {#if show_search_in_community}
-        <div
-          class="border-neutral bg-base-100 ml-2 flex items-center gap-2 rounded-lg border p-1 px-1.5"
-        >
+        <div class="border-neutral bg-base-100 flex items-center gap-2 rounded-lg border p-1">
           <Avatar src={page.data.community.avatar} class="size-5 rounded-full" />
           <h5 class="text-xs font-medium whitespace-nowrap">
             q/{page.data.community.name}
@@ -64,8 +62,6 @@
         </div>
       {/if}
       <input
-        type="text"
-        class="grow border-none px-2 text-sm font-medium focus:ring-0"
         placeholder={show_search_in_community ? `Search in q/${page.params.name}` : 'Search...'}
       />
     </label>
@@ -79,7 +75,7 @@
         <a
           href="/submit"
           aria-label="Create a Post"
-          class="btn md:btn-primary h-10 w-10 p-0 md:w-auto md:px-3"
+          class="btn md:btn-primary btn-square md:btn-wide md:px-3"
         >
           <coreicons-shape-plus variant="no-border" class="size-5"></coreicons-shape-plus>
           <span class="hidden text-sm font-medium md:flex">Create</span>
@@ -97,8 +93,8 @@
         />
       </div>
     {:else}
-      <a href="/register?ref=header" class="btn h-10 px-3 text-sm font-bold">Sign up</a>
-      <a href="/login?ref=header" class="btn btn-primary h-10 px-3 text-sm font-bold">
+      <a href="/register?ref=header" class="btn">Sign up</a>
+      <a href="/login?ref=header" class="btn btn-primary">
         Log in
         <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
       </a>

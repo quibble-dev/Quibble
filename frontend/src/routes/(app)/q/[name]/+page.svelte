@@ -77,14 +77,14 @@
     </div>
     <!-- community basic operations -->
     <div class="flex items-center gap-2">
-      <button class="btn btn-primary h-10 px-3" aria-label="Create a Post">
+      <button class="btn btn-primary" aria-label="Create a Post">
         <coreicons-shape-plus variant="no-border" class="size-5"></coreicons-shape-plus>
         <span class="text-sm font-medium">Create Post</span>
       </button>
-      <button class="btn btn-secondary h-10 px-3" aria-label="Join Community">
+      <button class="btn btn-secondary" aria-label="Join Community">
         <span class="text-sm font-medium">{is_joined ? 'Joined' : 'Join'}</span>
       </button>
-      <button class="btn btn-neutral ml-auto size-10 p-0 md:ml-0" aria-label="More options">
+      <button class="btn btn-neutral btn-square ml-auto md:ml-0" aria-label="More options">
         <coreicons-shape-more class="size-5 rotate-90"></coreicons-shape-more>
       </button>
     </div>
