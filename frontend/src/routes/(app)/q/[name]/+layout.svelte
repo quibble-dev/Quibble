@@ -40,7 +40,7 @@
       <div class="flex flex-col">
         <span class="text-info text-sm">{community?.posts_count}</span>
         <span class="text-base-content/75 text-xs"
-          >{pluralize('Quib', community?.posts_count ?? 0)}</span
+          >{pluralize('Post', community?.posts_count ?? 0)}</span
         >
       </div>
     </div>
@@ -55,7 +55,7 @@
           <div class="flex items-center gap-2">
             <Avatar src={moderator.avatar} class="size-6 rounded-full" />
             <div class="flex flex-col">
-              <a href="/u/{moderator.username}" class="text-sm font-medium"
+              <a href="/u/{moderator.username}" class="link link-hover text-sm font-medium"
                 >u/{moderator.username}</a
               >
               <span class="text-base-content/75 text-xs">{moderator.name}</span>

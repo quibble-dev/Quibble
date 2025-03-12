@@ -17,8 +17,8 @@
 
   const is_joined = $derived.by(() => {
     if (!authStore.state.is_authenticated) return false;
-    if (authStore.state.profile && community) {
-      return community.members?.includes(authStore.state.profile.id);
+    if (authStore.state.user && community) {
+      return community.members?.includes(authStore.state.user.profile.id);
     }
   });
 
@@ -54,7 +54,7 @@
   >
     <div class="mt-4 flex items-center gap-2 xl:mt-0 xl:items-end">
       <Avatar
-        class="outline-base-300 size-14 shrink-0 rounded-full outline-8 xl:size-20 xl:outline"
+        class="ring-base-300 size-14 shrink-0 rounded-full xl:size-20 xl:ring-8"
         src={community?.avatar}
       />
       <div class="flex flex-col">
