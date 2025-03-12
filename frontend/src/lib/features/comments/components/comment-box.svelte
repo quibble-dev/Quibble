@@ -35,7 +35,8 @@
   <form
     method="POST"
     action="?/comment"
-    class="border-neutral flex flex-col rounded-2xl border"
+    class="border-base-content/20 focus-within:border-base-content/50 rounded-box flex flex-col border"
+    class:border-error!={$errors.content}
     use:enhance
   >
     <input type="hidden" name="path" value={path} />
@@ -60,9 +61,6 @@
     </div>
   </form>
   {#if $errors.content}
-    <div class="text-error flex items-center gap-2 text-xs">
-      <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-      <span>{$errors.content}</span>
-    </div>
+    <div class="text-error flex items-center gap-2 text-xs">{$errors.content}</div>
   {/if}
 </div>

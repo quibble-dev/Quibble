@@ -31,8 +31,8 @@
 
   const is_upvoted = $derived.by(check_if_upvoted);
   function check_if_upvoted() {
-    if (authStore.state.profile && post.upvotes) {
-      return post.upvotes.includes(authStore.state.profile.id);
+    if (authStore.state.user && post.upvotes) {
+      return post.upvotes.includes(authStore.state.user.profile.id);
     } else {
       return false;
     }
@@ -108,7 +108,7 @@
       </a>
     </div>
   </div>
-  <button class="ml-auto flex items-center gap-2" aria-label="more">
+  <button class="btn btn-sm btn-square btn-ghost ml-auto" aria-label="more">
     <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
   </button>
 </div>
@@ -156,7 +156,7 @@
   />
 {:else}
   <button
-    class="border-neutral flex items-center gap-2 rounded-2xl border p-2.5 text-sm"
+    class="border-base-content/20 rounded-box flex cursor-text items-center gap-2 border p-2.5 text-sm"
     onclick={() => (show_comment_box = true)}
   >
     <coreicons-shape-message-circle class="size-5"></coreicons-shape-message-circle>
@@ -169,7 +169,7 @@
   <div class="flex items-center gap-2">
     <span class="text-sm">Sort by:</span>
     <div class="dropdown-start dropdown">
-      <div tabindex="0" role="button" class="flex items-center gap-2">
+      <div tabindex="0" role="button" class="flex cursor-pointer items-center gap-2 select-none">
         <active_filter.icon class="text-primary size-4" />
         <span class="text-sm font-medium capitalize">{active_mapping.filter}</span>
         <coreicons-shape-chevron variant="down" class="text-base-content/75 size-4"
