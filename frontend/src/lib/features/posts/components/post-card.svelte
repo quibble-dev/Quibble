@@ -22,8 +22,8 @@
 
   const is_upvoted = $derived.by(check_if_upvoted);
   function check_if_upvoted() {
-    if (authStore.state.profile && post.upvotes) {
-      return post.upvotes.includes(authStore.state.profile.id);
+    if (authStore.state.user && post.upvotes) {
+      return post.upvotes.includes(authStore.state.user.profile.id);
     } else {
       return false;
     }
@@ -68,34 +68,34 @@
     <span class="text-base-content/75 text-xs font-medium"
       >{new FormatDate(post.created_at).timeAgo()}</span
     >
-    <button class="ml-auto hidden items-center gap-2 md:flex" aria-label="more">
+    <button
+      class="btn btn-sm btn-square hover:btn-neutral btn-ghost ml-auto hidden md:flex"
+      aria-label="more"
+    >
       <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
     </button>
   </div>
 {/snippet}
 
 {#snippet vote_comment_share_more()}
-  <div
-    class="btn btn-neutral group-hover:bg-base-content/20 relative flex h-max items-center gap-2 rounded-xl px-2 py-1 group-hover:border-transparent"
-  >
-    <button class="flex items-center gap-2" aria-label="upvote">
-      <coreicons-shape-thumbs variant="up" class="size-4" class:text-primary={is_upvoted}
-      ></coreicons-shape-thumbs>
+  <div class="bg-neutral rounded-field relative flex items-center gap-1">
+    <button
+      class="btn btn-primary btn-soft btn-sm btn-square"
+      class:btn-active={is_upvoted}
+      aria-label="Upvote post"
+    >
+      <coreicons-shape-thumbs variant="up" class="size-4"></coreicons-shape-thumbs>
     </button>
     <span class="text-xs font-medium md:text-sm">{readable(post.upvotes?.length ?? 0)}</span>
-    <button class="flex items-center gap-2" aria-label="downvote">
+    <button class="btn btn-accent btn-soft btn-sm btn-square" aria-label="Downvote post">
       <coreicons-shape-thumbs variant="down" class="size-4"></coreicons-shape-thumbs>
     </button>
   </div>
-  <button
-    class="btn btn-neutral group-hover:bg-base-content/20 relative flex h-max items-center gap-2 rounded-xl px-2 py-1 group-hover:border-transparent"
-  >
+  <button class="btn btn-sm btn-neutral relative px-2">
     <coreicons-shape-forum class="size-4"></coreicons-shape-forum>
     <span class="text-xs font-medium md:text-sm">{readable(post.comments?.length ?? 0)}</span>
   </button>
-  <button
-    class="btn relative hidden h-max items-center gap-2 border-none bg-transparent p-0 hover:bg-transparent md:flex"
-  >
+  <button class="btn btn-sm btn-neutral relative hidden md:flex">
     <coreicons-shape-share class="size-4"></coreicons-shape-share>
     <span class="text-sm font-medium">Share</span>
   </button>
@@ -115,7 +115,7 @@
 <div
   class={cn(
     layoutTypeStore.state === 'compact' && 'hover:bg-base-200 transition-colors',
-    'border-neutral bg-base-300 relative flex flex-col overflow-hidden rounded-2xl border'
+    'border-neutral bg-base-300 rounded-box relative flex flex-col overflow-hidden border'
   )}
 >
   {#if layoutTypeStore.state === 'card'}
