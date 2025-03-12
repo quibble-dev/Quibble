@@ -22,12 +22,8 @@
   class="border-neutral bg-base-300 scrollbar-none fixed flex h-[calc(100dvh-3.75rem)] w-72 flex-col gap-4 overflow-y-scroll border-r p-4 md:top-[3.75rem] md:z-10"
 >
   <div class="flex flex-col gap-2">
-    <label class="input input-sm input-bordered flex items-center rounded-lg bg-transparent">
-      <input
-        type="text"
-        class="grow border-none pr-2 pl-0.5 text-sm focus:ring-0"
-        placeholder="Search filter..."
-      />
+    <label class="input input-sm bg-transparent">
+      <input placeholder="Search filter..." />
       <coreicons-shape-filter class="size-3"></coreicons-shape-filter>
     </label>
     <a

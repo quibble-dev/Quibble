@@ -63,7 +63,7 @@
   </div>
   <div class="flex gap-3">
     <div class="dropdown dropdown-end">
-      <div tabindex="0" role="button" class="flex items-center gap-2">
+      <div tabindex="0" role="button" class="flex cursor-pointer items-center gap-2 select-none">
         <ActiveViewIcon class="stroke-primary" />
         <span class="text-sm font-medium capitalize">{active_view}</span>
         <coreicons-shape-chevron variant="down" class="size-4"></coreicons-shape-chevron>
