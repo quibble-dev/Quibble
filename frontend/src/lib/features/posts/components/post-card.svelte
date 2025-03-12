@@ -68,12 +68,6 @@
     <span class="text-base-content/75 text-xs font-medium"
       >{new FormatDate(post.created_at).timeAgo()}</span
     >
-    <button
-      class="btn btn-sm btn-square hover:btn-neutral btn-ghost ml-auto hidden md:flex"
-      aria-label="more"
-    >
-      <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
-    </button>
   </div>
 {/snippet}
 
@@ -99,7 +93,7 @@
     <coreicons-shape-share class="size-4"></coreicons-shape-share>
     <span class="text-sm font-medium">Share</span>
   </button>
-  <button class="relative flex items-center gap-2 md:hidden" aria-label="more">
+  <button class="btn btn-sm btn-ghost hover:btn-neutral btn-square relative" aria-label="more">
     <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
   </button>
 {/snippet}
