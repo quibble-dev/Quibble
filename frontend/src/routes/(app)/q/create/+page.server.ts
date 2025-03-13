@@ -13,7 +13,7 @@ export const load: PageServerLoad = async () => {
 };
 
 export const actions: Actions = {
-  default: async ({ request, cookies }) => {
+  default: async ({ request }) => {
     const form = await superValidate(request, zod(CommunityCreateSchema));
 
     if (!form.valid) {
@@ -22,10 +22,7 @@ export const actions: Actions = {
     }
 
     const { data, response, error } = await api.POST('/q/communities/', {
-      headers: {
-        Authorization: `Bearer ${cookies.get('auth_token')}`,
-        'Profile-Id': cookies.get('auth_user_profile_id')
-      },
+      headers: { Cookie: request.headers.get('Cookie') },
       // @ts-expect-error: only requires username for POST req
       body: { ...form.data },
       bodySerializer(body) {

@@ -17,8 +17,8 @@
 
   const is_joined = $derived.by(() => {
     if (!authStore.state.is_authenticated) return false;
-    if (authStore.state.profile && community) {
-      return community.members?.includes(authStore.state.profile.id);
+    if (authStore.state.user && community) {
+      return community.members?.includes(authStore.state.user.profile.id);
     }
   });
 
@@ -44,7 +44,7 @@
   <!-- show community cover if not null or solid bg -->
   <div
     class={cn(
-      !community?.banner ? 'h-24 bg-neutral' : 'h-24 bg-cover bg-center md:h-40',
+      !community?.banner ? 'bg-neutral h-24' : 'h-24 bg-cover bg-center md:h-40',
       'w-full rounded-2xl'
     )}
     style="background-image: url({community?.banner});"
@@ -54,21 +54,21 @@
   >
     <div class="mt-4 flex items-center gap-2 xl:mt-0 xl:items-end">
       <Avatar
-        class="size-14 flex-shrink-0 rounded-full outline-8 outline-base-300 xl:size-20 xl:outline"
+        class="ring-base-300 size-14 shrink-0 rounded-full xl:size-20 xl:ring-8"
         src={community?.avatar}
       />
       <div class="flex flex-col">
-        <h3 class="text-xl font-bold text-info xl:text-2xl">q/{community?.name}</h3>
+        <h3 class="text-info text-xl font-bold xl:text-2xl">q/{community?.name}</h3>
         <div class="flex items-center gap-2 xl:hidden">
           <div class="flex items-center gap-1">
-            <span class="text-sm text-info">{community?.members?.length}</span>
-            <span class="text-xs text-base-content/75"
+            <span class="text-info text-sm">{community?.members?.length}</span>
+            <span class="text-base-content/75 text-xs"
               >{pluralize('Member', community?.members?.length ?? 0)}</span
             >
           </div>
           <div class="flex items-center gap-1">
-            <span class="text-sm text-info">{community?.posts_count}</span>
-            <span class="text-xs text-base-content/75"
+            <span class="text-info text-sm">{community?.posts_count}</span>
+            <span class="text-base-content/75 text-xs"
               >{pluralize('Post', community?.posts_count)}</span
             >
           </div>
@@ -77,14 +77,14 @@
     </div>
     <!-- community basic operations -->
     <div class="flex items-center gap-2">
-      <button class="btn btn-primary h-10 px-3" aria-label="Create a Post">
+      <button class="btn btn-primary" aria-label="Create a Post">
         <coreicons-shape-plus variant="no-border" class="size-5"></coreicons-shape-plus>
         <span class="text-sm font-medium">Create Post</span>
       </button>
-      <button class="btn btn-secondary h-10 px-3" aria-label="Join Community">
+      <button class="btn btn-secondary" aria-label="Join Community">
         <span class="text-sm font-medium">{is_joined ? 'Joined' : 'Join'}</span>
       </button>
-      <button class="btn btn-neutral ml-auto size-10 p-0 md:ml-0" aria-label="More options">
+      <button class="btn btn-neutral btn-square ml-auto md:ml-0" aria-label="More options">
         <coreicons-shape-more class="size-5 rotate-90"></coreicons-shape-more>
       </button>
     </div>
@@ -102,17 +102,17 @@
     <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
       {#each highlighted_posts as post (post.id)}
         <div
-          class="relative flex h-40 flex-col gap-2 overflow-hidden rounded-2xl border border-neutral p-2 transition-colors hover:bg-base-200"
+          class="border-neutral hover:bg-base-200 relative flex h-40 flex-col gap-2 overflow-hidden rounded-2xl border p-2 transition-colors"
         >
           <div
-            class="flex-1 rounded-xl bg-cover bg-center inner-border
-            inner-border-base-content/15"
+            class="inner-border inner-border-base-content/15 flex-1 rounded-xl bg-cover
+            bg-center"
             class:bg-base-100={!post.cover}
             style="background-image: url({post.cover});"
           ></div>
           <div class="flex flex-col p-2 pt-0.5">
             <h4 class="line-clamp-1 font-medium">{post.title}</h4>
-            <span class="text-xs font-medium text-base-content/75"
+            <span class="text-base-content/75 text-xs font-medium"
               >{new FormatDate(post.created_at).format()}</span
             >
           </div>

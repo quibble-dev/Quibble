@@ -22,8 +22,8 @@
 
   const is_upvoted = $derived.by(check_if_upvoted);
   function check_if_upvoted() {
-    if (authStore.state.profile && post.upvotes) {
-      return post.upvotes.includes(authStore.state.profile.id);
+    if (authStore.state.user && post.upvotes) {
+      return post.upvotes.includes(authStore.state.user.profile.id);
     } else {
       return false;
     }
@@ -58,48 +58,42 @@
   <div class="flex items-center gap-2">
     <a
       href="/{get_name()}"
-      class="relative flex items-center gap-2 hover:text-accent hover:underline"
+      class="hover:text-accent relative flex items-center gap-2 hover:underline"
     >
       <Avatar src={get_avatar()} class="size-6 rounded-full" />
       <h3 class="text-xs font-semibold">{get_name()}</h3>
     </a>
-    <coreicons-shape-circle variant="filled" class="size-0.5 text-base-content/75"
+    <coreicons-shape-circle variant="filled" class="text-base-content/75 size-0.5"
     ></coreicons-shape-circle>
-    <span class="text-xs font-medium text-base-content/75"
+    <span class="text-base-content/75 text-xs font-medium"
       >{new FormatDate(post.created_at).timeAgo()}</span
     >
-    <button class="ml-auto hidden items-center gap-2 md:flex" aria-label="more">
-      <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
-    </button>
   </div>
 {/snippet}
 
 {#snippet vote_comment_share_more()}
-  <div
-    class="btn btn-neutral relative flex h-max items-center gap-2 rounded-xl px-2 py-1 group-hover:border-transparent group-hover:bg-base-content/20"
-  >
-    <button class="flex items-center gap-2" aria-label="upvote">
-      <coreicons-shape-thumbs variant="up" class="size-4" class:text-primary={is_upvoted}
-      ></coreicons-shape-thumbs>
+  <div class="bg-neutral rounded-field relative flex items-center gap-1">
+    <button
+      class="btn btn-primary btn-soft btn-sm btn-square"
+      class:btn-active={is_upvoted}
+      aria-label="Upvote post"
+    >
+      <coreicons-shape-thumbs variant="up" class="size-4"></coreicons-shape-thumbs>
     </button>
     <span class="text-xs font-medium md:text-sm">{readable(post.upvotes?.length ?? 0)}</span>
-    <button class="flex items-center gap-2" aria-label="downvote">
+    <button class="btn btn-accent btn-soft btn-sm btn-square" aria-label="Downvote post">
       <coreicons-shape-thumbs variant="down" class="size-4"></coreicons-shape-thumbs>
     </button>
   </div>
-  <button
-    class="btn btn-neutral relative flex h-max items-center gap-2 rounded-xl px-2 py-1 group-hover:border-transparent group-hover:bg-base-content/20"
-  >
+  <button class="btn btn-sm btn-neutral relative px-2">
     <coreicons-shape-forum class="size-4"></coreicons-shape-forum>
     <span class="text-xs font-medium md:text-sm">{readable(post.comments?.length ?? 0)}</span>
   </button>
-  <button
-    class="btn relative hidden h-max items-center gap-2 border-none bg-transparent p-0 hover:bg-transparent md:flex"
-  >
+  <button class="btn btn-sm btn-neutral relative hidden md:flex">
     <coreicons-shape-share class="size-4"></coreicons-shape-share>
     <span class="text-sm font-medium">Share</span>
   </button>
-  <button class="relative flex items-center gap-2 md:hidden" aria-label="more">
+  <button class="btn btn-sm btn-ghost hover:btn-neutral btn-square relative" aria-label="more">
     <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
   </button>
 {/snippet}
@@ -114,17 +108,17 @@
 
 <div
   class={cn(
-    layoutTypeStore.state === 'compact' && 'transition-colors hover:bg-base-200',
-    'relative flex flex-col overflow-hidden rounded-2xl border border-neutral bg-base-300'
+    layoutTypeStore.state === 'compact' && 'hover:bg-base-200 transition-colors',
+    'border-neutral bg-base-300 rounded-box relative flex flex-col overflow-hidden border'
   )}
 >
   {#if layoutTypeStore.state === 'card'}
     <div
-      class="group relative flex flex-col gap-1 p-4 transition-colors duration-75 hover:bg-base-200"
+      class="hover:bg-base-200 group relative flex flex-col gap-1 p-4 transition-colors duration-75"
     >
       {@render href_overlay()}
       {@render avatar_name_date_more()}
-      <h2 class="text-lg font-bold text-info md:text-xl">{post.title}</h2>
+      <h2 class="text-info text-lg font-bold md:text-xl">{post.title}</h2>
       {@render content_or_cover()}
       <div class="mt-1.5 flex items-center gap-2.5">
         {@render vote_comment_share_more()}
@@ -136,20 +130,20 @@
       <div
         class={cn(
           post.cover ? 'relative' : 'hidden bg-transparent md:flex',
-          'size-20 flex-shrink-0 cursor-pointer rounded-xl bg-cover bg-center bg-no-repeat inner-border inner-border-base-content/15'
+          'inner-border inner-border-base-content/15 size-20 shrink-0 cursor-pointer rounded-xl bg-cover bg-center bg-no-repeat'
         )}
         style="background-image: url({post.cover});"
       ></div>
       <div class="flex w-full flex-col gap-1">
         {@render avatar_name_date_more()}
-        <h2 class="text-base font-bold text-info md:text-lg">{post.title}</h2>
+        <h2 class="text-info text-base font-bold md:text-lg">{post.title}</h2>
         <div class="mt-auto flex items-center gap-2.5">
           <button
             onclick={() => (is_expanded = !is_expanded)}
-            class="btn btn-neutral relative hidden h-max rounded-xl p-1.5 group-hover:border-transparent group-hover:bg-base-content/20 md:flex"
+            class="btn btn-sm btn-square btn-neutral relative hidden md:flex"
           >
             {#if is_expanded}
-              <coreicons-shape-shrink class="size-4 text-primary"></coreicons-shape-shrink>
+              <coreicons-shape-shrink class="text-primary size-4"></coreicons-shape-shrink>
             {:else}
               <coreicons-shape-expand class="size-4"></coreicons-shape-expand>
             {/if}

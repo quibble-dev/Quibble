@@ -9,10 +9,12 @@
 
   let { data } = $props();
 
+  let show_password = $state(false);
+
   const dest_param = page.url.searchParams.get('dest');
   const href_register = dest_param
     ? `/register?dest=${encodeURIComponent(dest_param)}`
-    : '/register';
+    : '/register?ref=auth_page';
 
   const handle_success: (data: Data) => void = getContext('handle_success');
 
@@ -40,68 +42,65 @@
 </svelte:head>
 
 <!-- form element: email and password -->
-<form method="POST" action="?/login" class="flex flex-col gap-3" use:enhance novalidate>
+<form method="POST" action="?/login" class="flex flex-col gap-2" use:enhance novalidate>
   <!-- email input field with errors store -->
   <div class="flex flex-col gap-1">
-    <label class="input input-bordered flex items-center gap-2 bg-transparent">
-      <coreicons-shape-mail class="size-4"></coreicons-shape-mail>
-      <input
-        type="email"
-        name="email"
-        class="grow border-none p-2 text-sm font-medium focus:ring-0"
-        placeholder="Email address*"
-        aria-invalid={$errors.email ? 'true' : undefined}
-        bind:value={$form.email}
-      />
+    <label class="floating-label">
+      <span class="bg-base-300! duration-100!">E-mail address*</span>
+      <div class="input w-full bg-transparent" class:input-error={$errors.email}>
+        <coreicons-shape-mail class="size-4 shrink-0 opacity-50"></coreicons-shape-mail>
+        <input
+          type="email"
+          name="email"
+          placeholder="E-mail address*"
+          aria-invalid={$errors.email ? 'true' : undefined}
+          bind:value={$form.email}
+        />
+      </div>
     </label>
     {#if $errors.email}
-      <span class="flex items-center gap-2 text-error">
-        <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
-        <span class="text-xs">{$errors.email}</span>
-      </span>
+      <span class="text-error flex items-center gap-2 text-xs">{$errors.email[0]}</span>
     {/if}
   </div>
   <!-- password input field with errors store -->
   <div class="flex flex-col gap-1">
-    <label class="input input-bordered flex items-center gap-2 bg-transparent pr-2">
-      <coreicons-shape-lock class="size-4"></coreicons-shape-lock>
-      <input
-        type="password"
-        name="password"
-        class="grow border-none p-2 text-sm font-medium focus:ring-0"
-        placeholder="Password*"
-        aria-invalid={$errors.password ? 'true' : undefined}
-        bind:value={$form.password}
-      />
-      <button
-        type="button"
-        tabindex="-1"
-        class="btn btn-square btn-ghost btn-sm ml-auto border border-base-content/25 bg-transparent"
-        aria-label="Show/hide password"
-      >
-        <coreicons-shape-eye class="size-4" variant="open"></coreicons-shape-eye>
-      </button>
+    <label class="floating-label">
+      <span class="bg-base-300! duration-100!">Password*</span>
+      <div class="input w-full bg-transparent" class:input-error={$errors.password}>
+        <coreicons-shape-lock class="size-4 shrink-0 opacity-50"></coreicons-shape-lock>
+        <input
+          type={show_password ? 'text' : 'password'}
+          name="password"
+          placeholder="Password*"
+          aria-invalid={$errors.password ? 'true' : undefined}
+          bind:value={$form.password}
+        />
+      </div>
     </label>
     {#if $errors.password}
-      <span class="flex items-center gap-2 text-error">
-        <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
-        <span class="text-xs">{$errors.password}</span>
-      </span>
+      <span class="text-error flex items-center gap-2 text-xs">{$errors.password[0]}</span>
     {/if}
   </div>
   <div class="flex items-center justify-between gap-1">
-    <span class="text-sm">
-      New to Quibble?
-      <a href={href_register} tabindex="-1" class="font-medium text-accent">Sign up</a>
-    </span>
-    <a href="/password" tabindex="-1" class="text-sm text-accent">Forgot password?</a>
+    <label class="flex items-center gap-2">
+      <input
+        type="checkbox"
+        class="checkbox checkbox-sm"
+        onchange={() => (show_password = !show_password)}
+      />
+      <span class="cursor-pointer text-sm">Show password</span>
+    </label>
+    <a href="/password" tabindex="-1" class="text-accent text-sm">Forgot password?</a>
   </div>
-  <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary')}>
-    Log in
-    {#if $delayed}
-      <span class="loading loading-spinner loading-xs"></span>
-    {:else}
-      <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
-    {/if}
-  </button>
+  <div class="flex flex-col items-center gap-2">
+    <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary w-full')}>
+      Log in
+      {#if $delayed}
+        <span class="loading loading-spinner loading-xs"></span>
+      {:else}
+        <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
+      {/if}
+    </button>
+    <a href={href_register} class="btn w-full">New? Sign up now!</a>
+  </div>
 </form>

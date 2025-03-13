@@ -13,47 +13,40 @@
   let { form, errors }: Props = $props();
 </script>
 
-<label class="form-control">
-  <label class="input input-bordered flex items-center bg-transparent">
-    q/
-    <input
-      type="text"
-      name="name"
-      class="grow border-none p-0 focus:ring-0"
-      placeholder="name*"
-      maxlength={25}
-      bind:value={$form.name}
-    />
+<fieldset class="fieldset">
+  <label class="floating-label">
+    <span class="bg-base-300! text-base duration-100!">Name*</span>
+    <div class="input w-full gap-0 bg-transparent" class:input-error={$errors.name}>
+      <span>q/</span>
+      <input
+        name="name"
+        placeholder="Name*"
+        aria-invalid={$errors.name ? 'true' : undefined}
+        bind:value={$form.name}
+      />
+    </div>
   </label>
-  <div class="label py-1">
-    <span
-      class="label-text-alt flex items-center gap-2"
-      class:text-error={$errors.name !== undefined}
-    >
-      <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-      <span class="text-xs">{$errors.name?.[0] ?? 'Think of a name that grabs attention!'}</span>
-    </span>
-    <span class="label-text-alt">{$form.name.length}/25</span>
-  </div>
-</label>
-<label class="form-control">
+  <span class="fieldset-label" class:text-error={$errors.name}>
+    <span>{$errors.name ? $errors.name[0] : 'Think of a name that grabs attention!'}</span>
+    <span class="ml-auto">{$form.name.length}/25</span>
+  </span>
+</fieldset>
+<fieldset class="fieldset">
   <textarea
-    class="textarea textarea-bordered max-h-80 min-h-40 bg-transparent leading-normal placeholder:text-base-content/75"
-    placeholder="description*"
     use:autosize
-    bind:value={$form.description}
+    name="description"
+    class="textarea max-h-80 min-h-40 w-full bg-transparent leading-normal"
+    class:textarea-error={$errors.description}
+    placeholder="Description*"
     maxlength={255}
+    bind:value={$form.description}
   ></textarea>
-  <div class="label py-1">
+  <span class="fieldset-label" class:text-error={$errors.description}>
     <span
-      class="label-text-alt flex items-center gap-2"
-      class:text-error={$errors.description !== undefined}
+      >{$errors.description
+        ? $errors.description[0]
+        : 'Let others know what your community is for.'}</span
     >
-      <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-      <span class="text-xs"
-        >{$errors.description?.[0] ?? 'Let others know what your community is for.'}</span
-      >
-    </span>
-    <span class="label-text-alt">{$form.description.length}/255</span>
-  </div>
-</label>
+    <span class="ml-auto">{$form.description.length}/255</span>
+  </span>
+</fieldset>

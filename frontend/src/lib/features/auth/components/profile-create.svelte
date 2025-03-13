@@ -1,7 +1,9 @@
 <script lang="ts">
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import { toast } from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
   import { ProfileCreateSchema } from '$lib/schemas/auth';
+  import { untrack } from 'svelte';
   import { defaults, superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
 
@@ -17,12 +19,15 @@
   let avatar_data_url = $state<string>(),
     cover_data_url = $state<string>();
 
-  const { form, enhance, errors, delayed } = superForm(defaults(zod(ProfileCreateSchema)), {
-    resetForm: false,
-    onResult({ result }) {
-      if (result.type === 'success') onsuccess();
+  const { form, enhance, errors, delayed, message } = superForm(
+    defaults(zod(ProfileCreateSchema)),
+    {
+      resetForm: false,
+      onResult({ result }) {
+        if (result.type === 'success') onsuccess();
+      }
     }
-  });
+  );
 
   async function handle_file_on_change(e: Event, type: ImageInputType) {
     const file = (e.target as HTMLInputElement).files?.[0];
@@ -41,80 +46,78 @@
       if (type === 'cover') cover_data_url = String(data_url);
     };
   }
+
+  $effect(() => {
+    const _message = $message;
+    if (_message) untrack(() => toast.push(_message));
+  });
 </script>
 
 <form
-  class="flex flex-col gap-16"
+  class="flex flex-col gap-2"
   method="POST"
   action="?/create"
   enctype="multipart/form-data"
   use:enhance
 >
-  <div
-    class="relative h-20 rounded-btn bg-base-100 bg-cover bg-center p-4"
-    style="background-image: url({cover_data_url});"
-  >
-    <input
-      type="file"
-      accept="image/*"
-      id="cover"
-      name="cover"
-      class="hidden"
-      onchange={(e) => handle_file_on_change(e, 'cover')}
-    />
-    <div
-      class={cn(
-        $errors.cover && 'tooltip-open before:text-error',
-        'tooltip tooltip-left absolute right-2.5 top-2.5'
-      )}
-      data-tip={$errors.cover?.[0] ?? 'Edit cover'}
-    >
-      <label class="btn btn-circle size-8 p-0" for="cover">
-        <coreicons-shape-edit variant="pencil" class="size-4"></coreicons-shape-edit>
-      </label>
-    </div>
-    <div class="absolute -bottom-12 flex items-end gap-4">
-      <div class="relative size-20">
-        <Avatar src={avatar_data_url} class="size-full ring-8 ring-base-300" />
-        <input
-          type="file"
-          accept="image/*"
-          id="avatar"
-          name="avatar"
-          class="hidden"
-          onchange={(e) => handle_file_on_change(e, 'avatar')}
-        />
-        <div
-          class={cn(
-            $errors.avatar && 'tooltip-open before:text-error',
-            'tooltip tooltip-right absolute -right-2.5 top-0'
-          )}
-          data-tip={$errors.avatar?.[0] ?? 'Edit avatar'}
-        >
-          <label class="btn btn-circle size-8 p-0" for="avatar">
-            <coreicons-shape-edit variant="pencil" class="size-4"></coreicons-shape-edit>
-          </label>
-        </div>
-      </div>
-      <div class="flex flex-col">
-        <label class="flex items-center text-lg">
-          <span class="leading-none">u/</span>
-          <input
-            type="text"
-            name="username"
-            class="max-w-32 bg-transparent font-medium text-info outline-none placeholder:font-normal placeholder:text-base-content/50 md:max-w-52"
-            placeholder="username*"
-            bind:value={$form.username}
-            oninput={(e) =>
-              ($form.username = (e.target as HTMLInputElement).value.replace(/\s/g, ''))}
-          />
-        </label>
-        <span class="text-xs text-error" class:invisible={!$errors.username}
-          >{$errors.username?.[0] ?? 'error!'}</span
-        >
-      </div>
-    </div>
+  <div class="grid grid-cols-2 gap-2">
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend py-0.5">Avatar</legend>
+      <input
+        type="file"
+        id="avatar"
+        name="avatar"
+        class="file-input file-input-sm bg-transparent"
+        onchange={(e) => handle_file_on_change(e, 'avatar')}
+      />
+      <label for="avatar" class="fieldset-label leading-none" class:text-error={$errors.avatar}
+        >{$errors.avatar ? $errors.avatar[0] : 'Max size 5MB'}</label
+      >
+    </fieldset>
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend py-0.5">Cover</legend>
+      <input
+        type="file"
+        id="cover"
+        name="cover"
+        class="file-input file-input-sm bg-transparent"
+        onchange={(e) => handle_file_on_change(e, 'cover')}
+      />
+      <label for="cover" class="fieldset-label leading-none" class:text-error={$errors.cover}
+        >{$errors.cover ? $errors.cover[0] : 'Max size 5MB'}</label
+      >
+    </fieldset>
   </div>
+  <fieldset class="fieldset">
+    <label class="floating-label">
+      <span class="bg-base-300! text-base duration-100!">Username*</span>
+      <div class="input w-full bg-transparent" class:input-error={$errors.username}>
+        <coreicons-shape-user variant="normal" class="size-4 shrink-0 opacity-50"
+        ></coreicons-shape-user>
+        <input
+          name="username"
+          placeholder="Username*"
+          aria-invalid={$errors.username ? 'true' : undefined}
+          bind:value={$form.username}
+        />
+      </div>
+    </label>
+    {#if $errors.username}
+      <span class="fieldset-label text-error">{$errors.username[0]}</span>
+    {/if}
+  </fieldset>
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend py-0.5">Preview (small)</legend>
+    <div
+      class="rounded-field bg-base-100 relative mb-5 h-14 bg-cover bg-center"
+      style="background-image: url({cover_data_url});"
+    >
+      <div class="absolute inset-0 -bottom-5 flex h-max items-end gap-2 self-end px-4">
+        <Avatar src={avatar_data_url} class="ring-base-300 size-10 ring-6" />
+        <h3 class="text-sm leading-none font-medium">u/{$form.username || 'username'}</h3>
+      </div>
+    </div>
+  </fieldset>
   <div class="flex items-center gap-4">
     <button type="button" class="btn flex-1" aria-label="Back" onclick={onback}>
       <coreicons-shape-arrow variant="left" class="size-4"></coreicons-shape-arrow>

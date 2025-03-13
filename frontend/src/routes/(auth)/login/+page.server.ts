@@ -4,7 +4,7 @@ import { LoginSchema, ProfileCreateSchema } from '$lib/schemas/auth';
 import { set_cookies_from_header } from '$lib/server/utils/cookie';
 import type { PageServerLoad } from './$types';
 import { fail, type Actions } from '@sveltejs/kit';
-import { message, setError, superValidate, withFiles } from 'sveltekit-superforms';
+import { message, superValidate, withFiles } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 
 export const load: PageServerLoad = async ({ url }) => {
@@ -43,6 +43,7 @@ export const actions: Actions = {
     }
 
     const { data, error, response } = await api.POST('/u/me/profiles/', {
+      headers: { Cookie: request.headers.get('Cookie') },
       // @ts-expect-error: only requires username for POST req
       body: { ...form.data },
       bodySerializer(body) {
@@ -53,7 +54,7 @@ export const actions: Actions = {
     if (response.ok && data) {
       return withFiles({ form, profile: data });
     } else if (error) {
-      return setError(form, 'username', String(error.errors[0]?.detail));
+      return message(form, error.errors[0]?.detail, { status: 401 });
     }
 
     // https://superforms.rocks/concepts/files#returning-files-in-form-actions

@@ -60,6 +60,6 @@
 <Modals />
 
 <!-- main ui layout -->
-<main class="flex h-dvh flex-col font-sans">
+<main class="bg-base-300 flex min-h-dvh flex-col font-sans">
   {@render children()}
 </main>

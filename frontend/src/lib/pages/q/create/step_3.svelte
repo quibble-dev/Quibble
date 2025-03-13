@@ -93,14 +93,9 @@
 </script>
 
 <div class="flex flex-col gap-2">
-  <label class="input input-bordered relative flex h-10 items-center bg-transparent pl-3 pr-1.5">
-    <coreicons-shape-search class="size-5"></coreicons-shape-search>
-    <input
-      type="text"
-      class="grow border-none px-2 text-sm font-medium placeholder:text-base-content/75 focus:ring-0"
-      placeholder="Filter topics..."
-      bind:value={filter_input_value}
-    />
+  <label class="input w-full bg-transparent">
+    <coreicons-shape-search class="size-4 shrink-0"></coreicons-shape-search>
+    <input placeholder="Filter topics..." bind:value={filter_input_value} />
     <button
       type="button"
       class="btn btn-square btn-ghost btn-xs"
@@ -124,7 +119,7 @@
       </button>
     {/each}
     {#if $errors.topics?._errors}
-      <span class="label-text-alt flex items-center gap-2 text-error">
+      <span class="label-text-alt text-error flex items-center gap-2">
         <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
         <span class="text-xs">{$errors.topics._errors?.[0]}</span>
       </span>
@@ -135,7 +130,7 @@
   {#if pending}
     <div class="grid place-items-center">
       <span class="loading loading-dots loading-md"></span>
-      <span class="text-sm">Fetching topics...</span>
+      <span class="text-xs">Fetching topics...</span>
     </div>
   {:else}
     {#each topics as topic (topic.id)}
@@ -148,10 +143,7 @@
             <button
               type="button"
               onclick={() => handle_toggle_select_topic(t)}
-              class={cn(
-                is_selected ? 'btn-ghost btn-active' : 'btn-neutral',
-                'btn btn-xs border-none md:btn-sm'
-              )}
+              class={cn(is_selected && 'btn-neutral', 'btn btn-xs md:btn-sm border-none')}
             >
               <span>{t.display_name}</span>
               {#if is_selected}

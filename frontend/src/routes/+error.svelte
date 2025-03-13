@@ -14,7 +14,7 @@
 
   <!-- right column: error message and anchor -->
   <div class="flex flex-col">
-    <h4 class="text-xl font-bold text-error">oops!!</h4>
+    <h4 class="text-error text-xl font-bold">oops!!</h4>
     <h5>{page.error?.message}</h5>
     <a href="/" aria-label="home" class="btn btn-primary btn-sm mt-4 w-max">
       <coreicons-shape-home class="size-4"></coreicons-shape-home>

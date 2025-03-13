@@ -13,20 +13,16 @@ export const load = async () => {
 export const actions: Actions = {
   default: async ({ request, cookies }) => {
     const form = await superValidate(request, zod(PostSubmitSchema));
-    const auth_user_profile_id = cookies.get('auth_user_profile_id');
 
     if (!form.valid) {
       return fail(400, { form });
     }
 
     const { data, response } = await api.POST('/posts/', {
-      headers: {
-        Authorization: `Bearer ${cookies.get('auth_token')}`,
-        'Profile-Id': auth_user_profile_id
-      },
+      headers: { Cookie: request.headers.get('Cookie') },
       body: {
         ...form.data,
-        poster: Number(auth_user_profile_id)
+        poster: Number(cookies.get('profile-id'))
       }
     });
 

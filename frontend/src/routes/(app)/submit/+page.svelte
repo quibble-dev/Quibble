@@ -78,47 +78,45 @@
   <title>Submit to Quibble</title>
 </svelte:head>
 
-<div class="flex h-max flex-1 flex-col gap-4 p-4">
-  <!-- section title -->
-  <h1 class="text-xl font-semibold text-info">Create Post</h1>
+<div class="flex flex-1 flex-col gap-4 p-4">
+  <h1 class="text-info text-xl font-semibold">Create Post</h1>
   <!-- select community dropdown and select -->
   <div class="flex flex-col gap-1">
     <div class="dropdown w-max">
-      <div tabindex="0" role="button" class="btn btn-neutral h-max p-1 hover:btn-ghost">
+      <div tabindex="0" role="button" class="btn btn-neutral btn-sm">
+        <span>on: </span>
         <Avatar src={community?.avatar} />
         <span class="text-info">{community ? `q/${community.name}` : 'Select a community'}</span>
         <coreicons-shape-chevron variant="down" class="size-4"></coreicons-shape-chevron>
       </div>
       <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-      <ul
-        tabindex="0"
-        class="menu dropdown-content z-10 mt-2 min-w-full gap-1 rounded-2xl bg-base-100 p-1.5"
-      >
-        <div class="form-control">
+      <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box mt-2 gap-1">
+        <fieldset class="fieldset pt-0">
           <input
             type="text"
             placeholder="Search filter..."
-            class="input input-sm input-bordered w-full rounded-xl bg-base-200"
+            class="input input-sm bg-base-200"
             bind:value={filter_query}
           />
-          <div class="label py-1">
-            <span class="label-text-alt text-xs">Results: {communities_select_list.length}</span>
-          </div>
-        </div>
+          <p class="fieldset-label">Results: {communities_select_list.length}</p>
+        </fieldset>
         {#each communities_select_list as item (item.id)}
           {@const selected = community === item}
           <li>
             <button
-              class="flex items-center gap-2 rounded-xl p-1"
-              class:active={selected}
+              class="flex items-center gap-2 p-1"
+              class:menu-active={selected}
               onclick={() => {
                 community = item;
                 $form.community = item.id;
               }}
             >
               <Avatar src={item.avatar} />
-              <span class="whitespace-nowrap text-sm font-medium">r/{item.name}</span>
-              <div class="btn btn-circle btn-accent ml-auto size-4 p-0" class:invisible={!selected}>
+              <span class="text-sm font-medium whitespace-nowrap">r/{item.name}</span>
+              <div
+                class="btn btn-circle btn-success ml-auto size-3.5 p-0"
+                class:invisible={!selected}
+              >
                 <coreicons-shape-check class="size-2.5"></coreicons-shape-check>
               </div>
             </button>
@@ -127,13 +125,9 @@
       </ul>
     </div>
     {#if $errors.community}
-      <span class="label-text-alt flex items-center gap-2 text-error">
-        <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
-        <span class="text-xs">{$errors.community[0]}</span>
-      </span>
+      <span class="text-error text-xs">{$errors.community[0]}</span>
     {/if}
   </div>
-  <!-- select post type section -->
   <div class="flex items-center gap-2">
     {#each Object.entries(types) as [key, value]}
       {@const active = active_type === key}
@@ -145,57 +139,52 @@
           disabled={value.disabled}>{value.label}</button
         >
         {#if active}
-          <div class="absolute -bottom-1.5 h-0.5 w-2/3 bg-primary"></div>
+          <div class="bg-primary absolute -bottom-1.5 h-0.5 w-2/3"></div>
         {/if}
       </div>
     {/each}
   </div>
-  <!-- post form -->
   <form method="POST" class="flex flex-col gap-2" use:enhance>
-    <!-- hidden fields -->
     <input type="hidden" name="community" value={community?.id} />
-    <!-- title input -->
-    <label class="form-control w-full">
-      <input
-        type="text"
-        name="title"
-        placeholder="Title*"
-        class="input input-bordered w-full bg-transparent text-info"
-        maxlength={300}
-        bind:value={$form.title}
-      />
-      <div class="label py-1">
-        <!-- error store and helptext -->
-        <span class="label-text-alt flex items-center gap-2" class:text-error={$errors.title}>
-          {#if $errors.title}
-            <coreicons-shape-x variant="circle" class="size-3.5"></coreicons-shape-x>
-            <span class="text-xs">{$errors.title[0]}</span>
-          {:else}
-            <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-            <span class="text-xs">Think of a title that grabs attention!</span>
-          {/if}
-        </span>
-        <span class="label-text-alt">0/300</span>
-      </div>
-    </label>
-    <!-- content input -->
+
+    <fieldset class="fieldset">
+      <label class="floating-label">
+        <span class="bg-base-300! text-base duration-100!">Title*</span>
+        <input
+          name="title"
+          placeholder="Title*"
+          class="input text-info w-full bg-transparent"
+          class:input-error={$errors.title}
+          aria-invalid={$errors.title ? 'true' : undefined}
+          maxlength={300}
+          bind:value={$form.title}
+        />
+      </label>
+      <span class="fieldset-label" class:text-error={$errors.title}>
+        <span>{$errors.title ? $errors.title[0] : 'Think of a title that grabs attention!'}</span>
+        <span class="ml-auto">{$form.title.length}/300</span>
+      </span>
+    </fieldset>
     <textarea
       use:autosize
       name="content"
-      class="textarea textarea-bordered min-h-[10rem] w-full bg-transparent leading-normal placeholder:opacity-75"
+      class="textarea min-h-[10rem] w-full bg-transparent leading-normal"
       placeholder="What’s on your mind?"
       bind:value={$form.content}
     ></textarea>
-    <!-- form actions -->
     <div class="ml-auto flex items-center gap-2">
-      <!-- draft feature later -->
       <button type="button" class="btn btn-neutral" disabled>Save Draft</button>
-      <!-- create post with delayed state -->
       <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary')}>
         Post
         {#if $delayed}<span class="loading loading-spinner loading-xs"></span>{/if}
       </button>
     </div>
   </form>
+  <span class="[&>a]:link [&>a]:link-hover mt-auto flex items-center gap-2 self-center text-xs">
+    <a href="/">Quibble Rules</a><a href="/">Privacy Policy</a><a href="/">User Agreement</a
+    ><coreicons-shape-circle variant="filled" class="size-1"></coreicons-shape-circle><a href="/"
+      >Quibble © 2025. All rights reserved.</a
+    >
+  </span>
 </div>
 <div class="hidden w-80 lg:flex"></div>

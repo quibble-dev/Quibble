@@ -51,56 +51,42 @@
 </script>
 
 <div class="grid grid-cols-2 gap-2">
-  <label class="form-control w-full">
-    <div class="label py-1">
-      <span class="label-text">Avatar</span>
-    </div>
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend py-0.5">Avatar</legend>
     <input
       type="file"
+      id="avatar"
       name="avatar"
-      accept="image/*"
-      class="file-input file-input-bordered file-input-xs bg-transparent file:border-none file:bg-base-100"
+      class="file-input file-input-sm bg-transparent"
       bind:files={$avatar_file}
     />
-    {#if $errors.avatar}
-      <div class="label py-1">
-        <span class="label-text-alt flex items-center gap-2 text-error">
-          <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-          <span class="text-xs">{$errors.avatar?.[0]}</span>
-        </span>
-      </div>
-    {/if}
-  </label>
-  <label class="form-control w-full">
-    <div class="label py-1">
-      <span class="label-text">Banner</span>
-    </div>
+    <label for="avatar" class="fieldset-label leading-none" class:text-error={$errors.avatar}
+      >{$errors.avatar ? $errors.avatar[0] : 'Max size 5MB'}</label
+    >
+  </fieldset>
+  <fieldset class="fieldset">
+    <legend class="fieldset-legend py-0.5">Cover</legend>
     <input
       type="file"
+      id="banner"
       name="banner"
-      accept="image/*"
-      class="file-input file-input-bordered file-input-xs bg-transparent file:border-none file:bg-base-100"
+      class="file-input file-input-sm bg-transparent"
       bind:files={$banner_file}
     />
-    {#if $errors.banner}
-      <div class="label py-1">
-        <span class="label-text-alt flex items-center gap-2 text-error">
-          <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-          <span class="text-xs">{$errors.banner?.[0]}</span>
-        </span>
-      </div>
-    {/if}
-  </label>
+    <label for="banner" class="fieldset-label leading-none" class:text-error={$errors.banner}
+      >{$errors.banner ? $errors.banner[0] : 'Max size 5MB'}</label
+    >
+  </fieldset>
 </div>
 <div
-  class="relative mb-12 h-20 rounded-btn bg-neutral bg-cover bg-center p-4"
+  class="rounded-box bg-neutral relative mb-12 h-20 bg-cover bg-center p-4"
   style="background-image: url({banner_data_uri});"
 >
   <div class="absolute -bottom-12 flex items-end gap-4">
-    <Avatar src={avatar_data_uri} class="size-20 ring-8 ring-base-300" />
+    <Avatar src={avatar_data_uri} class="ring-base-300 size-20 ring-8" />
     <div class="flex flex-col">
       <span class="line-clamp-1 text-lg font-semibold">q/{$form.name || 'communityname'}</span>
-      <div class="flex items-center gap-2">
+      <div class="text-base-content/60 flex items-center gap-2">
         <span class="text-xs">1 member</span>
         <coreicons-shape-circle class="size-0.5" variant="filled"></coreicons-shape-circle>
         <span class="text-xs">1 online</span>

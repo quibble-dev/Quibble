@@ -15,12 +15,12 @@
 <!-- fixed sidebar about community details -->
 <div class="hidden w-80 lg:flex">
   <div
-    class="fixed top-[3.75rem] flex h-[calc(100dvh-3.75rem)] w-80 flex-col gap-4 overflow-y-scroll p-4 scrollbar-none"
+    class="scrollbar-none fixed top-[3.75rem] flex h-[calc(100dvh-3.75rem)] w-80 flex-col gap-4 overflow-y-scroll p-4"
   >
     <!-- basic details -->
     <div class="flex flex-col gap-2">
       <h3 class="font-medium">{community?.title ?? `q/${community?.name}`}</h3>
-      <p class="text-sm text-base-content/75">{community?.description}</p>
+      <p class="text-base-content/75 text-sm">{community?.description}</p>
       <div class="flex items-center gap-2 text-xs">
         <coreicons-shape-gift class="size-4"></coreicons-shape-gift>
         Created {new FormatDate(community?.created_at ?? '').format()}
@@ -32,15 +32,15 @@
     </div>
     <div class="flex items-center gap-4">
       <div class="flex flex-col">
-        <span class="text-sm text-info">{community?.members?.length}</span>
-        <span class="text-xs text-base-content/75"
+        <span class="text-info text-sm">{community?.members?.length}</span>
+        <span class="text-base-content/75 text-xs"
           >{pluralize('Member', community?.members?.length ?? 0)}</span
         >
       </div>
       <div class="flex flex-col">
-        <span class="text-sm text-info">{community?.posts_count}</span>
-        <span class="text-xs text-base-content/75"
-          >{pluralize('Quib', community?.posts_count ?? 0)}</span
+        <span class="text-info text-sm">{community?.posts_count}</span>
+        <span class="text-base-content/75 text-xs"
+          >{pluralize('Post', community?.posts_count ?? 0)}</span
         >
       </div>
     </div>
@@ -55,10 +55,10 @@
           <div class="flex items-center gap-2">
             <Avatar src={moderator.avatar} class="size-6 rounded-full" />
             <div class="flex flex-col">
-              <a href="/u/{moderator.username}" class="text-sm font-medium"
+              <a href="/u/{moderator.username}" class="link link-hover text-sm font-medium"
                 >u/{moderator.username}</a
               >
-              <span class="text-xs text-base-content/75">{moderator.name}</span>
+              <span class="text-base-content/75 text-xs">{moderator.name}</span>
             </div>
           </div>
         {/each}

@@ -10,7 +10,7 @@ export const load: PageServerLoad = async ({ params, parent }) => {
         path: { name: params.name }
       }
     }),
-    api.GET('/q/communities/{name}/highlighted_posts/', {
+    api.GET('/q/communities/{name}/highlighted-posts/', {
       params: {
         path: { name: params.name }
       }

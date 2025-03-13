@@ -67,63 +67,78 @@
   });
 </script>
 
-<div class="tooltip tooltip-right absolute left-2.5 top-2.5 flex before:capitalize" data-tip="Back">
-  <button
-    class="btn btn-square btn-circle btn-ghost btn-sm"
-    aria-label="Back"
-    onclick={() => onclick('back')}
-  >
-    <coreicons-shape-arrow class="size-5" variant="left"></coreicons-shape-arrow>
-  </button>
-</div>
-
-<div class="grid grid-cols-3 place-items-center gap-2 md:gap-4">
+<div class="flex flex-1 flex-col gap-2">
   {#await fetch_profiles()}
-    <span class="loading loading-dots loading-md col-span-3"></span>
+    <div class="col-span-3 m-auto flex flex-col items-center">
+      <span class="loading loading-dots loading-md"></span>
+      <span class="text-xs">fetching profiles...</span>
+    </div>
   {:then profiles}
     {#if profiles}
-      {#each profiles as profile (profile.id)}
-        <button
-          class="group relative flex size-full flex-col items-center justify-center gap-1.5"
-          class:pointer-events-none={pending}
-          onclick={() => handle_profile_select(profile.id)}
-        >
-          <div
-            class={cn(
-              pending ? 'opacity-100' : 'opacity-0',
-              'absolute inset-0 z-10 grid place-items-center bg-base-300/50 transition-opacity duration-300'
-            )}
-          >
-            {#if selected_profile_id === profile.id}
-              <span class="loading loading-spinner -translate-y-[0.5rem] transform"></span>
-            {/if}
+      <div class="grid grid-cols-3 place-items-center gap-2 md:gap-4">
+        {#each profiles as profile (profile.id)}
+          <div hidden class="relative flex flex-col items-center gap-1.5">
+            <button
+              class="btn disabled:before:bg-base-300/50 relative flex-1 bg-transparent! p-0
+              disabled:before:absolute disabled:before:inset-0 disabled:before:z-10"
+              disabled={pending}
+              class:pointer-events-none={pending}
+              onclick={() => handle_profile_select(profile.id)}
+            >
+              {#if pending && selected_profile_id === profile.id}
+                <div class="absolute inset-0 z-20 grid place-items-center">
+                  <span class="loading loading-spinner text-info"></span>
+                </div>
+              {/if}
+              <Avatar
+                src={profile.avatar}
+                class={cn('rounded-box bg-base-300! aspect-square h-auto! w-full!')}
+              />
+            </button>
+            <span class="line-clamp-1 text-xs font-medium break-all md:max-w-24"
+              >u/{profile.username}</span
+            >
           </div>
-          <Avatar
-            src={profile.avatar}
-            class={cn(
-              !profile.avatar && 'border-2',
-              'aspect-square size-full rounded-box border-base-content/25 !bg-base-300'
-            )}
-          />
-          <span class="line-clamp-1 break-all text-xs font-medium md:max-w-24"
-            >u/{profile.username}</span
+          <button
+            class="relative flex size-full cursor-pointer flex-col items-center justify-center gap-1.5"
+            class:pointer-events-none={pending}
+            onclick={() => handle_profile_select(profile.id)}
           >
-        </button>
-      {/each}
+            <div
+              class={cn(
+                pending ? 'opacity-100' : 'opacity-0',
+                'bg-base-300/50 absolute inset-0 z-10 grid place-items-center transition-opacity duration-300'
+              )}
+            >
+              {#if selected_profile_id === profile.id}
+                <span class="loading loading-spinner -translate-y-[0.5rem] transform"></span>
+              {/if}
+            </div>
+            <Avatar
+              src={profile.avatar}
+              class={cn('rounded-box bg-base-300! aspect-square h-auto! w-full!')}
+            />
+            <span class="line-clamp-1 text-xs font-medium break-all md:max-w-24"
+              >u/{profile.username}</span
+            >
+          </button>
+        {/each}
+      </div>
     {/if}
-    {#if (profiles?.length ?? 0) < PROFILE_CREATE_LIMIT}
-      <button
-        onclick={() => onclick('create')}
-        class={cn(
-          pending && 'pointer-events-none opacity-50',
-          'flex size-full flex-col items-center justify-center gap-1.5 transition-opacity duration-300'
-        )}
-      >
-        <div class="grid aspect-square size-full place-items-center rounded-box bg-base-300">
-          <coreicons-shape-plus variant="no-border" class="size-8"></coreicons-shape-plus>
-        </div>
-        <span class="line-clamp-1 text-xs font-medium md:max-w-24">Create new</span>
+    <div class="flex items-center gap-4">
+      <button type="button" class="btn flex-1" aria-label="Back" onclick={() => onclick('back')}>
+        <coreicons-shape-arrow variant="left" class="size-4"></coreicons-shape-arrow>
+        Back
       </button>
-    {/if}
+      <button
+        class="btn btn-primary flex-1"
+        aria-label="Create"
+        onclick={() => onclick('create')}
+        disabled={(profiles?.length ?? 0) >= PROFILE_CREATE_LIMIT}
+      >
+        Create new
+        <coreicons-shape-arrow variant="right" class="size-4"></coreicons-shape-arrow>
+      </button>
+    </div>
   {/await}
 </div>

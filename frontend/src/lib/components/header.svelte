@@ -21,12 +21,12 @@
 </script>
 
 <header
-  class="fixed top-0 z-20 flex h-[3.75rem] w-full items-center justify-between border-b border-neutral bg-base-300 px-4"
+  class="border-neutral bg-base-300 fixed top-0 z-20 flex h-[3.75rem] w-full items-center justify-between border-b px-4"
 >
   <div class="flex items-center gap-4">
     <button
       onclick={on_menu_click}
-      class="btn border-none !bg-transparent p-0 md:hidden"
+      class="btn border-none bg-transparent! p-0 md:hidden"
       aria-label="open up sidebar"
     >
       <coreicons-shape-list class="size-5"></coreicons-shape-list>
@@ -39,7 +39,7 @@
   <div class="hidden items-center gap-5 sm:flex">
     <div class="hidden gap-2 lg:flex">
       <a href="/" aria-label="Home" class="flex items-center gap-2">
-        <coreicons-shape-home class="size-5 text-primary"></coreicons-shape-home>
+        <coreicons-shape-home class="text-primary size-5"></coreicons-shape-home>
         <span class="text-sm font-medium">Home</span>
       </a>
       <a href="/q/popular" aria-label="Popular Communities" class="flex items-center gap-2">
@@ -51,21 +51,17 @@
         <span class="text-sm font-medium">All</span>
       </a>
     </div>
-    <label class="input input-bordered relative flex h-10 w-96 items-center bg-transparent px-3">
-      <coreicons-shape-search class="size-5"></coreicons-shape-search>
+    <label class="input relative flex w-96 items-center bg-transparent">
+      <coreicons-shape-search class="size-4 shrink-0"></coreicons-shape-search>
       {#if show_search_in_community}
-        <div
-          class="ml-2 flex items-center gap-2 rounded-lg border border-neutral bg-base-100 p-1 px-1.5"
-        >
+        <div class="border-neutral bg-base-100 flex items-center gap-2 rounded-lg border p-1">
           <Avatar src={page.data.community.avatar} class="size-5 rounded-full" />
-          <h5 class="whitespace-nowrap text-xs font-medium">
+          <h5 class="text-xs font-medium whitespace-nowrap">
             q/{page.data.community.name}
           </h5>
         </div>
       {/if}
       <input
-        type="text"
-        class="grow border-none px-2 text-sm font-medium focus:ring-0"
         placeholder={show_search_in_community ? `Search in q/${page.params.name}` : 'Search...'}
       />
     </label>
@@ -79,7 +75,7 @@
         <a
           href="/submit"
           aria-label="Create a Post"
-          class="btn h-10 w-10 p-0 md:btn-primary md:w-auto md:px-3"
+          class="btn md:btn-primary btn-square md:btn-wide md:px-3"
         >
           <coreicons-shape-plus variant="no-border" class="size-5"></coreicons-shape-plus>
           <span class="hidden text-sm font-medium md:flex">Create</span>
@@ -92,13 +88,13 @@
       </div>
       <div class="tooltip tooltip-bottom flex before:left-0" data-tip="Profile menu">
         <Avatar
-          class="btn btn-neutral size-10 rounded-btn border-none p-0"
+          class="btn btn-neutral rounded-btn size-10 border-none p-0"
           src={authStore.state.user?.profile.avatar}
         />
       </div>
     {:else}
-      <a href="/register" class="btn h-10 px-3 text-sm font-bold">Sign up</a>
-      <a href="/login" class="btn btn-primary h-10 px-3 text-sm font-bold">
+      <a href="/register?ref=header" class="btn">Sign up</a>
+      <a href="/login?ref=header" class="btn btn-primary">
         Log in
         <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
       </a>

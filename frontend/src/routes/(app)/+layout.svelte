@@ -27,7 +27,7 @@
 
   <!-- sidebar for small screens with transition -->
   <div
-    class="fixed left-0 top-[3.75rem] z-50 flex h-[calc(100dvh-3.75rem)] w-72 transform transition-transform duration-300 md:hidden"
+    class="fixed top-[3.75rem] left-0 z-50 flex h-[calc(100dvh-3.75rem)] w-72 transform transition-transform duration-300 md:hidden"
     class:-translate-x-72={!sidebar_show}
     ontransitionstart={() => (sidebar_shown = true)}
     ontransitionend={() => (sidebar_shown = false)}
@@ -40,7 +40,7 @@
     onclick={toggle_show_sidebar}
     class={cn(
       sidebar_show ? 'opacity-100' : 'pointer-events-none opacity-0',
-      'fixed z-40 h-[calc(100dvh-3.75rem)] w-dvw bg-base-300/55 transition-opacity duration-300 md:hidden'
+      'bg-base-300/55 fixed z-40 h-[calc(100dvh-3.75rem)] w-dvw transition-opacity duration-300 md:hidden'
     )}
     aria-label="toggle sidebar"
   ></button>
