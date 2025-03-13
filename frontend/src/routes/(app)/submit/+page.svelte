@@ -168,7 +168,7 @@
     <textarea
       use:autosize
       name="content"
-      class="textarea min-h-[10rem] w-full bg-transparent leading-normal placeholder:opacity-75"
+      class="textarea min-h-[10rem] w-full bg-transparent leading-normal"
       placeholder="What’s on your mind?"
       bind:value={$form.content}
     ></textarea>

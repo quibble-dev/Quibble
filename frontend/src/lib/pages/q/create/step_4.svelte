@@ -36,49 +36,46 @@
   {#each Object.entries(types) as [key, item]}
     {@const checked = $form.type === key}
 
-    <div class={cn(checked && 'bg-base-200 ring-1', 'form-control ring-neutral rounded-xl')}>
-      <label class="label size-full cursor-pointer gap-2 p-0 p-3">
-        <div class="flex items-center gap-3">
-          <!-- eslint-disable svelte/no-at-html-tags -->
-          <span class:text-accent={checked}>
-            {@html item.icon}
-          </span>
-          <div class="flex flex-col">
-            <span class="label-text text-info font-medium">{item.label}</span>
-            <span class="text-base-content/75 text-xs">{item.description}</span>
-          </div>
+    <label
+      class={cn(
+        checked && 'bg-base-200 ring-1',
+        'ring-neutral rounded-field flex cursor-pointer items-center justify-between p-2'
+      )}
+    >
+      <div class="flex items-center gap-2">
+        <!-- eslint-disable svelte/no-at-html-tags -->
+        <span class:text-accent={checked}>
+          {@html item.icon}
+        </span>
+        <div class="flex flex-col">
+          <span class="text-info text-sm font-medium">{item.label}</span>
+          <span class="text-base-content/75 text-xs">{item.description}</span>
         </div>
-        <input
-          type="radio"
-          name="type"
-          class="radio radio-sm"
-          class:radio-accent={checked}
-          bind:group={$form.type}
-          value={key}
-        />
-      </label>
-    </div>
+      </div>
+      <input
+        type="radio"
+        name="type"
+        class="radio radio-sm"
+        class:radio-accent={checked}
+        bind:group={$form.type}
+        value={key}
+      />
+    </label>
   {/each}
 </div>
 <div class="divider my-0 h-max before:h-px after:h-px"></div>
-<div class="form-control">
-  <label class="label size-full cursor-pointer gap-2 p-0 p-3">
-    <div class="flex items-center gap-3">
-      <EighteenPlusIcon class={cn($form.nsfw && 'text-accent', 'size-5')} />
-      <div class="flex flex-col">
-        <span class="label-text text-info font-medium">Mature (18+)</span>
-        <span class="text-base-content/75 text-xs">
-          Users must be over 18 to view and contribute
-        </span>
-      </div>
+<label class="flex cursor-pointer items-center justify-between gap-2 p-2">
+  <div class="flex items-center gap-2">
+    <EighteenPlusIcon class={cn($form.nsfw && 'text-accent', 'size-5')} />
+    <div class="flex flex-col">
+      <span class="label-text text-info font-medium">Mature (18+)</span>
+      <span class="text-base-content/75 text-xs">
+        Users must be over 18 to view and contribute
+      </span>
     </div>
-    <input
-      type="checkbox"
-      class="toggle toggle-accent toggle-sm rounded-box checked:border-accent!"
-      bind:checked={$form.nsfw}
-    />
-  </label>
-</div>
+  </div>
+  <input type="checkbox" class="toggle toggle-accent toggle-sm" bind:checked={$form.nsfw} />
+</label>
 {#if $errors.type || $errors.nsfw}
   <span class="label-text-alt text-error flex items-center gap-2">
     <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
