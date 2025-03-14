@@ -1,5 +1,6 @@
 <script lang="ts">
   import { afterNavigate, beforeNavigate } from '$app/navigation';
+  import api from '$lib/api';
   import Modals from '$lib/components/modals/index.svelte';
   import Toaster from '$lib/components/ui/toast';
   import { TOKEN_REFRESH_INTERVAL } from '$lib/constants/auth';
@@ -41,8 +42,11 @@
     if (!authStore.state.is_authenticated) return;
 
     const interval = setInterval(async () => {
-      const res = await fetch('/api/v1/auth/token/refresh', { method: 'POST' });
-      if (!res.ok) {
+      const { response } = await api.POST('/auth/token/refresh/', {
+        // @ts-expect-error: works without params
+        body: {}
+      });
+      if (!response.ok) {
         // refresh token expired or invalid
         window.location.href = '/login?session-expired=true';
         clearInterval(interval);
