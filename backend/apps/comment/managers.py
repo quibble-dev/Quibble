@@ -1,4 +1,4 @@
-from django.db.models import Count, ExpressionWrapper, F, IntegerField
+from django.db.models import Count, F
 from django_ltree.managers import TreeManager
 
 
