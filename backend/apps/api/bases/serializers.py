@@ -17,3 +17,17 @@ class SuccessResponseSerializer(serializers.Serializer):
     """
 
     success = serializers.BooleanField()
+
+
+class ReactionSerializer(serializers.Serializer):
+    """
+    Serializer for reactions.
+    Used for posts/comments/etc...
+    """
+
+    action = serializers.CharField()
+
+    def validate_action(self, value):
+        if value not in ['upvote', 'downvote']:
+            raise serializers.ValidationError(f'Invalid action: {value}')
+        return value
