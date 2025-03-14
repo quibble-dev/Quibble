@@ -77,10 +77,7 @@
   <input type="checkbox" class="toggle toggle-accent toggle-sm" bind:checked={$form.nsfw} />
 </label>
 {#if $errors.type || $errors.nsfw}
-  <span class="label-text-alt text-error flex items-center gap-2">
-    <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-    <span class="text-xs">{$errors.type?.[0] || $errors.nsfw?.[0]}</span>
-  </span>
+  <span class="text-error text-xs">{$errors.type?.[0] || $errors.nsfw?.[0]}</span>
 {/if}
 <span class="text-base-content/75 text-xs">
   By continuing, you agree to our

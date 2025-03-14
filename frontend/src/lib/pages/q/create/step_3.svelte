@@ -119,10 +119,7 @@
       </button>
     {/each}
     {#if $errors.topics?._errors}
-      <span class="label-text-alt text-error flex items-center gap-2">
-        <coreicons-shape-info class="size-3.5"></coreicons-shape-info>
-        <span class="text-xs">{$errors.topics._errors?.[0]}</span>
-      </span>
+      <span class="text-error text-xs">{$errors.topics._errors?.[0]}</span>
     {/if}
   </div>
 </div>
