@@ -67,7 +67,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
         """Returns a mixed list of posts and comments by the user, ordered by date."""
         profile = self.get_object()
         posts = profile.posts.all().annotate(content_type=Value("post", CharField()))
-        comments = profile.comments.with_annotated_ratio().annotate(
+        comments = profile.comments.with_ratio().annotate(
             content_type=Value("comment", CharField())
         )
 
@@ -91,7 +91,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
     def comments(self, request, pk=None):
         """Returns a list of comments by the user, ordered by date."""
         profile = self.get_object()
-        comments = profile.comments.with_annotated_ratio().order_by("-created_at")
+        comments = profile.comments.with_ratio().order_by("-created_at")
         serialized_data = self.get_serializer(
             comments, context={"request": request}, many=True
         ).data
@@ -103,7 +103,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
         """Returns a mixed list of upvoted posts and comments by the user, ordered by date."""
         profile = self.get_object()
         posts = profile.upvoted_posts.all().annotate(content_type=Value("post", CharField()))
-        comments = profile.upvoted_comments.with_annotated_ratio().annotate(
+        comments = profile.upvoted_comments.with_ratio().annotate(
             content_type=Value("comment", CharField())
         )
 
@@ -119,7 +119,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
         """Returns a mixed list of downvoted posts and comments by the user, ordered by date."""
         profile = self.get_object()
         posts = profile.downvoted_posts.all().annotate(content_type=Value("post", CharField()))
-        comments = profile.downvoted_comments.with_annotated_ratio().annotate(
+        comments = profile.downvoted_comments.with_ratio().annotate(
             content_type=Value("comment", CharField())
         )
 

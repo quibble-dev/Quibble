@@ -20,12 +20,10 @@ class CommentManager(TreeManager):
             if comment.children_count == 0:
                 comment.delete()
 
-    def with_annotated_ratio(self):
+    def with_ratio(self):
         # returns annotated ratio property
         return self.annotate(
             upvote_count=Count('upvotes'),
             downvote_count=Count('downvotes'),
-            ratio=ExpressionWrapper(
-                F('upvote_count') - F('downvote_count'), output_field=IntegerField()
-            ),
+            ratio=F('upvote_count') - F('downvote_count'),
         )

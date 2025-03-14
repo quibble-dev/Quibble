@@ -15,7 +15,7 @@ from ...serializers.comment.reaction import CommentReactionSerializer
 
 
 class CommentViewSet(UpdateRetrieveDestroyViewSet):
-    queryset = Comment.objects.with_annotated_ratio()
+    queryset = Comment.objects.with_ratio()
     serializer_class = CommentDetailSerializer
 
     # extra custom serializers

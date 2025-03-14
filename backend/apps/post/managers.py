@@ -3,7 +3,6 @@ from django.db.models import (
     ExpressionWrapper,
     F,
     FloatField,
-    IntegerField,
     Manager,
     Value,
 )
@@ -16,9 +15,7 @@ class PostManager(Manager):
         return self.annotate(
             upvote_count=Count('upvotes'),
             downvote_count=Count('downvotes'),
-            ratio=ExpressionWrapper(
-                F('upvote_count') - F('downvote_count'), output_field=IntegerField()
-            ),
+            ratio=F('upvote_count') - F('downvote_count'),
         )
 
     def with_scores(self):
