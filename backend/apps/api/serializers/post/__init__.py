@@ -9,6 +9,7 @@ from ...serializers.user.profile import ProfileBasicSerializer
 class PostSerializer(serializers.ModelSerializer):
     community = CommunityBasicSerializer(read_only=True)
     poster = ProfileBasicSerializer(read_only=True)
+    ratio = serializers.IntegerField()
 
     class Meta:
         model = Post

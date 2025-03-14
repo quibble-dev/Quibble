@@ -22,12 +22,15 @@
   type Comment = components['schemas']['CommentDetail'];
 
   const { data }: { data: PageData } = $props();
-
-  const { post } = $derived(data);
-  const comments = $state(data.comments);
+  const { post, comments } = $state(data);
 
   const authStore = createAuthStore();
   const recentPostStore = createRecentPostStore();
+
+  let ratio = $state(post.ratio);
+  let reaction = $state<ReturnType<typeof get_reaction>>(get_reaction());
+
+  $inspect(reaction);
 
   const is_upvoted = $derived.by(check_if_upvoted);
   function check_if_upvoted() {
@@ -35,6 +38,20 @@
       return post.upvotes.includes(authStore.state.user.profile.id);
     } else {
       return false;
+    }
+  }
+
+  $effect(() => {
+    reaction = get_reaction();
+  });
+
+  function get_reaction(): 'upvoted' | 'downvoted' | null {
+    if (authStore.state.user) {
+      if (post.upvotes?.includes(authStore.state.user.profile.id)) return 'upvoted';
+      else if (post.downvotes?.includes(authStore.state.user.profile.id)) return 'downvoted';
+      else return null;
+    } else {
+      return null;
     }
   }
 
@@ -133,7 +150,7 @@
       <coreicons-shape-thumbs variant="up" class="size-4" class:text-primary={is_upvoted}
       ></coreicons-shape-thumbs>
     </button>
-    <span class="text-sm font-medium">{readable(post.upvotes?.length ?? 0)}</span>
+    <span class="text-sm font-medium">{readable(ratio)}</span>
     <button class="flex items-center gap-2" aria-label="downvote">
       <coreicons-shape-thumbs variant="down" class="size-4"></coreicons-shape-thumbs>
     </button>

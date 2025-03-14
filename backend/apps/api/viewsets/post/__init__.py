@@ -13,7 +13,7 @@ from ...serializers.post import PostCreateSerializer, PostSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
+    queryset = Post.objects.with_ratio()
     serializer_class = PostSerializer
 
     def get_serializer_class(self):  # pyright: ignore

@@ -2016,6 +2016,7 @@ export interface components {
       readonly id?: string;
       readonly community?: components['schemas']['CommunityBasic'];
       readonly poster?: components['schemas']['ProfileBasic'];
+      ratio?: number;
       /**
        * Create at
        * Format: date-time
@@ -2065,6 +2066,7 @@ export interface components {
       readonly id: string;
       readonly community: components['schemas']['CommunityBasic'];
       readonly poster: components['schemas']['ProfileBasic'];
+      ratio: number;
       /**
        * Create at
        * Format: date-time
@@ -2352,6 +2354,7 @@ export interface components {
     };
     PostsPartialUpdateError:
       | components['schemas']['PostsPartialUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['PostsPartialUpdateRatioErrorComponent']
       | components['schemas']['PostsPartialUpdateTypeErrorComponent']
       | components['schemas']['PostsPartialUpdateHighlightedErrorComponent']
       | components['schemas']['PostsPartialUpdateTitleErrorComponent']
@@ -2387,6 +2390,22 @@ export interface components {
        * @enum {string}
        */
       code: 'invalid' | 'null';
+      detail: string;
+    };
+    PostsPartialUpdateRatioErrorComponent: {
+      /**
+       * @description * `ratio` - ratio (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'ratio';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_string_length` - max_string_length
+       *     * `null` - null
+       *     * `required` - required
+       * @enum {string}
+       */
+      code: 'invalid' | 'max_string_length' | 'null' | 'required';
       detail: string;
     };
     PostsPartialUpdateSlugErrorComponent: {
@@ -2538,6 +2557,7 @@ export interface components {
     };
     PostsUpdateError:
       | components['schemas']['PostsUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['PostsUpdateRatioErrorComponent']
       | components['schemas']['PostsUpdateTypeErrorComponent']
       | components['schemas']['PostsUpdateHighlightedErrorComponent']
       | components['schemas']['PostsUpdateTitleErrorComponent']
@@ -2573,6 +2593,22 @@ export interface components {
        * @enum {string}
        */
       code: 'invalid' | 'null';
+      detail: string;
+    };
+    PostsUpdateRatioErrorComponent: {
+      /**
+       * @description * `ratio` - ratio (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'ratio';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_string_length` - max_string_length
+       *     * `null` - null
+       *     * `required` - required
+       * @enum {string}
+       */
+      code: 'invalid' | 'max_string_length' | 'null' | 'required';
       detail: string;
     };
     PostsUpdateSlugErrorComponent: {

@@ -1,8 +1,26 @@
-from django.db.models import Count, ExpressionWrapper, F, FloatField, Manager, Value
+from django.db.models import (
+    Count,
+    ExpressionWrapper,
+    F,
+    FloatField,
+    IntegerField,
+    Manager,
+    Value,
+)
 from django.db.models.functions import Coalesce, ExtractHour, Now, NullIf
 
 
 class PostManager(Manager):
+    def with_ratio(self):
+        # returns annotated ratio property
+        return self.annotate(
+            upvote_count=Count('upvotes'),
+            downvote_count=Count('downvotes'),
+            ratio=ExpressionWrapper(
+                F('upvote_count') - F('downvote_count'), output_field=IntegerField()
+            ),
+        )
+
     def with_scores(self):
         "generalized function with most used annotatations"
         return self.filter(type='PUBLIC').annotate(
