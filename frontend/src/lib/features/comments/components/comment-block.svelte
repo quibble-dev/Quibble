@@ -1,4 +1,5 @@
 <script lang="ts">
+  import api from '$lib/api';
   import type { components } from '$lib/api';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
@@ -63,12 +64,12 @@
         if (reaction === 'downvoted') ratio -= 1;
       }
 
-      const res = await fetch(`/api/v1/comments/${comment.id}/reaction`, {
-        method: 'PATCH',
-        body: JSON.stringify({ action })
+      const { response } = await api.PATCH('/comments/{id}/reaction/', {
+        body: { action },
+        params: { path: { id: comment.id } }
       });
 
-      if (!res.ok) throw new Error(`request failed with status: ${res.status}`);
+      if (!response.ok) throw new Error(`request failed with status: ${response.status}`);
     } catch (err) {
       console.error(err);
     }
