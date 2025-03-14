@@ -36,16 +36,13 @@ export const load: PageServerLoad = async ({ params }) => {
 };
 
 export const actions: Actions = {
-  comment: async ({ request, cookies, params }) => {
+  comment: async ({ request, params }) => {
     const form = await superValidate(request, zod(CommentCreateSchema));
 
     if (!form.valid) return fail(400, { form });
 
     const { data, error, response } = await api.POST('/posts/{id}/comments/', {
-      headers: {
-        Authorization: `Bearer ${cookies.get('auth_token')}`,
-        'Profile-Id': cookies.get('auth_user_profile_id')
-      },
+      headers: { Cookie: request.headers.get('Cookie') },
       body: { ...form.data },
       params: {
         path: { id: String(params.id) }

@@ -27,9 +27,9 @@
   });
 
   function get_reaction(): 'upvoted' | 'downvoted' | null {
-    if (authStore.state.profile) {
-      if (comment.upvotes?.includes(authStore.state.profile.id)) return 'upvoted';
-      else if (comment.downvotes?.includes(authStore.state.profile.id)) return 'downvoted';
+    if (authStore.state.user) {
+      if (comment.upvotes?.includes(authStore.state.user.profile.id)) return 'upvoted';
+      else if (comment.downvotes?.includes(authStore.state.user.profile.id)) return 'downvoted';
       else return null;
     } else {
       return null;
@@ -127,12 +127,8 @@
       <p class="text-info text-sm whitespace-pre-wrap">{comment.content}</p>
       <!-- comment options -->
       <div class="flex items-center gap-4">
-        <div class="flex items-center gap-2">
-          <button
-            class="flex items-center gap-2"
-            aria-label="upvote"
-            onclick={() => throttled_handle_reaction('upvote')}
-          >
+        <div class="flex items-center gap-2 [&>button]:flex [&>button]:cursor-pointer">
+          <button aria-label="upvote" onclick={() => throttled_handle_reaction('upvote')}>
             <coreicons-shape-thumbs
               variant="up"
               class="size-4"
@@ -140,27 +136,26 @@
             ></coreicons-shape-thumbs>
           </button>
           <span class="text-sm font-medium">{ratio}</span>
-          <button
-            class="flex items-center gap-2"
-            aria-label="downvote"
-            onclick={() => throttled_handle_reaction('downvote')}
-          >
+          <button aria-label="downvote" onclick={() => throttled_handle_reaction('downvote')}>
             <coreicons-shape-thumbs
               variant="down"
               class="size-4"
-              class:text-primary={reaction === 'downvoted'}
+              class:text-accent={reaction === 'downvoted'}
             ></coreicons-shape-thumbs>
           </button>
         </div>
-        <button class="flex items-center gap-2" onclick={() => (show_comment_box = true)}>
+        <button
+          class="flex cursor-pointer items-center gap-2"
+          onclick={() => (show_comment_box = true)}
+        >
           <coreicons-shape-message-circle class="size-4"></coreicons-shape-message-circle>
           <span class="text-sm font-medium">Reply</span>
         </button>
-        <button class="flex items-center gap-2">
+        <button class="flex cursor-pointer items-center gap-2">
           <coreicons-shape-share class="size-4"></coreicons-shape-share>
           <span class="text-sm font-medium">Share</span>
         </button>
-        <button class="flex items-center gap-2" aria-label="more">
+        <button class="flex cursor-pointer items-center gap-2" aria-label="more">
           <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
         </button>
       </div>
