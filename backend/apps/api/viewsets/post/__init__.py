@@ -14,7 +14,7 @@ from ...serializers.post import PostCreateSerializer, PostSerializer
 
 
 class PostViewSet(ReactionMixin, viewsets.ModelViewSet):
-    queryset = Post.objects.with_ratio()
+    queryset = Post.objects.all()
     serializer_class = PostSerializer
 
     def get_serializer_class(self):  # pyright: ignore
