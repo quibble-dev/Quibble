@@ -95,9 +95,6 @@
       </a>
     </div>
   </div>
-  <button class="btn btn-sm btn-square btn-ghost ml-auto" aria-label="more">
-    <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
-  </button>
 </div>
 <!-- title -->
 <h1 class="text-info text-xl font-bold md:text-2xl">{post.title}</h1>
