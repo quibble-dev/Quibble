@@ -7,27 +7,15 @@
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
   import { is_valid } from '$lib/functions/is-valid';
-  import { createAuthStore } from '$lib/stores/auth.svelte';
   import { createLayoutTypeStore } from '$lib/stores/layout-type.svelte';
-  import readable from 'readable-numbers';
+  import PostActions from './post-actions.svelte';
 
-  type PostProps = components['schemas']['Post'];
+  type Props = components['schemas']['Post'];
 
-  let post: PostProps = $props();
+  let layoutTypeStore = createLayoutTypeStore();
 
-  const authStore = createAuthStore(),
-    layoutTypeStore = createLayoutTypeStore();
-
+  let post: Props = $props();
   let is_expanded = $state(false);
-
-  const is_upvoted = $derived.by(check_if_upvoted);
-  function check_if_upvoted() {
-    if (authStore.state.user && post.upvotes) {
-      return post.upvotes.includes(authStore.state.user.profile.id);
-    } else {
-      return false;
-    }
-  }
 
   function get_avatar() {
     return page.url.pathname.includes('/q/') ? post.poster.avatar : post.poster.avatar;
@@ -71,31 +59,8 @@
   </div>
 {/snippet}
 
-{#snippet vote_comment_share_more()}
-  <div class="bg-neutral rounded-field relative flex items-center gap-1">
-    <button
-      class="btn btn-primary btn-soft btn-sm btn-square"
-      class:btn-active={is_upvoted}
-      aria-label="Upvote post"
-    >
-      <coreicons-shape-thumbs variant="up" class="size-4"></coreicons-shape-thumbs>
-    </button>
-    <span class="text-xs font-medium md:text-sm">{readable(post.upvotes?.length ?? 0)}</span>
-    <button class="btn btn-accent btn-soft btn-sm btn-square" aria-label="Downvote post">
-      <coreicons-shape-thumbs variant="down" class="size-4"></coreicons-shape-thumbs>
-    </button>
-  </div>
-  <button class="btn btn-sm btn-neutral relative px-2">
-    <coreicons-shape-forum class="size-4"></coreicons-shape-forum>
-    <span class="text-xs font-medium md:text-sm">{readable(post.comments?.length ?? 0)}</span>
-  </button>
-  <button class="btn btn-sm btn-neutral relative hidden md:flex">
-    <coreicons-shape-share class="size-4"></coreicons-shape-share>
-    <span class="text-sm font-medium">Share</span>
-  </button>
-  <button class="btn btn-sm btn-ghost hover:btn-neutral btn-square relative" aria-label="more">
-    <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
-  </button>
+{#snippet actions()}
+  <PostActions {...post} />
 {/snippet}
 
 {#snippet href_overlay()}
@@ -120,9 +85,7 @@
       {@render avatar_name_date_more()}
       <h2 class="text-info text-lg font-bold md:text-xl">{post.title}</h2>
       {@render content_or_cover()}
-      <div class="mt-1.5 flex items-center gap-2.5">
-        {@render vote_comment_share_more()}
-      </div>
+      {@render actions()}
     </div>
   {:else}
     <div class="group flex flex-1 flex-row-reverse gap-4 p-4 p-4 md:flex-row">
@@ -148,7 +111,7 @@
               <coreicons-shape-expand class="size-4"></coreicons-shape-expand>
             {/if}
           </button>
-          {@render vote_comment_share_more()}
+          {@render actions()}
         </div>
       </div>
     </div>

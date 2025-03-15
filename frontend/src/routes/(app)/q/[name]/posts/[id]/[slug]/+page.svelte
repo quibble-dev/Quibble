@@ -9,14 +9,13 @@
   import Zoom from '$lib/components/ui/zoom.svelte';
   import { CommentBlock } from '$lib/features/comments';
   import CommentBox from '$lib/features/comments/components/comment-box.svelte';
+  import PostActions from '$lib/features/posts/components/post-actions.svelte';
   import { createRecentPostStore } from '$lib/features/posts/stores/recent-post.svelte';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
   import { is_valid } from '$lib/functions/is-valid';
-  import { createAuthStore } from '$lib/stores/auth.svelte';
   import type { CommentTree } from '$lib/types/comment';
   import type { PageData } from './$types';
-  import readable from 'readable-numbers';
   import { onMount } from 'svelte';
 
   type Comment = components['schemas']['CommentDetail'];
@@ -24,36 +23,7 @@
   const { data }: { data: PageData } = $props();
   const { post, comments } = $state(data);
 
-  const authStore = createAuthStore();
   const recentPostStore = createRecentPostStore();
-
-  let ratio = $state(post.ratio);
-  let reaction = $state<ReturnType<typeof get_reaction>>(get_reaction());
-
-  $inspect(reaction);
-
-  const is_upvoted = $derived.by(check_if_upvoted);
-  function check_if_upvoted() {
-    if (authStore.state.user && post.upvotes) {
-      return post.upvotes.includes(authStore.state.user.profile.id);
-    } else {
-      return false;
-    }
-  }
-
-  $effect(() => {
-    reaction = get_reaction();
-  });
-
-  function get_reaction(): 'upvoted' | 'downvoted' | null {
-    if (authStore.state.user) {
-      if (post.upvotes?.includes(authStore.state.user.profile.id)) return 'upvoted';
-      else if (post.downvotes?.includes(authStore.state.user.profile.id)) return 'downvoted';
-      else return null;
-    } else {
-      return null;
-    }
-  }
 
   let active_mapping = $state<{
     filter: keyof typeof mapping.filters;
@@ -144,26 +114,7 @@
   </BackdropImage>
 {/if}
 <!-- post options like vote share -->
-<div class="flex items-center gap-4">
-  <div class="flex items-center gap-2">
-    <button class="flex items-center gap-2" aria-label="upvote">
-      <coreicons-shape-thumbs variant="up" class="size-4" class:text-primary={is_upvoted}
-      ></coreicons-shape-thumbs>
-    </button>
-    <span class="text-sm font-medium">{readable(ratio)}</span>
-    <button class="flex items-center gap-2" aria-label="downvote">
-      <coreicons-shape-thumbs variant="down" class="size-4"></coreicons-shape-thumbs>
-    </button>
-  </div>
-  <button class="flex items-center gap-2">
-    <coreicons-shape-forum class="size-4"></coreicons-shape-forum>
-    <span class="text-sm font-medium">{readable(post.comments?.length ?? 0)} comments</span>
-  </button>
-  <button class="flex items-center gap-2">
-    <coreicons-shape-share class="size-4"></coreicons-shape-share>
-    <span class="text-sm font-medium">Share</span>
-  </button>
-</div>
+<PostActions {...post} />
 
 {#if show_comment_box}
   <!-- root comment -->
