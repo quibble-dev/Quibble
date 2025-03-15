@@ -6,6 +6,7 @@ from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import response, status, viewsets
 from rest_framework.decorators import action
 
+from apps.api.bases.serializers import ReactionSerializer
 from apps.post.models import Post
 from mixins.api.reaction import ReactionMixin
 
@@ -17,7 +18,11 @@ class PostViewSet(ReactionMixin, viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
-    serializer_mapping = {'create': PostCreateSerializer, 'comments': CommentCreateSerializer}
+    serializer_mapping = {
+        'create': PostCreateSerializer,
+        'comments': CommentCreateSerializer,
+        'reaction': ReactionSerializer,
+    }
 
     def get_serializer_class(self):  # pyright: ignore
         return self.serializer_mapping.get(self.action, self.serializer_class)
