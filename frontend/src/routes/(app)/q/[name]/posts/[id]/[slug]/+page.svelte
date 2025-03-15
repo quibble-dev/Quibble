@@ -1,5 +1,6 @@
 <script lang="ts">
   import { browser } from '$app/environment';
+  import api from '$lib/api';
   import type { components } from '$lib/api';
   import NewIcon from '$lib/components/icons/new.svelte';
   import RocketIcon from '$lib/components/icons/rocket.svelte';
@@ -13,6 +14,7 @@
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
   import { is_valid } from '$lib/functions/is-valid';
+  import { throttle } from '$lib/functions/throttle';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import type { CommentTree } from '$lib/types/comment';
   import type { PageData } from './$types';
@@ -29,17 +31,6 @@
 
   let ratio = $state(post.ratio);
   let reaction = $state<ReturnType<typeof get_reaction>>(get_reaction());
-
-  $inspect(reaction);
-
-  const is_upvoted = $derived.by(check_if_upvoted);
-  function check_if_upvoted() {
-    if (authStore.state.user && post.upvotes) {
-      return post.upvotes.includes(authStore.state.user.profile.id);
-    } else {
-      return false;
-    }
-  }
 
   $effect(() => {
     reaction = get_reaction();
@@ -81,6 +72,33 @@
 
     const new_comment: CommentTree = { ...data.comment, children: [], collapsed: false };
     comments.unshift(new_comment);
+  }
+
+  const throttled_handle_reaction = throttle(handle_reaction, 500);
+  async function handle_reaction(action: 'upvote' | 'downvote') {
+    try {
+      if (reaction === `${action}d`) {
+        // undo reaction
+        reaction = null;
+        ratio += action === 'upvote' ? -1 : 1;
+      } else {
+        if (reaction === 'upvoted') ratio -= 1;
+        if (reaction === 'downvoted') ratio += 1;
+
+        reaction = `${action}d`;
+        if (reaction === 'upvoted') ratio += 1;
+        if (reaction === 'downvoted') ratio -= 1;
+      }
+
+      const { response } = await api.PATCH('/posts/{id}/reaction/', {
+        body: { action },
+        params: { path: { id: post.id } }
+      });
+
+      if (!response.ok) throw new Error(`request failed with status: ${response.status}`);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   onMount(() => {
@@ -146,13 +164,28 @@
 <!-- post options like vote share -->
 <div class="flex items-center gap-4">
   <div class="flex items-center gap-2">
-    <button class="flex items-center gap-2" aria-label="upvote">
-      <coreicons-shape-thumbs variant="up" class="size-4" class:text-primary={is_upvoted}
+    <button
+      class="flex items-center gap-2"
+      aria-label="upvote"
+      onclick={() => throttled_handle_reaction('upvote')}
+    >
+      <coreicons-shape-thumbs
+        variant="up"
+        class="size-4"
+        class:text-primary={reaction === 'upvoted'}
       ></coreicons-shape-thumbs>
     </button>
     <span class="text-sm font-medium">{readable(ratio)}</span>
-    <button class="flex items-center gap-2" aria-label="downvote">
-      <coreicons-shape-thumbs variant="down" class="size-4"></coreicons-shape-thumbs>
+    <button
+      class="flex items-center gap-2"
+      aria-label="downvote"
+      onclick={() => throttled_handle_reaction('downvote')}
+    >
+      <coreicons-shape-thumbs
+        variant="down"
+        class="size-4"
+        class:text-accent={reaction === 'downvoted'}
+      ></coreicons-shape-thumbs>
     </button>
   </div>
   <button class="flex items-center gap-2">

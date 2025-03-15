@@ -266,28 +266,20 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
-    /** @description A viewset that provides `update`, `retrieve`, and `destroy` actions.
-     *
-     *     To use it, override the class and set the `.queryset` and
-     *     `.serializer_class` attributes. */
+    /** @description API viewset mixin to add `reaction` endpoint.
+     *     Includes `/reaction` action. */
     get: operations['comments_retrieve'];
-    /** @description A viewset that provides `update`, `retrieve`, and `destroy` actions.
-     *
-     *     To use it, override the class and set the `.queryset` and
-     *     `.serializer_class` attributes. */
+    /** @description API viewset mixin to add `reaction` endpoint.
+     *     Includes `/reaction` action. */
     put: operations['comments_update'];
     post?: never;
-    /** @description A viewset that provides `update`, `retrieve`, and `destroy` actions.
-     *
-     *     To use it, override the class and set the `.queryset` and
-     *     `.serializer_class` attributes. */
+    /** @description API viewset mixin to add `reaction` endpoint.
+     *     Includes `/reaction` action. */
     delete: operations['comments_destroy'];
     options?: never;
     head?: never;
-    /** @description A viewset that provides `update`, `retrieve`, and `destroy` actions.
-     *
-     *     To use it, override the class and set the `.queryset` and
-     *     `.serializer_class` attributes. */
+    /** @description API viewset mixin to add `reaction` endpoint.
+     *     Includes `/reaction` action. */
     patch: operations['comments_partial_update'];
     trace?: never;
   };
@@ -304,7 +296,7 @@ export interface paths {
     delete?: never;
     options?: never;
     head?: never;
-    /** @description This endpoint allows a user to either upvote or downvote a comment.
+    /** @description This endpoint allows a user to either upvote or downvote a model.
      *
      *     Request Body:
      *     - `action` (str): Either `"upvote"` or `"downvote"`.
@@ -322,8 +314,12 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
+    /** @description API viewset mixin to add `reaction` endpoint.
+     *     Includes `/reaction` action. */
     get: operations['posts_list'];
     put?: never;
+    /** @description API viewset mixin to add `reaction` endpoint.
+     *     Includes `/reaction` action. */
     post: operations['posts_create'];
     delete?: never;
     options?: never;
@@ -338,12 +334,20 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
+    /** @description API viewset mixin to add `reaction` endpoint.
+     *     Includes `/reaction` action. */
     get: operations['posts_retrieve'];
+    /** @description API viewset mixin to add `reaction` endpoint.
+     *     Includes `/reaction` action. */
     put: operations['posts_update'];
     post?: never;
+    /** @description API viewset mixin to add `reaction` endpoint.
+     *     Includes `/reaction` action. */
     delete: operations['posts_destroy'];
     options?: never;
     head?: never;
+    /** @description API viewset mixin to add `reaction` endpoint.
+     *     Includes `/reaction` action. */
     patch: operations['posts_partial_update'];
     trace?: never;
   };
@@ -354,13 +358,41 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
+    /** @description API viewset mixin to add `reaction` endpoint.
+     *     Includes `/reaction` action. */
     get: operations['posts_comments_list'];
     put?: never;
+    /** @description API viewset mixin to add `reaction` endpoint.
+     *     Includes `/reaction` action. */
     post: operations['posts_comments_create'];
     delete?: never;
     options?: never;
     head?: never;
     patch?: never;
+    trace?: never;
+  };
+  '/posts/{id}/reaction/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** @description This endpoint allows a user to either upvote or downvote a model.
+     *
+     *     Request Body:
+     *     - `action` (str): Either `"upvote"` or `"downvote"`.
+     *
+     *     Responses:
+     *     - `200 OK`: Reaction applied successfully. Returns `{"success": True}`.
+     *     - `400 Bad Request`: If the user has already applied the same reaction or an invalid action is provided. */
+    patch: operations['posts_reaction_partial_update'];
     trace?: never;
   };
   '/q/communities/': {
@@ -1989,9 +2021,6 @@ export interface components {
       upvotes?: number[];
       downvotes?: number[];
     };
-    PatchedCommentReaction: {
-      action?: string;
-    };
     PatchedCommunity: {
       readonly id?: number;
       /** Format: uri */
@@ -2050,6 +2079,11 @@ export interface components {
       bio?: string | null;
       /** Format: uri */
       banner?: string | null;
+    };
+    /** @description Serializer for reactions.
+     *     Used for posts/comments/etc... */
+    PatchedReaction: {
+      action?: string;
     };
     PatchedUserDetails: {
       readonly id?: number;
@@ -2489,6 +2523,51 @@ export interface components {
     PostsPartialUpdateValidationError: {
       type: components['schemas']['ValidationErrorEnum'];
       errors: components['schemas']['PostsPartialUpdateError'][];
+    };
+    PostsReactionPartialUpdateActionErrorComponent: {
+      /**
+       * @description * `action` - action (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'action';
+      /**
+       * @description * `blank` - blank
+       *     * `invalid` - invalid
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `required` - required
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'blank'
+        | 'invalid'
+        | 'null'
+        | 'null_characters_not_allowed'
+        | 'required'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    PostsReactionPartialUpdateError:
+      | components['schemas']['PostsReactionPartialUpdateNonFieldErrorsErrorComponent']
+      | components['schemas']['PostsReactionPartialUpdateActionErrorComponent'];
+    PostsReactionPartialUpdateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    PostsReactionPartialUpdateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['PostsReactionPartialUpdateError'][];
     };
     PostsUpdateCommentsErrorComponent: {
       /**
@@ -4622,9 +4701,9 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        'application/json': components['schemas']['PatchedCommentReaction'];
-        'application/x-www-form-urlencoded': components['schemas']['PatchedCommentReaction'];
-        'multipart/form-data': components['schemas']['PatchedCommentReaction'];
+        'application/json': components['schemas']['PatchedReaction'];
+        'application/x-www-form-urlencoded': components['schemas']['PatchedReaction'];
+        'multipart/form-data': components['schemas']['PatchedReaction'];
       };
     };
     responses: {
@@ -4982,6 +5061,58 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['PostsCommentsCreateValidationError'];
+        };
+      };
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  posts_reaction_partial_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description A unique value identifying this Post. */
+        id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['PatchedReaction'];
+        'application/x-www-form-urlencoded': components['schemas']['PatchedReaction'];
+        'multipart/form-data': components['schemas']['PatchedReaction'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SuccessResponse'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['PostsReactionPartialUpdateValidationError'];
         };
       };
       404: {

@@ -80,7 +80,7 @@
     >
       <coreicons-shape-thumbs variant="up" class="size-4"></coreicons-shape-thumbs>
     </button>
-    <span class="text-xs font-medium md:text-sm">{readable(post.upvotes?.length ?? 0)}</span>
+    <span class="text-xs font-medium md:text-sm">{readable(post.ratio)}</span>
     <button class="btn btn-accent btn-soft btn-sm btn-square" aria-label="Downvote post">
       <coreicons-shape-thumbs variant="down" class="size-4"></coreicons-shape-thumbs>
     </button>
