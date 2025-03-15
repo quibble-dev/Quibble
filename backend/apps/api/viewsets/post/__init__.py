@@ -17,13 +17,10 @@ class PostViewSet(ReactionMixin, viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
 
+    serializer_mapping = {'create': PostCreateSerializer, 'comments': CommentCreateSerializer}
+
     def get_serializer_class(self):  # pyright: ignore
-        if self.action == 'create':
-            return PostCreateSerializer
-        # if custom action: 'comment'
-        if self.action == 'comments':
-            return CommentCreateSerializer
-        return self.serializer_class
+        return self.serializer_mapping.get(self.action, self.serializer_class)
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -74,7 +71,7 @@ class PostViewSet(ReactionMixin, viewsets.ModelViewSet):
         context = {'request': request}
 
         if request.method == HTTPMethod.GET:
-            comments = post_instance.comments.with_ratio()  # pyright: ignore
+            comments = post_instance.comments.all()  # pyright: ignore
             serializer = CommentDetailSerializer(comments, many=True, context=context)
 
             return response.Response(serializer.data, status=status.HTTP_200_OK)

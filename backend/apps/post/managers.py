@@ -1,5 +1,3 @@
-from typing import TYPE_CHECKING
-
 from django.db.models import (
     Count,
     ExpressionWrapper,
@@ -17,7 +15,9 @@ class PostManager(Manager):
             super()
             .get_queryset()
             .annotate(
-                ratio=Count('upvotes') - Count('downvotes'),
+                upvotes_count=Count('upvotes', distinct=True),
+                downvotes_count=Count('downvotes', distinct=True),
+                ratio=F('upvotes_count') - F('downvotes_count'),
             )
         )
 
@@ -32,23 +32,21 @@ class PostManager(Manager):
         """
         Generalized sorting function to compute scores with time decay.
         """
-        return (
-            self.with_scores()
-            .annotate(
-                hours_elapsed=ExpressionWrapper(
-                    ExtractHour(Now() - F('created_at')), output_field=FloatField()
-                ),
-                adjusted_hours_elapsed=ExpressionWrapper(
-                    Coalesce(NullIf(F('hours_elapsed'), 0) + Value(offset), Value(1.0)),
-                    output_field=FloatField(),
-                ),
-                final_score=ExpressionWrapper(
-                    F('score') / (F('adjusted_hours_elapsed') ** decay_factor),
-                    output_field=FloatField(),
-                ),
-            )
-            .order_by('-final_score')
-        )
+
+        qs = self.with_scores()
+        return qs.annotate(
+            hours_elapsed=ExpressionWrapper(
+                ExtractHour(Now() - F('created_at')), output_field=FloatField()
+            ),
+            adjusted_hours_elapsed=ExpressionWrapper(
+                Coalesce(NullIf(F('hours_elapsed'), 0) + Value(offset), Value(1.0)),
+                output_field=FloatField(),
+            ),
+            final_score=ExpressionWrapper(
+                F('score') / (F('adjusted_hours_elapsed') ** decay_factor),
+                output_field=FloatField(),
+            ),
+        ).order_by('-final_score')
 
     def hot(self):
         return self.sorted_by(decay_factor=1.8, offset=2.0)

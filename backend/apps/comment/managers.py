@@ -3,6 +3,17 @@ from django_ltree.managers import TreeManager
 
 
 class CommentManager(TreeManager):
+    def get_queryset(self):
+        return (
+            super()
+            .get_queryset()
+            .annotate(
+                upvotes_count=Count('upvotes', distinct=True),
+                downvotes_count=Count('downvotes', distinct=True),
+                ratio=F('upvotes_count') - F('downvotes_count'),
+            )
+        )
+
     def soft_delete(self, instance):
         # if no children- hard delete
         if instance.children_count == 0:
@@ -19,11 +30,3 @@ class CommentManager(TreeManager):
         for comment in self.filter(deleted=True):
             if comment.children_count == 0:
                 comment.delete()
-
-    def with_ratio(self):
-        # returns annotated ratio property
-        return self.annotate(
-            upvote_count=Count('upvotes'),
-            downvote_count=Count('downvotes'),
-            ratio=F('upvote_count') - F('downvote_count'),
-        )

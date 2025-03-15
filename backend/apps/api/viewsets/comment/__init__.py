@@ -7,19 +7,15 @@ from ...serializers.comment import CommentDetailSerializer
 
 
 class CommentViewSet(ReactionMixin, UpdateRetrieveDestroyViewSet):
-    queryset = Comment.objects.with_ratio()
+    queryset = Comment.objects.all()
     serializer_class = CommentDetailSerializer
 
-    # extra custom serializers
-    serializer_classes = {
-        # extra actions
+    serializer_mapping = {
         'reaction': ReactionSerializer,
     }
 
-    def get_serializer_class(self):
-        if self.action in self.serializer_classes:
-            return self.serializer_classes[self.action]
-        return self.serializer_class
+    def get_serializer_class(self):  # pyright: ignore
+        return self.serializer_mapping.get(self.action, self.serializer_class)
 
     def perform_destroy(self, instance):
         Comment.objects.soft_delete(instance)
