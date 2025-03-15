@@ -6,23 +6,26 @@ from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import response, status, viewsets
 from rest_framework.decorators import action
 
+from apps.api.bases.serializers import ReactionSerializer
 from apps.post.models import Post
+from mixins.api.reaction import ReactionMixin
 
 from ...serializers.comment import CommentCreateSerializer, CommentDetailSerializer
 from ...serializers.post import PostCreateSerializer, PostSerializer
 
 
-class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.with_ratio()
+class PostViewSet(ReactionMixin, viewsets.ModelViewSet):
+    queryset = Post.objects.all()
     serializer_class = PostSerializer
 
+    serializer_mapping = {
+        'create': PostCreateSerializer,
+        'comments': CommentCreateSerializer,
+        'reaction': ReactionSerializer,
+    }
+
     def get_serializer_class(self):  # pyright: ignore
-        if self.action == 'create':
-            return PostCreateSerializer
-        # if custom action: 'comment'
-        if self.action == 'comments':
-            return CommentCreateSerializer
-        return self.serializer_class
+        return self.serializer_mapping.get(self.action, self.serializer_class)
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -73,7 +76,7 @@ class PostViewSet(viewsets.ModelViewSet):
         context = {'request': request}
 
         if request.method == HTTPMethod.GET:
-            comments = post_instance.comments.with_ratio()  # pyright: ignore
+            comments = post_instance.comments.all()  # pyright: ignore
             serializer = CommentDetailSerializer(comments, many=True, context=context)
 
             return response.Response(serializer.data, status=status.HTTP_200_OK)

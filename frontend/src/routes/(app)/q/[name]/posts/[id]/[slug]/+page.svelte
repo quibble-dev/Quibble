@@ -1,5 +1,6 @@
 <script lang="ts">
   import { browser } from '$app/environment';
+  import api from '$lib/api';
   import type { components } from '$lib/api';
   import NewIcon from '$lib/components/icons/new.svelte';
   import RocketIcon from '$lib/components/icons/rocket.svelte';
@@ -51,6 +52,33 @@
 
     const new_comment: CommentTree = { ...data.comment, children: [], collapsed: false };
     comments.unshift(new_comment);
+  }
+
+  const throttled_handle_reaction = throttle(handle_reaction, 500);
+  async function handle_reaction(action: 'upvote' | 'downvote') {
+    try {
+      if (reaction === `${action}d`) {
+        // undo reaction
+        reaction = null;
+        ratio += action === 'upvote' ? -1 : 1;
+      } else {
+        if (reaction === 'upvoted') ratio -= 1;
+        if (reaction === 'downvoted') ratio += 1;
+
+        reaction = `${action}d`;
+        if (reaction === 'upvoted') ratio += 1;
+        if (reaction === 'downvoted') ratio -= 1;
+      }
+
+      const { response } = await api.PATCH('/posts/{id}/reaction/', {
+        body: { action },
+        params: { path: { id: post.id } }
+      });
+
+      if (!response.ok) throw new Error(`request failed with status: ${response.status}`);
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   onMount(() => {
