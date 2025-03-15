@@ -7,12 +7,13 @@ from rest_framework import response, status, viewsets
 from rest_framework.decorators import action
 
 from apps.post.models import Post
+from mixins.api.reaction import ReactionMixin
 
 from ...serializers.comment import CommentCreateSerializer, CommentDetailSerializer
 from ...serializers.post import PostCreateSerializer, PostSerializer
 
 
-class PostViewSet(viewsets.ModelViewSet):
+class PostViewSet(ReactionMixin, viewsets.ModelViewSet):
     queryset = Post.objects.with_ratio()
     serializer_class = PostSerializer
 
