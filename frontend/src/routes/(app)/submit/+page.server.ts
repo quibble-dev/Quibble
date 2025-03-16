@@ -1,10 +1,11 @@
 import api from '$lib/api';
 import { PostSubmitSchema } from '$lib/schemas/post-submit';
+import type { PageServerLoad } from '../$types';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 
-export const load = async () => {
+export const load: PageServerLoad = async () => {
   const form = await superValidate(zod(PostSubmitSchema));
 
   return { form };

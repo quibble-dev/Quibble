@@ -33,6 +33,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = ProfileSerializer
     filter_backends = (filters.SearchFilter,)
     search_fields = ("username",)
+    lookup_field = 'username'
 
     serializer_classes = {
         "overview": OverviewSerializer,

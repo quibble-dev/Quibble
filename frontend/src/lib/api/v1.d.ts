@@ -625,7 +625,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/u/profiles/{id}/': {
+  '/u/profiles/{username}/': {
     parameters: {
       query?: never;
       header?: never;
@@ -645,7 +645,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/u/profiles/{id}/comments/': {
+  '/u/profiles/{username}/comments/': {
     parameters: {
       query?: never;
       header?: never;
@@ -662,7 +662,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/u/profiles/{id}/downvoted/': {
+  '/u/profiles/{username}/downvoted/': {
     parameters: {
       query?: never;
       header?: never;
@@ -679,7 +679,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/u/profiles/{id}/overview/': {
+  '/u/profiles/{username}/overview/': {
     parameters: {
       query?: never;
       header?: never;
@@ -696,7 +696,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/u/profiles/{id}/posts/': {
+  '/u/profiles/{username}/posts/': {
     parameters: {
       query?: never;
       header?: never;
@@ -713,7 +713,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/u/profiles/{id}/upvoted/': {
+  '/u/profiles/{username}/upvoted/': {
     parameters: {
       query?: never;
       header?: never;
@@ -5888,8 +5888,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description A unique integer value identifying this Profile. */
-        id: number;
+        username: string;
       };
       cookie?: never;
     };
@@ -5929,8 +5928,7 @@ export interface operations {
       };
       header?: never;
       path: {
-        /** @description A unique integer value identifying this Profile. */
-        id: number;
+        username: string;
       };
       cookie?: never;
     };
@@ -5970,8 +5968,7 @@ export interface operations {
       };
       header?: never;
       path: {
-        /** @description A unique integer value identifying this Profile. */
-        id: number;
+        username: string;
       };
       cookie?: never;
     };
@@ -6011,8 +6008,7 @@ export interface operations {
       };
       header?: never;
       path: {
-        /** @description A unique integer value identifying this Profile. */
-        id: number;
+        username: string;
       };
       cookie?: never;
     };
@@ -6052,8 +6048,7 @@ export interface operations {
       };
       header?: never;
       path: {
-        /** @description A unique integer value identifying this Profile. */
-        id: number;
+        username: string;
       };
       cookie?: never;
     };
@@ -6093,8 +6088,7 @@ export interface operations {
       };
       header?: never;
       path: {
-        /** @description A unique integer value identifying this Profile. */
-        id: number;
+        username: string;
       };
       cookie?: never;
     };
