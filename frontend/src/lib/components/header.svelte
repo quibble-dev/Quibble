@@ -86,7 +86,7 @@
           <NotificationIcon class="size-6" />
         </button>
       </div>
-      <div class="tooltip tooltip-bottom flex before:left-0" data-tip="Profile menu">
+      <div class="tooltip tooltip-bottom flex before:left-0!" data-tip="Profile menu">
         <Avatar
           class="btn btn-neutral rounded-btn size-10 border-none p-0"
           src={authStore.state.user?.profile.avatar}
