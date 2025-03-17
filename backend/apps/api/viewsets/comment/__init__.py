@@ -3,12 +3,12 @@ from apps.comment.models import Comment
 from mixins.api.reaction import ReactionMixin
 
 from ...bases.viewsets import UpdateRetrieveDestroyViewSet
-from ...serializers.comment import CommentDetailSerializer
+from ...serializers.comment import CommentSerializer
 
 
 class CommentViewSet(ReactionMixin, UpdateRetrieveDestroyViewSet):
     queryset = Comment.objects.all()
-    serializer_class = CommentDetailSerializer
+    serializer_class = CommentSerializer
 
     serializer_mapping = {
         'reaction': ReactionSerializer,

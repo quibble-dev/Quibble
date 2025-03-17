@@ -10,7 +10,7 @@ from apps.api.bases.serializers import ReactionSerializer
 from apps.post.models import Post
 from mixins.api.reaction import ReactionMixin
 
-from ...serializers.comment import CommentCreateSerializer, CommentDetailSerializer
+from ...serializers.comment import CommentCreateSerializer, CommentSerializer
 from ...serializers.post import PostCreateSerializer, PostSerializer
 
 
@@ -68,7 +68,7 @@ class PostViewSet(ReactionMixin, viewsets.ModelViewSet):
         response_serializer = PostSerializer(post_instance, context=context)
         return response.Response(response_serializer.data, status=status.HTTP_201_CREATED)
 
-    @extend_schema(responses=CommentDetailSerializer(many=True))
+    @extend_schema(responses=CommentSerializer(many=True))
     @action(detail=True, methods=[HTTPMethod.GET, HTTPMethod.POST])
     def comments(self, request, pk=None):
         post_instance = get_object_or_404(Post, pk=pk)
@@ -77,7 +77,7 @@ class PostViewSet(ReactionMixin, viewsets.ModelViewSet):
 
         if request.method == HTTPMethod.GET:
             comments = post_instance.comments.all()  # pyright: ignore
-            serializer = CommentDetailSerializer(comments, many=True, context=context)
+            serializer = CommentSerializer(comments, many=True, context=context)
 
             return response.Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -89,5 +89,5 @@ class PostViewSet(ReactionMixin, viewsets.ModelViewSet):
         # hard-code ratio
         comment_instance.ratio = 1
 
-        response_serializer = CommentDetailSerializer(comment_instance, context=context)
+        response_serializer = CommentSerializer(comment_instance, context=context)
         return response.Response(response_serializer.data, status=status.HTTP_201_CREATED)

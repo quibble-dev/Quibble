@@ -6,6 +6,15 @@ from apps.comment.models import Comment
 from ...serializers.user.profile import ProfileBasicSerializer
 
 
+class CommentSerializer(serializers.ModelSerializer):
+    commenter = ProfileBasicSerializer(allow_null=True)
+    ratio = serializers.IntegerField()
+
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
+
 class CommentCreateSerializer(serializers.ModelSerializer):
     path = serializers.CharField(required=False)
 
@@ -29,12 +38,3 @@ class CommentCreateSerializer(serializers.ModelSerializer):
 
         comment_instance.upvotes.add(data['commenter'])
         return comment_instance
-
-
-class CommentDetailSerializer(serializers.ModelSerializer):
-    commenter = ProfileBasicSerializer(allow_null=True)
-    ratio = serializers.IntegerField()
-
-    class Meta:
-        model = Comment
-        fields = '__all__'

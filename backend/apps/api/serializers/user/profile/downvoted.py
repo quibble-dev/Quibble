@@ -2,7 +2,7 @@ import copy
 
 from rest_framework import serializers
 
-from apps.api.serializers.comment import CommentDetailSerializer
+from apps.api.serializers.comment import CommentSerializer
 from apps.api.serializers.post import PostSerializer
 
 
@@ -18,4 +18,4 @@ class DownvotedSerializer(serializers.Serializer):
 
         if obj_type == "post":
             return PostSerializer(obj_copy, context=self.context).data
-        return CommentDetailSerializer(obj_copy, context=self.context).data
+        return CommentSerializer(obj_copy, context=self.context).data
