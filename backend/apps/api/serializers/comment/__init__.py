@@ -20,17 +20,20 @@ class CommentOverviewSerializer(CommentSerializer):
     commenter = serializers.SerializerMethodField()
     post = serializers.SerializerMethodField()
     reply_to = serializers.SerializerMethodField()
+    is_op = serializers.SerializerMethodField()
 
     class Meta(CommentSerializer.Meta):
         fields = (
             'id',
             'commenter',
             'reply_to',
+            'is_op',
             'ratio',
             'post',
             'created_at',
             'content',
-            'deleted',
+            'upvotes',
+            'downvotes',
         )
 
     def get_commenter(self, obj):
@@ -41,6 +44,7 @@ class CommentOverviewSerializer(CommentSerializer):
 
         if post := Post.objects.filter(comments=obj).first():
             return {
+                "id": post.pk,
                 "title": post.title,
                 "slug": post.slug,
                 "community": {
@@ -58,6 +62,12 @@ class CommentOverviewSerializer(CommentSerializer):
         if parent := obj.parent():
             return parent.commenter.username
         return None
+
+    def get_is_op(self, obj):
+        post = Post.objects.filter(comments=obj).first()
+        if post and post.poster == obj.commenter:
+            return True
+        return False
 
 
 class CommentCreateSerializer(serializers.ModelSerializer):

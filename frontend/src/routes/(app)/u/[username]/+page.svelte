@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { components } from '$lib/api';
+  import PostCard from '$lib/features/posts/components/post-card.svelte';
   import CommentType from '$lib/pages/u/comment-type.svelte';
-  import PostType from '$lib/pages/u/post-type.svelte';
   import type { CommentOverview as Comment } from '$lib/types/comment';
   import type { PageServerData } from './$types';
 
@@ -30,6 +30,6 @@
   {#if is_comment_type(item)}
     <CommentType {...item.content} />
   {:else if is_post_type(item)}
-    <PostType {...item.content} />
+    <PostCard always_on_card={true} {...item.content} />
   {/if}
 {/each}

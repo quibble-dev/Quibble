@@ -59,8 +59,7 @@
       <div class="relative flex flex-col items-center">
         <a
           href={`${base_path}/${key}`}
-          class={cn(active && 'btn-neutral btn-active', 'btn btn-ghost h-max p-2.5')}
-          >{item.label}</a
+          class={cn(active && 'bg-base-200', 'btn btn-ghost h-max p-2.5')}>{item.label}</a
         >
         {#if active}
           <div class="bg-primary absolute -bottom-1.5 h-0.5 w-2/3"></div>
@@ -68,7 +67,7 @@
       </div>
     {/each}
   </div>
-  <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-4">
     {@render children()}
   </div>
 </div>
