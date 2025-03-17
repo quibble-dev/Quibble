@@ -22,11 +22,11 @@
     },
     upvoted: {
       label: 'Upvoted',
-      disabled: false
+      disabled: true
     },
     downvoted: {
       label: 'Downvoted',
-      disabled: false
+      disabled: true
     }
   };
 
@@ -59,7 +59,11 @@
       <div class="relative flex flex-col items-center">
         <a
           href={`${base_path}/${key}`}
-          class={cn(active && 'bg-base-200', 'btn btn-ghost h-max p-2.5')}>{item.label}</a
+          class={cn(
+            active && 'bg-base-200',
+            item.disabled && 'btn-disabled pointer-events-none',
+            'btn btn-ghost h-max p-2.5'
+          )}>{item.label}</a
         >
         {#if active}
           <div class="bg-primary absolute -bottom-1.5 h-0.5 w-2/3"></div>
