@@ -4,16 +4,22 @@
   import PostType from '$lib/pages/u/post-type.svelte';
   import type { PageServerData } from './$types';
 
-  type OverviewItem = components['schemas']['Overview'];
+  // internal types
+  type Overview = components['schemas']['Overview'];
   type Comment = components['schemas']['Comment'];
   type Post = components['schemas']['Post'];
 
+  // generic types
+  interface TypedOverview<T extends Record<string, unknown>> extends Overview {
+    content: T;
+  }
+
   // type guards
-  function is_comment_type(item: OverviewItem): item is OverviewItem & { content: Comment } {
+  function is_comment_type(item: Overview): item is TypedOverview<Comment> {
     return item.content_type === 'comment';
   }
 
-  function is_post_type(item: OverviewItem): item is OverviewItem & { content: Post } {
+  function is_post_type(item: Overview): item is TypedOverview<Post> {
     return item.content_type === 'post';
   }
 
