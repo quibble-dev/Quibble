@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
 from apps.comment.models import Comment
+from apps.post.models import Post
 
 from ...serializers.user.profile import ProfileBasicSerializer
 
@@ -13,6 +14,50 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
+
+
+class CommentOverviewSerializer(CommentSerializer):
+    commenter = serializers.SerializerMethodField()
+    post = serializers.SerializerMethodField()
+    reply_to = serializers.SerializerMethodField()
+
+    class Meta(CommentSerializer.Meta):
+        fields = (
+            'id',
+            'commenter',
+            'reply_to',
+            'ratio',
+            'post',
+            'created_at',
+            'content',
+            'deleted',
+        )
+
+    def get_commenter(self, obj):
+        return obj.commenter.username
+
+    def get_post(self, obj):
+        request = self.context.get('request')
+
+        if post := Post.objects.filter(comments=obj).first():
+            return {
+                "title": post.title,
+                "slug": post.slug,
+                "community": {
+                    "name": post.community.name,
+                    "avatar": (
+                        request.build_absolute_uri(post.community.avatar.url)
+                        if post.community.avatar
+                        else None
+                    ),
+                },
+            }
+        return None
+
+    def get_reply_to(self, obj):
+        if parent := obj.parent():
+            return parent.commenter.username
+        return None
 
 
 class CommentCreateSerializer(serializers.ModelSerializer):
