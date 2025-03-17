@@ -64,7 +64,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
 
     @extend_schema(responses=OverviewSerializer(many=True))
     @action(detail=True, methods=[HTTPMethod.GET])
-    def overview(self, request, pk=None):
+    def overview(self, request, username=None):
         """Returns a mixed list of posts and comments by the user, ordered by date."""
         profile = self.get_object()
         posts = profile.posts.all().annotate(content_type=Value("post", CharField()))
@@ -78,7 +78,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
 
     @extend_schema(responses=PostSerializer(many=True))
     @action(detail=True, methods=[HTTPMethod.GET])
-    def posts(self, request, pk=None):
+    def posts(self, request, username=None):
         """Returns a list of posts by the user, ordered by date."""
         profile = self.get_object()
         posts = profile.posts.all().order_by("-created_at")
@@ -87,7 +87,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
 
     @extend_schema(responses=CommentDetailSerializer(many=True))
     @action(detail=True, methods=[HTTPMethod.GET])
-    def comments(self, request, pk=None):
+    def comments(self, request, username=None):
         """Returns a list of comments by the user, ordered by date."""
         profile = self.get_object()
         comments = profile.comments.all().order_by("-created_at")
@@ -98,7 +98,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
 
     @extend_schema(responses=UpvotedSerializer(many=True))
     @action(detail=True, methods=[HTTPMethod.GET])
-    def upvoted(self, request, pk=None):
+    def upvoted(self, request, username=None):
         """Returns a mixed list of upvoted posts and comments by the user, ordered by date."""
         profile = self.get_object()
         posts = profile.upvoted_posts.all().annotate(content_type=Value("post", CharField()))
@@ -114,7 +114,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
 
     @extend_schema(responses=DownvotedSerializer(many=True))
     @action(detail=True, methods=[HTTPMethod.GET])
-    def downvoted(self, request, pk=None):
+    def downvoted(self, request, username=None):
         """Returns a mixed list of downvoted posts and comments by the user, ordered by date."""
         profile = self.get_object()
         posts = profile.downvoted_posts.all().annotate(content_type=Value("post", CharField()))

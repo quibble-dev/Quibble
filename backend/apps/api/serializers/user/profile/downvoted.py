@@ -8,9 +8,9 @@ from apps.api.serializers.post import PostSerializer
 
 class DownvotedSerializer(serializers.Serializer):
     content_type = serializers.CharField()
-    data = serializers.SerializerMethodField()
+    content = serializers.SerializerMethodField()
 
-    def get_data(self, obj) -> dict:
+    def get_content(self, obj) -> dict:
         obj_type = obj.content_type
         obj_copy = copy.copy(obj)
 
