@@ -53,8 +53,7 @@ class Profile(CreatedAtMixin, AvatarMixin):
             "unique": _("A profile with that username already exists."),
         },
     )
-    first_name = models.CharField(_('First name'), max_length=255, blank=True, null=True)
-    last_name = models.CharField(_('Last name'), max_length=255, blank=True, null=True)
+    name = models.CharField(_('Name'), max_length=255, blank=True, null=True)
     bio = models.TextField(_('Bio'), blank=True, null=True)
     banner = models.ImageField(
         _('Banner'),
