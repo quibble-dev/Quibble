@@ -45,12 +45,12 @@ class ProfileAdmin(admin.ModelAdmin):
     fieldsets = (
         (
             None,
-            {'fields': ('user', 'username', 'avatar', 'banner', 'first_name', 'last_name')},
+            {'fields': ('user', 'username', 'name', 'avatar', 'banner')},
         ),
         (_('important dates'), {'fields': ('created_at',)}),
     )
 
-    list_display = ('username', 'user__email', 'created_at')
+    list_display = ('username', 'user__email', 'name', 'created_at')
     search_fields = ('username', 'user__email')
     ordering = ('-created_at',)
     readonly_fields = ('created_at',)
