@@ -1460,6 +1460,26 @@ export interface components {
       code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
       detail: string;
     };
+    CommentsPartialUpdateCommenterNameErrorComponent: {
+      /**
+       * @description * `commenter.name` - commenter.name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'commenter.name';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
     CommentsPartialUpdateCommenterNonFieldErrorsErrorComponent: {
       /**
        * @description * `commenter.non_field_errors` - commenter.non_field_errors (enum property replaced by openapi-typescript)
@@ -1561,6 +1581,7 @@ export interface components {
       | components['schemas']['CommentsPartialUpdateCommenterNonFieldErrorsErrorComponent']
       | components['schemas']['CommentsPartialUpdateCommenterUsernameErrorComponent']
       | components['schemas']['CommentsPartialUpdateCommenterAvatarErrorComponent']
+      | components['schemas']['CommentsPartialUpdateCommenterNameErrorComponent']
       | components['schemas']['CommentsPartialUpdateRatioErrorComponent']
       | components['schemas']['CommentsPartialUpdatePathErrorComponent']
       | components['schemas']['CommentsPartialUpdateContentErrorComponent']
@@ -1705,6 +1726,26 @@ export interface components {
       code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
       detail: string;
     };
+    CommentsUpdateCommenterNameErrorComponent: {
+      /**
+       * @description * `commenter.name` - commenter.name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'commenter.name';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
     CommentsUpdateCommenterNonFieldErrorsErrorComponent: {
       /**
        * @description * `commenter.non_field_errors` - commenter.non_field_errors (enum property replaced by openapi-typescript)
@@ -1806,6 +1847,7 @@ export interface components {
       | components['schemas']['CommentsUpdateCommenterNonFieldErrorsErrorComponent']
       | components['schemas']['CommentsUpdateCommenterUsernameErrorComponent']
       | components['schemas']['CommentsUpdateCommenterAvatarErrorComponent']
+      | components['schemas']['CommentsUpdateCommenterNameErrorComponent']
       | components['schemas']['CommentsUpdateRatioErrorComponent']
       | components['schemas']['CommentsUpdatePathErrorComponent']
       | components['schemas']['CommentsUpdateContentErrorComponent']
@@ -2074,8 +2116,7 @@ export interface components {
       readonly created_at?: string;
       /** @description Required. 25 characters or fewer. Letters, digits and ./_ only. */
       username?: string;
-      first_name?: string | null;
-      last_name?: string | null;
+      name?: string | null;
       bio?: string | null;
       /** Format: uri */
       banner?: string | null;
@@ -2784,8 +2825,7 @@ export interface components {
       readonly created_at: string;
       /** @description Required. 25 characters or fewer. Letters, digits and ./_ only. */
       username: string;
-      first_name?: string | null;
-      last_name?: string | null;
+      name?: string | null;
       bio?: string | null;
       /** Format: uri */
       banner?: string | null;
@@ -2796,7 +2836,7 @@ export interface components {
       username: string;
       /** Format: uri */
       avatar?: string | null;
-      readonly name: string | null;
+      name?: string | null;
     };
     ProfileTotalCount: {
       total_count: number;
@@ -3549,36 +3589,15 @@ export interface components {
       | components['schemas']['UMeProfilesCreateNonFieldErrorsErrorComponent']
       | components['schemas']['UMeProfilesCreateAvatarErrorComponent']
       | components['schemas']['UMeProfilesCreateUsernameErrorComponent']
-      | components['schemas']['UMeProfilesCreateFirstNameErrorComponent']
-      | components['schemas']['UMeProfilesCreateLastNameErrorComponent']
+      | components['schemas']['UMeProfilesCreateNameErrorComponent']
       | components['schemas']['UMeProfilesCreateBioErrorComponent']
       | components['schemas']['UMeProfilesCreateBannerErrorComponent'];
-    UMeProfilesCreateFirstNameErrorComponent: {
+    UMeProfilesCreateNameErrorComponent: {
       /**
-       * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
+       * @description * `name` - name (enum property replaced by openapi-typescript)
        * @enum {string}
        */
-      attr: 'first_name';
-      /**
-       * @description * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'invalid'
-        | 'max_length'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    UMeProfilesCreateLastNameErrorComponent: {
-      /**
-       * @description * `last_name` - last_name (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'last_name';
+      attr: 'name';
       /**
        * @description * `invalid` - invalid
        *     * `max_length` - max_length
@@ -3692,36 +3711,15 @@ export interface components {
       | components['schemas']['UMeProfilesPartialUpdateNonFieldErrorsErrorComponent']
       | components['schemas']['UMeProfilesPartialUpdateAvatarErrorComponent']
       | components['schemas']['UMeProfilesPartialUpdateUsernameErrorComponent']
-      | components['schemas']['UMeProfilesPartialUpdateFirstNameErrorComponent']
-      | components['schemas']['UMeProfilesPartialUpdateLastNameErrorComponent']
+      | components['schemas']['UMeProfilesPartialUpdateNameErrorComponent']
       | components['schemas']['UMeProfilesPartialUpdateBioErrorComponent']
       | components['schemas']['UMeProfilesPartialUpdateBannerErrorComponent'];
-    UMeProfilesPartialUpdateFirstNameErrorComponent: {
+    UMeProfilesPartialUpdateNameErrorComponent: {
       /**
-       * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
+       * @description * `name` - name (enum property replaced by openapi-typescript)
        * @enum {string}
        */
-      attr: 'first_name';
-      /**
-       * @description * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'invalid'
-        | 'max_length'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    UMeProfilesPartialUpdateLastNameErrorComponent: {
-      /**
-       * @description * `last_name` - last_name (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'last_name';
+      attr: 'name';
       /**
        * @description * `invalid` - invalid
        *     * `max_length` - max_length
@@ -3835,36 +3833,15 @@ export interface components {
       | components['schemas']['UMeProfilesUpdateNonFieldErrorsErrorComponent']
       | components['schemas']['UMeProfilesUpdateAvatarErrorComponent']
       | components['schemas']['UMeProfilesUpdateUsernameErrorComponent']
-      | components['schemas']['UMeProfilesUpdateFirstNameErrorComponent']
-      | components['schemas']['UMeProfilesUpdateLastNameErrorComponent']
+      | components['schemas']['UMeProfilesUpdateNameErrorComponent']
       | components['schemas']['UMeProfilesUpdateBioErrorComponent']
       | components['schemas']['UMeProfilesUpdateBannerErrorComponent'];
-    UMeProfilesUpdateFirstNameErrorComponent: {
+    UMeProfilesUpdateNameErrorComponent: {
       /**
-       * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
+       * @description * `name` - name (enum property replaced by openapi-typescript)
        * @enum {string}
        */
-      attr: 'first_name';
-      /**
-       * @description * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'invalid'
-        | 'max_length'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    UMeProfilesUpdateLastNameErrorComponent: {
-      /**
-       * @description * `last_name` - last_name (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'last_name';
+      attr: 'name';
       /**
        * @description * `invalid` - invalid
        *     * `max_length` - max_length
