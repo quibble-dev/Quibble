@@ -32,7 +32,7 @@
 
 {#snippet content_or_cover()}
   {#if is_valid(post.content)}
-    <p class="text-sm font-normal">
+    <p class="text-sm font-normal whitespace-pre-line">
       {post.content}
     </p>
   {:else if is_valid(post.cover)}
@@ -62,7 +62,7 @@
 {/snippet}
 
 {#snippet actions()}
-  <PostActions class="mt-1" {...post} />
+  <PostActions class={cn(layoutTypeStore.state === 'card' && 'mt-1')} {...post} />
 {/snippet}
 
 {#snippet href_overlay()}
