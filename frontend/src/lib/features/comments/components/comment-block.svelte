@@ -10,7 +10,7 @@
   import CommentBlock from './comment-block.svelte';
   import CommentBox from './comment-box.svelte';
 
-  type Comment = components['schemas']['CommentDetail'];
+  type Comment = components['schemas']['Comment'];
 
   let comment_prop: CommentTree = $props();
   let comment = $state(comment_prop);

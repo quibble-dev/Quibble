@@ -1424,11 +1424,7 @@ export interface components {
      * @enum {string}
      */
     ClientErrorEnum: 'client_error';
-    CommentCreate: {
-      path?: string;
-      content: string;
-    };
-    CommentDetail: {
+    Comment: {
       readonly id: number;
       commenter: components['schemas']['ProfileBasic'] | null;
       ratio: number;
@@ -1442,6 +1438,10 @@ export interface components {
       deleted?: boolean;
       upvotes?: number[];
       downvotes?: number[];
+    };
+    CommentCreate: {
+      path?: string;
+      content: string;
     };
     CommentsPartialUpdateCommenterAvatarErrorComponent: {
       /**
@@ -1982,7 +1982,7 @@ export interface components {
     };
     Downvoted: {
       content_type: string;
-      readonly data: {
+      readonly content: {
         [key: string]: unknown;
       };
     };
@@ -2028,7 +2028,7 @@ export interface components {
     };
     Overview: {
       content_type: string;
-      readonly data: {
+      readonly content: {
         [key: string]: unknown;
       };
     };
@@ -2048,7 +2048,7 @@ export interface components {
       uid: string;
       token: string;
     };
-    PatchedCommentDetail: {
+    PatchedComment: {
       readonly id?: number;
       commenter?: components['schemas']['ProfileBasic'] | null;
       ratio?: number;
@@ -3904,7 +3904,7 @@ export interface components {
     };
     Upvoted: {
       content_type: string;
-      readonly data: {
+      readonly content: {
         [key: string]: unknown;
       };
     };
@@ -4504,7 +4504,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['CommentDetail'];
+          'application/json': components['schemas']['Comment'];
         };
       };
       404: {
@@ -4537,9 +4537,9 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['CommentDetail'];
-        'application/x-www-form-urlencoded': components['schemas']['CommentDetail'];
-        'multipart/form-data': components['schemas']['CommentDetail'];
+        'application/json': components['schemas']['Comment'];
+        'application/x-www-form-urlencoded': components['schemas']['Comment'];
+        'multipart/form-data': components['schemas']['Comment'];
       };
     };
     responses: {
@@ -4548,7 +4548,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['CommentDetail'];
+          'application/json': components['schemas']['Comment'];
         };
       };
       400: {
@@ -4626,9 +4626,9 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        'application/json': components['schemas']['PatchedCommentDetail'];
-        'application/x-www-form-urlencoded': components['schemas']['PatchedCommentDetail'];
-        'multipart/form-data': components['schemas']['PatchedCommentDetail'];
+        'application/json': components['schemas']['PatchedComment'];
+        'application/x-www-form-urlencoded': components['schemas']['PatchedComment'];
+        'multipart/form-data': components['schemas']['PatchedComment'];
       };
     };
     responses: {
@@ -4637,7 +4637,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['CommentDetail'];
+          'application/json': components['schemas']['Comment'];
         };
       };
       400: {
@@ -4985,7 +4985,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['CommentDetail'][];
+          'application/json': components['schemas']['Comment'][];
         };
       };
       404: {
@@ -5029,7 +5029,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['CommentDetail'][];
+          'application/json': components['schemas']['Comment'][];
         };
       };
       400: {
@@ -5916,7 +5916,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['CommentDetail'][];
+          'application/json': components['schemas']['Comment'][];
         };
       };
       404: {

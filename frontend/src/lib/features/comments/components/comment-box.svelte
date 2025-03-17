@@ -7,7 +7,7 @@
   import { defaults, superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
 
-  type Comment = components['schemas']['CommentDetail'];
+  type Comment = components['schemas']['Comment'];
 
   type Props = {
     path?: string;

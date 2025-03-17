@@ -2,6 +2,7 @@
   import { page } from '$app/state';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
+  import { FormatDate } from '$lib/functions/date';
   import type { LayoutData } from './$types';
   import type { Snippet } from 'svelte';
 
@@ -72,6 +73,17 @@
 </div>
 <div class="hidden w-80 lg:flex">
   <div
-    class="scrollbar-none fixed top-[3.75rem] flex h-[calc(100dvh-3.75rem)] w-80 flex-col gap-4 overflow-y-scroll p-4"
-  ></div>
+    class="scrollbar-none fixed top-[3.75rem] flex h-[calc(100dvh-3.75rem)] w-80 flex-col gap-2 overflow-y-scroll p-4"
+  >
+    <div
+      class="bg-neutral rounded-box h-20 bg-cover bg-center bg-no-repeat"
+      style="background-image: url({profile?.banner});"
+    ></div>
+    <h3 class="font-medium">{profile?.name ?? `u/${profile?.username}`}</h3>
+    <p class="text-base-content/75 text-sm">{profile?.bio}</p>
+    <div class="flex items-center gap-2 text-xs">
+      <coreicons-shape-gift class="size-4"></coreicons-shape-gift>
+      Cake day, {new FormatDate(profile?.created_at ?? '').format()}
+    </div>
+  </div>
 </div>

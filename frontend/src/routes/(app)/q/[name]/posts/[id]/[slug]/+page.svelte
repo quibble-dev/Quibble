@@ -18,7 +18,7 @@
   import type { PageData } from './$types';
   import { onMount } from 'svelte';
 
-  type Comment = components['schemas']['CommentDetail'];
+  type Comment = components['schemas']['Comment'];
 
   const { data }: { data: PageData } = $props();
   const { post, comments } = $state(data);
