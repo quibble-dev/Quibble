@@ -2,11 +2,11 @@
   import type { components } from '$lib/api';
   import CommentType from '$lib/pages/u/comment-type.svelte';
   import PostType from '$lib/pages/u/post-type.svelte';
+  import type { CommentOverview as Comment } from '$lib/types/comment';
   import type { PageServerData } from './$types';
 
   // internal types
   type Overview = components['schemas']['Overview'];
-  type Comment = components['schemas']['Comment'];
   type Post = components['schemas']['Post'];
 
   // generic types

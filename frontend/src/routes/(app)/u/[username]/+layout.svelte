@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from '$app/state';
+  import LegalLinks from '$lib/components/legal-links.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
@@ -85,5 +86,7 @@
       <coreicons-shape-gift class="size-4"></coreicons-shape-gift>
       Cake day, {new FormatDate(profile?.created_at ?? '').format()}
     </div>
+    <div class="divider before:h-px after:h-px"></div>
+    <LegalLinks />
   </div>
 </div>

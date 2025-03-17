@@ -1,9 +1,7 @@
 <script lang="ts">
-  import type { components } from '$lib/api';
+  import type { CommentOverview as Props } from '$lib/types/comment';
 
-  type Props = components['schemas']['Comment'];
-
-  const { content }: Props = $props();
+  const { commenter, content }: Props = $props();
 </script>
 
-<p>{content}</p>
+<p>{commenter}: {content}</p>

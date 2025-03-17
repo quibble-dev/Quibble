@@ -2,6 +2,7 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/state';
   import autosize from '$lib/actions/autosize';
+  import LegalLinks from '$lib/components/legal-links.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
   import { PostSubmitSchema } from '$lib/schemas/post-submit';
@@ -180,11 +181,6 @@
       </button>
     </div>
   </form>
-  <span class="[&>a]:link [&>a]:link-hover mt-auto flex items-center gap-2 self-center text-xs">
-    <a href="/">Quibble Rules</a><a href="/">Privacy Policy</a><a href="/">User Agreement</a
-    ><coreicons-shape-circle variant="filled" class="size-1"></coreicons-shape-circle><a href="/"
-      >Quibble © 2025. All rights reserved.</a
-    >
-  </span>
+  <LegalLinks />
 </div>
 <div class="hidden w-80 lg:flex"></div>
