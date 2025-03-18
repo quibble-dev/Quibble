@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Error from '$lib/components/error.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { emoticons } from '$lib/constants/emoticons';
   import { PostCard, PostsHeader } from '$lib/features/posts';
@@ -11,31 +12,29 @@
   const recentPostStore = createRecentPostStore();
 </script>
 
-<!-- site head and seo -->
 <svelte:head>
   <title>Quibble - Delve into real conversations.</title>
 </svelte:head>
 
 <div class="flex h-max flex-1 flex-col gap-4 p-4">
-  <!-- posts header: filter and change layout type -->
   <PostsHeader />
-  <!-- list posts section -->
   <div class="flex flex-1 flex-col gap-4">
-    <!-- if posts available -->
     {#if data.posts && data.posts.length}
       {#each data.posts as post (post.id)}
         <PostCard {...post} />
       {/each}
     {:else}
-      <!-- if not available: render fallback -->
-      <div class="flex flex-col">
-        <span class="text-lg font-medium">{emoticons.DISTRESSED}</span>
-        <span class="text-sm">The silence is deafening—why not break it?</span>
-      </div>
+      <Error
+        message="The silence is deafening—why not break it?"
+        fallback_options={{
+          text: 'Create a Post',
+          href: '/submit?type=TEXT',
+          icon: '<coreicons-shape-plus variant="no-border" class="size-4"></coreicons-shape-plus>'
+        }}
+      />
     {/if}
   </div>
 </div>
-<!-- fixed shared sidebar for recent posts -->
 <div class="hidden w-80 lg:flex">
   <div
     class="scrollbar-none fixed top-[3.75rem] flex h-[calc(100dvh-3.75rem)] w-72 flex-col gap-4 overflow-y-scroll p-4"
@@ -48,11 +47,9 @@
         onclick={recentPostStore.clear}>Clear</button
       >
     </div>
-    <!-- render recent posts from localstorage -->
     <div class="flex flex-col gap-4">
       {#if recentPostStore.state.length}
         {#each recentPostStore.state as post (post.id)}
-          <!-- recent post component -->
           <div class="flex flex-col gap-2">
             <div class="flex justify-between gap-2">
               <div class="flex flex-col gap-1">
@@ -90,7 +87,6 @@
           </div>
         {/each}
       {:else}
-        <!-- fallback content if there are no recent posts -->
         <div class="flex flex-col">
           <span class="text-lg font-medium">{emoticons.ANGRY}</span>
           <span class="text-sm">Nothing here yet—go find a Post!</span>

@@ -10,11 +10,13 @@
   import { createLayoutTypeStore } from '$lib/stores/layout-type.svelte';
   import PostActions from './post-actions.svelte';
 
-  type Props = components['schemas']['Post'];
+  type Props = components['schemas']['Post'] & {
+    always_on_card?: boolean;
+  };
 
   let layoutTypeStore = createLayoutTypeStore();
 
-  let post: Props = $props();
+  let { always_on_card = false, ...post }: Props = $props();
   let is_expanded = $state(false);
 
   function get_avatar() {
@@ -30,7 +32,7 @@
 
 {#snippet content_or_cover()}
   {#if is_valid(post.content)}
-    <p class="text-sm font-normal">
+    <p class="text-sm font-normal whitespace-pre-line">
       {post.content}
     </p>
   {:else if is_valid(post.cover)}
@@ -60,7 +62,7 @@
 {/snippet}
 
 {#snippet actions()}
-  <PostActions {...post} />
+  <PostActions class={cn(layoutTypeStore.state === 'card' && 'mt-1')} {...post} />
 {/snippet}
 
 {#snippet href_overlay()}
@@ -73,11 +75,11 @@
 
 <div
   class={cn(
-    layoutTypeStore.state === 'compact' && 'hover:bg-base-200 transition-colors',
+    !always_on_card && layoutTypeStore.state === 'compact' && 'hover:bg-base-200 transition-colors',
     'border-neutral bg-base-300 rounded-box relative flex flex-col overflow-hidden border'
   )}
 >
-  {#if layoutTypeStore.state === 'card'}
+  {#if always_on_card || layoutTypeStore.state === 'card'}
     <div
       class="hover:bg-base-200 group relative flex flex-col gap-1 p-4 transition-colors duration-75"
     >

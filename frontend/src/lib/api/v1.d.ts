@@ -625,7 +625,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/u/profiles/{id}/': {
+  '/u/profiles/{username}/': {
     parameters: {
       query?: never;
       header?: never;
@@ -645,7 +645,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/u/profiles/{id}/comments/': {
+  '/u/profiles/{username}/comments/': {
     parameters: {
       query?: never;
       header?: never;
@@ -662,7 +662,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/u/profiles/{id}/downvoted/': {
+  '/u/profiles/{username}/downvoted/': {
     parameters: {
       query?: never;
       header?: never;
@@ -679,7 +679,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/u/profiles/{id}/overview/': {
+  '/u/profiles/{username}/overview/': {
     parameters: {
       query?: never;
       header?: never;
@@ -696,7 +696,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/u/profiles/{id}/posts/': {
+  '/u/profiles/{username}/posts/': {
     parameters: {
       query?: never;
       header?: never;
@@ -713,7 +713,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/u/profiles/{id}/upvoted/': {
+  '/u/profiles/{username}/upvoted/': {
     parameters: {
       query?: never;
       header?: never;
@@ -1424,11 +1424,7 @@ export interface components {
      * @enum {string}
      */
     ClientErrorEnum: 'client_error';
-    CommentCreate: {
-      path?: string;
-      content: string;
-    };
-    CommentDetail: {
+    Comment: {
       readonly id: number;
       commenter: components['schemas']['ProfileBasic'] | null;
       ratio: number;
@@ -1440,6 +1436,26 @@ export interface components {
       readonly created_at: string;
       content: string;
       deleted?: boolean;
+      upvotes?: number[];
+      downvotes?: number[];
+    };
+    CommentCreate: {
+      path?: string;
+      content: string;
+    };
+    CommentOverview: {
+      readonly id: number;
+      readonly commenter: string;
+      readonly reply_to: string;
+      readonly is_op: string;
+      ratio: number;
+      readonly post: string;
+      /**
+       * Create at
+       * Format: date-time
+       */
+      readonly created_at: string;
+      content: string;
       upvotes?: number[];
       downvotes?: number[];
     };
@@ -1458,6 +1474,26 @@ export interface components {
        * @enum {string}
        */
       code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
+      detail: string;
+    };
+    CommentsPartialUpdateCommenterNameErrorComponent: {
+      /**
+       * @description * `commenter.name` - commenter.name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'commenter.name';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
       detail: string;
     };
     CommentsPartialUpdateCommenterNonFieldErrorsErrorComponent: {
@@ -1561,6 +1597,7 @@ export interface components {
       | components['schemas']['CommentsPartialUpdateCommenterNonFieldErrorsErrorComponent']
       | components['schemas']['CommentsPartialUpdateCommenterUsernameErrorComponent']
       | components['schemas']['CommentsPartialUpdateCommenterAvatarErrorComponent']
+      | components['schemas']['CommentsPartialUpdateCommenterNameErrorComponent']
       | components['schemas']['CommentsPartialUpdateRatioErrorComponent']
       | components['schemas']['CommentsPartialUpdatePathErrorComponent']
       | components['schemas']['CommentsPartialUpdateContentErrorComponent']
@@ -1705,6 +1742,26 @@ export interface components {
       code: 'empty' | 'invalid' | 'invalid_image' | 'max_length' | 'no_name';
       detail: string;
     };
+    CommentsUpdateCommenterNameErrorComponent: {
+      /**
+       * @description * `commenter.name` - commenter.name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'commenter.name';
+      /**
+       * @description * `invalid` - invalid
+       *     * `max_length` - max_length
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code:
+        | 'invalid'
+        | 'max_length'
+        | 'null_characters_not_allowed'
+        | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
     CommentsUpdateCommenterNonFieldErrorsErrorComponent: {
       /**
        * @description * `commenter.non_field_errors` - commenter.non_field_errors (enum property replaced by openapi-typescript)
@@ -1806,6 +1863,7 @@ export interface components {
       | components['schemas']['CommentsUpdateCommenterNonFieldErrorsErrorComponent']
       | components['schemas']['CommentsUpdateCommenterUsernameErrorComponent']
       | components['schemas']['CommentsUpdateCommenterAvatarErrorComponent']
+      | components['schemas']['CommentsUpdateCommenterNameErrorComponent']
       | components['schemas']['CommentsUpdateRatioErrorComponent']
       | components['schemas']['CommentsUpdatePathErrorComponent']
       | components['schemas']['CommentsUpdateContentErrorComponent']
@@ -1940,7 +1998,7 @@ export interface components {
     };
     Downvoted: {
       content_type: string;
-      readonly data: {
+      readonly content: {
         [key: string]: unknown;
       };
     };
@@ -1986,7 +2044,7 @@ export interface components {
     };
     Overview: {
       content_type: string;
-      readonly data: {
+      readonly content: {
         [key: string]: unknown;
       };
     };
@@ -2006,7 +2064,7 @@ export interface components {
       uid: string;
       token: string;
     };
-    PatchedCommentDetail: {
+    PatchedComment: {
       readonly id?: number;
       commenter?: components['schemas']['ProfileBasic'] | null;
       ratio?: number;
@@ -2074,8 +2132,7 @@ export interface components {
       readonly created_at?: string;
       /** @description Required. 25 characters or fewer. Letters, digits and ./_ only. */
       username?: string;
-      first_name?: string | null;
-      last_name?: string | null;
+      name?: string | null;
       bio?: string | null;
       /** Format: uri */
       banner?: string | null;
@@ -2784,8 +2841,7 @@ export interface components {
       readonly created_at: string;
       /** @description Required. 25 characters or fewer. Letters, digits and ./_ only. */
       username: string;
-      first_name?: string | null;
-      last_name?: string | null;
+      name?: string | null;
       bio?: string | null;
       /** Format: uri */
       banner?: string | null;
@@ -2796,7 +2852,7 @@ export interface components {
       username: string;
       /** Format: uri */
       avatar?: string | null;
-      readonly name: string | null;
+      name?: string | null;
     };
     ProfileTotalCount: {
       total_count: number;
@@ -3549,36 +3605,15 @@ export interface components {
       | components['schemas']['UMeProfilesCreateNonFieldErrorsErrorComponent']
       | components['schemas']['UMeProfilesCreateAvatarErrorComponent']
       | components['schemas']['UMeProfilesCreateUsernameErrorComponent']
-      | components['schemas']['UMeProfilesCreateFirstNameErrorComponent']
-      | components['schemas']['UMeProfilesCreateLastNameErrorComponent']
+      | components['schemas']['UMeProfilesCreateNameErrorComponent']
       | components['schemas']['UMeProfilesCreateBioErrorComponent']
       | components['schemas']['UMeProfilesCreateBannerErrorComponent'];
-    UMeProfilesCreateFirstNameErrorComponent: {
+    UMeProfilesCreateNameErrorComponent: {
       /**
-       * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
+       * @description * `name` - name (enum property replaced by openapi-typescript)
        * @enum {string}
        */
-      attr: 'first_name';
-      /**
-       * @description * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'invalid'
-        | 'max_length'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    UMeProfilesCreateLastNameErrorComponent: {
-      /**
-       * @description * `last_name` - last_name (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'last_name';
+      attr: 'name';
       /**
        * @description * `invalid` - invalid
        *     * `max_length` - max_length
@@ -3692,36 +3727,15 @@ export interface components {
       | components['schemas']['UMeProfilesPartialUpdateNonFieldErrorsErrorComponent']
       | components['schemas']['UMeProfilesPartialUpdateAvatarErrorComponent']
       | components['schemas']['UMeProfilesPartialUpdateUsernameErrorComponent']
-      | components['schemas']['UMeProfilesPartialUpdateFirstNameErrorComponent']
-      | components['schemas']['UMeProfilesPartialUpdateLastNameErrorComponent']
+      | components['schemas']['UMeProfilesPartialUpdateNameErrorComponent']
       | components['schemas']['UMeProfilesPartialUpdateBioErrorComponent']
       | components['schemas']['UMeProfilesPartialUpdateBannerErrorComponent'];
-    UMeProfilesPartialUpdateFirstNameErrorComponent: {
+    UMeProfilesPartialUpdateNameErrorComponent: {
       /**
-       * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
+       * @description * `name` - name (enum property replaced by openapi-typescript)
        * @enum {string}
        */
-      attr: 'first_name';
-      /**
-       * @description * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'invalid'
-        | 'max_length'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    UMeProfilesPartialUpdateLastNameErrorComponent: {
-      /**
-       * @description * `last_name` - last_name (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'last_name';
+      attr: 'name';
       /**
        * @description * `invalid` - invalid
        *     * `max_length` - max_length
@@ -3835,36 +3849,15 @@ export interface components {
       | components['schemas']['UMeProfilesUpdateNonFieldErrorsErrorComponent']
       | components['schemas']['UMeProfilesUpdateAvatarErrorComponent']
       | components['schemas']['UMeProfilesUpdateUsernameErrorComponent']
-      | components['schemas']['UMeProfilesUpdateFirstNameErrorComponent']
-      | components['schemas']['UMeProfilesUpdateLastNameErrorComponent']
+      | components['schemas']['UMeProfilesUpdateNameErrorComponent']
       | components['schemas']['UMeProfilesUpdateBioErrorComponent']
       | components['schemas']['UMeProfilesUpdateBannerErrorComponent'];
-    UMeProfilesUpdateFirstNameErrorComponent: {
+    UMeProfilesUpdateNameErrorComponent: {
       /**
-       * @description * `first_name` - first_name (enum property replaced by openapi-typescript)
+       * @description * `name` - name (enum property replaced by openapi-typescript)
        * @enum {string}
        */
-      attr: 'first_name';
-      /**
-       * @description * `invalid` - invalid
-       *     * `max_length` - max_length
-       *     * `null_characters_not_allowed` - null_characters_not_allowed
-       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
-       * @enum {string}
-       */
-      code:
-        | 'invalid'
-        | 'max_length'
-        | 'null_characters_not_allowed'
-        | 'surrogate_characters_not_allowed';
-      detail: string;
-    };
-    UMeProfilesUpdateLastNameErrorComponent: {
-      /**
-       * @description * `last_name` - last_name (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'last_name';
+      attr: 'name';
       /**
        * @description * `invalid` - invalid
        *     * `max_length` - max_length
@@ -3927,7 +3920,7 @@ export interface components {
     };
     Upvoted: {
       content_type: string;
-      readonly data: {
+      readonly content: {
         [key: string]: unknown;
       };
     };
@@ -4527,7 +4520,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['CommentDetail'];
+          'application/json': components['schemas']['Comment'];
         };
       };
       404: {
@@ -4560,9 +4553,9 @@ export interface operations {
     };
     requestBody: {
       content: {
-        'application/json': components['schemas']['CommentDetail'];
-        'application/x-www-form-urlencoded': components['schemas']['CommentDetail'];
-        'multipart/form-data': components['schemas']['CommentDetail'];
+        'application/json': components['schemas']['Comment'];
+        'application/x-www-form-urlencoded': components['schemas']['Comment'];
+        'multipart/form-data': components['schemas']['Comment'];
       };
     };
     responses: {
@@ -4571,7 +4564,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['CommentDetail'];
+          'application/json': components['schemas']['Comment'];
         };
       };
       400: {
@@ -4649,9 +4642,9 @@ export interface operations {
     };
     requestBody?: {
       content: {
-        'application/json': components['schemas']['PatchedCommentDetail'];
-        'application/x-www-form-urlencoded': components['schemas']['PatchedCommentDetail'];
-        'multipart/form-data': components['schemas']['PatchedCommentDetail'];
+        'application/json': components['schemas']['PatchedComment'];
+        'application/x-www-form-urlencoded': components['schemas']['PatchedComment'];
+        'multipart/form-data': components['schemas']['PatchedComment'];
       };
     };
     responses: {
@@ -4660,7 +4653,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['CommentDetail'];
+          'application/json': components['schemas']['Comment'];
         };
       };
       400: {
@@ -5008,7 +5001,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['CommentDetail'][];
+          'application/json': components['schemas']['Comment'][];
         };
       };
       404: {
@@ -5052,7 +5045,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['CommentDetail'][];
+          'application/json': components['schemas']['Comment'][];
         };
       };
       400: {
@@ -5888,8 +5881,7 @@ export interface operations {
       query?: never;
       header?: never;
       path: {
-        /** @description A unique integer value identifying this Profile. */
-        id: number;
+        username: string;
       };
       cookie?: never;
     };
@@ -5929,8 +5921,7 @@ export interface operations {
       };
       header?: never;
       path: {
-        /** @description A unique integer value identifying this Profile. */
-        id: number;
+        username: string;
       };
       cookie?: never;
     };
@@ -5941,7 +5932,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['CommentDetail'][];
+          'application/json': components['schemas']['CommentOverview'][];
         };
       };
       404: {
@@ -5970,8 +5961,7 @@ export interface operations {
       };
       header?: never;
       path: {
-        /** @description A unique integer value identifying this Profile. */
-        id: number;
+        username: string;
       };
       cookie?: never;
     };
@@ -6011,8 +6001,7 @@ export interface operations {
       };
       header?: never;
       path: {
-        /** @description A unique integer value identifying this Profile. */
-        id: number;
+        username: string;
       };
       cookie?: never;
     };
@@ -6052,8 +6041,7 @@ export interface operations {
       };
       header?: never;
       path: {
-        /** @description A unique integer value identifying this Profile. */
-        id: number;
+        username: string;
       };
       cookie?: never;
     };
@@ -6093,8 +6081,7 @@ export interface operations {
       };
       header?: never;
       path: {
-        /** @description A unique integer value identifying this Profile. */
-        id: number;
+        username: string;
       };
       cookie?: never;
     };
