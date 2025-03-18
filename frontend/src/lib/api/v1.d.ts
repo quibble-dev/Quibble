@@ -1443,6 +1443,22 @@ export interface components {
       path?: string;
       content: string;
     };
+    CommentOverview: {
+      readonly id: number;
+      readonly commenter: string;
+      readonly reply_to: string;
+      readonly is_op: string;
+      ratio: number;
+      readonly post: string;
+      /**
+       * Create at
+       * Format: date-time
+       */
+      readonly created_at: string;
+      content: string;
+      upvotes?: number[];
+      downvotes?: number[];
+    };
     CommentsPartialUpdateCommenterAvatarErrorComponent: {
       /**
        * @description * `commenter.avatar` - commenter.avatar (enum property replaced by openapi-typescript)
@@ -5916,7 +5932,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Comment'][];
+          'application/json': components['schemas']['CommentOverview'][];
         };
       };
       404: {

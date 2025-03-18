@@ -8,7 +8,7 @@ from rest_framework import exceptions, filters, permissions, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from apps.api.serializers.comment import CommentSerializer
+from apps.api.serializers.comment import CommentOverviewSerializer, CommentSerializer
 from apps.api.serializers.post import PostSerializer
 from apps.api.serializers.user.profile import (
     ProfileSerializer,
@@ -38,7 +38,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_classes = {
         "overview": OverviewSerializer,
         "posts": PostSerializer,
-        "comments": CommentSerializer,
+        "comments": CommentOverviewSerializer,
         "upvoted": UpvotedSerializer,
         "downvoted": DownvotedSerializer,
     }
@@ -85,7 +85,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
         serialized_data = self.get_serializer(posts, context={"request": request}, many=True).data
         return Response(serialized_data)
 
-    @extend_schema(responses=CommentSerializer(many=True))
+    @extend_schema(responses=CommentOverviewSerializer(many=True))
     @action(detail=True, methods=[HTTPMethod.GET])
     def comments(self, request, username=None):
         """Returns a list of comments by the user, ordered by date."""
