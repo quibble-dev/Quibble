@@ -60,7 +60,7 @@
         <a
           href={`${base_path}/${key}`}
           class={cn(
-            active && 'bg-base-200',
+            active && 'btn-active',
             item.disabled && 'btn-disabled pointer-events-none',
             'btn btn-ghost h-max p-2.5'
           )}>{item.label}</a
@@ -89,7 +89,7 @@
       <coreicons-shape-gift class="size-4"></coreicons-shape-gift>
       Cake day, {new FormatDate(profile?.created_at ?? '').format()}
     </div>
-    <div class="divider before:h-px after:h-px"></div>
+    <div class="divider my-0 before:h-px after:h-px"></div>
     <LegalLinks />
   </div>
 </div>
