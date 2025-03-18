@@ -2,6 +2,7 @@
   import autosize from '$lib/actions/autosize';
   import type { components } from '$lib/api';
   import { cn } from '$lib/functions/classnames';
+  import { createAuthStore } from '$lib/stores/auth.svelte';
   import { CommentCreateSchema } from '../schemas';
   import { onMount } from 'svelte';
   import { defaults, superForm } from 'sveltekit-superforms';
@@ -14,6 +15,8 @@
     oncancel: () => void;
     oncomment: (data: { comment: Comment }) => void;
   };
+
+  const authStore = createAuthStore();
 
   let { path, oncancel, oncomment }: Props = $props();
   let textarea_el = $state<HTMLTextAreaElement>();
@@ -50,7 +53,10 @@
     ></textarea>
     <div class="flex w-full items-center gap-2 p-2">
       <button type="button" class="btn btn-ghost btn-sm ml-auto" onclick={oncancel}>Cancel</button>
-      <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary btn-sm')}>
+      <button
+        class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary btn-sm')}
+        disabled={!authStore.state.is_authenticated}
+      >
         Comment
         {#if $delayed}
           <span class="loading loading-spinner loading-xs"></span>
