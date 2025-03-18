@@ -8,7 +8,7 @@ from rest_framework import exceptions, filters, permissions, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
-from apps.api.serializers.comment import CommentOverviewSerializer, CommentSerializer
+from apps.api.serializers.comment import CommentOverviewSerializer
 from apps.api.serializers.post import PostSerializer
 from apps.api.serializers.user.profile import (
     ProfileSerializer,
