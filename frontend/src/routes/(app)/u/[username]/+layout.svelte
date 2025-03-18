@@ -10,23 +10,33 @@
   const types = {
     '': {
       label: 'Overview',
-      disabled: false
+      disabled: false,
+      class: 'flex'
     },
     posts: {
       label: 'Posts',
-      disabled: false
+      disabled: false,
+      class: 'flex'
     },
     comments: {
       label: 'Comments',
-      disabled: false
+      disabled: false,
+      class: 'flex'
+    },
+    saved: {
+      label: 'Saved',
+      disabled: true,
+      class: 'hidden sm:flex'
     },
     upvoted: {
       label: 'Upvoted',
-      disabled: true
+      disabled: true,
+      class: 'hidden sm:flex md:hidden xl:flex'
     },
     downvoted: {
       label: 'Downvoted',
-      disabled: true
+      disabled: true,
+      class: 'hidden sm:flex md:hidden xl:flex'
     }
   };
 
@@ -52,11 +62,11 @@
       <span class="text-sm">u/{profile?.username}</span>
     </div>
   </div>
-  <div class="flex items-center gap-2">
+  <div class="flex flex-wrap items-center gap-2">
     {#each Object.entries(types) as [key, item]}
       {@const active = check_is_active(key)}
 
-      <div class="relative flex flex-col items-center">
+      <div class={cn(item.class, 'relative flex-col items-center')}>
         <a
           href={`${base_path}/${key}`}
           class={cn(
