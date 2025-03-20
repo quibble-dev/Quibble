@@ -10,18 +10,13 @@
 
   type Props = Partial<{
     class: string;
-    title: string;
     head_message: string;
     message: string;
     fallback_options: FallbackOptions;
   }>;
 
-  const { class: _class, title, head_message, message, fallback_options }: Props = $props();
+  const { class: _class, head_message, message, fallback_options }: Props = $props();
 </script>
-
-<svelte:head>
-  <title>{title ?? 'Not Found'}</title>
-</svelte:head>
 
 <div class={cn(_class, 'flex flex-1 items-end justify-center gap-5')}>
   <Quibble404 class="h-auto w-28" />
