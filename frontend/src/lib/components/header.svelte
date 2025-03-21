@@ -73,7 +73,7 @@
     {#if authStore.state.is_authenticated}
       <div class="tooltip tooltip-bottom" data-tip="Create a Post">
         <a
-          href="/submit"
+          href="/submit?type=TEXT"
           aria-label="Create a Post"
           class="btn md:btn-primary btn-square md:btn-wide md:px-3"
         >
@@ -87,10 +87,51 @@
         </button>
       </div>
       <div class="tooltip tooltip-bottom flex before:left-0!" data-tip="Profile menu">
-        <Avatar
-          class="btn btn-neutral rounded-btn size-10 border-none p-0"
-          src={authStore.state.user?.profile.avatar}
-        />
+        <div class="dropdown dropdown-end">
+          <div tabindex="0" role="button">
+            <Avatar
+              class="btn btn-neutral rounded-btn size-10 border-none p-0"
+              src={authStore.state.user?.profile.avatar}
+            />
+          </div>
+          <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+          <ul
+            tabindex="0"
+            class="menu dropdown-content bg-base-100 rounded-box z-10 mt-2 min-w-40 gap-1 p-1.5"
+          >
+            <li>
+              <a href="/u/{authStore.state.user?.profile.username}" class="flex items-center gap-2">
+                <div class="grid w-6 place-items-center">
+                  <Avatar src={authStore.state.user?.profile.avatar} />
+                </div>
+                <div class="flex flex-col">
+                  <span class="text-info font-medium">View Profile</span>
+                  <span class="text-base-content/75 text-xs"
+                    >u/{authStore.state.user?.profile.username}<span> </span></span
+                  >
+                </div>
+              </a>
+            </li>
+            <li>
+              <button class="flex items-center gap-2">
+                <div class="grid w-6 place-items-center">
+                  <coreicons-shape-settings variant="outline" class="size-4"
+                  ></coreicons-shape-settings>
+                </div>
+                <span class="text-info font-medium">Settings</span>
+              </button>
+            </li>
+            <div class="divider my-0 h-max before:h-px after:h-px"></div>
+            <li>
+              <button class="flex items-center gap-2">
+                <div class="grid w-6 place-items-center">
+                  <coreicons-shape-log-out class="size-4"></coreicons-shape-log-out>
+                </div>
+                <span class="text-info font-medium whitespace-nowrap">Log out</span>
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
     {:else}
       <a href="/register?ref=header" class="btn">Sign up</a>

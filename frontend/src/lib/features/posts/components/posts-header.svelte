@@ -69,7 +69,7 @@
         <coreicons-shape-chevron variant="down" class="size-4"></coreicons-shape-chevron>
       </div>
       <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-      <ul tabindex="0" class="menu dropdown-content bg-base-100 z-10 mt-2 gap-1 rounded-2xl p-1.5">
+      <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box z-10 mt-2 gap-1 p-1.5">
         {#each Object.entries(mapping.view) as [key, item]}
           {@const is_active = active_view === key}
           <li>
