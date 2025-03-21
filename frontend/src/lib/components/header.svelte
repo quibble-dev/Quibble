@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from '$app/state';
+  import api from '$lib/api';
   import ChartBarsIcon from '$lib/components/icons/chart-bars.svelte';
   import QuibbleTextLogo from '$lib/components/icons/logos/quibble-text.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
@@ -18,6 +19,11 @@
   );
 
   const authStore = createAuthStore();
+
+  async function handle_log_out_click() {
+    const { response } = await api.POST('/auth/logout/');
+    if (response.ok) window.location.reload();
+  }
 </script>
 
 <header
@@ -123,7 +129,7 @@
             </li>
             <div class="divider my-0 h-max before:h-px after:h-px"></div>
             <li>
-              <button class="flex items-center gap-2">
+              <button class="flex items-center gap-2" onclick={handle_log_out_click}>
                 <div class="grid w-6 place-items-center">
                   <coreicons-shape-log-out class="size-4"></coreicons-shape-log-out>
                 </div>
