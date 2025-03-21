@@ -70,7 +70,7 @@
         <a
           href={`${base_path}/${key}`}
           class={cn(
-            active && 'btn-active',
+            active && 'bg-base-content/15 btn-active',
             item.disabled && 'btn-disabled pointer-events-none',
             'btn btn-ghost h-max p-2.5'
           )}>{item.label}</a
@@ -89,12 +89,16 @@
   <div
     class="scrollbar-none fixed top-[3.75rem] flex h-[calc(100dvh-3.75rem)] w-80 flex-col gap-2 overflow-y-scroll p-4"
   >
-    <div
-      class="bg-neutral rounded-box h-20 bg-cover bg-center bg-no-repeat"
-      style="background-image: url({profile?.banner});"
-    ></div>
+    {#if profile?.banner}
+      <div
+        class="bg-neutral rounded-box h-20 bg-cover bg-center bg-no-repeat"
+        style="background-image: url({profile.banner});"
+      ></div>
+    {/if}
     <h3 class="font-medium">{profile?.name ?? `u/${profile?.username}`}</h3>
-    <p class="text-base-content/75 text-sm">{profile?.bio}</p>
+    {#if profile?.bio}
+      <p class="text-base-content/75 text-sm">{profile.bio}</p>
+    {/if}
     <div class="flex items-center gap-2 text-xs">
       <coreicons-shape-gift class="size-4"></coreicons-shape-gift>
       Cake day, {new FormatDate(profile?.created_at ?? '').format()}
