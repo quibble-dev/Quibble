@@ -2,7 +2,7 @@ from django.urls import include, path
 from rest_framework import routers
 
 from .views.user import MeAPIView
-from .views.user.auth import LogoutAPIView, SelectProfileAPIView
+from .views.user.auth import GoogleLogin, LogoutAPIView, SelectProfileAPIView
 from .viewsets.comment import CommentViewSet
 from .viewsets.community import CommunityViewSet
 from .viewsets.community.topics import TopicViewSet
@@ -33,6 +33,8 @@ urlpatterns = [
     path('auth/', include('dj_rest_auth.urls')),
     path('auth/', include('django.contrib.auth.urls')),
     path('auth/registration/', include('dj_rest_auth.registration.urls')),
+    # social
+    path('auth/google/', GoogleLogin.as_view(), name='google-login')
 ]
 # fmt: on
 

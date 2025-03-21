@@ -1,3 +1,5 @@
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from dj_rest_auth.registration.views import SocialLoginView
 from dj_rest_auth.views import LogoutView as RestAuthLogoutAPIView
 from django.conf import settings
 from django.utils import timezone
@@ -5,6 +7,8 @@ from rest_framework import generics, permissions, views
 from rest_framework.response import Response
 
 from apps.user.models import Profile
+
+from ...clients import CustomOAuth2Client
 
 
 class SelectProfileAPIView(views.APIView):
@@ -45,3 +49,9 @@ class LogoutAPIView(RestAuthLogoutAPIView):
         response.delete_cookie('profile-id', samesite='Lax')
 
         return response
+
+
+class GoogleLogin(SocialLoginView):
+    adapter_class = GoogleOAuth2Adapter
+    callback_url = settings.OAUTH_CALLBACK_URL
+    client_class = CustomOAuth2Client

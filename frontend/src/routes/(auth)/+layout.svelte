@@ -1,12 +1,13 @@
 <script lang="ts" module>
-  type RenderType = 'select' | 'create' | 'code';
+  const RENDER_TYPE = ['select', 'create', 'code'] as const;
+  type RenderType = (typeof RENDER_TYPE)[number];
 
   export interface Data {
     type: RenderType;
     email?: string;
   }
 
-  const type_titles: Record<string, string> = {
+  const TYPE_TITLES: Record<string, string> = {
     '/login': 'Sign in',
     '/register': 'Sign up',
     '/password': 'Password'
@@ -15,11 +16,12 @@
 
 <script lang="ts">
   import { page } from '$app/state';
+  import { PUBLIC_GOOGLE_OAUTH_CLIENT_ID, PUBLIC_OAUTH_CALLBACK_URL } from '$env/static/public';
   import GoogleLogo from '$lib/components/icons/logos/google.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import { ProfileSelect, ProfileCreate, Code } from '$lib/features/auth';
   import type { Nullable } from '$lib/types/shared';
-  import { setContext } from 'svelte';
+  import { onMount, setContext } from 'svelte';
 
   let { children } = $props();
 
@@ -32,6 +34,24 @@
     data = { ..._data };
     render_type = _data.type;
   }
+
+  function handle_google_click() {
+    window.location.replace(
+      `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${PUBLIC_OAUTH_CALLBACK_URL}&prompt=consent&response_type=code&client_id=${PUBLIC_GOOGLE_OAUTH_CLIENT_ID}&scope=openid%20email%20profile&access_type=offline`
+    );
+  }
+
+  function is_render_type(type: string): type is RenderType {
+    return RENDER_TYPE.includes(type as RenderType);
+  }
+
+  onMount(() => {
+    const type_param = page.url.searchParams.get('type');
+    console.log(type_param);
+    if (type_param && is_render_type(type_param)) {
+      render_type = type_param;
+    }
+  });
 </script>
 
 <div class="relative flex flex-1 items-center justify-center p-4">
@@ -42,7 +62,7 @@
     <div class="rounded-box bg-base-300 grid w-[40rem] grid-cols-2 gap-5 p-8">
       <div class="flex flex-col gap-2">
         <a href="/" class="w-max"><QuibbleLogo class="size-7" /></a>
-        <h2 class="text-info text-3xl font-medium">{type_titles[page.url.pathname]}</h2>
+        <h2 class="text-info text-3xl font-medium">{TYPE_TITLES[page.url.pathname]}</h2>
         <span class="flex flex-col text-sm">
           {#if render_type === 'select'}
             Who's quibbling? You can later switch b/w profiles from settings page.
@@ -74,11 +94,11 @@
           {@render children()}
           <div class="divider text-xs font-bold uppercase">or</div>
           <div class="flex gap-2">
-            <button class="btn flex-1" aria-label="Login with Google">
+            <button class="btn flex-1" aria-label="Login with Google" onclick={handle_google_click}>
               <GoogleLogo class="size-5" />
               Google
             </button>
-            <button class="btn flex-1" aria-label="Login with Github">
+            <button class="btn flex-1" aria-label="Login with Github" disabled>
               <coreicons-logo-github class="size-5"></coreicons-logo-github>
               Github
             </button>

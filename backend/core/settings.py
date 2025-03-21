@@ -47,6 +47,7 @@ THIRD_PARTY_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'dj_rest_auth',
     'dj_rest_auth.registration',
     # django filtering
@@ -106,6 +107,9 @@ ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
 ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+
+# OAuth creds
+OAUTH_CALLBACK_URL = os.getenv('OAUTH_CALLBACK_URL')
 
 # mail settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
