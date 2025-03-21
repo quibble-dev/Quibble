@@ -15,8 +15,16 @@ export const load: PageServerLoad = async ({ request, url, cookies }) => {
       const set_cookie_header = response.headers.getSetCookie();
       set_cookies_from_header(set_cookie_header, cookies);
 
+      // manually construct cookie for next request
+      const cookies_to_send = cookies
+        .getAll()
+        .map((cookie) => `${cookie.name}=${cookie.value}`)
+        .join('; ');
+
       // check profiles
-      const { data } = await api.GET('/u/me/profiles/total-count/');
+      const { data } = await api.GET('/u/me/profiles/total-count/', {
+        headers: { Cookie: cookies_to_send }
+      });
       const type = data && data.total_count > 0 ? 'select' : 'create';
 
       redirect(303, `/login?type=${type}&ref=callback`);
