@@ -4,6 +4,42 @@
  */
 
 export interface paths {
+  '/auth/google/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** @description class used for social authentications
+     *     example usage for facebook with access_token
+     *     -------------
+     *     from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+     *
+     *     class FacebookLogin(SocialLoginView):
+     *         adapter_class = FacebookOAuth2Adapter
+     *     -------------
+     *
+     *     example usage for facebook with code
+     *
+     *     -------------
+     *     from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+     *     from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+     *
+     *     class FacebookLogin(SocialLoginView):
+     *         adapter_class = FacebookOAuth2Adapter
+     *         client_class = OAuth2Client
+     *         callback_url = 'localhost:8000'
+     *     ------------- */
+    post: operations['auth_google_create'];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/auth/login/': {
     parameters: {
       query?: never;
@@ -734,6 +770,77 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
+    AuthGoogleCreateAccessTokenErrorComponent: {
+      /**
+       * @description * `access_token` - access_token (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'access_token';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code: 'invalid' | 'null' | 'null_characters_not_allowed' | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    AuthGoogleCreateCodeErrorComponent: {
+      /**
+       * @description * `code` - code (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'code';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code: 'invalid' | 'null' | 'null_characters_not_allowed' | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    AuthGoogleCreateError:
+      | components['schemas']['AuthGoogleCreateNonFieldErrorsErrorComponent']
+      | components['schemas']['AuthGoogleCreateAccessTokenErrorComponent']
+      | components['schemas']['AuthGoogleCreateCodeErrorComponent']
+      | components['schemas']['AuthGoogleCreateIdTokenErrorComponent'];
+    AuthGoogleCreateIdTokenErrorComponent: {
+      /**
+       * @description * `id_token` - id_token (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'id_token';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       *     * `null_characters_not_allowed` - null_characters_not_allowed
+       *     * `surrogate_characters_not_allowed` - surrogate_characters_not_allowed
+       * @enum {string}
+       */
+      code: 'invalid' | 'null' | 'null_characters_not_allowed' | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    AuthGoogleCreateNonFieldErrorsErrorComponent: {
+      /**
+       * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'non_field_errors';
+      /**
+       * @description * `invalid` - invalid
+       *     * `null` - null
+       * @enum {string}
+       */
+      code: 'invalid' | 'null';
+      detail: string;
+    };
+    AuthGoogleCreateValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['AuthGoogleCreateError'][];
+    };
     AuthLoginCreateEmailErrorComponent: {
       /**
        * @description * `email` - email (enum property replaced by openapi-typescript)
@@ -3524,6 +3631,11 @@ export interface components {
      * @enum {string}
      */
     ServerErrorEnum: 'server_error';
+    SocialLogin: {
+      access_token?: string;
+      code?: string;
+      id_token?: string;
+    };
     /** @description Serializer for a response with a `"success"` boolean.
      *     Typically used for confirming successful operations. */
     SuccessResponse: {
@@ -3963,6 +4075,47 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+  auth_google_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: {
+      content: {
+        'application/json': components['schemas']['SocialLogin'];
+        'application/x-www-form-urlencoded': components['schemas']['SocialLogin'];
+        'multipart/form-data': components['schemas']['SocialLogin'];
+      };
+    };
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['SocialLogin'];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['AuthGoogleCreateValidationError'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
   auth_login_create: {
     parameters: {
       query?: never;
