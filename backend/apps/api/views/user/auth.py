@@ -53,5 +53,5 @@ class LogoutAPIView(RestAuthLogoutAPIView):
 
 class GoogleLogin(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
-    callback_url = settings.SOCIAL_LOGIN_CALLBACK_URL
+    callback_url = settings.OAUTH_CALLBACK_URL
     client_class = CustomOAuth2Client

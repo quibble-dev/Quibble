@@ -108,8 +108,8 @@ ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 
-# social login
-SOCIAL_LOGIN_CALLBACK_URL = os.getenv('SOCIAL_LOGIN_CALLBACK_URL')
+# OAuth creds
+OAUTH_CALLBACK_URL = os.getenv('OAUTH_CALLBACK_URL')
 
 # mail settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
