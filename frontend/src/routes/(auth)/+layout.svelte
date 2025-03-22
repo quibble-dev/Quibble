@@ -59,7 +59,7 @@
     class="bg-base-100 absolute inset-0 [mask-image:url('/assets/svgs/standalone-auth-bg.svg')] [mask-size:cover]"
   ></div>
   <div class="relative flex flex-col gap-2">
-    <div class="rounded-box bg-base-300 grid grid-cols-1 gap-5 p-8 md:w-[40rem] md:grid-cols-2">
+    <div class="rounded-box bg-base-300 grid gap-5 p-8 md:w-[40rem] md:grid-cols-2">
       <div class="flex flex-col gap-2">
         <a href="/" class="w-max"><QuibbleLogo class="size-7" /></a>
         <h2 class="text-info text-3xl font-medium">{TYPE_TITLES[page.url.pathname]}</h2>
