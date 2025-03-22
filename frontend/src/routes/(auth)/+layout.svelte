@@ -59,7 +59,7 @@
     class="bg-base-100 absolute inset-0 [mask-image:url('/assets/svgs/standalone-auth-bg.svg')] [mask-size:cover]"
   ></div>
   <div class="relative flex flex-col gap-2">
-    <div class="rounded-box bg-base-300 grid w-[40rem] grid-cols-2 gap-5 p-8">
+    <div class="rounded-box bg-base-300 grid gap-5 p-8 md:w-[40rem] md:grid-cols-2">
       <div class="flex flex-col gap-2">
         <a href="/" class="w-max"><QuibbleLogo class="size-7" /></a>
         <h2 class="text-info text-3xl font-medium">{TYPE_TITLES[page.url.pathname]}</h2>
@@ -92,7 +92,9 @@
           <Code email={data?.email} onback={() => (render_type = null)} />
         {:else}
           {@render children()}
-          <div class="divider text-xs font-bold uppercase">or</div>
+          <div class="divider my-0 h-max text-xs font-bold uppercase before:h-px after:h-px">
+            or
+          </div>
           <div class="flex gap-2">
             <button class="btn flex-1" aria-label="Login with Google" onclick={handle_google_click}>
               <GoogleLogo class="size-5" />
