@@ -38,6 +38,8 @@ django-ltree-2 = "^0.1.10"
 # 3rd party authentication
 djangorestframework-simplejwt = "^5.5.0"
 dj-rest-auth = {extras = ["with-social"], version = "^7.0.1"}
+# 3rd party static file server
+whitenoise = "^6.9.0"
 
 [tool.poetry.group.dev.dependencies]
 # task runner
@@ -71,6 +73,8 @@ dev = "python ./manage.py runserver"
 sync = "python ./manage.py migrate"
 mksync = "python ./manage.py makemigrations"
 createsuperuser = "python ./manage.py createsuperuser"
+# static files
+collectstatic = "python ./manage.py collectstatic --no-input"
 # test and coverage
 test = "pytest --cov-config=./.coveragerc --cov=./ ./tests/"
 # django extentions
