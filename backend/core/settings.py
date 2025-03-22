@@ -9,7 +9,8 @@ from dotenv import load_dotenv
 # monkeypatch django types
 django_stubs_ext.monkeypatch()
 # load envs
-load_dotenv()
+env_file = os.getenv('ENV_FILE', '.env')
+load_dotenv(env_file)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
