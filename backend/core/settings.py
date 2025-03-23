@@ -319,6 +319,10 @@ CORS_ALLOWED_ORIGINS = CSRF_TRUSTED_ORIGINS = [
     'http://localhost:5173',
 ]
 
+for entry in ALLOWED_HOSTS:
+    CORS_ALLOWED_ORIGINS.append(f'https://{entry}')
+    CSRF_TRUSTED_ORIGINS.append(f'https://{entry}')
+
 # max no:of profiles a user can create
 PROFILE_LIMIT = 3
 
