@@ -1,0 +1,8 @@
+{% load i18n %}{% autoescape off %}Hello from Quibble!
+
+{% block content %}{% endblock content %}
+
+Thank you for using Quibble!
+Happy Quibbling,
+The Quibble Team
+{% endautoescape %}
