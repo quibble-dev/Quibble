@@ -27,7 +27,7 @@ DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
-if hosts := os.getenv('ALLOWED_HOSTS'):
+if hosts := os.getenv('DJANGO_ALLOWED_HOSTS'):
     host = hosts.split(' ')
     ALLOWED_HOSTS += host
 
@@ -319,9 +319,10 @@ CORS_ALLOWED_ORIGINS = CSRF_TRUSTED_ORIGINS = [
     'http://localhost:5173',
 ]
 
-for entry in ALLOWED_HOSTS:
-    CORS_ALLOWED_ORIGINS.append(f'https://{entry}')
-    CSRF_TRUSTED_ORIGINS.append(f'https://{entry}')
+if origins := os.getenv('DJANGO_ALLOWED_ORIGINS'):
+    origin = origins.split(' ')
+    CORS_ALLOWED_ORIGINS += origin
+    CSRF_TRUSTED_ORIGINS += origin
 
 # max no:of profiles a user can create
 PROFILE_LIMIT = 3
