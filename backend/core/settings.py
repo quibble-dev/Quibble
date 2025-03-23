@@ -112,20 +112,18 @@ ACCOUNT_EMAIL_VERIFICATION_BY_CODE_ENABLED = True
 ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_SUBJECT_PREFIX = '[Quibble] '
+ACCOUNT_ADAPTER = 'core.adapters.CustomAccountAdapter'
 
 # OAuth creds
 OAUTH_CALLBACK_URL = os.getenv('OAUTH_CALLBACK_URL')
 
-# mail settings
+# sendgrid and mail settings
+EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+DEFAULT_FROM_EMAIL = os.getenv('SENDGRID_EMAIL')
 if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-else:
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = os.getenv('SMPT_EMAIL_HOST')
-    EMAIL_PORT = os.getenv('SMPT_EMAIL_PORT')
-    EMAIL_USE_TLS = os.getenv('SMPT_EMAIL_USE_TLS', 'True').lower() == 'true'
-    EMAIL_HOST_USER = os.getenv('SMPT_EMAIL_HOST_USER')
-    EMAIL_HOST_PASSWORD = os.getenv('SMPT_EMAIL_HOST_PASSWORD')
+    SENDGRID_ECHO_TO_STDOUT = True
 
 # JWT settings
 SIMPLE_JWT = {
@@ -315,9 +313,8 @@ AUTHENTICATION_BACKENDS = [
 # https://pypi.org/project/django-cors-headers/
 
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:5173',
-]
+CORS_ALLOWED_ORIGINS = []
+CSRF_TRUSTED_ORIGINS = []
 
 if origins := os.getenv('DJANGO_ALLOWED_ORIGINS'):
     origin = origins.split(' ')
