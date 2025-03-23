@@ -117,7 +117,15 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 OAUTH_CALLBACK_URL = os.getenv('OAUTH_CALLBACK_URL')
 
 # mail settings
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = os.getenv('SMPT_EMAIL_HOST')
+    EMAIL_PORT = os.getenv('SMPT_EMAIL_PORT')
+    EMAIL_USE_TLS = os.getenv('SMPT_EMAIL_USE_TLS', 'True').lower() == 'true'
+    EMAIL_HOST_USER = os.getenv('SMPT_EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.getenv('SMPT_EMAIL_HOST_PASSWORD')
 
 # JWT settings
 SIMPLE_JWT = {
