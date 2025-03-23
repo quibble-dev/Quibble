@@ -40,6 +40,8 @@ djangorestframework-simplejwt = "^5.5.0"
 dj-rest-auth = {extras = ["with-social"], version = "^7.0.1"}
 # 3rd party static file server
 whitenoise = "^6.9.0"
+# 3rd party mail service
+django-sendgrid-v5 = "^1.2.4"
 
 [tool.poetry.group.dev.dependencies]
 # task runner
