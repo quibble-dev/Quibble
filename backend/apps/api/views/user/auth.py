@@ -7,8 +7,7 @@ from rest_framework import generics, permissions, views
 from rest_framework.response import Response
 
 from apps.user.models import Profile
-
-from ...clients import CustomOAuth2Client
+from core.clients import CustomOAuth2Client
 
 
 class SelectProfileAPIView(views.APIView):
