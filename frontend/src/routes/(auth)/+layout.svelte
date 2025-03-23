@@ -21,7 +21,7 @@
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import { ProfileSelect, ProfileCreate, Code } from '$lib/features/auth';
   import type { Nullable } from '$lib/types/shared';
-  import { onMount, setContext, untrack } from 'svelte';
+  import { setContext, untrack } from 'svelte';
 
   let { children } = $props();
 
