@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import { page } from '$app/state';
   import api from '$lib/api';
   import { toast } from '$lib/components/ui/toast';
@@ -21,7 +22,18 @@
   const { form, enhance, delayed, errors, message } = superForm(data.form, {
     resetForm: false,
     async onResult({ result }) {
-      if (result.type === 'success') {
+      // if e-mail address is not verified
+      if (
+        result.type === 'failure' &&
+        result.data &&
+        result.data.form.message.includes('not verified')
+      ) {
+        const email = result.data.form.data.email;
+        const { response } = await api.POST('/auth/registration/resend-email/', {
+          body: { email }
+        });
+        if (response.ok) goto(`/register/?type=code&email=${email}`);
+      } else if (result.type === 'success') {
         const { data } = await api.GET('/u/me/profiles/total-count/');
         // if no profiles- show creation form, otherwise- show selection
         const type: Data['type'] = data && data.total_count > 0 ? 'select' : 'create';

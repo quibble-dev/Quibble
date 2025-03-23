@@ -72,16 +72,19 @@
       <span class="text-error flex items-center gap-2 text-xs">{$errors.code[0]}</span>
     {/if}
   </fieldset>
-  <div class="flex flex-col gap-1">
-    <div class="flex items-center gap-2 text-xs">
-      Didn't get an e-mail?
-      <button
-        type="button"
-        class="btn btn-ghost btn-xs"
-        disabled={is_resend_disabled}
-        onclick={handle_resend_click}
-        >{is_resend_disabled ? `Resend in ${countdown}s` : `Resend`}</button
-      >
+  <div class="flex flex-col gap-2">
+    <div class="flex flex-col">
+      <div class="flex items-center gap-2 text-xs">
+        Didn't get an e-mail?
+        <button
+          type="button"
+          class="btn btn-ghost btn-xs"
+          disabled={is_resend_disabled}
+          onclick={handle_resend_click}
+          >{is_resend_disabled ? `Resend in ${countdown}s` : `Resend`}</button
+        >
+      </div>
+      <span class="text-xs">NOTE: you also might need to check in spams.</span>
     </div>
     <div class="flex items-center gap-4">
       <button type="button" class="btn flex-1" aria-label="Back" onclick={onback}>

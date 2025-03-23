@@ -21,7 +21,7 @@
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import { ProfileSelect, ProfileCreate, Code } from '$lib/features/auth';
   import type { Nullable } from '$lib/types/shared';
-  import { onMount, setContext } from 'svelte';
+  import { onMount, setContext, untrack } from 'svelte';
 
   let { children } = $props();
 
@@ -45,10 +45,11 @@
     return RENDER_TYPE.includes(type as RenderType);
   }
 
-  onMount(() => {
+  $effect(() => {
     const type_param = page.url.searchParams.get('type');
-    console.log(type_param);
     if (type_param && is_render_type(type_param)) {
+      const email_param = page.url.searchParams.get('email');
+      if (email_param) data = { ...untrack(() => data as Data), email: email_param };
       render_type = type_param;
     }
   });
