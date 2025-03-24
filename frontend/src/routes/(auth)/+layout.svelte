@@ -20,7 +20,7 @@
   import { PUBLIC_GOOGLE_OAUTH_CLIENT_ID, PUBLIC_OAUTH_CALLBACK_URL } from '$env/static/public';
   import GoogleLogo from '$lib/components/icons/logos/google.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
-  import { ProfileSelect, ProfileCreate } from '$lib/features/auth';
+  import { ProfileCreation, ProfileSelection } from '$lib/features/auth/components';
   import type { Nullable } from '$lib/types/shared';
   import { setContext } from 'svelte';
 
@@ -68,14 +68,14 @@
       </div>
       <div class="flex flex-col gap-2">
         {#if render_type === 'select'}
-          <ProfileSelect
+          <ProfileSelection
             onclick={(type) => {
               if (type === 'back') render_type = null;
               else if (type === 'create') render_type = 'create';
             }}
           />
         {:else if render_type === 'create'}
-          <ProfileCreate
+          <ProfileCreation
             onback={() => (render_type = 'select')}
             onsuccess={() => (render_type = 'select')}
           />
