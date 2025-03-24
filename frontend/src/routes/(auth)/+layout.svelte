@@ -1,6 +1,5 @@
 <script lang="ts" module>
-  const RENDER_TYPE = ['select', 'create', 'code'] as const;
-  type RenderType = (typeof RENDER_TYPE)[number];
+  type RenderType = 'select' | 'create';
 
   export interface Data {
     type: RenderType;
@@ -26,13 +25,10 @@
 
   let { children } = $props();
 
-  let data = $state<Nullable<Data>>(null);
   let render_type = $state<Nullable<RenderType>>(null);
 
   setContext('handle_success', handle_success);
-
   function handle_success(_data: Data) {
-    data = { ..._data };
     render_type = _data.type;
   }
 
