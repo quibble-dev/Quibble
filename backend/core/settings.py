@@ -141,6 +141,7 @@ REST_AUTH = {
     'JWT_AUTH_SECURE': not DEBUG,
     'JWT_AUTH_HTTPONLY': True,
     'JWT_AUTH_SAMESITE': 'None' if not DEBUG else 'Lax',
+    'JWT_AUTH_COOKIE_DOMAIN': os.getenv('DJANGO_COOKIE_DOMAIN'),
     # serializers
     'REGISTER_SERIALIZER': 'apps.api.serializers.user.auth.RegisterSerializer',
     'LOGIN_SERIALIZER': 'apps.api.serializers.user.auth.LoginSerializer',
@@ -314,9 +315,11 @@ AUTHENTICATION_BACKENDS = [
 
 SESSION_COOKIE_SECURE = not DEBUG
 SESSION_COOKIE_SAMESITE = 'None' if not DEBUG else 'Lax'
+SESSION_COOKIE_DOMAIN = os.getenv('DJANGO_COOKIE_DOMAIN')
 
 CSRF_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_SAMESITE = 'None' if not DEBUG else 'Lax'
+CSRF_COOKIE_DOMAIN = os.getenv('DJANGO_COOKIE_DOMAIN')
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = []
