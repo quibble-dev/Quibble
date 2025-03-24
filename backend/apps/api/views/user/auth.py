@@ -1,3 +1,5 @@
+import os
+
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from dj_rest_auth.registration.views import SocialLoginView
 from dj_rest_auth.views import LogoutView as RestAuthLogoutAPIView
@@ -26,6 +28,7 @@ class SelectProfileAPIView(views.APIView):
             httponly=True,
             secure=False if settings.DEBUG else True,
             samesite='Lax',
+            domain=os.getenv('DJANGO_COOKIE_DOMAIN'),
         )
 
         return response
