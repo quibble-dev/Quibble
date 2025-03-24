@@ -14,7 +14,7 @@ export const load: PageServerLoad = async ({ url }) => {
 };
 
 export const actions: Actions = {
-  register: async ({ request, cookies }) => {
+  default: async ({ request, cookies }) => {
     const form = await superValidate(request, zod(RegisterSchema));
 
     if (!form.valid) {

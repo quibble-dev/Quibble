@@ -31,7 +31,7 @@
 </svelte:head>
 
 <!-- form element: email and password -->
-<form method="POST" action="?/register" class="flex flex-col gap-2" use:enhance novalidate>
+<form method="POST" class="flex flex-col gap-2" use:enhance novalidate>
   <!-- email input field with errors store -->
   <div class="flex flex-col gap-1">
     <label class="floating-label">
