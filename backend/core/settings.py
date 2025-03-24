@@ -138,7 +138,7 @@ REST_AUTH = {
     # jwt settings
     'JWT_AUTH_COOKIE': 'jwt-auth',
     'JWT_AUTH_REFRESH_COOKIE': 'jwt-refresh',
-    'JWT_AUTH_SECURE': False if DEBUG else True,
+    'JWT_AUTH_SECURE': not DEBUG,
     'JWT_AUTH_HTTPONLY': True,
     'JWT_AUTH_SAMESITE': 'None',
     # serializers
@@ -311,6 +311,12 @@ AUTHENTICATION_BACKENDS = [
 
 # django-cors-headers settins
 # https://pypi.org/project/django-cors-headers/
+
+SESSION_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_SAMESITE = 'None'
+
+CSRF_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SAMESITE = 'None'
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = []
