@@ -54,7 +54,7 @@ django-stubs-ext = "^5.1.2"
 # profiler
 django-silk = "^5.3.2"
 # graphs
-pyparsing = "^3.2.1"
+pyparsing = "^3.2.2"
 pydot = "^3.0.4"
 # formatter
 black = "^25.1.0"
