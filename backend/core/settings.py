@@ -113,7 +113,7 @@ ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_SUBJECT_PREFIX = '[Quibble] '
-ACCOUNT_ADAPTER = 'core.adapters.CustomAccountAdapter'
+# ACCOUNT_ADAPTER = 'core.adapters.CustomAccountAdapter'
 
 # OAuth creds
 OAUTH_CALLBACK_URL = os.getenv('OAUTH_CALLBACK_URL')
@@ -138,9 +138,10 @@ REST_AUTH = {
     # jwt settings
     'JWT_AUTH_COOKIE': 'jwt-auth',
     'JWT_AUTH_REFRESH_COOKIE': 'jwt-refresh',
-    'JWT_AUTH_SECURE': False if DEBUG else True,
+    'JWT_AUTH_SECURE': not DEBUG,
     'JWT_AUTH_HTTPONLY': True,
-    'JWT_AUTH_SAMESITE': 'Lax',
+    'JWT_AUTH_SAMESITE': 'None' if not DEBUG else 'Lax',
+    'JWT_AUTH_COOKIE_DOMAIN': os.getenv('DJANGO_COOKIE_DOMAIN'),
     # serializers
     'REGISTER_SERIALIZER': 'apps.api.serializers.user.auth.RegisterSerializer',
     'LOGIN_SERIALIZER': 'apps.api.serializers.user.auth.LoginSerializer',
@@ -311,6 +312,14 @@ AUTHENTICATION_BACKENDS = [
 
 # django-cors-headers settins
 # https://pypi.org/project/django-cors-headers/
+
+SESSION_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_SAMESITE = 'None' if not DEBUG else 'Lax'
+SESSION_COOKIE_DOMAIN = os.getenv('DJANGO_COOKIE_DOMAIN')
+
+CSRF_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SAMESITE = 'None' if not DEBUG else 'Lax'
+CSRF_COOKIE_DOMAIN = os.getenv('DJANGO_COOKIE_DOMAIN')
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = []

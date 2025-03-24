@@ -1,35 +1,27 @@
 <script lang="ts">
+  import { browser } from '$app/environment';
   import { cn } from '$lib/functions/classnames';
-  import { VerificationCodeSchema } from '$lib/schemas/auth';
+  import type { PageServerData } from './$types';
   import { onMount } from 'svelte';
-  import { defaults, superForm } from 'sveltekit-superforms';
-  import { zod } from 'sveltekit-superforms/adapters';
+  import { superForm } from 'sveltekit-superforms';
 
-  interface Props {
-    email?: string;
-    onback: () => void;
-  }
-
-  let { onback, email }: Props = $props();
+  const { data }: { data: PageServerData } = $props();
 
   let countdown = $state(30);
   let is_resend_disabled = $state(true);
   // eslint-disable-next-line no-undef
   let countdown_interval = $state<NodeJS.Timeout>();
 
-  const { form, enhance, errors, delayed } = superForm(defaults(zod(VerificationCodeSchema)), {
-    resetForm: false,
-    onResult({ result }) {
-      if (result.type === 'success') {
-        const new_href = email ? `/login?email=${encodeURIComponent(email)}` : `/login`;
-        // hard redirect to login page
-        window.location.href = new_href;
-      }
-    }
+  const { form, enhance, errors, delayed } = superForm(data.form, {
+    resetForm: false
   });
 
   function handle_resend_click() {
     start_countdown();
+  }
+
+  function handle_go_back() {
+    if (browser) window.history.back();
   }
 
   function start_countdown() {
@@ -54,7 +46,7 @@
   });
 </script>
 
-<form class="flex flex-col gap-2" method="POST" action="?/code" use:enhance>
+<form class="flex flex-col gap-2" method="POST" use:enhance>
   <fieldset class="fieldset">
     <label class="floating-label">
       <span class="bg-base-300! text-base duration-100!">Verification code*</span>
@@ -87,7 +79,7 @@
       <span class="text-xs">NOTE: you also might need to check in spams.</span>
     </div>
     <div class="flex items-center gap-4">
-      <button type="button" class="btn flex-1" aria-label="Back" onclick={onback}>
+      <button type="button" class="btn flex-1" aria-label="Back" onclick={handle_go_back}>
         <coreicons-shape-arrow variant="left" class="size-4"></coreicons-shape-arrow>
         Back
       </button>
