@@ -1,9 +1,9 @@
 import api from '$lib/api';
-import { RegisterSchema, VerificationCodeSchema } from '$lib/schemas/auth';
+import { RegisterSchema } from '$lib/schemas/auth';
 import { set_cookies_from_header } from '$lib/server/utils/cookie';
 import type { PageServerLoad } from './$types';
-import { fail, type Actions } from '@sveltejs/kit';
-import { message, setError, superValidate } from 'sveltekit-superforms';
+import { fail, redirect, type Actions } from '@sveltejs/kit';
+import { message, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 
 export const load: PageServerLoad = async ({ url }) => {
@@ -29,27 +29,9 @@ export const actions: Actions = {
       const set_cookie_header = response.headers.getSetCookie();
       set_cookies_from_header(set_cookie_header, cookies);
 
-      return { form };
+      redirect(303, `/verification?email=${encodeURIComponent(form.data.email)}`);
     } else if (error) {
       return message(form, error.errors[0]?.detail, { status: 401 });
-    }
-  },
-  code: async ({ request }) => {
-    const form = await superValidate(request, zod(VerificationCodeSchema));
-
-    if (!form.valid) {
-      return fail(400, { form });
-    }
-
-    const { response, error } = await api.POST('/auth/registration/verify-email/', {
-      headers: { Cookie: request.headers.get('Cookie') },
-      body: { key: form.data.code }
-    });
-
-    if (response.ok) {
-      return { form };
-    } else if (error) {
-      return setError(form, 'code', String(error.errors[0]?.detail));
     }
   }
 };

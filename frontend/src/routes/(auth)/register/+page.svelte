@@ -1,9 +1,9 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import { page } from '$app/state';
   import { toast } from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
-  import type { Data } from '../+layout.svelte';
-  import { getContext, untrack } from 'svelte';
+  import { untrack } from 'svelte';
   import { superForm } from 'sveltekit-superforms';
 
   let { data } = $props();
@@ -15,15 +15,8 @@
     ? `/login?dest=${encodeURIComponent(dest_param)}`
     : '/login?ref=auth_page';
 
-  const handle_success: (data: Data) => void = getContext('handle_success');
-
   const { form, enhance, delayed, errors, message } = superForm(data.form, {
-    resetForm: false,
-    onResult({ result }) {
-      if (result.type === 'success' && result.data) {
-        handle_success({ type: 'code', email: result.data.form.data.email });
-      }
-    }
+    resetForm: false
   });
 
   $effect(() => {

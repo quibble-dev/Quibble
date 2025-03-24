@@ -32,7 +32,7 @@
         const { response } = await api.POST('/auth/registration/resend-email/', {
           body: { email }
         });
-        if (response.ok) goto(`/register/?type=code&email=${email}`);
+        if (response.ok) goto(`/verification?email=${email}`);
       } else if (result.type === 'success') {
         const { data } = await api.GET('/u/me/profiles/total-count/');
         // if no profiles- show creation form, otherwise- show selection
