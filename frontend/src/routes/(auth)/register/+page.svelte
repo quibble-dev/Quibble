@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
   import { page } from '$app/state';
   import { toast } from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
