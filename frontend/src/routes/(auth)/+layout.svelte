@@ -1,6 +1,5 @@
 <script lang="ts" module>
-  const RENDER_TYPE = ['select', 'create', 'code'] as const;
-  type RenderType = (typeof RENDER_TYPE)[number];
+  type RenderType = 'select' | 'create';
 
   export interface Data {
     type: RenderType;
@@ -10,7 +9,8 @@
   const TYPE_TITLES: Record<string, string> = {
     '/login': 'Sign in',
     '/register': 'Sign up',
-    '/password': 'Password'
+    '/password': 'Password',
+    '/verification': 'Verification'
   };
 </script>
 
@@ -19,19 +19,16 @@
   import { PUBLIC_GOOGLE_OAUTH_CLIENT_ID, PUBLIC_OAUTH_CALLBACK_URL } from '$env/static/public';
   import GoogleLogo from '$lib/components/icons/logos/google.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
-  import { ProfileSelect, ProfileCreate, Code } from '$lib/features/auth';
+  import { ProfileCreation, ProfileSelection } from '$lib/features/auth/components';
   import type { Nullable } from '$lib/types/shared';
-  import { setContext, untrack } from 'svelte';
+  import { setContext } from 'svelte';
 
   let { children } = $props();
 
-  let data = $state<Nullable<Data>>(null);
   let render_type = $state<Nullable<RenderType>>(null);
 
   setContext('handle_success', handle_success);
-
   function handle_success(_data: Data) {
-    data = { ..._data };
     render_type = _data.type;
   }
 
@@ -40,19 +37,6 @@
       `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${PUBLIC_OAUTH_CALLBACK_URL}&prompt=consent&response_type=code&client_id=${PUBLIC_GOOGLE_OAUTH_CLIENT_ID}&scope=openid%20email%20profile&access_type=offline`
     );
   }
-
-  function is_render_type(type: string): type is RenderType {
-    return RENDER_TYPE.includes(type as RenderType);
-  }
-
-  $effect(() => {
-    const type_param = page.url.searchParams.get('type');
-    if (type_param && is_render_type(type_param)) {
-      const email_param = page.url.searchParams.get('email');
-      if (email_param) data = { ...untrack(() => data as Data), email: email_param };
-      render_type = type_param;
-    }
-  });
 </script>
 
 <div class="relative flex flex-1 items-center justify-center p-4">
@@ -69,8 +53,10 @@
             Who's quibbling? You can later switch b/w profiles from settings page.
           {:else if render_type === 'create'}
             Let's create a new one! You can later edit this from settings page.
-          {:else if render_type === 'code'}
-            Verify your e-mail, enter the 6-digit code we sent to {data?.email}.
+          {:else if page.url.pathname === '/verification'}
+            Verify your e-mail, enter the 6-digit code we sent to {page.url.searchParams.get(
+              'email'
+            )}.
           {:else}
             Join in, share your take, and make some waves!
           {/if}
@@ -78,34 +64,38 @@
       </div>
       <div class="flex flex-col gap-2">
         {#if render_type === 'select'}
-          <ProfileSelect
+          <ProfileSelection
             onclick={(type) => {
               if (type === 'back') render_type = null;
               else if (type === 'create') render_type = 'create';
             }}
           />
         {:else if render_type === 'create'}
-          <ProfileCreate
+          <ProfileCreation
             onback={() => (render_type = 'select')}
             onsuccess={() => (render_type = 'select')}
           />
-        {:else if render_type === 'code'}
-          <Code email={data?.email} onback={() => (render_type = null)} />
         {:else}
           {@render children()}
-          <div class="divider my-0 h-max text-xs font-bold uppercase before:h-px after:h-px">
-            or
-          </div>
-          <div class="flex gap-2">
-            <button class="btn flex-1" aria-label="Login with Google" onclick={handle_google_click}>
-              <GoogleLogo class="size-5" />
-              Google
-            </button>
-            <button class="btn flex-1" aria-label="Login with Github" disabled>
-              <coreicons-logo-github class="size-5"></coreicons-logo-github>
-              Github
-            </button>
-          </div>
+          {#if page.url.pathname !== '/verification'}
+            <div class="divider my-0 h-max text-xs font-bold uppercase before:h-px after:h-px">
+              or
+            </div>
+            <div class="flex gap-2">
+              <button
+                class="btn flex-1"
+                aria-label="Login with Google"
+                onclick={handle_google_click}
+              >
+                <GoogleLogo class="size-5" />
+                Google
+              </button>
+              <button class="btn flex-1" aria-label="Login with Github" disabled>
+                <coreicons-logo-github class="size-5"></coreicons-logo-github>
+                Github
+              </button>
+            </div>
+          {/if}
         {/if}
       </div>
     </div>
