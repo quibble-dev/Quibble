@@ -1,9 +1,11 @@
 <script lang="ts">
+  import { browser } from '$app/environment';
   import { page } from '$app/state';
   import LegalLinks from '$lib/components/legal-links.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
-  import { cn } from '$lib/functions/classnames';
+  import { toast } from '$lib/components/ui/toast';
   import { FormatDate } from '$lib/functions/date';
+  import { createAuthStore } from '$lib/stores/auth.svelte';
   import type { LayoutData } from './$types';
   import type { Snippet } from 'svelte';
 
@@ -40,13 +42,28 @@
     }
   };
 
-  const { data, children }: { data: LayoutData; children: Snippet } = $props();
-  const { profile } = $derived(data);
-  const base_path = $derived(`/u/${profile?.username}`);
+  const authStore = createAuthStore();
+
+  const { data, children }: { data: LayoutData; children: Snippet } = $props(),
+    { profile } = $derived(data),
+    base_path = $derived(`/u/${profile?.username}`),
+    is_own_profile = $derived(
+      profile && authStore.state.user && profile.id === authStore.state.user.profile.id
+    );
 
   function check_is_active(key: string) {
     if (key === '') return page.url.pathname === base_path;
     return page.url.pathname === `${base_path}/${key}`;
+  }
+
+  // https://www.reddit.com/user/GovernmentWaste3396/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+
+  function handle_share_click() {
+    if (browser) {
+      const link = new URL(page.url.href);
+      link.searchParams.set('ref', 'share');
+      window.navigator.clipboard.writeText(link.toString()).then(() => toast.push('Link copied'));
+    }
   }
 </script>
 
@@ -56,29 +73,33 @@
 
 <div class="flex h-max flex-1 flex-col gap-4 p-4">
   <div class="flex items-center gap-4">
-    <Avatar src={profile?.avatar} class="size-20" />
+    <div class="relative">
+      <Avatar src={profile?.avatar} class="size-20" />
+      {#if is_own_profile}
+        <a
+          href="/settings/profile?ref=pfp"
+          class="btn btn-sm btn-circle absolute right-0 bottom-0"
+          aria-label="Update profile picture"
+        >
+          <coreicons-shape-upload variant="cloud" class="size-4"></coreicons-shape-upload>
+        </a>
+      {/if}
+    </div>
     <div class="flex flex-col">
       <h2 class="text-info text-xl font-medium">{profile?.name ?? profile?.username}</h2>
       <span class="text-sm">u/{profile?.username}</span>
     </div>
   </div>
-  <div class="flex flex-wrap items-center gap-2">
+  <div role="tablist" class="tabs tabs-box w-max">
     {#each Object.entries(types) as [key, item]}
       {@const active = check_is_active(key)}
-
-      <div class={cn(item.class, 'relative flex-col items-center')}>
-        <a
-          href={`${base_path}/${key}`}
-          class={cn(
-            active && 'bg-base-content/15 btn-active',
-            item.disabled && 'btn-disabled pointer-events-none',
-            'btn btn-ghost h-max p-2.5'
-          )}>{item.label}</a
-        >
-        {#if active}
-          <div class="bg-primary absolute -bottom-1.5 h-0.5 w-2/3"></div>
-        {/if}
-      </div>
+      <a
+        href={`${base_path}/${key}`}
+        role="tab"
+        class="tab font-medium"
+        class:tab-active={active}
+        class:tab-disabled={item.disabled}>{item.label}</a
+      >
     {/each}
   </div>
   <div class="flex flex-col gap-4">
@@ -89,13 +110,29 @@
   <div
     class="scrollbar-none fixed top-[3.75rem] flex h-[calc(100dvh-3.75rem)] w-80 flex-col gap-2 overflow-y-scroll p-4"
   >
-    {#if profile?.banner}
+    {#if is_own_profile || profile?.banner}
       <div
-        class="bg-neutral rounded-box h-20 bg-cover bg-center bg-no-repeat"
-        style="background-image: url({profile.banner});"
-      ></div>
+        class="bg-neutral rounded-box relative h-20 bg-cover bg-center bg-no-repeat"
+        style="background-image: url({profile?.banner});"
+      >
+        {#if is_own_profile}
+          <a
+            href="/settings/profile?ref=banner"
+            class="btn btn-sm btn-circle absolute right-1 bottom-1"
+            aria-label="Update profile picture"
+          >
+            <coreicons-shape-upload variant="cloud" class="size-4"></coreicons-shape-upload>
+          </a>
+        {/if}
+      </div>
     {/if}
-    <h3 class="font-medium">{profile?.name ?? `u/${profile?.username}`}</h3>
+    <div class="flex items-center justify-between">
+      <h3 class="font-medium">{profile?.name ?? `u/${profile?.username}`}</h3>
+      <button class="btn btn-xs btn-neutral w-max" onclick={handle_share_click}>
+        <coreicons-shape-share class="size-4"></coreicons-shape-share>
+        Share
+      </button>
+    </div>
     {#if profile?.bio}
       <p class="text-base-content/75 text-sm">{profile.bio}</p>
     {/if}
@@ -103,6 +140,22 @@
       <coreicons-shape-gift class="size-4"></coreicons-shape-gift>
       Cake day, {new FormatDate(profile?.created_at ?? '').format()}
     </div>
+    {#if is_own_profile}
+      <div class="divider my-0 before:h-px after:h-px"></div>
+      <h4 class="text-sm font-medium">SETTINGS</h4>
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="grid w-6 place-items-center">
+            <Avatar src={authStore.state.user?.profile.avatar} />
+          </div>
+          <div class="flex flex-col">
+            <span class="text-sm">Profile</span>
+            <span class="text-base-content/75 text-xs">Customize your profile</span>
+          </div>
+        </div>
+        <a href="/settings/profile?ref=update" class="btn btn-sm btn-neutral">Update</a>
+      </div>
+    {/if}
     <div class="divider my-0 before:h-px after:h-px"></div>
     <LegalLinks />
   </div>
