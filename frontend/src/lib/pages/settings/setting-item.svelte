@@ -7,10 +7,14 @@
     disabled?: boolean;
     is_dangerous?: boolean;
   }
+
+  interface Props extends ISettingItem {
+    onclick?: () => void;
+  }
 </script>
 
 <script lang="ts">
-  const { title, sub_title, value, aria_label, disabled, is_dangerous }: ISettingItem = $props();
+  const { title, sub_title, value, aria_label, disabled, is_dangerous, onclick }: Props = $props();
 </script>
 
 <div class="flex items-center justify-between" class:text-error={is_dangerous}>
@@ -25,6 +29,7 @@
       class:btn-error={is_dangerous}
       aria-label={aria_label}
       {disabled}
+      {onclick}
     >
       <coreicons-shape-chevron variant="right" class="size-4"></coreicons-shape-chevron>
     </button>
