@@ -14,7 +14,7 @@
 }
 
 @utility tab-active {
-  @apply before:bg-primary relative before:absolute before:bottom-0 before:h-0.5 before:w-4/5 before:rounded;
+  @apply before:bg-primary relative before:absolute before:bottom-0 before:h-0.5 before:w-[calc(100%-2*var(--tab-p))] before:rounded;
 }
 
 @utility divider {
