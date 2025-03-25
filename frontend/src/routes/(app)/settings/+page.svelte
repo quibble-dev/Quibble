@@ -1,20 +1,23 @@
-<script lang="ts">
-  import { createAuthStore } from '$lib/stores/auth.svelte';
-
-  interface SettingItem {
+<script lang="ts" module>
+  export interface SettingItem {
     title: string;
-    value: string;
+    sub_title?: string;
+    value?: string;
     aria_label: string;
     disabled?: boolean;
     is_dangerous?: boolean;
   }
+</script>
+
+<script lang="ts">
+  import { createAuthStore } from '$lib/stores/auth.svelte';
 
   const authStore = createAuthStore();
 
-  const general_settings: SettingItem[] = [
+  const general_settings: SettingItem[] = $derived([
     {
       title: 'Email address',
-      value: authStore.state.user?.email || 'Not set',
+      value: authStore.state.user?.email ?? 'Not set',
       aria_label: 'Change email address',
       disabled: true
     },
@@ -30,7 +33,7 @@
       aria_label: 'Change location',
       disabled: true
     }
-  ];
+  ]);
 
   const advanced_settings: SettingItem[] = [
     {
