@@ -68,6 +68,9 @@ THIRD_PARTY_APPS = [
     'django_cleanup',
     # postgres ltree
     'django_ltree',
+    # cloud service
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 SELF_APPS = [
@@ -343,3 +346,6 @@ STATIC_URL = "static/"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+# use cloudinary storage on production
+if not DEBUG:
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

@@ -42,6 +42,8 @@ dj-rest-auth = {extras = ["with-social"], version = "^7.0.1"}
 whitenoise = "^6.9.0"
 # 3rd party mail service
 django-sendgrid-v5 = "^1.2.4"
+# 3rd party cloud service
+django-cloudinary-storage = "^0.3.0"
 
 [tool.poetry.group.dev.dependencies]
 # task runner
