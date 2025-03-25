@@ -1,22 +1,14 @@
-<script lang="ts" module>
-  export interface SettingItem {
-    title: string;
-    sub_title?: string;
-    value?: string;
-    aria_label: string;
-    disabled?: boolean;
-    is_dangerous?: boolean;
-  }
-</script>
-
 <script lang="ts">
+  import type { ISettingItem } from '$lib/pages/settings/setting-item.svelte';
+  import SettingItem from '$lib/pages/settings/setting-item.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
 
   const authStore = createAuthStore();
 
-  const general_settings: SettingItem[] = $derived([
+  const general_settings: ISettingItem[] = $derived([
     {
       title: 'Email address',
+      sub_title: 'Changing your email address will affect all your profiles',
       value: authStore.state.user?.email ?? 'Not set',
       aria_label: 'Change email address',
       disabled: true
@@ -35,10 +27,10 @@
     }
   ]);
 
-  const advanced_settings: SettingItem[] = [
+  const advanced_settings: ISettingItem[] = [
     {
       title: 'Delete account',
-      value: 'Not revertable!',
+      sub_title: 'Not revertable!',
       aria_label: 'Delete account',
       is_dangerous: true
     }
@@ -53,29 +45,12 @@
   <h3 class="text-lg font-medium">General</h3>
   <div class="divider"></div>
   {#each general_settings as setting}
-    {@render setting_item(setting)}
+    <SettingItem {...setting} />
   {/each}
   <div></div>
   <h3 class="text-lg font-medium">Advanced</h3>
   <div class="divider"></div>
   {#each advanced_settings as setting}
-    {@render setting_item(setting)}
+    <SettingItem {...setting} />
   {/each}
 </div>
-
-{#snippet setting_item({ title, value, aria_label, disabled, is_dangerous }: SettingItem)}
-  <div class="flex items-center justify-between" class:text-error={is_dangerous}>
-    <span class="text-sm">{title}</span>
-    <div class="flex items-center gap-2 text-xs">
-      <span>{value}</span>
-      <button
-        class="btn btn-xs btn-circle"
-        class:btn-error={is_dangerous}
-        aria-label={aria_label}
-        {disabled}
-      >
-        <coreicons-shape-chevron variant="right" class="size-4"></coreicons-shape-chevron>
-      </button>
-    </div>
-  </div>
-{/snippet}
