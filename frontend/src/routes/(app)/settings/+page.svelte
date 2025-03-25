@@ -61,7 +61,7 @@
 </div>
 
 {#snippet setting_item({ title, value, aria_label, disabled, is_dangerous }: SettingItem)}
-  <div class="flex items-center justify-between">
+  <div class="flex items-center justify-between" class:text-error={is_dangerous}>
     <span class="text-sm">{title}</span>
     <div class="flex items-center gap-2 text-xs">
       <span>{value}</span>
