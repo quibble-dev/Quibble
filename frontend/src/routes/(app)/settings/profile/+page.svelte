@@ -1,6 +1,8 @@
 <script lang="ts">
   import BaseModal from '$lib/components/ui/base-modal.svelte';
-  import FormName from '$lib/pages/settings/profile/form-name.svelte';
+  import AvatarSetting from '$lib/pages/settings/profile/avatar-setting.svelte';
+  import BioSetting from '$lib/pages/settings/profile/bio-setting.svelte';
+  import NameSetting from '$lib/pages/settings/profile/name-setting.svelte';
   import SettingItem, { type ISettingItem } from '$lib/pages/settings/setting-item.svelte';
   import { createAuthStore } from '$lib/stores/auth.svelte';
   import type { Nullable } from '$lib/types/shared';
@@ -9,6 +11,12 @@
   type Settings = 'name' | 'bio' | 'avatar' | 'banner' | 'title';
 
   const authStore = createAuthStore();
+
+  const settings_component_mapping: Partial<Record<Settings, Component>> = {
+    name: NameSetting,
+    bio: BioSetting,
+    avatar: AvatarSetting
+  };
 
   const general_settings: Record<Settings, ISettingItem> = {
     name: {
@@ -47,14 +55,6 @@
     }
   ]);
 
-  const settings_component_mapping: Record<Settings, Component> = {
-    name: FormName,
-    bio: FormName,
-    avatar: FormName,
-    banner: FormName,
-    title: FormName
-  };
-
   let show_modal = $state(false);
   let show_setting = $state<Nullable<Settings>>(null);
   const SettingComponent = $derived(
@@ -86,14 +86,16 @@
   {/each}
 </div>
 
-<BaseModal open={show_modal} onclose={() => (show_modal = false)} class="flex flex-col">
-  {#if SettingComponent}
-    <SettingComponent />
-  {/if}
-  <div class="flex items-center justify-end gap-2">
-    <button onclick={() => (show_modal = false)} class="btn">Cancel</button>
-    <button class="btn btn-primary">
-      Save <coreicons-shape-check class="size-4"></coreicons-shape-check>
-    </button>
-  </div>
+<BaseModal open={show_modal} onclose={() => (show_modal = false)} class="max-w-[25rem]!">
+  <form class="flex flex-1 flex-col gap-4">
+    {#if SettingComponent}
+      <SettingComponent />
+    {/if}
+    <div class="flex items-center justify-end gap-2">
+      <button type="button" onclick={() => (show_modal = false)} class="btn">Cancel</button>
+      <button class="btn btn-primary">
+        Save <coreicons-shape-check class="size-4"></coreicons-shape-check>
+      </button>
+    </div>
+  </form>
 </BaseModal>
