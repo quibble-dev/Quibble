@@ -1,9 +1,10 @@
 <script lang="ts">
   import { page } from '$app/state';
   import type { ProfileSettingsProps } from '$lib/schemas/settings';
+  import type { Nullable } from '$lib/types/shared';
 
   const { form }: ProfileSettingsProps = $props();
-  let banner_data_url = $state('');
+  let banner_data_url = $state<Nullable<string>>(null);
 
   function handle_change(e: Event) {
     const file = (e.target as HTMLInputElement).files?.[0];
@@ -49,7 +50,7 @@
   style="background-image: url({banner_data_url || page.data.profile.banner});"
   ondrop={handle_drop}
 >
-  {#if !banner_data_url}
+  {#if !banner_data_url && !page.data.profile.banner}
     <coreicons-shape-upload variant="cloud" class="size-5"></coreicons-shape-upload>
     <span class="text-xs">Drag and drop or browse</span>
   {/if}

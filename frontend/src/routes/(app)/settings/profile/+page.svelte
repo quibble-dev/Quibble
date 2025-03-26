@@ -1,6 +1,5 @@
 <script lang="ts">
   import { invalidate } from '$app/navigation';
-  import { page } from '$app/state';
   import BaseModal from '$lib/components/ui/base-modal.svelte';
   import AvatarSetting from '$lib/pages/settings/profile/avatar-setting.svelte';
   import BannerSetting from '$lib/pages/settings/profile/banner-setting.svelte';

@@ -2,9 +2,10 @@
   import { page } from '$app/state';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import type { ProfileSettingsProps } from '$lib/schemas/settings';
+  import type { Nullable } from '$lib/types/shared';
 
   const { form }: ProfileSettingsProps = $props();
-  let avatar_data_url = $state('');
+  let avatar_data_url = $state<Nullable<string>>(null);
 
   function handle_change(e: Event) {
     const file = (e.target as HTMLInputElement).files?.[0];
