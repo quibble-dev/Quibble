@@ -8,7 +8,7 @@
 
   function handle_change(e: Event) {
     const file = (e.target as HTMLInputElement).files?.[0];
-    file && handle_file(file);
+    if (file) handle_file(file);
   }
 
   function handle_drop(e: DragEvent) {
@@ -20,7 +20,7 @@
       [...e.dataTransfer.items].forEach((item) => {
         if (item.kind === 'file') {
           const file = item.getAsFile();
-          file && handle_file(file);
+          if (file) handle_file(file);
         }
       });
     }
