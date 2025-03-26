@@ -16,7 +16,7 @@
   const { data } = $props();
 
   const settings_component_mapping: Partial<
-    Record<Settings, Component<ProfileSettingsProps, {}, ''>>
+    Record<Settings, Component<ProfileSettingsProps, object, ''>>
   > = {
     name: NameSetting,
     bio: BioSetting,
