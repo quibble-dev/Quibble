@@ -17,13 +17,13 @@
   const { title, sub_title, value, aria_label, disabled, is_dangerous, onclick }: Props = $props();
 </script>
 
-<div class="flex items-center justify-between" class:text-error={is_dangerous}>
+<div class="flex items-center justify-between gap-2" class:text-error={is_dangerous}>
   <div class="flex flex-col">
     <span class="text-info text-sm">{title}</span>
     <span class="text-base-content/75 text-xs">{sub_title}</span>
   </div>
   <div class="flex items-center gap-2 text-xs">
-    <span>{value}</span>
+    <span class="whitespace-nowrap">{value}</span>
     <button
       class="btn btn-xs btn-circle"
       class:btn-error={is_dangerous}

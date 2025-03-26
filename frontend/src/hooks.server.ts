@@ -4,7 +4,7 @@ import { set_cookies_from_header } from '$lib/server/utils/cookie';
 import type { Handle } from '@sveltejs/kit';
 
 const auth_routes = ['/login', '/register', '/password'];
-const protected_routes = ['/submit', '/q/create'];
+const protected_routes = ['/submit', '/q/create', '/settings'];
 
 export const handle: Handle = async ({ event, resolve }) => {
   const auth_token = event.cookies.get('jwt-auth');

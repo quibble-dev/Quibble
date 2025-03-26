@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { createAuthStore } from '$lib/stores/auth.svelte';
+  import type { ProfileSettingsProps } from '$lib/schemas/settings';
 
-  const authStore = createAuthStore();
+  const { form }: ProfileSettingsProps = $props();
 </script>
 
 <div class="flex flex-col">
@@ -15,10 +15,6 @@
   <div class="input w-full bg-transparent">
     <coreicons-shape-user variant="normal" class="size-4 shrink-0 opacity-50"
     ></coreicons-shape-user>
-    <input
-      name="name"
-      placeholder="Display name"
-      defaultValue={authStore.state.user?.profile.name ?? ''}
-    />
+    <input name="name" placeholder="Display name" bind:value={$form.name} />
   </div>
 </label>

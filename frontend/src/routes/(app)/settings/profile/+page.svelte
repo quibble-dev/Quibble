@@ -1,28 +1,35 @@
 <script lang="ts">
+  import { invalidate } from '$app/navigation';
+  import { page } from '$app/state';
   import BaseModal from '$lib/components/ui/base-modal.svelte';
   import AvatarSetting from '$lib/pages/settings/profile/avatar-setting.svelte';
+  import BannerSetting from '$lib/pages/settings/profile/banner-setting.svelte';
   import BioSetting from '$lib/pages/settings/profile/bio-setting.svelte';
   import NameSetting from '$lib/pages/settings/profile/name-setting.svelte';
   import SettingItem, { type ISettingItem } from '$lib/pages/settings/setting-item.svelte';
-  import { createAuthStore } from '$lib/stores/auth.svelte';
+  import type { ProfileSettingsProps } from '$lib/schemas/settings.js';
   import type { Nullable } from '$lib/types/shared';
   import type { Component } from 'svelte';
+  import { superForm } from 'sveltekit-superforms';
 
   type Settings = 'name' | 'bio' | 'avatar' | 'banner' | 'title';
 
-  const authStore = createAuthStore();
+  const { data } = $props();
 
-  const settings_component_mapping: Partial<Record<Settings, Component>> = {
+  const settings_component_mapping: Partial<
+    Record<Settings, Component<ProfileSettingsProps, {}, ''>>
+  > = {
     name: NameSetting,
     bio: BioSetting,
-    avatar: AvatarSetting
+    avatar: AvatarSetting,
+    banner: BannerSetting
   };
 
-  const general_settings: Record<Settings, ISettingItem> = {
+  const general_settings: Record<Settings, ISettingItem> = $derived({
     name: {
       title: 'Display name',
       sub_title: 'Changing your display name won’t change your username',
-      value: authStore.state.user?.profile.name ?? 'Not set',
+      value: data.profile?.name ?? 'Not set',
       aria_label: 'Change name'
     },
     bio: {
@@ -44,11 +51,11 @@
       aria_label: 'Change social links',
       disabled: true
     }
-  };
+  });
 
   const advanced_settings: ISettingItem[] = $derived([
     {
-      title: `Delete profile u/${authStore.state.user?.profile.username}`,
+      title: `Delete profile u/${data.profile?.username}`,
       sub_title: 'Not revertable!',
       aria_label: 'Delete profile',
       is_dangerous: true
@@ -60,6 +67,20 @@
   const SettingComponent = $derived(
     show_setting !== null ? settings_component_mapping[show_setting] : null
   );
+
+  const { form, errors, enhance, delayed } = superForm(data.form!, {
+    resetForm: false,
+    onSubmit({ formData }) {
+      if ($form.avatar) formData.set('avatar', $form.avatar);
+      if ($form.banner) formData.set('banner', $form.banner);
+    },
+    async onResult({ result }) {
+      if (result.type === 'success') {
+        await invalidate((url) => url.pathname === '/settings/profile');
+        show_modal = false;
+      }
+    }
+  });
 </script>
 
 <svelte:head>
@@ -87,14 +108,19 @@
 </div>
 
 <BaseModal open={show_modal} onclose={() => (show_modal = false)} class="max-w-[25rem]!">
-  <form class="flex flex-1 flex-col gap-4">
+  <form method="POST" enctype="multipart/form-data" class="flex flex-1 flex-col gap-4" use:enhance>
     {#if SettingComponent}
-      <SettingComponent />
+      <SettingComponent {form} {errors} />
     {/if}
     <div class="flex items-center justify-end gap-2">
       <button type="button" onclick={() => (show_modal = false)} class="btn">Cancel</button>
       <button class="btn btn-primary">
-        Save <coreicons-shape-check class="size-4"></coreicons-shape-check>
+        Save
+        {#if $delayed}
+          <span class="loading loading-spinner loading-xs"></span>
+        {:else}
+          <coreicons-shape-check class="size-4"></coreicons-shape-check>
+        {/if}
       </button>
     </div>
   </form>
