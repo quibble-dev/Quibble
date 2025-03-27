@@ -29,7 +29,7 @@
   bind:this={dialog_el}
   {onclose}
 >
-  <div class={cn(klass, 'modal-box bg-base-300 scrollbar-none border-neutral border')}>
+  <div class={cn(klass, 'modal-box bg-base-300 scrollbar-none border-neutral mx-auto border')}>
     {@render children()}
   </div>
   <form method="dialog" class="modal-backdrop">

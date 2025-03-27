@@ -119,13 +119,13 @@
               </a>
             </li>
             <li>
-              <button class="flex items-center gap-2">
+              <a href="/settings?ref=header" class="flex items-center gap-2">
                 <div class="grid w-6 place-items-center">
                   <coreicons-shape-settings variant="outline" class="size-4"
                   ></coreicons-shape-settings>
                 </div>
                 <span class="text-info font-medium">Settings</span>
-              </button>
+              </a>
             </li>
             <div class="divider my-0 h-max before:h-px after:h-px"></div>
             <li>
