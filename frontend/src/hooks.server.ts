@@ -11,7 +11,11 @@ export const handle: Handle = async ({ event, resolve }) => {
   const refresh_token = event.cookies.get('jwt-refresh');
   const has_profile_selected = Boolean(event.cookies.get('profile-id'));
 
-  let valid_token = auth_token ? await handle_verify_access_token(auth_token) : false;
+  let valid_token = false;
+
+  if (auth_token && has_profile_selected) {
+    valid_token = await handle_verify_access_token(auth_token);
+  }
 
   if (!valid_token && refresh_token && has_profile_selected) {
     const res = await handle_refresh_access_token(
@@ -49,7 +53,8 @@ export const handle: Handle = async ({ event, resolve }) => {
     !event.locals.user &&
     protected_routes.some((route) => event.url.pathname.startsWith(route))
   ) {
-    const encoded_dest = encodeURIComponent(event.url.href);
+    const dest = event.url.pathname + event.url.search;
+    const encoded_dest = encodeURIComponent(dest);
     return new Response(null, {
       status: 302,
       headers: { location: `/login?dest=${encoded_dest}` }

@@ -41,13 +41,11 @@
 
       try {
         const dest_param = page.url.searchParams.get('dest') ?? '/';
-        const dest = new URL(dest_param, window.location.origin);
-
-        if (window.location.origin === dest.origin) {
-          window.location.href = dest.href;
-        } else {
-          console.warn('invalid destination URL: ', dest.href);
-          window.location.href = '/';
+        // normal case
+        if (dest_param.startsWith('/')) window.location.href = dest_param;
+        // handle encoded paths
+        else if (dest_param.startsWith('%2F')) {
+          window.location.href = decodeURIComponent(dest_param);
         }
       } catch {
         // normal case

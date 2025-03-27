@@ -1,5 +1,4 @@
 import { dev } from '$app/environment';
-import { PUBLIC_API_URL } from '$env/static/public';
 import type { Cookies } from '@sveltejs/kit';
 import set_cookie_parser from 'set-cookie-parser';
 
@@ -19,7 +18,7 @@ export function set_cookies_from_header(set_cookie_header: string[], cookies: Co
       ? (cookie.sameSite.toLowerCase() as 'strict' | 'lax' | 'none')
       : undefined;
 
-    const domain = cookie.domain ?? new URL(PUBLIC_API_URL).hostname;
+    const domain = cookie.domain;
 
     cookies.set(cookie.name, cookie.value, {
       ...cookie,
