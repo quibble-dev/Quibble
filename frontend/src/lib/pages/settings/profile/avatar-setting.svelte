@@ -1,10 +1,11 @@
 <script lang="ts">
   import { page } from '$app/state';
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import { cn } from '$lib/functions/classnames';
   import type { ProfileSettingsProps } from '$lib/schemas/settings';
   import type { Nullable } from '$lib/types/shared';
 
-  const { form }: ProfileSettingsProps = $props();
+  const { form, errors }: ProfileSettingsProps = $props();
   let avatar_data_url = $state<Nullable<string>>(null);
 
   function handle_change(e: Event) {
@@ -49,10 +50,15 @@
   <input hidden type="file" id="avatar-input" accept="image/*" onchange={handle_change} />
   <label
     for="avatar-input"
-    class="rounded-box border-base-content/25 hover:border-base-content/50 flex flex-1 cursor-pointer flex-col items-center justify-center gap-1 border-2 border-dashed duration-300"
+    class={cn(
+      $errors.avatar
+        ? 'border-error text-error'
+        : 'border-base-content/25 hover:border-base-content/50',
+      'rounded-box flex flex-1 cursor-pointer flex-col items-center justify-center gap-1 border-2 border-dashed duration-300'
+    )}
     ondrop={handle_drop}
   >
     <coreicons-shape-upload variant="cloud" class="size-5"></coreicons-shape-upload>
-    <span class="text-xs">Drag and drop or browse</span>
+    <span class="text-xs">{$errors.avatar ? $errors.avatar[0] : 'Drag and drop or browse'}</span>
   </label>
 </div>

@@ -1,9 +1,10 @@
 <script lang="ts">
   import { page } from '$app/state';
+  import { cn } from '$lib/functions/classnames';
   import type { ProfileSettingsProps } from '$lib/schemas/settings';
   import type { Nullable } from '$lib/types/shared';
 
-  const { form }: ProfileSettingsProps = $props();
+  const { form, errors }: ProfileSettingsProps = $props();
   let banner_data_url = $state<Nullable<string>>(null);
 
   function handle_change(e: Event) {
@@ -46,7 +47,12 @@
 <input type="file" id="banner-input" hidden accept="image/*" onchange={handle_change} />
 <label
   for="banner-input"
-  class="outline-base-content/25 rounded-box hover:outline-base-content/50 relative flex h-24 w-full cursor-pointer flex-col items-center justify-center gap-1 bg-cover bg-center bg-no-repeat outline-2 -outline-offset-2 transition-[outline] outline-dashed"
+  class={cn(
+    $errors.banner
+      ? 'outline-error text-error'
+      : 'outline-base-content/25 hover:outline-base-content/50',
+    'rounded-box relative flex h-24 w-full cursor-pointer flex-col items-center justify-center gap-1 bg-cover bg-center bg-no-repeat outline-2 -outline-offset-2 transition-[outline] outline-dashed'
+  )}
   style="background-image: url({banner_data_url || page.data.profile.banner});"
   ondrop={handle_drop}
 >
@@ -54,11 +60,20 @@
     <coreicons-shape-upload variant="cloud" class="size-5"></coreicons-shape-upload>
     <span class="text-xs">Drag and drop or browse</span>
   {/if}
-  <label
-    for="banner-input"
-    class="btn btn-sm btn-circle absolute right-1 bottom-1"
-    aria-label="Update banner"
+  <div
+    data-tip={$errors.banner?.[0]}
+    class={cn(
+      $errors.banner && 'tooltip-error tooltip-open tooltip tooltip-left ',
+      'absolute right-1 bottom-1'
+    )}
   >
-    <coreicons-shape-upload variant="cloud" class="size-4"></coreicons-shape-upload>
-  </label>
+    <label
+      for="banner-input"
+      class="btn btn-sm btn-circle"
+      class:btn-error={$errors.banner}
+      aria-label="Update banner"
+    >
+      <coreicons-shape-upload variant="cloud" class="size-4"></coreicons-shape-upload>
+    </label>
+  </div>
 </label>
