@@ -165,6 +165,14 @@ class MyProfilesViewSet(viewsets.ModelViewSet):
             )
         serializer.save(user=user)
 
+    def destroy(self, request, *args, **kwargs):
+        """Delete profile-id cookie after profile is deleted."""
+
+        response = super().destroy(request, *args, **kwargs)
+        response.delete_cookie('profile-id')
+
+        return response
+
     @extend_schema(responses=ProfileTotalCountSerializer)
     @action(detail=False, methods=[HTTPMethod.GET], url_path='total-count')
     def total_count(self, request):

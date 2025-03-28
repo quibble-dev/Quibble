@@ -1,12 +1,14 @@
 <script lang="ts">
   import { invalidate } from '$app/navigation';
+  import api from '$lib/api';
   import BaseModal from '$lib/components/ui/base-modal.svelte';
+  import { cn } from '$lib/functions/classnames';
   import AvatarSetting from '$lib/pages/settings/profile/avatar-setting.svelte';
   import BannerSetting from '$lib/pages/settings/profile/banner-setting.svelte';
   import BioSetting from '$lib/pages/settings/profile/bio-setting.svelte';
   import NameSetting from '$lib/pages/settings/profile/name-setting.svelte';
   import SettingItem, { type ISettingItem } from '$lib/pages/settings/setting-item.svelte';
-  import type { ProfileSettingsProps } from '$lib/schemas/settings.js';
+  import type { ProfileSettingsProps } from '$lib/schemas/settings';
   import type { Nullable } from '$lib/types/shared';
   import type { Component } from 'svelte';
   import { superForm } from 'sveltekit-superforms';
@@ -54,12 +56,15 @@
 
   const advanced_settings: ISettingItem[] = $derived([
     {
-      title: `Delete profile u/${data.profile?.username}`,
-      sub_title: 'Not revertable!',
+      title: `Delete u/${data.profile?.username}`,
+      sub_title: `Deleting your profile won't affect your account.`,
       aria_label: 'Delete profile',
       is_dangerous: true
     }
   ]);
+
+  let pending = $state(false);
+  let show_delete_modal = $state(false);
 
   let show_modal = $state(false);
   let show_setting = $state<Nullable<Settings>>(null);
@@ -80,6 +85,23 @@
       }
     }
   });
+
+  async function handle_delete() {
+    let pending_timeout: Nullable<NodeJS.Timeout> = null;
+    try {
+      pending_timeout = setTimeout(() => (pending = true), 500);
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // const { response } = await api.DELETE('/u/me/profiles/{id}/', {
+      //   params: { path: { id: data.profile?.id! } }
+      // });
+      // if (response.ok) window.location.href = '/';
+    } catch (err) {
+      console.error(err);
+    } finally {
+      pending = false;
+      if (pending_timeout) clearTimeout(pending_timeout);
+    }
+  }
 </script>
 
 <svelte:head>
@@ -102,7 +124,12 @@
   <h3 class="text-lg font-medium">Advanced</h3>
   <div class="divider"></div>
   {#each advanced_settings as setting}
-    <SettingItem {...setting} />
+    <SettingItem
+      {...setting}
+      onclick={() => {
+        if (setting.is_dangerous) show_delete_modal = true;
+      }}
+    />
   {/each}
 </div>
 
@@ -113,7 +140,7 @@
     {/if}
     <div class="flex items-center justify-end gap-2">
       <button type="button" onclick={() => (show_modal = false)} class="btn">Cancel</button>
-      <button class="btn btn-primary">
+      <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary')}>
         Save
         {#if $delayed}
           <span class="loading loading-spinner loading-xs"></span>
@@ -123,4 +150,31 @@
       </button>
     </div>
   </form>
+</BaseModal>
+
+<BaseModal
+  open={show_delete_modal}
+  onclose={() => (show_delete_modal = false)}
+  class="flex max-w-[25rem]! flex-col gap-4"
+>
+  <div class="flex flex-col">
+    <h3 class="text-info font-medium">Delete u/{data.profile?.username}</h3>
+    <span class="text-base-content/75 text-sm"
+      >Deleting your profile won't affect your account.</span
+    >
+  </div>
+  <div class="flex items-center justify-end gap-2">
+    <button type="button" onclick={() => (show_delete_modal = false)} class="btn">Cancel</button>
+    <button
+      class={cn(pending && 'btn-active pointer-events-none', 'btn btn-error')}
+      onclick={handle_delete}
+    >
+      Delete
+      {#if pending}
+        <span class="loading loading-spinner loading-xs"></span>
+      {:else}
+        <coreicons-shape-trash variant="without-lines" class="size-4"></coreicons-shape-trash>
+      {/if}
+    </button>
+  </div>
 </BaseModal>
