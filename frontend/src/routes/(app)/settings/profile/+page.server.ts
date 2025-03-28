@@ -29,7 +29,6 @@ export const load: PageServerLoad = async ({ request }) => {
 export const actions: Actions = {
   default: async ({ request, cookies }) => {
     const form = await superValidate(request, zod(ProfileSettingsSchema));
-    console.log(form);
 
     if (!form.valid) {
       console.log(form.errors);
