@@ -63,16 +63,14 @@
     }
   ]);
 
-  let pending = $state(false);
   let show_delete_modal = $state(false);
-
   let show_modal = $state(false);
   let show_setting = $state<Nullable<Settings>>(null);
   const SettingComponent = $derived(
     show_setting !== null ? settings_component_mapping[show_setting] : null
   );
 
-  const { form, errors, enhance, delayed } = superForm(data.form!, {
+  const { form, errors, enhance, submitting } = superForm(data.form!, {
     resetForm: false,
     onSubmit({ formData }) {
       if ($form.avatar) formData.set('avatar', $form.avatar);
@@ -87,18 +85,17 @@
   });
 
   async function handle_delete() {
-    let pending_timeout: Nullable<NodeJS.Timeout> = null;
+    if (!data.profile?.id) return;
     try {
-      pending_timeout = setTimeout(() => (pending = true), 500);
+      $submitting = true;
       const { response } = await api.DELETE('/u/me/profiles/{id}/', {
-        params: { path: { id: data.profile?.id! } }
+        params: { path: { id: data.profile.id } }
       });
       if (response.ok) window.location.href = '/';
     } catch (err) {
       console.error(err);
     } finally {
-      pending = false;
-      if (pending_timeout) clearTimeout(pending_timeout);
+      $submitting = false;
     }
   }
 </script>
@@ -139,9 +136,9 @@
     {/if}
     <div class="flex items-center justify-end gap-2">
       <button type="button" onclick={() => (show_modal = false)} class="btn">Cancel</button>
-      <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary')}>
+      <button class={cn($submitting && 'btn-active pointer-events-none', 'btn btn-primary')}>
         Save
-        {#if $delayed}
+        {#if $submitting}
           <span class="loading loading-spinner loading-xs"></span>
         {:else}
           <coreicons-shape-check class="size-4"></coreicons-shape-check>
@@ -165,11 +162,11 @@
   <div class="flex items-center justify-end gap-2">
     <button type="button" onclick={() => (show_delete_modal = false)} class="btn">Cancel</button>
     <button
-      class={cn(pending && 'btn-active pointer-events-none', 'btn btn-error')}
+      class={cn($submitting && 'btn-active pointer-events-none', 'btn btn-error')}
       onclick={handle_delete}
     >
       Delete
-      {#if pending}
+      {#if $submitting}
         <span class="loading loading-spinner loading-xs"></span>
       {:else}
         <coreicons-shape-trash variant="without-lines" class="size-4"></coreicons-shape-trash>

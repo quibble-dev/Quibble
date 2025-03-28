@@ -53,7 +53,6 @@
   async function fetch_topics() {
     try {
       pending = true;
-
       const { data, response } = await api.GET('/q/topics/');
       if (response.ok && data) {
         topics_raw = data as unknown as RecursiveTopic[];

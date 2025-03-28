@@ -34,25 +34,21 @@
     pending = true;
     selected_profile_id = id;
 
-    try {
-      await api.POST('/auth/select/{profile_id}/', {
-        params: { path: { profile_id: id } }
-      });
+    await api.POST('/auth/select/{profile_id}/', {
+      params: { path: { profile_id: id } }
+    });
 
-      try {
-        const dest_param = page.url.searchParams.get('dest') ?? '/';
-        // normal case
-        if (dest_param.startsWith('/')) window.location.href = dest_param;
-        // handle encoded paths
-        else if (dest_param.startsWith('%2F')) {
-          window.location.href = decodeURIComponent(dest_param);
-        }
-      } catch {
-        // normal case
-        window.location.href = '/';
+    try {
+      const dest_param = page.url.searchParams.get('dest') ?? '/';
+      // normal case
+      if (dest_param.startsWith('/')) window.location.href = dest_param;
+      // handle encoded paths
+      else if (dest_param.startsWith('%2F')) {
+        window.location.href = decodeURIComponent(dest_param);
       }
-    } catch (err) {
-      console.error(err);
+    } catch {
+      // normal case
+      window.location.href = '/';
     }
   }
 
