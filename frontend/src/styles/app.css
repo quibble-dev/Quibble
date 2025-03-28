@@ -3,6 +3,7 @@
 @plugin 'daisyui' {
   themes: sunset --default;
   logs: false;
+  exclude: rootscrollgutter;
 }
 
 @theme {
