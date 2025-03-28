@@ -77,7 +77,7 @@
       <Avatar src={profile?.avatar} class="size-20" />
       {#if is_own_profile}
         <a
-          href="/settings/profile?ref=pfp"
+          href="/settings/profile?open=avatar"
           class="btn btn-sm btn-circle absolute right-0 bottom-0"
           aria-label="Update profile picture"
         >
@@ -117,7 +117,7 @@
       >
         {#if is_own_profile}
           <a
-            href="/settings/profile?ref=banner"
+            href="/settings/profile?open=banner"
             class="btn btn-sm btn-circle absolute right-1 bottom-1"
             aria-label="Update profile picture"
           >
@@ -153,7 +153,7 @@
             <span class="text-base-content/75 text-xs">Customize your profile</span>
           </div>
         </div>
-        <a href="/settings/profile?ref=update" class="btn btn-sm btn-neutral">Update</a>
+        <a href="/settings/profile" class="btn btn-sm btn-neutral">Update</a>
       </div>
     {/if}
     <div class="divider my-0 before:h-px after:h-px"></div>

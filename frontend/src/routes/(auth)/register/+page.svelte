@@ -10,9 +10,7 @@
   let show_password = $state(false);
 
   const dest_param = page.url.searchParams.get('dest');
-  const href_login = dest_param
-    ? `/login?dest=${encodeURIComponent(dest_param)}`
-    : '/login?ref=auth_page';
+  const href_login = dest_param ? `/login?dest=${encodeURIComponent(dest_param)}` : '/login';
 
   const { form, enhance, submitting, errors, message } = superForm(data.form, {
     resetForm: false

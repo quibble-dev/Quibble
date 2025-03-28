@@ -15,7 +15,7 @@
   const dest_param = page.url.searchParams.get('dest');
   const href_register = dest_param
     ? `/register?dest=${encodeURIComponent(dest_param)}`
-    : '/register?ref=auth_page';
+    : '/register';
 
   const handle_success: (data: Data) => void = getContext('handle_success');
 
@@ -26,7 +26,7 @@
       if (
         result.type === 'failure' &&
         result.data &&
-        result.data.form.message.includes('not verified')
+        result.data.form.message?.includes('not verified')
       ) {
         const email = result.data.form.data.email;
         const { response } = await api.POST('/auth/registration/resend-email/', {

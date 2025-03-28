@@ -24,11 +24,11 @@
       <span class="text-sm">Want to do more? Create an account or log in.</span>
     </div>
     <div class="flex w-full flex-col gap-2">
-      <a href="/login?ref=modal" class="btn btn-primary btn-block" onclick={handle_modal_close}>
+      <a href="/login" class="btn btn-primary btn-block" onclick={handle_modal_close}>
         Log in
         <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
       </a>
-      <a href="/register?ref=modal" class="btn btn-block" onclick={handle_modal_close}>Sign up</a>
+      <a href="/register" class="btn btn-block" onclick={handle_modal_close}>Sign up</a>
     </div>
     <div class="divider my-0 text-xs font-bold before:h-px after:h-px">NOTE</div>
     <span class="text-center text-xs"

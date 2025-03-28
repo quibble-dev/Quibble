@@ -124,11 +124,11 @@
       ></coreicons-shape-chevron>
     </div>
     <div class="collapse-content flex flex-col gap-2 p-0!">
-      <a href="/about" class="flex items-center gap-2">
+      <a href="https://github.com/quibble-dev/Quibble" class="flex items-center gap-2">
         <QuibbleIcon class="size-4" />
         <span class="text-sm font-medium">About Quibble</span>
       </a>
-      <a href="/support/help" class="flex items-center gap-2">
+      <a href="https://github.com/quibble-dev/Quibble/discussions" class="flex items-center gap-2">
         <coreicons-shape-help-circle class="size-4"></coreicons-shape-help-circle>
         <span class="text-sm font-medium">Help</span>
       </a>

@@ -31,7 +31,7 @@
       {#each Object.entries(types) as [key, item]}
         {@const active = check_is_active(key)}
         <a
-          href={`/settings/${key}?ref=tab`}
+          href={`/settings/${key}`}
           role="tab"
           class="tab font-medium"
           class:tab-active={active}

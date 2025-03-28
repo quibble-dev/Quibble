@@ -106,10 +106,7 @@
             class="menu dropdown-content bg-base-100 rounded-box z-10 mt-2 min-w-40 gap-1 p-1.5"
           >
             <li>
-              <a
-                href="/u/{authStore.state.user?.profile.username}?ref=header"
-                class="flex items-center gap-2"
-              >
+              <a href="/u/{authStore.state.user?.profile.username}" class="flex items-center gap-2">
                 <div class="grid w-6 place-items-center">
                   <Avatar src={authStore.state.user?.profile.avatar} />
                 </div>
@@ -122,7 +119,7 @@
               </a>
             </li>
             <li>
-              <a href="/settings?ref=header" class="flex items-center gap-2">
+              <a href="/settings" class="flex items-center gap-2">
                 <div class="grid w-6 place-items-center">
                   <coreicons-shape-settings variant="outline" class="size-4"
                   ></coreicons-shape-settings>
@@ -143,8 +140,8 @@
         </div>
       </div>
     {:else}
-      <a href="/register?ref=header" class="btn">Sign up</a>
-      <a href="/login?ref=header" class="btn btn-primary">
+      <a href="/register" class="btn">Sign up</a>
+      <a href="/login" class="btn btn-primary">
         Log in
         <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
       </a>
