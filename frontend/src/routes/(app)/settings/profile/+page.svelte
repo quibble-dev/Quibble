@@ -90,11 +90,10 @@
     let pending_timeout: Nullable<NodeJS.Timeout> = null;
     try {
       pending_timeout = setTimeout(() => (pending = true), 500);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      // const { response } = await api.DELETE('/u/me/profiles/{id}/', {
-      //   params: { path: { id: data.profile?.id! } }
-      // });
-      // if (response.ok) window.location.href = '/';
+      const { response } = await api.DELETE('/u/me/profiles/{id}/', {
+        params: { path: { id: data.profile?.id! } }
+      });
+      if (response.ok) window.location.href = '/';
     } catch (err) {
       console.error(err);
     } finally {
