@@ -21,7 +21,7 @@
   let { path, oncancel, oncomment }: Props = $props();
   let textarea_el = $state<HTMLTextAreaElement>();
 
-  const { form, errors, enhance, delayed } = superForm(defaults(zod(CommentCreateSchema)), {
+  const { form, errors, enhance, submitting } = superForm(defaults(zod(CommentCreateSchema)), {
     onResult({ result }) {
       if (result.type === 'success' && result.data) {
         oncomment(result.data as { comment: Comment });
@@ -54,11 +54,11 @@
     <div class="flex w-full items-center gap-2 p-2">
       <button type="button" class="btn btn-ghost btn-sm ml-auto" onclick={oncancel}>Cancel</button>
       <button
-        class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary btn-sm')}
+        class={cn($submitting && 'btn-active pointer-events-none', 'btn btn-primary btn-sm')}
         disabled={!authStore.state.is_authenticated}
       >
         Comment
-        {#if $delayed}
+        {#if $submitting}
           <span class="loading loading-spinner loading-xs"></span>
         {:else}
           <coreicons-shape-message-circle class="size-4"></coreicons-shape-message-circle>

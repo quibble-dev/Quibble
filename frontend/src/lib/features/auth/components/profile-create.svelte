@@ -19,7 +19,7 @@
   let avatar_data_url = $state<string>(),
     cover_data_url = $state<string>();
 
-  const { form, enhance, errors, delayed, message } = superForm(
+  const { form, enhance, errors, submitting, message } = superForm(
     defaults(zod(ProfileCreateSchema)),
     {
       resetForm: false,
@@ -124,11 +124,11 @@
       Back
     </button>
     <button
-      class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary flex-1')}
+      class={cn($submitting && 'btn-active pointer-events-none', 'btn btn-primary flex-1')}
       aria-label="Create"
     >
       Create
-      {#if $delayed}
+      {#if $submitting}
         <span class="loading loading-spinner loading-xs"></span>
       {:else}
         <coreicons-shape-arrow variant="right" class="size-4"></coreicons-shape-arrow>

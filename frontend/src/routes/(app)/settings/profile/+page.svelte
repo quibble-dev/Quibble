@@ -72,7 +72,7 @@
     show_setting !== null ? settings_component_mapping[show_setting] : null
   );
 
-  const { form, errors, enhance, delayed } = superForm(data.form!, {
+  const { form, errors, enhance, submitting } = superForm(data.form!, {
     resetForm: false,
     onSubmit({ formData }) {
       if ($form.avatar) formData.set('avatar', $form.avatar);
@@ -87,9 +87,8 @@
   });
 
   async function handle_delete() {
-    let pending_timeout: Nullable<NodeJS.Timeout> = null;
     try {
-      pending_timeout = setTimeout(() => (pending = true), 500);
+      pending = true;
       const { response } = await api.DELETE('/u/me/profiles/{id}/', {
         params: { path: { id: data.profile?.id! } }
       });
@@ -98,7 +97,6 @@
       console.error(err);
     } finally {
       pending = false;
-      if (pending_timeout) clearTimeout(pending_timeout);
     }
   }
 </script>
@@ -139,9 +137,9 @@
     {/if}
     <div class="flex items-center justify-end gap-2">
       <button type="button" onclick={() => (show_modal = false)} class="btn">Cancel</button>
-      <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary')}>
+      <button class={cn($submitting && 'btn-active pointer-events-none', 'btn btn-primary')}>
         Save
-        {#if $delayed}
+        {#if $submitting}
           <span class="loading loading-spinner loading-xs"></span>
         {:else}
           <coreicons-shape-check class="size-4"></coreicons-shape-check>

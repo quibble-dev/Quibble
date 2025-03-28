@@ -19,7 +19,7 @@
 
   const handle_success: (data: Data) => void = getContext('handle_success');
 
-  const { form, enhance, delayed, errors, message } = superForm(data.form, {
+  const { form, enhance, submitting, errors, message } = superForm(data.form, {
     resetForm: false,
     async onResult({ result }) {
       // if e-mail address is not verified
@@ -105,9 +105,9 @@
     <a href="/password" tabindex="-1" class="text-accent text-sm">Forgot password?</a>
   </div>
   <div class="flex flex-col items-center gap-2">
-    <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary w-full')}>
+    <button class={cn($submitting && 'btn-active pointer-events-none', 'btn btn-primary w-full')}>
       Log in
-      {#if $delayed}
+      {#if $submitting}
         <span class="loading loading-spinner loading-xs"></span>
       {:else}
         <coreicons-shape-log-in class="size-4"></coreicons-shape-log-in>
