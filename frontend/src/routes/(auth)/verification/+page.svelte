@@ -12,7 +12,7 @@
   // eslint-disable-next-line no-undef
   let countdown_interval = $state<NodeJS.Timeout>();
 
-  const { form, enhance, errors, submitting } = superForm(data.form, {
+  const { form, enhance, errors, delayed } = superForm(data.form, {
     resetForm: false
   });
 
@@ -83,9 +83,9 @@
         <coreicons-shape-arrow variant="left" class="size-4"></coreicons-shape-arrow>
         Back
       </button>
-      <button class={cn($submitting && 'btn-active pointer-events-none', 'btn btn-primary flex-1')}>
+      <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary flex-1')}>
         Continue
-        {#if $submitting}
+        {#if $delayed}
           <span class="loading loading-spinner loading-xs"></span>
         {:else}
           <coreicons-shape-arrow variant="right" class="size-4"></coreicons-shape-arrow>

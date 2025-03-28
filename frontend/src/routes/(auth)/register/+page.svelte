@@ -12,7 +12,7 @@
   const dest_param = page.url.searchParams.get('dest');
   const href_login = dest_param ? `/login?dest=${encodeURIComponent(dest_param)}` : '/login';
 
-  const { form, enhance, submitting, errors, message } = superForm(data.form, {
+  const { form, enhance, delayed, errors, message } = superForm(data.form, {
     resetForm: false
   });
 
@@ -93,9 +93,9 @@
     <span class="cursor-pointer text-sm">Show password</span>
   </label>
   <div class="flex flex-col items-center gap-2">
-    <button class={cn($submitting && 'btn-active pointer-events-none', 'btn btn-primary w-full')}>
+    <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary w-full')}>
       Register
-      {#if $submitting}
+      {#if $delayed}
         <span class="loading loading-spinner loading-xs"></span>
       {:else}
         <coreicons-shape-arrow class="size-4" variant="right"></coreicons-shape-arrow>

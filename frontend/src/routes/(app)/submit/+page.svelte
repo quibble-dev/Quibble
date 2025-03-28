@@ -50,7 +50,7 @@
     return deduped;
   });
 
-  const { form, errors, enhance, submitting } = superForm(data.form, {
+  const { form, errors, enhance, delayed } = superForm(data.form, {
     resetForm: false,
     validators: zod(PostSubmitSchema)
   });
@@ -175,9 +175,9 @@
     ></textarea>
     <div class="ml-auto flex items-center gap-2">
       <button type="button" class="btn btn-neutral" disabled>Save Draft</button>
-      <button class={cn($submitting && 'btn-active pointer-events-none', 'btn btn-primary')}>
+      <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary')}>
         Post
-        {#if $submitting}<span class="loading loading-spinner loading-xs"></span>{/if}
+        {#if $delayed}<span class="loading loading-spinner loading-xs"></span>{/if}
       </button>
     </div>
   </form>

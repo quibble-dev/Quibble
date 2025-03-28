@@ -48,7 +48,7 @@
   // constants
   const MAX_STEP = Object.keys(steps).length - 1;
 
-  const { form, enhance, errors, submitting } = superForm(data.form, {
+  const { form, enhance, errors, delayed } = superForm(data.form, {
     resetForm: false,
     onSubmit({ formData }) {
       const _form_data = create_form_data($form);
@@ -122,11 +122,11 @@
         </button>
         <button
           type={step === MAX_STEP ? 'submit' : 'button'}
-          class={cn($submitting && 'btn-active pointer-events-none', 'btn btn-primary')}
+          class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary')}
           onclick={handle_next_click}
         >
           {step === MAX_STEP ? 'Create' : 'Next'}
-          {#if $submitting}
+          {#if $delayed}
             <span class="loading loading-spinner loading-xs"></span>
           {:else}
             <coreicons-shape-arrow variant="right" class="size-4"></coreicons-shape-arrow>
