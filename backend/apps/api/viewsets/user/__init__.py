@@ -59,7 +59,7 @@ class ProfileViewSet(viewsets.ReadOnlyModelViewSet):
 
         if not obj:
             raise exceptions.NotFound(
-                f"Profile with ID {self.kwargs[self.lookup_field]} not found."
+                f"Profile with ID u/{self.kwargs[self.lookup_field]} not found."
             )
         return obj
 

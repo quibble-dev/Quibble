@@ -44,7 +44,7 @@ class CommunityViewSet(viewsets.ModelViewSet):
 
         if not obj:
             raise exceptions.NotFound(
-                f'Community with name <b>q/{self.kwargs[self.lookup_field]}</b> not found.'
+                f'Community with name q/{self.kwargs[self.lookup_field]} not found.'
             )
         return obj
 
