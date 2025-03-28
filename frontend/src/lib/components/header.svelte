@@ -22,7 +22,7 @@
 
   async function handle_log_out_click() {
     const { response } = await api.POST('/auth/logout/');
-    if (response.ok) window.location.reload();
+    if (response.ok) window.location.href = '/';
   }
 </script>
 
@@ -106,7 +106,10 @@
             class="menu dropdown-content bg-base-100 rounded-box z-10 mt-2 min-w-40 gap-1 p-1.5"
           >
             <li>
-              <a href="/u/{authStore.state.user?.profile.username}" class="flex items-center gap-2">
+              <a
+                href="/u/{authStore.state.user?.profile.username}?ref=header"
+                class="flex items-center gap-2"
+              >
                 <div class="grid w-6 place-items-center">
                   <Avatar src={authStore.state.user?.profile.avatar} />
                 </div>

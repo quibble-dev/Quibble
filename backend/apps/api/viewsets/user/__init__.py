@@ -17,6 +17,7 @@ from apps.api.serializers.user.profile import (
 from apps.api.serializers.user.profile.downvoted import DownvotedSerializer
 from apps.api.serializers.user.profile.overview import OverviewSerializer
 from apps.api.serializers.user.profile.upvoted import UpvotedSerializer
+from apps.api.utils import unset_jwt_cookies_with_profile_id
 from apps.user.models import Profile
 
 
@@ -169,7 +170,7 @@ class MyProfilesViewSet(viewsets.ModelViewSet):
         """Delete profile-id cookie after profile is deleted."""
 
         response = super().destroy(request, *args, **kwargs)
-        response.delete_cookie('profile-id')
+        unset_jwt_cookies_with_profile_id(response)
 
         return response
 

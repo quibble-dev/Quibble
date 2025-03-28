@@ -63,6 +63,7 @@
     }
   ]);
 
+  let pending = $state(false);
   let show_delete_modal = $state(false);
   let show_modal = $state(false);
   let show_setting = $state<Nullable<Settings>>(null);
@@ -87,7 +88,7 @@
   async function handle_delete() {
     if (!data.profile?.id) return;
     try {
-      $submitting = true;
+      pending = true;
       const { response } = await api.DELETE('/u/me/profiles/{id}/', {
         params: { path: { id: data.profile.id } }
       });
@@ -95,7 +96,7 @@
     } catch (err) {
       console.error(err);
     } finally {
-      $submitting = false;
+      pending = false;
     }
   }
 </script>
@@ -162,11 +163,11 @@
   <div class="flex items-center justify-end gap-2">
     <button type="button" onclick={() => (show_delete_modal = false)} class="btn">Cancel</button>
     <button
-      class={cn($submitting && 'btn-active pointer-events-none', 'btn btn-error')}
+      class={cn(pending && 'btn-active pointer-events-none', 'btn btn-error')}
       onclick={handle_delete}
     >
       Delete
-      {#if $submitting}
+      {#if pending}
         <span class="loading loading-spinner loading-xs"></span>
       {:else}
         <coreicons-shape-trash variant="without-lines" class="size-4"></coreicons-shape-trash>
