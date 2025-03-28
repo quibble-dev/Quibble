@@ -56,8 +56,6 @@
     return page.url.pathname === `${base_path}/${key}`;
   }
 
-  // https://www.reddit.com/user/GovernmentWaste3396/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-
   function handle_share_click() {
     if (browser) {
       const link = new URL(page.url.href);
