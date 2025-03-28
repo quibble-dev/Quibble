@@ -85,10 +85,11 @@
   });
 
   async function handle_delete() {
+    if (!data.profile?.id) return;
     try {
       $submitting = true;
       const { response } = await api.DELETE('/u/me/profiles/{id}/', {
-        params: { path: { id: data.profile?.id! } }
+        params: { path: { id: data.profile.id } }
       });
       if (response.ok) window.location.href = '/';
     } catch (err) {
