@@ -8,21 +8,24 @@ type AuthState = {
   user: Nullable<UserDetails>;
 };
 
-const auth_state = $state<AuthState>({
-  is_authenticated: false,
-  user: null
-});
+function create_auth_store() {
+  const auth_store = $state<AuthState>({
+    is_authenticated: false,
+    user: null
+  });
 
-export function createAuthStore() {
   return {
-    get state() {
-      return auth_state;
+    get value() {
+      return auth_store;
     },
     update(new_state: Partial<AuthState>) {
       // spreading doesnt work because it creates a new reference
       // which leads to infinite loop of effects
       // auth_state = { ...auth_state, ...new_state }
-      Object.assign(auth_state, new_state);
+      Object.assign(auth_store, new_state);
     }
   };
 }
+
+// initialize store
+export const auth_store = create_auth_store();

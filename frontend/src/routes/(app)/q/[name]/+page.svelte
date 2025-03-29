@@ -4,7 +4,7 @@
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
   import { pluralize } from '$lib/functions/pluralize';
-  import { createAuthStore } from '$lib/stores/auth.svelte';
+  import { auth_store } from '$lib/stores/auth.svelte';
   import { createSidebarStore } from '$lib/stores/sidebar.svelte';
   import type { PageData } from './$types';
   import { onMount } from 'svelte';
@@ -12,13 +12,11 @@
   const { data }: { data: PageData } = $props();
   const { community, posts, highlighted_posts } = $derived(data);
 
-  const authStore = createAuthStore(),
-    sidebarStore = createSidebarStore();
+  const sidebarStore = createSidebarStore();
 
   const is_joined = $derived.by(() => {
-    if (!authStore.state.is_authenticated) return false;
-    if (authStore.state.user && community) {
-      return community.members?.includes(authStore.state.user.profile.id);
+    if (auth_store.value.user && community) {
+      return community.members?.includes(auth_store.value.user.profile.id);
     }
   });
 

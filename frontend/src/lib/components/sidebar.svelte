@@ -2,16 +2,15 @@
   import QuibbleIcon from '$lib/components/icons/logos/quibble.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { emoticons } from '$lib/constants/emoticons';
-  import { createAuthStore } from '$lib/stores/auth.svelte';
+  import { auth_store } from '$lib/stores/auth.svelte';
   import { createModalsStore } from '$lib/stores/modals.svelte';
   import { createSidebarStore } from '$lib/stores/sidebar.svelte';
 
   const sidebarStore = createSidebarStore(),
-    modalsStore = createModalsStore(),
-    authStore = createAuthStore();
+    modalsStore = createModalsStore();
 
   function handle_create_a_communiy_btn_click(e: MouseEvent) {
-    if (!authStore.state.is_authenticated) {
+    if (!auth_store.value.is_authenticated) {
       e.preventDefault();
       modalsStore.open('auth');
     }

@@ -4,7 +4,7 @@
   import Modals from '$lib/components/modals/index.svelte';
   import Toaster from '$lib/components/ui/toast';
   import { TOKEN_REFRESH_INTERVAL } from '$lib/constants/auth';
-  import { createAuthStore } from '$lib/stores/auth.svelte';
+  import { auth_store } from '$lib/stores/auth.svelte';
   import '../styles/app.css';
   import '../styles/nprogress.css';
   import '../styles/smiz.css';
@@ -14,8 +14,6 @@
 
   // eslint-disable-next-line no-undef
   let { children, data }: { children: Snippet; data: App.Locals } = $props();
-
-  const authStore = createAuthStore();
 
   NProgress.configure({
     // Full list: https://github.com/rstacruz/nprogress#configuration
@@ -30,7 +28,7 @@
   afterNavigate(() => NProgress.done());
 
   $effect(() => {
-    authStore.update({
+    auth_store.update({
       is_authenticated: !!data.user,
       user: data.user
     });
@@ -39,7 +37,7 @@
   onMount(() => {
     defineCustomElements();
     // send token refresh request interval
-    if (!authStore.state.is_authenticated) return;
+    if (!auth_store.value.is_authenticated) return;
 
     const interval = setInterval(async () => {
       const { response } = await api.POST('/auth/token/refresh/', {
