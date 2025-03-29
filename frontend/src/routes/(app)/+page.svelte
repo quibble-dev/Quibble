@@ -3,13 +3,11 @@
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { emoticons } from '$lib/constants/emoticons';
   import { PostCard, PostsHeader } from '$lib/features/posts';
-  import { createRecentPostStore } from '$lib/features/posts/stores/recent-post.svelte';
+  import { recent_posts_store } from '$lib/features/posts/stores/recent-posts.svelte';
   import type { PageData } from './$types';
   import readable from 'readable-numbers';
 
   const { data }: { data: PageData } = $props();
-
-  const recentPostStore = createRecentPostStore();
 </script>
 
 <svelte:head>
@@ -43,13 +41,13 @@
       <h2 class="font-medium">Recent Posts</h2>
       <button
         class="btn btn-ghost btn-xs z-10"
-        disabled={recentPostStore.state.length === 0}
-        onclick={recentPostStore.clear}>Clear</button
+        disabled={recent_posts_store.value.length === 0}
+        onclick={recent_posts_store.clear}>Clear</button
       >
     </div>
     <div class="flex flex-col gap-4">
-      {#if recentPostStore.state.length}
-        {#each recentPostStore.state as post (post.id)}
+      {#if recent_posts_store.value.length}
+        {#each recent_posts_store.value as post (post.id)}
           <div class="flex flex-col gap-2">
             <div class="flex justify-between gap-2">
               <div class="flex flex-col gap-1">

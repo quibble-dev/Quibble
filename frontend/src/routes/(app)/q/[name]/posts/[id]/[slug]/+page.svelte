@@ -10,7 +10,7 @@
   import { CommentBlock } from '$lib/features/comments';
   import CommentBox from '$lib/features/comments/components/comment-box.svelte';
   import PostActions from '$lib/features/posts/components/post-actions.svelte';
-  import { createRecentPostStore } from '$lib/features/posts/stores/recent-post.svelte';
+  import { recent_posts_store } from '$lib/features/posts/stores/recent-posts.svelte';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
   import { is_valid } from '$lib/functions/is-valid';
@@ -22,8 +22,6 @@
 
   const { data }: { data: PageData } = $props();
   const { post, comments } = $state(data);
-
-  const recentPostStore = createRecentPostStore();
 
   let active_mapping = $state<{
     filter: keyof typeof mapping.filters;
@@ -54,15 +52,7 @@
   }
 
   onMount(() => {
-    recentPostStore.add_post({
-      id: post.id,
-      community: post.community,
-      title: post.title,
-      slug: post.slug,
-      cover: post.cover,
-      upvotes: post.upvotes,
-      comments: post.comments
-    });
+    recent_posts_store.add_post({ ...post });
   });
 </script>
 
