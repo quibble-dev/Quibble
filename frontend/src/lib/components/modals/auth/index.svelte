@@ -1,17 +1,15 @@
 <script lang="ts">
   import Quibbles from '$lib/components/icons/logos/quibbles.svelte';
   import BaseModal from '$lib/components/ui/base-modal.svelte';
-  import { createModalsStore } from '$lib/stores/modals.svelte';
-
-  const modalsStore = createModalsStore();
+  import { modals_store } from '$lib/stores/modals.svelte';
 
   function handle_modal_close() {
-    modalsStore.close('auth');
+    modals_store.close('auth');
   }
 </script>
 
 <BaseModal
-  open={modalsStore.state.get('auth') === true}
+  open={modals_store.value.get('auth') === true}
   onclose={handle_modal_close}
   class="flex max-w-[25rem]! flex-col gap-5"
 >
