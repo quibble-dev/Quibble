@@ -6,7 +6,7 @@
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { cn } from '$lib/functions/classnames';
   import { PostSubmitSchema } from '$lib/schemas/post-submit';
-  import { createSidebarStore } from '$lib/stores/sidebar.svelte';
+  import { sidebar_store } from '$lib/stores/sidebar.svelte';
   import { superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
 
@@ -35,8 +35,6 @@
 
   let { data } = $props();
 
-  const sidebarStore = createSidebarStore();
-
   type Type = keyof typeof types;
   let active_type = $state<Type>('TEXT');
 
@@ -44,7 +42,7 @@
   let filter_query = $state('');
 
   const communities_select_list = $derived.by(() => {
-    const merged = [...(sidebarStore.state.recent ?? []), ...(sidebarStore.state.your ?? [])];
+    const merged = [...(sidebar_store.value.recent ?? []), ...(sidebar_store.value.your ?? [])];
     const deduped = Array.from(new Map(merged.map((c) => [c.id, c])).values());
     if (filter_query) return deduped.filter((c) => c.name.startsWith(filter_query.toLowerCase()));
     return deduped;

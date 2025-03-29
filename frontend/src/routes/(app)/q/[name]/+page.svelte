@@ -5,14 +5,12 @@
   import { FormatDate } from '$lib/functions/date';
   import { pluralize } from '$lib/functions/pluralize';
   import { auth_store } from '$lib/stores/auth.svelte';
-  import { createSidebarStore } from '$lib/stores/sidebar.svelte';
+  import { sidebar_store } from '$lib/stores/sidebar.svelte';
   import type { PageData } from './$types';
   import { onMount } from 'svelte';
 
   const { data }: { data: PageData } = $props();
   const { community, posts, highlighted_posts } = $derived(data);
-
-  const sidebarStore = createSidebarStore();
 
   const is_joined = $derived.by(() => {
     if (auth_store.value.user && community) {
@@ -21,7 +19,7 @@
   });
 
   function add_to_sidebar_store(key: string) {
-    sidebarStore.add_community(key, {
+    sidebar_store.add_community(key, {
       id: community.id,
       avatar: community.avatar,
       name: community.name

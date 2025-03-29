@@ -1,7 +1,8 @@
 import { browser } from '$app/environment';
 import { SIDEBAR_MAX_ITEMS_LIMIT } from '$lib/constants/limits';
 
-type Sidebar = Record<string, Community[]>;
+// internal types
+type SidebarStore = Record<string, Community[]>;
 type Community = {
   id: number;
   avatar?: string | null | undefined;
@@ -10,23 +11,15 @@ type Community = {
   timestamp?: number;
 };
 
-const stored_sidebar = browser ? localStorage.getItem('sidebar') : null;
-const parsed_sidebar: Sidebar = stored_sidebar ? JSON.parse(stored_sidebar) : {};
+// constants
+const SIDEBAR_LOCALSTORAGE_KEY = 'sidebar-store';
 
-const sidebar = $state<Sidebar>(
-  // sort initial data
-  Object.fromEntries(
-    Object.entries(parsed_sidebar).map(([key, community]) => [
-      key,
-      get_sorted_communities(community)
-    ])
-  )
-);
+// helper functions
+function get_stored_sidebar_store(): SidebarStore {
+  if (!browser) return {};
 
-function sync_to_localstorage() {
-  if (browser) {
-    localStorage.setItem('sidebar', JSON.stringify(sidebar));
-  }
+  const stored = localStorage.getItem(SIDEBAR_LOCALSTORAGE_KEY);
+  return stored ? JSON.parse(stored) : {};
 }
 
 function get_sorted_communities(communities: Community[]) {
@@ -39,44 +32,61 @@ function get_sorted_communities(communities: Community[]) {
   });
 }
 
-export function createSidebarStore() {
+function create_sidebar_store() {
+  const sidebar_store = $state<SidebarStore>(
+    // sort initial data
+    Object.fromEntries(
+      Object.entries(get_stored_sidebar_store()).map(([key, community]) => [
+        key,
+        get_sorted_communities(community)
+      ])
+    )
+  );
+
+  $effect.root(() => {
+    $effect(() => {
+      if (!browser) return;
+      localStorage.setItem(SIDEBAR_LOCALSTORAGE_KEY, JSON.stringify(sidebar_store));
+    });
+  });
+
   return {
-    get state() {
-      return sidebar;
+    get value() {
+      return sidebar_store;
     },
     add_community(type: string, community: Community) {
       // initialize empty array for new type type
-      if (!sidebar[type]) {
-        sidebar[type] = [];
-      }
-
-      const exists = sidebar[type].some((c) => c.name === community.name);
-      if (exists) return;
+      if (!sidebar_store[type]) sidebar_store[type] = [];
+      // if community already exists in store
+      if (sidebar_store[type].some((c) => c.name === community.name)) return;
 
       const community_with_timestamp: Community = {
         ...community,
         starred: false,
         timestamp: Date.now()
       };
-      sidebar[type] = get_sorted_communities([community_with_timestamp, ...sidebar[type]]).slice(
-        0,
-        SIDEBAR_MAX_ITEMS_LIMIT
-      );
-      sync_to_localstorage();
+
+      sidebar_store[type] = get_sorted_communities([
+        community_with_timestamp,
+        ...sidebar_store[type]
+      ]).slice(0, SIDEBAR_MAX_ITEMS_LIMIT);
     },
     toggle_star(type: string, name: string) {
-      if (!sidebar[type]) return;
-
-      sidebar[type] = get_sorted_communities(
-        sidebar[type].map((c) => (c.name === name ? { ...c, starred: !c.starred } : c))
+      // guard clause
+      if (!sidebar_store[type]) return;
+      sidebar_store[type] = get_sorted_communities(
+        sidebar_store[type].map((c) => (c.name === name ? { ...c, starred: !c.starred } : c))
       );
-      sync_to_localstorage();
     },
     clear(type: string) {
-      if (!sidebar[type]) return;
-
-      sidebar[type] = get_sorted_communities(sidebar[type].filter((c) => c.starred === true));
-      sync_to_localstorage();
+      // guard clause
+      if (!sidebar_store[type]) return;
+      sidebar_store[type] = get_sorted_communities(
+        sidebar_store[type].filter((c) => c.starred === true)
+      );
     }
   };
 }
+
+// initialize store
+export const sidebar_store = create_sidebar_store();

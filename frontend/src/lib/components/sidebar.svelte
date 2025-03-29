@@ -4,9 +4,7 @@
   import { emoticons } from '$lib/constants/emoticons';
   import { auth_store } from '$lib/stores/auth.svelte';
   import { modals_store } from '$lib/stores/modals.svelte';
-  import { createSidebarStore } from '$lib/stores/sidebar.svelte';
-
-  const sidebarStore = createSidebarStore();
+  import { sidebar_store } from '$lib/stores/sidebar.svelte';
 
   function handle_create_a_communiy_btn_click(e: MouseEvent) {
     if (!auth_store.value.is_authenticated) {
@@ -42,23 +40,23 @@
       <div class="flex items-center gap-2">
         <button
           class="btn btn-ghost btn-xs z-10"
-          disabled={sidebarStore.state.recent?.length === 0}
-          onclick={() => sidebarStore.clear('recent')}>Clear</button
+          disabled={sidebar_store.value.recent?.length === 0}
+          onclick={() => sidebar_store.clear('recent')}>Clear</button
         >
         <coreicons-shape-chevron class="size-4 transition-transform" variant="down"
         ></coreicons-shape-chevron>
       </div>
     </div>
-    {#if sidebarStore.state.recent?.length}
+    {#if sidebar_store.value.recent?.length}
       <div class="collapse-content flex flex-col gap-2 p-0!">
-        {#each sidebarStore.state.recent as community (community.id)}
+        {#each sidebar_store.value.recent as community (community.id)}
           <div class="flex items-center gap-2">
             <a href="/q/{community.name}" class="flex">
               <Avatar src={community.avatar} />
             </a>
             <a href="/q/{community.name}" class="text-sm font-medium">q/{community.name}</a>
             <button
-              onclick={() => sidebarStore.toggle_star('recent', community.name)}
+              onclick={() => sidebar_store.toggle_star('recent', community.name)}
               class="ml-auto cursor-pointer"
               aria-label="Star Community"
             >
@@ -82,23 +80,23 @@
       <div class="flex items-center gap-2">
         <button
           class="btn btn-ghost btn-xs z-10"
-          disabled={sidebarStore.state.your?.length === 0}
-          onclick={() => sidebarStore.clear('your')}>Clear</button
+          disabled={sidebar_store.value.your?.length === 0}
+          onclick={() => sidebar_store.clear('your')}>Clear</button
         >
         <coreicons-shape-chevron class="size-4 transition-transform" variant="down"
         ></coreicons-shape-chevron>
       </div>
     </div>
-    {#if sidebarStore.state.your?.length}
+    {#if sidebar_store.value.your?.length}
       <div class="collapse-content flex flex-col gap-2 p-0!">
-        {#each sidebarStore.state.your as community (community.id)}
+        {#each sidebar_store.value.your as community (community.id)}
           <div class="flex items-center gap-2">
             <a href="/q/{community.name}" class="flex">
               <Avatar src={community.avatar} />
             </a>
             <a href="/q/{community.name}" class="text-sm font-medium">q/{community.name}</a>
             <button
-              onclick={() => sidebarStore.toggle_star('your', community.name)}
+              onclick={() => sidebar_store.toggle_star('your', community.name)}
               class="ml-auto"
               aria-label="Star Community"
             >
