@@ -1,13 +1,13 @@
 <script lang="ts">
   import type { ISettingItem } from '$lib/pages/settings/setting-item.svelte';
   import SettingItem from '$lib/pages/settings/setting-item.svelte';
-  import { authStore } from '$lib/stores/auth.svelte';
+  import { auth_store } from '$lib/stores/auth.svelte';
 
   const general_settings: ISettingItem[] = $derived([
     {
       title: 'Email address',
       sub_title: 'Changing your email address will affect all your profiles',
-      value: authStore.value.user?.email ?? 'Not set',
+      value: auth_store.value.user?.email ?? 'Not set',
       aria_label: 'Change email address',
       disabled: true
     },

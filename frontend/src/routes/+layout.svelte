@@ -4,7 +4,7 @@
   import Modals from '$lib/components/modals/index.svelte';
   import Toaster from '$lib/components/ui/toast';
   import { TOKEN_REFRESH_INTERVAL } from '$lib/constants/auth';
-  import { authStore } from '$lib/stores/auth.svelte';
+  import { auth_store } from '$lib/stores/auth.svelte';
   import '../styles/app.css';
   import '../styles/nprogress.css';
   import '../styles/smiz.css';
@@ -28,7 +28,7 @@
   afterNavigate(() => NProgress.done());
 
   $effect(() => {
-    authStore.update({
+    auth_store.update({
       is_authenticated: !!data.user,
       user: data.user
     });
@@ -37,7 +37,7 @@
   onMount(() => {
     defineCustomElements();
     // send token refresh request interval
-    if (!authStore.value.is_authenticated) return;
+    if (!auth_store.value.is_authenticated) return;
 
     const interval = setInterval(async () => {
       const { response } = await api.POST('/auth/token/refresh/', {

@@ -6,7 +6,7 @@
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
   import NotificationIcon from '$lib/components/icons/notification.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
-  import { authStore } from '$lib/stores/auth.svelte';
+  import { auth_store } from '$lib/stores/auth.svelte';
 
   type Props = {
     on_menu_click?: () => void;
@@ -74,7 +74,7 @@
     <button aria-label="Expand search" class="btn size-10 p-0 sm:hidden">
       <coreicons-shape-search variant="no-border" class="size-5"></coreicons-shape-search>
     </button>
-    {#if authStore.value.is_authenticated}
+    {#if auth_store.value.is_authenticated}
       <div class="tooltip tooltip-bottom" data-tip="Create a Post">
         <a
           href="/submit?type=TEXT"
@@ -95,7 +95,7 @@
           <div tabindex="0" role="button">
             <Avatar
               class="btn btn-neutral rounded-btn size-10 border-none p-0"
-              src={authStore.value.user?.profile.avatar}
+              src={auth_store.value.user?.profile.avatar}
             />
           </div>
           <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
@@ -104,14 +104,17 @@
             class="menu dropdown-content bg-base-100 rounded-box z-10 mt-2 min-w-40 gap-1 p-1.5"
           >
             <li>
-              <a href="/u/{authStore.value.user?.profile.username}" class="flex items-center gap-2">
+              <a
+                href="/u/{auth_store.value.user?.profile.username}"
+                class="flex items-center gap-2"
+              >
                 <div class="grid w-6 place-items-center">
-                  <Avatar src={authStore.value.user?.profile.avatar} />
+                  <Avatar src={auth_store.value.user?.profile.avatar} />
                 </div>
                 <div class="flex flex-col">
                   <span class="text-info font-medium">View Profile</span>
                   <span class="text-base-content/75 text-xs"
-                    >u/{authStore.value.user?.profile.username}<span> </span></span
+                    >u/{auth_store.value.user?.profile.username}<span> </span></span
                   >
                 </div>
               </a>

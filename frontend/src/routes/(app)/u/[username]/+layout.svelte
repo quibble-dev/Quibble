@@ -5,7 +5,7 @@
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { toast } from '$lib/components/ui/toast';
   import { FormatDate } from '$lib/functions/date';
-  import { authStore } from '$lib/stores/auth.svelte';
+  import { auth_store } from '$lib/stores/auth.svelte';
   import type { LayoutData } from './$types';
   import type { Snippet } from 'svelte';
 
@@ -46,7 +46,7 @@
     { profile } = $derived(data),
     base_path = $derived(`/u/${profile?.username}`),
     is_own_profile = $derived(
-      profile && authStore.value.user && profile.id === authStore.value.user.profile.id
+      profile && auth_store.value.user && profile.id === auth_store.value.user.profile.id
     );
 
   function check_is_active(key: string) {
@@ -142,7 +142,7 @@
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
           <div class="grid w-6 place-items-center">
-            <Avatar src={authStore.value.user?.profile.avatar} />
+            <Avatar src={auth_store.value.user?.profile.avatar} />
           </div>
           <div class="flex flex-col">
             <span class="text-sm">Profile</span>

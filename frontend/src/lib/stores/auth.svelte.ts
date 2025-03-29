@@ -8,7 +8,7 @@ type AuthState = {
   user: Nullable<UserDetails>;
 };
 
-function createAuthStore() {
+function create_auth_store() {
   const auth_store = $state<AuthState>({
     is_authenticated: false,
     user: null
@@ -28,4 +28,4 @@ function createAuthStore() {
 }
 
 // initialize store
-export const authStore = createAuthStore();
+export const auth_store = create_auth_store();

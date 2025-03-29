@@ -2,7 +2,7 @@
   import api from '$lib/api';
   import { cn } from '$lib/functions/classnames';
   import { throttle } from '$lib/functions/throttle';
-  import { authStore } from '$lib/stores/auth.svelte';
+  import { auth_store } from '$lib/stores/auth.svelte';
   import readable from 'readable-numbers';
 
   type Props = {
@@ -22,9 +22,9 @@
   });
 
   function get_reaction(): 'upvoted' | 'downvoted' | null {
-    if (authStore.value.user) {
-      if (upvotes?.includes(authStore.value.user.profile.id)) return 'upvoted';
-      else if (downvotes?.includes(authStore.value.user.profile.id)) return 'downvoted';
+    if (auth_store.value.user) {
+      if (upvotes?.includes(auth_store.value.user.profile.id)) return 'upvoted';
+      else if (downvotes?.includes(auth_store.value.user.profile.id)) return 'downvoted';
       else return null;
     } else {
       return null;

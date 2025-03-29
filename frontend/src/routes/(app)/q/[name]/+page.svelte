@@ -4,7 +4,7 @@
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
   import { pluralize } from '$lib/functions/pluralize';
-  import { authStore } from '$lib/stores/auth.svelte';
+  import { auth_store } from '$lib/stores/auth.svelte';
   import { createSidebarStore } from '$lib/stores/sidebar.svelte';
   import type { PageData } from './$types';
   import { onMount } from 'svelte';
@@ -15,8 +15,8 @@
   const sidebarStore = createSidebarStore();
 
   const is_joined = $derived.by(() => {
-    if (authStore.value.user && community) {
-      return community.members?.includes(authStore.value.user.profile.id);
+    if (auth_store.value.user && community) {
+      return community.members?.includes(auth_store.value.user.profile.id);
     }
   });
 
