@@ -12,13 +12,13 @@ type Community = {
 };
 
 // constants
-const SIDEBAR_LOCALSTORAGE_KEY = 'sidebar-store';
+const SIDEBAR_LS_KEY = 'sidebar_store';
 
 // helper functions
 function get_stored_sidebar_store(): SidebarStore {
   if (!browser) return {};
 
-  const stored = localStorage.getItem(SIDEBAR_LOCALSTORAGE_KEY);
+  const stored = localStorage.getItem(SIDEBAR_LS_KEY);
   return stored ? JSON.parse(stored) : {};
 }
 
@@ -45,8 +45,8 @@ function create_sidebar_store() {
 
   $effect.root(() => {
     $effect(() => {
-      if (!browser) return;
-      localStorage.setItem(SIDEBAR_LOCALSTORAGE_KEY, JSON.stringify(sidebar_store));
+      if (!browser || Object.keys(sidebar_store).length <= 0) return;
+      localStorage.setItem(SIDEBAR_LS_KEY, JSON.stringify(sidebar_store));
     });
   });
 
@@ -72,18 +72,18 @@ function create_sidebar_store() {
       ]).slice(0, SIDEBAR_MAX_ITEMS_LIMIT);
     },
     toggle_star(type: string, name: string) {
-      // guard clause
       if (!sidebar_store[type]) return;
       sidebar_store[type] = get_sorted_communities(
         sidebar_store[type].map((c) => (c.name === name ? { ...c, starred: !c.starred } : c))
       );
     },
     clear(type: string) {
-      // guard clause
       if (!sidebar_store[type]) return;
       sidebar_store[type] = get_sorted_communities(
         sidebar_store[type].filter((c) => c.starred === true)
       );
+      // clear storage
+      if (browser) localStorage.removeItem(SIDEBAR_LS_KEY);
     }
   };
 }

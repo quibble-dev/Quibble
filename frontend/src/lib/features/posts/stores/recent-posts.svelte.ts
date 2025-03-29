@@ -2,12 +2,12 @@ import { browser } from '$app/environment';
 import type { RecentPost, RecentPostWithTimestamp } from '../types/recent-post.type';
 
 // constants
-const RECENT_POSTS_LOCALSTORAGE_KEY = 'recent-post-store';
+const RECENT_POSTS_LS_KEY = 'recent_posts_store';
 
 function get_stored_recent_posts(): RecentPostWithTimestamp[] {
   if (!browser) return [];
   try {
-    const stored = localStorage.getItem(RECENT_POSTS_LOCALSTORAGE_KEY);
+    const stored = localStorage.getItem(RECENT_POSTS_LS_KEY);
     if (!stored) return [];
 
     const parsed = JSON.parse(stored) as RecentPostWithTimestamp[];
@@ -32,7 +32,7 @@ function create_recent_posts_store() {
     $effect(() => {
       if (!browser || recent_posts.length <= 0) return;
       localStorage.setItem(
-        RECENT_POSTS_LOCALSTORAGE_KEY,
+        RECENT_POSTS_LS_KEY,
         JSON.stringify(
           recent_posts.map((post) => ({
             ...post,
@@ -60,7 +60,7 @@ function create_recent_posts_store() {
     clear() {
       recent_posts = [];
       // clear storage
-      if (browser) localStorage.removeItem(RECENT_POSTS_LOCALSTORAGE_KEY);
+      if (browser) localStorage.removeItem(RECENT_POSTS_LS_KEY);
     }
   };
 }
