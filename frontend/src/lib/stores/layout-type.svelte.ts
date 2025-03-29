@@ -2,23 +2,34 @@ import { browser } from '$app/environment';
 
 type LayoutType = 'card' | 'compact';
 
-const default_layout_type: LayoutType = 'card';
+const DEFAULT_LAYOUT_TYPE: LayoutType = 'card';
+const LAYOUT_TYPE_LOCALSTORAGE_KEY = 'layout-type';
 
-const stored_layout_type: LayoutType = browser
-  ? ((localStorage.getItem('layout_type') as LayoutType) ?? default_layout_type)
-  : default_layout_type;
+function get_stored_layout_type(): LayoutType {
+  if (!browser) return DEFAULT_LAYOUT_TYPE;
 
-let layout_type = $state<LayoutType>(stored_layout_type);
+  const stored = localStorage.getItem(LAYOUT_TYPE_LOCALSTORAGE_KEY);
+  return stored === 'card' || stored === 'compact' ? stored : DEFAULT_LAYOUT_TYPE;
+}
 
-export function createLayoutTypeStore() {
+function create_layout_type_store() {
+  let layout_type = $state<LayoutType>(get_stored_layout_type());
+
   return {
-    get state() {
+    get value() {
       return layout_type;
     },
     update(type: LayoutType) {
       layout_type = type;
-      // auto sync to localStorage on state update
-      localStorage.setItem('layout_type', type);
+      if (browser) {
+        localStorage.setItem(LAYOUT_TYPE_LOCALSTORAGE_KEY, type);
+      }
+    },
+    reset() {
+      this.update(DEFAULT_LAYOUT_TYPE);
     }
   };
 }
+
+// initialize store
+export const layout_type_store = create_layout_type_store();

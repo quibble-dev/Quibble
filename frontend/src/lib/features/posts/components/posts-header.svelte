@@ -7,7 +7,7 @@
   import RocketIcon from '$lib/components/icons/rocket.svelte';
   import TopIcon from '$lib/components/icons/top.svelte';
   import { cn } from '$lib/functions/classnames';
-  import { createLayoutTypeStore } from '$lib/stores/layout-type.svelte';
+  import { layout_type_store } from '$lib/stores/layout-type.svelte';
 
   const mapping = {
     sort: {
@@ -19,11 +19,11 @@
     view: {
       card: {
         icon: CardIcon,
-        onclick: () => layoutTypeStore.update('card')
+        onclick: () => layout_type_store.update('card')
       },
       compact: {
         icon: CompactIcon,
-        onclick: () => layoutTypeStore.update('compact')
+        onclick: () => layout_type_store.update('compact')
       }
     }
   };
@@ -31,9 +31,7 @@
   type SortType = keyof typeof mapping.sort;
   type ViewType = keyof typeof mapping.view;
 
-  const layoutTypeStore = createLayoutTypeStore();
-
-  let active_view = $derived<ViewType>(layoutTypeStore.state);
+  let active_view = $derived<ViewType>(layout_type_store.value);
   let active_sort = $derived.by<SortType>(() => {
     const sort_param = page.url.searchParams.get('sort');
     if (sort_param && Object.keys(mapping.sort).includes(sort_param)) return sort_param as SortType;

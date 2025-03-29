@@ -7,14 +7,12 @@
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
   import { is_valid } from '$lib/functions/is-valid';
-  import { createLayoutTypeStore } from '$lib/stores/layout-type.svelte';
+  import { layout_type_store } from '$lib/stores/layout-type.svelte';
   import PostActions from './post-actions.svelte';
 
   type Props = components['schemas']['Post'] & {
     always_on_card?: boolean;
   };
-
-  let layoutTypeStore = createLayoutTypeStore();
 
   let { always_on_card = false, ...post }: Props = $props();
   let is_expanded = $state(false);
@@ -62,7 +60,7 @@
 {/snippet}
 
 {#snippet actions()}
-  <PostActions class={cn(layoutTypeStore.state === 'card' && 'mt-1')} {...post} />
+  <PostActions class={cn(layout_type_store.value === 'card' && 'mt-1')} {...post} />
 {/snippet}
 
 {#snippet href_overlay()}
@@ -75,11 +73,13 @@
 
 <div
   class={cn(
-    !always_on_card && layoutTypeStore.state === 'compact' && 'hover:bg-base-200 transition-colors',
+    !always_on_card &&
+      layout_type_store.value === 'compact' &&
+      'hover:bg-base-200 transition-colors',
     'border-neutral bg-base-300 rounded-box relative flex flex-col overflow-hidden border'
   )}
 >
-  {#if always_on_card || layoutTypeStore.state === 'card'}
+  {#if always_on_card || layout_type_store.value === 'card'}
     <div
       class="hover:bg-base-200 group relative flex flex-col gap-1 p-4 transition-colors duration-75"
     >
