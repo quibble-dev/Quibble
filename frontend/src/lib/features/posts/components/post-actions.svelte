@@ -2,7 +2,7 @@
   import api from '$lib/api';
   import { cn } from '$lib/functions/classnames';
   import { throttle } from '$lib/functions/throttle';
-  import { createAuthStore } from '$lib/stores/auth.svelte';
+  import { authStore } from '$lib/stores/auth.svelte';
   import readable from 'readable-numbers';
 
   type Props = {
@@ -14,8 +14,6 @@
     class?: string;
   };
 
-  const authStore = createAuthStore();
-
   let { id, ratio, upvotes, downvotes, comments, class: _class }: Props = $props();
   let reaction = $state<ReturnType<typeof get_reaction>>();
 
@@ -24,9 +22,9 @@
   });
 
   function get_reaction(): 'upvoted' | 'downvoted' | null {
-    if (authStore.state.user) {
-      if (upvotes?.includes(authStore.state.user.profile.id)) return 'upvoted';
-      else if (downvotes?.includes(authStore.state.user.profile.id)) return 'downvoted';
+    if (authStore.value.user) {
+      if (upvotes?.includes(authStore.value.user.profile.id)) return 'upvoted';
+      else if (downvotes?.includes(authStore.value.user.profile.id)) return 'downvoted';
       else return null;
     } else {
       return null;
