@@ -2,6 +2,7 @@
   import { page } from '$app/state';
   import api from '$lib/api';
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import { emoticons } from '$lib/constants/emoticons';
   import { PROFILE_CREATE_LIMIT } from '$lib/constants/limits';
   import { cn } from '$lib/functions/classnames';
   import type { Nullable } from '$lib/types/shared';
@@ -68,7 +69,7 @@
       <span class="text-xs">fetching profiles...</span>
     </div>
   {:then profiles}
-    {#if profiles}
+    {#if profiles && profiles.length}
       <div class="grid grid-cols-3 place-items-center gap-2 md:gap-4">
         {#each profiles as profile (profile.id)}
           <div hidden class="relative flex flex-col items-center gap-1.5">
@@ -117,6 +118,11 @@
             >
           </button>
         {/each}
+      </div>
+    {:else}
+      <div class="flex flex-1 flex-col">
+        <span class="text-lg font-medium">{emoticons.DISTRESSED}</span>
+        <span class="text-sm">No profiles found. Create one now!</span>
       </div>
     {/if}
     <div class="flex items-center gap-4">
