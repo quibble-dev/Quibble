@@ -1,2 +1,2 @@
 export { default } from './toaster.svelte';
-export { toast } from './toast.svelte';
+export { toasts_store } from './toast.svelte';

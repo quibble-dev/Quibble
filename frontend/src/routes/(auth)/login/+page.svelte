@@ -2,7 +2,7 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/state';
   import api from '$lib/api';
-  import { toast } from '$lib/components/ui/toast';
+  import { toasts_store } from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
   import type { Data } from '../+layout.svelte';
   import { getContext, untrack } from 'svelte';
@@ -44,7 +44,7 @@
 
   $effect(() => {
     const _message = $message;
-    if (_message) untrack(() => toast.push(_message));
+    if (_message) untrack(() => toasts_store.send(_message));
   });
 </script>
 
