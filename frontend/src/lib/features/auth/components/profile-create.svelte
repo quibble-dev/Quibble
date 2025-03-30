@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import { toasts_store } from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
@@ -9,13 +10,6 @@
 
   type ImageInputType = 'avatar' | 'cover';
 
-  interface Props {
-    onback: () => void;
-    onsuccess: () => void;
-  }
-
-  let { onback, onsuccess }: Props = $props();
-
   let avatar_data_url = $state<string>(),
     cover_data_url = $state<string>();
 
@@ -23,8 +17,8 @@
     defaults(zod(ProfileCreateSchema)),
     {
       resetForm: false,
-      onResult({ result }) {
-        if (result.type === 'success') onsuccess();
+      async onResult({ result }) {
+        if (result.type === 'success') await goto('?type=p-select');
       }
     }
   );
@@ -119,7 +113,12 @@
     </div>
   </fieldset>
   <div class="flex items-center gap-4">
-    <button type="button" class="btn flex-1" aria-label="Back" onclick={onback}>
+    <button
+      type="button"
+      class="btn flex-1"
+      aria-label="Back"
+      onclick={() => goto('?type=p-select')}
+    >
       <coreicons-shape-arrow variant="left" class="size-4"></coreicons-shape-arrow>
       Back
     </button>

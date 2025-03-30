@@ -15,7 +15,7 @@ export const load: PageServerLoad = async ({ request, url, cookies }) => {
       const set_cookie_header = response.headers.getSetCookie();
       set_cookies_from_header(set_cookie_header, cookies);
 
-      redirect(303, `/login?type=select`);
+      redirect(303, `/login?type=p-select`);
     } else {
       console.error(error);
     }

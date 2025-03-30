@@ -4,8 +4,7 @@
   import api from '$lib/api';
   import { toasts_store } from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
-  import type { Data } from '../+layout.svelte';
-  import { getContext, untrack } from 'svelte';
+  import { untrack } from 'svelte';
   import { superForm } from 'sveltekit-superforms';
 
   let { data } = $props();
@@ -16,8 +15,6 @@
   const href_register = dest_param
     ? `/register?dest=${encodeURIComponent(dest_param)}`
     : '/register';
-
-  const handle_success: (data: Data) => void = getContext('handle_success');
 
   const { form, enhance, delayed, errors, message } = superForm(data.form, {
     resetForm: false,
@@ -34,10 +31,7 @@
         });
         if (response.ok) goto(`/verification?email=${email}`);
       } else if (result.type === 'success') {
-        const { data } = await api.GET('/u/me/profiles/total-count/');
-        // if no profiles- show creation form, otherwise- show selection
-        const type: Data['type'] = data && data.total_count > 0 ? 'select' : 'create';
-        handle_success({ type });
+        await goto('?type=p-select');
       }
     }
   });

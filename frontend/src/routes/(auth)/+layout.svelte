@@ -1,12 +1,13 @@
 <script lang="ts" module>
-  type RenderType = 'select' | 'create';
+  const RENDER_TYPE = ['p-select', 'p-create'] as const;
+  type RenderType = (typeof RENDER_TYPE)[number];
 
   export interface Data {
     type: RenderType;
     email?: string;
   }
 
-  const TYPE_TITLES: Record<string, string> = {
+  const ROUTE_TYPE_TITLES: Record<string, string> = {
     '/login': 'Sign in',
     '/register': 'Sign up',
     '/password': 'Password',
@@ -19,24 +20,27 @@
   import { PUBLIC_GOOGLE_OAUTH_CLIENT_ID, PUBLIC_OAUTH_CALLBACK_URL } from '$env/static/public';
   import GoogleLogo from '$lib/components/icons/logos/google.svelte';
   import QuibbleLogo from '$lib/components/icons/logos/quibble.svelte';
-  import { ProfileCreation, ProfileSelection } from '$lib/features/auth/components';
+  import { ProfileCreate, ProfileSelect } from '$lib/features/auth/components';
   import type { Nullable } from '$lib/types/shared';
-  import { setContext } from 'svelte';
 
   let { children } = $props();
 
   let render_type = $state<Nullable<RenderType>>(null);
-
-  setContext('handle_success', handle_success);
-  function handle_success(_data: Data) {
-    render_type = _data.type;
-  }
 
   function handle_google_click() {
     window.location.replace(
       `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${PUBLIC_OAUTH_CALLBACK_URL}&prompt=consent&response_type=code&client_id=${PUBLIC_GOOGLE_OAUTH_CLIENT_ID}&scope=openid%20email%20profile&access_type=offline`
     );
   }
+
+  $effect(() => {
+    const type_param = page.url.searchParams.get('type');
+    if (type_param && RENDER_TYPE.includes(type_param as RenderType)) {
+      render_type = type_param as RenderType;
+    } else {
+      render_type = null;
+    }
+  });
 </script>
 
 <div class="relative flex flex-1 items-center justify-center p-4">
@@ -47,11 +51,11 @@
     <div class="rounded-box bg-base-300 grid gap-5 p-8 md:w-[40rem] md:grid-cols-2">
       <div class="flex flex-col gap-2">
         <a href="/" class="w-max"><QuibbleLogo class="size-7" /></a>
-        <h2 class="text-info text-3xl font-medium">{TYPE_TITLES[page.url.pathname]}</h2>
+        <h2 class="text-info text-3xl font-medium">{ROUTE_TYPE_TITLES[page.url.pathname]}</h2>
         <span class="flex flex-col text-sm">
-          {#if render_type === 'select'}
+          {#if render_type === 'p-select'}
             Who's quibbling? You can later switch b/w profiles from settings page.
-          {:else if render_type === 'create'}
+          {:else if render_type === 'p-create'}
             Let's create a new one! You can later edit this from settings page.
           {:else if page.url.pathname === '/verification'}
             Verify your e-mail, enter the 6-digit code we sent to {page.url.searchParams.get(
@@ -63,18 +67,10 @@
         </span>
       </div>
       <div class="flex flex-col gap-2">
-        {#if render_type === 'select'}
-          <ProfileSelection
-            onclick={(type) => {
-              if (type === 'back') render_type = null;
-              else if (type === 'create') render_type = 'create';
-            }}
-          />
-        {:else if render_type === 'create'}
-          <ProfileCreation
-            onback={() => (render_type = 'select')}
-            onsuccess={() => (render_type = 'select')}
-          />
+        {#if render_type === 'p-select'}
+          <ProfileSelect />
+        {:else if render_type === 'p-create'}
+          <ProfileCreate />
         {:else}
           {@render children()}
           {#if page.url.pathname !== '/verification'}
