@@ -7,7 +7,7 @@ import { superValidate, withFiles } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 
 export const load: PageServerLoad = async ({ request }) => {
-  const { response, data } = await api.GET('/u/me/', {
+  const { response, data } = await api.GET('/u/me/profile/', {
     headers: { Cookie: request.headers.get('Cookie') }
   });
 

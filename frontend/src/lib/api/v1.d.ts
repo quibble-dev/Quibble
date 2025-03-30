@@ -550,16 +550,54 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
-    /** @description View to retrieve information for the currently authenticated user.
+    /** @description View to retrieve and delete information for the currently authenticated user.
      *
      *     - `get`: Returns the details of the authenticated user based on their token.
+     *     - `delete`: Deletes user from DB and unset all cookies.
      *
      *     Permission:
      *     - Requires user authentication. */
     get: operations['u_me_retrieve'];
     put?: never;
     post?: never;
-    delete?: never;
+    /** @description View to retrieve and delete information for the currently authenticated user.
+     *
+     *     - `get`: Returns the details of the authenticated user based on their token.
+     *     - `delete`: Deletes user from DB and unset all cookies.
+     *
+     *     Permission:
+     *     - Requires user authentication. */
+    delete: operations['u_me_destroy'];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  '/u/me/profile/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** @description View to retrieve and delete (in future) for currently authenticated user profile.
+     *
+     *     - `get`: Returns the details of the authenticated user profile.
+     *     - `delete`: Deletes profile from DB and unset all cookies.
+     *
+     *     Permission:
+     *     - Requires user authentication. */
+    get: operations['u_me_profile_retrieve'];
+    put?: never;
+    post?: never;
+    /** @description View to retrieve and delete (in future) for currently authenticated user profile.
+     *
+     *     - `get`: Returns the details of the authenticated user profile.
+     *     - `delete`: Deletes profile from DB and unset all cookies.
+     *
+     *     Permission:
+     *     - Requires user authentication. */
+    delete: operations['u_me_profile_destroy'];
     options?: never;
     head?: never;
     patch?: never;
@@ -607,10 +645,7 @@ export interface paths {
      *     - Requires user authentication to access and modify profiles. */
     put: operations['u_me_profiles_update'];
     post?: never;
-    /** @description ViewSet to manage profiles associated with the authenticated user.
-     *
-     *     Permissions:
-     *     - Requires user authentication to access and modify profiles. */
+    /** @description Delete profile-id cookie after profile is deleted. */
     delete: operations['u_me_profiles_destroy'];
     options?: never;
     head?: never;
@@ -5712,8 +5747,87 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
+          'application/json': components['schemas']['User'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  u_me_destroy: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  u_me_profile_retrieve: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
           'application/json': components['schemas']['Profile'];
         };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  u_me_profile_destroy: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description No response body */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
       };
       500: {
         headers: {

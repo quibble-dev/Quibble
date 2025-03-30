@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { invalidate } from '$app/navigation';
+  import { goto, invalidate, invalidateAll } from '$app/navigation';
   import api from '$lib/api';
   import BaseModal from '$lib/components/ui/base-modal.svelte';
   import { cn } from '$lib/functions/classnames';
@@ -94,7 +94,10 @@
       const { response } = await api.DELETE('/u/me/profiles/{id}/', {
         params: { path: { id: data.profile.id } }
       });
-      if (response.ok) window.location.href = '/';
+      if (response.ok) {
+        await invalidateAll();
+        await goto('/');
+      }
     } catch (err) {
       console.error(err);
     } finally {
