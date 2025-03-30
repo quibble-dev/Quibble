@@ -1,6 +1,7 @@
 <script lang="ts">
   import { cn } from '$lib/functions/classnames';
   import { toasts_store, type ToastType } from './toast.svelte';
+  import { scale } from 'svelte/transition';
 
   // internal types
   type Props = {
@@ -29,6 +30,7 @@
 <div class="toast toast-center toast-bottom z-999">
   {#each toasts_store.value.filter((t) => t.inside_modal === inside_modal) as t (t.id)}
     <div
+      out:scale={{ start: 0.95 }}
       class={cn(
         alert_types[t.type as ToastType],
         'alert flex items-center gap-2 rounded-2xl border-none p-2.5 pl-3 text-xs sm:text-sm'
