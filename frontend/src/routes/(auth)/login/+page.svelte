@@ -30,6 +30,10 @@
           body: { email }
         });
         if (response.ok) goto(`/verification?email=${email}`);
+      } else if (result.type === 'success') {
+        console.log('navigating...');
+        await goto('?type=p-select');
+        console.log('navigated');
       }
     }
   });

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
+  import { goto, invalidateAll } from '$app/navigation';
   import { page } from '$app/state';
   import api from '$lib/api';
   import Avatar from '$lib/components/ui/avatar.svelte';
@@ -36,15 +36,18 @@
 
     try {
       const dest_param = page.url.searchParams.get('dest') ?? '/';
-      // normal case
-      if (dest_param.startsWith('/')) window.location.href = dest_param;
-      // handle encoded paths
-      else if (dest_param.startsWith('%2F')) {
-        window.location.href = decodeURIComponent(dest_param);
-      }
+      const destination = dest_param.startsWith('%2F')
+        ? decodeURIComponent(dest_param)
+        : dest_param.startsWith('/')
+          ? dest_param
+          : '/';
+
+      // re-run every load functions
+      await invalidateAll();
+      await goto(destination);
     } catch {
-      // normal case
-      window.location.href = '/';
+      await invalidateAll();
+      await goto('/');
     }
   }
 
@@ -121,14 +124,19 @@
       </div>
     {/if}
     <div class="flex items-center gap-4">
-      <button type="button" class="btn flex-1" aria-label="Back" onclick={() => goto('/login')}>
+      <button
+        type="button"
+        class="btn flex-1"
+        aria-label="Back"
+        onclick={() => goto(page.url.pathname)}
+      >
         <coreicons-shape-arrow variant="left" class="size-4"></coreicons-shape-arrow>
         Back
       </button>
       <button
         class="btn btn-primary flex-1"
         aria-label="Create"
-        onclick={() => goto('?type=profile-create')}
+        onclick={() => goto('?type=p-create')}
         disabled={(profiles?.length ?? 0) >= PROFILE_CREATE_LIMIT}
       >
         Create new

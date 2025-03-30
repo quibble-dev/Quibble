@@ -1,5 +1,5 @@
 <script lang="ts" module>
-  const RENDER_TYPE = ['profile-select', 'profile-create'] as const;
+  const RENDER_TYPE = ['p-select', 'p-create'] as const;
   type RenderType = (typeof RENDER_TYPE)[number];
 
   export interface Data {
@@ -37,6 +37,8 @@
     const type_param = page.url.searchParams.get('type');
     if (type_param && RENDER_TYPE.includes(type_param as RenderType)) {
       render_type = type_param as RenderType;
+    } else {
+      render_type = null;
     }
   });
 </script>
@@ -51,9 +53,9 @@
         <a href="/" class="w-max"><QuibbleLogo class="size-7" /></a>
         <h2 class="text-info text-3xl font-medium">{ROUTE_TYPE_TITLES[page.url.pathname]}</h2>
         <span class="flex flex-col text-sm">
-          {#if render_type === 'profile-select'}
+          {#if render_type === 'p-select'}
             Who's quibbling? You can later switch b/w profiles from settings page.
-          {:else if render_type === 'profile-create'}
+          {:else if render_type === 'p-create'}
             Let's create a new one! You can later edit this from settings page.
           {:else if page.url.pathname === '/verification'}
             Verify your e-mail, enter the 6-digit code we sent to {page.url.searchParams.get(
@@ -65,9 +67,9 @@
         </span>
       </div>
       <div class="flex flex-col gap-2">
-        {#if render_type === 'profile-select'}
+        {#if render_type === 'p-select'}
           <ProfileSelect />
-        {:else if render_type === 'profile-create'}
+        {:else if render_type === 'p-create'}
           <ProfileCreate />
         {:else}
           {@render children()}

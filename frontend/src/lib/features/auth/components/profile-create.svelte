@@ -17,8 +17,8 @@
     defaults(zod(ProfileCreateSchema)),
     {
       resetForm: false,
-      onResult({ result }) {
-        if (result.type === 'success') goto('?type=select');
+      async onResult({ result }) {
+        if (result.type === 'success') await goto('?type=p-select');
       }
     }
   );
@@ -113,7 +113,12 @@
     </div>
   </fieldset>
   <div class="flex items-center gap-4">
-    <button type="button" class="btn flex-1" aria-label="Back" onclick={() => goto('/login')}>
+    <button
+      type="button"
+      class="btn flex-1"
+      aria-label="Back"
+      onclick={() => goto('?type=p-select')}
+    >
       <coreicons-shape-arrow variant="left" class="size-4"></coreicons-shape-arrow>
       Back
     </button>
