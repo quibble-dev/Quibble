@@ -3,7 +3,7 @@
   import { page } from '$app/state';
   import LegalLinks from '$lib/components/legal-links.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
-  import { toast } from '$lib/components/ui/toast';
+  import { toasts_store } from '$lib/components/ui/toast';
   import { FormatDate } from '$lib/functions/date';
   import { auth_store } from '$lib/stores/auth.svelte';
   import type { LayoutData } from './$types';
@@ -58,7 +58,9 @@
     if (browser) {
       const link = new URL(page.url.href);
       link.searchParams.set('ref', 'share');
-      window.navigator.clipboard.writeText(link.toString()).then(() => toast.push('Link copied'));
+      window.navigator.clipboard
+        .writeText(link.toString())
+        .then(() => toasts_store.success('Link copied'));
     }
   }
 </script>

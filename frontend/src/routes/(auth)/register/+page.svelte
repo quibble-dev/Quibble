@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from '$app/state';
-  import { toast } from '$lib/components/ui/toast';
+  import { toasts_store } from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
   import { untrack } from 'svelte';
   import { superForm } from 'sveltekit-superforms';
@@ -18,7 +18,7 @@
 
   $effect(() => {
     const _message = $message;
-    if (_message) untrack(() => toast.push(_message));
+    if (_message) untrack(() => toasts_store.error(_message));
   });
 </script>
 

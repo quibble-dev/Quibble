@@ -1,6 +1,6 @@
 <script lang="ts">
   import Avatar from '$lib/components/ui/avatar.svelte';
-  import { toast } from '$lib/components/ui/toast';
+  import { toasts_store } from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
   import { ProfileCreateSchema } from '$lib/schemas/auth';
   import { untrack } from 'svelte';
@@ -49,7 +49,7 @@
 
   $effect(() => {
     const _message = $message;
-    if (_message) untrack(() => toast.push(_message));
+    if (_message) untrack(() => toasts_store.error(_message));
   });
 </script>
 
