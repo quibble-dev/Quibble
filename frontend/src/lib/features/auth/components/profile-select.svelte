@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import { page } from '$app/state';
   import api from '$lib/api';
   import Avatar from '$lib/components/ui/avatar.svelte';
@@ -7,12 +8,6 @@
   import { cn } from '$lib/functions/classnames';
   import type { Nullable } from '$lib/types/shared';
   import { onDestroy } from 'svelte';
-
-  interface Props {
-    onclick: (type: 'back' | 'create') => void;
-  }
-
-  let { onclick }: Props = $props();
 
   let pending = $state(false);
   let selected_profile_id = $state<Nullable<number>>(null);
@@ -126,14 +121,14 @@
       </div>
     {/if}
     <div class="flex items-center gap-4">
-      <button type="button" class="btn flex-1" aria-label="Back" onclick={() => onclick('back')}>
+      <button type="button" class="btn flex-1" aria-label="Back" onclick={() => goto('/login')}>
         <coreicons-shape-arrow variant="left" class="size-4"></coreicons-shape-arrow>
         Back
       </button>
       <button
         class="btn btn-primary flex-1"
         aria-label="Create"
-        onclick={() => onclick('create')}
+        onclick={() => goto('?type=profile-create')}
         disabled={(profiles?.length ?? 0) >= PROFILE_CREATE_LIMIT}
       >
         Create new
