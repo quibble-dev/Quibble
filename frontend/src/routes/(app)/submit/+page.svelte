@@ -10,6 +10,8 @@
   import { debounce } from '$lib/functions/debounce';
   import { PostSubmitSchema } from '$lib/schemas/post-submit';
   import { sidebar_store } from '$lib/stores/sidebar.svelte';
+  import type { Nullable } from '$lib/types/shared';
+  import { tick } from 'svelte';
   import { superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
 
@@ -43,6 +45,8 @@
 
   type Type = keyof typeof types;
   let active_type = $state<Type>('TEXT');
+
+  let search_input_el = $state<Nullable<HTMLInputElement>>(null);
 
   let community = $state<(typeof communities_select_list)[number] | null>(null);
   let search_query = $state('');
@@ -128,7 +132,17 @@
   <!-- select community dropdown and select -->
   <div class="flex flex-col gap-1">
     <div class="dropdown w-max">
-      <div tabindex="0" role="button" class="btn btn-neutral btn-sm">
+      <!-- svelte-ignore a11y_click_events_have_key_events -->
+      <div
+        tabindex="0"
+        role="button"
+        class="btn btn-neutral btn-sm"
+        onmousedown={() => {
+          requestAnimationFrame(() => {
+            search_input_el?.focus();
+          });
+        }}
+      >
         <span>on: </span>
         <Avatar src={community?.avatar} />
         <span class="text-info">{community ? `q/${community.name}` : 'Select a community'}</span>
@@ -139,7 +153,12 @@
         <fieldset class="fieldset pt-0">
           <label class="input input-sm">
             <coreicons-shape-search class="size-4 shrink-0"></coreicons-shape-search>
-            <input type="text" placeholder="Search a community..." bind:value={search_query} />
+            <input
+              type="text"
+              placeholder="Search a community..."
+              bind:value={search_query}
+              bind:this={search_input_el}
+            />
           </label>
           <span class="fieldset-label">
             <span>Results: {dynamic_communities_select_list.list.length}</span>
