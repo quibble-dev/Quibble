@@ -40,7 +40,7 @@
   <!-- show community cover if not null or solid bg -->
   <div
     class={cn(
-      !community?.banner ? 'bg-neutral h-24' : 'h-24 bg-cover bg-center md:h-40',
+      !community?.banner ? 'bg-neutral h-24' : 'h-24 bg-cover bg-center md:h-28',
       'w-full rounded-2xl'
     )}
     style="background-image: url({community?.banner});"

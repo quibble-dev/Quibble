@@ -79,7 +79,7 @@
   </fieldset>
 </div>
 <div
-  class="rounded-box bg-neutral relative mb-12 h-20 bg-cover bg-center p-4"
+  class="rounded-box bg-neutral relative mb-12 h-28 bg-cover bg-center p-4"
   style="background-image: url({banner_data_uri});"
 >
   <div class="absolute -bottom-12 flex items-end gap-4">
