@@ -2,11 +2,13 @@ from http import HTTPMethod
 from typing import cast
 
 from django.db.models import QuerySet
+from django_filters import rest_framework as filters
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import exceptions, response, viewsets
 from rest_framework.decorators import action
 
+from apps.community.filters import CommunityFilter
 from apps.community.models import Community
 
 from ...http import HttpRequest
@@ -26,15 +28,18 @@ class CommunityViewSet(viewsets.ModelViewSet):
     # default serializer
     serializer_class = CommunitySerializer
     lookup_field = 'name'
+    # filter
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = CommunityFilter
 
     # extra custom serializers
     serializer_classes = {
+        'list': CommunityBasicSerializer,
         'retrieve': CommunityDetailedSerializer,
         # extra actions
         'exists': CommunityExistsSerializer,
         'posts': PostSerializer,
         'highlighted_posts': PostHighlightedSerializer,
-        'where_to_post': CommunityBasicSerializer,
     }
 
     def get_queryset(self) -> QuerySet[Community]:  # pyright: ignore
@@ -81,37 +86,6 @@ class CommunityViewSet(viewsets.ModelViewSet):
         posts = self.get_object().posts.filter(highlighted=True)  # pyright: ignore
         serializer = PostHighlightedSerializer(posts, many=True, context={'request': request})
 
-        return response.Response(serializer.data)
-
-    @extend_schema(
-        parameters=[
-            OpenApiParameter(
-                name='q',
-                type=OpenApiTypes.STR,
-                location=OpenApiParameter.QUERY,
-                description='Search term for community names',
-                required=True,
-            ),
-            OpenApiParameter(
-                name='limit',
-                type=OpenApiTypes.STR,
-                location=OpenApiParameter.QUERY,
-                description='Limit number of results (detaul: 5)',
-                required=False,
-            ),
-        ]
-    )
-    @extend_schema(responses=CommunityBasicSerializer(many=True))
-    @action(detail=False, methods=[HTTPMethod.GET], url_path='where-to-post')
-    def where_to_post(self, request):
-        query = request.query_params.get('q')
-        limit = int(request.query_params.get('limit', 5))
-
-        if not query:
-            raise exceptions.ValidationError('Query parameter "q" is required!')
-
-        communities = self.get_queryset().filter(name__istartswith=query)[:limit]
-        serializer = self.get_serializer(communities, many=True)
         return response.Response(serializer.data)
 
     def perform_create(self, serializer):
