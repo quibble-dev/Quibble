@@ -79,8 +79,8 @@
   const debounced_search_where_to_post = debounce(search_where_to_post, 500);
   async function search_where_to_post() {
     try {
-      const { data, response, error } = await api.GET('/q/communities/where-to-post/', {
-        params: { query: { q: search_query } }
+      const { data, response, error } = await api.GET('/q/communities/', {
+        params: { query: { name: search_query } }
       });
       if (response.ok && data) {
         search_communities_select_list = data;
