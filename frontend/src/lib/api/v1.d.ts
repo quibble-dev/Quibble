@@ -511,22 +511,6 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  '/q/communities/where-to-post/': {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get: operations['q_communities_where_to_post_list'];
-    put?: never;
-    post?: never;
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
   '/q/topics/': {
     parameters: {
       query?: never;
@@ -3202,6 +3186,42 @@ export interface components {
       type: components['schemas']['ValidationErrorEnum'];
       errors: components['schemas']['QCommunitiesCreateError'][];
     };
+    QCommunitiesHighlightedPostsListError: components['schemas']['QCommunitiesHighlightedPostsListNameErrorComponent'];
+    QCommunitiesHighlightedPostsListNameErrorComponent: {
+      /**
+       * @description * `name` - name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'name';
+      /**
+       * @description * `null_characters_not_allowed` - null_characters_not_allowed
+       * @enum {string}
+       */
+      code: 'null_characters_not_allowed';
+      detail: string;
+    };
+    QCommunitiesHighlightedPostsListValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['QCommunitiesHighlightedPostsListError'][];
+    };
+    QCommunitiesListError: components['schemas']['QCommunitiesListNameErrorComponent'];
+    QCommunitiesListNameErrorComponent: {
+      /**
+       * @description * `name` - name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'name';
+      /**
+       * @description * `null_characters_not_allowed` - null_characters_not_allowed
+       * @enum {string}
+       */
+      code: 'null_characters_not_allowed';
+      detail: string;
+    };
+    QCommunitiesListValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['QCommunitiesListError'][];
+    };
     QCommunitiesPartialUpdateAvatarErrorComponent: {
       /**
        * @description * `avatar` - avatar (enum property replaced by openapi-typescript)
@@ -3415,6 +3435,24 @@ export interface components {
     QCommunitiesPartialUpdateValidationError: {
       type: components['schemas']['ValidationErrorEnum'];
       errors: components['schemas']['QCommunitiesPartialUpdateError'][];
+    };
+    QCommunitiesPostsListError: components['schemas']['QCommunitiesPostsListNameErrorComponent'];
+    QCommunitiesPostsListNameErrorComponent: {
+      /**
+       * @description * `name` - name (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'name';
+      /**
+       * @description * `null_characters_not_allowed` - null_characters_not_allowed
+       * @enum {string}
+       */
+      code: 'null_characters_not_allowed';
+      detail: string;
+    };
+    QCommunitiesPostsListValidationError: {
+      type: components['schemas']['ValidationErrorEnum'];
+      errors: components['schemas']['QCommunitiesPostsListError'][];
     };
     QCommunitiesUpdateAvatarErrorComponent: {
       /**
@@ -5305,7 +5343,9 @@ export interface operations {
   };
   q_communities_list: {
     parameters: {
-      query?: never;
+      query?: {
+        name?: string;
+      };
       header?: never;
       path?: never;
       cookie?: never;
@@ -5317,7 +5357,15 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Community'][];
+          'application/json': components['schemas']['CommunityBasic'][];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['QCommunitiesListValidationError'];
         };
       };
       500: {
@@ -5585,7 +5633,9 @@ export interface operations {
   };
   q_communities_highlighted_posts_list: {
     parameters: {
-      query?: never;
+      query?: {
+        name?: string;
+      };
       header?: never;
       path: {
         name: string;
@@ -5600,6 +5650,14 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['PostHighlighted'][];
+        };
+      };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['QCommunitiesHighlightedPostsListValidationError'];
         };
       };
       404: {
@@ -5622,7 +5680,9 @@ export interface operations {
   };
   q_communities_posts_list: {
     parameters: {
-      query?: never;
+      query?: {
+        name?: string;
+      };
       header?: never;
       path: {
         name: string;
@@ -5639,44 +5699,20 @@ export interface operations {
           'application/json': components['schemas']['Post'][];
         };
       };
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['QCommunitiesPostsListValidationError'];
+        };
+      };
       404: {
         headers: {
           [name: string]: unknown;
         };
         content: {
           'application/json': components['schemas']['ErrorResponse404'];
-        };
-      };
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['ErrorResponse500'];
-        };
-      };
-    };
-  };
-  q_communities_where_to_post_list: {
-    parameters: {
-      query: {
-        /** @description Limit number of results (detaul: 5) */
-        limit?: string;
-        /** @description Search term for community names */
-        q: string;
-      };
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody?: never;
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          'application/json': components['schemas']['CommunityBasic'][];
         };
       };
       500: {
