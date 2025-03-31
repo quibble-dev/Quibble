@@ -25,7 +25,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'ilovequibble')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['localhost']
 
 if hosts := os.getenv('DJANGO_ALLOWED_HOSTS'):
     host = hosts.split(' ')
@@ -98,9 +98,6 @@ if DEBUG:
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'apps.user.auth.ExtendedJWTCookieAuthentication',
-    ],
-    'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend',
     ],
     'DEFAULT_RENDERER_CLASSES': DEFAULT_RENDERER_CLASSES,
     'EXCEPTION_HANDLER': 'drf_standardized_errors.handler.exception_handler',
