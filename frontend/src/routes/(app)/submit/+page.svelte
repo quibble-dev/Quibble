@@ -11,7 +11,6 @@
   import { PostSubmitSchema } from '$lib/schemas/post-submit';
   import { sidebar_store } from '$lib/stores/sidebar.svelte';
   import type { Nullable } from '$lib/types/shared';
-  import { tick } from 'svelte';
   import { superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
 
@@ -132,7 +131,6 @@
   <!-- select community dropdown and select -->
   <div class="flex flex-col gap-1">
     <div class="dropdown w-max">
-      <!-- svelte-ignore a11y_click_events_have_key_events -->
       <div
         tabindex="0"
         role="button"
