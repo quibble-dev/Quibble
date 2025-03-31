@@ -1,5 +1,8 @@
 <script lang="ts">
+  import { browser } from '$app/environment';
+  import { page } from '$app/state';
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import { toasts_store } from '$lib/components/ui/toast';
   import { FormatDate } from '$lib/functions/date';
   import { pluralize } from '$lib/functions/pluralize';
   import type { PageData } from './$types';
@@ -7,6 +10,16 @@
 
   const { data, children }: { data: PageData; children: Snippet } = $props();
   const { community } = $derived(data);
+
+  function handle_share_click() {
+    if (browser) {
+      const link = new URL(page.url.href);
+      link.searchParams.set('ref', 'share');
+      window.navigator.clipboard
+        .writeText(link.toString())
+        .then(() => toasts_store.success('Link copied'));
+    }
+  }
 </script>
 
 <div class="flex h-max flex-1 flex-col gap-4 p-4">
@@ -19,7 +32,13 @@
   >
     <!-- basic details -->
     <div class="flex flex-col gap-2">
-      <h3 class="font-medium">{community?.title ?? `q/${community?.name}`}</h3>
+      <div class="flex items-center justify-between">
+        <h3 class="font-medium">{community?.title ?? `q/${community?.name}`}</h3>
+        <button class="btn btn-xs btn-neutral w-max" onclick={handle_share_click}>
+          <coreicons-shape-share class="size-4"></coreicons-shape-share>
+          Share
+        </button>
+      </div>
       <p class="text-base-content/75 text-sm">{community?.description}</p>
       <div class="flex items-center gap-2 text-xs">
         <coreicons-shape-gift class="size-4"></coreicons-shape-gift>

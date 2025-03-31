@@ -64,7 +64,7 @@
   {#await fetch_profiles()}
     <div class="col-span-3 m-auto flex flex-col items-center">
       <span class="loading loading-dots loading-md"></span>
-      <span class="text-xs">fetching profiles...</span>
+      <span class="text-xs">Fetching profiles...</span>
     </div>
   {:then profiles}
     {#if profiles && profiles.length}

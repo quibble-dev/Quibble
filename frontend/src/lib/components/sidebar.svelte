@@ -24,7 +24,7 @@
     </label>
     <a
       href="/q/create"
-      class="btn btn-link btn-xs flex max-h-max w-max items-center gap-2 p-0"
+      class="btn btn-xs btn-neutral w-max"
       onclick={handle_create_a_communiy_btn_click}
     >
       <coreicons-shape-plus variant="circle" class="size-4"></coreicons-shape-plus>
@@ -40,14 +40,14 @@
       <div class="flex items-center gap-2">
         <button
           class="btn btn-ghost btn-xs z-10"
-          disabled={sidebar_store.value.recent?.length === 0}
+          disabled={(sidebar_store.value.recent ?? []).length === 0}
           onclick={() => sidebar_store.clear('recent')}>Clear</button
         >
         <coreicons-shape-chevron class="size-4 transition-transform" variant="down"
         ></coreicons-shape-chevron>
       </div>
     </div>
-    {#if sidebar_store.value.recent?.length}
+    {#if sidebar_store.value.recent && sidebar_store.value.recent.length}
       <div class="collapse-content flex flex-col gap-2 p-0!">
         {#each sidebar_store.value.recent as community (community.id)}
           <div class="flex items-center gap-2">
@@ -70,7 +70,6 @@
       <span class="text-sm">{emoticons.SUSPICIOUS} Just in—take a peek.</span>
     {/if}
   </div>
-
   <div class="collapse gap-2 overflow-visible rounded-none">
     <input type="checkbox" checked={true} class="peer min-h-max! p-0!" />
     <div
@@ -80,14 +79,14 @@
       <div class="flex items-center gap-2">
         <button
           class="btn btn-ghost btn-xs z-10"
-          disabled={sidebar_store.value.your?.length === 0}
+          disabled={(sidebar_store.value.your ?? []).length === 0}
           onclick={() => sidebar_store.clear('your')}>Clear</button
         >
         <coreicons-shape-chevron class="size-4 transition-transform" variant="down"
         ></coreicons-shape-chevron>
       </div>
     </div>
-    {#if sidebar_store.value.your?.length}
+    {#if sidebar_store.value.your && sidebar_store.value.your.length}
       <div class="collapse-content flex flex-col gap-2 p-0!">
         {#each sidebar_store.value.your as community (community.id)}
           <div class="flex items-center gap-2">

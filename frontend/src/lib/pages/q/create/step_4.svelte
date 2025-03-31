@@ -78,9 +78,11 @@
 </label>
 <span class="text-base-content/75 text-xs">
   By continuing, you agree to our
-  <a href="/policies/moderator-code-of-conduct" class="text-base-content underline">
+  <a href="https://github.com/quibble-dev/Quibble" class="text-base-content underline">
     Mod Code of Conduct
   </a>
   and acknowledge that you understand the
-  <a href="/policies/quibble-rules" class="text-base-content underline">Quibble Rules</a>.
+  <a href="https://github.com/quibble-dev/Quibble" class="text-base-content underline"
+    >Quibble Rules</a
+  >.
 </span>

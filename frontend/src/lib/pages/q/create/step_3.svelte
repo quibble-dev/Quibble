@@ -1,5 +1,6 @@
 <script lang="ts">
   import api, { type components } from '$lib/api';
+  import { emoticons } from '$lib/constants/emoticons';
   import { cn } from '$lib/functions/classnames';
   import type {
     CommunityCreateErrorsType,
@@ -128,7 +129,7 @@
       <span class="loading loading-dots loading-md"></span>
       <span class="text-xs">Fetching topics...</span>
     </div>
-  {:else}
+  {:else if topics && topics.length}
     {#each topics as topic (topic.id)}
       <div class="flex flex-col gap-1">
         <span class="text-sm font-medium">{topic.icon} {topic.display_name}</span>
@@ -150,5 +151,10 @@
         </div>
       </div>
     {/each}
+  {:else}
+    <div class="flex flex-col">
+      <span class="text-lg font-medium">{emoticons.PANICKED}</span>
+      <span class="text-sm">Something's not right!</span>
+    </div>
   {/if}
 </div>

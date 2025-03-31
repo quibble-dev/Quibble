@@ -40,7 +40,7 @@
   <!-- show community cover if not null or solid bg -->
   <div
     class={cn(
-      !community?.banner ? 'bg-neutral h-24' : 'h-24 bg-cover bg-center md:h-40',
+      !community?.banner ? 'bg-neutral h-24' : 'h-24 bg-cover bg-center md:h-28',
       'w-full rounded-2xl'
     )}
     style="background-image: url({community?.banner});"
@@ -77,7 +77,7 @@
         <coreicons-shape-plus variant="no-border" class="size-5"></coreicons-shape-plus>
         <span class="text-sm font-medium">Create Post</span>
       </button>
-      <button class="btn btn-secondary" aria-label="Join Community">
+      <button hidden class="btn btn-secondary" aria-label="Join Community">
         <span class="text-sm font-medium">{is_joined ? 'Joined' : 'Join'}</span>
       </button>
       <button class="btn btn-neutral btn-square ml-auto md:ml-0" aria-label="More options">
