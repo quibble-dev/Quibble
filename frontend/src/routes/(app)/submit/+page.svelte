@@ -2,13 +2,19 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/state';
   import autosize from '$lib/actions/autosize';
+  import api, { type components } from '$lib/api';
   import LegalLinks from '$lib/components/legal-links.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import { emoticons } from '$lib/constants/emoticons';
   import { cn } from '$lib/functions/classnames';
+  import { debounce } from '$lib/functions/debounce';
   import { PostSubmitSchema } from '$lib/schemas/post-submit';
   import { sidebar_store } from '$lib/stores/sidebar.svelte';
   import { superForm } from 'sveltekit-superforms';
   import { zod } from 'sveltekit-superforms/adapters';
+
+  // internal types
+  type CommunityBasic = components['schemas']['CommunityBasic'];
 
   const types = {
     TEXT: {
@@ -39,18 +45,58 @@
   let active_type = $state<Type>('TEXT');
 
   let community = $state<(typeof communities_select_list)[number] | null>(null);
-  let filter_query = $state('');
+  let search_query = $state('');
+  let searching = $state(false);
+  let search_communities_select_list = $state<CommunityBasic[]>([]);
 
   const communities_select_list = $derived.by(() => {
+    if (search_query) return [];
     const merged = [...(sidebar_store.value.recent ?? []), ...(sidebar_store.value.your ?? [])];
-    const deduped = Array.from(new Map(merged.map((c) => [c.id, c])).values());
-    if (filter_query) return deduped.filter((c) => c.name.startsWith(filter_query.toLowerCase()));
-    return deduped;
+    return Array.from(new Map(merged.map((c) => [c.id, c])).values());
+  });
+
+  const dynamic_communities_select_list = $derived.by(() => {
+    if (search_query) {
+      return {
+        list: search_communities_select_list,
+        empty_msg: 'No communities found!',
+        loading: searching
+      };
+    } else {
+      return {
+        list: communities_select_list,
+        empty_msg: 'No recent/your communities!',
+        loading: false
+      };
+    }
   });
 
   const { form, errors, enhance, delayed } = superForm(data.form, {
     resetForm: false,
     validators: zod(PostSubmitSchema)
+  });
+
+  const debounced_search_where_to_post = debounce(search_where_to_post, 500);
+  async function search_where_to_post() {
+    try {
+      const { data, response, error } = await api.GET('/q/communities/where-to-post/', {
+        params: { query: { q: search_query } }
+      });
+      if (response.ok && data) {
+        search_communities_select_list = data;
+      } else if (error) {
+        console.error(error);
+      }
+    } finally {
+      searching = false;
+    }
+  }
+
+  $effect(() => {
+    if (search_query) {
+      searching = true;
+      debounced_search_where_to_post();
+    }
   });
 
   $effect(() => {
@@ -89,38 +135,57 @@
         <coreicons-shape-chevron variant="down" class="size-4"></coreicons-shape-chevron>
       </div>
       <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-      <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box mt-2 gap-1">
+      <ul tabindex="0" class="menu dropdown-content bg-base-100 rounded-box mt-2">
         <fieldset class="fieldset pt-0">
-          <input
-            type="text"
-            placeholder="Search filter..."
-            class="input input-sm bg-base-200"
-            bind:value={filter_query}
-          />
-          <p class="fieldset-label">Results: {communities_select_list.length}</p>
-        </fieldset>
-        {#each communities_select_list as item (item.id)}
-          {@const selected = community === item}
-          <li>
+          <label class="input input-sm">
+            <coreicons-shape-search class="size-4 shrink-0"></coreicons-shape-search>
+            <input type="text" placeholder="Search a community..." bind:value={search_query} />
+          </label>
+          <span class="fieldset-label">
+            <span>Results: {dynamic_communities_select_list.list.length}</span>
             <button
-              class="flex items-center gap-2 p-1"
-              class:menu-active={selected}
-              onclick={() => {
-                community = item;
-                $form.community = item.id;
-              }}
+              class="btn btn-xs btn-ghost ml-auto"
+              disabled={search_query.length === 0}
+              onclick={() => (search_query = '')}>Clear</button
             >
-              <Avatar src={item.avatar} />
-              <span class="text-sm font-medium whitespace-nowrap">r/{item.name}</span>
-              <div
-                class="btn btn-circle btn-success ml-auto size-3.5 p-0"
-                class:invisible={!selected}
-              >
-                <coreicons-shape-check class="size-2.5"></coreicons-shape-check>
-              </div>
-            </button>
-          </li>
-        {/each}
+          </span>
+        </fieldset>
+        {#if dynamic_communities_select_list.loading}
+          <div class="flex flex-col">
+            <span class="font-medium">{emoticons.DISTRESSED}</span>
+            <span class="text-xs">Searching...</span>
+          </div>
+        {:else if dynamic_communities_select_list.list.length}
+          <div class="flex flex-col gap-1">
+            {#each dynamic_communities_select_list.list as item (item.id)}
+              {@const selected = community === item}
+              <li>
+                <button
+                  class="flex items-center gap-2 p-1"
+                  class:menu-active={selected}
+                  onclick={() => {
+                    community = item;
+                    $form.community = item.id;
+                  }}
+                >
+                  <Avatar src={item.avatar} />
+                  <span class="text-sm font-medium whitespace-nowrap">r/{item.name}</span>
+                  <div
+                    class="btn btn-circle btn-success ml-auto size-3.5 p-0"
+                    class:invisible={!selected}
+                  >
+                    <coreicons-shape-check class="size-2.5"></coreicons-shape-check>
+                  </div>
+                </button>
+              </li>
+            {/each}
+          </div>
+        {:else}
+          <div class="flex flex-col">
+            <span class="font-medium">{emoticons.ANGRY}</span>
+            <span class="text-xs">{dynamic_communities_select_list.empty_msg}</span>
+          </div>
+        {/if}
       </ul>
     </div>
     {#if $errors.community}

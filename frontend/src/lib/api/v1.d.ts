@@ -511,6 +511,22 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  '/q/communities/where-to-post/': {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get: operations['q_communities_where_to_post_list'];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   '/q/topics/': {
     parameters: {
       query?: never;
@@ -550,23 +566,9 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
-    /** @description View to retrieve and delete information for the currently authenticated user.
-     *
-     *     - `get`: Returns the details of the authenticated user based on their token.
-     *     - `delete`: Deletes user from DB and unset all cookies.
-     *
-     *     Permission:
-     *     - Requires user authentication. */
     get: operations['u_me_retrieve'];
     put?: never;
     post?: never;
-    /** @description View to retrieve and delete information for the currently authenticated user.
-     *
-     *     - `get`: Returns the details of the authenticated user based on their token.
-     *     - `delete`: Deletes user from DB and unset all cookies.
-     *
-     *     Permission:
-     *     - Requires user authentication. */
     delete: operations['u_me_destroy'];
     options?: never;
     head?: never;
@@ -580,23 +582,9 @@ export interface paths {
       path?: never;
       cookie?: never;
     };
-    /** @description View to retrieve and delete (in future) for currently authenticated user profile.
-     *
-     *     - `get`: Returns the details of the authenticated user profile.
-     *     - `delete`: Deletes profile from DB and unset all cookies.
-     *
-     *     Permission:
-     *     - Requires user authentication. */
     get: operations['u_me_profile_retrieve'];
     put?: never;
     post?: never;
-    /** @description View to retrieve and delete (in future) for currently authenticated user profile.
-     *
-     *     - `get`: Returns the details of the authenticated user profile.
-     *     - `delete`: Deletes profile from DB and unset all cookies.
-     *
-     *     Permission:
-     *     - Requires user authentication. */
     delete: operations['u_me_profile_destroy'];
     options?: never;
     head?: never;
@@ -2109,6 +2097,7 @@ export interface components {
       moderators?: number[];
     };
     CommunityBasic: {
+      readonly id: number;
       name: string;
       /** Format: uri */
       avatar?: string | null;
@@ -5656,6 +5645,38 @@ export interface operations {
         };
         content: {
           'application/json': components['schemas']['ErrorResponse404'];
+        };
+      };
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['ErrorResponse500'];
+        };
+      };
+    };
+  };
+  q_communities_where_to_post_list: {
+    parameters: {
+      query: {
+        /** @description Limit number of results (detaul: 5) */
+        limit?: string;
+        /** @description Search term for community names */
+        q: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          'application/json': components['schemas']['CommunityBasic'][];
         };
       };
       500: {
