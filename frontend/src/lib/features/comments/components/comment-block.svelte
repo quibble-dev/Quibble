@@ -53,7 +53,7 @@
       <button
         onclick={toggle_collapse}
         aria-label="toggle collapse"
-        class="group grid size-full place-items-center"
+        class="group grid size-full cursor-pointer place-items-center"
       >
         <div
           class="bg-neutral group-hover:bg-primary h-full w-px rounded-full transition-colors
@@ -101,7 +101,7 @@
       <!-- render reply comments if any -->
       {#if comment.children && comment.children.length > 0}
         {#each comment.children as child}
-          <CommentBlock {...child} />
+          <CommentBlock {...child} on_delete={() => on_delete?.(child.id)} />
         {/each}
       {/if}
     </div>

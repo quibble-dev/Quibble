@@ -53,17 +53,17 @@
   }
 
   function handle_delete(id: number) {
-    comments = mark_comment_deleted_by_id(comments, id);
+    comments = mark_comment_as_deleted_by_id(comments, id);
     toasts_store.success('Comment marked as deleted!');
   }
 
-  function mark_comment_deleted_by_id(comments: CommentTree[], id: number): CommentTree[] {
+  function mark_comment_as_deleted_by_id(comments: CommentTree[], id: number): CommentTree[] {
     return comments.map((comment) => {
       if (comment.id === id) return { ...comment, deleted: true };
       if (comment.children && comment.children.length > 0) {
         return {
           ...comment,
-          children: mark_comment_deleted_by_id(comment.children, id)
+          children: mark_comment_as_deleted_by_id(comment.children, id)
         };
       }
       return comment;
@@ -173,6 +173,6 @@
 <!-- render comments -->
 {#if comments}
   {#each comments as comment (comment.id)}
-    <CommentBlock {...comment} on_delete={(id) => handle_delete(id)} />
+    <CommentBlock {...comment} on_delete={handle_delete} />
   {/each}
 {/if}
