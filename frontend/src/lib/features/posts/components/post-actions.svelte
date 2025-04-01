@@ -71,7 +71,7 @@
       link.searchParams.set('ref', 'share');
       window.navigator.clipboard
         .writeText(link.toString())
-        .then(() => toasts_store.success('Link copied'));
+        .then(() => toasts_store.success('Post link copied'));
     }
   }
 </script>

@@ -33,7 +33,7 @@
       out:scale={{ start: 0.95 }}
       class={cn(
         alert_types[t.type as ToastType],
-        'alert flex items-center gap-2 rounded-2xl border-none p-2.5 pl-3 text-xs sm:text-sm'
+        'alert flex w-max items-center gap-2 self-center rounded-2xl border-none p-2.5 pl-3 text-xs sm:text-sm'
       )}
     >
       <coreicons-shape-info class="hidden sm:flex"></coreicons-shape-info>
