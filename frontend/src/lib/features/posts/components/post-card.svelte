@@ -60,7 +60,7 @@
 {/snippet}
 
 {#snippet actions()}
-  <PostActions class={cn(layout_type_store.value === 'card' && 'mt-1')} {...post} />
+  <PostActions {...post} class={cn(layout_type_store.value === 'card' && 'mt-1')} />
 {/snippet}
 
 {#snippet href_overlay()}

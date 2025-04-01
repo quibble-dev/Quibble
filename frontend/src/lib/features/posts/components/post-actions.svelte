@@ -1,20 +1,27 @@
 <script lang="ts">
-  import api from '$lib/api';
+  import { browser } from '$app/environment';
+  import api, { type components } from '$lib/api';
+  import { toasts_store } from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
   import { throttle } from '$lib/functions/throttle';
   import { auth_store } from '$lib/stores/auth.svelte';
   import readable from 'readable-numbers';
 
+  // internal types
+  type CommunityBasic = components['schemas']['CommunityBasic'];
+
   type Props = {
+    class?: string;
     id: string;
     ratio: number;
     upvotes?: number[];
     downvotes?: number[];
     comments?: number[];
-    class?: string;
+    slug?: string;
+    community?: CommunityBasic;
   };
 
-  let { id, ratio, upvotes, downvotes, comments, class: _class }: Props = $props();
+  let { id, ratio, upvotes, downvotes, comments, class: _class, slug, community }: Props = $props();
   let reaction = $state<ReturnType<typeof get_reaction>>();
 
   $effect(() => {
@@ -57,6 +64,16 @@
       console.error(err);
     }
   }
+
+  function handle_share_click() {
+    if (browser) {
+      const link = new URL(window.location.href + `q/${community?.name}/posts/${id}/${slug}`);
+      link.searchParams.set('ref', 'share');
+      window.navigator.clipboard
+        .writeText(link.toString())
+        .then(() => toasts_store.success('Link copied'));
+    }
+  }
 </script>
 
 <div class={cn(_class, 'flex items-center gap-2')}>
@@ -87,7 +104,7 @@
     <coreicons-shape-forum class="size-4"></coreicons-shape-forum>
     <span class="text-xs font-medium md:text-sm">{readable(comments?.length ?? 0)}</span>
   </button>
-  <button class="btn btn-sm btn-neutral relative hidden md:flex">
+  <button class="btn btn-sm btn-neutral relative hidden md:flex" onclick={handle_share_click}>
     <coreicons-shape-share class="size-4"></coreicons-shape-share>
     <span class="text-sm font-medium">Share</span>
   </button>
