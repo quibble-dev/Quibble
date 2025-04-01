@@ -108,7 +108,7 @@
     <coreicons-shape-share class="size-4"></coreicons-shape-share>
     <span class="text-sm font-medium">Share</span>
   </button>
-  <button class="btn btn-sm btn-ghost hover:btn-neutral btn-square relative" aria-label="more">
+  <button class="btn btn-sm btn-ghost btn-square relative" aria-label="more">
     <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
   </button>
 </div>
