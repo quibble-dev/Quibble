@@ -6,6 +6,7 @@
   import TopIcon from '$lib/components/icons/top.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import BackdropImage from '$lib/components/ui/backdrop-image.svelte';
+  import { toasts_store } from '$lib/components/ui/toast';
   import Zoom from '$lib/components/ui/zoom.svelte';
   import { CommentBlock } from '$lib/features/comments';
   import CommentBox from '$lib/features/comments/components/comment-box.svelte';
@@ -21,7 +22,7 @@
   type Comment = components['schemas']['Comment'];
 
   const { data }: { data: PageData } = $props();
-  const { post, comments } = $state(data);
+  let { post, comments } = $state(data);
 
   let active_mapping = $state<{
     filter: keyof typeof mapping.filters;
@@ -49,6 +50,24 @@
 
     const new_comment: CommentTree = { ...data.comment, children: [], collapsed: false };
     comments.unshift(new_comment);
+  }
+
+  function handle_delete(id: number) {
+    comments = mark_comment_as_deleted_by_id(comments, id);
+    toasts_store.success('Comment marked as deleted!');
+  }
+
+  function mark_comment_as_deleted_by_id(comments: CommentTree[], id: number): CommentTree[] {
+    return comments.map((comment) => {
+      if (comment.id === id) return { ...comment, deleted: true };
+      if (comment.children && comment.children.length > 0) {
+        return {
+          ...comment,
+          children: mark_comment_as_deleted_by_id(comment.children, id)
+        };
+      }
+      return comment;
+    });
   }
 
   onMount(() => {
@@ -154,6 +173,6 @@
 <!-- render comments -->
 {#if comments}
   {#each comments as comment (comment.id)}
-    <CommentBlock {...comment} />
+    <CommentBlock {...comment} on_delete={handle_delete} />
   {/each}
 {/if}

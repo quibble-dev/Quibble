@@ -10,7 +10,11 @@
 
   type Comment = components['schemas']['Comment'];
 
-  let comment_prop: CommentTree = $props();
+  interface Props extends CommentTree {
+    on_delete?: (id: number) => void;
+  }
+
+  let { on_delete, ...comment_prop }: Props = $props();
   let comment = $state(comment_prop);
 
   let collapsed = $state(comment.collapsed);
@@ -49,7 +53,7 @@
       <button
         onclick={toggle_collapse}
         aria-label="toggle collapse"
-        class="group grid size-full place-items-center"
+        class="group grid size-full cursor-pointer place-items-center"
       >
         <div
           class="bg-neutral group-hover:bg-primary h-full w-px rounded-full transition-colors
@@ -79,7 +83,11 @@
     <div class="flex flex-col gap-2" class:hidden={collapsed}>
       <p class="text-info text-sm whitespace-pre-wrap">{comment.content}</p>
       <!-- comment options -->
-      <CommentActions {...comment} on_reply_click={() => (show_comment_box = true)} />
+      <CommentActions
+        {...comment}
+        on_reply_click={() => (show_comment_box = true)}
+        on_delete={() => on_delete?.(comment.id)}
+      />
       {#if show_comment_box}
         <!-- reply comment -->
         <CommentBox
@@ -93,7 +101,7 @@
       <!-- render reply comments if any -->
       {#if comment.children && comment.children.length > 0}
         {#each comment.children as child}
-          <CommentBlock {...child} />
+          <CommentBlock {...child} on_delete={() => on_delete?.(child.id)} />
         {/each}
       {/if}
     </div>
