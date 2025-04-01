@@ -1,24 +1,39 @@
 <script lang="ts">
   import api, { type components } from '$lib/api';
+  import { toasts_store } from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
   import { throttle } from '$lib/functions/throttle';
   import { auth_store } from '$lib/stores/auth.svelte';
+  import type { Nullable } from '$lib/types/shared';
 
   // internal types
   type Commenter = components['schemas']['ProfileBasic'];
 
   type Props = {
-    class?: string;
-    on_reply_click?: () => void;
     id: number;
     ratio: number;
     upvotes?: number[];
     downvotes?: number[];
-    commenter?: Commenter;
+    commenter?: Nullable<Commenter>;
+    deleted?: boolean;
+    class?: string;
+    on_reply_click?: () => void;
+    on_delete?: () => void;
   };
 
-  let { id, ratio, upvotes, downvotes, class: _class, on_reply_click, commenter }: Props = $props();
+  let {
+    id,
+    ratio,
+    upvotes,
+    downvotes,
+    class: _class,
+    commenter,
+    deleted,
+    on_reply_click,
+    on_delete
+  }: Props = $props();
   let reaction = $state<ReturnType<typeof get_reaction>>(get_reaction());
+  let deleting = $state(false);
 
   $effect(() => {
     reaction = get_reaction();
@@ -58,6 +73,27 @@
       if (!response.ok) throw new Error(`request failed with status: ${response.status}`);
     } catch (err) {
       console.error(err);
+    }
+  }
+
+  async function handle_delete() {
+    if (deleted) {
+      toasts_store.error('Comment already marked as deleted!');
+      return;
+    }
+    try {
+      deleting = true;
+      const { response, error } = await api.DELETE('/comments/{id}/', {
+        params: { path: { id } }
+      });
+      if (response.ok) {
+        // trigger on_delete event/function
+        on_delete?.();
+      } else if (error) {
+        console.error(error);
+      }
+    } finally {
+      deleting = false;
     }
   }
 </script>
@@ -122,9 +158,13 @@
         </button>
       </li>
       {#if commenter?.id === auth_store.value.user?.profile.id}
-        <li>
-          <button class="text-error flex items-center gap-2 rounded-xl p-2">
-            <coreicons-shape-trash variant="without-lines" class="size-4"></coreicons-shape-trash>
+        <li class="text-error" class:menu-disabled={deleting}>
+          <button class="flex items-center gap-2 rounded-xl p-2" onclick={handle_delete}>
+            {#if deleting}
+              <span class="loading loading-spinner loading-xs"></span>
+            {:else}
+              <coreicons-shape-trash variant="without-lines" class="size-4"></coreicons-shape-trash>
+            {/if}
             <span class="text-sm font-medium capitalize">Delete</span>
           </button>
         </li>

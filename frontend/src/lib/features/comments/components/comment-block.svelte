@@ -10,7 +10,11 @@
 
   type Comment = components['schemas']['Comment'];
 
-  let comment_prop: CommentTree = $props();
+  interface Props extends CommentTree {
+    on_delete?: (id: number) => void;
+  }
+
+  let { on_delete, ...comment_prop }: Props = $props();
   let comment = $state(comment_prop);
 
   let collapsed = $state(comment.collapsed);
@@ -79,7 +83,11 @@
     <div class="flex flex-col gap-2" class:hidden={collapsed}>
       <p class="text-info text-sm whitespace-pre-wrap">{comment.content}</p>
       <!-- comment options -->
-      <CommentActions {...comment} on_reply_click={() => (show_comment_box = true)} />
+      <CommentActions
+        {...comment}
+        on_reply_click={() => (show_comment_box = true)}
+        on_delete={() => on_delete?.(comment.id)}
+      />
       {#if show_comment_box}
         <!-- reply comment -->
         <CommentBox
