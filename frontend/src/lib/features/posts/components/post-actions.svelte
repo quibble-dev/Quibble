@@ -62,8 +62,10 @@
 <div class={cn(_class, 'flex items-center gap-2')}>
   <div class="bg-neutral rounded-field relative flex items-center gap-1">
     <button
-      class="btn btn-primary btn-soft btn-sm btn-square"
-      class:btn-active={reaction === 'upvoted'}
+      class={cn(
+        reaction === 'upvoted' ? 'btn-primary' : 'btn-neutral hover:text-primary',
+        'btn btn-sm btn-square'
+      )}
       aria-label="Upvote post"
       onclick={() => throttled_handle_reaction('upvote')}
     >
@@ -71,8 +73,10 @@
     </button>
     <span class="text-xs font-medium md:text-sm">{readable(ratio)}</span>
     <button
-      class="btn btn-accent btn-soft btn-sm btn-square"
-      class:btn-active={reaction === 'downvoted'}
+      class={cn(
+        reaction === 'downvoted' ? 'btn-accent' : 'btn-neutral hover:text-accent',
+        'btn btn-sm btn-square'
+      )}
       aria-label="Downvote post"
       onclick={() => throttled_handle_reaction('downvote')}
     >
