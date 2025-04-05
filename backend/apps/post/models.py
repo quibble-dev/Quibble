@@ -60,6 +60,12 @@ class Post(CreatedAtMixin, TypeMixin, ShortUUIDMixin):
     def __str__(self) -> str:
         return f'{self.pk}/{self.slug}'
 
+    def delete(self, *args, **kwargs):
+        # delete all related comments
+        self.comments.all().delete()
+        # then delete post
+        return super().delete(*args, **kwargs)
+
     class Meta:  # pyright: ignore
         verbose_name = _('Post')
         verbose_name_plural = _('Posts')
