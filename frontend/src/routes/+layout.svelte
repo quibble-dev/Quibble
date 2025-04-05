@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { dev } from '$app/environment';
   import { afterNavigate, beforeNavigate } from '$app/navigation';
   import api from '$lib/api';
   import Modals from '$lib/components/modals/index.svelte';
@@ -10,7 +9,6 @@
   import '../styles/nprogress.css';
   import '../styles/smiz.css';
   import { defineCustomElements } from '@coreproject-moe/icons/loader';
-  import { inject } from '@vercel/analytics';
   import NProgress from 'nprogress';
   import { onMount, type Snippet } from 'svelte';
 
@@ -37,11 +35,7 @@
   });
 
   onMount(() => {
-    // load coreicons
     defineCustomElements();
-    // inject vercel analytics
-    inject({ mode: dev ? 'development' : 'production' });
-
     // send token refresh request interval
     if (!auth_store.value.is_authenticated) return;
 
