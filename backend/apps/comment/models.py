@@ -8,6 +8,8 @@ from mixins.models.created_at import CreatedAtMixin
 
 from .managers import CommentManager
 
+# Create your models here.
+
 
 class Comment(CreatedAtMixin, TreeModel):
     commenter = models.ForeignKey(
