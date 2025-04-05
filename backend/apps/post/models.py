@@ -12,8 +12,6 @@ from mixins.models.type import TypeMixin
 
 from .managers import PostManager
 
-# Create your models here.
-
 
 class Post(CreatedAtMixin, TypeMixin, ShortUUIDMixin):
     community = models.ForeignKey(
@@ -44,8 +42,12 @@ class Post(CreatedAtMixin, TypeMixin, ShortUUIDMixin):
     downvotes = models.ManyToManyField(
         Profile, related_name='downvoted_posts', blank=True, verbose_name=_('Downvotes')
     )
-    comments = models.ManyToManyField(
-        Comment, related_name='comments', blank=True, verbose_name=_('Comments')
+    comments = models.ForeignKey(
+        Comment,
+        on_delete=models.CASCADE,
+        related_name='comments',
+        blank=True,
+        verbose_name=_('Comments'),
     )
 
     objects = PostManager()
