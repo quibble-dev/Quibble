@@ -9,11 +9,17 @@ from ...serializers.user.profile import ProfileBasicSerializer
 class PostSerializer(serializers.ModelSerializer):
     community = CommunityBasicSerializer(read_only=True)
     poster = ProfileBasicSerializer(read_only=True)
-    ratio = serializers.IntegerField()
+    ratio = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
         fields = '__all__'
+
+    def get_ratio(self, obj):
+        if hasattr(obj, 'ratio'):
+            return obj.ratio
+        # for non-annotated instances (like new posts), calculate it!
+        return obj.upvotes.count() - obj.downvotes.count()
 
 
 class PostCreateSerializer(serializers.ModelSerializer):
