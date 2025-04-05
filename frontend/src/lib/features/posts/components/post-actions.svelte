@@ -1,5 +1,6 @@
 <script lang="ts">
   import { browser } from '$app/environment';
+  import { goto } from '$app/navigation';
   import api, { type components } from '$lib/api';
   import { toasts_store } from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
@@ -8,7 +9,8 @@
   import readable from 'readable-numbers';
 
   // internal types
-  type CommunityBasic = components['schemas']['CommunityBasic'];
+  type Community = components['schemas']['CommunityBasic'];
+  type Poster = components['schemas']['ProfileBasic'];
 
   type Props = {
     class?: string;
@@ -18,11 +20,23 @@
     downvotes?: number[];
     comments?: number[];
     slug?: string;
-    community?: CommunityBasic;
+    community?: Community;
+    poster?: Poster;
   };
 
-  let { id, ratio, upvotes, downvotes, comments, class: _class, slug, community }: Props = $props();
+  let {
+    id,
+    ratio,
+    upvotes,
+    downvotes,
+    comments,
+    class: _class,
+    slug,
+    community,
+    poster
+  }: Props = $props();
   let reaction = $state<ReturnType<typeof get_reaction>>();
+  let deleting = $state(false);
 
   $effect(() => {
     reaction = get_reaction();
@@ -74,6 +88,22 @@
         .then(() => toasts_store.success('Post link copied'));
     }
   }
+
+  async function handle_delete() {
+    try {
+      deleting = true;
+      const { response, error } = await api.DELETE('/posts/{id}/', {
+        params: { path: { id } }
+      });
+      if (response.ok) {
+        await goto('/', { invalidate: [(url) => url.pathname === '/'] });
+      } else if (error) {
+        console.error(error);
+      }
+    } finally {
+      deleting = false;
+    }
+  }
 </script>
 
 <div class={cn(_class, 'flex items-center gap-2')}>
@@ -108,7 +138,36 @@
     <coreicons-shape-share class="size-4"></coreicons-shape-share>
     <span class="text-sm font-medium">Share</span>
   </button>
-  <button class="btn btn-sm btn-ghost btn-square relative" aria-label="more">
-    <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
-  </button>
+  <div class="dropdown-end dropdown relative">
+    <div tabindex="0" role="button" class="btn btn-sm btn-square btn-ghost">
+      <coreicons-shape-more class="size-4 rotate-90"></coreicons-shape-more>
+    </div>
+    <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+    <ul tabindex="0" class="menu dropdown-content bg-base-100 z-10 mt-2 gap-1 rounded-2xl p-1.5">
+      <li>
+        <button class="flex items-center gap-2 rounded-xl p-2">
+          <coreicons-shape-flag class="size-4"></coreicons-shape-flag>
+          <span class="text-sm font-medium capitalize">Report</span>
+        </button>
+      </li>
+      <li class="menu-disabled">
+        <button class="flex items-center gap-2 rounded-xl p-2">
+          <coreicons-shape-calendar class="size-4"></coreicons-shape-calendar>
+          <span class="text-sm font-medium capitalize">Save</span>
+        </button>
+      </li>
+      {#if poster?.id === auth_store.value.user?.profile.id}
+        <li class="text-error" class:menu-disabled={deleting}>
+          <button class="flex items-center gap-2 rounded-xl p-2" onclick={handle_delete}>
+            {#if deleting}
+              <span class="loading loading-spinner loading-xs"></span>
+            {:else}
+              <coreicons-shape-trash variant="without-lines" class="size-4"></coreicons-shape-trash>
+            {/if}
+            <span class="text-sm font-medium capitalize">Delete</span>
+          </button>
+        </li>
+      {/if}
+    </ul>
+  </div>
 </div>
