@@ -3,7 +3,6 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
 
-from apps.comment.models import Comment
 from apps.community.models import Community
 from apps.user.models import Profile
 from mixins.models.created_at import CreatedAtMixin
@@ -12,21 +11,19 @@ from mixins.models.type import TypeMixin
 
 from .managers import PostManager
 
-# Create your models here.
-
 
 class Post(CreatedAtMixin, TypeMixin, ShortUUIDMixin):
     community = models.ForeignKey(
         Community,
+        on_delete=models.CASCADE,
         related_name='posts',
         verbose_name=_('Community'),
-        on_delete=models.CASCADE,
     )
     poster = models.ForeignKey(
         Profile,
+        on_delete=models.CASCADE,
         related_name='posts',
         verbose_name=_('Poster'),
-        on_delete=models.CASCADE,
     )
     highlighted = models.BooleanField(_('Highlighted'), default=False)
     title = models.CharField(_('Title'), max_length=255)
@@ -44,9 +41,6 @@ class Post(CreatedAtMixin, TypeMixin, ShortUUIDMixin):
     downvotes = models.ManyToManyField(
         Profile, related_name='downvoted_posts', blank=True, verbose_name=_('Downvotes')
     )
-    comments = models.ManyToManyField(
-        Comment, related_name='comments', blank=True, verbose_name=_('Comments')
-    )
 
     objects = PostManager()
 
@@ -59,12 +53,6 @@ class Post(CreatedAtMixin, TypeMixin, ShortUUIDMixin):
 
     def __str__(self) -> str:
         return f'{self.pk}/{self.slug}'
-
-    def delete(self, *args, **kwargs):
-        # delete all related comments
-        self.comments.all().delete()
-        # then delete post
-        return super().delete(*args, **kwargs)
 
     class Meta:  # pyright: ignore
         verbose_name = _('Post')

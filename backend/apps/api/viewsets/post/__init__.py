@@ -1,6 +1,5 @@
 from http import HTTPMethod
 
-from django.shortcuts import get_object_or_404
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import exceptions, response, status, viewsets
@@ -74,7 +73,7 @@ class PostViewSet(ReactionMixin, viewsets.ModelViewSet):
         if request.method == HTTPMethod.POST and not request.user.is_authenticated:
             raise exceptions.NotAuthenticated()
 
-        post_instance = get_object_or_404(Post, pk=pk)
+        post_instance = self.get_object()
 
         context = {'request': request}
 
@@ -84,13 +83,11 @@ class PostViewSet(ReactionMixin, viewsets.ModelViewSet):
 
             return response.Response(serializer.data, status=status.HTTP_200_OK)
 
+        # POST request
         serializer = CommentCreateSerializer(data=request.data, context=context)
         serializer.is_valid(raise_exception=True)
 
-        comment_instance = serializer.save()
-        post_instance.comments.add(comment_instance)
-        # hard-code ratio
-        comment_instance.ratio = 1
+        comment_instance = serializer.save(post=post_instance, ratio=1)
 
         response_serializer = CommentSerializer(comment_instance, context=context)
         return response.Response(response_serializer.data, status=status.HTTP_201_CREATED)
