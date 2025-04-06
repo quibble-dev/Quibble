@@ -9,27 +9,18 @@
   import readable from 'readable-numbers';
 
   // internal types
-  type Community = components['schemas']['CommunityBasic'];
-  type Poster = components['schemas']['ProfileBasic'];
+  type Post = components['schemas']['Post'];
 
-  type Props = {
+  interface Props extends Post {
     class?: string;
-    id: string;
-    ratio: number;
-    upvotes?: number[];
-    downvotes?: number[];
-    comments?: number[];
-    slug?: string;
-    community?: Community;
-    poster?: Poster;
-  };
+  }
 
   let {
     id,
     ratio,
     upvotes,
     downvotes,
-    comments,
+    comment_count,
     class: _class,
     slug,
     community,
@@ -132,7 +123,7 @@
   </div>
   <button class="btn btn-sm btn-neutral relative px-2">
     <coreicons-shape-forum class="size-4"></coreicons-shape-forum>
-    <span class="text-xs font-medium md:text-sm">{readable(comments?.length ?? 0)}</span>
+    <span class="text-xs font-medium md:text-sm">{readable(comment_count)}</span>
   </button>
   <button class="btn btn-sm btn-neutral relative hidden md:flex" onclick={handle_share_click}>
     <coreicons-shape-share class="size-4"></coreicons-shape-share>

@@ -3,15 +3,20 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_ltree.models import TreeModel
 
+from apps.post.models import Post
 from apps.user.models import Profile
 from mixins.models.created_at import CreatedAtMixin
 
 from .managers import CommentManager
 
-# Create your models here.
-
 
 class Comment(CreatedAtMixin, TreeModel):
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE,
+        related_name='comments',
+        verbose_name=_('Post'),
+    )
     commenter = models.ForeignKey(
         Profile,
         on_delete=models.SET_NULL,

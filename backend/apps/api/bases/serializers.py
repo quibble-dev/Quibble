@@ -1,3 +1,5 @@
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import extend_schema_field
 from rest_framework import serializers
 
 
@@ -31,3 +33,18 @@ class ReactionSerializer(serializers.Serializer):
         if value not in ['upvote', 'downvote']:
             raise serializers.ValidationError(f'Invalid action: {value}')
         return value
+
+
+class BaseRatioModelSerializer(serializers.ModelSerializer):
+    """
+    Base serializer for instances with ratio.
+    Checks if it has annotated ratio or not, then proceeds to return default value!
+    """
+
+    ratio = serializers.SerializerMethodField()
+
+    @extend_schema_field(OpenApiTypes.INT)
+    def get_ratio(self, obj):
+        if hasattr(obj, 'ratio'):
+            return obj.ratio
+        return 0  # default value for new instances

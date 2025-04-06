@@ -1538,10 +1538,12 @@ export interface components {
      * @enum {string}
      */
     ClientErrorEnum: 'client_error';
+    /** @description Base serializer for instances with ratio.
+     *     Checks if it has annotated ratio or not, then proceeds to return default value! */
     Comment: {
       readonly id: number;
+      readonly ratio: number;
       commenter: components['schemas']['ProfileBasic'] | null;
-      ratio: number;
       path: string;
       /**
        * Create at
@@ -1550,19 +1552,23 @@ export interface components {
       readonly created_at: string;
       content: string;
       deleted?: boolean;
+      post: string;
       upvotes?: number[];
       downvotes?: number[];
     };
     CommentCreate: {
       path?: string;
       content: string;
+      post: string;
     };
+    /** @description Base serializer for instances with ratio.
+     *     Checks if it has annotated ratio or not, then proceeds to return default value! */
     CommentOverview: {
       readonly id: number;
       readonly commenter: string;
       readonly reply_to: string;
       readonly is_op: string;
-      ratio: number;
+      readonly ratio: number;
       readonly post: string;
       /**
        * Create at
@@ -1712,10 +1718,10 @@ export interface components {
       | components['schemas']['CommentsPartialUpdateCommenterUsernameErrorComponent']
       | components['schemas']['CommentsPartialUpdateCommenterAvatarErrorComponent']
       | components['schemas']['CommentsPartialUpdateCommenterNameErrorComponent']
-      | components['schemas']['CommentsPartialUpdateRatioErrorComponent']
       | components['schemas']['CommentsPartialUpdatePathErrorComponent']
       | components['schemas']['CommentsPartialUpdateContentErrorComponent']
       | components['schemas']['CommentsPartialUpdateDeletedErrorComponent']
+      | components['schemas']['CommentsPartialUpdatePostErrorComponent']
       | components['schemas']['CommentsPartialUpdateUpvotesErrorComponent']
       | components['schemas']['CommentsPartialUpdateDownvotesErrorComponent'];
     CommentsPartialUpdateNonFieldErrorsErrorComponent: {
@@ -1758,20 +1764,20 @@ export interface components {
         | 'unique';
       detail: string;
     };
-    CommentsPartialUpdateRatioErrorComponent: {
+    CommentsPartialUpdatePostErrorComponent: {
       /**
-       * @description * `ratio` - ratio (enum property replaced by openapi-typescript)
+       * @description * `post` - post (enum property replaced by openapi-typescript)
        * @enum {string}
        */
-      attr: 'ratio';
+      attr: 'post';
       /**
-       * @description * `invalid` - invalid
-       *     * `max_string_length` - max_string_length
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
        *     * `null` - null
        *     * `required` - required
        * @enum {string}
        */
-      code: 'invalid' | 'max_string_length' | 'null' | 'required';
+      code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
       detail: string;
     };
     CommentsPartialUpdateUpvotesErrorComponent: {
@@ -1978,10 +1984,10 @@ export interface components {
       | components['schemas']['CommentsUpdateCommenterUsernameErrorComponent']
       | components['schemas']['CommentsUpdateCommenterAvatarErrorComponent']
       | components['schemas']['CommentsUpdateCommenterNameErrorComponent']
-      | components['schemas']['CommentsUpdateRatioErrorComponent']
       | components['schemas']['CommentsUpdatePathErrorComponent']
       | components['schemas']['CommentsUpdateContentErrorComponent']
       | components['schemas']['CommentsUpdateDeletedErrorComponent']
+      | components['schemas']['CommentsUpdatePostErrorComponent']
       | components['schemas']['CommentsUpdateUpvotesErrorComponent']
       | components['schemas']['CommentsUpdateDownvotesErrorComponent'];
     CommentsUpdateNonFieldErrorsErrorComponent: {
@@ -2024,20 +2030,20 @@ export interface components {
         | 'unique';
       detail: string;
     };
-    CommentsUpdateRatioErrorComponent: {
+    CommentsUpdatePostErrorComponent: {
       /**
-       * @description * `ratio` - ratio (enum property replaced by openapi-typescript)
+       * @description * `post` - post (enum property replaced by openapi-typescript)
        * @enum {string}
        */
-      attr: 'ratio';
+      attr: 'post';
       /**
-       * @description * `invalid` - invalid
-       *     * `max_string_length` - max_string_length
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
        *     * `null` - null
        *     * `required` - required
        * @enum {string}
        */
-      code: 'invalid' | 'max_string_length' | 'null' | 'required';
+      code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
       detail: string;
     };
     CommentsUpdateUpvotesErrorComponent: {
@@ -2179,10 +2185,12 @@ export interface components {
       uid: string;
       token: string;
     };
+    /** @description Base serializer for instances with ratio.
+     *     Checks if it has annotated ratio or not, then proceeds to return default value! */
     PatchedComment: {
       readonly id?: number;
+      readonly ratio?: number;
       commenter?: components['schemas']['ProfileBasic'] | null;
-      ratio?: number;
       path?: string;
       /**
        * Create at
@@ -2191,6 +2199,7 @@ export interface components {
       readonly created_at?: string;
       content?: string;
       deleted?: boolean;
+      post?: string;
       upvotes?: number[];
       downvotes?: number[];
     };
@@ -2214,11 +2223,14 @@ export interface components {
       members?: number[];
       moderators?: number[];
     };
+    /** @description Base serializer for instances with ratio.
+     *     Checks if it has annotated ratio or not, then proceeds to return default value! */
     PatchedPost: {
       readonly id?: string;
+      readonly ratio?: number;
       readonly community?: components['schemas']['CommunityBasic'];
       readonly poster?: components['schemas']['ProfileBasic'];
-      ratio?: number;
+      readonly comment_count?: number;
       /**
        * Create at
        * Format: date-time
@@ -2233,7 +2245,6 @@ export interface components {
       cover?: string | null;
       upvotes?: number[];
       downvotes?: number[];
-      comments?: number[];
     };
     PatchedProfile: {
       readonly id?: number;
@@ -2268,11 +2279,14 @@ export interface components {
       readonly date_joined?: string;
       readonly profile?: components['schemas']['ProfileBasic'];
     };
+    /** @description Base serializer for instances with ratio.
+     *     Checks if it has annotated ratio or not, then proceeds to return default value! */
     Post: {
       readonly id: string;
+      readonly ratio: number;
       readonly community: components['schemas']['CommunityBasic'];
       readonly poster: components['schemas']['ProfileBasic'];
-      ratio: number;
+      readonly comment_count: number;
       /**
        * Create at
        * Format: date-time
@@ -2287,7 +2301,6 @@ export interface components {
       cover?: string | null;
       upvotes?: number[];
       downvotes?: number[];
-      comments?: number[];
     };
     PostCreate: {
       community: number;
@@ -2336,7 +2349,8 @@ export interface components {
     PostsCommentsCreateError:
       | components['schemas']['PostsCommentsCreateNonFieldErrorsErrorComponent']
       | components['schemas']['PostsCommentsCreatePathErrorComponent']
-      | components['schemas']['PostsCommentsCreateContentErrorComponent'];
+      | components['schemas']['PostsCommentsCreateContentErrorComponent']
+      | components['schemas']['PostsCommentsCreatePostErrorComponent'];
     PostsCommentsCreateNonFieldErrorsErrorComponent: {
       /**
        * @description * `non_field_errors` - non_field_errors (enum property replaced by openapi-typescript)
@@ -2371,6 +2385,22 @@ export interface components {
         | 'null'
         | 'null_characters_not_allowed'
         | 'surrogate_characters_not_allowed';
+      detail: string;
+    };
+    PostsCommentsCreatePostErrorComponent: {
+      /**
+       * @description * `post` - post (enum property replaced by openapi-typescript)
+       * @enum {string}
+       */
+      attr: 'post';
+      /**
+       * @description * `does_not_exist` - does_not_exist
+       *     * `incorrect_type` - incorrect_type
+       *     * `null` - null
+       *     * `required` - required
+       * @enum {string}
+       */
+      code: 'does_not_exist' | 'incorrect_type' | 'null' | 'required';
       detail: string;
     };
     PostsCommentsCreateValidationError: {
@@ -2493,22 +2523,6 @@ export interface components {
       type: components['schemas']['ValidationErrorEnum'];
       errors: components['schemas']['PostsCreateError'][];
     };
-    PostsPartialUpdateCommentsErrorComponent: {
-      /**
-       * @description * `comments` - comments (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'comments';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `not_a_list` - not_a_list
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-      detail: string;
-    };
     PostsPartialUpdateContentErrorComponent: {
       /**
        * @description * `content` - content (enum property replaced by openapi-typescript)
@@ -2560,7 +2574,6 @@ export interface components {
     };
     PostsPartialUpdateError:
       | components['schemas']['PostsPartialUpdateNonFieldErrorsErrorComponent']
-      | components['schemas']['PostsPartialUpdateRatioErrorComponent']
       | components['schemas']['PostsPartialUpdateTypeErrorComponent']
       | components['schemas']['PostsPartialUpdateHighlightedErrorComponent']
       | components['schemas']['PostsPartialUpdateTitleErrorComponent']
@@ -2568,8 +2581,7 @@ export interface components {
       | components['schemas']['PostsPartialUpdateContentErrorComponent']
       | components['schemas']['PostsPartialUpdateCoverErrorComponent']
       | components['schemas']['PostsPartialUpdateUpvotesErrorComponent']
-      | components['schemas']['PostsPartialUpdateDownvotesErrorComponent']
-      | components['schemas']['PostsPartialUpdateCommentsErrorComponent'];
+      | components['schemas']['PostsPartialUpdateDownvotesErrorComponent'];
     PostsPartialUpdateHighlightedErrorComponent: {
       /**
        * @description * `highlighted` - highlighted (enum property replaced by openapi-typescript)
@@ -2596,22 +2608,6 @@ export interface components {
        * @enum {string}
        */
       code: 'invalid' | 'null';
-      detail: string;
-    };
-    PostsPartialUpdateRatioErrorComponent: {
-      /**
-       * @description * `ratio` - ratio (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'ratio';
-      /**
-       * @description * `invalid` - invalid
-       *     * `max_string_length` - max_string_length
-       *     * `null` - null
-       *     * `required` - required
-       * @enum {string}
-       */
-      code: 'invalid' | 'max_string_length' | 'null' | 'required';
       detail: string;
     };
     PostsPartialUpdateSlugErrorComponent: {
@@ -2741,22 +2737,6 @@ export interface components {
       type: components['schemas']['ValidationErrorEnum'];
       errors: components['schemas']['PostsReactionPartialUpdateError'][];
     };
-    PostsUpdateCommentsErrorComponent: {
-      /**
-       * @description * `comments` - comments (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'comments';
-      /**
-       * @description * `does_not_exist` - does_not_exist
-       *     * `incorrect_type` - incorrect_type
-       *     * `not_a_list` - not_a_list
-       *     * `null` - null
-       * @enum {string}
-       */
-      code: 'does_not_exist' | 'incorrect_type' | 'not_a_list' | 'null';
-      detail: string;
-    };
     PostsUpdateContentErrorComponent: {
       /**
        * @description * `content` - content (enum property replaced by openapi-typescript)
@@ -2808,7 +2788,6 @@ export interface components {
     };
     PostsUpdateError:
       | components['schemas']['PostsUpdateNonFieldErrorsErrorComponent']
-      | components['schemas']['PostsUpdateRatioErrorComponent']
       | components['schemas']['PostsUpdateTypeErrorComponent']
       | components['schemas']['PostsUpdateHighlightedErrorComponent']
       | components['schemas']['PostsUpdateTitleErrorComponent']
@@ -2816,8 +2795,7 @@ export interface components {
       | components['schemas']['PostsUpdateContentErrorComponent']
       | components['schemas']['PostsUpdateCoverErrorComponent']
       | components['schemas']['PostsUpdateUpvotesErrorComponent']
-      | components['schemas']['PostsUpdateDownvotesErrorComponent']
-      | components['schemas']['PostsUpdateCommentsErrorComponent'];
+      | components['schemas']['PostsUpdateDownvotesErrorComponent'];
     PostsUpdateHighlightedErrorComponent: {
       /**
        * @description * `highlighted` - highlighted (enum property replaced by openapi-typescript)
@@ -2844,22 +2822,6 @@ export interface components {
        * @enum {string}
        */
       code: 'invalid' | 'null';
-      detail: string;
-    };
-    PostsUpdateRatioErrorComponent: {
-      /**
-       * @description * `ratio` - ratio (enum property replaced by openapi-typescript)
-       * @enum {string}
-       */
-      attr: 'ratio';
-      /**
-       * @description * `invalid` - invalid
-       *     * `max_string_length` - max_string_length
-       *     * `null` - null
-       *     * `required` - required
-       * @enum {string}
-       */
-      code: 'invalid' | 'max_string_length' | 'null' | 'required';
       detail: string;
     };
     PostsUpdateSlugErrorComponent: {
@@ -5260,7 +5222,7 @@ export interface operations {
           [name: string]: unknown;
         };
         content: {
-          'application/json': components['schemas']['Comment'][];
+          'application/json': components['schemas']['Comment'];
         };
       };
       400: {

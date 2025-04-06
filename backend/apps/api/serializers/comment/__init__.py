@@ -1,15 +1,14 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 
+from apps.api.bases.serializers import BaseRatioModelSerializer
+from apps.api.serializers.user.profile import ProfileBasicSerializer
 from apps.comment.models import Comment
 from apps.post.models import Post
 
-from ...serializers.user.profile import ProfileBasicSerializer
 
-
-class CommentSerializer(serializers.ModelSerializer):
+class CommentSerializer(BaseRatioModelSerializer):
     commenter = ProfileBasicSerializer(allow_null=True)
-    ratio = serializers.IntegerField()
 
     class Meta:
         model = Comment
@@ -75,12 +74,14 @@ class CommentCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = ('path', 'content')
+        fields = ('path', 'content', 'post')
+        extra_kwargs = {'post': {'write_only': True}}
 
     def create(self, validated_data):
         data = {
             'commenter': self.context['request'].user_profile,
             'content': validated_data['content'],
+            'post': validated_data['post'],
         }
 
         if path := validated_data.get('path'):
