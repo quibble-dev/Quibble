@@ -45,4 +45,9 @@ class BaseRatioModelSerializer(serializers.ModelSerializer):
         if hasattr(obj, 'ratio'):
             return obj.ratio
         # for non-annotated instances (like new instances), calculate it!
-        return obj.upvotes.count() - obj.downvotes.count()
+        upvotes = getattr(obj, 'upvotes', None)
+        downvotes = getattr(obj, 'downvotes', None)
+
+        if upvotes is not None and downvotes is not None:
+            return upvotes.count() - downvotes.count()
+        return 0  # fallback
