@@ -84,10 +84,11 @@ class PostViewSet(ReactionMixin, viewsets.ModelViewSet):
             return response.Response(serializer.data, status=status.HTTP_200_OK)
 
         # POST request
+        request.data['post'] = post_instance.id
         serializer = CommentCreateSerializer(data=request.data, context=context)
         serializer.is_valid(raise_exception=True)
 
-        comment_instance = serializer.save(post=post_instance, ratio=1)
+        comment_instance = serializer.save()
 
         response_serializer = CommentSerializer(comment_instance, context=context)
         return response.Response(response_serializer.data, status=status.HTTP_201_CREATED)
