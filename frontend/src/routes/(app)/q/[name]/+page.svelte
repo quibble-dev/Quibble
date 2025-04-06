@@ -1,5 +1,8 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
+  import api from '$lib/api';
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import { toasts_store } from '$lib/components/ui/toast';
   import { PostCard, PostsHeader } from '$lib/features/posts';
   import { cn } from '$lib/functions/classnames';
   import { FormatDate } from '$lib/functions/date';
@@ -11,6 +14,7 @@
 
   const { data }: { data: PageData } = $props();
   const { community, posts, highlighted_posts } = $derived(data);
+  let deleting = $state(false);
 
   const is_joined = $derived.by(() => {
     if (auth_store.value.user && community) {
@@ -24,6 +28,23 @@
       avatar: community.avatar,
       name: community.name
     });
+  }
+
+  async function handle_delete() {
+    try {
+      deleting = true;
+      const { response, error } = await api.DELETE('/q/communities/{name}/', {
+        params: { path: { name: community.name } }
+      });
+      if (response.ok) {
+        await goto('/', { invalidate: [(url) => url.pathname === '/'] });
+        toasts_store.success(`Community q/${community.name} deleted!`);
+      } else if (error) {
+        console.error(error);
+      }
+    } finally {
+      deleting = false;
+    }
   }
 
   onMount(() => {
@@ -73,16 +94,49 @@
     </div>
     <!-- community basic operations -->
     <div class="flex items-center gap-2">
-      <button class="btn btn-primary" aria-label="Create a Post">
+      <button class="btn btn-primary" aria-label="Create a Post" disabled>
         <coreicons-shape-plus variant="no-border" class="size-5"></coreicons-shape-plus>
         <span class="text-sm font-medium">Create Post</span>
       </button>
       <button hidden class="btn btn-secondary" aria-label="Join Community">
         <span class="text-sm font-medium">{is_joined ? 'Joined' : 'Join'}</span>
       </button>
-      <button class="btn btn-neutral btn-square ml-auto md:ml-0" aria-label="More options">
-        <coreicons-shape-more class="size-5 rotate-90"></coreicons-shape-more>
-      </button>
+      <div class="dropdown-end dropdown relative">
+        <div tabindex="0" role="button" class="btn btn-square btn-neutral">
+          <coreicons-shape-more class="size-5 rotate-90"></coreicons-shape-more>
+        </div>
+        <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+        <ul
+          tabindex="0"
+          class="menu dropdown-content bg-base-100 z-10 mt-2 w-max gap-1 rounded-2xl p-1.5"
+        >
+          <li>
+            <button class="flex items-center gap-2 rounded-xl p-2">
+              <coreicons-shape-flag class="size-4"></coreicons-shape-flag>
+              <span class="text-sm font-medium capitalize">Report</span>
+            </button>
+          </li>
+          <li class="menu-disabled">
+            <button class="flex items-center gap-2 rounded-xl p-2">
+              <coreicons-shape-heart class="size-4"></coreicons-shape-heart>
+              <span class="text-sm font-medium capitalize">Favorite</span>
+            </button>
+          </li>
+          {#if community.moderators.some((m) => m.id === auth_store.value.user?.profile.id)}
+            <li class="text-error" class:menu-disabled={deleting}>
+              <button class="flex items-center gap-2 rounded-xl p-2" onclick={handle_delete}>
+                {#if deleting}
+                  <span class="loading loading-spinner loading-xs"></span>
+                {:else}
+                  <coreicons-shape-trash variant="without-lines" class="size-4"
+                  ></coreicons-shape-trash>
+                {/if}
+                <span class="text-sm font-medium capitalize">Delete</span>
+              </button>
+            </li>
+          {/if}
+        </ul>
+      </div>
     </div>
   </div>
 </div>
