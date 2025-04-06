@@ -18,6 +18,7 @@ class PostManager(Manager):
                 upvotes_count=Count('upvotes', distinct=True),
                 downvotes_count=Count('downvotes', distinct=True),
                 ratio=F('upvotes_count') - F('downvotes_count'),
+                comment_count=Count('comments', distinct=True),
             )
         )
 

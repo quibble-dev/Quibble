@@ -73,16 +73,12 @@
 
 <div
   class={cn(
-    !always_on_card &&
-      layout_type_store.value === 'compact' &&
-      'hover:bg-base-200 transition-colors',
+    !always_on_card && layout_type_store.value === 'compact' && 'hover:bg-base-200',
     'border-neutral bg-base-300 rounded-box relative flex flex-col overflow-hidden border'
   )}
 >
   {#if always_on_card || layout_type_store.value === 'card'}
-    <div
-      class="hover:bg-base-200 group relative flex flex-col gap-1 p-4 transition-colors duration-75"
-    >
+    <div class="hover:bg-base-200 group relative flex flex-col gap-1 p-4">
       {@render href_overlay()}
       {@render avatar_name_date_more()}
       <h2 class="text-info text-lg font-bold md:text-xl">{post.title}</h2>
