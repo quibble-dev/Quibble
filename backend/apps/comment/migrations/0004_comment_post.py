@@ -16,7 +16,6 @@ class Migration(migrations.Migration):
             model_name='comment',
             name='post',
             field=models.ForeignKey(
-                default=1,
                 on_delete=django.db.models.deletion.CASCADE,
                 related_name='comments',
                 to='post.post',
