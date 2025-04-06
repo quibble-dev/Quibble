@@ -1,15 +1,14 @@
 from rest_framework import serializers
 
+from apps.api.bases.serializers import BaseRatioModelSerializer
+from apps.api.serializers.community import CommunityBasicSerializer
+from apps.api.serializers.user.profile import ProfileBasicSerializer
 from apps.post.models import Post
 
-from ...serializers.community import CommunityBasicSerializer
-from ...serializers.user.profile import ProfileBasicSerializer
 
-
-class PostSerializer(serializers.ModelSerializer):
+class PostSerializer(BaseRatioModelSerializer):
     community = CommunityBasicSerializer(read_only=True)
     poster = ProfileBasicSerializer(read_only=True)
-    ratio = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
@@ -25,7 +24,7 @@ class PostSerializer(serializers.ModelSerializer):
 class PostCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ['community', 'poster', 'title', 'content', 'cover']
+        fields = ('community', 'poster', 'title', 'content', 'cover')
 
     def create(self, validated_data):
         poster = self.context['request'].user_profile
