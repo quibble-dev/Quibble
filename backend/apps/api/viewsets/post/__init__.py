@@ -67,7 +67,14 @@ class PostViewSet(ReactionMixin, viewsets.ModelViewSet):
         response_serializer = PostSerializer(post_instance, context=context)
         return response.Response(response_serializer.data, status=status.HTTP_201_CREATED)
 
-    @extend_schema(responses=CommentSerializer(many=True))
+    @extend_schema(
+        methods=['GET'],
+        responses=CommentSerializer(many=True),
+    )
+    @extend_schema(
+        methods=['POST'],
+        responses=CommentSerializer,
+    )
     @action(detail=True, methods=[HTTPMethod.GET, HTTPMethod.POST])
     def comments(self, request, pk=None):
         if request.method == HTTPMethod.POST and not request.user.is_authenticated:
