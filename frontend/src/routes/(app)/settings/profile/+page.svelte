@@ -1,7 +1,8 @@
 <script lang="ts">
-  import { goto, invalidate, invalidateAll } from '$app/navigation';
+  import { goto, invalidate } from '$app/navigation';
   import api from '$lib/api';
   import BaseModal from '$lib/components/ui/base-modal.svelte';
+  import { toasts_store } from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
   import AvatarSetting from '$lib/pages/settings/profile/avatar-setting.svelte';
   import BannerSetting from '$lib/pages/settings/profile/banner-setting.svelte';
@@ -95,8 +96,8 @@
         params: { path: { id: data.profile.id } }
       });
       if (response.ok) {
-        await invalidateAll();
-        await goto('/');
+        await goto('/', { invalidateAll: true });
+        toasts_store.success('Profile deleted!');
       }
     } catch (err) {
       console.error(err);

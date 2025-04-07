@@ -38,7 +38,7 @@
       });
       if (response.ok) {
         await goto('/', { invalidate: [(url) => url.pathname === '/'] });
-        toasts_store.success(`Community q/${community.name} deleted!`);
+        toasts_store.success('Community deleted!');
       } else if (error) {
         console.error(error);
       }

@@ -2,6 +2,7 @@
   import { goto, invalidateAll } from '$app/navigation';
   import api from '$lib/api';
   import BaseModal from '$lib/components/ui/base-modal.svelte';
+  import { toasts_store } from '$lib/components/ui/toast';
   import { cn } from '$lib/functions/classnames';
   import type { ISettingItem } from '$lib/pages/settings/setting-item.svelte';
   import SettingItem from '$lib/pages/settings/setting-item.svelte';
@@ -49,8 +50,8 @@
       pending_timeout = setTimeout(() => (pending = true), 500);
       const { response } = await api.DELETE('/u/me/');
       if (response.ok) {
-        await invalidateAll();
-        await goto('/');
+        await goto('/', { invalidateAll: true });
+        toasts_store.success('Account deleted!');
       }
     } catch (err) {
       console.error(err);

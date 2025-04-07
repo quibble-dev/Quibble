@@ -88,6 +88,7 @@
       });
       if (response.ok) {
         await goto('/', { invalidate: [(url) => url.pathname === '/'] });
+        toasts_store.success('Post deleted!');
       } else if (error) {
         console.error(error);
       }
