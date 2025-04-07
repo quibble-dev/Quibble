@@ -12,5 +12,5 @@ class TypeMixin(models.Model):
 
     type = models.CharField(_('Type'), choices=Type.choices, default=Type.PUBLIC)
 
-    class Meta:  # pyright: ignore
+    class Meta:
         abstract = True

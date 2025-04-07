@@ -23,7 +23,7 @@ class ExtendedJWTCookieAuthentication(JWTCookieAuthentication):
             try:
                 user_profile = Profile.objects.get(id=profile_id, user=user)
             except Profile.DoesNotExist:
-                raise exceptions.PermissionDenied('Invalid selected Profile.')
+                raise exceptions.PermissionDenied('Invalid Profile! please re-login again.')
 
         request.user_profile = user_profile
         return (user, token)

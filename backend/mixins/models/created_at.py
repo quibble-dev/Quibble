@@ -7,5 +7,5 @@ class CreatedAtMixin(models.Model):
 
     created_at = models.DateTimeField(_('Create at'), auto_now_add=True)
 
-    class Meta:  # pyright: ignore
+    class Meta:
         abstract = True

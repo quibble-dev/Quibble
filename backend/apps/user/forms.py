@@ -9,7 +9,7 @@ from .models import Profile, User
 class CustomUserAdminForm(ModelForm):
     password = forms.CharField(widget=forms.PasswordInput, required=False)
 
-    class Meta:  # pyright: ignore [reportIncompatibleVariableOverride]
+    class Meta:
         model = User
         fields = '__all__'
 
@@ -24,11 +24,11 @@ class CustomUserAdminForm(ModelForm):
 
 
 class ProfileAdminForm(ModelForm):
-    class Meta:  # pyright: ignore [reportIncompatibleVariableOverride]
+    class Meta:
         model = Profile
         fields = '__all__'
 
-    def clean(self):  # pyright: ignore [reportIncompatibleVariableOverride]
+    def clean(self):
         user = self.cleaned_data.get('user')
 
         if self.instance.pk is None and user and user.profiles.count() >= settings.PROFILE_LIMIT:

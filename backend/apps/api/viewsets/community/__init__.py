@@ -7,18 +7,17 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import exceptions, response, viewsets
 from rest_framework.decorators import action
 
-from apps.community.filters import CommunityFilter
-from apps.community.models import Community
-
-from ...http import HttpRequest
-from ...serializers.community import (
+from apps.api.http import HttpRequest
+from apps.api.serializers.community import (
     CommunityBasicSerializer,
     CommunityDetailedSerializer,
     CommunityExistsSerializer,
     CommunitySerializer,
 )
-from ...serializers.post import PostSerializer
-from ...serializers.post.highlighted import PostHighlightedSerializer
+from apps.api.serializers.post import PostSerializer
+from apps.api.serializers.post.highlighted import PostHighlightedSerializer
+from apps.community.filters import CommunityFilter
+from apps.community.models import Community
 
 
 @extend_schema(tags=['communities & topics'])

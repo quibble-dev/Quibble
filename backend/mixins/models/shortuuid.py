@@ -14,5 +14,5 @@ class ShortUUIDMixin(models.Model):
         primary_key=True,
     )
 
-    class Meta:  # pyright: ignore
+    class Meta:
         abstract = True

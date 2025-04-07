@@ -6,11 +6,10 @@ from rest_framework import exceptions, response, status, viewsets
 from rest_framework.decorators import action
 
 from apps.api.bases.serializers import ReactionSerializer
+from apps.api.serializers.comment import CommentCreateSerializer, CommentSerializer
+from apps.api.serializers.post import PostCreateSerializer, PostSerializer
 from apps.post.models import Post
 from mixins.api.reaction import ReactionMixin
-
-from ...serializers.comment import CommentCreateSerializer, CommentSerializer
-from ...serializers.post import PostCreateSerializer, PostSerializer
 
 
 class PostViewSet(ReactionMixin, viewsets.ModelViewSet):

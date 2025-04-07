@@ -13,5 +13,5 @@ class AvatarMixin(models.Model):
         null=True,
     )
 
-    class Meta:  # pyright: ignore
+    class Meta:
         abstract = True
