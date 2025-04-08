@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { goto, invalidateAll } from '$app/navigation';
+  import { goto } from '$app/navigation';
   import { page } from '$app/state';
   import api from '$lib/api';
   import Avatar from '$lib/components/ui/avatar.svelte';
@@ -43,11 +43,9 @@
           : '/';
 
       // re-run every load functions
-      await invalidateAll();
-      await goto(destination);
+      await goto(destination, { invalidateAll: true });
     } catch {
-      await invalidateAll();
-      await goto('/');
+      await goto('/', { invalidateAll: true });
     }
   }
 
