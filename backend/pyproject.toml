@@ -17,7 +17,7 @@ pillow = "^11.1.0"
 # 3rd party (file middleware)
 django-cleanup = "^9.0.0"
 # rest framework and plugins
-djangorestframework = "^3.15.2"
+djangorestframework = "^3.16.0"
 markdown = "^3.7"
 # 3rd party (django filtering)
 django-filter = "^25.1"

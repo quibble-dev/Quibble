@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { goto, invalidateAll } from '$app/navigation';
+  import { goto } from '$app/navigation';
   import api from '$lib/api';
   import BaseModal from '$lib/components/ui/base-modal.svelte';
   import { toasts_store } from '$lib/components/ui/toast';
