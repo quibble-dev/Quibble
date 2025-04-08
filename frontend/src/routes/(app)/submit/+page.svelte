@@ -8,11 +8,9 @@
   import { emoticons } from '$lib/constants/emoticons';
   import { cn } from '$lib/functions/classnames';
   import { debounce } from '$lib/functions/debounce';
-  import { PostSubmitSchema } from '$lib/schemas/post-submit';
   import { sidebar_store } from '$lib/stores/sidebar.svelte';
   import type { Nullable } from '$lib/types/shared';
   import { superForm } from 'sveltekit-superforms';
-  import { zod } from 'sveltekit-superforms/adapters';
 
   // internal types
   type CommunityBasic = components['schemas']['CommunityBasic'];
@@ -26,7 +24,7 @@
     IMAGE: {
       label: 'Images & Video',
       onclick: () => null,
-      disabled: true
+      disabled: false
     },
     LINK: {
       label: 'Link',
@@ -75,8 +73,7 @@
   });
 
   const { form, errors, enhance, delayed } = superForm(data.form, {
-    resetForm: false,
-    validators: zod(PostSubmitSchema)
+    resetForm: false
   });
 
   const debounced_search_where_to_post = debounce(search_where_to_post, 500);
@@ -120,6 +117,27 @@
       goto(`?${params.toString()}`, { replaceState: true });
     }
   });
+
+  // type guards
+  function is_text_type(form: typeof $form): form is Extract<typeof $form, { type: 'TEXT' }> {
+    return active_type === 'TEXT';
+  }
+
+  // function is_image_type(form: typeof $form): form is Extract<typeof $form, { type: 'IMAGE' }> {
+  //   return active_type === 'IMAGE';
+  // }
+
+  function has_text_type_errors(
+    errors: typeof $errors
+  ): errors is typeof $errors & { content: string[] } {
+    return active_type === 'TEXT';
+  }
+
+  function has_image_type_errors(
+    errors: typeof $errors
+  ): errors is typeof $errors & { cover: string[] } {
+    return active_type === 'IMAGE';
+  }
 </script>
 
 <svelte:head>
@@ -216,7 +234,7 @@
       <div class="relative flex flex-col items-center">
         <button
           class="btn btn-ghost h-max p-2.5"
-          onclick={() => (active_type = key as Type)}
+          onclick={() => goto(`?type=${key}`)}
           disabled={value.disabled}>{value.label}</button
         >
         {#if active}
@@ -225,8 +243,9 @@
       </div>
     {/each}
   </div>
-  <form method="POST" class="flex flex-col gap-2" use:enhance>
+  <form method="POST" enctype="multipart/form-data" class="flex flex-col gap-2" use:enhance>
     <input type="hidden" name="community" value={community?.id} />
+    <input type="hidden" name="type" value={active_type} />
 
     <fieldset class="fieldset">
       <label class="floating-label">
@@ -246,13 +265,40 @@
         <span class="ml-auto">{$form.title.length}/300</span>
       </span>
     </fieldset>
-    <textarea
-      use:autosize
-      name="content"
-      class="textarea min-h-[10rem] w-full bg-transparent leading-normal"
-      placeholder="What’s on your mind?"
-      bind:value={$form.content}
-    ></textarea>
+    <fieldset class="fieldset">
+      {#if is_text_type($form) && has_text_type_errors($errors)}
+        <label class="floating-label">
+          <span class="bg-base-300! text-base duration-100!">Content*</span>
+          <textarea
+            use:autosize
+            name="content"
+            class="textarea min-h-[10rem] w-full bg-transparent leading-normal"
+            placeholder="Content*"
+            bind:value={$form.content}
+          ></textarea>
+        </label>
+        <span class="fieldset-label" class:text-error={$errors.content}>
+          <span>{$errors.content?.[0] ?? 'What’s on your mind?'}</span>
+        </span>
+      {:else if has_image_type_errors($errors)}
+        <input type="file" name="cover" id="banner-input" hidden accept="image/*" />
+        <label
+          for="banner-input"
+          class={cn(
+            false
+              ? 'outline-error text-error'
+              : 'outline-base-content/25 hover:outline-base-content/50',
+            'rounded-field relative flex h-40 w-full cursor-pointer flex-col items-center justify-center gap-1 bg-cover bg-center bg-no-repeat outline-2 -outline-offset-2 transition-[outline] duration-300 outline-dashed'
+          )}
+        >
+          <coreicons-shape-upload variant="cloud" class="size-5"></coreicons-shape-upload>
+          <span class="text-xs">Drag and drop or browse</span>
+        </label>
+        <span class="fieldset-label" class:text-error={$errors.cover}>
+          <span>{$errors.cover?.[0] ?? 'Show something!'}</span>
+        </span>
+      {/if}
+    </fieldset>
     <div class="ml-auto flex items-center gap-2">
       <button type="button" class="btn btn-neutral" disabled>Save Draft</button>
       <button class={cn($delayed && 'btn-active pointer-events-none', 'btn btn-primary')}>

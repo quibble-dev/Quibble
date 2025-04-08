@@ -51,7 +51,7 @@
     $errors.banner
       ? 'outline-error text-error'
       : 'outline-base-content/25 hover:outline-base-content/50',
-    'rounded-box relative flex h-24 w-full cursor-pointer flex-col items-center justify-center gap-1 bg-cover bg-center bg-no-repeat outline-2 -outline-offset-2 transition-[outline] outline-dashed'
+    'rounded-box relative flex h-24 w-full cursor-pointer flex-col items-center justify-center gap-1 bg-cover bg-center bg-no-repeat outline-2 -outline-offset-2 transition-[outline] duration-300 outline-dashed'
   )}
   style="background-image: url({banner_data_url || page.data.profile.banner});"
   ondrop={handle_drop}
