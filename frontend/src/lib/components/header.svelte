@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import { page } from '$app/state';
   import api from '$lib/api';
   import ChartBarsIcon from '$lib/components/icons/chart-bars.svelte';
@@ -13,14 +14,17 @@
   };
 
   let { on_menu_click }: Props = $props();
+  let pending = $state(false);
 
   const show_search_in_community = $derived(
     page.url.pathname.includes('/q/') && page.data.community
   );
 
   async function handle_log_out_click() {
+    pending = true;
     const { response } = await api.POST('/auth/logout/');
-    if (response.ok) window.location.href = '/';
+    if (response.ok) await goto('/', { invalidateAll: true });
+    pending = false;
   }
 </script>
 
@@ -125,16 +129,20 @@
                   <coreicons-shape-settings variant="outline" class="size-4"
                   ></coreicons-shape-settings>
                 </div>
-                <span class="text-info font-medium">Settings</span>
+                <span class="font-medium">Settings</span>
               </a>
             </li>
             <div class="divider my-0 h-max before:h-px after:h-px"></div>
-            <li>
+            <li class:menu-disabled={pending}>
               <button class="flex items-center gap-2" onclick={handle_log_out_click}>
                 <div class="grid w-6 place-items-center">
-                  <coreicons-shape-log-out class="size-4"></coreicons-shape-log-out>
+                  {#if pending}
+                    <span class="loading loading-spinner loading-xs"></span>
+                  {:else}
+                    <coreicons-shape-log-out class="size-4"></coreicons-shape-log-out>
+                  {/if}
                 </div>
-                <span class="text-info font-medium whitespace-nowrap">Log out</span>
+                <span class="font-medium whitespace-nowrap">Log out</span>
               </button>
             </li>
           </ul>

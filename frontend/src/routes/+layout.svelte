@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { afterNavigate, beforeNavigate } from '$app/navigation';
+  import { afterNavigate, beforeNavigate, goto } from '$app/navigation';
   import api from '$lib/api';
   import Modals from '$lib/components/modals/index.svelte';
   import Toaster from '$lib/components/ui/toast';
@@ -46,7 +46,7 @@
       });
       if (!response.ok) {
         // refresh token expired or invalid
-        window.location.href = '/login?session-expired=true';
+        await goto('/login?session-expired=true', { invalidateAll: true });
         clearInterval(interval);
       }
     }, TOKEN_REFRESH_INTERVAL);

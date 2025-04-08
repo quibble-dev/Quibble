@@ -28,9 +28,7 @@
   let render_type = $state<Nullable<RenderType>>(null);
 
   function handle_google_click() {
-    window.location.replace(
-      `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${PUBLIC_OAUTH_CALLBACK_URL}&prompt=consent&response_type=code&client_id=${PUBLIC_GOOGLE_OAUTH_CLIENT_ID}&scope=openid%20email%20profile&access_type=offline`
-    );
+    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${PUBLIC_OAUTH_CALLBACK_URL}&prompt=consent&response_type=code&client_id=${PUBLIC_GOOGLE_OAUTH_CLIENT_ID}&scope=openid%20email%20profile&access_type=offline`;
   }
 
   $effect(() => {
