@@ -23,6 +23,7 @@
         placeholder="Name*"
         aria-invalid={$errors.name ? 'true' : undefined}
         bind:value={$form.name}
+        onkeydown={(e) => e.key === ' ' && e.preventDefault()}
       />
     </div>
   </label>
