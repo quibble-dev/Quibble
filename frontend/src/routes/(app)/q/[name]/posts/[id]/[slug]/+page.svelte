@@ -109,7 +109,7 @@
 <h1 class="text-info text-xl font-bold md:text-2xl">{post.title}</h1>
 <!-- content or cover -->
 {#if is_valid(post.content)}
-  <p class="text-sm font-normal">
+  <p class="text-sm font-normal whitespace-pre-line">
     {post.content}
   </p>
 {:else}
