@@ -6,6 +6,7 @@
   import LegalLinks from '$lib/components/legal-links.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
   import BackdropImage from '$lib/components/ui/backdrop-image.svelte';
+  import { toasts_store } from '$lib/components/ui/toast/toast.svelte';
   import { emoticons } from '$lib/constants/emoticons';
   import { cn } from '$lib/functions/classnames';
   import { debounce } from '$lib/functions/debounce';
@@ -144,6 +145,11 @@
   }
 
   function handle_file(file: File) {
+    if (!file.type.startsWith('image/')) {
+      toasts_store.error('Please upload an image file.');
+      return;
+    }
+
     cover_file = file;
 
     const reader = new FileReader();
@@ -340,10 +346,6 @@
         >
           {#if cover_file && cover_file_data_url}
             <div class="flex size-full flex-col gap-2 p-2">
-              <!-- <div -->
-              <!--   class="rounded-t-field border-neutral flex-1 border-b bg-cover bg-center bg-no-repeat" -->
-              <!--   style="background-image: url({cover_file_data_url});" -->
-              <!-- ></div> -->
               <BackdropImage src={cover_file_data_url} class="rounded-field! z-10">
                 <img src={cover_file_data_url} alt="object-contain" />
               </BackdropImage>
