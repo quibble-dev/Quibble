@@ -273,7 +273,9 @@
             use:autosize
             name="content"
             class="textarea min-h-[10rem] w-full bg-transparent leading-normal"
+            class:textarea-error={$errors.content}
             placeholder="Content*"
+            aria-invalid={$errors.content ? 'true' : undefined}
             bind:value={$form.content}
           ></textarea>
         </label>
@@ -285,7 +287,7 @@
         <label
           for="banner-input"
           class={cn(
-            false
+            $errors.cover
               ? 'outline-error text-error'
               : 'outline-base-content/25 hover:outline-base-content/50',
             'rounded-field relative flex h-40 w-full cursor-pointer flex-col items-center justify-center gap-1 bg-cover bg-center bg-no-repeat outline-2 -outline-offset-2 transition-[outline] duration-300 outline-dashed'
@@ -295,7 +297,7 @@
           <span class="text-xs">Drag and drop or browse</span>
         </label>
         <span class="fieldset-label" class:text-error={$errors.cover}>
-          <span>{$errors.cover?.[0] ?? 'Show something!'}</span>
+          <span>{$errors.cover?.[0] ?? 'Drop your memes, pics, or clips here!'}</span>
         </span>
       {/if}
     </fieldset>
