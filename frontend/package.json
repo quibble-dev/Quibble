@@ -43,6 +43,7 @@
     "prettier": "^3.3.2",
     "prettier-plugin-svelte": "^3.2.6",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "pretty-bytes": "^6.1.1",
     "readable-numbers": "^1.0.8",
     "set-cookie-parser": "^2.7.1",
     "svelte": "^5.0.0",

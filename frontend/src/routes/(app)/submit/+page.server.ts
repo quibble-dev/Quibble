@@ -3,7 +3,7 @@ import { create_form_data, type FormDataObject } from '$lib/functions/form';
 import { PostSubmitSchema } from '$lib/schemas/post-submit';
 import type { PageServerLoad } from '../$types';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
-import { superValidate } from 'sveltekit-superforms';
+import { superValidate, withFiles } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 
 export const load: PageServerLoad = async () => {
@@ -15,10 +15,9 @@ export const load: PageServerLoad = async () => {
 export const actions: Actions = {
   default: async ({ request, cookies }) => {
     const form = await superValidate(request, zod(PostSubmitSchema));
-    console.log(form);
 
     if (!form.valid) {
-      return fail(400, { form });
+      return fail(400, withFiles({ form }));
     }
 
     const { data, response } = await api.POST('/posts/', {
@@ -35,6 +34,6 @@ export const actions: Actions = {
 
     if (response.ok && data)
       redirect(307, `/q/${data.community.name}/posts/${data.id}/${data.slug}`);
-    return { form };
+    return withFiles({ form });
   }
 };

@@ -5,11 +5,13 @@
   import api, { type components } from '$lib/api';
   import LegalLinks from '$lib/components/legal-links.svelte';
   import Avatar from '$lib/components/ui/avatar.svelte';
+  import BackdropImage from '$lib/components/ui/backdrop-image.svelte';
   import { emoticons } from '$lib/constants/emoticons';
   import { cn } from '$lib/functions/classnames';
   import { debounce } from '$lib/functions/debounce';
   import { sidebar_store } from '$lib/stores/sidebar.svelte';
   import type { Nullable } from '$lib/types/shared';
+  import pretty_bytes from 'pretty-bytes';
   import { superForm } from 'sveltekit-superforms';
 
   // internal types
@@ -42,6 +44,9 @@
 
   type Type = keyof typeof types;
   let active_type = $state<Type>('TEXT');
+
+  let cover_file = $state<Nullable<File>>(null);
+  let cover_file_data_url = $state<Nullable<string>>(null);
 
   let search_input_el = $state<Nullable<HTMLInputElement>>(null);
 
@@ -117,6 +122,38 @@
       goto(`?${params.toString()}`, { replaceState: true });
     }
   });
+
+  function handle_cover_change(e: Event) {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (file) handle_file(file);
+  }
+
+  function handle_cover_drop(e: DragEvent) {
+    e.preventDefault();
+
+    if (e.dataTransfer && e.dataTransfer.items) {
+      // use DataTransferList interface to access file(s)
+      console.log('using DataTransferList interface...');
+      [...e.dataTransfer.items].forEach((item) => {
+        if (item.kind === 'file') {
+          const file = item.getAsFile();
+          if (file) handle_file(file);
+        }
+      });
+    }
+  }
+
+  function handle_file(file: File) {
+    cover_file = file;
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onload = (e) => {
+      const data_url = e.target?.result;
+      if (data_url && typeof data_url === 'string') cover_file_data_url = data_url;
+    };
+  }
 
   // type guards
   function is_text_type(form: typeof $form): form is Extract<typeof $form, { type: 'TEXT' }> {
@@ -283,9 +320,17 @@
           <span>{$errors.content?.[0] ?? 'What’s on your mind?'}</span>
         </span>
       {:else if has_image_type_errors($errors)}
-        <input type="file" name="cover" id="banner-input" hidden accept="image/*" />
+        <input
+          type="file"
+          name="cover"
+          id="banner-input"
+          hidden
+          accept="image/*"
+          onchange={handle_cover_change}
+        />
         <label
           for="banner-input"
+          ondrop={handle_cover_drop}
           class={cn(
             $errors.cover
               ? 'outline-error text-error'
@@ -293,8 +338,24 @@
             'rounded-field relative flex h-40 w-full cursor-pointer flex-col items-center justify-center gap-1 bg-cover bg-center bg-no-repeat outline-2 -outline-offset-2 transition-[outline] duration-300 outline-dashed'
           )}
         >
-          <coreicons-shape-upload variant="cloud" class="size-5"></coreicons-shape-upload>
-          <span class="text-xs">Drag and drop or browse</span>
+          {#if cover_file && cover_file_data_url}
+            <div class="flex size-full flex-col gap-2 p-2">
+              <!-- <div -->
+              <!--   class="rounded-t-field border-neutral flex-1 border-b bg-cover bg-center bg-no-repeat" -->
+              <!--   style="background-image: url({cover_file_data_url});" -->
+              <!-- ></div> -->
+              <BackdropImage src={cover_file_data_url} class="rounded-field! z-10">
+                <img src={cover_file_data_url} alt="object-contain" />
+              </BackdropImage>
+              <div class="flex flex-col">
+                <span class="font-medium">{cover_file.name}</span>
+                <span>{pretty_bytes(cover_file.size)}</span>
+              </div>
+            </div>
+          {:else}
+            <coreicons-shape-upload variant="cloud" class="size-5"></coreicons-shape-upload>
+            <span class="text-xs">Drag and drop or browse</span>
+          {/if}
         </label>
         <span class="fieldset-label" class:text-error={$errors.cover}>
           <span>{$errors.cover?.[0] ?? 'Drop your memes, pics, or clips here!'}</span>
