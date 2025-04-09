@@ -5,7 +5,7 @@ import dynamic_filenames
 from django.conf import settings
 from django.db import migrations, models
 
-import apps.user.validators
+import shared.validators.unique_name
 
 
 class Migration(migrations.Migration):
@@ -60,7 +60,7 @@ class Migration(migrations.Migration):
                 help_text='Required. 25 characters or fewer. Letters, digits and ./_ only.',
                 max_length=25,
                 unique=True,
-                validators=[apps.user.validators.UsernameValidator()],
+                validators=[shared.validators.unique_name.UniqueNameValidator()],
                 verbose_name='Username',
             ),
         ),
