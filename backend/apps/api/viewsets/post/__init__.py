@@ -9,7 +9,7 @@ from apps.api.bases.serializers import ReactionSerializer
 from apps.api.serializers.comment import CommentCreateSerializer, CommentSerializer
 from apps.api.serializers.post import PostCreateSerializer, PostSerializer
 from apps.post.models import Post
-from mixins.api.reaction import ReactionMixin
+from shared.mixins.api.reaction import ReactionMixin
 
 
 class PostViewSet(ReactionMixin, viewsets.ModelViewSet):

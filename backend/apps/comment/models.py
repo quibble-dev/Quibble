@@ -5,7 +5,7 @@ from django_ltree.models import TreeModel
 
 from apps.post.models import Post
 from apps.user.models import Profile
-from mixins.models.created_at import CreatedAtMixin
+from shared.mixins.models.created_at import CreatedAtMixin
 
 from .managers import CommentManager
 

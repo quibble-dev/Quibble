@@ -4,10 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 @deconstructible
-class NameValidator(RegexValidator):
+class UniqueNameValidator(RegexValidator):
     regex = r'^[a-zA-Z0-9](?:[a-zA-Z0-9_-]*[a-zA-Z0-9])?$'
-    message = _(
-        "Community name may only contain letters, numbers, underscores, and hyphens, "
-        "and cannot begin or end with a special character."
-    )
+    message = _('Only letters, numbers, _ and -, no special characters at the ends.')
     flags = 0

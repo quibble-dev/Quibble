@@ -6,11 +6,10 @@ from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
 
 from apps.user.models import Profile
-from mixins.models.avatar import AvatarMixin
-from mixins.models.created_at import CreatedAtMixin
-from mixins.models.type import TypeMixin
-
-from .validators import NameValidator
+from shared.mixins.models.avatar import AvatarMixin
+from shared.mixins.models.created_at import CreatedAtMixin
+from shared.mixins.models.type import TypeMixin
+from shared.validators.unique_name import UniqueNameValidator
 
 
 class Topic(models.Model):
@@ -38,7 +37,7 @@ class Topic(models.Model):
 
 
 class Community(AvatarMixin, CreatedAtMixin, TypeMixin):
-    name_validator = NameValidator()
+    name_validator = UniqueNameValidator()
 
     name = models.CharField(
         _('Name'),
