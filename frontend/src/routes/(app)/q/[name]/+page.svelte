@@ -155,8 +155,7 @@
           class="border-neutral hover:bg-base-200 relative flex h-40 flex-col gap-2 overflow-hidden rounded-2xl border p-2 transition-colors"
         >
           <div
-            class="inner-border inner-border-base-content/15 flex-1 rounded-xl bg-cover
-            bg-center"
+            class="outline-base-content/15 flex-1 rounded-xl bg-cover bg-center outline -outline-offset-1"
             class:bg-base-100={!post.cover}
             style="background-image: url({post.cover});"
           ></div>

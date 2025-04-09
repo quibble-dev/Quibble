@@ -91,10 +91,14 @@
       <div
         class={cn(
           post.cover ? 'relative' : 'hidden bg-transparent md:flex',
-          'inner-border inner-border-base-content/15 size-20 shrink-0 cursor-pointer rounded-xl bg-cover bg-center bg-no-repeat'
+          'outline-base-content/15 pointer-events-none size-20 shrink-0 cursor-pointer rounded-xl bg-cover bg-center bg-no-repeat outline -outline-offset-1'
         )}
         style="background-image: url({post.cover});"
-      ></div>
+      >
+        {#if !post.cover}
+          <coreicons-shape-file variant="text" class="m-auto size-5"></coreicons-shape-file>
+        {/if}
+      </div>
       <div class="flex w-full flex-col gap-1">
         {@render avatar_name_date_more()}
         <h2 class="text-info text-base font-bold md:text-lg">{post.title}</h2>
