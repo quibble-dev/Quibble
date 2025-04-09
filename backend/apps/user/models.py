@@ -3,11 +3,11 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from dynamic_filenames import FilePattern
 
-from mixins.models.avatar import AvatarMixin
-from mixins.models.created_at import CreatedAtMixin
+from shared.mixins.models.avatar import AvatarMixin
+from shared.mixins.models.created_at import CreatedAtMixin
+from shared.validators.unique_name import UniqueNameValidator
 
 from .managers import CustomUserManager
-from .validators import UsernameValidator
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -38,7 +38,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Profile(CreatedAtMixin, AvatarMixin):
-    username_validator = UsernameValidator()
+    username_validator = UniqueNameValidator()
 
     user = models.ForeignKey(
         User, related_name='profiles', on_delete=models.CASCADE, verbose_name=_('User')

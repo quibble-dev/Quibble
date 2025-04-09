@@ -2,7 +2,7 @@ from apps.api.bases.serializers import ReactionSerializer
 from apps.api.bases.viewsets import UpdateRetrieveDestroyViewSet
 from apps.api.serializers.comment import CommentSerializer
 from apps.comment.models import Comment
-from mixins.api.reaction import ReactionMixin
+from shared.mixins.api.reaction import ReactionMixin
 
 
 class CommentViewSet(ReactionMixin, UpdateRetrieveDestroyViewSet):

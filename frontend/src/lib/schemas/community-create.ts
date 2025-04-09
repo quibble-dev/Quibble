@@ -2,7 +2,13 @@ import type { SuperFormData, SuperFormErrors } from 'sveltekit-superforms/client
 import { z } from 'zod';
 
 export const CommunityCreateSchema = z.object({
-  name: z.string().min(1, 'Community name is required.'),
+  name: z
+    .string()
+    .min(1, 'Community name is required.')
+    .regex(
+      /^[a-zA-Z0-9](?:[a-zA-Z0-9_-]*[a-zA-Z0-9])?$/,
+      'Only letters, numbers, _ and -, no special characters at the ends.'
+    ),
   description: z.string().min(1, 'Description cannot be empty.'),
   avatar: z
     .instanceof(File)
