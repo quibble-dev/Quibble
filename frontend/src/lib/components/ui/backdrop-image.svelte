@@ -17,7 +17,7 @@
 <div
   class={cn(
     klass,
-    'inner-border inner-border-base-content/15 relative flex cursor-pointer justify-center overflow-hidden rounded-2xl'
+    'inner-border inner-border-base-content/15 rounded-box relative flex cursor-pointer justify-center overflow-hidden'
   )}
 >
   <!-- blurred img -->

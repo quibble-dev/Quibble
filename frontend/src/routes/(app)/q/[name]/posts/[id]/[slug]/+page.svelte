@@ -32,9 +32,9 @@
 
   const mapping = {
     filters: {
-      best: { icon: RocketIcon, onclick: () => (active_mapping.filter = 'best') },
-      new: { icon: NewIcon, onclick: () => (active_mapping.filter = 'new') },
-      top: { icon: TopIcon, onclick: () => (active_mapping.filter = 'top') }
+      best: { icon: RocketIcon, disabled: false, onclick: () => (active_mapping.filter = 'best') },
+      new: { icon: NewIcon, disabled: true, onclick: () => (active_mapping.filter = 'new') },
+      top: { icon: TopIcon, disabled: true, onclick: () => (active_mapping.filter = 'top') }
     }
   };
 
@@ -109,7 +109,7 @@
 <h1 class="text-info text-xl font-bold md:text-2xl">{post.title}</h1>
 <!-- content or cover -->
 {#if is_valid(post.content)}
-  <p class="text-sm font-normal">
+  <p class="text-sm font-normal whitespace-pre-line">
     {post.content}
   </p>
 {:else}
@@ -153,7 +153,7 @@
       <ul tabindex="0" class="menu dropdown-content bg-base-100 z-10 mt-2 gap-1 rounded-2xl p-1.5">
         {#each Object.entries(mapping.filters) as [key, item]}
           {@const is_active = active_mapping.filter === key}
-          <li>
+          <li class:menu-disabled={item.disabled}>
             <button
               onclick={item.onclick}
               aria-label="{key} filter"
