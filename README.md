@@ -1,8 +1,6 @@
-# <img src="https://github.com/user-attachments/assets/951d56f0-9e93-44a4-8503-69ea35ba61ef" alt="" height="30" /> <img src="https://github.com/user-attachments/assets/136831ea-8d0b-42cd-8057-1485b26bcb57" alt="Quibble" height="30" />
+![Quibble MVP](https://github.com/user-attachments/assets/2e71090e-fe63-4df8-ba7d-d7533239ef6b)
 
 Quibble is a place for real conversations, where opinions thrive and diverse voices are celebrated. We’re re-imagining what online discussions can be, focusing on genuine engagement and a respectful, ad-free experience.
-
-> In Development.
 
 ## Project Structure
 
