@@ -2,7 +2,7 @@
 
 # <img src="https://github.com/user-attachments/assets/951d56f0-9e93-44a4-8503-69ea35ba61ef" alt="" height="30" /> <img src="https://github.com/user-attachments/assets/136831ea-8d0b-42cd-8057-1485b26bcb57" alt="Quibble" height="30" />
 
-![GitHub branch status](https://img.shields.io/github/checks-status/quibble-dev/Quibble/main?style=for-the-badge)
+![GitHub branch status](https://img.shields.io/github/checks-status/quibble-dev/Quibble/develop?style=for-the-badge)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/quibble-dev/Quibble/lint.yml?style=for-the-badge)
 ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/quibble-dev/Quibble?style=for-the-badge)
 ![GitHub License](https://img.shields.io/github/license/quibble-dev/Quibble?style=for-the-badge)
@@ -16,6 +16,18 @@ Quibble is a place for real conversations, where opinions thrive and diverse voi
 - `backend` - Django app.
 - `frontend` - Svelte/kit app.
 - `docker` - Container files for docker apps.
+
+## Built With
+
+- **Django** - backend & API
+- **Django REST Framework** - API layer
+- **SvelteKit** - frontend
+- **PostgreSQL** - database
+- **Docker** - containerization
+
+## Join the Conversation
+
+Want to follow updates or share ideas? Join [q/quibble](https://quibble.moonlitgrace.space/q/quibble).
 
 ## Contributing
 
