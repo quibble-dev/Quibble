@@ -9,7 +9,7 @@ psycopg2-binary = "^2.9.10"
 # 3rd party (db URI)
 dj-database-url = "^2.3.0"
 # 3rd party (envs)
-python-dotenv = "^1.0.1"
+python-dotenv = "^1.1.0"
 # 3rd party (files)
 django-dynamic-filenames = "^1.4.0"
 # first party (image)
