@@ -49,7 +49,7 @@ django-cloudinary-storage = "^0.3.0"
 # task runner
 poethepoet = "^0.33.1"
 # django extentions
-django-extensions = "^3.2.3"
+django-extensions = "^4.1"
 # typing support
 django-types = "^0.20.0"
 django-stubs-ext = "^5.1.2"
