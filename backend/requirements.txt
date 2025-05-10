@@ -31,7 +31,7 @@ drf-spectacular-sidecar==2025.4.1 ; python_version >= "3.12" and python_version 
 drf-spectacular==0.28.0 ; python_version >= "3.12" and python_version < "4.0"
 drf-standardized-errors==0.14.1 ; python_version >= "3.12" and python_version < "4.0"
 flake8==7.2.0 ; python_version >= "3.12" and python_version < "4.0"
-gprof2dot==2024.6.6 ; python_version >= "3.12" and python_version < "4.0"
+gprof2dot==2025.4.14 ; python_version >= "3.12" and python_version < "4.0"
 idna==3.10 ; python_version >= "3.12" and python_version < "4.0"
 inflection==0.5.1 ; python_version >= "3.12" and python_version < "4.0"
 isort==6.0.1 ; python_version >= "3.12" and python_version < "4.0"
