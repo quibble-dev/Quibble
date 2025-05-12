@@ -52,7 +52,7 @@ poethepoet = "^0.33.1"
 django-extensions = "^4.1"
 # typing support
 django-types = "^0.20.0"
-django-stubs-ext = "^5.1.2"
+django-stubs-ext = "^5.2.0"
 # profiler
 django-silk = "^5.3.2"
 # graphs
