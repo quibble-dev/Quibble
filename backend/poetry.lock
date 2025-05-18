@@ -651,14 +651,14 @@ Django = ">=4.2"
 
 [[package]]
 name = "django-ltree-2"
-version = "0.1.11"
+version = "0.1.12"
 description = "Continual of django-ltree with additional goodies"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "django_ltree_2-0.1.11-py3-none-any.whl", hash = "sha256:ee4c69e8d4552cba27f5fe3de1d6fec0c3e45930489fb6ac78342fde941e9963"},
-    {file = "django_ltree_2-0.1.11.tar.gz", hash = "sha256:25eaaf5c22b0ca75a082019ebd602a660893c3fde21f7049d3b51fedf139fd68"},
+    {file = "django_ltree_2-0.1.12-py3-none-any.whl", hash = "sha256:9aac1d854d06220f8debd9872ffaff444ebe7e2af6525bfd4ef4b93866168109"},
+    {file = "django_ltree_2-0.1.12.tar.gz", hash = "sha256:b0099db3cae53f256d5d4dcca75b4cf6269375b51611d7a7cafcde8bbe50fe61"},
 ]
 
 [package.dependencies]
