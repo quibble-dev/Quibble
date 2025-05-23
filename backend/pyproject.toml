@@ -3,7 +3,7 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
-django = "^5.1.9"
+django = "^5.2.1"
 # first party (database)
 psycopg2-binary = "^2.9.10"
 # 3rd party (db URI)
@@ -18,7 +18,7 @@ pillow = "^11.2.1"
 django-cleanup = "^9.0.0"
 # rest framework and plugins
 djangorestframework = "^3.16.0"
-markdown = "^3.7"
+markdown = "^3.8"
 # 3rd party (django filtering)
 django-filter = "^25.1"
 # 3rd party (cors headers)
@@ -47,7 +47,7 @@ django-cloudinary-storage = "^0.3.0"
 
 [tool.poetry.group.dev.dependencies]
 # task runner
-poethepoet = "^0.33.1"
+poethepoet = "^0.34.0"
 # django extentions
 django-extensions = "^4.1"
 # typing support
