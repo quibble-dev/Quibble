@@ -18,7 +18,7 @@ pillow = "^11.2.1"
 django-cleanup = "^9.0.0"
 # rest framework and plugins
 djangorestframework = "^3.16.0"
-markdown = "^3.7"
+markdown = "^3.8"
 # 3rd party (django filtering)
 django-filter = "^25.1"
 # 3rd party (cors headers)
