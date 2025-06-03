@@ -36,21 +36,6 @@ tests = ["cloudpickle ; platform_python_implementation == \"CPython\"", "hypothe
 tests-mypy = ["mypy (>=1.11.1) ; platform_python_implementation == \"CPython\" and python_version >= \"3.10\"", "pytest-mypy-plugins ; platform_python_implementation == \"CPython\" and python_version >= \"3.10\""]
 
 [[package]]
-name = "autopep8"
-version = "2.3.2"
-description = "A tool that automatically formats Python code to conform to the PEP 8 style guide"
-optional = false
-python-versions = ">=3.9"
-groups = ["dev"]
-files = [
-    {file = "autopep8-2.3.2-py2.py3-none-any.whl", hash = "sha256:ce8ad498672c845a0c3de2629c15b635ec2b05ef8177a6e7c91c74f3e9b51128"},
-    {file = "autopep8-2.3.2.tar.gz", hash = "sha256:89440a4f969197b69a995e4ce0661b031f455a9f776d2c5ba3dbd83466931758"},
-]
-
-[package.dependencies]
-pycodestyle = ">=2.12.0"
-
-[[package]]
 name = "black"
 version = "25.1.0"
 description = "The uncompromising code formatter."
@@ -700,21 +685,23 @@ sendgrid = ">=5.0.0"
 
 [[package]]
 name = "django-silk"
-version = "5.3.2"
+version = "5.4.0"
 description = "Silky smooth profiling for the Django Framework"
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
 files = [
-    {file = "django_silk-5.3.2-py3-none-any.whl", hash = "sha256:49f1caebfda28b1707f0cfef524e0476beb82b8c5e40f5ccff7f73a6b4f6d3ac"},
-    {file = "django_silk-5.3.2.tar.gz", hash = "sha256:b0db54eebedb8d16f572321bd6daccac0bd3f547ae2618bb45d96fe8fc02229d"},
+    {file = "django_silk-5.4.0-py3-none-any.whl", hash = "sha256:caf720a06e24a6cf1acf825c1868b2a6ece8158b13725363f6d3a1a9994d0fa6"},
+    {file = "django_silk-5.4.0.tar.gz", hash = "sha256:2247870ac8080b6c6c5db17f2f1042d39d95e4a5fa061d661882777ec9adb672"},
 ]
 
 [package.dependencies]
-autopep8 = "*"
 Django = ">=4.2"
 gprof2dot = ">=2017.09.19"
 sqlparse = "*"
+
+[package.extras]
+formatting = ["autopep8"]
 
 [[package]]
 name = "django-stubs-ext"
@@ -1901,5 +1888,4 @@ brotli = ["brotli"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.12"
-content-hash = "a3311173b0dd6ca47e54d7987dcdfe14fb397ad07bc4b69a899f98f549c7fc28"
-
+content-hash = "3e15fa594bc2d1b698b0c97052662510fd47ff18ce32bcc9f10adc327068796e"
